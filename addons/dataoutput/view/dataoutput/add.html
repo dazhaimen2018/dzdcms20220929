@@ -1,0 +1,237 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+<style type="text/css">
+.layui-tab .layui-tab-title li.no .layui-tab-close {
+    display: none;
+}
+</style>
+<div class="layui-card">
+    <div class="layui-card-header">添加任务</div>
+    <div class="layui-card-body">
+        <form class="layui-form" method="post">
+            <div class="layui-tab" lay-filter="export" lay-allowclose="true">
+                <ul class="layui-tab-title">
+                    <li class="layui-this no">基本配置</li>
+                    <li class="no">其他配置</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-form-item" style="width: 400px;">
+                            <label>任务名称</label>
+                            <div>
+                                <input type="text" name="data[name]" lay-verify="required" autocomplete="off" placeholder="任务名称" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" style="width: 400px;">
+                            <label>数据表</label>
+                            <div>
+                                <select name="data[table]" lay-verify="required" lay-filter="filter">
+                                    <option value=""></option>
+                                    {volist name="list" id="vo"}
+                                    <option value="{$vo.name}">{$vo.name}{notempty name="vo.comment"} 【{$vo.comment}】{/notempty}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                             <button class="layui-btn tabAdd" type='button'>添加关联表</button>
+                        </div>
+                        <div id="fieldBox" style="display: none;"></div>
+                    </div>
+                    <div class="layui-tab-item" style="width: 400px;">
+                        <div class="layui-form-item">
+                            <label>保存类型</label>
+                            <div>
+                                <select name="data[type]" lay-verify="required">
+                                    <option value="xlsx">xlsx</option>
+                                    <option value="xls">xls</option>
+                                    <option value="csv">csv</option>
+                                    <option value="html">html</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label>单表保存条数</label>
+                            <div>
+                                <input type="text" name="data[num]" required lay-verify="required" placeholder="保存条数" autocomplete="off" class="layui-input" value="10000">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item layer-footer">
+                <div>
+                    <button class="layui-btn" lay-submit="" lay-filter="formSubmit">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/html" id="jsonTpl">
+    {{# layui.each(d.list, function(index, item) { }}
+<div class="layui-form-item rules-item">
+    <div class="layui-input-inline" style="width:150px;">
+        <input type="text" class="layui-input" value="{{item.Field}}" disabled />
+    </div>
+    <div class="layui-input-inline" style="width:150px;">
+        <input type="text" class="layui-input" name="data[join_table][join_table_{{d.num}}][fields][comment][{{item.Field}}]" placeholder="表头名称" value="{{item.Comment || ''}}"  />
+    </div>
+    <div class="layui-form-mid layui-word-aux">数据格式化</div>
+    <div class="layui-input-inline" style="width:100px;">
+        <select name="data[join_table][join_table_{{d.num}}][fields][format][{{item.Field}}]">
+            <option value=""></option>
+            <option value="text">文本</option>
+            <option value="date">日期</option>
+            <option value="selectd">选择框</option>
+            <option value="function">函数</option>
+        </select>
+    </div>
+    <div class="layui-input-inline" style="width:150px;">
+        <input type="text" class="layui-input" name="data[join_table][join_table_{{d.num}}][fields][parm][{{item.Field}}]" placeholder="格式化参数" value=""  />
+    </div>
+    <label class="layui-form-mid">
+        <span class="layui-badge rules-del">-</span>&nbsp;&nbsp;
+    </label>
+</div>
+{{# }); }}
+</script>
+<script type="text/html" id="fieldTpl">
+    {{# layui.each(d.list, function(index, item) { }}
+<div class="layui-form-item rules-item">
+    <div class="layui-input-inline" style="width:150px;">
+        <input type="text" class="layui-input" value="{{item.Field}}" disabled />
+    </div>
+    <div class="layui-input-inline" style="width:150px;">
+        <input type="text" class="layui-input" name="data[config][comment][{{item.Field}}]" placeholder="表头名称" value="{{item.Comment || ''}}"  />
+    </div>
+    <div class="layui-form-mid layui-word-aux">数据格式化</div>
+    <div class="layui-input-inline" style="width:100px;">
+        <select name="data[config][format][{{item.Field}}]">
+            <option value=""></option>
+            <option value="text">文本</option>
+            <option value="date">日期</option>
+            <option value="selectd">选择框</option>
+            <option value="function">函数</option>
+        </select>
+    </div>
+    <div class="layui-input-inline" style="width:150px;">
+        <input type="text" class="layui-input" name="data[config][parm][{{item.Field}}]" placeholder="格式化参数" value=""  />
+    </div>
+    <label class="layui-form-mid">
+        <span class="layui-badge rules-del">-</span>&nbsp;&nbsp;
+    </label>
+</div>
+{{# }); }}
+<blockquote class="layui-elem-quote">表头名称默认为字段的注释,也可以手动设置<br>数据格式化可以不填写，默认为 text<br>选择日期格式：格式化参数可以填写 Y-m-d,也可以不填写，默认值为 Y-m-d H:i:s<br>选择选择框格式：格式化参数可以填写如 1=正常,0=禁用<br>选择函数格式：格式化参数可以填写如 get_file_path</blockquote>
+</script>
+<script type="text/javascript">
+layui.use(['laytpl', 'form', 'element','yznForm'], function() {
+            var form = layui.form,
+                element = layui.element,
+                yznForm = layui.yznForm,
+                laytpl = layui.laytpl;
+            var join_table = 1;
+            var foreign_key_html = "";
+
+            yznForm.listen();
+            form.on('select(filter)', function(data) {
+                //console.log(data);
+                var href = '{:url("addons/dataoutput/fieldlist",["isadmin"=>1])}' + "?tablename=" + data.value;
+                $.get(href, {}, function(res) {
+                    if (res.code == 0) {
+                        $('#fieldBox').show();
+                        var formData = { //数据
+                            "list": res.data
+                        }
+                        laytpl($('#fieldTpl').html()).render(formData, function(html) {
+                            //console.log(html);
+                            $('#fieldBox').html(html);
+                            form.render();
+                        });
+                        var x;
+                        for (x in res.data) {
+                            foreign_key_html += "<option value='" + res.data[x].Field + "'>" + res.data[x].Field + "【" + res.data[x].Comment + "】</option>";
+                        }
+                    }
+
+                })
+            });
+
+            form.on('select(json_table)', function(data) {
+                console.log(foreign_key_html);
+                var num = $(data.elem).data('num');
+                $('.primary_key_' + num).html('');
+                $('.foreign_key_' + num).html('');
+                //console.log(num);
+                var href = '{:url("addons/dataoutput/fieldlist",["isadmin"=>1])}' + "?tablename=" + data.value;
+                $.get(href, {}, function(res) {
+                    if (res.code == 0) {
+                        $('#fieldBox').show();
+                        var formData = { //数据
+                            "num": num,
+                            "list": res.data
+                        }
+                        laytpl($('#jsonTpl').html()).render(formData, function(html) {
+                            $('#fieldBox_' + num).show().html(html);
+                            //form.render();
+                        });
+                        var x;
+                        for (x in res.data) {
+                            //console.log(res.data[x]);
+                            $('.primary_key_' + num).append("<option value='" + res.data[x].Field + "'>" + res.data[x].Field + "【" + res.data[x].Comment + "】</option>");
+                        }
+                        $('.foreign_key_' + num).html(foreign_key_html);
+                        form.render();
+                    }
+                })
+            });
+
+            $('.tabAdd').on('click', function() {
+                    var html = '<div class="layui-form-item" style="width: 400px;">' +
+                        '<label>关联数据表</label>' +
+                        '<select name="data[join_table][join_table_' + join_table + '][table]" data-num="' + join_table + '" lay-verify="required" lay-filter="json_table">' +
+                        '<option value=""></option>' +
+                        {volist name = "list" id = "vo" }
+                        '<option value="{$vo.name}">{$vo.name}{notempty name="vo.comment"} 【{$vo.comment}】{/notempty}</option>' +
+                        {/volist}
+                        '</select></div>' +
+                        '<div class="layui-form-item" style="width: 400px;">' +
+                        '<label>关联外键</label>' +
+                        '<div>' +
+                        '<select name="data[join_table][join_table_' + join_table + '][primary_key]" class="primary_key_' + join_table + '" lay-verify="required">' +
+                        '</select>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="layui-form-item" style="width: 400px;">' +
+                        '<label>关联主键</label>' +
+                        '<div>' +
+                        '<select name="data[join_table][join_table_' + join_table + '][foreign_key]" class="foreign_key_' + join_table + '" lay-verify="required">' +
+                        '</select>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div id="fieldBox_' + join_table + '" style="display: none;"></div>';
+                        element.tabAdd('export', {
+                            title: '关联表配置' + join_table,
+                            content: html,
+                            id: join_table
+                        });
+                        join_table++;
+                        form.render();
+                    });
+
+                // 删除规则
+                $(document).on('click', '.rules-del', function() {
+                    var that = $(this),
+                        obj = that.parents('.rules-item'),
+                        len = obj.siblings('.rules-item').length;
+                    if (parseInt(len) <= 0) {
+                        addRule(that);
+                    }
+                    obj.remove();
+                });
+            })
+</script>
+{/block}

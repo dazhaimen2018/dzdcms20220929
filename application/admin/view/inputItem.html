@@ -4,6 +4,37 @@
 {case value="hidden"}
 {if $vo.value}<input type="hidden" class="form-control" name="{$vo.fieldArr}[{$vo.name}]"  value="{$vo.value}">{/if}
 {/case}
+<!-- 自定义字段类型 202500611 马博 -->
+{case value="link"}
+<div class="layui-form-item web_link">
+    <label>{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
+    <div>
+        <div class="layui-input-inline w300">
+            <input type="text" name="{$vo.fieldArr}[{$vo.name}]" id="link" placeholder="请输入{$vo.title}" autocomplete="off" class="layui-input" value="{$vo.value}">
+        </div>
+        <div class="layui-input-inline">
+            <select lay-filter="fasttype">
+                <option data-url="">常用内部链接</option>
+                <option data-url="cms/index/index">首页</option>
+                {if isset(cache("Cms_Config")['site_url_mode']) && 1==cache("Cms_Config")['site_url_mode']}
+                <option data-url="cms/index/lists?catid=2">列表页/单页</option>
+                <option data-url="cms/index/shows?catid=2&id=1">详情页</option>
+                {else}
+                <option data-url="cms/index/lists?catdir=Introduction">列表页/单页</option>
+                <option data-url="cms/index/shows?catdir=Introduction&id=1">详情页</option>
+                {/if}
+                {if isModuleInstall('formguide')}
+                <option data-url="formguide/index/index?id=2">表单页</option>
+                {/if}
+            </select>
+        </div>
+    </div>
+    <div style="clear: both;">
+    </div>
+    {if $vo.remark}<div class="layui-form-mid layui-word-aux">{$vo.remark|raw}</div>{/if}
+</div>
+{/case}
+<!-- 自定义字段类型 202500611 马博  end-->
 {case value="text"}
 <div class="layui-form-item">
     <label>{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
@@ -41,7 +72,7 @@
 {case value="array"}
 <div class="layui-form-item layui-form-text">
     <label>{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
-    <div class="layui-form-field-label fieldlist" data-name="{$vo.fieldArr}[{$vo.name}]" data-id="{$vo.name}">
+    <div class="layui-form-field-label fieldlist border-none" data-name="{$vo.fieldArr}[{$vo.name}]" data-id="{$vo.name}">
         <div class="arrBox"></div>
         <button type="button" class="layui-btn btn-append">追加</button>
         <textarea name="{$vo.fieldArr}[{$vo.name}]" class="layui-textarea layui-hide">{$vo.value}</textarea>
@@ -50,23 +81,23 @@
 </div>
 <script type="text/html" id="{$vo.name}Tpl">
     <div class="layui-form-item rules-item">
-    {{# layui.each(d.lists, function(index, item) { }}
-    <div class="layui-input-inline" style="width:120px;">
-        <input type="text" class="layui-input" name="{{item.name}}[{{item.index}}][key]" placeholder="键" value="{{item.row.key|| ''}}" />
-    </div>
-    <div class="layui-input-inline" style="width:120px;">
-        <input type="text" class="layui-input" name="{{item.name}}[{{item.index}}][value]" placeholder="值" value="{{item.row.value|| ''}}" />
-    </div>
-    <label class="layui-form-mid">
-        <button type="button" class="layui-btn layui-btn-danger btn-remove layui-btn-xs"><i class="iconfont icon-close"></i></button>
-        <button type="button" class="layui-btn btn-dragsort layui-btn-xs"><i class="iconfont icon-yidong"></i></button>
-    </div>
-    {{# }); }}
+        {{# layui.each(d.lists, function(index, item) { }}
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="{{item.name}}[{{item.index}}][key]" placeholder="键" value="{{item.row.key|| ''}}" />
+        </div>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="{{item.name}}[{{item.index}}][value]" placeholder="值" value="{{item.row.value|| ''}}" />
+        </div>
+        <label class="layui-input-button">
+            <button type="button" class="layui-btn layui-btn-danger btn-remove layui-btn-xs"><i class="iconfont icon-close"></i></button>
+            <button type="button" class="layui-btn btn-dragsort layui-btn-xs"><i class="iconfont icon-yidong"></i></button>
+        </label>
+        {{# }); }}
     </div>
 </script>
 {/case}
 {case value="checkbox"}
-<div class="layui-form-item" pane="">
+<div class="layui-form-item">
     <label>{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
     <div class="layui-form-field-label">
         {volist name="vo.options" id="v"}
@@ -153,7 +184,7 @@
 {case value="image"}
 <div class="layui-form-item layui-form-text">
     <label>{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
-    <div class="layui-form-field-label">
+    <div class="layui-form-field-label border-none">
         <div class="js-upload-image">
             <div id="file_list_{$vo.name}" class="uploader-list">
                 {notempty name="$vo.value"}
@@ -161,7 +192,7 @@
                     <img data-image class="{$vo.name}-{$vo.value}" data-original="{$vo.value|get_file_path|default='__STATIC__/admin/img/none.png'}" src="{$vo.value|get_file_path|default='__STATIC__/admin/img/none.png'}">
                     <div class="file-panel">
                         <i class="iconfont icon-tailor cropper" data-input-id="{$vo.value}" data-id="{$vo.name}"></i>
-                    	<i class="iconfont icon-trash remove-picture" data-id="{$vo.value}"></i>
+                        <i class="iconfont icon-trash remove-picture" data-id="{$vo.value}"></i>
                     </div>
                 </div>
                 {/notempty}
@@ -178,7 +209,7 @@
 {case value="images"}
 <div class="layui-form-item layui-form-text">
     <label>{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
-    <div class="layui-form-field-label">
+    <div class="layui-form-field-label border-none">
         <div class="js-upload-images">
             <div id="file_list_{$vo.name}" class="uploader-list">
                 {notempty name="$vo.value"}
@@ -186,9 +217,9 @@
                 <div class="file-item thumbnail">
                     <img data-image class="{$vo.name}-{$v}" data-original="{$v|get_file_path}" src="{$v|get_file_path|default='__STATIC__/admin/img/none.png'}">
                     <div class="file-panel">
-                    	<i class="iconfont icon-yidong move-picture"></i>
+                        <i class="iconfont icon-yidong move-picture"></i>
                         <i class="iconfont icon-tailor cropper" data-input-id="{$v}" data-id="{$vo.name}"></i>
-	                    <i class="iconfont icon-trash remove-picture" data-id="{$v}"></i>
+                        <i class="iconfont icon-trash remove-picture" data-id="{$v}"></i>
                     </div>
                 </div>
                 {/volist}
@@ -206,34 +237,34 @@
 {case value="file"}
 <div class="layui-form-item layui-form-text">
     <label>{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
-    <div class="layui-form-field-label">
+    <div class="layui-form-field-label border-none">
         <div class="js-upload-file">
             <div id="file_list_{$vo.name}" class="uploader-list">
                 <table class="layui-table">
-                  <colgroup>
-                    <col width="150">
-                    <col width="150">
-                    <col width="150">
-                    <col>
-                  </colgroup>
-                  <thead>
+                    <colgroup>
+                        <col width="150">
+                        <col width="150">
+                        <col width="150">
+                        <col>
+                    </colgroup>
+                    <thead>
                     <tr>
-                      <th>文件名称</th>
-                      <th>提示</th>
-                      <th>进度</th>
-                      <th>操作</th>
+                        <th>文件名称</th>
+                        <th>提示</th>
+                        <th>进度</th>
+                        <th>操作</th>
                     </tr>
-                  </thead>
-                  <tbody class="file-box">
+                    </thead>
+                    <tbody class="file-box">
                     {notempty name="$vo.value"}
                     <tr class="file-item">
-                      <td>{$vo.value|get_file_name}</td>
-                      <td>/</td>
-                      <td>/</td>
-                      <td><a href="{$vo.value|get_file_path}" class="layui-btn download-file layui-btn layui-btn-xs">下载</a> <a href="javascript:void(0);" class="layui-btn remove-file layui-btn layui-btn-xs layui-btn-danger">删除</a></td>
+                        <td>{$vo.value|get_file_name}</td>
+                        <td>/</td>
+                        <td>/</td>
+                        <td><a href="{$vo.value|get_file_path}" class="layui-btn download-file layui-btn layui-btn-xs">下载</a> <a href="javascript:void(0);" class="layui-btn remove-file layui-btn layui-btn-xs layui-btn-danger">删除</a></td>
                     </tr>
                     {/notempty}
-                  </tbody>
+                    </tbody>
                 </table>
             </div>
             <input type="hidden" name="{$vo.fieldArr}[{$vo.name}]" data-multiple="false" data-size="{:config('upload_file_size')}" data-ext="{:config('upload_file_ext')}" id="{$vo.name}" value="{$vo.value|default=''}">
@@ -245,36 +276,36 @@
 {case value="files"}
 <div class="layui-form-item layui-form-text">
     <label>{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
-    <div class="layui-form-field-label">
+    <div class="layui-form-field-label border-none">
         <div class="js-upload-file">
             <div id="file_list_{$vo.name}" class="uploader-list">
                 <table class="layui-table">
-                  <colgroup>
-                    <col width="150">
-                    <col width="150">
-                    <col width="150">
-                    <col>
-                  </colgroup>
-                  <thead>
+                    <colgroup>
+                        <col width="150">
+                        <col width="150">
+                        <col width="150">
+                        <col>
+                    </colgroup>
+                    <thead>
                     <tr>
-                      <th>文件名称</th>
-                      <th>提示</th>
-                      <th>进度</th>
-                      <th>操作</th>
+                        <th>文件名称</th>
+                        <th>提示</th>
+                        <th>进度</th>
+                        <th>操作</th>
                     </tr>
-                  </thead>
-                  <tbody class="file-box">
+                    </thead>
+                    <tbody class="file-box">
                     {notempty name="$vo.value"}
                     {volist name="$vo.value|explode=',',###" id="v"}
                     <tr class="file-item">
-                      <td>{$v|get_file_name}</td>
-                      <td>/</td>
-                      <td>/</td>
-                      <td><a href="{$v|get_file_path}" class="layui-btn download-file layui-btn layui-btn-xs">下载</a> <a href="javascript:void(0);" class="layui-btn remove-file layui-btn layui-btn-xs layui-btn-danger" data-id="{$v}">删除</a></td>
+                        <td>{$v|get_file_name}</td>
+                        <td>/</td>
+                        <td>/</td>
+                        <td><a href="{$v|get_file_path}" class="layui-btn download-file layui-btn layui-btn-xs">下载</a> <a href="javascript:void(0);" class="layui-btn remove-file layui-btn layui-btn-xs layui-btn-danger" data-id="{$v}">删除</a></td>
                     </tr>
                     {/volist}
                     {/notempty}
-                  </tbody>
+                    </tbody>
                 </table>
             </div>
             <input type="hidden" name="{$vo.fieldArr}[{$vo.name}]" data-multiple="true" data-size="{:config('upload_file_size')}" data-ext="{:config('upload_file_ext')}" id="{$vo.name}" value="{$vo.value|default=''}">
@@ -286,14 +317,15 @@
 {case value="Ueditor"}
 <div class="layui-form-item layui-form-text">
     <label>{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
-    <div class="layui-form-field-label">
+    <div class="layui-form-field-label border-none">
         <script type="text/plain" class="js-ueditor" id="{$vo.name}" name="{$vo.fieldArr}[{$vo.name}]">{$vo.value|raw}</script>
+        <div class="{$vo.name}_attr editor_tool">
+            <a class="layui-btn layui-btn-sm" id="{$vo.name}grabimg" style="margin-top: 4px;">图片本地化</a>
+            <a class="layui-btn layui-btn-sm" id="{$vo.name}filterword" style="margin-top: 4px;">检测违禁词</a>
+        </div>
     </div>
     {if $vo.remark}<div class="layui-form-mid layui-word-aux">{$vo.remark|raw}</div>{/if}
-    <div class="{$vo.name}_attr editor_tool">
-        <a class="layui-btn layui-btn-sm" id="{$vo.name}grabimg" style="margin-top: 4px;">图片本地化</a>
-        <a class="layui-btn layui-btn-sm" id="{$vo.name}filterword" style="margin-top: 4px;">检测违禁词</a>
-    </div>
+
 </div>
 {/case}
 {case value="city"}
@@ -306,10 +338,10 @@
 </div>
 {/case}
 {case value="custom"}
-   {$vo.options|raw}
+{$vo.options|raw}
 {/case}
 {case value="markdown"}
-    {:hook('markdown',$vo)}
+{:hook('markdown',$vo)}
 {/case}
 {/switch}
 

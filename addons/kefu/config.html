@@ -1,0 +1,163 @@
+<style type="text/css">
+.themePreview a {
+    display: block;
+    text-decoration: none;
+    outline-style: none
+}
+.themePreview a.kefu01 {
+    width: 49px;
+    height: 190px;
+    background: url(__STATIC__/addons/kefu/images/01.jpg)
+}
+.themePreview a.kefu02 {
+    width: 92px;
+    height: 190px;
+    background: url(__STATIC__/addons/kefu/images/02.jpg)
+}
+.themePreview a.kefu03 {
+    width: 39px;
+    height: 190px;
+    background: url(__STATIC__/addons/kefu/images/03.jpg);
+}
+.themePreview a.kefu04 {
+    width: 74px;
+    height: 190px;
+    background: url(__STATIC__/addons/kefu/images/04.jpg);
+}
+.themePreview a.kefu05 {
+    width: 46px;
+    height: 190px;
+    background: url(__STATIC__/addons/kefu/images/05.jpg);
+}
+.themePreview a.kefu06 {
+    width: 146px;
+    height: 190px;
+    background: url(__STATIC__/addons/kefu/images/06.jpg);
+}
+.themePreview a.kefu07 {
+    width: 33px;
+    height: 190px;
+    background: url(__STATIC__/addons/kefu/images/07.jpg);
+}
+.themePreview a.kefu08 {
+    width: 86px;
+    height: 190px;
+    background: url(__STATIC__/addons/kefu/images/08.jpg);
+}
+.themePreview a.kefu09 {
+    width: 127px;
+    height: 190px;
+    background: url(__STATIC__/addons/kefu/images/09.jpg);
+}
+.themePreview a.kefu010 {
+    width: 38px;
+    height: 190px;
+    background: url(__STATIC__/addons/kefu/images/010.jpg);
+}
+.themePreview .colorBox {
+    border: 2px solid #FFF;
+    height: 190px;
+    padding: 10px;
+    margin: 10px;
+    float: left;
+    margin-left: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+.themePreview .colorBox:hover,
+.themePreview .colorBox.current {
+    border: 2px solid #000;
+}
+</style>
+<div class="layui-card">
+    <div class="layui-card-header">插件配置-悬浮QQ客服</div>
+    <div class="layui-card-body">
+        <div class="layui-form-item">
+            <label class="">输出方式:</label>
+            <div class="layui-form-field-label">
+                <input type="radio" name="config[type]" value="1" title="js调用输出" {eq name="data.config.0.value" value="1" }checked=checked{/eq}>
+                <input type="radio" name="config[type]" value="2" title="HTML生成输出" {eq name="data.config.0.value" value="2" }checked=checked{/eq}>
+            </div>
+            <div class="layui-form-mid layui-word-aux">“HTML生成输出”是直接把代码生成到输出到页面，“js调用输出”是在页面显示一个JS调用。</div>
+        </div>
+        <div class="layui-form-item">
+            <label>主题:</label>
+            <div class="opt themePreview">
+                {php}for($i=1;$i<=10;$i++) {{/php}
+                    <div class="colorBox {eq name="i" value="$data.config.1.value" }current{/eq}" onclick="fChange('{$i}',$(this));">
+                        <a href="javascript:;" class="kefu0{$i}">&nbsp;</a>
+                    </div>
+                {php}} {/php}
+                <div class="layui-clear"></div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="">位置:</label>
+            <div class="layui-form-field-label">
+                <input type="radio" name="config[location]" value="right" title="right" {eq name="data.config.2.value" value="right" }checked=checked{/eq}>
+                <input type="radio" name="config[location]" value="left" title="left" {eq name="data.config.2.value" value="left" }checked=checked{/eq}>
+            </div>
+            <div class="layui-form-mid layui-word-aux"></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="">客服QQ:</label>
+            <div class="layui-form-field-label">
+                <textarea placeholder="请输入客服QQ:" class="layui-textarea" name="config[qq]">{$data.config.3.value}</textarea>
+            </div>
+            <div class="layui-form-mid layui-word-aux">格式：12346|小名，一行一个QQ号</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="">手机号码:</label>
+            <div class="layui-form-field-label">
+                <textarea placeholder="请输入手机号码:" class="layui-textarea" name="config[phone]">{$data.config.4.value}</textarea>
+            </div>
+            <div class="layui-form-mid layui-word-aux">格式：13400000000|联系人，一行一个手机号码</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="">链接:</label>
+            <div class="layui-form-field-label">
+                <input type="text" name="config[url]" placeholder="请输入链接" autocomplete="off" class="layui-input" value="{$data.config.5.value}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">部分客服样式需要填写链接，如：在线留言链接</div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="">二维码:</label>
+            <div class="layui-form-field-label">
+                <div class="js-upload-image">
+                    <div id="file_list_qrcode" class="uploader-list">
+                        {notempty name="data.config.qrcode.value"}
+                        <div class="file-item thumbnail">
+                            <img class="{$o_key}-{$form.value}" data-original="{$data.config.qrcode.value|get_file_path|default='__STATIC__/admin/img/none.png'}" src="{$data.config.qrcode.value|get_file_path|default='__STATIC__/admin/img/none.png'}">
+                            <div class="file-panel">
+                                <i class="iconfont icon-tailor cropper" data-input-id="{$data.config.6.value}" data-id="qrcode"></i>
+                                <i class="iconfont icon-trash remove-picture" data-id="{$data.config.6.value}"></i>
+                            </div>
+                        </div>
+                        {/notempty}
+                    </div>
+                    <input type="hidden" name="config[qrcode]" data-multiple="false" data-watermark='' data-thumb='' data-size="0" data-ext="gif,jpg,jpeg,bmp,png" id="qrcode" value="{$data.config.qrcode.value}">
+                    <div class="layui-clear"></div>
+                    <div id="picker_qrcode"><i class="layui-icon layui-icon-upload"></i> 上传单张图片</div>
+                    <button type="button" class="layui-btn fachoose-image" data-input-id="qrcode" id="fachoose-qrcode"><i class="iconfont icon-other"></i> 选择</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" value="{$data.config.theme.value}" name="config[theme]" id="default" />
+</div>
+</div>
+<script type="text/javascript">
+/**
+ * 改变选中样式
+ * @param string key 选中样式Key值
+ * @param object this 点击按钮对象
+ * @return void
+ */
+var fChange = function(key, obj) {
+    console.log(key);
+    $('.themePreview').find('.colorBox').removeClass('current');
+    $(obj).addClass('current');
+    $('#default').val(key);
+    return false;
+}
+</script>

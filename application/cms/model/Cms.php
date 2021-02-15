@@ -26,7 +26,7 @@ class Cms extends Modelbase
 {
     protected $autoWriteTimestamp = true;
     protected $insert             = ['status' => 1];
-    protected $ext_table          = '_data';
+    public $ext_table             = '_data';
     protected $name               = 'ModelField';
 
     /**
@@ -35,7 +35,7 @@ class Cms extends Modelbase
      * @param type $modelid
      * @return string
      */
-    protected function getModelTableName($modelid, $ifsystem = 1)
+    public function getModelTableName($modelid, $ifsystem = 1)
     {
         $model_cache = cache("Model");
         //表名获取
@@ -45,8 +45,8 @@ class Cms extends Modelbase
         return $tablename;
     }
 
-    //添加模型内容
-    public function addModelData($data, $dataExt = [])
+    //添加模型内容  马博增加 extraData
+    public function addModelData($data, $dataExt = [], $extraData = [])
     {
         $catid = (int) $data['catid'];
         if (isset($data['modelid'])) {
@@ -84,15 +84,36 @@ class Cms extends Modelbase
         try {
             //主表
             $id = Db::name($tablename)->insertGetId($data);
-            //TAG标签处理
-            if (!empty($data['tags'])) {
-                $this->tagDispose($data['tags'], $id, $catid, $modelid);
-            }
+            //TAG标签处理 以下马博屏蔽
+            //if (!empty($data['tags'])) {
+            //    $this->tagDispose($data['tags'], $id, $catid, $modelid);
+            //}
             //附表
-            if (!empty($dataExt)) {
-                $dataExt['did'] = $id;
-                Db::name($tablename . $this->ext_table)->insert($dataExt);
+            //if (!empty($dataExt)) {
+            //    $dataExt['did'] = $id;
+            //   Db::name($tablename . $this->ext_table)->insert($dataExt);
+            //}
+            // 以下下马博增加
+            if ($extraData) {
+                $extra_data = [];
+                foreach ($extraData as $k => $d) {
+                    foreach ($d as $k1 => $value) {
+                        if ($k1 != 'site_id' && $value != '') {
+                            $extra_data[$k] = $d;
+                        }
+                    }
+                }
+                foreach ($extra_data as $e) {
+                    $e['did'] = $id;
+                    $extraId = Db::name($tablename . $this->ext_table)->insert($e);
+                    if ($e['tags']) {
+                        $this->tagDispose($e['tags'], $id, $catid, $modelid, $e['site_id']);
+                    } else {
+                        $this->tagDispose([], $extraId, $catid, $modelid, $e['site_id']);
+                    }
+                }
             }
+            // 以下下马博增加 end
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
@@ -106,8 +127,8 @@ class Cms extends Modelbase
         return $id;
     }
 
-    //编辑模型内容
-    public function editModelData($data, $dataExt = [])
+    //编辑模型内容 马博增加extraData
+    public function editModelData($data, $dataExt = [], $extraData = [])
     {
         $catid = (int) $data['catid'];
         $id    = (int) $data['id'];
@@ -120,12 +141,12 @@ class Cms extends Modelbase
             throw new \Exception('数据表不存在！');
         }
         $this->getAfterText($data, $dataExt);
-        //TAG标签处理
-        if (!empty($data['tags'])) {
-            $this->tagDispose($data['tags'], $id, $catid, $modelid);
-        } else {
-            $this->tagDispose([], $id, $catid, $modelid);
-        }
+        //TAG标签处理以下马博屏蔽
+        //if (!empty($data['tags'])) {
+        //    $this->tagDispose($data['tags'], $id, $catid, $modelid);
+        //} else {
+        //    $this->tagDispose([], $id, $catid, $modelid);
+        //}
         $dataAll              = $this->dealModelPostData($modelid, $data, $dataExt);
         list($data, $dataExt) = $dataAll;
 
@@ -134,15 +155,41 @@ class Cms extends Modelbase
         }
         //主表
         Db::name($tablename)->where('id', $id)->update($data);
-        //附表
-        if (!empty($dataExt)) {
-            //查询是否存在ID 不存在则新增
-            if (Db::name($tablename . $this->ext_table)->where('did', $id)->find()) {
-                Db::name($tablename . $this->ext_table)->where('did', $id)->update($dataExt);
-            } else {
-                $dataExt['did'] = $id;
-                Db::name($tablename . $this->ext_table)->insert($dataExt);
-            };
+        //附表以下马博屏蔽
+        //if (!empty($dataExt)) {
+        //查询是否存在ID 不存在则新增
+        //    if (Db::name($tablename . $this->ext_table)->where('did', $id)->find()) {
+        //        Db::name($tablename . $this->ext_table)->where('did', $id)->update($dataExt);
+        //    } else {
+        //        $dataExt['did'] = $id;
+        //        Db::name($tablename . $this->ext_table)->insert($dataExt);
+        //    };
+        // 以下下马博增加
+        if ($extraData) {
+            $extra_data = [];
+            foreach ($extraData as $k => $d) {
+                foreach ($d as $k1 => $value) {
+                    if ($k1 != 'site_id' && $value != '') {
+                        $extra_data[$k] = $d;
+                    }
+                }
+            }
+            foreach ($extra_data as $e) {
+                if ($e['id']) {
+                    Db::name($tablename . $this->ext_table)->where('id', $e['id'])->update($e);
+                    $extraId = $e['id'];
+                } else {
+                    $e['did'] = $id;
+                    $extraId = Db::name($tablename . $this->ext_table)->insert($e);
+                }
+
+                if ($e['tags']) {
+                    $this->tagDispose($e['tags'], $extraId, $catid, $modelid, $e['site_id']);
+                } else {
+                    $this->tagDispose([], $extraId, $catid, $modelid, $e['site_id']);
+                }
+            }
+            // 以下下马博增加 end
         }
         //标签
         hook('content_edit_end', $data);
@@ -153,7 +200,6 @@ class Cms extends Modelbase
     {
         $modelInfo = cache('Model');
         $modelInfo = $modelInfo[$modeId];
-
         $data = Db::name($modelInfo['tablename'])->where('id', $id)->find();
         if (empty($data)) {
             throw new \Exception("该信息不存在！");
@@ -181,7 +227,7 @@ class Cms extends Modelbase
     protected function dealModelPostData($modeId, $data, $dataExt = [], $ignoreField = [])
     {
         //字段类型
-        $query = self::where('modelid', $modeId)->where('status', 1);
+        $query = self::where('modelid', $modeId)->where('status', 1)->where('ifsystem', 1);
         if ([] != $ignoreField) {
             $query = $query->where('name', 'not in', $ignoreField);
         }
@@ -248,7 +294,7 @@ class Cms extends Modelbase
     public function getFieldList($modelId, $id = null)
     {
 
-        $list = self::where('modelid', $modelId)->where('status', 1)->order('listorder asc,id asc')->column("name,title,remark,type,isadd,iscore,ifsystem,ifrequire,setting");
+        $list = self::where('modelid', $modelId)->where('status', 1)->where('ifsystem', 1)->order('listorder asc,id asc')->column("name,title,remark,type,isadd,iscore,ifsystem,ifrequire,setting");
         if (!empty($list)) {
             //编辑信息时查询出已有信息
             if ($id) {
@@ -325,26 +371,58 @@ class Cms extends Modelbase
      * @param  int|bool  $simple   是否简洁模式或者总记录数
      * @param  array     $config   配置参数
      */
-    public function getList($modeId, $where, $moreifo, $field = '*', $order = '', $limit, $page = null, $simple = false, $config = [])
+
+    public function getList($modeId, $where, $moreifo, $siteId, $field = '*', $order = '', $limit, $page = null, $simple = false, $config = [])
     {
         $url_mode  = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
         $tableName = $this->getModelTableName($modeId);
-        $result    = [];
+        $result = [];
+        $siteId = getSiteId();
         if (isset($tableName) && !empty($tableName)) {
             if (2 == getModel($modeId, 'type') && $moreifo) {
                 $extTable = $tableName . $this->ext_table;
-                $cmsModel = Db::view($tableName, $field)->where($where)->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')->order($order);
+                //马博增加
+                $where .= " and " . $extTable . '.site_id=' . $siteId;
                 if ($page) {
-                    $result = $cmsModel->paginate($limit, $simple, $config);
+                    $result = Db::view($tableName, $field)
+                        ->where($where)
+                        ->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')
+                        ->order($order)
+                        ->paginate($limit, $simple, $config);
                 } else {
-                    $result = $cmsModel->limit($limit)->select();
+                    $result = Db::view($tableName, $field)
+                        ->where($where)
+                        ->limit($limit)
+                        ->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')
+                        ->order($order)
+                        ->select();
                 }
             } else {
-                $cmsModel = Db::name($tableName)->where($where)->order($order)->field($field);
+                $extTable = $tableName . $this->ext_table;
+                $where .= " and " . $extTable . '.site_id=' . $siteId;
                 if ($page) {
-                    $result = $cmsModel->paginate($limit, $simple, $config);
+                    $result = Db::view($tableName, '*')
+                        ->where($where)
+                        ->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')
+                        ->order($order)
+                        ->field('`' . $tableName . "`.id as id")
+                        ->paginate($limit, $simple, $config);
                 } else {
-                    $result = $cmsModel->limit($limit)->select();
+                    $result = Db::view($tableName, '*')
+                        ->where($where)
+                        ->limit($limit)
+                        ->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')
+                        ->order($order)
+                        ->field('`' . $tableName . "`.id as id")
+                        ->select();
+                }
+            }
+        }
+        // 马博增加
+        if (!empty($result)) {
+            foreach ($result as &$r) {
+                if ($r['did']) {
+                    $r['id'] = $r['did'];
                 }
             }
         }
@@ -370,15 +448,36 @@ class Cms extends Modelbase
      * @param  string  $field   []
      * @param  string  $order   []
      */
-    public function getContent($modeId, $where, $moreifo = false, $field = '*', $order = '', $cache = false)
+    public function getContent($modeId, $where, $moreifo = false, $field = '*', $order = '', $cache = false, $site_id = 0,$type="next")
     {
         $url_mode  = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
         $tableName = $this->getModelTableName($modeId);
+        $site_id   = getSiteId();
         if (2 == getModel($modeId, 'type') && $moreifo) {
+            $where    = $tableName . '.' . $where;
             $extTable = $tableName . $this->ext_table;
-            $dataInfo = Db::view($tableName, '*')->where($where)->cache($cache)->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')->find();
+            if ($site_id != 0) {
+                $where .= " and " . $extTable . ".site_id=" . $site_id;
+            }
+            $dataInfo = Db::view($tableName, '*')->where($where)->cache($cache)->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')->field('`' . $tableName . "`.id as id")->find();
         } else {
-            $dataInfo = Db::name($tableName)->field($field)->cache($cache)->where($where)->order($order)->find();
+            $where    = $tableName . '.' . $where;
+            $extTable = $tableName . $this->ext_table;
+            if ($site_id != 0) {
+                $where .= " and " . $extTable . ".site_id=" . $site_id;
+            }
+
+            if($type=="pre"){
+                $dataInfos = Db::view($tableName, '*')->where($where)->cache($cache)->view($extTable, 'did,title', $tableName . '.id=' . $extTable . '.did', 'LEFT')->field('`' . $tableName . "`.id as id")->order($order)->select();
+                $ids = array();
+                foreach ($dataInfos as $dataInfo) {
+                    $ids[] = $dataInfo['id'];
+                }
+                array_multisort($ids, SORT_DESC, $dataInfos);
+                $dataInfo = $dataInfos[0];
+            }else{
+                $dataInfo = Db::view($tableName, '*')->where($where)->cache($cache)->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')->field('`' . $tableName . "`.id as id")->find();
+            }
         }
         if (!empty($dataInfo)) {
             $ModelField      = cache('ModelField');
@@ -389,6 +488,7 @@ class Cms extends Modelbase
         }
         return $dataInfo;
     }
+
 
     /**
      * 数据处理 前端显示
@@ -472,9 +572,9 @@ class Cms extends Modelbase
     }
 
     /**
-     * TAG标签处理
+     * TAG标签处理, $siteId = 0
      */
-    private function tagDispose($tags, $id, $catid, $modelid)
+    private function tagDispose($tags, $id, $catid, $modelid, $siteId = 0)
     {
         $tags_mode = model('cms/Tags');
         if (!empty($tags)) {
@@ -485,14 +585,14 @@ class Cms extends Modelbase
             }
             $keyword = array_unique($keyword);
             if ('add' == request()->action()) {
-                $tags_mode->addTag($keyword, $id, $catid, $modelid);
+                $tags_mode->addTag($keyword, $id, $catid, $modelid, $siteId);
             } else {
-                $tags_mode->updata($keyword, $id, $catid, $modelid);
+                $tags_mode->updata($keyword, $id, $catid, $modelid, $siteId);
             }
 
         } else {
             //直接清除已有的tags
-            $tags_mode->deleteAll($id, $catid, $modelid);
+            $tags_mode->deleteAll($id, $catid, $modelid, $siteId);
         }
     }
 
@@ -542,9 +642,9 @@ class Cms extends Modelbase
                     }
 
                     $dataExt['content'] = false !== strpos($dataExt['content'], $txt)
-                    //正则排除参数和链接
-                     ? preg_replace('/(?!<[^>]*)' . $txt . '(?![^<]*(>|<\/[a|sc]))/s'
-                        , '<a href="' . $link . '"' . $rel . 'target="' . $open . '" title="' . $txt . '">' . $txt . '</a>', $dataExt['content']) : $dataExt['content'];
+                        //正则排除参数和链接
+                        ? preg_replace('/(?!<[^>]*)' . $txt . '(?![^<]*(>|<\/[a|sc]))/s'
+                            , '<a href="' . $link . '"' . $rel . 'target="' . $open . '" title="' . $txt . '">' . $txt . '</a>', $dataExt['content']) : $dataExt['content'];
                 }
             }
         }
@@ -602,4 +702,32 @@ class Cms extends Modelbase
         cache("Cms_Config", $data);
         return $data;
     }
+
+    //  20201123 马博
+    public function getExtraData($data)
+    {
+        $catid = (int) $data['catid'];
+        $did = intval($data['did']);
+        $modelid = getCategory($catid, 'modelid');
+        //完整表名获取
+        $tablename = $this->getModelTableName($modelid);
+        return Db::name($tablename . $this->ext_table)->where('did', $did)->select();
+    }
+
+    public function getExtraField($modeId, $ifsystem)
+    {
+        $model = db('model_field')->where("modelid=" . $modeId . " and ifsystem=" . $ifsystem)->order('listorder asc,id asc')->select();
+        return $model;
+    }
+
+    public function getParentData($data)
+    {
+        $catid = (int) $data['catid'];
+        $id = intval($data['id']);
+        $modelid = getCategory($catid, 'modelid');
+        //完整表名获取
+        $tablename = $this->getModelTableName($modelid);
+        return Db::name($tablename . $this->ext_table)->where('id', $id)->find();
+    }
+    //  20201123 马博 end
 }

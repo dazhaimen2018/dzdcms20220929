@@ -26,10 +26,14 @@ define('ADDON_PATH', ROOT_PATH . 'addons' . DS);
 define('ROOT_URL', Request::rootUrl() . '/');
 //模板目录
 define('TEMPLATE_PATH', ROOT_PATH . 'templates' . DS);
-
+//有时候url隐藏了 但是还是有问题，会加上index.php
+Url::root('/');//加上这句
 // 加载用户函数文件
 include_once APP_PATH . 'function.php';
+// 加载用户共用函数文件
+include_once APP_PATH . 'public.php';
 
+// 20200620 马博 end
 /**
  * 系统缓存缓存管理
  * cache('model')        获取model缓存
@@ -81,25 +85,6 @@ function fun($fun)
     $params = func_get_args();
     unset($params[0]);
     $params = array_values($params);
-
-    /*if (!is_array($param)) {
-    $param = [$param];
-    }
-    $ReflectionFunc = new \ReflectionFunction($fun);
-    $depend = array();
-    foreach ($ReflectionFunc->getParameters() as $value) {
-    if (isset($param[$value->name])) {
-    $depend[] = $param[$value->name];
-    } elseif ($value->isDefaultValueAvailable()) {
-    $depend[] = $value->getDefaultValue();
-    } else {
-    $tmp = $value->getClass();
-    if (is_null($tmp)) {
-    throw new \Exception("Function parameters can not be getClass {$class}");
-    }
-    $depend[] = $this->get($tmp->getName());
-    }
-    }*/
 
     if (function_exists($fun)) {
         return call_user_func_array($fun, $params);

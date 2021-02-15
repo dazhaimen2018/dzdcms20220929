@@ -1,0 +1,95 @@
+
+<div class="container demand grey-m">
+	<div class="demand_txt">
+		<div class="demand_txt1 wow fadeInUp4" data-wow-duration="1.2s" data-wow-delay=".1s">{:getCategory(15,'catname')}</div>
+		<div class="demand_txt2 wow fadeInUp5" data-wow-duration="1.2s" data-wow-delay=".35s">{:getCategory(15,'description')}</div>
+		<div class="demand-m">
+			<p class="p-1">{:getCategory(15,'catname')}</p>
+			<p class="p-1">{:getCategory(15,'description')}</p>
+		</div>
+	</div>
+	<div class="demand_con">
+		<div class="row">
+			<div class="demand_left col-xs-12 col-sm-12 col-md-12 col-lg-6">
+				<div class="demand-logo-list">
+					<div class="demand-logo-one">
+						<div class="demand-logo-one-img demand-logo-one-img-1 letmove"><img src="__STATIC__/wminw/images/demand-logo-one-img-1.jpg"></div>
+						<div class="demand-logo-one-desc demand-logo-one-desc-1 letmove"><img src="__STATIC__/wminw/images/demand-logo-one-desc-1.jpg"></div>
+					</div>
+					<div class="demand-logo-one">
+						<div class="demand-logo-one-img demand-logo-one-img-2 letmove"><img src="__STATIC__/wminw/images/demand-logo-one-img-2.jpg"></div>
+						<div class="demand-logo-one-desc demand-logo-one-desc-2 letmove"><img src="__STATIC__/wminw/images/demand-logo-one-desc-2.jpg"></div>
+					</div>
+					<div class="demand-logo-one">
+						<div class="demand-logo-one-desc demand-logo-one-desc-3 letmove"><img src="__STATIC__/wminw/images/demand-logo-one-desc-3.jpg"></div>
+						<div class="demand-logo-one-img demand-logo-one-img-3 letmove"><img src="__STATIC__/wminw/images/demand-logo-one-img-3.jpg"></div>
+					</div>
+					<div class="demand-logo-one">
+						<div class="demand-logo-one-desc demand-logo-one-desc-4 letmove"><img src="__STATIC__/wminw/images/demand-logo-one-desc-4.jpg"></div>
+						<div class="demand-logo-one-img demand-logo-one-img-4 letmove"><img src="__STATIC__/wminw/images/demand-logo-one-img-4.jpg"></div>
+					</div>
+				</div>
+			</div>
+			<div class="demand_right col-xs-12 col-sm-12 col-md-12 col-lg-6">
+				<div class="demand_warp">
+					<div class="demand_reminder">朋友，请填写您的需求提交给我们</div>
+					<form class="demand_form" method="post" action="{:url('formguide/index/post')}">
+						{:token()}
+						<input type="hidden" name="id" value="5" />
+						<input type="hidden" name="modelField[site_id]" value="{$siteId}" />
+						<div class="row">
+							<div class="demand_ipt col-sm-6 col-md-6 col-lg-6">
+								<input type="text" name="modelField[name]" id="name" class="form-control" placeholder="称呼姓名" lay-verify="required" lay-reqtext="姓名不能为空"/>
+							</div>
+							<div class="demand_ipt col-sm-6 col-md-6 col-lg-6">
+								<input type="text" name="modelField[tel]" id="tel" class="form-control" placeholder="联系电话" />
+							</div>
+						</div>
+						<div class="demand_ipt">
+							<textarea maxLength="1000" name="modelField[content]" id="content" class="form-control" placeholder="描述您的需求，如网站、微信、H5页面、电商等"></textarea>
+						</div>
+
+						<div class="send btn-circle">
+							<button class="layui-btn layui-btn-sm" lay-submit lay-filter="formDemo2" >提交项目需求</button>
+							<i class="btn-circle-hover"></i></i><i class="btn-circle-click"></i></div>
+						<div class="demand-m">
+							<p class="p-2">*请认真填写需求信息，我们会在24小时内与您取得联系。</p>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css">
+<script src="__STATIC__/libs/layui/layui.js"></script>
+<script>
+	layui.use(['form', 'layedit', 'laydate'], function(){
+		var form = layui.form
+				,layer = layui.layer
+				,layedit = layui.layedit
+				,laydate = layui.laydate;
+
+
+		//监听提交
+		form.on('submit(formDemo2)', function(data){
+			$.ajax({
+				url:"{:url('formguide/index/post')}",
+				async: false,
+				type:"POST",
+				dataType: "text",
+				data:data.field,
+				success: function(data){
+					if($("#isphone").val()==0){
+						var index = parent.layer.getFrameIndex(window.name);
+						parent.layer.close(index);
+					}else {
+						window.history.go(-1);
+					}
+				}
+			})
+			return false;
+		});
+		});
+	});
+</script>

@@ -1,0 +1,64 @@
+{include file="common/header" /}
+{include file="common/banner" /}
+<article>
+	<div class="product">
+		{include file="common/menu" /}
+		<div class="line"></div>
+	</div>
+</article>
+
+<!-- ========================= 内容开始 ======================== -->
+<div class="layui-content">
+	<div class="layui-container">
+		<div class="layui-row layui-col-space15 main">
+			<div class="layui-col-md9 layui-col-lg9 list">
+				{yzn module="cms" action="tags" tag="$tag" order="listorder ASC" num="10"  return="data"}
+				{volist name="data" id="item"}
+				<div class="title-article list-card">
+					{if $item.thumb}
+					<div class="list-pic">
+						<a href="{$item.url}" title="{$item.title}">
+							<img src="{$item.thumb}" alt="{$item.title}" class="img-full">
+						</a>
+					</div>
+					{/if}
+					<a href="{$item.url}">
+						<h1>{$item.title}</h1>
+						<p>{$item.description}</p>
+					</a>
+					<div class="title-msg">
+						<span><i class="layui-icon iconfont iconmenu"></i> <a href="{:getCategory($item['id'],'url')}">{:getCategory($item['id'],'catname')} </a></span>
+						<span><i class="layui-icon iconfont icontime"></i> {$item.updatetime|date="Y-m-d"}</span>
+						<span><i class="layui-icon iconfont iconbrowse"></i></i> {$item.hits}浏览</span>
+					</div>
+				</div>
+				{/volist}
+				{/yzn}
+			</div>
+			{include file="common/right" /}
+		</div>
+	</div>
+</div>
+{include file="common/footer" /}
+<script type="text/javascript">
+	$(function() {
+		$(document).on("click", ".btn-loadmore", function() {
+			var that = this;
+			var page = parseInt($(this).data("page"));
+			page++;
+			$(that).prop("disabled", true);
+			$.ajax({
+				url: $(that).attr("href"),
+				type: "post",
+				success: function(res) {
+					$('.list').append(res.data);
+					$(that).remove();
+					return false;
+				},
+			});
+			return false;
+		})
+	});
+	</script>
+</body>
+</html>

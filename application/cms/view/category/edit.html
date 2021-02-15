@@ -4,12 +4,31 @@
     <div class="layui-tab">
         <ul class="layui-tab-title">
             <li class="layui-this">基本设置</li>
-            <li>选项设置</li>
             <li id="modeTab">模板设置</li>
+            {volist name="site" id="s" key="i" }
+            {if (isset(cache("Cms_Config")['category_mode']) && 2 == cache("Cms_Config")['category_mode'])}
+            {if $i == getSiteInfo('id')}
+            {include file="item_site" /}
+            {/if}
+            {else}
+            {include file="item_site" /}
+            {/if}
+            {/volist}
+            {if condition="isModuleInstall('member')"}
             <li>权限设置</li>
+            {/if}
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
+                <div class="layui-form-item">
+                    <label>所属站点</label>
+                    <div class="layui-form-field-label">
+                        {volist name="site" id="vo"}
+                        <input type="checkbox" name="site_id[]" value="{$vo.id}" lay-skin="primary" title="{$vo.name}" {if $data && in_array($vo.id,$data.site_id)}checked{/if}>
+                        {/volist}
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">不选，表示所有站点共用</div>
+                </div>
                 <div class="layui-form-item">
                     <label>上级菜单</label>
                     <div class="w300">
@@ -58,30 +77,34 @@
                     <div style="clear: both;"></div>
                     <div class="layui-form-mid layui-word-aux">有值时生效，内部链接格式:模块/控制器/操作?参数=参数值&...，外部链接则必须http://开头</div>
                 </div>
-                <div class="layui-form-item web_seo">
-                    <label>栏目简介</label>
-                    <div class="w300">
-                        <textarea name="description" placeholder="栏目简介" class="layui-textarea">{$data.description}</textarea>
-                    </div>
-                </div>
+
                 <div class="layui-form-item layui-form-text">
                     <label>栏目图片</label>
-                    <div class="layui-form-field-label">
+                    <div class="layui-form-field-label border-none">
                         <div class="js-upload-image">
                             {php}echo \util\Form::images('image','',$data['image']){/php}
                         </div>
                     </div>
                 </div>
+                {if isset(cache("Cms_Config")['icon_mode']) && 1==cache("Cms_Config")['icon_mode']}
                 <div class="layui-form-item layui-form-text">
                     <label>栏目图标</label>
-                    <div class="layui-form-field-label">
+                    <div class="layui-form-field-label border-none">
                         <div class="js-upload-image">
                             {php}echo \util\Form::images('icon','',$data['icon']){/php}
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="layui-tab-item">
+                {else}
+                <div class="layui-form-item">
+                    <label>栏目图标</label>
+                    <div class="w300">
+                        <input type="text" name="icon" autocomplete="off" placeholder="栏目图标格式iconfont-icon或layui-icon-rate" class="layui-input" value="{$data.icon}">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">手动输入字体样式：如iconfont-icon或layui-icon-rate</div>
+                </div>
+                {/if}
+
                 <div class="layui-form-item">
                     <label>在导航显示</label>
                     <div class="w300">
@@ -89,126 +112,130 @@
                         <input type="radio" name="status" value="0" title="隐藏" {eq name="data.status" value="0" }checked{/eq}>
                     </div>
                 </div>
-                    <div class="layui-form-item">
-                        <label>显示排序</label>
-                        <div class="w300">
-                            <input type="text" name="listorder" autocomplete="off" placeholder="显示排序" class="layui-input" value="{$data['listorder']}">
-                        </div>
-                    </div>
-                    <div class="layui-form-item web_seo">
-                        <label>网页标题</label>
-                        <div class="w300">
-                            <input type="text" name="setting[meta_title]" autocomplete="off" placeholder="针对搜索引擎设置的标题" class="layui-input" value="{$setting['meta_title']}">
-                        </div>
-                    </div>
-                    <div class="layui-form-item web_seo">
-                        <label>网页关键词</label>
-                        <div class="w300">
-                            <input type="text" name="setting[meta_keywords]" autocomplete="off" placeholder="关键字中间用半角逗号隔开" class="layui-input" value="{$setting['meta_keywords']}">
-                        </div>
-                    </div>
-                    <div class="layui-form-item web_seo">
-                        <label>网页描述</label>
-                        <div class="w300">
-                            <textarea name="setting[meta_description]" placeholder="针对搜索引擎设置的网页描述" class="layui-textarea">{$setting['meta_description']}</textarea>
-                        </div>
+                <div class="layui-form-item">
+                    <label>显示排序</label>
+                    <div class="w300">
+                        <input type="text" name="listorder" autocomplete="off" placeholder="显示排序" class="layui-input" value="{$data['listorder']}">
                     </div>
                 </div>
-                <div class="layui-tab-item">
-                    <div class="layui-form-item web_list">
-                        <label>栏目首页模板</label>
-                        <div class="w300">
-                            <select name="setting[category_template]">
-                                <option value="category.{:config('template.view_suffix')}" selected>默认栏目首页:category.{:config('template.view_suffix')}</option>
-                                {volist name="tp_category" id="vo"}
-                                <option value="{$vo}" {eq name="setting['category_template']" value="$vo" }selected{/eq}>{$vo} </option>
-                                {/volist}
-                            </select>
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">新增模板以category_xx.{:config('template.view_suffix')}形式,【含有子栏目时生效】</div>
+            </div>
+            <div class="layui-tab-item">
+                <div class="layui-form-item web_list">
+                    <label>栏目首页模板</label>
+                    <div class="w300">
+                        <select name="setting[category_template]">
+                            <option value="category.{:config('template.view_suffix')}" selected>默认栏目首页:category.{:config('template.view_suffix')}</option>
+                            {volist name="tp_category" id="vo"}
+                            <option value="{$vo}" {eq name="setting['category_template']" value="$vo" }selected{/eq}>{$vo} </option>
+                            {/volist}
+                        </select>
                     </div>
-                    <div class="layui-form-item web_list">
-                        <label>栏目列表页模板</label>
-                        <div class="w300">
-                            <select name="setting[list_template]">
-                                <option value="list.{:config('template.view_suffix')}" selected>默认栏目列表页:list.{:config('template.view_suffix')}</option>
-                                {volist name="tp_list" id="vo"}
-                                <option value="{$vo}" {eq name="setting['list_template']" value="$vo" }selected{/eq}>{$vo} </option>
-                                {/volist}
-                            </select>
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">新增模板以list_xx.{:config('template.view_suffix')}形式,【没有子栏目时生效】</div>
+                    <div class="layui-form-mid layui-word-aux">新增模板以category_xx.{:config('template.view_suffix')}形式,【含有子栏目时生效】</div>
+                </div>
+                <div class="layui-form-item web_list">
+                    <label>栏目列表页模板</label>
+                    <div class="w300">
+                        <select name="setting[list_template]">
+                            <option value="list.{:config('template.view_suffix')}" selected>默认栏目列表页:list.{:config('template.view_suffix')}</option>
+                            {volist name="tp_list" id="vo"}
+                            <option value="{$vo}" {eq name="setting['list_template']" value="$vo" }selected{/eq}>{$vo} </option>
+                            {/volist}
+                        </select>
                     </div>
-                    <div class="layui-form-item web_list">
-                        <label>内容页模板</label>
-                        <div class="w300">
-                            <select name="setting[show_template]">
-                                <option value="show.{:config('template.view_suffix')}" selected>默认内容页:show.{:config('template.view_suffix')}</option>
-                                {volist name="tp_show" id="vo"}
-                                <option value="{$vo}" {eq name="setting['show_template']" value="$vo" }selected{/eq}>{$vo} </option>
-                                {/volist}
-                            </select>
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">新增模板以show_xx.{:config('template.view_suffix')}形式</div>
+                    <div class="layui-form-mid layui-word-aux">新增模板以list_xx.{:config('template.view_suffix')}形式,【没有子栏目时生效】</div>
+                </div>
+                <div class="layui-form-item web_list">
+                    <label>内容页模板</label>
+                    <div class="w300">
+                        <select name="setting[show_template]">
+                            <option value="show.{:config('template.view_suffix')}" selected>默认内容页:show.{:config('template.view_suffix')}</option>
+                            {volist name="tp_show" id="vo"}
+                            <option value="{$vo}" {eq name="setting['show_template']" value="$vo" }selected{/eq}>{$vo} </option>
+                            {/volist}
+                        </select>
                     </div>
-                    <div class="layui-form-item web_list">
-                        <label>模板应用到子栏目</label>
-                        <div class="w300">
-                            <input type="radio" name="template_child" value="1" title="是">
-                            <input type="radio" name="template_child" value="0" title="否" checked>
-                        </div>
+                    <div class="layui-form-mid layui-word-aux">新增模板以show_xx.{:config('template.view_suffix')}形式</div>
+                </div>
+                <div class="layui-form-item web_list">
+                    <label>模板应用到子栏目</label>
+                    <div class="w300">
+                        <input type="radio" name="template_child" value="1" title="是">
+                        <input type="radio" name="template_child" value="0" title="否" checked>
                     </div>
                 </div>
-                <div class="layui-tab-item">
-                    {if condition="isModuleInstall('member')"}
-                    <div class="layui-form-item web_list">
-                        <label>会员组权限</label>
-                        <table class="layui-table" style="max-width: 250px;">
-                          <colgroup>
+            </div>
+
+            <!-- 多语言设置 -->
+            {volist name="category_data" id="s" key="k"}
+            <?php
+            $setting = json_decode($s['setting'],true);
+            $page_title = $setting['title'];
+            $page_keyword = $setting['keyword'];
+            $page_description = $setting['description'];
+            $siteId = $s['site_id'];
+            $cdId = $s['id'];
+            ?>
+            {if (isset(cache("Cms_Config")['category_mode']) && 2 == cache("Cms_Config")['category_mode'])}
+              {if $k == getSiteInfo('id')}
+              {include file="item_category" /}
+              {/if}
+            {else}
+            {include file="item_category" /}
+            {/if}
+            {/volist}
+            <!-- 多语言设置 end-->
+            <div class="layui-tab-item">
+                {if condition="isModuleInstall('member')"}
+                <div class="layui-form-item web_list">
+                    <label>会员组权限</label>
+                    <table class="layui-table" style="max-width: 250px;">
+                        <colgroup>
                             <col width="150">
                             <col width="100">
-                          </colgroup>
-                          <thead>
-                            <tr>
-                              <th>会员组名称</th>
-                              <th>允许投稿</th>
-                            </tr> 
-                          </thead>
-                          <tbody>
-                            {volist name="Member_Group" id="vo"}
-                            <tr>
-                              <td>{$vo.name}</td>
-                              <td><input type="checkbox" name="priv_groupid[]" value="add,{$vo.id}" title="允许" lay-skin="primary" {php} echo model("cms/CategoryPriv")->check_category_priv($privs,'add',$vo['id'],0);{/php}></td>
-                            </tr>
-                            {/volist}
-                          </tbody>
-                        </table>
-                    </div>
-                    {/if}
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>会员组名称</th>
+                            <th>允许投稿</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {volist name="Member_Group" id="vo"}
+                        <tr>
+                            <td>{$vo.name}</td>
+                            <td><input type="checkbox" name="priv_groupid[]" value="add,{$vo.id}" title="允许" lay-skin="primary" {php} echo model("cms/CategoryPriv")->check_category_priv($privs,'add',$vo['id'],0);{/php}></td>
+                        </tr>
+                        {/volist}
+                        </tbody>
+                    </table>
                 </div>
+                {/if}
             </div>
-            <input type="hidden" name="modelid" value="{$data.modelid}">
-            <input type="hidden" name="type" value="2">
-            <input name="id" type="hidden" value="{$data.id}">
-            <div class="layui-form-item layer-footer">
-                <div>
-                    <button class="layui-btn" lay-submit>立即提交</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                </div>
+
+
+        </div>
+        <input type="hidden" name="modelid" value="{$data.modelid}">
+        <input type="hidden" name="type" value="2">
+        <input name="id" type="hidden" value="{$data.id}">
+        <div class="layui-form-item layer-footer">
+            <div>
+                <button class="layui-btn" lay-submit>立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
+    </div>
 </form>
 {/block}
 {block name="script"}
 <script type="text/javascript">
-layui.use(['form','yznForm'], function() {
-    var form = layui.form,
-    yznForm = layui.yznForm;
+    layui.use(['form','yznForm'], function() {
+        var form = layui.form,
+            yznForm = layui.yznForm;
 
-    yznForm.listen();
-    form.on('select(fasttype)', function(data) {
-        $('#url').val($(data.elem).find("option:selected").attr("data-url"));
+        yznForm.listen();
+        form.on('select(fasttype)', function(data) {
+            $('#url').val($(data.elem).find("option:selected").attr("data-url"));
+        });
     });
-});
 </script>
 {/block}

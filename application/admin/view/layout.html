@@ -4,21 +4,23 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>YZNCMS后台管理系统</title>
-    <meta name="author" content="YZNCMS">
+    <title>{:config('system_name')}后台管理系统</title>
+    <meta name="author" content="{:config('system_name')}">
     <link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css">
     <link rel="stylesheet" href="__STATIC__/admin/css/global.css?v={$Think.config.version.yzncms_release}">
     <link rel="stylesheet" href="__STATIC__/common/font/iconfont.css?v={$Think.config.version.yzncms_release}">
+    <link rel="stylesheet" href="__STATIC__/admin/css/my.css">
+    <link rel="stylesheet" href="__STATIC__/libs/awesome/css/font-awesome.min.css">
     <style id="layui-bg-color"></style>
 </head>
 
 <body class="layui-layout-body layui-all layui-multi-module">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-        	<div class="layui-logo">
+        	<div class="layui-logo logo">
 	            <a href="#">
 	            	<i class="layui-icon layui-icon-component"></i>
-	            	<h1>YZNCMS后台</h1>
+	            	<h1>{:config('system_name')}</h1>
 	            </a>
         	</div>
         	<div class="layui-header-content">
@@ -106,7 +108,7 @@
             </div>
         </div>
         <div class="layui-footer">
-            © YznCMS v{$Think.config.version.yzncms_version}
+            © {:config('system_name')} v{$Think.config.version.yzncms_version}
         </div>
     </div>
     <script src="__STATIC__/libs/layui/layui.js"></script>

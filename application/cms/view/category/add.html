@@ -1,20 +1,25 @@
 {extend name="admin@index_layout"/}
 {block name="main"}
-<style type="text/css">
-.layui-form-item .layui-form-checkbox[lay-skin="primary"] {
-    margin-top: 0px;
-}
-</style>
 <form class="layui-form" method="post" lay-filter="layui-form">
     <div class="layui-tab">
         <ul class="layui-tab-title">
             <li class="layui-this">基本设置</li>
-            <li>选项设置</li>
             <li id="modeTab">模板设置</li>
-            <li>权限设置</li>
+            {if condition="isModuleInstall('member')"}
+            <li> 权限设置</li>
+            {/if}
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
+                <div class="layui-form-item">
+                    <label>所属站点</label>
+                    <div class="layui-form-field-label">
+                        {volist name="site" id="vo"}
+                        <input type="checkbox" name="site_id[]" value="{$vo.id}" lay-skin="primary" title="{$vo.name}" {if $data && in_array($vo.id,$data.name)}checked{/if}>
+                        {/volist}
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">不选，表示所有站点共用</div>
+                </div>
                 <div class="layui-form-item">
                     <label>上级菜单</label>
                         <div class="w300">
@@ -45,7 +50,7 @@
                 <div class="layui-form-item" id="normal_add">
                     <label>栏目标题 </label>
                         <div class="w300">
-                            <input type="text" name="catname" lay-verify="required" autocomplete="off" placeholder="栏目名称" class="layui-input" id="catname">
+                            <input type="text" name="catname" lay-verify="required" lay-reqText="栏目标题不能为空" autocomplete="off" placeholder="栏目名称" class="layui-input" id="catname">
                         </div>
                 </div>
                 <div class="layui-form-item" id="catdir_tr">
@@ -59,7 +64,7 @@
                     <label>链接地址</label>
                     <div>
                         <div class="layui-input-inline w300">
-                            <input type="text" name="url"  autocomplete="off" placeholder="自定义链接地址" class="layui-input" id="url">
+                            <input type="text" name="url" autocomplete="off" placeholder="自定义链接地址" class="layui-input" id="url">
                         </div>
                         <div class="layui-input-inline">
                             <select lay-filter="fasttype">
@@ -88,62 +93,47 @@
                         </div>
                         <div class="layui-form-mid layui-word-aux">例如：<br>国内新闻|china<br>国际新闻|world<br>唯一标识留空时自动生成拼音</div>
                 </div>
-                <div class="layui-form-item">
-                    <label>栏目简介</label>
-                        <div class="w300">
-                            <textarea name="description" placeholder="栏目简介" class="layui-textarea"></textarea>
-                        </div>
-                </div>
                 <div class="layui-form-item layui-form-text">
                     <label>栏目图片</label>
-                    <div class="layui-form-field-label">
+                    <div class="layui-form-field-label border-none">
                         <div class="js-upload-image">
                             {php}echo \util\Form::images('image'){/php}
                         </div>
                     </div>
                 </div>
+                {if isset(cache("Cms_Config")['icon_mode']) && 1==cache("Cms_Config")['icon_mode']}
                 <div class="layui-form-item layui-form-text">
                     <label>栏目图标</label>
-                    <div class="layui-form-field-label">
+                    <div class="layui-form-field-label border-none">
                         <div class="js-upload-image">
                             {php}echo \util\Form::images('icon'){/php}
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="layui-tab-item">
+                {else}
+                <div class="layui-form-item">
+                    <label>栏目图标</label>
+                    <div class="w300">
+                        <input type="text" name="icon" autocomplete="off" placeholder="栏目图标格式iconfont-icon或layui-icon-rate" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">手动输入字体样式：如iconfont-icon或layui-icon-rate</div>
+                </div>
+                {/if}
                 <div class="layui-form-item">
                     <label>在导航显示</label>
-                        <div class="w300">
-                            <input type="radio" name="status" value="1" title="显示" checked>
-                            <input type="radio" name="status" value="0" title="隐藏">
-                        </div>
+                    <div class="w300">
+                        <input type="radio" name="status" value="1" title="显示" checked>
+                        <input type="radio" name="status" value="0" title="隐藏">
+                    </div>
                 </div>
                 <div class="layui-form-item">
                     <label>显示排序</label>
-                        <div class="w300">
-                            <input type="text" name="listorder" autocomplete="off" placeholder="显示排序" class="layui-input" value="100">
-                        </div>
-                </div>
-                <div class="layui-form-item web_seo">
-                    <label>网页标题</label>
-                        <div class="w300">
-                            <input type="text" name="setting[meta_title]" autocomplete="off" placeholder="针对搜索引擎设置的标题" class="layui-input">
-                        </div>
-                </div>
-                <div class="layui-form-item web_seo">
-                    <label>网页关键词</label>
-                        <div class="w300">
-                            <input type="text" name="setting[meta_keywords]" autocomplete="off" placeholder="关键字中间用半角逗号隔开" class="layui-input">
-                        </div>
-                </div>
-                <div class="layui-form-item web_seo">
-                    <label>网页描述</label>
-                        <div class="w300">
-                            <textarea name="setting[meta_description]"  placeholder="针对搜索引擎设置的网页描述" class="layui-textarea"></textarea>
-                        </div>
+                    <div class="w300">
+                        <input type="text" name="listorder" autocomplete="off" placeholder="显示排序" class="layui-input" value="100">
+                    </div>
                 </div>
             </div>
+
             <div class="layui-tab-item">
                 <div class="layui-form-item web_list">
                     <label>栏目首页模板</label>
@@ -182,6 +172,9 @@
                     <div class="layui-form-mid layui-word-aux">新增模板以show_xx.html形式</div>
                 </div>
             </div>
+            <!-- 多语言设置 -->
+
+            <!-- 多语言设置 end -->
             <div class="layui-tab-item">
                 {if condition="isModuleInstall('member')"}
                 <div class="layui-form-item web_list">
@@ -213,7 +206,7 @@
         <input type="hidden" name="type" value="2">
         <div class="layui-form-item layer-footer">
             <div>
-                <button class="layui-btn" lay-submit>立即提交</button>
+                <button class="layui-btn" lay-submit> 立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>

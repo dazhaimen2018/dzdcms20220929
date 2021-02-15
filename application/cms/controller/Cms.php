@@ -17,6 +17,7 @@ namespace app\cms\controller;
 use app\admin\service\User;
 use app\cms\model\Cms as Cms_Model;
 use app\cms\model\Page as Page_Model;
+use app\cms\model\Site;
 use app\common\controller\Adminbase;
 use think\Db;
 
@@ -26,6 +27,11 @@ class Cms extends Adminbase
     {
         parent::initialize();
         $this->Cms_Model = new Cms_Model;
+        // 20200805 马博
+        $site = Site::select()->toArray();
+        $this->site = $site;
+        $this->view->assign('site', $site);
+        // 20200805 马博 end
     }
 
     public function index()
@@ -45,6 +51,10 @@ class Cms extends Adminbase
         //栏目所属模型
         $modelid = $catInfo['modelid'];
         if ($this->request->isAjax()) {
+            // 20200805 马博
+            $limit = $this->request->param('limit/d', 10);
+            $page = $this->request->param('page/d', 1);
+            // 20200805 马博 end
             //检查模型是否被禁用
             if (!getModel($modelid, 'status')) {
                 $this->error('模型被禁用！');
@@ -67,12 +77,28 @@ class Cms extends Adminbase
             $list  = Db::name($tableName)->page($page, $limit)->where($where)->where($conditions)->order(['listorder', 'id' => 'desc'])->select();
             $_list = [];
             foreach ($list as $k => $v) {
-                $v['updatetime'] = date('Y-m-d H:i:s', $v['updatetime']);
+                $v['updatetime'] = date('Y-m-d H:i', $v['updatetime']);
                 if (isset($v['thumb'])) {
                     $v['thumb'] = get_file_path($v['thumb']);
                 }
                 $v['url'] = buildContentUrl($v['catid'], $v['id'], $v['url']);
+                //马博 验证多站数据是否全添
+                $sites  = Site::where("status=1")->field('id')->select()->toArray();
+                $datas = Db::name($tableName . '_data')->where('did', $v['id'])->field('site_id as id')->select();
+                // 二维数据转一维数据并找出不同的
+                $result = (array_diff(array_column($sites,'id'),array_column($datas,'id')));
+                if (!$result){
+                    $v['site'] = "全有";
+                }else{
+                    if($result[0]==1){
+                        $v['site'] = siteName(2);
+                    }elseif($result[1]==2){
+                        $v['site'] = siteName(1);
+                    };
+                };
+                //马博 end
                 $_list[]  = $v;
+
             }
             $result = array("code" => 0, "count" => $total, "data" => $_list);
             return json($result);
@@ -100,6 +126,10 @@ class Cms extends Adminbase
 
         $this->assign('string', $string);
         $this->assign('catid', $catid);
+        // 20200620 马博
+        $siteArray = Site::where("status=1")->select()->toArray();
+        $this->assign('siteArray', $siteArray);
+        // 20200620 end 马博
         return $this->fetch();
     }
 
@@ -141,11 +171,11 @@ class Cms extends Adminbase
     }
 
     //添加信息
+
     public function add()
     {
-        $this->check_priv('add');
         if ($this->request->isPost()) {
-            $data  = $this->request->post();
+            $data = $this->request->post();
             $catid = intval($data['modelField']['catid']);
             if (empty($catid)) {
                 $this->error("请指定栏目ID！");
@@ -156,21 +186,35 @@ class Cms extends Adminbase
             }
             if ($category['type'] == 2) {
                 $data['modelFieldExt'] = isset($data['modelFieldExt']) ? $data['modelFieldExt'] : [];
+
+                Db::startTrans();
                 try {
-                    $this->Cms_Model->addModelData($data['modelField'], $data['modelFieldExt']);
+                    $insertId = $this->Cms_Model->addModelData($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
+                    Db::commit();
                 } catch (\Exception $ex) {
+                    Db::rollback();
                     $this->error($ex->getMessage());
                 }
+
             } else if ($category['type'] == 1) {
                 $Page_Model = new Page_Model;
-                if (!$Page_Model->savePage($data['modelField'])) {
-                    $error = $Page_Model->getError();
-                    $this->error($error ? $error : '操作失败！');
+
+                Db::startTrans();
+                try {
+                    if (!$Page_Model->saveData($data)) {
+                        $error = $Page_Model->getError();
+                        $this->error($error ? $error : '操作失败！');
+                    }
+                    Db::commit();
+                } catch (Exception $e) {
+                    Db::rollback();
+                    $this->error($e->getMessage());
                 }
             }
             $this->success('操作成功！');
         } else {
-            $catid    = $this->request->param('catid/d', 0);
+            $catid = $this->request->param('catid/d', 0);
+            $import = $this->request->param('import/d', 0);
             $category = getCategory($catid);
             if (empty($category)) {
                 $this->error('该栏目不存在！');
@@ -178,43 +222,109 @@ class Cms extends Adminbase
             $cmsConfig = cache("Cms_Config");
             $this->assign("cmsConfig", $cmsConfig);
             if ($category['type'] == 2) {
-                $modelid   = $category['modelid'];
+                $modelid = $category['modelid'];
                 $fieldList = $this->Cms_Model->getFieldList($modelid);
+                $extraFieldList = $this->Cms_Model->getExtraField($modelid, 0);
                 $this->assign([
                     'catid'     => $catid,
                     'fieldList' => $fieldList,
+                    'extraFieldList' => $extraFieldList,
                 ]);
                 return $this->fetch();
             } else if ($category['type'] == 1) {
                 $Page_Model = new Page_Model;
-                $info       = $Page_Model->getPage($catid);
+                $info = $Page_Model->selectAll($catid);
+                // 马博增加
+                $ret = [];
+
+                if($import==1){
+                    foreach ($this->site as $k => $s) {
+                        if ($info) {
+                            foreach ($info as $e) {
+                                if ($e['site_id'] == $s['id']) {
+                                    $ret[$k] = $e;
+                                } else {
+                                    //只输出站点1的数据
+                                    foreach ($info as $f) {
+                                        if ($e['site_id']== 1) {
+                                            $ret[$k] = $f;
+                                            $ret[$k]['site_id'] = $s['id'];
+                                            $ret[$k]['id'] = '';
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $ret[$k]['site_id'] = $s['id'];
+                        }
+                    }
+                }else{
+                    foreach ($this->site as $k => $s) {
+                        if ($info) {
+                            foreach ($info as $e) {
+                                if ($e['site_id'] == $s['id']) {
+                                    $ret[$k] = $e;
+                                } else {
+                                    $ret[$k]['site_id'] = $s['id'];
+                                }
+                            }
+                        } else {
+                            $ret[$k]['site_id'] = $s['id'];
+                        }
+                    }
+                }
                 $this->assign([
-                    'info'  => $info,
+                    'info'  => $ret,
                     'catid' => $catid,
                 ]);
+                // 马博增加 end
                 return $this->fetch('singlepage');
             }
-
         }
     }
+
 
     //编辑信息
     public function edit()
     {
-        $this->check_priv('edit');
+
+
         if ($this->request->isPost()) {
             $data                  = $this->request->post();
             $data['modelFieldExt'] = isset($data['modelFieldExt']) ? $data['modelFieldExt'] : [];
-            try {
-                $this->Cms_Model->editModelData($data['modelField'], $data['modelFieldExt']);
-            } catch (\Exception $ex) {
-                $this->error($ex->getMessage());
+            $data['modelField']['id'] = intval($_GET['id']);
+            $catid = intval($data['modelField']['catid']);
+            $category = getCategory($catid);
+
+            if (empty($category)) {
+                $this->error('该栏目不存在！');
+            }
+            if ($category['type'] == 2) {
+                try {
+                    $this->Cms_Model->editModelData($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
+                } catch (\Exception $ex) {
+                    $this->error($ex->getMessage());
+                }
+            } else if ($category['type'] == 1) {
+                $Page_Model = new Page_Model;
+                Db::startTrans();
+                try {
+                    if (!$Page_Model->saveData($data)) {
+                        $error = $Page_Model->getError();
+                        $this->error($error ? $error : '操作失败！');
+                    }
+                    Db::commit();
+                } catch (Exception $e) {
+                    Db::rollback();
+                    $this->error($e->getMessage());
+                }
             }
             $this->success('编辑成功！');
 
         } else {
-            $catid    = $this->request->param('catid/d', 0);
-            $id       = $this->request->param('id/d', 0);
+            $catid = $this->request->param('catid/d', 0);
+            $import = $this->request->param('import/d', 0);
+            $id    = $this->request->param('id/d', 0);
             $category = getCategory($catid);
             if (empty($category)) {
                 $this->error('该栏目不存在！');
@@ -224,11 +334,53 @@ class Cms extends Adminbase
             if ($category['type'] == 2) {
                 $modelid   = $category['modelid'];
                 $fieldList = $this->Cms_Model->getFieldList($modelid, $id);
+                $extraFieldList = $this->Cms_Model->getExtraField($modelid, 0);
                 $this->assign([
                     'catid'     => $catid,
                     'id'        => $id,
                     'fieldList' => $fieldList,
+                    'extraFieldList' => $extraFieldList,
                 ]);
+                $extraData = $this->Cms_Model->getExtraData(['catid' => $catid, 'did' => $id]);
+                $ret = [];
+                if($import==1){
+                    foreach ($this->site as $k => $s) {
+                        if ($extraData) {
+                            foreach ($extraData as $e) {
+                                if ($e['site_id'] == $s['id']) {
+                                    $ret[$k] = $e;
+                                    $ret[$k]['id'] = $e['id'];
+                                } else {
+                                    //只输出站点1的数据
+                                    foreach ($extraData as $f) {
+                                        if ($e['site_id']== 1) {
+                                            $ret[$k] = $f;
+                                            $ret[$k]['site_id'] = $s['id'];
+                                            $ret[$k]['id'] = '';
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $ret[$k]['site_id'] = $s['id'];
+                        }
+                    }
+                }else{
+                    foreach ($this->site as $k => $s) {
+                        if ($extraData) {
+                            foreach ($extraData as $e) {
+                                if ($e['site_id'] == $s['id']) {
+                                    $ret[$k] = $e;
+                                } else {
+                                    $ret[$k]['site_id'] = $s['id'];
+                                }
+                            }
+                        } else {
+                            $ret[$k]['site_id'] = $s['id'];
+                        }
+                    }
+                }
+                $this->view->assign('extra_data', $ret);
                 return $this->fetch();
             } else {
                 return $this->fetch('singlepage');
@@ -400,7 +552,19 @@ class Cms extends Adminbase
                 $priv_catids[] = $_v['catid'];
             }
         }
-        $categorys = Db::name('Category')->order(array('listorder', 'id' => 'ASC'))->select();
+        if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode']) {
+            $sites = cache("Cms_Config")['site'];
+            $site = [];
+            foreach (explode(',', $sites) as $k => $v) {
+                $site[] = "FIND_IN_SET('" . $v . "', site_id)";
+            }
+            if ($site) {
+                $where = "  (" . implode(' OR ', $site) . ")";
+            }
+        }
+
+        $categorys = Db::name('Category')->where($where)->order(array('listorder', 'id' => 'ASC'))->select();
+
         foreach ($categorys as $rs) {
             //剔除无子栏目外部链接
             if ($rs['type'] == 3 && $rs['child'] == 0) {

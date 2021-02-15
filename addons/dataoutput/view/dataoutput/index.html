@@ -1,0 +1,56 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">任务列表</div>
+    <div class="layui-card-body">
+        <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
+    </div>
+</div>
+<script type="text/html" id="barTool">
+	<a href='{:url("output",["isadmin"=>1])}?id={{ d.id }}' class="layui-btn layui-btn-normal layui-btn-xs">导出</a>
+    <a data-open='{:url("edit",["isadmin"=>1])}?id={{ d.id }}' class="layui-btn layui-btn-xs" title="编辑">编辑</a>
+    <a href='{:url("del",["isadmin"=>1])}?ids={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
+</script>
+{/block}
+{block name="script"}
+<script>
+layui.use('yznTable', function() {
+    var table = layui.yznTable;
+
+    var init = {
+        table_elem: '#currentTable',
+        add_url: "{:url('add',['isadmin'=>1])}",
+        delete_url: "{:url('del',['isadmin'=>1])}",
+    };
+
+    table.render({
+        init: init,
+        id: 'currentTable',
+        elem: '#currentTable',
+        toolbar: ['refresh',
+            [{
+                text: '添加',
+                url: init.add_url,
+                method: 'open',
+                icon: 'iconfont icon-add',
+                class: 'layui-btn layui-btn-normal layui-btn-sm',
+            }], 'delete',
+        ],
+        url: '{:url("addons/dataoutput/index",["isadmin"=>1])}',
+        search:false,
+        cols: [
+            [
+                { type: 'checkbox', fixed: 'left' },
+                { field: 'id', width: 80, title: 'ID', sort: true },
+                { field: 'name', title: '任务名称' },
+                { field: 'table', width: 200, title: '数据表' },
+                { field: 'type', width: 100, title: '导出格式' },
+                { field: 'create_time', width: 200, title: '创建时间' },
+                { fixed: 'right', width: 250, title: '操作', toolbar: '#barTool' }
+            ]
+        ],
+    });
+
+});
+</script>
+{/block}

@@ -14,8 +14,10 @@
 // +----------------------------------------------------------------------
 namespace app\links\controller;
 
+use app\cms\model\Site;
 use app\common\controller\Adminbase;
 use app\links\model\Links as LinksModel;
+use app\cms\model\Site as SiteModel;
 use think\Db;
 
 /**
@@ -49,6 +51,9 @@ class Links extends Adminbase
             if (!empty($data['terms']['name'])) {
                 $data['termsid'] = $this->addTerms($data['terms']['name']);
             }
+            //马博添加
+            $data['site_id']  = !empty($data['site_id']) ? implode(',', $data['site_id']) : '';
+            //马博添加 end
             $status = $this->modelClass->allowField(true)->save($data);
             if ($status) {
                 $this->success("添加成功！", url("links/index"));
@@ -58,6 +63,10 @@ class Links extends Adminbase
         } else {
             $Terms = Db::name('Terms')->where(["module" => "links"])->select();
             $this->assign("Terms", $Terms);
+            // 20200620 马博
+            $siteArray = SiteModel::where("status=1")->select()->toArray();
+            $this->assign('siteArray', $siteArray);
+            // 20200620 end 马博
             return $this->fetch();
         }
     }
@@ -81,6 +90,9 @@ class Links extends Adminbase
             if (!empty($data['terms']['name'])) {
                 $data['termsid'] = $this->addTerms($data['terms']['name']);
             }
+            //马博添加
+            $data['site_id']  = !empty($data['site_id']) ? implode(',', $data['site_id']) : '';
+            //马博添加 end
             $status = $this->modelClass->allowField(true)->save($data, ['id' => $data['id']]);
             if ($status) {
                 $this->success("编辑成功！", url("links/index"));
@@ -94,9 +106,16 @@ class Links extends Adminbase
             if (!$data) {
                 $this->error("该信息不存在！");
             }
+            //马博添加
+            $data['site_id'] = explode(',', $data['site_id']);
+            //马博添加 end
             $Terms = Db::name('Terms')->where(["module" => "links"])->select();
             $this->assign("Terms", $Terms);
             $this->assign("data", $data);
+            // 20200620 马博
+            $siteArray = SiteModel::where("status=1")->select()->toArray();
+            $this->assign('siteArray', $siteArray);
+            // 20200620 end 马博
             return $this->fetch();
         }
 

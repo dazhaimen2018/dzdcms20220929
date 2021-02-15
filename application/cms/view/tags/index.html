@@ -15,39 +15,40 @@
 {/block}
 {block name="script"}
 <script>
-layui.use(['yznTable'], function() {
-    var table = layui.yznTable;
+    layui.use(['yznTable'], function() {
+        var table = layui.yznTable;
 
-    var init = {
-        table_elem: '#currentTable',
-        delete_url: "{:url('del')}",
-        modify_url: '{:url("multi")}',
-    };
+        var init = {
+            table_elem: '#currentTable',
+            delete_url: "{:url('del')}",
+            modify_url: '{:url("multi")}',
+        };
 
-    table.render({
-        init: init,
-        id: 'currentTable',
-        toolbar: ['refresh','delete',
-            [{
-                html:'<a class="layui-btn layui-btn-sm layui-btn-warm" href="{:url("create")}"><i class="iconfont icon-warning"></i>&nbsp;数据重建</a>'
-            }],
-        ],
-        url: '{:url("index")}',
-        cols: [
-            [
-                { type: 'checkbox', fixed: 'left' },
-                { field: 'listorder', width: 70, title: '排序', edit: 'text' },
-                { field: 'tag', align: "left", title: 'Tags名称' },
-                { field: 'usetimes', width: 100, title: '信息总数' },
-                { field: 'hits', width: 100, title: '点击量' },
-                { field: 'url',width: 60,align:"center", title: 'URL',templet:table.url},
-                { field: 'create_time', width: 180, title: '创建时间', search: 'range' },
-                { field: 'update_time', width: 180, title: '更新时间', search: 'range' },
-                { fixed: 'right', width: 150, title: '操作', toolbar: '#barTool' }
-            ]
-        ],
-        page: {}
+        table.render({
+            init: init,
+            id: 'currentTable',
+            toolbar: ['refresh','delete',
+                [{
+                    html:'<a class="layui-btn layui-btn-sm layui-btn-warm" href="{:url("create")}"><i class="iconfont icon-warning"></i>&nbsp;数据重建</a>'
+                }],
+            ],
+            url: '{:url("index")}',
+            cols: [
+                [
+                    { type: 'checkbox', fixed: 'left' },
+                    { field: 'listorder', width: 70, title: '排序', edit: 'text' },
+                    { field: 'tag', align: "left", title: 'Tags名称' },
+                    { field: 'tagdir', align: "left", width: 200, title: '拼音' },
+                    { field: 'usetimes', width: 100, title: '信息总数' },
+                    { field: 'hits', width: 100, title: '点击量' },
+                    { field: 'url',width: 60,align:"center", title: 'URL',templet:table.url},
+                    { field: 'create_time', width: 180, title: '创建时间', search: 'range' },
+                    { field: 'update_time', width: 180, title: '更新时间', search: 'range' },
+                    { fixed: 'right', width: 150, title: '操作', toolbar: '#barTool' }
+                ]
+            ],
+            page: {}
+        });
     });
-});
 </script>
 {/block}

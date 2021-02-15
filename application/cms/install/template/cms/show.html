@@ -38,6 +38,30 @@ body {
                             </div>
                             {/eq}
                         </div>
+                        <!--tags-->
+                        <div class="whitebg">
+                            <h2 class="htitle">tags</h2>
+                            <ul class="otherlink">
+                                {notempty name="tags"}
+                                {volist name=":explode(',',$tags)" id="vo"}
+                                <a class="labelList" href="{:url('cms/index/tags',['tagdir'=>tagurl($vo)])}">{$vo}</a>
+                                {/volist}
+                                {/notempty}
+                            </ul>
+                        </div>
+                        <!--相关文章-->
+                        <div class="whitebg">
+                            <h2 class="htitle">相关文章</h2>
+                            <ul class="otherlink">
+                                {yzn module="cms" action="tags" tag="$tags" siteId="$site_id" where="" order="listorder ASC" num="10"
+                                return="data"}
+                                {volist name="data" id="vo"}
+                                <li><a href="{$vo.url}" title="{$vo.title}">{$vo.title}</a></li>
+                                {/volist}
+                                {/yzn}
+
+                            </ul>
+                        </div>
                         <div class="viewpage">
                             <div class="main_r_nav">
                                 {yzn module="cms" action="pre" catid="$catid" id="$id" cache="3600" return="data"}

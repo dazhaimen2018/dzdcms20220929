@@ -1,0 +1,97 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+<!--<link rel="stylesheet" href="__STATIC__/modules/webim/css/admin-style.css">-->
+<link rel="stylesheet" href="__STATIC__/modules/webim/css/webim.css">
+<style type="text/css">
+.childrenBody{background-color: #fff;padding: 0;}
+.chat-left {position: absolute; left: 0; top: 0; width: 70%; height: 100%; float: left; border-right: 1px solid #e2e2e2; }
+.layui-nav-item {
+    height: 50px;
+    padding: 10px 0px 0px 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #fff;
+}
+.layui-nav-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+}
+.user-name {
+    width: 80px;
+    display: inline-block;
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    top: 5px;
+    left: 10px;
+}
+.active {
+    background: #c2c2c2;
+    color: white;
+}
+</style>
+<div class="layui-side" style="background:#f2f2f2">
+    <div class="layui-side-scroll">
+        <blockquote class="layui-elem-quote layui-bg-cyan" style="color: white">正在咨询的会员</blockquote>
+        <ul class="layui-unselect" id="user_list">
+        </ul>
+    </div>
+</div>
+<div class="layui-body" style="bottom:0">
+	<input type="hidden" id="active-user" data-avatar="" data-name="" data-id=""><!-- 当前对话的用户 -->
+    <div class="chat-left">
+        <div class="workarea">
+            <div id="webim-chat-list" class="webim-chat-main chat-box">
+                
+            </div>
+            <div class="webim-chat-footer">
+                <div class="layui-unselect webim-chat-tool" >
+                    <span class="layui-icon webim-tool-face" title="选择表情" webim-event="face"></span>
+                    <span class="layui-icon webim-tool-image" title="上传图片"><input type="file" name="file"></span>
+                    <span class="layui-icon webim-tool-image" title="发送文件"><input type="file" name="file"></span>
+                </div>
+                <div  class="webim-chat-textarea"><textarea id="msg-area" class="edit-ipt"></textarea></div>
+                <div class="webim-chat-bottom">
+                    <div class="webim-chat-send">
+                        <!--<span class="webim-send-close">关闭</span>-->
+                        <span class="webim-send-btn" id="send">发送</span>
+                        <span class="webim-send-set" layim-event="setSend" lay-type="show"><em class="layui-edge"></em></span>
+                        <ul class="layui-anim webim-menu-box">
+                            <li class="webim-this"  layim-event="setSend" lay-type="Enter"><i class="layui-icon"></i>按Enter键发送消息</li>
+                            <li  layim-event="setSend" lay-type="Ctrl+Enter"><i class="layui-icon"></i>按Ctrl+Enter键发送消息</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="layui"}
+<script type="text/javascript">
+layui.config({
+    version: '155714399890',
+    base: '__STATIC__/modules/webim/js/'
+}).extend({
+    webim: 'webim/webimAdmin',
+    websocket: 'webim/websocket',
+});
+layui.use('webim', function () {
+	var webim = layui.webim;
+	webim.render({
+		domain: document.domain
+	});
+})
+</script>
+<!--<script type="text/javascript">
+    var host = document.domain;
+    var uid = "2";
+    var uname = "客服小美";
+    var avatar = "";
+    var group = "1";
+    var socket_server = host + ':8282';
+</script>
+<script type="text/javascript" src="__STATIC__/modules/webim/js/admin-kefu.js"></script>-->
+{/block}

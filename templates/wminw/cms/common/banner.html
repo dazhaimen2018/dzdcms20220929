@@ -1,0 +1,37 @@
+ <div class="banner">
+	{if $banner}	
+	<picture>
+	  <source srcset="{$banner}" media="(max-width: 48em)">
+	  <img class="img-responsive" srcset="{$banner}"> 
+	</picture>
+	<div class="banner_txt">
+	  <div class="DIV">
+		<div class="banner_txt1">{$title}</div>
+		<div class="banner_txt2">{$description}</div>
+	  </div>
+	</div>
+	{elseif $top_parentid}
+	 <picture>
+		<source srcset="{:getCategory($top_parentid,'image')}" media="(max-width: 48em)">
+		<img class="img-responsive" srcset="{:getCategory($top_parentid,'image')}"> 
+	 </picture>
+	 <video src="/static/wminw/video/view.mp4" autoplay loop></video>
+	  <div class="banner_txt">
+		<div class="DIV">
+			<div class="banner_txt1">{:getCategory($top_parentid,'catname')}</div>
+			<div class="banner_txt2">{:getCategory($top_parentid,'description')}</div>
+		</div>
+	  </div>
+	{else}
+	<picture>
+		<source srcset="{:getCategory(1,'image')}" media="(max-width: 48em)">
+		<img class="img-responsive" srcset="{:getCategory(1,'image')}"> 
+	  </picture>
+	  <div class="banner_txt">
+		<div class="DIV">
+		  <div class="banner_txt1"> </div>
+		  <div class="banner_txt2"> </div>
+		</div>
+	  </div>
+	{/if}
+</div>

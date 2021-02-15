@@ -26,7 +26,7 @@ body {
 <body>
     <div id="mydiv">
         <div class="login-main">
-            <div class="layui-elip">YZNCMS管理系统&nbsp;<span class="version">v{$Think.config.version.yzncms_version}</span><span class="bg1"></span><span class="bg2"></span></div>
+            <div class="layui-elip">{:config('system_name')}管理系统&nbsp;<span class="version">v{$Think.config.version.yzncms_version}</span><span class="bg1"></span><span class="bg2"></span></div>
             <form class="layui-form" action="{:url('login')}">
                 <div class="layui-form-item">
                     {:token()}
@@ -50,6 +50,9 @@ body {
                     <div class="layui-input-inline login-btn">
                         <button class="layui-btn layui-btn-normal" lay-submit>登录</button>
                     </div>
+
+                       <div class="layui-text">QQ客服：8355763，QQ群：712780220</div>
+
                 </div>
             </form>
         </div>

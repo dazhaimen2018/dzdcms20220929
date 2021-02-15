@@ -1,0 +1,47 @@
+<div class="sidebar layui-col-md3 layui-col-lg3">
+
+    <div class="component layui-hide-xs">
+        <form class="layui-form" id="search" method="post" action="/search.html" role="search">
+            <div class="layui-inline input">
+                <input type="text" id="s" name="keyword" class="layui-input" required="" lay-verify="required" placeholder="输入关键字搜索">
+                <input type="hidden" name="modelid" value="1" />
+            </div>
+            <div class="layui-inline">
+                <button class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon layui-icon-search"></i></i></button>
+            </div>
+        </form>
+    </div>
+    <div class="column">
+        <h3 class="title-sidebar"><i class="layui-icon iconfont iconmenu"></i> {:getCategory($top_parentid,'catname')}</h3>
+        <ul class="layui-row layui-col-space5">
+            {yzn module="cms" action="category" catid="$top_parentid" cache="3600" order="listorder ASC" num="10" return="data"}
+            {foreach $data as $key=>$vo }
+            <li class="layui-col-md12 layui-col-xs6 {if $vo['id']==$catid}class="active"{/if}"><a href="{$vo.url}"><i class="layui-icon"></i> {$vo.catname}<span class="layui-badge layui-bg-gray">{$vo.items}</span></a></li>
+            {/foreach}
+            {/yzn}
+        </ul>
+    </div>
+    <div class="dynamic">
+        <h3 class="title-sidebar"><i class="layui-icon iconfont icondongtai"></i></i>最新动态 ~ </h3>
+        <ul>
+            {yzn module="cms" action="lists" catid="$catid" cache="3600" order="inputtime DESC" num="10" return="data"}
+            {volist name="data" id="item"}
+            <li><span class="layui-badge-dot layui-bg-gray"></span>
+                <p><a href="{$item.url}">{$item.title}</a><small>{$item.description}</small></p>
+            </li>
+            {/volist}
+            {/yzn}
+        </ul>
+    </div>
+    <div class="tags">
+        <h3 class="title-sidebar"><i class="layui-icon iconfont iconbiaoqian"></i>标签云</h3>
+        <div>
+            <a class="layui-btn layui-btn-xs layui-btn-primary tag-style-1" href="/tag.html" title="全部">#全部</a>
+            {yzn module="cms" action="tags" tags="$tags" order="listorder ASC" num="10"  return="data"}
+            {volist name="data" id="vo"}
+            <a class="layui-btn layui-btn-xs layui-btn-primary tag-style-{$i}" href="{$vo.url}" title="yzncms">{$vo.name}</a>
+            {/volist}
+            {/yzn}
+        </div>
+    </div>
+</div>

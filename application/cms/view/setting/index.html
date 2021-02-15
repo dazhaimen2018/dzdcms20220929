@@ -1,7 +1,7 @@
 {extend name="admin@index_layout"/}
 {block name="main"}
 <div class="layui-card">
-    <div class="layui-card-header">CMS配置</div>
+    <div class="layui-card-header"><i class="iconfont icon-setup"></i> CMS配置</div>
     <div class="layui-card-body">
         <form class="layui-form" method="post">
             <div class="layui-tab">
@@ -12,44 +12,71 @@
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
                         <div class="layui-form-item">
-                            <label  class="layui-form-label">站点开关</label>
-                            <div class="layui-input-inline w300">
-                                <input type="checkbox" name="setting[web_site_status]" lay-skin="switch" lay-text="ON|OFF" value="1" {if 1==$setting['web_site_status']}checked{/if}> </div> <div class="layui-form-mid layui-word-aux">站点关闭后前台将不能访问</div>
+                            <label>站点开关</label>
+                            <div class="layui-form-field-label">
+                                <input type="checkbox" name="setting[web_site_status]" lay-skin="switch" lay-text="ON|OFF" value="1" {if 1==$setting['web_site_status']}checked{/if}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">站点关闭后前台将不能访问</div>
                         </div>
                         <div class="layui-form-item">
-                            <label  class="layui-form-label">URL模式</label>
-                            <div class="layui-input-inline w300">
+                            <label>站点引导页</label>
+                            <div class="layui-form-field-label">
+                                <input type="checkbox" name="setting[web_site_guide]" lay-skin="switch" lay-text="ON|OFF" value="1" {if 1==$setting['web_site_guide']}checked=''{/if}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">站点引导页关闭后前台将不能访问引导页</div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label title="开启同步后，在管理分站内容和单页时可手动导入主站数据">数据同步</label>
+                            <div class="layui-form-field-label">
+                                <input type="checkbox" name="setting[data_import]" lay-skin="switch" lay-text="ON|OFF" value="1" {if 1==$setting['data_import']}checked=''{/if}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">数据同步主要用在城市站和站群中，多语言站不太适合</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label title="栏目图标直接上传图片选2；用iconfont或layui字休图片选1">栏目图标</label>
+                            <div class="layui-form-field-label">
+                                <input type="radio" name="setting[icon_mode]" value="1" title="图片" {if 1==$setting['icon_mode']}checked{/if}>
+                                <input type="radio" name="setting[icon_mode]" value="2" title="字体" {if 2==$setting['icon_mode']}checked{/if}>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label title="前端栏目和文章的网址模式">URL模式</label>
+                            <div class="layui-form-field-label">
                                 <input type="radio" name="setting[site_url_mode]" value="1" title="数字" {if 1==$setting['site_url_mode']}checked{/if}>
                                 <input type="radio" name="setting[site_url_mode]" value="2" title="标识" {if 2==$setting['site_url_mode']}checked{/if}>
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label  class="layui-form-label">站点名称</label>
-                            <div class="layui-input-inline w300">
-                                <input type="text" name="setting[site_name]" placeholder="请输入站点标题" class="layui-input" value="{$setting['site_name']}">
+                            <label title="文章和单页发布和修改模式">发布模式</label>
+                            <div class="layui-form-field-label">
+                                <input type="radio" name="setting[publish_mode]" value="1" title="多站" {if 1==$setting['publish_mode']}checked{/if}>
+                                <input type="radio" name="setting[publish_mode]" value="2" title="单站" {if 2==$setting['publish_mode']}checked{/if}>
                             </div>
+                            <div class="layui-form-mid layui-word-aux">模型附表中如果增加了很多图片、多图，单选或多选或多编辑器字段的多站模式不正常，请选单站</div>
+                        </div>
+                        {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
+                        <div class="layui-form-item">
+                            <label title="栏目和碎片发布和修改模式">栏目模式</label>
+                            <div class="layui-form-field-label">
+                                <input type="radio" name="setting[category_mode]" value="1" title="多站" {if 1==$setting['category_mode']}checked{/if}>
+                                <input type="radio" name="setting[category_mode]" value="2" title="单站" {if 2==$setting['category_mode']}checked{/if}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">全站模式发布和修改时，所有站同时必须编辑；单站模式一次只能管理一个站！</div>
                         </div>
                         <div class="layui-form-item">
-                            <label  class="layui-form-label">站点标题</label>
-                            <div class="layui-input-inline w300">
-                                <input type="text" name="setting[site_title]" placeholder="请输入站点标题" class="layui-input" value="{$setting['site_title']}">
+                            <label title="单站模式时必须要选一个">切换站点 <font color="red">*</font></label>
+                            <div class="layui-form-field-label">
+                                {volist name="siteArray" id="vo"}
+                                <input type="radio" name="setting[site]" value="{$vo.id}" title="{$vo.name}" {if $vo['id']==$setting['site']}checked{/if}>
+                                {/volist}
                             </div>
+                            <div class="layui-form-mid layui-word-aux">1、只有发布模式选了单站时才有效；2、多人同时作业时，只能针对同一个站！</div>
                         </div>
+                        {/if}
                         <div class="layui-form-item">
-                            <label  class="layui-form-label">站点关键词</label>
-                            <div class="layui-input-inline w300">
-                                <input type="text" name="setting[site_keyword]" placeholder="请输入站点关键词" class="layui-input" value="{$setting['site_keyword']}">
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label  class="layui-form-label">站点描述</label>
-                            <div class="layui-input-inline w300">
-                                <textarea name="setting[site_description]" placeholder="请输入站点描述" class="layui-textarea">{$setting['site_description']}</textarea>
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label  class="layui-form-label">缓存时间</label>
-                            <div class="layui-input-inline w300">
+                            <label>缓存时间</label>
+                            <div class="layui-form-field-label">
                                 <input type="text" name="setting[site_cache_time]" placeholder="请输入缓存时间" class="layui-input" value="{$setting['site_cache_time']}">
                             </div>
                             <div class="layui-form-mid layui-word-aux">单页和详情页有效</div>
@@ -57,51 +84,95 @@
                     </div>
                     <div class="layui-tab-item">
                         <div class="layui-form-item">
-                            <label  class="layui-form-label">回收站</label>
-                            <div class="layui-input-inline w300">
+                            <label>回收站</label>
+                            <div class="layui-form-field-label">
                                 <input type="checkbox" name="setting[web_site_recycle]" lay-skin="switch" lay-text="ON|OFF" value="1" {if 1==$setting['web_site_recycle']}checked='' {/if}> </div> <div class="layui-form-mid layui-word-aux">开启后，误删的文章可以恢复,反之不可还原</div>
                         </div>
                         <div class="layui-form-item">
-                            <label  class="layui-form-label">站长推送</label>
-                            <div class="layui-input-inline w300">
+                            <label>百度熊掌号+百度站长推送</label>
+                            <div class="layui-form-field-label">
                                 <input type="checkbox" name="setting[web_site_baidupush]" lay-skin="switch" lay-text="ON|OFF" value="1" {if 1==$setting['web_site_baidupush']}checked='' {/if}> </div> <div class="layui-form-mid layui-word-aux">如果开启百度熊掌+百度站长推送，将在文章发布时自动进行推送(需要安装推送插件)</div>
                         </div>
                         <div class="layui-form-item">
-                            <label  class="layui-form-label">中文分词</label>
-                            <div class="layui-input-inline w300">
+                            <label>中文分词</label>
+                            <div class="layui-form-field-label">
                                 <input type="checkbox" name="setting[web_site_getwords]" lay-skin="switch" lay-text="ON|OFF" value="1" {if 1==$setting['web_site_getwords']}checked='' {/if}> </div> <div class="layui-form-mid layui-word-aux">开启后，会将内容分词提取到关键词中(需要安装中文分词插件)</div>
                         </div>
                         <div class="layui-form-item">
-                            <label  class="layui-form-label">关键字链接</label>
-                            <div class="layui-input-inline w300">
+                            <label>关键字链接</label>
+                            <div class="layui-form-field-label">
                                 <textarea name="setting[autolinks]" placeholder="请输入关键字链接" class="layui-textarea" style="width: 300px;">{$setting['autolinks']}</textarea>
                             </div>
                             <div class="layui-form-mid layui-word-aux">每行1组以"关键词<b class="text-danger">|</b>(半角竖线)链接"形式填写, 可用第2个竖线追加参数:<b class="text-danger">n</b>代表nofollow标记, <b class="text-danger">e</b>代表external nofollow标记, <b class="text-danger">b</b>代表本窗口打开.</br> 例: google<strong>|</strong>http://www.google.com<strong>|</strong>n 即此链接带nofollow(默认新窗口打开)</div>
                         </div>
                         <div class="layui-form-item">
-                            <label  class="layui-form-label"></label>
-                            <div class="layui-input-inline w300">
-                                <div class="layui-form-mid layui-word-aux">违禁词库位于<b class="text-danger">data/words.txt</b>一行一个</div>
-                            </div>
+                            <div class="layui-form-mid layui-word-aux">违禁词库位于<b class="text-danger">data/words.txt</b>一行一个</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="layui-form-item layer-footer">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit data-refresh="false">立即提交</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                <button class="layui-btn iconfont icon-send" lay-submit="" data-refresh="false"> 立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary iconfont icon-trash"> 重置</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
+<div class="layui-card">
+
+    <div class="layui-card-header"><i class="iconfont icon-systemprompt"></i> 重要提示</div>
+    <div class="layui-card-body">
+        <div class="layui-collapse" lay-accordion="">
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">1、编辑单页或文章时没有站点标签页。<i class="layui-icon layui-colla-icon"></i></h2>
+                <div class="layui-colla-content layui-show">
+                    <p>出现原因：主要是发布模式选了单站，可切换站点并没有选站</p>
+                    <p>解决办法：切换站点选一个站就可以啦！</p>
+                </div>
+            </div>
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">2、数据同步有什么用？<i class="layui-icon layui-colla-icon"></i></h2>
+                <div class="layui-colla-content">
+                    <p>编辑分站时，如果想导入主站数据进行参考修改时，可开启数据同步，这样在编辑一个或多个分站时就可以导入主站数据</p>
+                    <p>数据同步，目前只对文章和单页，单独编辑主站时不显示，只有在编辑分站或多站一起编辑时才显示</p>
+                </div>
+            </div>
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">3、URL模式有什么区别？<i class="layui-icon layui-colla-icon"></i></h2>
+                <div class="layui-colla-content">
+                    <p>数字模式 栏目URL为：域名/lists/栏目ID.html；文章URL为：域名/shows/文章ID.html</p>
+                    <p>标识模式 栏目URL为：域名/栏目英文标识.html；文章URL为：域名/栏目英文标识/文章ID.html</p>
+                </div>
+            </div>
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">4、缓存时间可以修改吗？前端为什么不能马上看到我修改的内容？<i class="layui-icon layui-colla-icon"></i></h2>
+                <div class="layui-colla-content">
+                    <p>建议不要修改、前端和后端所有数据都存在缓存中、如果后台修改了内容、想在前端立即看到效果，请点击右上角的“一键清理缓存”，不然要等到过了上面的缓存时间后才能看到修改的效果</p>
+                </div>
+            </div>
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">5、栏目图标如果用不着，可设置为字体，然后用于栏目的其他参数输入<i class="layui-icon layui-colla-icon"></i></h2>
+                <div class="layui-colla-content">
+                    <p>1、有一些网站根本不需要栏目图标，可是需要增加一个栏目其他参数时，设置为字体，就可以当做一个输入框了。2、如果用系统自带的字体，可直接输入 layui-icon layui-icon-shrink-right这样的格式</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {/block}
 {block name="script"}
+
 <script type="text/javascript">
-layui.use('yznForm', function() {
-    var yznForm = layui.yznForm;
-    yznForm.listen();
-});
+    layui.use('yznForm', function() {
+        var yznForm = layui.yznForm;
+
+        yznForm.listen('', function (res) {
+            layer.msg("更新成功！",{icon: 1});
+            setTimeout('window.location.reload()',1000);
+        });
+    });
+
 </script>
 {/block}

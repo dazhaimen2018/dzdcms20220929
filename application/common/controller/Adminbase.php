@@ -30,6 +30,8 @@ class Adminbase extends Base
     //当前登录账号信息
     public $_userinfo;
     public $rule;
+    // 20200620 马博增加
+    public $siteId;
     //Multi方法可批量修改的字段.
     protected $multiFields = 'status,listorder';
     //模型对象
@@ -78,6 +80,15 @@ class Adminbase extends Base
                     }
                 }
             }
+            // 判断是否有登录权 20200617 马博
+            $domain = $_SERVER['HTTP_HOST'];
+            $authDomain = config('admin_domain');
+            if ($authDomain) {
+                if (strpos($domain, $authDomain) === false) {
+                    $this->error("地址错误", url('cms/index/index'));
+                }
+            }
+            // 判断是否有登录权 end 20200617 马博
 
             // 判断是否需要验证权限
             if (false == $this->competence()) {
@@ -92,6 +103,18 @@ class Adminbase extends Base
                 }
             }
         }
+        // 20200620 马博
+        $siteId = 1;
+        if (isset($_GET['site_id']) && !empty($_GET['site_id'])) {
+            $siteId = intval($_GET['site_id']);
+            setSiteId($siteId);
+        }
+//        if (getSiteId()) {
+//            $siteId = getSiteId();
+//        }
+        $this->siteId = $siteId;
+        $this->view->assign('siteId', $siteId);
+        // 20200620 马博 end
     }
 
     public function match($arr = [])

@@ -24,6 +24,7 @@ use \think\Model;
 class Category extends Model
 {
     public $categorys;
+
     public static function init()
     {
         $cmsConfig = cache("Cms_Config");
@@ -62,7 +63,7 @@ class Category extends Model
         }
         $catid = $data['id'];
         //栏目类型
-        $data['type'] = (int) $data['type'];
+        $data['type'] = (int)$data['type'];
 
         //查询该栏目是否存在
         $info = self::where(array('id' => $catid))->find();
@@ -120,15 +121,16 @@ class Category extends Model
             }
         }
         self::where('id', $catid)->delete();
+        CategoryData::where('catid', $catid)->delete();
         return true;
     }
 
     /**
      *
      * 获取父栏目ID列表
-     * @param integer $catid              栏目ID
-     * @param array $arrparentid          父目录ID
-     * @param integer $n                  查找的层次
+     * @param integer $catid 栏目ID
+     * @param array $arrparentid 父目录ID
+     * @param integer $n 查找的层次
      */
     public function get_arrparentid($catid, $arrparentid = '', $n = 1)
     {
@@ -187,5 +189,4 @@ class Category extends Model
         cache("Category", $CategoryIds);
         return $CategoryIds;
     }
-
 }

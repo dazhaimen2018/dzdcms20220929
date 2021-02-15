@@ -20,78 +20,75 @@ use think\Db;
 
 class Tags extends Adminbase
 {
-    protected function initialize()
-    {
-        parent::initialize();
-        $this->modelClass = new TagsModel;
-    }
+	protected function initialize()
+	{
+		parent::initialize();
+		$this->modelClass = new TagsModel;
+	}
 
-    /**
-     * tags列表
-     */
-    public function index()
-    {
-        if ($this->request->isAjax()) {
-            list($page, $limit, $where) = $this->buildTableParames();
-            $_list = $this->modelClass->where($where)->order(['listorder', 'id' => 'desc'])->page($page, $limit)->select();
-            foreach ($_list as $k => &$v) {
-                $v['url'] = url('cms/index/tags', ['tag' => $v['tag']]);
-            }
-            unset($v);
-            $total = $this->modelClass->where($where)->count();
-            $result = array("code" => 0, "count" => $total, "data" => $_list);
-            return json($result);
-        }
-        return $this->fetch();
+	/**
+	 * tags列表
+	 */
+	public function index()
+	{
+		if ($this->request->isAjax()) {
+			list($page, $limit, $where) = $this->buildTableParames();
+			$_list = $this->modelClass->where($where)->order(['listorder', 'id' => 'desc'])->page($page, $limit)->select();
+			foreach ($_list as $k => &$v) {
+				$v['url'] = url('cms/index/tags', ['tagdir' => $v['tagdir']]); //url连接tag修改为拼音tagdir
+			}
+			unset($v);
+			$total = $this->modelClass->where($where)->count();
+			$result = array("code" => 0, "count" => $total, "data" => $_list);
+			return json($result);
+		}
+		return $this->fetch();
+	}
 
-    }
+	/**
+	 * tags编辑
+	 */
+	public function edit()
+	{
+		if ($this->request->isPost()) {
+			$data = $this->request->post();
+			if ($this->modelClass->save($data, ['id' => $data['tagid']]) !== false) {
+				if ($data['oldtagsname'] != $data['tag']) {
+					model('TagsContent')->save(['tag' => $data['tag']], ['tag' => $data['oldtagsname']]);
+				}
+				$this->success('修改成功！');
+			}
+			$this->success('修改失败！');
+		} else {
+			$id = $this->request->param('id/d', 0);
+			if (empty($id)) {
+				$this->error('请指定需要修改的tags！');
+			}
+			$data = TagsModel::get($id);
+			$this->assign('data', $data);
+			return $this->fetch();
+		}
+	}
 
-    /**
-     * tags编辑
-     */
-    public function edit()
-    {
-        if ($this->request->isPost()) {
-            $data = $this->request->post();
-            if ($this->modelClass->save($data, ['id' => $data['tagid']]) !== false) {
-                if ($data['oldtagsname'] != $data['tag']) {
-                    model('TagsContent')->save(['tag' => $data['tag']], ['tag' => $data['oldtagsname']]);
-                }
-                $this->success('修改成功！');
-            }
-            $this->success('修改失败！');
-
-        } else {
-            $id = $this->request->param('id/d', 0);
-            if (empty($id)) {
-                $this->error('请指定需要修改的tags！');
-            }
-            $data = TagsModel::get($id);
-            $this->assign('data', $data);
-            return $this->fetch();
-        }
-
-    }
-
-    /**
-     * tags删除
-     */
-    public function del()
-    {
-        $tagid = $this->request->param('ids/a', null);
-        if (!is_array($tagid)) {
-            $tagid = array($tagid);
-        }
-        foreach ($tagid as $tid) {
-            $info = $this->modelClass->where(array('id' => $tid))->find();
-            if (!empty($info)) {
-                if ($this->modelClass->where(array('tag' => $info['tag']))->delete() !== false) {
-                    model('TagsContent')->where(array('tag' => $info['tag']))->delete();
-                }
-            }
-        }
-        $this->success("删除成功！");
-    }
+	/**
+	 * tags删除
+	 */
+	public function del()
+	{
+		$tagid = $this->request->param('ids/a', null);
+		if (!is_array($tagid)) {
+			$tagid = array($tagid);
+		}
+		foreach ($tagid as $tid) {
+			$info = $this->modelClass->where(array('id' => $tid))->find();
+			if (!empty($info)) {
+				if ($this->modelClass->where(array('tag' => $info['tag']))->delete() !== false) {
+					model('TagsContent')->where(array('tag' => $info['tag']))->delete();
+				}
+			}
+		}
+		$this->success("删除成功！");
+	}
 
     //tags数据重建
     public function create()
@@ -199,10 +196,7 @@ class Tags extends Adminbase
     //数据重建
     protected function createUP($models_v, $firstRow, $mlun)
     {
-        $keywords = Db::name(ucwords($models_v['tablename']))->where([
-            ["status", '=', 1],
-            ['tags', '<>', ''],
-        ])->order("id", "ASC")->limit($firstRow, $mlun)->column('id,catid,tags');
+        $keywords = Db::name(ucwords($models_v['tablename'].'_data'))->where([['tags', '<>', ''],])->order("id", "ASC")->limit($firstRow, $mlun)->column('id,did,site_id,tags');
         foreach ($keywords as $keyword) {
             $data = array();
             $time = time();
@@ -216,23 +210,52 @@ class Tags extends Adminbase
                     $this->modelClass->where('tag', $key_v)->setInc('usetimes');
                 } else {
                     $this->modelClass->insert(array(
-                        "tag" => $key_v,
-                        "usetimes" => 1,
+                        "tag"         => $key_v,
+                        "site_id"     => $keyword['site_id'],
+                        "usetimes"    => 1,
                         "create_time" => $time,
                         "update_time" => $time,
+                        "tagdir"      =>  $this->get_tagpinyin($key_v),
                     ));
                 }
+
+                $catid = Db::name(ucwords($models_v['tablename']))->where('id',$keyword['did'])->value('catid');
                 $data = array(
                     'tag' => $key_v,
                     "modelid" => $models_v['id'],
-                    "contentid" => $keyword['id'],
-                    "catid" => $keyword['catid'],
+                    "contentid" => $keyword['did'],
+                    "catid" => $catid,
+                    "site_id" => $keyword['site_id'],
                     "updatetime" => $time,
                 );
                 Db::name('TagsContent')->insert($data);
             }
         }
         return true;
+    }
+
+    //获取栏目的拼音  这个重复了，优化一下
+    private function get_tagpinyin($catname = '', $tagdir = '', $id = 0)
+    {
+        $pinyin = new \Overtrue\Pinyin\Pinyin('Overtrue\Pinyin\MemoryFileDictLoader');
+        if (empty($tagdir)) {
+            $tagdir = $pinyin->permalink($catname, '');
+        }
+        if (strval(intval($tagdir)) == strval($tagdir)) {
+            $tagdir .= genRandomString(3);
+        }
+        $map = [
+            ['tagdir', '=', $tagdir],
+        ];
+        if (intval($id) > 0) {
+            $map[] = ['id', '<>', $id];
+        }
+        $result = Db::name('tags')->field('id')->where($map)->find();
+        if (!empty($result)) {
+            $nowDirname = $tagdir . genRandomString(3);
+            return $this->get_tagpinyin($catname, $nowDirname, $id);
+        }
+        return $tagdir;
     }
 
 }

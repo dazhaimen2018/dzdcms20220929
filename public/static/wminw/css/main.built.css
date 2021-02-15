@@ -1,0 +1,176 @@
+﻿body{font-size:14px;line-height:1.4446;font-weight:400;letter-spacing:0em;background-color:#fff;color:#333;font-style:normal}
+body:lang(zh){font-size:14px;line-height:1.82353}
+body,input,textarea,select,button{font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-moz-font-feature-settings:'liga','kern';direction:ltr;}
+ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,hgroup,p,blockquote,figure,form,fieldset,input,legend,pre,abbr,button{margin:0;padding:0}
+button{background:none;border:0;-moz-box-sizing:content-box;box-sizing:content-box;color:inherit;cursor:pointer;font:inherit;line-height:inherit;overflow:visible;vertical-align:inherit}
+button:disabled{cursor:default}
+a:focus,input:focus,textarea:focus,select:focus,button:focus,[tabindex]:focus{outline:3px solid #c1e0fe;outline:3px solid rgba(131,192,253,0.5);outline-offset:1px}
+h6,hgroup,p,blockquote,figure,form,fieldset,input,legend,pre,abbr,button{margin:0;padding:0;}
+@font-face{font-family:'Apple Icons';font-style:normal;font-weight:100;src:local('☺︎'),url("../fonts/appleicons_ultralight.html") format("woff"),url("../fonts/appleicons_ultralight-2.html") format("truetype");/* © Copyright 2015 Apple Inc. All rights reserved. */
+}
+@font-face{font-family:'Apple Icons 100';src:url("../fonts/appleicons_ultralight-3.html");/* © Copyright 2015 Apple Inc. All rights reserved. */
+}
+@font-face{font-family:'Apple Icons';font-style:normal;font-weight:200;src:local('☺︎'),url("../fonts/appleicons_thin.html") format("woff"),url("../fonts/appleicons_thin-2.html") format("truetype");/* © Copyright 2015 Apple Inc. All rights reserved. */
+}
+@font-face{font-family:'Apple Icons 200';src:url("../fonts/appleicons_thin-3.html");/* © Copyright 2015 Apple Inc. All rights reserved. */
+}
+@font-face{font-family:'Apple Icons';font-style:normal;font-weight:300;src:local('☺︎'),url("../fonts/appleicons_thin.html") format("woff"),url("../fonts/appleicons_thin-2.html") format("truetype");/* © Copyright 2015 Apple Inc. All rights reserved. */
+}
+@font-face{font-family:'Apple Icons 300';src:url("../fonts/appleicons_thin-3.html");/* © Copyright 2015 Apple Inc. All rights reserved. */
+}
+@font-face{font-family:'Apple Icons';font-style:normal;font-weight:500;src:local('☺︎'),url("../fonts/appleicons_text.woff") format("woff"),url("../fonts/appleicons_text.html") format("truetype");/* © Copyright 2015 Apple Inc. All rights reserved. */
+}
+@font-face{font-family:'Apple Icons 500';src:url("../fonts/appleicons_text-2.html");/* © Copyright 2015 Apple Inc. All rights reserved. */
+}
+@font-face{font-family:'Apple Icons';font-style:normal;font-weight:600;src:local('☺︎'),url("../fonts/appleicons_text.woff") format("woff"),url("../fonts/appleicons_text.html") format("truetype");/* © Copyright 2015 Apple Inc. All rights reserved. */
+}
+@font-face{font-family:'Apple Icons 600';src:url("../fonts/appleicons_text-2.html");/* © Copyright 2015 Apple Inc. All rights reserved. */
+}
+@font-face{font-family:'Apple Icons';font-style:normal;font-weight:700;src:local('☺︎'),url("../fonts/appleicons_text.woff") format("woff"),url("../fonts/appleicons_text.html") format("truetype");/* © Copyright 2015 Apple Inc. All rights reserved. */
+}
+@font-face{font-family:'Apple Icons 700';src:url("../fonts/appleicons_text-2.html");/* © Copyright 2015 Apple Inc. All rights reserved. */
+}
+@font-face{font-family:'Apple Icons';font-style:normal;font-weight:800;src:local('☺︎'),url("../fonts/appleicons_text.woff") format("woff"),url("../fonts/appleicons_text.html") format("truetype");/* © Copyright 2015 Apple Inc. All rights reserved. */
+}
+@font-face{font-family:'Apple Icons 800';src:url("../fonts/appleicons_text-2.html");/* © Copyright 2015 Apple Inc. All rights reserved. */
+}
+@font-face{font-family:'Apple Icons';font-style:normal;font-weight:900;src:local('☺︎'),url("../fonts/appleicons_text.woff") format("woff"),url("../fonts/appleicons_text.html") format("truetype");/* © Copyright 2015 Apple Inc. All rights reserved. */
+}
+@font-face{font-family:'Apple Icons 900';src:url("../fonts/appleicons_text-2.html");/* © Copyright 2015 Apple Inc. All rights reserved. */
+}
+@font-face{font-family:'Apple Icons';font-style:normal;font-weight:400;src:url("../fonts/appleicons_text-2.html");src:local('☺︎'),url("../fonts/appleicons_text.woff") format("woff"),url("../fonts/appleicons_text.html") format("truetype");/* © Copyright 2015 Apple Inc. All rights reserved. */
+}
+/* .gallery_shadow{position:absolute;left:0;top:0;width:100%;height:100%;background:rgba(7,7,7,0.8);z-index:10;}
+*/
+.gallery-item-lockup-wrapper{position:absolute;z-index:2;width:100%;top:52%;-webkit-transform:translateY(-50%);-moz-transform:translateY(-50%);-o-transform:translateY(-50%);transform:translateY(-50%);}
+.homepage-headline{font-size:55px;line-height:1;font-weight:bold;letter-spacing:0em;margin-bottom:50px;opacity:0;}
+.intro{font-size:16px;line-height:1.8;font-weight:300;letter-spacing:0em;width:42%;line-height:35px;margin:0 auto;opacity:0;}
+/*.ac-gallery-currentitem .homepage-headline{*/
+.homepage-headline.move{-o-animation:fadeInUp 1s .6s both;animation:fadeInUp 1s .6s both;-moz-animation:fadeInUp 1s .6s both;-webkit-animation:fadeInUp 1s .6s both;}
+/*.ac-gallery-currentitem .intro{*/
+.intro.move{-o-animation:fadeInUp 1s .9s both;animation:fadeInUp 1s .9s both;-moz-animation:fadeInUp 1s .9s both;-webkit-animation:fadeInUp 1s .9s both;}
+.enhanced-gallery .gallery-container{position:relative;z-index:1;overflow:hidden;/*height:72vh;*/
+height:calc(100vh - 180px);max-height:100%;min-height:540px;}
+.with-paddlenav{position:relative;}
+/*dotnav*/
+.dotnav{text-align:center}
+html.touch .dotnav{pointer-events:none}
+html.touch .dotnav:focus{pointer-events:auto}
+.dotnav ul{display:inline-block}
+.dotnav li{list-style:none;margin:0 10px;width:8px;height:8px;float:left;position:relative}
+.dotnav-item{top:0;left:0;width:8px;height:8px;outline:none;position:absolute;-moz-border-radius:50%;border-radius:50%;background-color:#999;-moz-box-sizing:content-box;box-sizing:content-box;padding:0;overflow:hidden;text-indent:100%;white-space:nowrap}
+.dotnav-item:hover{background-color:#666}
+.dotnav-item:focus{-moz-box-shadow:0 0 0 3px rgba(131,192,253,0.5);box-shadow:0 0 0 3px rgba(131,192,253,0.5);outline:none}
+.dotnav-item:focus[data-focus-method="mouse"]:not(input):not(textarea):not(select),.dotnav-item:focus[data-focus-method="touch"]:not(input):not(textarea):not(select){-moz-box-shadow:none;box-shadow:none}
+html.ie8 .dotnav-item:focus{outline:3px solid #c1e0fe}
+.dotnav-item.current{top:-1px;left:-1px;width:8px;height:8px;border-style:solid;border-width:1px;border-color:#0070c9;background-color:transparent;cursor:default}
+/*paddlenav*/
+.paddlenav{list-style:none;margin:0}
+.paddlenav-arrow{background-color:transparent;-moz-border-radius:4px;border-radius:4px;color:#666;display:block;font-size:72px;font-style:normal;font-weight:200;opacity:.6;overflow:hidden;position:absolute;text-align:center;-o-transition:250ms opacity linear;-moz-transition:250ms opacity linear;transition:250ms opacity linear}
+.paddlenav-arrow-next,.paddlenav-arrow-previous{line-height:128px;margin-top:-64px;top:50%;width:67px;height:128px}
+.paddlenav-arrow-up,.paddlenav-arrow-down{line-height:67px;margin-left:-64px;left:50%;width:128px;height:67px}
+.paddlenav-arrow-next{right:0}
+.paddlenav-arrow-next:before,.paddlenav-arrow-next:after{font-family:"Apple Icons";color:inherit;display:inline-block;font-style:normal;font-weight:inherit;font-size:inherit;line-height:64px;text-decoration:underline;position:relative;z-index:1;alt:'';}
+.paddlenav-arrow-next:before,.paddlenav-arrow-next:after{text-decoration:none}
+.paddlenav-arrow-next:before{display:none}
+.paddlenav-arrow-next:before,.paddlenav-arrow-next:after{content:""}
+.paddlenav-arrow-previous{left:0}
+.paddlenav-arrow-previous:before,.paddlenav-arrow-previous:after{font-family:"Apple Icons";color:inherit;display:inline-block;font-style:normal;font-weight:inherit;font-size:inherit;line-height:64px;text-decoration:underline;position:relative;z-index:1;alt:''}
+.paddlenav-arrow-previous:before,.paddlenav-arrow-previous:after{text-decoration:none}
+.paddlenav-arrow-previous:before{display:none}
+.paddlenav-arrow-previous:before,.paddlenav-arrow-previous:after{content:""}
+.paddlenav-arrow-up{top:0}
+.paddlenav-arrow-up:before,.paddlenav-arrow-up:after{font-family:"Apple Icons";color:inherit;display:inline-block;font-style:normal;font-weight:inherit;font-size:inherit;line-height:1;text-decoration:underline;position:relative;z-index:1;alt:''}
+.paddlenav-arrow-up:before,.paddlenav-arrow-up:after{text-decoration:none}
+.paddlenav-arrow-up:before{display:none}
+.paddlenav-arrow-up:before,.paddlenav-arrow-up:after{content:""}
+.paddlenav-arrow-down{bottom:0}
+.paddlenav-arrow-down:before,.paddlenav-arrow-down:after{font-family:"Apple Icons";color:inherit;display:inline-block;font-style:normal;font-weight:inherit;font-size:inherit;line-height:1;text-decoration:underline;position:relative;z-index:1;alt:''}
+.paddlenav-arrow-down:before,.paddlenav-arrow-down:after{text-decoration:none}
+.paddlenav-arrow-down:before{display:none}
+.paddlenav-arrow-down:before,.paddlenav-arrow-down:after{content:""}
+.paddlenav-arrow:hover{opacity:.8;text-decoration:none}
+.paddlenav-arrow:active{opacity:1}
+.paddlenav-arrow:focus{-moz-box-shadow:0 0 0 3px rgba(131,192,253,0.5);box-shadow:0 0 0 3px rgba(131,192,253,0.5);outline:none;opacity:1}
+.paddlenav-arrow:focus[data-focus-method="mouse"]:not(input):not(textarea):not(select),.paddlenav-arrow:focus[data-focus-method="touch"]:not(input):not(textarea):not(select){-moz-box-shadow:none;box-shadow:none}
+html.ie8 .paddlenav-arrow:focus{outline:3px solid #c1e0fe}
+.paddlenav-arrow:focus[data-focus-method="mouse"]:not(input):not(textarea):not(select),.paddlenav-arrow:focus[data-focus-method="touch"]:not(input):not(textarea):not(select){opacity:.6}
+.paddlenav-arrow:focus[data-focus-method="mouse"]:not(input):not(textarea):not(select):hover,.paddlenav-arrow:focus[data-focus-method="touch"]:not(input):not(textarea):not(select):hover{opacity:.8}
+.paddlenav-arrow:focus[data-focus-method="mouse"]:not(input):not(textarea):not(select):active,.paddlenav-arrow:focus[data-focus-method="touch"]:not(input):not(textarea):not(select):active{opacity:1}
+.paddlenav-arrow:disabled,.paddlenav-arrow.disabled{cursor:default;opacity:0}
+.paddlenav-arrow:disabled:focus[data-focus-method="mouse"]:not(input):not(textarea):not(select),.paddlenav-arrow:disabled:focus[data-focus-method="touch"]:not(input):not(textarea):not(select),.paddlenav-arrow.disabled:focus[data-focus-method="mouse"]:not(input):not(textarea):not(select),.paddlenav-arrow.disabled:focus[data-focus-method="touch"]:not(input):not(textarea):not(select){opacity:0}
+html.ie8 .paddlenav-arrow:disabled,html.ie8 .paddlenav-arrow.disabled{display:none}
+html.touch .paddlenav-arrow{opacity:.8}
+html.touch .paddlenav-arrow:disabled,html.touch .paddlenav-arrow.disabled{opacity:0}
+.with-paddlenav{position:relative}
+html.no-touch .with-paddlenav-onhover .paddlenav{opacity:0;-o-transition:250ms opacity linear;-moz-transition:250ms opacity linear;transition:250ms opacity linear}
+html.ie8 .with-paddlenav-onhover .paddlenav{visibility:hidden}
+html.no-touch .with-paddlenav-onhover:hover .paddlenav{opacity:1}
+html.ie8 .with-paddlenav-onhover:hover .paddlenav{visibility:visible}
+.with-paddlenav-visuallyhidden .paddlenav-arrow{clip:rect(1px 1px 1px 1px);clip:rect(1px,1px,1px,1px);-webkit-clip-path:inset(0px 0px 99.9% 99.9%);clip-path:inset(0px 0px 99.9% 99.9%)}
+.with-paddlenav-visuallyhidden .paddlenav-arrow:focus,.with-paddlenav-visuallyhidden .paddlenav-arrow:hover{clip:auto;-webkit-clip-path:none;clip-path:none}
+.paddlenav-short .paddlenav-arrow{font-size:24px;font-weight:normal}
+.paddlenav-short .paddlenav-arrow-next,.paddlenav-short .paddlenav-arrow-previous{line-height:64px;margin-top:-32px;width:64px;height:64px}
+.paddlenav-short .paddlenav-arrow-up,.paddlenav-short .paddlenav-arrow-down{line-height:64px;margin-left:-32px;width:64px;height:64px}
+.paddlenav-framed .paddlenav-arrow{background-color:#f2f2f2;color:#666;opacity:.6}
+.paddlenav-framed .paddlenav-arrow:hover{opacity:.8}
+.paddlenav-framed .paddlenav-arrow:active{opacity:1}
+.paddlenav-framed .paddlenav-arrow:focus{opacity:1}
+.paddlenav-framed .paddlenav-arrow:focus[data-focus-method="mouse"]:not(input):not(textarea):not(select),.paddlenav-framed .paddlenav-arrow:focus[data-focus-method="touch"]:not(input):not(textarea):not(select){opacity:.6}
+.paddlenav-framed .paddlenav-arrow:focus[data-focus-method="mouse"]:not(input):not(textarea):not(select):hover,.paddlenav-framed .paddlenav-arrow:focus[data-focus-method="touch"]:not(input):not(textarea):not(select):hover{opacity:.8}
+.paddlenav-framed .paddlenav-arrow:focus[data-focus-method="mouse"]:not(input):not(textarea):not(select):active,.paddlenav-framed .paddlenav-arrow:focus[data-focus-method="touch"]:not(input):not(textarea):not(select):active{opacity:1}
+.paddlenav-framed .paddlenav-arrow:disabled,.paddlenav-framed .paddlenav-arrow.disabled{opacity:0}
+html.touch .paddlenav-framed .paddlenav-arrow{opacity:.8}
+html.touch .paddlenav-framed .paddlenav-arrow:disabled,html.touch .paddlenav-framed .paddlenav-arrow.disabled{opacity:0}
+.paddlenav-framed .paddlenav-arrow-next{right:18px}
+.paddlenav-framed .paddlenav-arrow-previous{left:18px}
+.paddlenav-framed .paddlenav-arrow-up{top:18px}
+.paddlenav-framed .paddlenav-arrow-down{bottom:18px}
+/*dashnav 左右切换按钮*/
+.dashnav{position:absolute;z-index:1000;bottom:38px;width:100%;text-align:center;line-height:1}
+.dashnav ul{display:inline-block}
+.dashnav li{list-style:none;margin:0 5px;width:50px;height:22px;float:left;position:relative}
+.dashnav .dashnav-item{top:0;left:0;width:50px;height:2px;outline:none;position:absolute;padding:10px 0;opacity:1;-o-transition:opacity 500ms ease;-moz-transition:opacity 500ms ease;transition:opacity 500ms ease;-moz-box-sizing:content-box;box-sizing:content-box}
+.dashnav .dashnav-item .dashnav-label{position:absolute;clip:rect(1px 1px 1px 1px);clip:rect(1px,1px,1px,1px);-webkit-clip-path:inset(0px 0px 99.9% 99.9%);clip-path:inset(0px 0px 99.9% 99.9%);overflow:hidden;height:1px;width:1px;padding:0;border:0}
+.dashnav .dashnav-item:hover,.dashnav .dashnav-item.current{opacity:1;-o-transition:opacity 500ms ease;-moz-transition:opacity 500ms ease;transition:opacity 500ms ease}
+.dashnav .dashnav-item.current .dashnav-progress{opacity:1}
+.dashnav .dashnav-dash{position:relative;z-index:1;height:2px;width:100%;background-color:#ffffff;}
+.dashnav .dashnav-progress{opacity:0;position:absolute;z-index:1001;left:0;top:0;width:50px;-webkit-transform-origin:left;-moz-transform-origin:left;-o-transform-origin:left;transform-origin:left;height:100%;background:#e00012;}
+.is-autoplaying .dashnav .dashnav-progress{opacity:1}
+.is-interacting .dashnav .dashnav-progress{-o-transition:opacity 500ms ease;-moz-transition:opacity 500ms ease;transition:opacity 500ms ease}
+.paddlenav-circle{width:100%;/*height:2px;*/
+top:50%;z-index:2}
+@media (max-width:768px){.paddlenav-circle{display:none;}
+}
+html.touch .paddlenav-circle{display:none}
+.paddlenav-circle .paddlenav-arrow-container{position:absolute;cursor:pointer;width:20%;height:100%;z-index:3}
+.paddlenav-circle .paddlenav-arrow-container-previous{left:0px}
+.paddlenav-circle .paddlenav-arrow-container-next{right:0px}
+.paddlenav-circle .paddlenav-arrow{z-index:1000;-moz-border-radius:32px;border-radius:32px;background-color:rgba(180,180,180,0.25);color:#848484;font-size:40px;line-height:52px;opacity:0}
+.paddlenav-circle .paddlenav-arrow:focus[data-focus-method="mouse"]:not(input):not(textarea):not(select),.paddlenav-circle .paddlenav-arrow:focus[data-focus-method="touch"]:not(input):not(textarea):not(select){opacity:0}
+.paddlenav-circle li:hover .paddlenav-arrow{opacity:.6}
+.paddlenav-circle li:hover .paddlenav-arrow:hover{opacity:.8}
+.paddlenav-circle .paddlenav-arrow-next:after,.paddlenav-circle .paddlenav-arrow-previous:after{content:'';display:none}
+.paddlenav-circle .paddlenav-arrow-next:before{display:inline-block;content:"";margin-left:3px}
+.paddlenav-circle .paddlenav-arrow-previous:before{display:inline-block;content:"";margin-left:-3px}
+.enhanced-gallery .gallery{position:relative;z-index:1;overflow:hidden;height:100%}
+.enhanced-gallery .gallery-slide-wrapper{height:100%}
+.enhanced-gallery .gallery{position:relative;z-index:1;overflow:hidden;height:100%}
+.enhanced-gallery .gallery-item{display:block;position:absolute;z-index:1;overflow:hidden;width:100%;height:100%;will-change:transform;-webkit-transform:translate3d(100%,0,0);-moz-transform:translate3d(100%,0,0);transform:translate3d(100%,0,0)}
+.enhanced-gallery .gallery-item-static{-webkit-transform:none;-moz-transform:none;-o-transform:none;transform:none}
+.enhanced-gallery .gallery-item-dark{color:#fff;background:#292f38;}
+.enhanced-gallery{}
+.enhanced-gallery .gallery-item-currentitem{z-index:2;-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}
+.enhanced-gallery .gallery-item-content{position:absolute;top:0;bottom:0;right:0;left:0;height:auto;width:auto;z-index:1000;text-align:center;-webkit-user-select:none;-moz-user-select:none;user-select:none;pointer-events:none;-o-transition:background 2s .4s;-moz-transition:background 2s .4s;transition:background 2s .4s;}
+.enhanced-gallery .gallery-item-content.move{/*background:rgba(0,0,0,.4);*/
+background:rgba(0,0,0,.1);}
+/*轮播图片*/
+.enhanced-gallery .gallery-image{position:absolute;z-index:1;width:100%;height:105%;top:0%;bottom:0%;left:0;right:0;-moz-background-size:cover;-o-background-size:cover;background-size:cover;background-position:top center;background-repeat:no-repeat;background-image:url("../images/d4497711fa4a40c0acfe1fddcd7f546e.html");}
+.enhanced-gallery .gallery-item-event .has-center-content{position:static}
+.enhanced-gallery .gallery-item-event .gallery-item-content .has-center-content{height:30%;width:100%;padding-top:46px}
+.enhanced-gallery .gallery-item-event .homepage-headline{margin-top:4px}
+.no-js.ie8 .gallery-image-event,.no-enhanced-gallery.ie8 .gallery-image-event{top:30px}
+.no-js .gallery-item-event .gallery-item-content .has-center-content,.no-enhanced-gallery .gallery-item-event .gallery-item-content .has-center-content{margin:0 auto}
+.holiday-promo .banner-headline{color:#fff;font-size:24px;line-height:1;font-weight:300}
+.holiday-promo.holiday-geo .holiday-banner-promo a.more{color:#fff;font-weight:400}
+.redcross-banner-wrapper{text-align:center}

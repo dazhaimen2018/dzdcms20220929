@@ -15,6 +15,7 @@
 namespace app\admin\controller;
 
 use app\admin\service\User;
+use app\cms\model\Site;
 use app\common\controller\Adminbase;
 use think\facade\Cache;
 
@@ -32,6 +33,10 @@ class Index extends Adminbase
     //后台首页
     public function index()
     {
+        // 20200620 马博
+        $siteArray = Site::where("status=1")->select()->toArray();
+        $this->assign('siteArray', $siteArray);
+        // 20200620 end 马博
         $this->assign("SUBMENU_CONFIG", json_encode(model("admin/Menu")->getMenuList()));
         return $this->fetch();
     }
@@ -39,6 +44,15 @@ class Index extends Adminbase
     //登录判断
     public function login()
     {
+        // 判断是否有登录权 20200617 马博
+        $domain = $_SERVER['HTTP_HOST'];
+        $authDomain = config('admin_domain');
+        if ($authDomain) {
+            if (strpos($domain, $authDomain) === false) {
+                $this->error("地址错误", url('cms/index/index'));
+            }
+        }
+        // 判断是否有登录权 end 20200617 马博
         $url = $this->request->get('url', 'index/index');
         if (User::instance()->isLogin()) {
             $this->redirect('admin/index/index');
@@ -47,10 +61,10 @@ class Index extends Adminbase
             $data      = $this->request->post();
             $keeplogin = $this->request->post('keeplogin');
             //验证码
-            /*if (!captcha_check($data['verify'])) {
-            $this->error('验证码输入错误！');
-            return false;
-            }*/
+            //if (!captcha_check($data['verify'])) {
+            //    $this->error('验证码输入错误！');
+            //    return false;
+            //}
             // 验证数据
             $rule = [
                 'verify|验证码'   => 'require|captcha',

@@ -1,115 +1,240 @@
 {extend name="index_layout"/}
 {block name="main"}
-{notempty name="default_pass"}
-<blockquote class="layui-elem-quote layui-bg-red" style="border-left: 5px solid #d4491d;">
-    安全提示：超级管理员默认密码未修改，建议马上修改。
-</blockquote>
-{/notempty}
-{if $Think.config.app_debug}
-<blockquote class="layui-elem-quote layui-bg-red" style="border-left: 5px solid #d4491d;">
-    安全提示：当前网站【调试模式】开启中，强烈建议在正式部署后关闭调试模式
-</blockquote>
-{/if}
-{if $Think.config.app_trace}
-<blockquote class="layui-elem-quote layui-bg-red" style="border-left: 5px solid #d4491d;">
-    安全提示：当前网站【Trace调试】开启中，强烈建议在正式部署后关闭Trace调试
-</blockquote>
-{/if}
-<blockquote class="layui-elem-quote layui-bg-green">
-    <div id="nowTime"></div>
-</blockquote>
-<div class="layui-row layui-col-space10 panel_box">
-    <div class="panel layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
-        <a href="http://bbs.yzncms.com" target="_blank">
-            <div class="panel_icon yzn-bg-green">
-                <i class="layui-icon layui-icon-survey layui-anim"></i>
+<link rel="stylesheet" href="__STATIC__/admin/css/main.css">
+<div class="LM-container">
+    <div class="LM-main">
+        <div class="layui-row layui-col-space15">
+
+            <div class="layui-col-sm6 layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        亲爱的{$userInfo.username}！
+                    </div>
+                    <div class="layui-card-body layui-text layadmin-text">
+                        <p id="nowTime"></p>
+                        <p>上次登录时间：<?php if($userInfo['last_login_time'] > 0) { echo $userInfo['last_login_time'];} else { echo '--';}?></p>
+                    </div>
+                </div>
+                {notempty name="default_pass"}
+                <blockquote class="layui-elem-quote layui-bg-red" style="border-left: 5px solid #d4491d;">
+                    安全提示：超级管理员默认密码未修改，建议马上修改。
+                </blockquote>
+                {/notempty}
+                {if $Think.config.app_debug}
+                <blockquote class="layui-elem-quote layui-bg-red" style="border-left: 5px solid #d4491d;">
+                    安全提示：当前网站【调试模式】开启中，强烈建议在正式部署后关闭调试模式
+                </blockquote>
+                {/if}
+                {if $Think.config.app_trace}
+                <blockquote class="layui-elem-quote layui-bg-red" style="border-left: 5px solid #d4491d;">
+                    安全提示：当前网站【Trace调试】开启中，强烈建议在正式部署后关闭Trace调试
+                </blockquote>
+                {/if}
             </div>
-            <div class="panel_word">
-                <span>论坛</span>
-                <cite>交流社区</cite>
+
+
+
+            <div class="layui-col-md8 left-main">
+                <div class="layui-row layui-col-space15">
+                    <div class="layui-col-md6">
+                        <div class="layui-card">
+                            <div class="layui-card-header"><i class="fa fa-warning icon"></i>数据统计</div>
+                            <div class="layui-card-body">
+                                <div class="welcome-module">
+                                    <div class="layui-row layui-col-space10">
+
+                                        <div class="layui-col-xs6">
+                                            <div class=" layui-bg-number">
+                                                <div class="panel-body">
+                                                    <div class="panel-title">
+                                                        <span class="label pull-right layui-bg-blue">实时</span>
+                                                        <h5>管理员日志统计</h5>
+                                                    </div>
+                                                    <div class="panel-content">
+                                                        <h1 class="no-margins">{$sys_info.adminlog}</h1>
+                                                        <small>总记录数</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-xs6">
+                                            <div class=" layui-bg-number">
+                                                <div class="panel-body">
+                                                    <div class="panel-title">
+                                                        <span class="label pull-right layui-bg-cyan">实时</span>
+                                                        <h5>网站模型统计</h5>
+                                                    </div>
+                                                    <div class="panel-content">
+                                                        <h1 class="no-margins">{$sys_info.model}</h1>
+                                                        <small>总记录数</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-xs6">
+                                            <div class=" layui-bg-number">
+                                                <div class="panel-body">
+                                                    <div class="panel-title">
+                                                        <span class="label pull-right layui-bg-orange">实时</span>
+                                                        <h5>站点统计</h5>
+                                                    </div>
+                                                    <div class="panel-content">
+                                                        <h1 class="no-margins">{$sys_info.site}</h1>
+                                                        <small>总记录数</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-xs6">
+                                            <div class=" layui-bg-number">
+                                                <div class="panel-body">
+                                                    <div class="panel-title">
+                                                        <span class="label pull-right layui-bg-green">实时</span>
+                                                        <h5>管理人员统计</h5>
+                                                    </div>
+                                                    <div class="panel-content">
+                                                        <h1 class="no-margins">{$sys_info.admin}</h1>
+                                                        <small>总记录数</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6">
+                        <div class="layui-card">
+                            <div class="layui-card-header"><i class="fa fa-credit-card icon icon-blue"></i>快捷入口</div>
+                            <div class="layui-card-body">
+                                <div class="welcome-module">
+                                    <div class="layui-row layui-col-space10 LM-qiuck">
+                                        <div class="layui-col-xs3 LM-qiuck-module">
+                                            <a href="{:url('cms/category/index')}" lay-id="75cms"><i class="iconfont icon-other"></i>&nbsp;栏目管理</a>
+                                        </div>
+                                        <div class="layui-col-xs3 LM-qiuck-module">
+                                            <a href="{:url('cms/cms/index')}" lay-id="57cms"><i class="iconfont icon-draft-line"></i>&nbsp;管理内容</a>
+                                        </div>
+                                        <div class="layui-col-xs3 LM-qiuck-module">
+                                            <a href="{:url('cms/tags/index')}" lay-id="68cms"><i class="iconfont icon-label"></i>&nbsp;Tags管理</a>
+                                        </div>
+                                        <div class="layui-col-xs3 LM-qiuck-module">
+                                            <a href="{:url('cms/lang/index')}" lay-id="106cms"><i class="iconfont icon-setup"></i>&nbsp;碎片管理</a>
+                                        </div>
+
+                                        <div class="layui-col-xs3 LM-qiuck-module">
+                                            <a href="{:url('cms/site/index')}" lay-id="99cms"><i class="iconfont icon-apartment"></i>&nbsp;站点管理</a>
+                                        </div>
+                                        <div class="layui-col-xs3 LM-qiuck-module">
+                                            <a href="{:url('cms/models/index')}" lay-id="84cms"><i class="iconfont icon-apartment"></i>&nbsp;模型管理</a>
+                                        </div>
+                                        <div class="layui-col-xs3 LM-qiuck-module">
+                                            <a href="{:url('member/member/manage')}" lay-id="116member"><i class="iconfont icon-huiyuan"></i>&nbsp;用户管理</a>
+                                        </div>
+
+                                        <div class="layui-col-xs3 LM-qiuck-module">
+                                            <a href="{:url('member/member/userverify')}" lay-id="117member"><i class="iconfont icon-shenhe"></i>&nbsp;审核用户</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="layui-col-md12">
+                        <div class="layui-card">
+                            <div class="layui-card-header"><i class="fa fa-line-chart icon"></i>数据统计</div>
+                            <div class="layui-card-body">
+                                <div id="echarts-records" style="width: 100%;min-height:298px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </a>
-    </div>
-    <div class="panel layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
-        <a href="https://www.kancloud.cn/ken678/yzncms/352683" target="_blank">
-            <div class="panel_icon yzn-bg-blue">
-                <i class="layui-icon layui-icon-read layui-anim"></i>
-            </div>
-            <div class="panel_word">
-                <span>文档</span>
-                <cite>使用手册</cite>
-            </div>
-        </a>
-    </div>
-    <div class="panel layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
-        <a href="https://gitee.com/ken678/YZNCMS" target="_blank">
-            <div class="panel_icon yzn-bg-orange">
-                <i class="layui-icon layui-icon-fonts-code layui-anim"></i>
-            </div>
-            <div class="panel_word">
-                <span>代码</span>
-                <cite>下载链接</cite>
-            </div>
-        </a>
-    </div>
-    <div class="panel layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
-        <a href="javascript:;">
-            <div class="panel_icon yzn-bg-purple">
-                <i class="layui-icon layui-icon-log layui-anim"></i>
-            </div>
-            <div class="panel_word">
-                <span class="loginTime">
-                    <?php if($userInfo['last_login_time'] > 0) { echo $userInfo['last_login_time'];} else { echo '--';}?></span>
-                <cite>上次登录时间</cite>
-            </div>
-        </a>
-    </div>
-</div>
-<div class="layui-row layui-col-space10">
-    <div class="layui-col-lg12 layui-col-md12">
-        <div class="layui-card">
-            <div class="layui-card-header" style="border-bottom: 1px solid #eee;">版本信息</div>
-            <div class="layui-card-body">
-                <table class="layui-table magt0" lay-even>
-                    <colgroup>
-                        <col width="10%">
-                        <col width="40%">
-                        <col width="10%">
-                        <col width="40%">
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <td>当前版本</td>
-                            <td class="version">yzncms v{$Think.config.version.yzncms_version}</td>
-                            <td>当前版本</td>
-                            <td class="version">yzncms v{$Think.config.version.yzncms_version}</td>
-                        </tr>
-                        <tr>
-                            <td>PHP 版本</td>
-                            <td>{$sys_info.phpv}</td>
-                            <td>数据库版本</td>
-                            <td>{$sys_info.mysql_version}</td>
-                        </tr>
-                        <tr>
-                            <td>服务器域名/IP</td>
-                            <td>{$sys_info.domain} [ {$sys_info.ip} ]</td>
-                            <td>服务器环境</td>
-                            <td class="server">{$sys_info.web_server}</td>
-                        </tr>
-                        <tr>
-                            <td>服务器时间</td>
-                            <td>{$sys_info.time}</td>
-                            <td>剩余空间</td>
-                            <td>{$sys_info.remaining_space}</td>
-                        </tr>
-                        <tr>
-                            <td>最大上传限制</td>
-                            <td>{$sys_info.fileupload}</td>
-                            <td>最大占用内存</td>
-                            <td>{$sys_info.memory_limit}</td>
-                        </tr>
-                    </tbody>
-                </table>
+
+            <div class="layui-col-md4">
+
+                <div class="layui-card">
+                    <div class="layui-card-header"><i class="fa fa-bullhorn icon icon-tip"></i>系统公告</div>
+                    <div class="layui-card-body layui-text">
+                        <div class="LM-notice">
+                            <div class="LM-notice-title">{:config('web_site_name')}V2.0上线</div>
+                            <div class="LM-notice-extra">2020-03-28 8:00</div>
+                        </div>
+                        <div class="LM-notice">
+                            <div class="LM-notice-title">新增会员管理，修复其他bug</div>
+                            <div class="LM-notice-extra">2019-09-4 11:06</div>
+                        </div>
+                        <div class="LM-notice">
+                            <div class="LM-notice-title">新增文章管理以及修复bug</div>
+                            <div class="LM-notice-extra">2019-08-26 14:06</div>
+                        </div>
+                        <div class="LM-notice">
+                            <div class="LM-notice-title">新增内容管理以及修复bug</div>
+                            <div class="LM-notice-extra">2019-08-17 13:06</div>
+                        </div>
+
+                        <div class="LM-notice">
+                            <div class="LM-notice-title">{:config('web_site_name')}V1.0上线</div>
+                            <div class="LM-notice-extra">2019-08-11 23:06</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="layui-card">
+                    <div class="layui-card-header"><i class="fa fa-fire icon"></i>版本信息</div>
+                    <div class="layui-card-body layui-text">
+                        <table class="layui-table">
+                            <colgroup>
+                                <col width="120">
+                                <col>
+                            </colgroup>
+                            <tbody>
+
+                            <tr>
+                                <td>当前版本</td>
+                                <td class="version">{:config('web_site_name')} v{$Think.config.version.yzncms_version}</td>
+                            </tr>
+                            <tr>
+                                <td>PHP 版本</td>
+                                <td class="phpv">{$sys_info.phpv}</td>
+                            </tr>
+                            <tr>
+                                <td>服务器域名/IP</td>
+                                <td class="domains">{$sys_info.domain} [ {$sys_info.ip} ]</td>
+                            </tr>
+                            <tr>
+                                <td>服务器环境</td>
+                                <td class="server">{$sys_info.web_server}</td>
+                            </tr>
+                            <tr>
+                                <td>数据库版本</td>
+                                <td class="dataBase">{$sys_info.mysql_version}</td>
+                            </tr>
+                            <tr>
+                                <td>最大上传限制</td>
+                                <td class="maxUpload">{$sys_info.fileupload}</td>
+                            </tr>
+                            <tr>
+                                <td>服务器时间</td>
+                                <td class="time">{$sys_info.time}</td>
+                            </tr>
+
+                            <tr>
+                                <td>最大占用内存</td>
+                                <td>{$sys_info.memory_limit}</td>
+                            </tr>
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>
@@ -117,43 +242,126 @@
 {/block}
 {block name="script"}
 <script type="text/javascript">
-//获取系统时间
-var newDate = '';
-getLangDate();
-//值小于10时，在前面补0
-function dateFilter(date) {
-    if (date < 10) { return "0" + date; }
-    return date;
-}
+    layui.use(['jquery','echarts'], function() {
+        var $ = layui.jquery,
+            echarts = layui.echarts;
 
-function getLangDate() {
-    var dateObj = new Date(); //表示当前系统时间的Date对象
-    var year = dateObj.getFullYear(); //当前系统时间的完整年份值
-    var month = dateObj.getMonth() + 1; //当前系统时间的月份值
-    var date = dateObj.getDate(); //当前系统时间的月份中的日
-    var day = dateObj.getDay(); //当前系统时间中的星期值
-    var weeks = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
-    var week = weeks[day]; //根据星期值，从数组中获取对应的星期字符串
-    var hour = dateObj.getHours(); //当前系统时间的小时值
-    var minute = dateObj.getMinutes(); //当前系统时间的分钟值
-    var second = dateObj.getSeconds(); //当前系统时间的秒钟值
-    var timeValue = "" + ((hour >= 12) ? (hour >= 18) ? "晚上" : "下午" : "上午"); //当前时间属于上午、晚上还是下午
-    newDate = dateFilter(year) + "年" + dateFilter(month) + "月" + dateFilter(date) + "日 " + " " + dateFilter(hour) + ":" + dateFilter(minute) + ":" + dateFilter(second);
-    document.getElementById("nowTime").innerHTML = "亲爱的{$userInfo.username}，" + timeValue + "好！ 欢迎使用YznCMS v{$Think.config.version.yzncms_version},当前时间为： " + newDate + "　" + week;
-    setTimeout("getLangDate()", 1000);
-}
+        // 基于准备好的dom，初始化echarts实例
+        var echartsRecords = echarts.init(document.getElementById('echarts-records'),'walden');
 
-layui.use(['jquery'], function() {
-    var $ = layui.jquery;
-    //icon动画
-    $(".panel a").hover(function() {
-        $(this).find(".layui-anim").addClass("layui-anim-scaleSpring");
-    }, function() {
-        $(this).find(".layui-anim").removeClass("layui-anim-scaleSpring");
+        // 指定图表的配置项和数据
+        var optionRecords = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['周一','周二','周三','周四','周五','周六','周日']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name:'邮件营销',
+                    type:'line',
+                    data:[120, 132, 101, 134, 90, 230, 210]
+                },
+                {
+                    name:'联盟广告',
+                    type:'line',
+                    data:[220, 182, 191, 234, 290, 330, 310]
+                },
+                {
+                    name:'视频广告',
+                    type:'line',
+                    data:[150, 232, 201, 154, 190, 330, 410]
+                },
+                {
+                    name:'直接访问',
+                    type:'line',
+                    data:[320, 332, 301, 334, 390, 330, 320]
+                },
+                {
+                    name:'搜索引擎',
+                    type:'line',
+                    data:[820, 932, 901, 934, 1290, 1330, 1320]
+                }
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        echartsRecords.setOption(optionRecords);
+        // echarts 窗口缩放自适应
+        window.onresize = function(){
+            echartsRecords.resize();
+        }
+
+        //icon动画
+        $(".panel a").hover(function() {
+            $(this).find(".layui-anim").addClass("layui-anim-scaleSpring");
+        }, function() {
+            $(this).find(".layui-anim").removeClass("layui-anim-scaleSpring");
+        })
+        $(".panel a").click(function() {
+            parent.addTab($(this));
+        })
     })
-    $(".panel a").click(function() {
-        parent.addTab($(this));
+
+
+
+
+    //获取系统时间
+    var newDate = '';
+    getLangDate();
+    //值小于10时，在前面补0
+    function dateFilter(date) {
+        if (date < 10) { return "0" + date; }
+        return date;
+    }
+
+    function getLangDate() {
+        var dateObj = new Date(); //表示当前系统时间的Date对象
+        var year = dateObj.getFullYear(); //当前系统时间的完整年份值
+        var month = dateObj.getMonth() + 1; //当前系统时间的月份值
+        var date = dateObj.getDate(); //当前系统时间的月份中的日
+        var day = dateObj.getDay(); //当前系统时间中的星期值
+        var weeks = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+        var week = weeks[day]; //根据星期值，从数组中获取对应的星期字符串
+        var hour = dateObj.getHours(); //当前系统时间的小时值
+        var minute = dateObj.getMinutes(); //当前系统时间的分钟值
+        var second = dateObj.getSeconds(); //当前系统时间的秒钟值
+        var timeValue = "" + ((hour >= 12) ? (hour >= 18) ? "晚上" : "下午" : "上午"); //当前时间属于上午、晚上还是下午
+        newDate = dateFilter(year) + "年" + dateFilter(month) + "月" + dateFilter(date) + "日 " + " " + dateFilter(hour) + ":" + dateFilter(minute) + ":" + dateFilter(second);
+        document.getElementById("nowTime").innerHTML = "亲爱的{$userInfo.username}，" + timeValue + "好！ 当前时间为： " + newDate + "　" + week;
+        setTimeout("getLangDate()", 1000);
+    }
+
+    layui.use(['jquery'], function() {
+        var $ = layui.jquery;
+        //icon动画
+        $(".panel a").hover(function() {
+            $(this).find(".layui-anim").addClass("layui-anim-scaleSpring");
+        }, function() {
+            $(this).find(".layui-anim").removeClass("layui-anim-scaleSpring");
+        })
+        $(".panel a").click(function() {
+            parent.addTab($(this));
+        })
     })
-})
 </script>
 {/block}

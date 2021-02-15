@@ -1,3 +1,22 @@
+DROP TABLE IF EXISTS `yzn_site`;
+CREATE TABLE `yzn_site` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '站点ID',
+  `name` varchar(30) NOT NULL DEFAULT '' COMMENT '站点名称',
+  `mark` varchar(30) NOT NULL DEFAULT '' COMMENT '站点标识',
+  `http` tinyint(2) NOT NULL DEFAULT '0' COMMENT 'HTTP',
+  `domain` varchar(100) NOT NULL DEFAULT '' COMMENT '站点域名',
+  `logo` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '站点LOGO',
+  `template` varchar(30) NOT NULL DEFAULT '' COMMENT '皮肤',
+  `brand` varchar(100) NOT NULL DEFAULT '' COMMENT '品牌名称',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '站点标题',
+  `keywords` varchar(100) NOT NULL DEFAULT '' COMMENT '站点关键词',
+  `description` mediumtext NOT NULL COMMENT '站点描述',
+  `listorder` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
+  `inputtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='站点表';
+
 DROP TABLE IF EXISTS `yzn_category`;
 CREATE TABLE `yzn_category` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '栏目ID',
@@ -8,10 +27,10 @@ CREATE TABLE `yzn_category` (
   `parentid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '父ID',
   `arrparentid` varchar(255) NOT NULL DEFAULT '' COMMENT '所有父ID',
   `arrchildid` mediumtext COMMENT '所有子栏目ID',
+  `site_id` mediumtext COMMENT '所属站点',
   `child` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否存在子栏目，1存在',
   `image` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '栏目图片',
-  `icon` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '栏目图标',
-  `description` mediumtext NOT NULL COMMENT '栏目描述',
+  `icon` varchar(100) NOT NULL DEFAULT '' COMMENT '栏目图标',
   `url` varchar(100) NOT NULL DEFAULT '' COMMENT '链接地址',
   `items` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '文档数量',
   `setting` text COMMENT '相关配置信息',
@@ -21,9 +40,22 @@ CREATE TABLE `yzn_category` (
   UNIQUE KEY `catdir` (`catdir`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='栏目表';
 
+
+DROP TABLE IF EXISTS `yzn_category_data`;
+CREATE TABLE `yzn_category_data` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `catid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目ID',
+  `catname` varchar(100) NOT NULL DEFAULT '' COMMENT '栏目名称',
+  `description` mediumtext NOT NULL COMMENT '栏目描述',
+  `setting` text COMMENT '相关配置信息',
+  `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
+  `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '是否导航显示',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='栏目附表';
+
 DROP TABLE IF EXISTS `yzn_category_priv`;
 CREATE TABLE `yzn_category_priv` (
-  `catid` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `catid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目ID',
   `roleid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '角色或者组ID',
   `is_admin` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否为管理员 1、管理员',
   `action` char(30) NOT NULL DEFAULT '' COMMENT '动作',
@@ -32,20 +64,25 @@ CREATE TABLE `yzn_category_priv` (
 
 DROP TABLE IF EXISTS `yzn_page`;
 CREATE TABLE `yzn_page` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `catid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目ID',
+  `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
   `title` varchar(160) NOT NULL DEFAULT '' COMMENT '标题',
+  `image` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '单页图片',
   `keywords` varchar(255) NOT NULL DEFAULT '' COMMENT '关键字',
   `description` varchar(255) NOT NULL DEFAULT '' COMMENT 'SEO描述',
   `content` text COMMENT '内容',
   `inputtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  PRIMARY KEY (`catid`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='单页内容表';
 
 DROP TABLE IF EXISTS `yzn_tags`;
 CREATE TABLE `yzn_tags` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'tagID',
   `tag` char(20) NOT NULL DEFAULT '' COMMENT 'tag名称',
+  `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
+  `tagdir` varchar(255) NOT NULL DEFAULT '' COMMENT 'tag标识',
   `seo_title` varchar(255) NOT NULL DEFAULT '' COMMENT 'seo标题',
   `seo_keyword` varchar(255) NOT NULL DEFAULT '' COMMENT 'seo关键字',
   `seo_description` varchar(255) NOT NULL DEFAULT '' COMMENT 'seo简介',
@@ -67,7 +104,37 @@ CREATE TABLE `yzn_tags_content` (
   `modelid` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '模型ID',
   `contentid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '信息ID',
   `catid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目ID',
+  `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
   `updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   KEY `modelid` (`modelid`,`contentid`),
   KEY `tag` (`tag`(10))
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='tags数据表';
+
+DROP TABLE IF EXISTS `yzn_lang`;
+CREATE TABLE `yzn_lang` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '配置ID',
+  `name` varchar(30) NOT NULL DEFAULT '' COMMENT '配置名称',
+  `type` varchar(30) NOT NULL DEFAULT '' COMMENT '配置类型',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '配置标题',
+  `group` varchar(100) NOT NULL DEFAULT '' COMMENT '配置分组',
+  `options` varchar(255) NOT NULL DEFAULT '' COMMENT '配置项',
+  `remark` varchar(255) NOT NULL DEFAULT '' COMMENT '配置说明',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `value` text COMMENT '相关配置信息',
+  `listorder` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='碎片管理';
+
+
+DROP TABLE IF EXISTS `yzn_lang_data`;
+CREATE TABLE `yzn_lang_data` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `lang_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '配置ID',
+  `value` text COMMENT '相关配置信息',
+  `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
+  `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='网站配置附表';
+

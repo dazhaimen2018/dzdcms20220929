@@ -1,0 +1,13 @@
+<div class="news-one">
+	<div class="news-one-date">
+		<p class="day">{$item.updatetime|date="d"}</p>
+		<p class="month">{$item.updatetime|date="Y-m"}</p>
+	</div>
+	<div class="news-one-desc">
+		<div class="news-one-words">
+			<h3><a href="{$item.url}">{$item.title}</a></h3>
+			<p class="words">{$item.description}</p>
+		</div>
+		<a href="{$item.url}" class="link"><span class="more">Read&More</span><img src="__STATIC__/wminw/images/news-arrow.png"></a>
+	</div>
+</div>

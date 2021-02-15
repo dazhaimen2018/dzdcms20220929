@@ -1,0 +1,166 @@
+{include file="common/header" /}
+	<article class="gallery-container" data-analytics-region="hero">
+		<div id="homepage-gallery" class="gallery with-paddlenav">
+			<nav class="paddlenav paddlenav-framed paddlenav-short paddlenav-circle">
+				<ul>
+					<li class="paddlenav-arrow-container paddlenav-arrow-container-previous">
+						<button class="paddlenav-arrow paddlenav-arrow-previous" aria-label="Previous"
+							data-ac-gallery-previous-trigger="homepage-gallery"><span
+								class="arrow-icon arrow-icon-previous"></span></button>
+					</li>
+					<li class="paddlenav-arrow-container paddlenav-arrow-container-next">
+						<button class="paddlenav-arrow paddlenav-arrow-next" aria-label="Next"
+							data-ac-gallery-next-trigger="homepage-gallery"><span
+								class="arrow-icon arrow-icon-next"></span></button>
+					</li>
+				</ul>
+			</nav>
+			<nav class="dashnav dot-nav">
+				<ul role="tablist">{$siteid}
+					{yzn module="cms" action="lists" flag="6" catid="5" siteId="$site_id" cache="3600" order="listorder DESC,did DESC" num="5" return="data"}
+                    {volist name="data" id="vo"}
+					<li role="presentation">
+						<a href="#homepage-gallery-{$vo.id}" data-ac-gallery-trigger="homepage-gallery-{$vo.id}" class="dashnav-item">
+							<div class="dashnav-dash"> <span class="dashnav-progress"></span> </div>
+						</a> 
+					</li>				
+					{/volist}
+					{/yzn}
+				</ul>
+			</nav>
+			<div class="gallery-slide-wrapper"> 
+				{yzn module="cms" action="lists" flag="6" catid="5" siteId="$site_id" cache="3600" order="listorder DESC,did DESC" num="5" return="data"}
+                {volist name="data" id="vo"}
+				<a href="javascript:;" id="homepage-gallery-{$vo.id}" class="block gallery-item gallery-item-static gallery-item-{$vo.id} gallery-item-dark" data-ac-gallery-item aria-label="{$vo.title}">
+					<div class="gallery-item-content">
+						<div class="gallery-item-lockup-wrapper">
+							<h1 class="homepage-headline" aria-hidden="true">{$vo.title}</h1>
+							<p class="intro">
+								{$vo.description}
+							</p>
+						</div>
+					</div>
+					<figure class="gallery-image gallery-image-{vo.id}-alt" 	style="background-image: url({$vo.thumb});"></figure>
+					<picture>
+						<source srcset="{$vo.thumb}" media="(max-width: 48em)">
+						<img class="img-responsive" srcset="__STATIC__/wminw/images/null.png"> 
+					</picture>
+				</a>
+				{/volist}
+				{/yzn}
+
+			</div>
+		</div>
+	</article>
+	<div class="business_section">
+		<div class="container">
+			<div class="business_warp">
+				<div class="menu_tit1 wow fadeInUp4" data-wow-duration="1.2s" data-wow-delay=".1s">{:getCategory(9,'catname')}</div>
+				<div class="menu_tit2 wow fadeInUp5" data-wow-duration="1.2s" data-wow-delay=".35s">{:getCategory(9,'description')}</div>
+				<div class="business_list">
+					<ul class="row shadow-grid p-h-s m-v-l">
+						{yzn module="cms" action="lists" catid="9" siteId="$site_id" cache="3600" order="listorder ASC" num="4" return="data"}
+						{volist name="data" id="vo"}
+						<li class="col-lg-3 col-md-6 col-sm-6 col-xs-12 wow fadeInUp3" data-wow-duration="1.7s"
+							data-wow-delay=".2s"> <a href="javascript:void(0)" class="p-s">
+								<div class="business_icon">
+									<div class="red-bak"></div>
+									<i class="{$vo.icon}"></i>
+								</div>
+								<div class="business_txt cur">
+									<h2>{$vo.title}</h2>
+									<p class="h5">{$vo.description}</p>
+								</div>
+							</a> 
+						</li>
+						{/volist}
+						{/yzn}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="counters">
+		<div class="counter_con">
+			<div class="con-tit con-tit2">
+				<div class="tit_txt1 wow fadeInUp4" data-wow-duration="1.2s" data-wow-delay=".1s">{:getCategory(10,'catname')}</div>
+				<div class="tit_txt2 wow fadeInUp5" data-wow-duration="1.2s" data-wow-delay=".4s">{:getCategory(10,'description')}</div>
+			</div>
+		</div>
+		<div class="full_section_inner">
+			<div class="counter_list  clearfix">
+				<ul class="row">
+					{yzn module="cms" action="lists" catid="10" siteId="$site_id" cache="3600" order="listorder ASC" num="5" return="data"}
+					{volist name="data" id="vo"}
+					<li class="col-md-2 col-sm-2 col-xs-4">
+						<div class="q_counter_holder wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s"> 
+							<span class="counter counter1" id="count-number" data-to="{$vo.icon}" data-speed="{$i*500}">0</span>&nbsp;<span class="unit">{$vo.description}</span>
+							<p class="counter_text">{$vo.title}</p>
+						</div>
+					</li>
+					{/volist}
+					{/yzn}
+					
+				</ul>
+			</div>
+		</div>
+		<div class="box-shadow"></div>
+		<!--背景视频-->
+		<video loop poster="__STATIC__/wminw/images/propaganda.jpg" id="bgvid" class="bg_video">
+			<source src="__STATIC__/wminw/images/propaganda.mp4" type="video/mp4">
+		</video>
+	</div>
+	<div class="product">
+		<div class="product_txt container">
+			<div class="product_txt1 wow fadeInUp4" data-wow-duration="1.2s" data-wow-delay=".1s">{:getCategory(2,'catname')}<span class="br-m"></span></div>
+			<div class="product_txt2 wow fadeInUp5" data-wow-duration="1.2s" data-wow-delay=".35s">{:getCategory(2,'description')}</div>
+		</div>
+		<div class="case_list container">
+			<ul class="row">
+				{yzn module="cms" action="lists" catid="2" siteId="$site_id" cache="3600" order="listorder DESC,did DESC" num="6" return="data"}
+				{volist name="data" id="item"}
+				{include file="common/item_case" /}
+				{/volist}
+				{/yzn}
+			</ul>
+			<a href="{:getCategory(2,'url')}" class="more_button"> <i></i>
+				<div class="dot1"><span>•</span><span>•</span><span>•</span></div>
+				<div class="dot2"><span>•</span><span>•</span><span>•</span></div>
+			</a>
+		</div>
+	</div>
+	<div class="line"></div>
+	{include file="common/demand" /}
+	<div class="index-news container letmove">
+		<div class="index-news-list-all">
+			{yzn module="cms" action="category" catid="5" siteId="$site_id" cache="3600" order="listorder ASC" num="3" return="data"}
+			{volist name="data" id="vo"}
+			<div class="index-news-list">
+				<h3>{:getCategory($vo['id'],'catname')}</h3>
+				{yzn module="cms" action="lists" catid="$vo['id']" siteId="$site_id" cache="3600" order="listorder ASC" num="8" page="$page" return="data"}
+				{volist name="data" id="item"}
+				<div class="index-news-one"><a class="inews-one-l" href="{$item.url}">{$item.title}</a> 
+					<span class="inews-one-r">[{$item.updatetime|date="Y-m-d"}]</span> 
+				</div>
+				{/volist}
+			    {/yzn}
+			</div>
+			{/volist}
+			{/yzn}
+		</div>
+		<a href="{:getCategory(5,'url')}" class="more_button"> <i></i>
+			<div class="dot1"><span>•</span><span>•</span><span>•</span></div>
+			<div class="dot2"><span>•</span><span>•</span><span>•</span></div>
+		</a>
+	</div>
+
+
+	{include file="common/footer" /}
+	<script src="__STATIC__/wminw/js/index.js"></script> 
+	<script src="__STATIC__/wminw/js/head.built.js"></script> 
+	<script src="__STATIC__/wminw/js/main.built.js"></script> 
+	<script src="__STATIC__/wminw/js/count.js"></script> 
+	<script src="__STATIC__/wminw/js/message.js"></script> 
+	<script src="__STATIC__/wminw/js/load.js"></script>
+</body> 
+</html>

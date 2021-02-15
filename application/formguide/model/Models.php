@@ -43,6 +43,7 @@ class Models extends Models_Model
             $sql = "CREATE TABLE IF NOT EXISTS `think_form_table` (
                        `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
                        `uid` mediumint(8) unsigned NOT NULL,
+                       `site_id` mediumint(8) unsigned NOT NULL,
                        `username` varchar(20) NOT NULL,
                        `inputtime` int(10) unsigned NOT NULL,
                        `ip` char(15) NOT NULL DEFAULT '',

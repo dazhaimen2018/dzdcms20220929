@@ -16,6 +16,8 @@ namespace app\cms\controller;
 
 use app\cms\model\Category as CategoryModel;
 use app\common\controller\Adminbase;
+use app\cms\model\CategoryData;
+use app\cms\model\Site;
 use think\Db;
 
 class Category extends Adminbase
@@ -49,15 +51,17 @@ class Category extends Adminbase
     }
 
     //栏目列表
+
     public function index()
     {
         if ($this->request->isAjax()) {
+            list($page, $limit, $where) = $this->buildTableParames();
             $models     = cache('Model');
             $tree       = new \util\Tree();
             $tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
             $tree->nbsp = '&nbsp;&nbsp;&nbsp;';
             $categorys  = array();
-            $result     = Db::name('category')->order(array('listorder', 'id' => 'ASC'))->select();
+            $result     = Db::name('category')->where($where)->order(array('listorder', 'id' => 'ASC'))->select();
             foreach ($result as $k => $v) {
                 if (isset($models[$v['modelid']]['name'])) {
                     $v['modelname'] = $models[$v['modelid']]['name'];
@@ -96,17 +100,20 @@ class Category extends Adminbase
             switch ($data['type']) {
                 //单页
                 case 1:
-                    $fields = ['parentid', 'catname', 'catdir', 'type', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'status'];
+                    $fields = ['parentid', 'catname', 'catdir', 'type', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'site_id', 'status'];
                     $scene  = 'page';
                     break;
                 //列表
                 case 2:
-                    $fields = ['parentid', 'catname', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'status'];
+                    $fields = ['parentid', 'catname', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'site_id', 'status'];
                     $scene  = 'list';
                     break;
                 default:
                     $this->error('栏目类型错误~');
             }
+            //马博添加
+            $data['site_id']  = !empty($data['site_id']) ? implode(',', $data['site_id']) : '';
+            //马博添加 end
             if ($data['isbatch']) {
                 unset($data['isbatch'], $data['info']['catname'], $data['info']['catdir']);
                 //需要批量添加的栏目
@@ -127,6 +134,7 @@ class Category extends Adminbase
                     if (true !== $result) {
                         $this->error($result);
                     }
+
                     $catid = $this->modelClass->addCategory($data, $fields);
                     if ($catid) {
                         if (isModuleInstall('member')) {
@@ -135,6 +143,9 @@ class Category extends Adminbase
                         }
                     }
                 }
+                // 20200805 马博添加
+                $this->addCategoryData($data['category_data'], $catid);
+                // 20200805 马博添加 end
                 $this->success("添加成功！", url("Category/index"));
             } else {
                 $data['catdir'] = $this->get_dirpinyin($data['catname'], $data['catdir']);
@@ -148,6 +159,9 @@ class Category extends Adminbase
                     if (isModuleInstall('member')) {
                         model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
                     }
+                    // 20200805 马博添加
+                    $this->addCategoryData($data['category_data'], $catid);
+                    // 20200805 马博添加 end
                     $this->success("添加成功！", url("Category/index"));
                 } else {
                     $error = $this->modelClass->getError();
@@ -196,11 +210,58 @@ class Category extends Adminbase
             }
             $this->assign("category", $categorydata);
             $this->assign("models", $models);
+            // 20200805 马博添加
+            $site = Site::select()->toArray();
+            $this->view->assign('site', $site);
+            // 20200805 马博添加 end
             return $this->fetch();
 
         }
 
     }
+
+    // 20200805 马博添加
+    public function addCategoryData($categoryData, $catid)
+    {
+        if ($categoryData) {
+            foreach ($categoryData as $d) {
+                if (trim($d['catname'])) {
+                    $model              = new CategoryData();
+                    $model->catname     = trim($d['catname']);
+                    $model->description = trim($d['description']);
+                    $model->status      = trim($d['status']);
+                    $model->setting     = json_encode($d['setting']);
+                    $model->site_id     = $d['site_id'];
+                    $model->catid       = $catid;
+                    $model->save();
+                }
+            }
+        }
+    }
+    public function updateCategoryData($categoryData, $catid)
+    {
+        if ($categoryData) {
+            foreach ($categoryData as $d) {
+                if (trim($d['catname'])) {
+                    if (!empty($d['cd_id'])) {
+                        $id    = intval($d['cd_id']);
+                        $model = CategoryData::where(['id' => $id]);
+                        $model->update(['catname' => trim($d['catname']), 'description' => trim($d['description']), 'status' => trim($d['status']), 'setting' => json_encode($d['setting'])]);
+                    } else {
+                        $model              = new CategoryData();
+                        $model->catname     = trim($d['catname']);
+                        $model->description = trim($d['description']);
+                        $model->status      = trim($d['status']);
+                        $model->setting     = json_encode($d['setting']);
+                        $model->site_id     = $d['site_id'];
+                        $model->catid       = $catid;
+                        $model->save();
+                    }
+                }
+            }
+        }
+    }
+    // 20200805 马博添加 end
 
     //添加单页
     public function singlepage()
@@ -235,16 +296,22 @@ class Category extends Adminbase
                     $this->error('栏目类型错误~');
             }
             $data['catdir'] = $this->get_dirpinyin($data['catname'], $data['catdir'], $catid);
+            //马博添加
+            $data['site_id']  = !empty($data['site_id']) ? implode(',', $data['site_id']) : '';
+            //马博添加 end
             $result         = $this->validate($data, 'Category.' . $scene);
             if (true !== $result) {
                 $this->error($result);
             }
-            $status = $this->modelClass->editCategory($data, ['parentid', 'catname', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'status']);
+            $status = $this->modelClass->editCategory($data, ['parentid', 'catname', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'site_id', 'status']);
             if ($status) {
                 if (isModuleInstall('member')) {
                     //更新会员组权限
                     model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
                 }
+                // 20200805 马博
+                $this->updateCategoryData($data['category_data'], $catid);
+                // 20200805 马博 end
                 $this->success("修改成功！", url("Category/index"));
             } else {
                 $error = $this->modelClass->getError();
@@ -257,6 +324,9 @@ class Category extends Adminbase
                 $this->error('请选择需要修改的栏目！');
             }
             $data    = Db::name('category')->where(['id' => $catid])->find();
+            //马博添加
+            $data['site_id'] = explode(',', $data['site_id']);
+            //马博添加 end
             $setting = unserialize($data['setting']);
 
             //输出可用模型
@@ -279,16 +349,38 @@ class Category extends Adminbase
             } else {
                 $categorydata = '';
             }
-
+            // 20200805 马博
+            $site = Site::select()->toArray();
+            $this->site = $site;
+            $categoryData = CategoryData::where(['catid' => $catid])->select()->toArray();
+            $ret = [];
+            foreach ($this->site as $k => $s) {
+                if ($categoryData) {
+                    foreach ($categoryData as $e) {
+                        if ($e['site_id'] == $s['id']) {
+                            $ret[$k] = $e;
+                        } else {
+                            $ret[$k]['site_id'] = $s['id'];
+                        }
+                    }
+                } else {
+                    $ret[$k]['site_id'] = $s['id'];
+                }
+            }
+            //halt($ret);
+            $this->assign("category_data", $ret);
+            // 20200805 马博 end
             $this->assign("tp_category", $this->tp_category);
             $this->assign("tp_list", $this->tp_list);
             $this->assign("tp_show", $this->tp_show);
             $this->assign("tp_page", $this->tp_page);
-
             $this->assign("data", $data);
             $this->assign("setting", $setting);
             $this->assign("category", $categorydata);
             $this->assign("models", $models);
+            // 20200805 马博
+            $this->view->assign('site', $site);
+            // 20200805 马博 end
             if (isModuleInstall('member')) {
                 //会员组
                 $this->assign("Member_Group", cache("Member_Group"));
@@ -307,6 +399,8 @@ class Category extends Adminbase
         }
 
     }
+
+
 
     //删除栏目
     public function del()

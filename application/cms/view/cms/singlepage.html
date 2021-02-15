@@ -1,45 +1,67 @@
 {extend name="admin@index_layout"/}
 {block name="main"}
-<form class="layui-form" method="post">
-    <div class="layui-form-item">
-        <div class="layui-form-item">
-            <label class="">标题&nbsp;<font color="red">*</font></label>
-            <div class="layui-form-field-label">
-                <input type="text" name="modelField[title]" placeholder="请输入标题" autocomplete="off" class="layui-input" value="{$info['title']}">
+<link rel="stylesheet" href="__STATIC__/admin/css/cms.css">
+<div class="layui-card">
+    <div class="layui-card-body">
+        <form class="layui-form page-form" method="post">
+            <div class="layui-tab">
+                <ul class="layui-tab-title">
+                    {volist name="site" id="s" key="i" }
+                    <!--判断是否单站发布-->
+                    {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
+                    {if $i == getSiteInfo('id')}
+                    <li class="layui-this"> {if $s.mark} <img src="/static/language/{$s.mark}.png" title="{$s.name}">{/if} {$s.name}</li>
+                    {/if}
+                    {else}
+                    <li {if $i==1}class="layui-this"{/if}> {if $s.mark} <img src="/static/language/{$s.mark}.png" title="{$s.name}">{/if} {$s.name}</li>
+                    {/if}
+                    {/volist}
+                </ul>
+                <div class="layui-tab-content">
+                    {volist name="site" id="s" key="k"}
+                    <!--判断是否单站发布-->
+                    {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
+                    {if $k == getSiteInfo('id')}
+                    <div class="layui-tab-item layui-show layui-this">
+                        {include file="item_singlepage" /}
+                    </div>
+                    {/if}
+                    {else}
+                    <div class="layui-tab-item {if $k==1}layui-show layui-this{/if}">
+                        {include file="item_singlepage" /}
+                    </div>
+                    {/if}
+                    {/volist}
+                </div>
             </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="">SEO关键词</label>
-            <div class="layui-form-field-label">
-                <input type="text" name="modelField[keywords]" placeholder="请输入SEO关键词" autocomplete="off" class="layui-input" value="{$info['keywords']}">
+            <input type="hidden" name="modelField[catid]" value="{$catid}">
+            <div class="layui-form-item layer-footer">
+                <div>
+                    {if (isset(cache("Cms_Config")['data_import']) && 1 == cache("Cms_Config")['data_import'] && 1 != cache("Cms_Config")['site'])}
+                    <button class="layui-btn layui-btn-danger btn-import iconfont icon-dibu" type="button" title="一键同步主站数据，然后修改再提交！">数据同步</button>
+                    {/if}
+                    <button class="layui-btn iconfont icon-send" lay-submit> 立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary iconfont icon-trash"> 重置</button>
+                </div>
             </div>
-            <div class="layui-form-mid layui-word-aux">多关键词之间用空格或者“,”隔开</div>
-        </div>
-        <div class="layui-form-item layui-form-text">
-            <label class="">SEO摘要</label>
-            <div class="layui-form-field-label">
-                <textarea placeholder="请输入SEO摘要" class="layui-textarea" name="modelField[description]">{$info['description']}</textarea>
-            </div>
-        </div>
-        <div class="layui-form-item layui-form-text">
-            <label class="">内容</label>
-            <div class="layui-form-field-label">
-                <script type="text/plain" class="js-ueditor" id="content" name="modelField[content]">{$info['content']|raw}</script>
-            </div>
-        </div>
-        <input type="hidden" name="modelField[catid]" value="{$catid}">
-        <div class="layui-form-item layer-footer">
-            <button class="layui-btn" lay-submit data-refresh="false">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-        </div>
+        </form>
     </div>
-</form>
+</div>
 {/block}
 {block name="script"}
 <script type="text/javascript">
-layui.use('yznForm', function() {
-    var yznForm = layui.yznForm;
-    yznForm.listen();
-});
+    layui.use('yznForm', function() {
+        var yznForm = layui.yznForm;
+        yznForm.listen('', function (res) {
+            layer.msg("更新成功！",{icon: 1});
+            setTimeout('window.location.reload()',1000);
+        });
+
+        $('.btn-import').on('click', function(e) {
+            layer.msg("同步成功！",{icon: 1});
+            $(window).scrollTop(0);
+            location.href = '{:url("add",["catid"=>$catid,"import"=>1])}';
+        });
+    });
 </script>
 {/block}

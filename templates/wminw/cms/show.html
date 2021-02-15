@@ -1,0 +1,132 @@
+{include file="common/header" /}
+{include file="common/banner" /}
+<link rel="stylesheet" href="__STATIC__/wminw/css/layui.css">
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1969327_j5g18qjmc4.css">
+<link rel="stylesheet" href="__STATIC__/wminw/css/list.css">
+<link rel="stylesheet" type="text/css" href="http://blog.yzncms.com/static/modules/cms/css/BlackMac.css"/>
+<!-- ========================= 内容开始 ======================== -->
+
+<div class="layui-content">
+    <div class="layui-container">
+
+        <div class="layui-row layui-col-space15 main">
+            <div class="map">
+                <span class="layui-breadcrumb">
+                     <a href="/">首页</a><span lay-separator="">/</span>
+                    <a href="/lists/24.html">分类</a><span lay-separator="">/</span><a href="/lists/28.html">技术杂谈</a><span lay-separator="">/</span> <a><cite>正文</cite></a>
+               </span>
+            </div>
+            <div class="layui-col-md9 layui-col-lg9">
+                <div class="title-article">
+                    <h1>{$title}</h1>
+                    <div class="title-msg">
+                        <span><i class="layui-icon iconfont iconpeople_fill"></i> {$username}</span>
+                        <span><i class="layui-icon iconfont icontime"></i> {$inputtime|date="Y-m-d H:i:s"} </span>
+                        <span><i class="layui-icon iconfont iconbrowse"></i> {$hits}浏览</span>
+                        <span>百度已收录</span>
+                    </div>
+                </div>
+                <div class="text" itemprop="articleBody">
+                    <div id="md_content_2" class="md_content markdown-body editormd-html-preview" style="min-height: 50px;">
+                        {$content|raw}
+
+                    </div>
+                </div>
+
+                {notempty name="tags"}
+                <div class="tags-text">
+                    <i class="layui-icon iconfont iconbiaoqian"></i> 标签:
+                    {volist name=":explode(',',$tags)" id="vo"}
+                    <a href="{:url('cms/index/tags',['tag'=>$vo])}">{$vo}</a>
+                    {/volist}
+                </div>
+                {/notempty}
+
+                <div class="time-text">
+                    <i class="layui-icon iconfont iconshijian"></i> 最后修改：{$updatetime|date="Y年m月d日 H:i:s"}
+                </div>
+
+
+                <div class="page-text">
+                    {yzn module="cms" action="pre" catid="$catid" id="$id" siteId="$site_id" cache="3600" return="data"}
+                    <div>
+                        <span class="layui-badge layui-bg-gray">下一篇</span>
+                        <a href="{$data.url}" title="{$data.title}">{$data.title}</a>
+                    </div>
+                    {/yzn}
+                    {yzn module="cms" action="next" catid="$catid" id="$id" siteId="$site_id" cache="3600" return="data"}
+                    <div>
+                        <span class="layui-badge layui-bg-gray">下一篇</span>
+                        <a href="{$data.url}" title="{$data.title}">{$data.title}</a>
+                    </div>
+                    {/yzn}
+                </div>
+                <div class="page-text">
+                    <div class="duoshuo">
+                        <h2><span>此评论不代表本站观点</span>大家说</h2>
+                        <div id="ds-reset" style="margin: 0 10px;"></div>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    //评论
+                    var commentsQuery = {
+                        'domain':'http://www.wxinw.com/',
+                        'catid': '{$catid}',
+                        'id': '{$id}',
+                        'size': 10
+                    };
+                    (function () {
+                        var ds = document.createElement('script');
+                        ds.type = 'text/javascript';
+                        ds.async = true;
+                        ds.src = commentsQuery.domain+'static/modules/comments/js/embed.js';
+                        ds.charset = 'UTF-8';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                    })();
+                    //评论结束
+                </script>
+            </div>
+
+            {include file="common/right" /}
+        </div>
+        <script type="text/javascript">
+            (function () {
+                var pres = document.querySelectorAll('pre');
+                var lineNumberClassName = 'line-numbers';
+                pres.forEach(function (item, index) {
+                    item.className = item.className == '' ? lineNumberClassName : item.className + ' ' + lineNumberClassName;
+                });
+            })();
+        </script>
+        <script type="text/javascript" src="/static/modules/cms/js/clipboard.min.js"></script>
+        <script type="text/javascript" src="/static/modules/cms/js/prism.js"></script>
+    </div>
+</div>
+
+{include file="common/footer" /}
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https'){
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4f714893179c9f498c4e82259cb508f0";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+</body>
+
+</html>

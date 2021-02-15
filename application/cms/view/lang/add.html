@@ -1,0 +1,97 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+<link rel="stylesheet" href="__STATIC__/admin/css/cms.css">
+<div class="layui-card">
+    <div class="layui-card-body">
+        <form class="layui-form" method="post">
+            <div class="layui-tab">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">基本设置</li>
+                    {volist name="site" id="s" key="i" }
+                    {if (isset(cache("Cms_Config")['category_mode']) && 2 == cache("Cms_Config")['category_mode'])}
+                    {if $i == getSiteInfo('id')}
+                    {include file="item_site" /}
+                    {/if}
+                    {else}
+                    {include file="item_site" /}
+                    {/if}
+                    {/volist}
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <input type="hidden" name="type" value="text" />
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">碎片标题</label>
+                            <div class="layui-input-inline w300">
+                                <input type="text" name="title" lay-verify="required" lay-reqText="{:getSiteName($k)}碎片标题不能为空"  placeholder="字段中文标题" class="layui-input">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">一般由中文组成，仅用于显示</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">碎片名称</label>
+                            <div class="layui-input-inline w300">
+                                <input type="text" name="name" lay-verify="required" lay-reqText="{:getSiteName($k)}碎片名称不能为空" placeholder="字段英文名称" class="layui-input">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">由英文字母开头和下划线组成，如 <code>web_site_title</code></div>
+                        </div>
+
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">碎片备注</label>
+                            <div class="layui-input-inline w300">
+                                <textarea name="remark" placeholder="填写碎片说明" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">排序</label>
+                            <div class="layui-input-inline w300">
+                                <input type="number" name="listorder" autocomplete="off" placeholder="只能是正整数" class="layui-input" value="100">
+                            </div>
+                        </div>
+                    </div>
+
+                    {volist name="site" id="s" key="k" }
+
+                    {if (isset(cache("Cms_Config")['category_mode']) && 2 == cache("Cms_Config")['category_mode'])}
+                    {if $k == getSiteInfo('id')}
+                    <div class="layui-tab-item">
+                        <input type="hidden" name="lang_data[{$k}][site_id]" value="{$s['id']}" />
+                        <div class="layui-form-item">
+                            <label>{:getSiteName($k)}数据</label>
+                            <div class="w300">
+                                <textarea lay-verify="required" lay-reqText="{:getSiteName($k)}数据不能为空"  class="layui-textarea" name="lang_data[{$k}][value]"  placeholder="{:lang('Setting Value',[],$s['mark'])}"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    {/if}
+                    {else}
+                    <div class="layui-tab-item">
+                        <input type="hidden" name="lang_data[{$k}][site_id]" value="{$s['id']}" />
+                        <div class="layui-form-item">
+                            <label>{:getSiteName($k)}数据</label>
+                            <div class="w300">
+                                <textarea lay-verify="required" lay-reqText="{:getSiteName($k)}数据不能为空"  class="layui-textarea" name="lang_data[{$k}][value]"  placeholder="{:lang('Setting Value',[],$s['mark'])}"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    {/if}
+                    {/volist}
+                </div>
+                <div class="layui-form-item layer-footer">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit>立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+    layui.use('yznForm', function() {
+        var yznForm = layui.yznForm;
+        yznForm.listen();
+    });
+</script>
+{/block}

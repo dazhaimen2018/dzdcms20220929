@@ -1,0 +1,83 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">站点列表</div>
+    <div class="layui-card-body">
+        <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
+    </div>
+</div>
+<script type="text/html" id="barTool">
+    <a data-open='{:url("edit")}?id={{ d.id }}' data-title="编辑站点" class="layui-btn layui-btn-xs">编辑</a>
+	<a class="layui-btn layui-btn-xs layui-btn-danger layui-btn-disabled">删除</a>
+</script>
+
+<script type="text/html" id="logo">
+	{{# if(d.logo ==0){ }}无
+	{{#  } else { }}
+	<div>有图</div>
+	{{#  } }}
+</script>
+<script type="text/html" id="icon">
+	{{# if(d.mark ==0){ }}无
+	{{#  } else { }}
+	<div><img src="/static/language/{{d.mark}}.png" alt=""></div>
+	{{#  } }}
+</script>
+
+<script type="text/html" id="url">
+	{{# if(d.http ==0){ }}
+	<div><a href="http://{{ d.domain }}" target="_blank"><i class="iconfont icon-lianjie"></i> http://{{ d.domain }}</a></div>
+	{{#  } else { }}
+	<div><a href="https://{{ d.domain }}" target="_blank"><i class="iconfont icon-lianjie"></i> https://{{ d.domain }}</a></div>
+	{{#  } }}
+</script>
+
+<script type="text/html" id="statusTpl">
+    <input type="checkbox" name="status" value="{{d.id}}" data-href="{:url('multi')}?id={{d.id}}&param=status" lay-skin="switch" lay-text="开启|关闭" lay-filter="switchStatus" {{ d.status==1 ? 'checked' : '' }}>
+</script>
+
+{/block}
+{block name="script"}
+<script>
+layui.use('yznTable', function() {
+    var table = layui.yznTable;
+
+    var init = {
+        table_elem: '#currentTable',
+        add_url: "{:url('add')}",
+        delete_url: "{:url('del')}",
+    };
+
+    table.render({
+        init: init,
+        id: 'currentTable',
+        elem: '#currentTable',
+        toolbar: [
+        		'refresh',
+			[{
+				text: '添加',
+				title: '添加站点',
+				url: init.add_url,
+				method: 'open',
+				class: 'layui-btn layui-btn-normal layui-btn-sm',
+				icon: 'iconfont icon-add',
+			}],'delete'],
+        url: '{:url("index")}',
+        cols: [
+            [
+				{field: 'id', title: 'ID', width: 80, fixed: true, sort: true,align:"center"},
+				{ field: 'listorder', width: 70, title: '排序', edit: 'text' },
+                {field: 'name', title: '站点名称', width: 120,align:"center"},
+                {field: 'mark', title: '站点标识', width: 120,align:"center" },
+                {field: 'icon', title: '站点图标', width: 100,templet:"#icon",align:"center" },
+				{ field: 'domain', title: 'URL',templet:'#url'},
+                {field: 'logo', title: 'LOGO', width: 150,templet:"#logo",align:"center" },
+				{ field: 'status', width: 120, align: "center", title: '状态', templet: '#statusTpl', unresize: true },
+                {fixed: 'right', title:'操作',width:150, toolbar: '#barTool',align:"center"},
+            ]
+        ],
+        page: {}
+    });
+});
+</script>
+{/block}

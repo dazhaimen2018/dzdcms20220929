@@ -4,39 +4,47 @@
     <div class="layui-tab">
         <ul class="layui-tab-title">
             <li class="layui-this">基本设置</li>
-            <li>选项设置</li>
             <li id="modeTab">模板设置</li>
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
                 <div class="layui-form-item">
+                    <label>所属站点</label>
+                    <div class="layui-form-field-label">
+                        {volist name="site" id="vo"}
+                        <input type="checkbox" name="site_id[]" value="{$vo.id}" lay-skin="primary" title="{$vo.name}" {if $data && in_array($vo.id,$data.name)}checked{/if}>
+                        {/volist}
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">不选，表示所有站点共用</div>
+                </div>
+                <div class="layui-form-item">
                     <label>上级菜单</label>
-                        <div class="w300">
-                            <select name="parentid" lay-verify="required">
-                                <option value="0">作为顶级栏目</option>
-                                {$category|raw}
-                            </select>
-                        </div>
+                    <div class="w300">
+                        <select name="parentid" lay-verify="required">
+                            <option value="0">作为顶级栏目</option>
+                            {$category|raw}
+                        </select>
+                    </div>
                 </div>
                 <div class="layui-form-item">
                     <label>添加方式</label>
-                        <div class="w300">
-                            <input type="radio" name="isbatch" value="1" title="批量添加" lay-filter="filter">
-                            <input type="radio" name="isbatch" value="0" title="单条添加" checked lay-filter="filter">
-                        </div>
+                    <div class="w300">
+                        <input type="radio" name="isbatch" value="1" title="批量添加" lay-filter="filter">
+                        <input type="radio" name="isbatch" value="0" title="单条添加" checked lay-filter="filter">
+                    </div>
                 </div>
                 <div class="layui-form-item" id="normal_add">
                     <label>栏目标题 </label>
-                        <div class="w300">
-                            <input type="text" name="catname" lay-verify="required" autocomplete="off" placeholder="栏目名称" class="layui-input" id="catname">
-                        </div>
+                    <div class="w300">
+                        <input type="text" name="catname" lay-verify="required" autocomplete="off" placeholder="栏目名称" class="layui-input" id="catname">
+                    </div>
                 </div>
                 <div class="layui-form-item" id="catdir_tr">
                     <label>唯一标识</label>
-                        <div class="w300">
-                            <input type="text" name="catdir" autocomplete="off" placeholder="唯一标识" class="layui-input" id="catdir">
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">留空自动生成拼音，英文数字组成</div>
+                    <div class="w300">
+                        <input type="text" name="catdir" autocomplete="off" placeholder="唯一标识" class="layui-input" id="catdir">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">留空自动生成拼音，英文数字组成</div>
                 </div>
                 <div class="layui-form-item web_link">
                     <label>链接地址</label>
@@ -66,67 +74,53 @@
                 </div>
                 <div class="layui-form-item" id="batch_add" style="display:none">
                     <label>栏目名称</label>
-                        <div class="w300">
-                            <textarea name="batch_add" lay-verify="" placeholder="栏目名称|唯一标识" class="layui-textarea"></textarea>
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">例如：<br>国内新闻|china<br>国际新闻|world<br>唯一标识留空时自动生成拼音</div>
+                    <div class="w300">
+                        <textarea name="batch_add" lay-verify="" placeholder="栏目名称|唯一标识" class="layui-textarea"></textarea>
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">例如：<br>国内新闻|china<br>国际新闻|world<br>唯一标识留空时自动生成拼音</div>
                 </div>
-                <div class="layui-form-item web_seo">
-                    <label>栏目简介</label>
-                        <div class="w300">
-                            <textarea name="description" placeholder="栏目简介" class="layui-textarea"></textarea>
-                        </div>
-                </div>
+
                 <div class="layui-form-item layui-form-text">
                     <label>栏目图片</label>
-                    <div class="layui-form-field-label">
+                    <div class="layui-form-field-label border-none">
                         <div class="js-upload-image">
                             {php}echo \util\Form::images('image'){/php}
                         </div>
                     </div>
                 </div>
+                {if isset(cache("Cms_Config")['icon_mode']) && 1==cache("Cms_Config")['icon_mode']}
                 <div class="layui-form-item layui-form-text">
                     <label>栏目图标</label>
-                    <div class="layui-form-field-label">
+                    <div class="layui-form-field-label border-none">
                         <div class="js-upload-image">
                             {php}echo \util\Form::images('icon'){/php}
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="layui-tab-item">
+                {else}
+                <div class="layui-form-item">
+                    <label>栏目图标</label>
+                    <div class="w300">
+                        <input type="text" name="icon" autocomplete="off" placeholder="栏目图标格式iconfont-icon或layui-icon-rate" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">手动输入字体样式：如iconfont-icon或layui-icon-rate</div>
+                </div>
+                {/if}
                 <div class="layui-form-item">
                     <label>在导航显示</label>
-                        <div class="w300">
-                            <input type="radio" name="status" value="1" title="显示" checked>
-                            <input type="radio" name="status" value="0" title="隐藏">
-                        </div>
+                    <div class="w300">
+                        <input type="radio" name="status" value="1" title="显示" checked>
+                        <input type="radio" name="status" value="0" title="隐藏">
+                    </div>
                 </div>
                 <div class="layui-form-item">
                     <label>显示排序</label>
-                        <div class="w300">
-                            <input type="text" name="listorder" autocomplete="off" placeholder="显示排序" class="layui-input" value="100">
-                        </div>
-                </div>
-                <div class="layui-form-item web_seo">
-                    <label>网页标题</label>
-                        <div class="w300">
-                            <input type="text" name="setting[meta_title]" autocomplete="off" placeholder="针对搜索引擎设置的标题" class="layui-input">
-                        </div>
-                </div>
-                <div class="layui-form-item web_seo">
-                    <label>网页关键词</label>
-                        <div class="w300">
-                            <input type="text" name="setting[meta_keywords]" autocomplete="off" placeholder="关键字中间用半角逗号隔开" class="layui-input">
-                        </div>
-                </div>
-                <div class="layui-form-item web_seo">
-                    <label>网页描述</label>
-                        <div class="w300">
-                            <textarea name="setting[meta_description]" placeholder="针对搜索引擎设置的网页描述" class="layui-textarea"></textarea>
-                        </div>
+                    <div class="w300">
+                        <input type="text" name="listorder" autocomplete="off" placeholder="显示排序" class="layui-input" value="100">
+                    </div>
                 </div>
             </div>
+
             <div class="layui-tab-item">
                 <div class="layui-form-item web_page">
                     <label class="w100">单页模板</label>
@@ -141,6 +135,9 @@
                     <div class="layui-form-mid layui-word-aux">新增模板以page_xx.html形式</div>
                 </div>
             </div>
+            <!-- 多语言设置 -->
+
+            <!-- 多语言设置 end -->
         </div>
         <input type="hidden" name="type" value="1">
         <div class="layui-form-item layer-footer">
@@ -154,34 +151,34 @@
 {/block}
 {block name="script"}
 <script type="text/javascript">
-layui.use(['form','yznForm'], function(){
-    var form = layui.form,
-    yznForm = layui.yznForm;
+    layui.use(['form','yznForm'], function(){
+        var form = layui.form,
+            yznForm = layui.yznForm;
 
-    yznForm.listen();
-    form.on('radio(filter)', function(data){
-        if(1==data.value){
-            //批量
-            $('#normal_add').hide();
-            $('#catdir_tr').hide();
-            $('#batch_add').show();
+        yznForm.listen();
+        form.on('radio(filter)', function(data){
+            if(1==data.value){
+                //批量
+                $('#normal_add').hide();
+                $('#catdir_tr').hide();
+                $('#batch_add').show();
 
-            $('#catname').attr('disabled',true).attr('lay-verify','');
-            //$('#catdir').attr('disabled',true).attr('lay-verify','');
-        }
-        if(0==data.value){
-            $('#normal_add').show();
-            $('#catdir_tr').show();
-            $('#batch_add').hide();
+                $('#catname').attr('disabled',true).attr('lay-verify','');
+                //$('#catdir').attr('disabled',true).attr('lay-verify','');
+            }
+            if(0==data.value){
+                $('#normal_add').show();
+                $('#catdir_tr').show();
+                $('#batch_add').hide();
 
-            $('#catname').attr('disabled',false).attr('lay-verify','required');
-            //$('#catdir').attr('disabled',false).attr('lay-verify','required');
-        }
+                $('#catname').attr('disabled',false).attr('lay-verify','required');
+                //$('#catdir').attr('disabled',false).attr('lay-verify','required');
+            }
+        });
+
+        form.on('select(fasttype)', function(data) {
+            $('#url').val($(data.elem).find("option:selected").attr("data-url"));
+        });
     });
-
-    form.on('select(fasttype)', function(data) {
-        $('#url').val($(data.elem).find("option:selected").attr("data-url"));
-    });
-});
 </script>
 {/block}

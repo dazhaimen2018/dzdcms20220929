@@ -1,0 +1,11 @@
+.fly-logo img{height: 40px;}
+.fly-nav{margin-left: 250px;}
+.login-main form .verify-box img{border: 1px solid #e6e6e6!important;height: 36px;}
+.login-main .layui-tab .layui-tab-title{width: 100%;}
+.login-main .layui-tab .layui-tab-title li{width: 50%;padding:  0!important;}
+.login-main .layui-tab .layui-tab-content{padding: 0 10px!important;}
+.login-main .layui-tab .layui-tab-content .layui-form-item{margin-top: 10px!important;margin-bottom: 5px!important;}
+
+.event .imgBg img{display: block!important;}
+.event .newsList li{ padding: 10px;overflow: hidden;;}
+.event .more{width: 100%;text-align: center;overflow: hidden;margin-top: 10px;}

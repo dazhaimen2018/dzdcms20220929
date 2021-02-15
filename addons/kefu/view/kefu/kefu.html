@@ -1,0 +1,328 @@
+<link rel="stylesheet" href="__STATIC__/addons/kefu/css/0{$theme}.css">
+{notin name="theme" value="7,8,10"}
+<script type="text/javascript" src="__STATIC__/addons/kefu/js/0{$theme}.js"></script>
+{/notin}
+{switch theme}
+{case 1}
+<div class="suspension">
+    <div class="suspension-box">
+        <a href="#" class="a a-service "><i class="i"></i></a>
+        <a href="javascript:;" class="a a-service-phone "><i class="i"></i></a>
+        <a href="javascript:;" class="a a-qrcode"><i class="i"></i></a>
+        <a href="javascript:;" class="a a-top"><i class="i"></i></a>
+        {volist name="qqList" id="vo"}
+        <div class="d d-service">
+            <i class="arrow"></i>
+            <div class="inner-box">
+                <div class="d-service-item clearfix">
+                    <a href="http://wpa.qq.com/msgrd?v=3&amp;uin={$vo.qq}&amp;site=qq&amp;menu=yes" target="_blank" class="clearfix"><span class="circle"><i class="i-qq"></i></span>
+                        <h3>咨询在线客服</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {/volist}
+        {volist name="phoneList" id="v"}
+        <div class="d d-service-phone">
+            <i class="arrow"></i>
+            <div class="inner-box">
+                <div class="d-service-item clearfix">
+                    <span class="circle"><i class="i-tel"></i></span>
+                    <div class="text">
+                        <p>服务热线</p>
+                        <p class="red number">{$v.phone}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {/volist}
+        <div class="d d-qrcode">
+            <i class="arrow"></i>
+            <div class="inner-box">
+                <div class="qrcode-img"><img src="{$qrcode|get_file_path}" alt=""></div>
+                <p>微信服务号</p>
+            </div>
+        </div>
+    </div>
+</div>
+{/case}
+{case 2}
+<div class="scrollsidebar" id="scrollsidebar">
+    <div class="side_content">
+        <div class="side_list">
+            <div class="side_title"><a title="隐藏" class="close_btn"><span>关闭</span></a></div>
+            <div class="side_center">
+                <div class="custom_service">
+                    {volist name="qqList" id="vo"}
+                    <p><a title="点击这里给我发消息" href="http://wpa.qq.com/msgrd?v=3&amp;uin={$vo.qq}&amp;site=qq&amp;menu=yes" target="_blank"><img src="http://wpa.qq.com/pa?p=2:{$vo.qq}:41"></a> </p>
+                    {/volist}
+                </div>
+                <div class="other">
+                    <p><img src="{$qrcode|get_file_path}" width="120" /></p>
+                    <p>客户服务热线</p>
+                    {volist name="phoneList" id="v"}
+                    <p>{$v.phone}</p>
+                    {/volist}
+                </div>
+                <div class="msgserver">
+                    <p><a href="{$url}">联系我们</a></p>
+                </div>
+            </div>
+            <div class="side_bottom"></div>
+        </div>
+    </div>
+    <div class="show_btn"><span>在线客服</span></div>
+</div>
+{/case}
+{case 3}
+<div id="service">
+    <ul>
+        <li>
+            <a href="javascript:void(0)" class="weixin_area">
+                <img src="__STATIC__/addons/kefu/images/03/l02.png" width="47" height="49" class="shows" />
+                <img src="__STATIC__/addons/kefu/images/03/a.png" width="57" height="49" class="hides" />
+                <img src="{$qrcode|get_file_path}" width="145" class="weixin" style="display:none;margin:-100px 57px 0 0" />
+            </a>
+        </li>
+        {volist name="qqList" id="vo"}
+        <li>
+            <a href="http://wpa.qq.com/msgrd?v=3&uin={$vo.qq}&site=qq&menu=yes" target="_blank">
+                <div class="hides" style="width:161px;display:none;" id="qq">
+                    <div class="hides" id="p1">
+                        <img src="__STATIC__/addons/kefu/images/03/ll04.png">
+                    </div>
+                    <div class="hides" id="p2"><span style="color:#FFF;font-size:13px">{$vo.qq}</span>
+                    </div>
+                </div>
+                <img src="__STATIC__/addons/kefu/images/03/l04.png" width="47" height="49" class="shows" />
+            </a>
+        </li>
+        {/volist}
+        {volist name="phoneList" id="v"}
+        <li id="tel">
+            <a href="javascript:void(0)">
+                <div class="hides" style="width:161px;display:none;" id="tels">
+                    <div class="hides" id="p1">
+                        <img src="__STATIC__/addons/kefu/images/03/ll05.png">
+                    </div>
+                    <div class="hides" id="p3"><span style="color:#FFF;font-size:12px">{$v.phone}</span>
+                    </div>
+                </div>
+                <img src="__STATIC__/addons/kefu/images/03/l05.png" width="47" height="49" class="shows" />
+            </a>
+        </li>
+        {/volist}
+        <li id="btn">
+            <a id="top_btn">
+                <div class="hides" style="width:161px;display:none">
+                    <img src="__STATIC__/addons/kefu/images/03/ll06.png" width="161" height="49" />
+                </div>
+                <img src="__STATIC__/addons/kefu/images/03/l06.png" width="47" height="49" class="shows" />
+            </a>
+        </li>
+    </ul>
+</div>
+{/case}
+{case 4}
+<div class="main-im">
+    <div id="open_im" class="open-im">&nbsp;</div>
+    <div class="im_main" id="im_main">
+        <div id="close_im" class="close-im"><a href="javascript:void(0);" title="点击关闭">&nbsp;</a></div>
+        {volist name="qqList" id="vo"}
+        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin={$vo.qq}&amp;site=qq&amp;menu=yes" class="im-qq qq-a" title="在线QQ客服">
+            <div class="qq-container"></div>
+            <div class="qq-hover-c"><img class="img-qq" src="__STATIC__/addons/kefu/images/04/qq.png"></div><span>QQ在线咨询</span>
+        </a>
+        {/volist}
+        <div class="im-tel">
+            {volist name="phoneList" id="v"}
+            <div>咨询热线</div>
+            <div class="tel-num">{$v.phone}</div>
+            {/volist}
+        </div>
+        <div class="im-footer" style="position:relative">
+            <div class="weixing-container">
+                <div class="weixing-show">
+                    <div class="weixing-txt">微信扫一扫<br></div><img class="weixing-ma" src="{$qrcode|get_file_path}">
+                    <div class="weixing-sanjiao"></div>
+                    <div class="weixing-sanjiao-big"></div>
+                </div>
+            </div>
+            <div class="go-top"><a href="javascript:;" title="返回顶部"></a></div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+</div>
+{/case}
+{case 5}
+<div class="yb_conct">
+    <div class="yb_bar">
+        <ul>
+            <li class="yb_top">返回顶部</li>
+            {volist name="phoneList" id="v"}
+            <li class="yb_phone">{$v.phone}</li>
+            {/volist}
+            {volist name="qqList" id="vo"}
+            <li class="yb_QQ">
+                <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin={$vo.qq}&amp;site=qq&amp;menu=yes" title="在线咨询">在线咨询</a>
+            </li>
+            {/volist}
+            <li class="yb_ercode" style="height:53px;">微信二维码 <br><img class="hd_qr" src="{$qrcode|get_file_path}" width="125" alt="微信二维码"> </li>
+        </ul>
+    </div>
+</div>
+{/case}
+{case 6}
+<div id="floatTools" class="rides-cs" style="height:246px;">
+    <div class="floatL">
+        <a style="display:block" id="aFloatTools_Show" class="btnOpen" title="查看在线客服" style="top:20px" href="javascript:void(0);">展开</a>
+        <a style="display:none" id="aFloatTools_Hide" class="btnCtn" title="关闭在线客服" style="top:20px" href="javascript:void(0);">收缩</a>
+    </div>
+    <div id="divFloatToolsView" class="floatR" style="display: none;height:237px;width: 140px;">
+        <div class="cn">
+            <h3 class="titZx">在线客服</h3>
+            <ul>
+                {volist name="qqList" id="vo"}
+                <li>
+                    <span>客服{$vo.nick}</span>
+                    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin={$vo.qq}&amp;site=qq&amp;menu=yes"><img border="0" src="__STATIC__/addons/kefu/images/06/online.png" alt="点击这里给我发消息" title="点击这里给我发消息" /></a>
+                </li>
+                {/volist}
+                <li>
+                    <a href="{$url}" target="_blank">联系我们</a>
+                    <div class="div_clear"></div>
+                </li>
+                {volist name="phoneList" id="v"}
+                <li style="border:none;"><span>电话：{$v.phone}</span></li>
+                {/volist}
+            </ul>
+        </div>
+    </div>
+</div>
+{/case}
+{case 7}
+<div class="side">
+    <ul>
+        {volist name="qqList" id="vo"}
+        <li id="qqonline"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin={$vo.qq}&amp;site=qq&amp;menu=yes"><i class="bgs1"></i>QQ咨询</a></li>
+        {/volist}
+        <li class="shangqiao">
+            <a href="javascript:;" rel="nofollow">
+                <div><i class="bgs2"></i>在线咨询</div>
+            </a>
+        </li>
+        <li class="sideewm"><i class="bgs3"></i>官方微信
+            <div class="ewBox son"></div>
+        </li>
+        <li class="sideetel"><i class="bgs4"></i>联系电话
+            <div class="telBox son">
+                {volist name="phoneList" id="v"}
+                <dd class="bgs{$key+1}"><span>电话</span>{$v.phone}</dd>
+                {/volist}
+            </div>
+        </li>
+        <li id="yuyueshow"><i class="bgs5"></i>预约上门</li>
+        <li class="sidetop" onClick="goTop()"><i class="bgs6"></i>返回顶部</li>
+    </ul>
+</div>
+<script type="text/javascript">
+function goTop() {
+    $('html,body').animate({
+        scrollTop: 0
+    }, 500)
+}
+</script>
+{/case}
+{case 8}
+<div id="kefu">
+    <input type="checkbox" id="showKfList">
+    <label for="showKfList" class="topBtn"></label>
+    <span class="wechat">
+        <em class="eweima">
+            <img src="{$qrcode|get_file_path}" alt="微信公众号">
+            <small>关注微信公众号</small>
+        </em>
+    </span>
+    {volist name="qqList" id="vo"}
+    <span class="qq" title="点击进行咨询" onClick="window.open('http://wpa.qq.com/msgrd?v=3&uin={$vo.qq}&site=qq&menu=yes');"></span>
+    {/volist}
+    <span class="other">
+        <dl class="tel">
+            {volist name="phoneList" id="v"}
+            <dt>{$v.phone}</dt>
+            {/volist}
+            <dd>7*24小时客服电话</dd>
+        </dl>
+    </span>
+</div>
+{/case}
+{case 9}
+<div class="scrollsidebar" id="hhService">
+    <div class="side_content">
+        <div class="side_list">
+            <div class="side_title">
+                <a title="隐藏" class="close_btn"><span>关闭</span></a></div>
+            <div class="side_center">
+                <div class="qqserver">
+                    {volist name="qqList" id="vo"}
+                    <p><a title="点击这里给我发消息" href="http://wpa.qq.com/msgrd?v=3&uin={$vo.qq}&site=qq&menu=yes" target="_blank">
+                    <img src="http://wpa.qq.com/pa?p=1:{$vo.qq}:51">{$vo.nick}</a></p>
+                    {/volist}
+                </div>
+                {volist name="phoneList" id="v"}
+                <strong>咨询热线：{$v.phone}</strong>
+                {/volist}
+                <div class="msgserver">
+                    <p><a href="{$url}">给我们留言</a></p>
+                </div>
+            </div>
+            <div class="side_bottom">
+            </div>
+        </div>
+    </div>
+    <div class="show_btn"><span>在线客服</span></div>
+</div>
+<script type="text/javascript">$(function(){$("#hhService").fix({float:'{$location}',minStatue:false,skin:'green',durationTime:1000})});</script>
+{/case}
+{case 10}
+<div id="toolbar">
+    <ul>
+        {volist name="qqList" id="vo"}
+        <li>
+            <a title="点击这里给我发消息" href="http://wpa.qq.com/msgrd?v=3&uin={$vo.qq}&site=qq&menu=yes" target="_blank">
+                <span class="icon-font icon-qq"></span>
+                <span class="wz">业务咨询</span>
+            </a>
+        </li>
+        {/volist}
+        {volist name="phoneList" id="v"}
+        <li>
+            <a href="javascript:;">
+                <span class="icon-font icon-phone"></span>
+                <span class="wz">{$v.phone}</span>
+            </a>
+        </li>
+        {/volist}
+        <li class="ewm">
+            <span class="icon-font icon-ewm"></span>
+            <div class="ewm-box"><img src="{$qrcode|get_file_path}" alt="二维码"></div>
+        </li>
+        <li><a href="{$url}">
+                <span class="icon-font icon-message"></span>
+                <span class="wz">在线留言</span>
+            </a></li>
+        <li class="backtop"><span class="icon-font icon-top"></span></li>
+    </ul>
+</div>
+<script>
+$(function() {
+    // 返回顶部
+    $('#toolbar .backtop').click(function () {
+        $('html, body').animate({
+             scrollTop:'0'
+        },300);
+    })
+})
+</script>
+{/case}
+{/switch}

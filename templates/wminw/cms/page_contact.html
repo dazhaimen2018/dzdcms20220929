@@ -1,0 +1,102 @@
+{include file="common/header" /}
+{include file="common/banner" /}
+<!-- ========================= 内容开始 ======================== -->
+<article>
+	<div class="about-desc letmove">
+		<h2>互联网，是中小企业品牌战略唯一可以反击的战场</h2>
+		<p class="desc">我们知道，<br>
+			当您在传统渠道拼得筋疲力尽的时候，肯定也曾不止一次想要借力于互联网，但总有诸多顾虑：<br>
+			因为您担心网络公司不了解您的企业，网站做不出您想要的效果；又操心竞价推广费用太高，网站做出来不知如何推广；<br>
+			更因为公司一直在传统领域打拼不熟悉互联网，担心网站日后维护更新没有保障。<br>
+			所有这些问题联系我们一次解决。</p>
+	</div>
+	<div class="contact-sol letmove">
+		<div class="c-sol-r">
+			<div class="c-sol-r-b">
+				<div class="c-sol-r-b-img">
+					<!-- <img class="bg" src="__STATIC__/wminw/images/contact-sol-bg.jpg" alt=""> -->
+					<picture>
+						<source srcset="__STATIC__/wminw/images/bcontact-sol-bg-m.jpg" media="(max-width: 768px)">
+						<img class="bg img-responsive" srcset="__STATIC__/wminw/images/contact-sol-bg.jpg"> </picture>
+				</div>
+				<div class="c-sol-r-b-desc">
+					<h2>Solution</h2>
+					<h4>有问题要解决？找我们</h4>
+					<div class="sol-share-one"> <i class="iconfont icon-wechat"></i>
+						<div class="ss-one-qrcode"> <img src="{:config('web_site_wechat')}">
+							<div class="share-name">手机官网</div>
+						</div>
+					</div>
+					<div class="sol-share-one"> <i class="iconfont icon-wechat"></i>
+						<div class="ss-one-qrcode"> <img src="{:config('web_site_wechat')}">
+							<div class="share-name">微信公众号</div>
+						</div>
+					</div>
+					<div class="sol-share-one"> <i class="iconfont icon-wechat"></i>
+						<div class="ss-one-qrcode"> <img src="{:config('web_site_wechat')}">
+							<div class="share-name">微博</div>
+						</div>
+					</div>
+					<a class="call" href="http://wpa.qq.com/msgrd?v=3&uin={:config('web_site_qq')}&site=qq&menu=yes"
+						target="_blank">
+						<div class="call-img"> <i class="iconfont icon-qq"></i> </div>
+						<div class="call-desc"> <span class="desc">点击咨询客服</span> </div>
+						<span class="share-name">客服在线</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="contact-site letmove">
+		{yzn module="cms" action="lists" catid="20" siteId="$site_id" cache="3600" order="listorder ASC" num="8" return="data"}
+		{volist name="data" id="item"}
+		<div class="site-one">
+			<div class="site-one-in">
+				<h3>{$item.theme}</h3>
+				<h4>{$item.title}</h4>
+				<article>
+					{$item.content|raw}
+				</article>
+			</div>
+		</div>
+		{/volist}
+		{/yzn}
+	</div>
+	{include file="common/demand" /}
+</article>
+{include file="common/footer" /}
+<script src="__STATIC__/wminw/js/contact.js"></script> 
+<script>
+		paceOptions = {
+			elements: true
+		};
+		
+		function load(time){
+			var x = new XMLHttpRequest()
+			x.open('GET', "" + time, true);
+			x.send();
+	    };
+	    
+	    setTimeout(function(){
+	    	Pace.ignore(function(){
+	    		load(3100);
+	    	});
+	    }, 4000);
+
+	    Pace.on('hide', function(){
+	    	console.log('done');
+	    });
+
+		$(function () {
+			if ($('html').hasClass('desktop')) {
+				new WOW().init();
+			}
+		
+	        $(".case_list ul li a img").lazyload({ 
+				placeholder : "../images/loading.gif",
+	            effect: "fadeIn"
+	        });  
+		});	
+	</script>
+</body>
+</html>

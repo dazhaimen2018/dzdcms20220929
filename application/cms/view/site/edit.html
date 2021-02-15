@@ -1,0 +1,143 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+<link rel="stylesheet" href="__STATIC__/admin/css/cms.css">
+<div class="layui-card">
+	<div class="layui-card-body layui-form-pane">
+		<form class="layui-form form-horizontal" action="" method="post">
+			<div class="layui-form-item item-flex">
+				<label class="layui-form-label">站点名称</label>
+				<div class="layui-input-inline item-wide">
+					<input type="text" name="name" autocomplete="off" placeholder="" class="layui-input" value="{$data.name}">
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label>
+					语言标识
+				</label>
+				<div class="item-wide">
+					<div class="layui-input-inline">
+						<input autocomplete="off" class="layui-input" id="mark" name="mark" placeholder="语言标识" type="text" value="{$data.mark}"></input>
+					</div>
+					<div class="layui-input-inline">
+						 <select lay-filter="fasttype">
+							 <option data-mark="zh-cn">常用语言标识</option>
+							 <option data-mark="zh-cn">简体中文</option>
+							 <option data-mark="en-gb">English</option>
+							 <option data-mark="ja-jp">Japanese</option>
+							 <option data-mark="ar-ar">اللغة العربية</option>
+							 <option data-mark="fr-fr">French</option>
+							 <option data-mark="de-de">Deutsch</option>
+							 <option data-mark="es-es">Espanol</option>
+							 <option data-mark="ru-ru">Russia</option>
+							 <option data-mark="ot-la">其他语言</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-mid layui-word-aux">
+					多语言选相应的语言就行，如果站群，选相应的语言就行
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label>
+					绑定域名
+				</label>
+				
+				<div class="item-wide">
+					<div class="layui-input-inline">
+						<select name="http" lay-verify="required">
+							<option value=""></option>
+							<option value="0" {if $data.http==0}selected{/if}>http://</option>
+							<option value="1" {if $data.http==1}selected{/if}>https://</option>
+						</select>
+				   </div>
+					<div class="layui-input-inline item-wide">
+						<input type="text" name="domain" autocomplete="off" placeholder="en.wxinw.com" class="layui-input" value="{$data.domain}">
+					</div>
+				
+				</div>
+				<div class="layui-form-mid layui-word-aux">
+					域名只支持二级域名或顶级域名，不可有子目录
+				</div>
+			</div>
+
+			<div class="layui-form-item item-flex">
+				<label class="layui-form-label">品牌名称</label>
+				<div class="layui-input-inline item-wide">
+					<input type="text" name="brand" autocomplete="off" placeholder="" class="layui-input" value="{$data.brand}">
+				</div>
+				<div class="layui-form-mid layui-word-aux">如:多站点</div>
+			</div>
+
+			<div class="layui-form-item item-flex">
+				<label class="layui-form-label">SEO标题</label>
+				<div class="layui-input-inline item-wide">
+					<input type="text" name="title" autocomplete="off" placeholder="" class="layui-input" value="{$data.title}">
+				</div>
+				<div class="layui-form-mid layui-word-aux">网页的title值</div>
+			</div>
+
+			<div class="layui-form-item item-flex">
+				<label class="layui-form-label">关键词</label>
+				<div class="layui-input-inline item-wide">
+					<input type="text" name="keywords" autocomplete="off" placeholder="" class="layui-input" value="{$data.keywords}">
+				</div>
+				<div class="layui-form-mid layui-word-aux">网页的keywords值</div>
+			</div>
+			<div class="layui-form-item item-flex web_seo">
+				<label class="layui-form-label">站点描述</label>
+				<div class="layui-input-inline item-wide">
+					<textarea name="description" placeholder="网站简介" class="layui-textarea">{$data.description}</textarea>
+				</div>
+				<div class="layui-form-mid layui-word-aux">网页的description值</div>
+			</div>
+			<div class="layui-form-item item-flex">
+				<label class="layui-form-label">网站Logo</label>
+				<div class="layui-input-inline item-wide border-none">
+					<div class="js-upload-image">
+						{php}echo \util\Form::images('logo','',$data['logo']){/php}
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item item-flex">
+				<label class="layui-form-label">排序</label>
+				<div class="layui-input-inline item-wide">
+					<input type="number" name="listorder" autocomplete="off" placeholder="排序" class="layui-input"
+						value="{$data.listorder}">
+				</div>
+			</div>
+			<div class="layui-form-item item-flex">
+				<label class="layui-form-label">状态</label>
+				<div class="layui-input-inline item-wide">
+					<input type="radio" name="status" value="1" {eq name="data.status" value="1" }checked{/eq}
+						title="开启" lay-filter="status">
+					<input type="radio" name="status" value="0" {eq name="data.status" value="0" }checked{/eq}
+						title="关闭" lay-filter="status">
+				</div>
+			</div>
+
+			<input name="id" type="hidden" value="{$data.id}">
+			<div class="layui-form-item layer-footer">
+				<div class="layui-input-block">
+					<button class="layui-btn" lay-submit>立即提交</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+	layui.use(['form','yznForm'], function() {
+		var yznForm = layui.yznForm;
+		var form = layui.form;
+		yznForm.listen();
+
+		form.on('select(fasttype)', function(data) {
+			$('#mark').val($(data.elem).find("option:selected").attr("data-mark"));
+		});
+	});
+</script>
+{/block}

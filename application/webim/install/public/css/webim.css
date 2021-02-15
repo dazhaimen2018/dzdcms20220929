@@ -1,0 +1,75 @@
+body, h1, h2, h3, h4, html, img, li, p, pre, ul {margin: 0;padding: 0;border: 0;}
+html, body {width: 100%;height: 100%;border: 0;overflow: hidden;}
+body, button, html, input, pre, textarea {font-family: "Microsoft Yahei","Helvetica Neue",Helvetica,Arial,sans-serif;}
+body {background: #e2e2e2;}
+
+::-webkit-scrollbar {width: 6px; }
+::-webkit-scrollbar-button {display: none; }
+::-webkit-scrollbar-track {background-color: #ddd; }
+::-webkit-scrollbar-track-piece {background-color: #f3f3f3; -webkit-border-radius: 3px; }
+::-webkit-scrollbar-thumb {background-color: #ccc; border: solid 1px #c0c0c0; border-radius: 3px; }
+::-webkit-scrollbar-corner {background-color: #f3f3f3; }
+::-webkit-resizer {background-repeat: no-repeat; background-position: bottom right; }
+::-webkit-scrollbar-thumb:hover {background-color: #bbb; }
+
+.mainBox{width: 80%;height: 90%;min-height:400px;min-width:900px;margin: 2% auto;position: relative;max-width: 960px;}
+.mainBox .header{width: 100%;height: 60px;line-height: 60px;background: #337eff;}
+.mainBox .header #chat-title{color: #fff;margin-left: 32px;}
+.main{}
+.main .main-left{width: 70%;height: 90%;position: absolute;top: 60px;left: 0;}
+
+.webim-chat-main {position: absolute; height: auto; top: 0px; bottom: 180px; right: 0; left: 0; background-color: #fff; overflow-y: auto; display: block;    padding: 2%; }
+.webim-chat-user {position: absolute; left: 3px; }
+.webim-chat-text {max-width: 462px; position: relative; line-height: 22px; margin-top: 25px; padding: 8px 15px; background-color: #e2e2e2; border-radius: 3px; color: #333; word-break: break-all; }
+.webim-chat-text:after {content: ''; position: absolute; left: -10px; top: 13px; width: 0; height: 0; border-style: dashed; border-color: transparent; overflow: hidden; border-width: 10px; border-top-style: solid; border-top-color: #e2e2e2; }
+.webim-chat-text, .webim-chat-user {display: inline-block; *display: inline; *zoom: 1; vertical-align: top; font-size: 14px; }
+.webim-chat-mine .webim-chat-user {left: auto; right: 3px; }
+.webim-chat-main ul li {position: relative; font-size: 0; margin-bottom: 10px; padding-left: 60px; min-height: 68px; }
+.webim-chat-main ul .webim-chat-mine {text-align: right; padding-left: 0; padding-right: 60px; }
+.webim-chat-user cite {position: absolute; left: 60px; top: -2px; line-height: 24px; font-size: 12px; white-space: nowrap; color: #999; text-align: left; font-style: normal; }
+.webim-chat-user cite i {padding-left: 15px; font-style: normal; }
+.webim-chat-mine .webim-chat-user cite i {padding-left: 0; padding-right: 15px; }
+.webim-chat-mine .webim-chat-user cite {left: auto; right: 60px; text-align: right; }
+.webim-chat-user img{border-radius: 50%; width: 40px; height: 40px; }
+.webim-chat-mine .webim-chat-text {margin-left: 0; text-align: left; background-color: #337eff; color: #fff; }
+.webim-chat-mine .webim-chat-text:after {left: auto; right: -10px; border-top-color: #337eff; }
+.webim-chat-main ul .webim-chat-system, .webim-chat-time {min-height: 0; padding: 0; text-align: center; margin: 5px 0 10px 0; }
+.webim-chat-system span {display: inline-block; line-height: 30px; padding: 0 15px; border-radius: 3px; background-color: #e2e2e2; cursor: default; font-size: 14px;    color: #a5a5a5; }
+
+.webim-chat-footer{position: absolute; right: 0; left: 0; bottom: 0px; height: 200px;background-color: #fff;    border-top: 1px solid #F1F1F1;}
+.webim-chat-tool {position: relative; padding: 0 8px; height: 38px; line-height: 38px; font-size: 0; }
+.webim-chat-tool span {position: relative; margin: 0 10px; display: inline-block; *display: inline; *zoom: 1; vertical-align: top; font-size: 24px; cursor: pointer; }
+.webim-tool-image input {position: absolute; font-size: 0; left: 0; top: 0; width: 100%; height: 100%; opacity: .01; filter: Alpha(opacity=1); cursor: pointer; }
+.webim-chat-bottom {position: relative; height: 46px; }
+.webim-chat-textarea {margin-left: 10px; }
+.webim-chat-textarea textarea {display: block; width: 100%; padding: 5px 0 0; height: 100px; line-height: 20px; border: none; overflow: auto; resize: none; background: 0 0; }
+.webim-chat-send {position: absolute; right: 15px; top: 3px; height: 32px; line-height: 32px; font-size: 0; cursor: pointer; }
+.webim-chat-send span {display: inline-block; *display: inline; *zoom: 1; vertical-align: top; font-size: 14px; line-height: 32px; margin-left: 5px; padding: 0 20px; background-color: #337eff; color: #fff; border-radius: 3px; }
+.webim-chat-send span:hover {background-color: #1a6eff; }
+.webim-chat-send .webim-send-btn {border-radius: 3px 0 0 3px; }
+.webim-chat-send .webim-send-set {position: relative; width: 30px; height: 32px; margin-left: 0; padding: 0; border-left: 1px solid #85C998; border-radius: 0 3px 3px 0; }
+.webim-send-set .layui-edge {position: absolute; top: 14px; left: 9px; border-width: 6px; border-top-style: solid; border-top-color: #fff; }
+.webim-menu-box {display: none; position: absolute; z-index: 100; top: 24px; left: -31px; padding: 5px 0; width: 85px; border: 1px solid #E2E2E2; border-radius: 2px; background-color: #fff; box-shadow: 1px 1px 20px rgba(0,0,0,.1); }
+.webim-chat-send .webim-menu-box {left: auto; right: 0; top: 33px; width: 180px; padding: 10px 0; }
+.webim-menu-box li {position: relative; line-height: 22px; padding-left: 30px; font-size: 12px; }
+.webim-chat-send .webim-menu-box li {padding-right: 15px; line-height: 28px; }
+.webim-chat-send .webim-menu-box {left: auto; right: 0; top: -80px; width: 180px; padding: 10px 0; }
+.webim-menu-box li i {display: none; position: absolute; left: 8px; top: 0; font-weight: 700; color: #337eff; }
+.webim-menu-box .webim-this i {display: block; }
+.chat-box ul {display: none; }
+.chat-box .show-chat-detail {display: block; }
+body .layui-webim-face {margin: 10px 0 0 -18px; border: none; background: 0 0 }
+body .layui-webim-face .layui-layer-content {padding: 0; background-color: #fff; color: #666; box-shadow: none }
+.layui-webim-face .layui-layer-TipsG {display: none }
+.layui-webim-face ul {position: relative; width: 372px; padding: 10px; border: 1px solid #D9D9D9; background-color: #fff; box-shadow: 0 0 20px rgba(0,0,0,.2) }
+.layui-webim-face ul li {cursor: pointer; float: left; border: 1px solid #e8e8e8; height: 22px; width: 26px; overflow: hidden; margin: -1px 0 0 -1px; padding: 4px 2px; text-align: center }
+.layui-webim-face ul li:hover {position: relative; z-index: 2; border: 1px solid #eb7350; background: #fff9ec }
+
+
+.main .main-right{width: 29.9%;height: 90%;position: absolute;top: 60px;left: 70%;background: #fff;border: 1px solid #ddd;overflow: hidden;}
+.main .main-right .customize{padding: 8px;height: 100%;}
+.main .main-right .customize .sider{margin-bottom: 10px;}
+.main .main-right .customize .menu-box ul{}
+.main .main-right .customize .menu-box ul li{float: left;width: 33.33%;text-align:center;transition: transform 0.5s;padding: 10px 0;}
+.main .main-right .customize .menu-box ul li:hover {background-color: #F2F2F2; transform: scaleX(1); transform-origin: 0 0; }
+.main .main-right .customize .menu-box ul li p {font-size: 14px; font-weight: 400; color: #666666; line-height: 1.5; transition: 0.5s all; overflow: hidden;}

@@ -1,0 +1,50 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+<div class="layui-card">
+	<div class="layui-card-header">添加邀请码</div>
+    <div class="layui-card-body">
+        <form class="layui-form" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label">前缀</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="prefix" autocomplete="off" placeholder="前缀" class="layui-input" value="">
+                </div>
+                <div class="layui-form-mid layui-word-aux">邀请码附带的前缀，可不填写</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">使用次数</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="max" lay-verify="required" autocomplete="off" placeholder="最多使用次数" class="layui-input" value="20">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">失效时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="expired_time" autocomplete="off"  class="layui-input datetime" value="{:date('Y-m-d H:i:s',strtotime('+1 month'))}">
+                </div>
+                <div class="layui-form-mid layui-word-aux">默认一个月</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">生成数量</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="num" autocomplete="off" placeholder="生成数量" class="layui-input" value="20">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit="" lay-filter="formSubmit">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.use('yznForm', function() {
+    var yznForm = layui.yznForm;
+    yznForm.listen();
+});
+</script>
+{/block}

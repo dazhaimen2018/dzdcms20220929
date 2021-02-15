@@ -19,7 +19,7 @@ use think\Db;
 class LinksTagLib
 {
     /**
-     * 栏目标签
+     * 友情连接标签
      */
     public function lists($data)
     {
@@ -32,9 +32,19 @@ class LinksTagLib
         if (isset($data['typeid'])) {
             $where .= empty($where) ? "termsid = " . (int) $data['typeid'] : " AND termsid = " . (int) $data['typeid'];
         }
+        if (isset($data['siteId'])) {
+            $site = [];
+            foreach (explode(',', $data['siteId']) as $k => $v) {
+                $site[] = "FIND_IN_SET('" . $v . "', site_id)";
+            }
+            if ($site) {
+                $where .= " AND (" . implode(' OR ', $site) . ")";
+            }
+        }
         $result = Db::name('Links')->where($where)->limit($num)->order($order)->withAttr('image', function ($value, $data) {
             return get_file_path($value);
         })->select();
+
         return $result;
     }
 

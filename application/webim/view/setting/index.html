@@ -1,0 +1,94 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+<link rel="stylesheet" href="__STATIC__/libs/webuploader/webuploader.css?t=1590715645">
+<div class="layui-card">
+    <div class="layui-card-header">即时通讯配置</div>
+    <div class="layui-card-body">
+        <form class="layui-form" method="post">
+            <div class="layui-tab">
+                <ul class="layui-tab-title">
+                    <li >基本配置</li>
+                    <li class="layui-this">会话窗口</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item ">
+                        <div class="layui-form-item">
+                            <label class="">端口</label>
+                            <div class="layui-form-field-label">
+                                <input type="text" name="setting[port]" placeholder="端口" class="layui-input" value="{$setting['port']}">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="">服务注册地址</label>
+                            <div class="layui-form-field-label">
+                                <input type="text" name="setting[registeraddress]" placeholder="服务注册地址" class="layui-input" value="{$setting['registeraddress']}">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="">Gateway进程数</label>
+                            <div class="layui-form-field-label">
+                                <input type="text" name="setting[gateway_count]" placeholder="Gateway进程数" class="layui-input" value="{$setting['gateway_count']}">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">与CPU核数相性能最好</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="">BusinessWorker进程数</label>
+                            <div class="layui-form-field-label">
+                                <input type="text" name="setting[worker_count]" placeholder="BusinessWorker进程数" class="layui-input" value="{$setting['worker_count']}">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">CPU核数的1倍-3倍即可</div>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-form-item layui-form-text">
+                            <label>会话右侧轮播图</label>
+                            <div class="layui-form-field-label">
+                                <div class="js-upload-images">
+                                    <div id="file_list_sider" class="uploader-list">
+                                        {notempty name="$setting['sider']"}
+                                        {volist name="$setting['sider']|explode=',',###" id="v"}
+                                        <div class="file-item thumbnail">
+                                            <img data-image class="sider-{$v}" data-original="{$v|get_file_path}" src="{$v|get_file_path|default='__STATIC__/admin/img/none.png'}">
+                                            <div class="file-panel">
+                                                <i class="iconfont icon-yidong move-picture"></i>
+                                                <i class="iconfont icon-tailor cropper" data-input-id="{$v}" data-id="sider"></i>
+                                                <i class="iconfont icon-trash remove-picture" data-id="{$v}"></i>
+                                            </div>
+                                        </div>
+                                        {/volist}
+                                        {/notempty}
+                                    </div>
+                                    <input type="hidden" name="setting[sider]" data-multiple="true" data-watermark='' data-thumb='' data-size="{:config('upload_image_size')}" data-ext="{:config('upload_image_ext')}" id="sider" value="{$setting['sider']|default=''}">
+                                    <div class="layui-clear"></div>
+                                    <div id="picker_sider"><i class="layui-icon layui-icon-upload"></i> 上传多张图片</div>
+                                    <button type="button" class="layui-btn fachoose-image" data-multiple="true" data-input-id="sider" id="fachoose-sider"><i class="iconfont icon-other"></i> 选择</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="">会话右侧内容</label>
+                            <div class="layui-form-field-label">
+                                <script type="text/javascript" src="__STATIC__/libs/ueditor/ueditor.config.js"></script>
+                                <script type="text/javascript" src="__STATIC__/libs/ueditor/ueditor.all.min.js"></script>
+                                <script type="text/javascript">
+                                var settingExtcontent = UE.getEditor('settingcontent', {
+                                    initialFrameWidth: null,
+                                    initialFrameHeight: 250,
+                                    serverUrl: GV.ueditor_upload_url
+                                });
+                                </script>
+                                <script type="text/plain" id="settingcontent" name="setting[content]">{$setting['content']|raw}</script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn" lay-submit="" data-refresh="false" lay-filter="formSubmit">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="__STATIC__/libs/webuploader/webuploader.min.js"></script>
+{/block}

@@ -1,0 +1,41 @@
+<div class="layui-form-item layui-form-text">
+    <label>{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
+    <div class="layui-form-field-label fieldlist" data-name="{$vo.fieldArr}[{$vo.name}]" data-id="{$vo.name}" data-template="true">
+        <div class="arrBox"></div>
+        <button type="button" class="layui-btn btn-append">追加</button>
+        <textarea name="{$vo.fieldArr}[{$vo.name}]" class="layui-textarea layui-hide">{$vo.value}</textarea>
+    </div>
+    {if $vo.remark}<div class="layui-form-mid layui-word-aux">{$vo.remark|raw}</div>{/if}
+</div>
+<script type="text/html" id="{$vo.name}Tpl">
+    <div class="layui-form-item rules-item">
+        {{# layui.each(d.lists, function(index, item) { }}
+        <div class="layui-input-inline" style="width:120px;">
+            <input type="text" class="layui-input" name="{{item.name}}[{{item.index}}][name]" placeholder="姓名" value="{{item.row.name|| ''}}" />
+        </div>
+        <div class="layui-input-inline" style="width:120px;">
+            <input type="text" class="layui-input" name="{{item.name}}[{{item.index}}][age]" placeholder="年龄" value="{{item.row.age|| ''}}" />
+        </div>
+        <div class="layui-input-inline" style="width:120px;">
+            <input type="text" class="layui-input" name="{{item.name}}[{{item.index}}][score]" placeholder="成绩" value="{{item.row.score|| ''}}" />
+        </div>
+        <div class="layui-input-inline" style="width:120px;">
+            <select name="{{item.name}}[{{item.index}}][city]" lay-filter="fieldlist">
+                <option value=""></option>
+                <option value="1" {{#  if(item.row.city == 1){ }}selected{{#  } }}>江苏</option>
+                <option value="2" {{#  if(item.row.city == 2){ }}selected{{#  } }}>上海</option>
+                <option value="3" {{#  if(item.row.city == 3){ }}selected{{#  } }}>深圳</option>
+                <option value="4" {{#  if(item.row.city == 4){ }}selected{{#  } }}>香港</option>
+            </select>
+        </div>
+        <div class="layui-input-inline" style="width:150px;">
+            <input type="radio" class="layui-input" name="{{item.name}}[{{item.index}}][sex]" value="1" {{#  if(item.row.sex == 1){ }}checked{{#  } }} title="男" lay-filter="fieldlist"/>
+            <input type="radio" class="layui-input" name="{{item.name}}[{{item.index}}][sex]" value="2" {{#  if(item.row.sex == 2){ }}checked{{#  } }} title="女" lay-filter="fieldlist"/>
+        </div>
+        <label class="layui-form-mid">
+            <button type="button" class="layui-btn layui-btn-danger btn-remove layui-btn-xs"><i class="iconfont icon-close"></i></button>
+            <button type="button" class="layui-btn btn-dragsort layui-btn-xs"><i class="iconfont icon-yidong"></i></button>
+    </div>
+    {{# }); }}
+    </div>
+</script>

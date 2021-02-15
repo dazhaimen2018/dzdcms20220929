@@ -1,0 +1,224 @@
+{include file="common/header" /}
+<!-- Banner -->
+{include file="common/banner" /}
+<!-- Container -->
+<div class="Container-wrapper">
+
+	<!-- 公司简介 -->
+	<div class="com-pro" id="a1">
+		<div class="title">{$title}</div>
+		<div class="con">
+			{$content|raw}
+		</div>
+		<ul class="cPro-data">
+			<li>
+				<div class="num"> <span id="cProData_1">15</span>+ </div>
+				<div class="type"> 公司成立15年 </div>
+			</li>
+			<li>
+				<div class="num"> <span id="cProData_2">1000</span>+ </div>
+				<div class="type"> 1000多个网站建设和策划 </div>
+			</li>
+			<li>
+				<div class="num"> <span id="cProData_3">1500</span>+</div>
+				<div class="type"> 服务客户 </div>
+			</li>
+		</ul>
+	</div>
+	<!-- 企业文化 -->
+	<div class="com-culture" id="a2">
+		<div class="contain">
+			<div class="I-title">
+				<div class="t1"> 企业文化 </div>
+				<span class="split"></span>
+				<div class="t3"> 我们热衷于从生活的细节发现真实的品牌价值，注重品牌在不同应用环境中的整体视觉传达、沟通与体验，擅长以简洁、清晰、概念的设计手段，为客户提供实效、创新的品牌解决方案。
+				</div>
+			</div>
+			<ul class="cCul-list clearfix">
+				<li>
+					<div class="cCul-icon"> <img src="__STATIC__/skin/images/c1.png" /> <img src="__STATIC__/skin/images/c2.png"
+							class="rollover" /> </div>
+					<div class="type"> 沟通 </div>
+					<div class="con"> 我们用最真诚的态度，与每一位顾客思想交流碰撞，力求最大化达到客户的创意需求。 </div>
+				</li>
+				<li>
+					<div class="cCul-icon"> <img src="__STATIC__/skin/images/c3.png" /> <img src="__STATIC__/skin/images/c4.png"
+							class="rollover" /> </div>
+					<div class="type"> 创新 </div>
+					<div class="con"> 根据客户的沟通意向，用我们最专业的行业水平，力求为每位顾客做最创意最视觉的设计。 </div>
+				</li>
+				<li>
+					<div class="cCul-icon"> <img src="__STATIC__/skin/images/c5.png" /> <img src="__STATIC__/skin/images/c6.png"
+							class="rollover" /> </div>
+					<div class="type"> 共赢 </div>
+					<div class="con"> 力求服务好每位顾客为客户做最好的设计服务，同时得到顾客与行业人认可与共赢。 </div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- 服务流程 -->
+	<div class="com-srv" id="a3">
+		<div class="contain">
+			<div class="I-title">
+				<div class="t1"> 服务流程 </div>
+				<span class="split"></span>
+				<div class="t3"> 不管您需要做什么服务 ，我们都将以最专业的服务与最合理的规划流程，给每一位顾客在最短的时间内，达到最快速的设计解决方案，从沟通与设计再到落地，环环相扣。 </div>
+			</div>
+			<div class="cSrv-box"> <img src="__STATIC__/skin/images/s1.jpg" /> </div>
+		</div>
+	</div>
+	<div class="com-orn"> <img src="__STATIC__/skin/images/s2.png" class="comOrn-pc" /> </div>
+	<!-- 我们的客户 -->
+	<div class="index-customer" id="a4">
+		<div class="contain">
+			<div class="I-title">
+				<div class="t1">OUR CLIENTS</div>
+				<span class="split"></span>
+				<div class="t2">我们的客户</div>
+			</div>
+			<div class="iCust-swiper">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<ul class="iCust-list">
+								<img src="__STATIC__/skin/images/s2.png" alt="">
+							</ul>
+						</div>
+						<div class="swiper-slide">
+							<ul class="iCust-list">
+								<img src="__STATIC__/skin/images/s2.png" alt="">
+							</ul>
+						</div>
+						<div class="swiper-slide">
+							<ul class="iCust-list">
+								<img src="__STATIC__/skin/images/s2.png" alt="">
+							</ul>
+						</div>
+						<div class="swiper-slide">
+							<ul class="iCust-list">
+								<img src="__STATIC__/skin/images/s2.png" alt="">
+							</ul>
+						</div>
+						<div class="swiper-slide">
+							<ul class="iCust-list">
+								<img src="__STATIC__/skin/images/s2.png" alt="">
+							</ul>
+						</div>
+						<div class="swiper-slide">
+							<ul class="iCust-list">
+								<img src="__STATIC__/skin/images/s2.png" alt="">
+							</ul>
+						</div>
+					</div>
+				</div>
+				<a href="javascript:;" class="indexCustSwiper-prev"></a> <a href="javascript:;"
+					class="indexCustSwiper-next"></a>
+			</div>
+		</div>
+	</div>
+</div>
+{include file="common/footer" /}
+<!-- js -->
+<script type="text/javascript" src="__STATIC__/skin/js/custom.js"></script>
+<!-- swiper -->
+<link rel="stylesheet" type="text/css" href="__STATIC__/skin/css/swiper.min.css">
+<script type="text/javascript" src="__STATIC__/skin/js/swiper.jquery.min.js"></script>
+<!-- 数字跳动 -->
+<script type="text/javascript" src="__STATIC__/skin/js/countup.min.js"></script>
+<script>
+
+	$(function () {
+		bnrHt = $(window).height() - $(".Header-wrapper").height();
+		$(".bnr-img").css("height", bnrHt);
+
+		//我们的客户
+		var indexCustSwiper = new Swiper('.iCust-swiper .swiper-container', {
+			slidesPerView: 6,
+			spaceBetween: '1%',
+			breakpoints: {
+				1200: {
+					slidesPerView: 5
+				},
+				980: {
+					slidesPerView: 4
+				},
+				768: {
+					slidesPerView: 3
+				},
+				640: {
+					slidesPerView: 2
+				}
+			},
+			prevButton: '.indexCustSwiper-prev',
+			nextButton: '.indexCustSwiper-next',
+			paginationClickable: true,
+			autoplayDisableOnInteraction: false
+		});
+
+
+		//公司简介
+		$(window).scroll(function () {
+			if ($(".com-pro").hasClass("cur")) return false;
+			if ($(".com-pro").hasClass("active")) {
+				//数字跳动
+				var options = {
+					useEasing: true,
+					useGrouping: true,
+					separator: "",
+					decimal: ".",
+					prefix: "",
+					suffix: ""
+				};
+				var num1 = new countUp("cProData_1", 0, $("#cProData_1").html(), 0, 2, options);
+				var num2 = new countUp("cProData_2", 0, $("#cProData_2").html(), 0, 3, options);
+				var num3 = new countUp("cProData_3", 0, $("#cProData_3").html(), 0, 3, options);
+				num1.start();
+				num2.start();
+				num3.start();
+				if ($(".com-pro").addClass("cur"));
+			}
+		});
+
+		/* 滚动效果 */
+		var scrollArrty = ['.com-pro'];
+		var scrI = 0;
+		var scrHeight = window.screen.availHeight;
+		$(window).scroll(function () {
+			scrollFn();
+		})
+
+		function scrollFn() {
+			if (scrI == scrollArrty.length) {
+				return false;
+			}
+			if ($(scrollArrty[scrI]).length == 0) {
+				scrI++;
+				if (scrI < scrollArrty.length) {
+					scrollFn();
+				} else {
+					return false;
+				}
+			}
+			var boxPos = $(scrollArrty[scrI]).offset().top;
+			var winPos = $(window).scrollTop() + scrHeight - 300;
+			if (boxPos < winPos) {
+				$(scrollArrty[scrI]).addClass('active');
+				scrI++;
+				if (scrI < scrollArrty.length) {
+					scrollFn();
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}
+		scrollFn();
+
+
+
+	})
+</script>
+</body>
+
+</html>

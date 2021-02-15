@@ -4,7 +4,7 @@
     <div class="layui-card-header">栏目管理</div>
     <div class="layui-card-body">
         <div class="layui-form">
-            <blockquote class="layui-elem-quote">添加、修改和删除栏目全部完成后，请点击【更新栏目缓存】！</blockquote>
+            <blockquote class="layui-elem-quote">1、添加、修改和删除栏目全部完成后，请点击【更新栏目缓存】；2、筛选时，点击搜索后如果显示无数据，再点击一次搜索试试；</blockquote>
             <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
         </div>
     </div>
@@ -75,20 +75,21 @@ layui.use('yznTable', function() {
             }]
         ],
         url: '{:url("index")}',
-        search:false,
+        search:true,
         cols: [
             [
                 { type: 'checkbox', fixed: 'left' },
-                { field: 'listorder', width: 70, title: '排序', edit: 'text' },
-                { field: 'id', width: 70, title: 'ID' },
+                { field: 'listorder', width: 70, title: '排序', edit: 'text' ,search:false, align: "center"},
+                { field: 'id', width: 70, title: 'ID',search:false , align: "center"},
+                { field: 'site_id', width: 200, title: '所属站点', align: "center" },
                 { field: 'catname',align: "left", title: '栏目名称' },
-                { field: 'items', width: 80, title: '数据量' },
+                { field: 'items', width: 80, title: '数据量',search:false, align: "center" },
                 { field: 'catdir', width: 120, title: '唯一标识' },
                 { field: 'type', width: 100, title: '栏目类型', templet: '<div>{{#  if(d.type==1){ }} 单页 {{#  } else if(d.type==2){  }} 列表 {{#  }  else { }} 未知 {{#  } }}</div>' },
                 { field: 'modelname', width: 120, title: '所属模型' },
-                { field: 'url', width: 60, align: "center", title: 'URL', templet: table.url },
-                { field: 'status', width: 100, align: "center", title: '状态', templet: '#statusTpl', unresize: true },
-                { fixed: 'right', width: 200, title: '操作', toolbar: '#barTool' }
+                { field: 'url', width: 60, align: "center", title: 'URL', templet: table.url,search:false },
+                { field: 'status', width: 100, align: "center", title: '状态', templet: '#statusTpl', unresize: true,search:false },
+                { fixed: 'right', width: 200, title: '操作', toolbar: '#barTool', align: "center" }
             ]
         ],
     });

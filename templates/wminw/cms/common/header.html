@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="desktop enhanced-gallery">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="format-detection" content="telephone=no" />
+	<title>{if !isset($catid)}{:getSite('title')}{else}{$SEO['title']}{/if}{if getSite('brand')} -【{:getSite('brand')}】{/if}</title>
+	<meta name="keywords" content="{$SEO['keyword']}" />
+	<meta name="description" content="{$SEO['description']}" />
+	<script src="__STATIC__/wminw/js/amfe-flexible.js"></script>
+	<link rel="stylesheet" href="__STATIC__/wminw/css/reset.css">
+	<link rel="stylesheet" href="__STATIC__/wminw/css/bootstrap.min.css">
+	<link rel="stylesheet" href="__STATIC__/wminw/css/animate.css" />
+	<link rel="stylesheet" href="__STATIC__/wminw/css/animation.css" />
+	<link rel="stylesheet" href="__STATIC__/wminw/css/main.built.css" />
+	<link rel="stylesheet" href="__STATIC__/wminw/css/common.css">
+	<link rel="stylesheet" href="__STATIC__/wminw/css/css.css">
+	<link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css">
+	<link rel="stylesheet" href="https://at.alicdn.com/t/font_1969327_j5g18qjmc4.css">
+	<link rel="stylesheet" href="__STATIC__/wminw/css/list.css">
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_1866619_7xye4s5tdc8.css">
+</head>
+
+<body>
+	<!-- 手机菜单 -->
+	<div class="neirong neirong-hide">
+		<div class="neirong-bd"> 
+			<a href="{:url('cms/index/index')}" class="neirong-on">首页</a>
+			{yzn module="cms" action="category" catid="0" siteId="$site_id" cache="3600" order="listorder ASC" num="10" return="data"}
+			{volist name="data" id="vo"}
+			<a href="{$vo.url}">{$vo.catname}<i></i></a>
+			{/volist}
+			{/yzn} 
+			</div>
+		<!-- <div class="neirong-close"> </div> -->
+	</div>
+	<!-- 手机菜单结束 -->
+	<div class="content nav-here">
+		<div class="gf-logo">
+			<h1><a href="{:url('cms/index/index')}" title="{:getSite('name')}"><img src="{:config('web_site_logo')}" alt="{$SEO['site_title']}{:getSite('name')}"></a></h1>
+		</div>
+		<header class="gf-header gf-header-side">
+			<nav class="gf-pnav black"> 
+				<a href="{:url('cms/index/index')}" class="neirong-on">首页 <i></i></a> 
+				{yzn module="cms" action="category" catid="0" siteId="$site_id" cache="3600" order="listorder ASC" num="10" return="data"}
+				{volist name="data" id="vo"}
+				<a href="{$vo.url}">{$vo.catname}<i></i></a>
+				{/volist}
+				{/yzn}
+			</nav>
+			<section class="buttonset buttonset-black">
+				<div class="nav-moblie"><a href="javascript:;"></a></div>
+			</section>
+		</header>
+		<!-- 头部结束 -->
+	</div>
+	<div class="fix-nav-btm"> 
+		<a style="color:#828282" href="http://wpa.qq.com/msgrd?v=3&uin={:config('web_site_qq')}&site=qq&menu=yes">
+			<div class="fnb-one" id="J-call-qq">
+				<div class="fnb-one-img"><i class="iconfont icon-qq"></i></div>
+				<div class="fnb-one-desc">QQ联系</div>
+			</div>
+		</a> 
+		<a style="color: #828282" href="tel:020-66889888">
+			<div class="fnb-one">
+				<div class="fnb-one-img"><i class="iconfont icon-tel"></i></div>
+				<div class="fnb-one-desc">电话联系</div>
+			</div>
+		</a> 
+		<a style="color: #828282" href="tel:188 666 999 88">
+			<div class="fnb-one">
+				<div class="fnb-one-img"><i class="iconfont icon-phone"></i></div>
+				<div class="fnb-one-desc">手机联系</div>
+			</div>
+		</a> 
+	</div>
+
+	<!-- fixed头部 -->
+
+	<div class="navbar-fixed">
+		<div class="container">
+			<div class="logo pull-left"><a href="{:url('cms/index/index')}"><img src="{:config('web_site_logo')}" alt="{$SEO['site_title']}"/></a></div>
+			<div class="right_menu pull-right hidden-xs"> 
+				<a href="{:url('cms/index/index')}" class="neirong-on">首页<i></i></a> 
+				{yzn module="cms" action="category" catid="0" siteId="$site_id" cache="3600" order="listorder ASC" num="10" return="data"}
+				{volist name="data" id="vo"}
+				<a href="{$vo.url}">{$vo.catname}<i></i></a>
+				{/volist}
+				{/yzn}
+			</div>
+		</div>
+	</div>
+	<aside class="aside-nav" style="opacity: 1">
+		<div class="aside-nav-in">
+			<div class="aside-nav-one more-width more-width-call"><a href="javascript:;">
+					<div class="aside-nav-one-img"><i class="iconfont icon-tel"></i></div>
+					<div class="aside-nav-one-desc">{:config('web_site_tel')}</div>
+				</a></div>
+			<div class="aside-nav-one more-width more-width-qq">
+				<div class="aside-nav-one-img"><i class="iconfont icon-qq"></i></div>
+				<div class="aside-nav-one-desc">
+					<div class="qq-name-box">
+						<div class="qq-name"> <a href="tencent://message/?uin={:config('web_site_qq')}"> <i></i> <span>QQ客服</span> </a> </div>
+					</div>
+				</div>
+			</div>
+			<div class="aside-nav-one more-width back-top"><a href="javascript:;">
+					<div class="aside-nav-one-img"><i class="iconfont icon-top"></i></div>
+					<div class="aside-nav-one-desc">返回顶部</div>
+				</a></div>
+		</div>
+	</aside>
+	<!-- 右侧导航end -->
+	<!-- 头部结束 -->

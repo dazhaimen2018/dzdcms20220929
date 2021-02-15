@@ -16,6 +16,7 @@ namespace app\cms\controller;
 
 use app\admin\model\Module as Module_Model;
 use app\common\controller\Adminbase;
+use app\cms\model\Site;
 
 class Setting extends Adminbase
 {
@@ -34,6 +35,8 @@ class Setting extends Adminbase
             }
         } else {
             $setting = Module_Model::where(['module' => 'cms'])->value("setting");
+            $siteArray = Site::select()->toArray();
+            $this->assign('siteArray', $siteArray);
             $this->assign("setting", unserialize($setting));
             return $this->fetch();
         }

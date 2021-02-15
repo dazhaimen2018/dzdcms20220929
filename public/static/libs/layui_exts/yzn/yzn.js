@@ -288,5 +288,23 @@ layui.define(['layer','notice'], function(exports) {
         },
     }
 
+    //把提示修改为弹窗 马博加
+    var font = document.getElementsByClassName("layui-form-mid")
+    for (var i = 0; i < font.length; i++) {
+        font[i].innerHTML = "<i class='layui-icon layui-icon-tips' lay-offset='5' lay-tips='" + font[i].innerHTML + "'></i>";
+    }
+
+    //提示弹窗 马博加
+    $('*[lay-tips]').on('mouseenter', function(){
+        var content = $(this).attr('lay-tips');
+        this.index = layer.tips('<div style="padding: 5px; font-size: 14px; color: #eee;">'+ content + '</div>', this, {
+            time: -1
+            ,maxWidth: 280
+            ,tips: [3, '#3A3D49']
+        });
+    }).on('mouseleave', function(){
+        layer.close(this.index);
+    });
+
     exports(MOD_NAME, yzn);
 });

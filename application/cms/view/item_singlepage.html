@@ -1,0 +1,38 @@
+<input type="hidden" name="extra_data[{$k}][site_id]" value="{$s.id}"/>
+<input type="hidden" name="extra_data[{$k}][id]" value="{$info[$k-1]['id']}"/>
+<input type="hidden" name="extra_data[{$k}][catid]" value="{$catid}"/>
+<div class="layui-form-item">
+    <label>
+        {:getSiteName($k)}标题 <font color="red">*</font>
+    </label>
+    <div class="layui-form-field-label">
+        <input autocomplete="off" class="layui-input" name="extra_data[{$k}][title]" placeholder="{:lang('Category Title',[],$s['mark'])}" type="text" value="{$info[$k-1]['title']}" lay-verify="required"  lay-reqText="{:getSiteName($k)}标题不能为空">
+        </input>
+    </div>
+</div>
+<div class="layui-form-item">
+    <label title="{:lang('SEO Keyword',[],$s['mark'])}">
+        {:getSiteName($k)}关键词
+    </label>
+    <div class="layui-form-field-label">
+        <input autocomplete="off" class="layui-input" name="extra_data[{$k}][keywords]" placeholder="{:lang('SEO Keyword',[],$s['mark'])}" type="text" value="{$info[$k-1]['keywords']}">
+        </input>
+    </div>
+</div>
+<div class="layui-form-item">
+    <label title="{:lang('SEO Description',[],$s['mark'])}">
+        {:getSiteName($k)}描述
+    </label>
+    <div class="layui-form-field-label">
+        <textarea class="layui-textarea" name="extra_data[{$k}][description]" placeholder="{:lang('SEO Description',[],$s['mark'])}">{$info[$k-1]['description']}</textarea>
+    </div>
+</div>
+
+<div class="layui-form-item">
+    <label>
+        {:getSiteName($k)}内容 <font color="red">*</font>
+    </label>
+    <div class="layui-form-field-label border-none">
+        <script type="text/plain" class="js-ueditor" id="content{$k}" name="extra_data[{$k}][content]" lay-verify="required" lay-reqText="内容不能为空" >{$info[$k-1]['content']|raw}</script>
+    </div>
+</div>

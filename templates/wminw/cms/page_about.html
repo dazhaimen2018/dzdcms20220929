@@ -1,0 +1,200 @@
+{include file="common/header" /}
+{include file="common/banner" /}
+<!-- ========================= 内容开始 ======================== -->
+<article>
+	<div class="about-desc letmove">
+		<h2>天天互联（北京）信息技术有限公司，以网站建设、<span class="br-pc">移动互联网营销为核心业务。</span></h2>
+		<p class="desc">专注于创意设计和传播应用,探索并实现商业价值，<span
+				class="br-pc">为所有谋求长远发展的企业品牌贡献全力，赞赞注重专业探索，摒弃虚浮夸张，不断修正服务方向，</span><span
+				class="br-pc">完善创作品格以探求精品塑造与理念升华。凭借对设计的热爱执着，营销趋势的敏锐洞察和深刻理解，</span><span
+				class="br-pc">与众多客户在蓬勃发展的市场环境中互促共生。</span></p>
+	</div>
+	<div class="about-idea letmove">
+		<div class="about-idea-t">
+			<picture>
+				<source srcset="{:getCategory(17,'image')}" media="(max-width: 48em)">
+				<img srcset="{:getCategory(17,'image')}" alt="{:getCategory(17,'catname')}"> </picture>
+		</div>
+		<div class="about-idea-b">
+			<div class="about-idea-b-in">
+				<div class="idea-title">
+					<h2>{:getCategory(17,'catname')}</h2>
+					<h4>{:getCategory(17,'description')}</h4>
+				</div>
+				{yzn module="cms" action="lists" catid="17" siteId="$site_id" cache="3600" order="listorder ASC" num="5" return="data"}
+                {volist name="data" id="vo"}
+				<div class="idea-one">
+					<div class="idea-one-img"><img src="{$vo.thumb}" alt="{$vo.title}"></div>
+					<div class="idea-one-desc">
+						<h3>{$vo.title}</h3>
+						<p class="desc">{$vo.description}</p>
+					</div>
+				</div>
+				{/volist}
+				{/yzn}
+			</div>
+		</div>
+	</div>
+	<div class="about-good">
+		<div class="about-title letmove">
+			<h2>用心成就美好</h2>
+			<h4>用不同的眼光看世界，均会发现不同的精彩</h4>
+		</div>
+		<div class="about-good-list">
+			<div class="good-one letmove">
+				<div class="good-one-img"><img src="__STATIC__/wminw/images/about-good-1.png" alt=""></div>
+				<div class="good-one-desc">
+					<h3>沟通无压力</h3>
+					<p class="desc">沟通是面对面的相互学习的过程，三人行必有我师焉，抱着虚心的态度去沟通，会让工作更加顺畅且有效</p>
+				</div>
+			</div>
+			<div class="good-one letmove">
+				<div class="good-one-img"><img src="__STATIC__/wminw/images/about-good-2.png" alt=""></div>
+				<div class="good-one-desc">
+					<h3>变的更有趣</h3>
+					<p class="desc">死板的内容不是我们的想要的，任何在人们看起来不可理喻的事物，我们总会找到他有趣的一面</p>
+				</div>
+			</div>
+			<div class="good-one letmove">
+				<div class="good-one-img"><img src="__STATIC__/wminw/images/about-good-3.png" alt=""></div>
+				<div class="good-one-desc">
+					<h3>实操大于理论</h3>
+					<p class="desc">不要将一些不明所以的内容挂在嘴上，最终能够拿出来的内容才是最能够说服人的</p>
+				</div>
+			</div>
+			<div class="good-one letmove">
+				<div class="good-one-img"><img src="__STATIC__/wminw/images/about-good-4.png" alt=""></div>
+				<div class="good-one-desc">
+					<h3>更乐于分享</h3>
+					<p class="desc">作为分享者，怎样更好的将分享机制运营到工作和生活中，分享可以让更多人获得你的快乐</p>
+				</div>
+			</div>
+			<div class="good-one letmove">
+				<div class="good-one-img"><img src="__STATIC__/wminw/images/about-good-5.png" alt=""></div>
+				<div class="good-one-desc">
+					<h3>专业的客服</h3>
+					<p class="desc">深度了解需求，优化沟通流程，减少沟通时间，提升沟通效率；精细研究品牌受众进行策略定制</p>
+				</div>
+			</div>
+			<div class="good-one letmove">
+				<div class="good-one-img"><img src="__STATIC__/wminw/images/about-good-6.png" alt=""></div>
+				<div class="good-one-desc">
+					<h3>重视高效沟通</h3>
+					<p class="desc">我们需要关心他们的一举一动，留意他们的话题以及关心的事物，并适时的参与到他们的讨论中</p>
+				</div>
+			</div>
+			<div class="good-one letmove">
+				<div class="good-one-img"><img src="__STATIC__/wminw/images/about-good-7.png" alt=""></div>
+				<div class="good-one-desc">
+					<h3>什么是互动</h3>
+					<p class="desc">让企业与消费者之间“动”起来。创造一切消费者感兴趣的互动点，让消费者与企业尽可能的保持联系</p>
+				</div>
+			</div>
+			<div class="good-one letmove">
+				<div class="good-one-img"><img src="__STATIC__/wminw/images/about-good-8.png" alt=""></div>
+				<div class="good-one-desc">
+					<h3>有趣的数据</h3>
+					<p class="desc">数据可以为我们带来最为精准的策略指引，那么我们如何使用以及分析数据，并从中获得商业机会呢？</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="counters">
+		<div class="counter_con">
+			<div class="con-tit con-tit2">
+				<div class="tit_txt1 wow fadeInUp4" data-wow-duration="1.2s" data-wow-delay=".1s">{:getCategory(21,'catname')}</div>
+				<div class="tit_txt2 wow fadeInUp5" data-wow-duration="1.2s" data-wow-delay=".4s">{:getCategory(21,'description')}</div>
+			</div>
+		</div>
+		<div class="full_section_inner">
+			<div class="counter_list  clearfix">
+				<ul class="row">
+					{yzn module="cms" action="lists" catid="21" siteId="$site_id" cache="3600" order="listorder ASC" num="5" return="data"}
+					{volist name="data" id="vo"}
+					<li class="col-md-2 col-sm-2 col-xs-4">
+						<div class="q_counter_holder wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
+							<span class="counter counter1" id="count-number" data-to="{$vo.icon}" data-speed="{$i*500}">0</span>&nbsp;<span class="unit">%</span>
+							<p class="counter_text">{$vo.title}</p>
+						</div>
+					</li>
+					{/volist}
+					{/yzn}
+
+				</ul>
+			</div>
+		</div>
+		<div class="box-shadow"></div>
+		<!--背景视频-->
+		<video loop poster="__STATIC__/wminw/images/propaganda.jpg" id="bgvid" class="bg_video">
+			<source src="__STATIC__/wminw/images/propaganda.mp4" type="video/mp4">
+		</video>
+	</div>
+	<div class="about-partner letmove">
+		<div class="partner-title">
+			<div class="partner-in">
+				<h2>合作伙伴<span>Partner</span></h2>
+			</div>
+		</div>
+		<div class="partner-show">
+			<div class="partner-in">
+				<div class="imgs-list-all">
+					<div class="swiper-container imgs-list imgs-list-pc">
+						<div class="swiper-wrapper imgs-list-in">
+							<div class="swiper-slide imgs-one">
+								<div class="imgs-one-in">
+									<div class="imgs-one-in-list">
+										{yzn module="cms" action="lists" flag="2" catid="2" order="listorder DESC,did DESC" num="5" return="data"}
+                                        {volist name="data" id="item"}
+										<div class="imgs-one-in-one">
+											<div class="imgs-one-img"><a href="{$item.url}"> <img class="swiper-lazy" data-src="{$item.logo}" alt="{$item.title}"> </a></div>
+										</div>
+										{/volist}
+										{/yzn}
+									
+									</div>
+								</div>
+							</div>
+							<div class="swiper-slide imgs-one">
+								<div class="imgs-one-in">
+									<div class="imgs-one-in-list">
+										
+									</div>
+								</div>
+							</div>
+							<div class="swiper-slide imgs-one">
+								<div class="imgs-one-in">
+									<div class="imgs-one-in-list"> </div>
+								</div>
+							</div>
+						</div>
+						<!-- Add Pagination -->
+					</div>
+					<div class="swiper-pagination"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="about-partner-m">
+		<div class="about-title letmove">
+			<h2>合作伙伴</h2>
+			<h4>众多客户信赖和选择，见证实力</h4>
+		</div>
+		<div class="partner-list-m">
+			{yzn module="cms" action="lists" flag="2" modelid="2" siteId="$site_id" cache="3600" order="listorder DESC,did DESC" num="100" return="data"}
+            {volist name="data" id="item"}
+			<div class="list-one"><a href="{$item.url}"><img src="{$item.logo}" alt="{$item.title}"></a></div>
+			{/volist}
+			{/yzn}
+		</div>
+	</div>
+</article>
+{include file="common/footer" /}
+<script src="__STATIC__/wminw/js/head.built.js"></script>
+<script src="__STATIC__/wminw/js/main.built.js"></script>
+<script src="__STATIC__/wminw/js/count.js"></script>
+<script src="__STATIC__/wminw/js/message.js"></script>
+<script src="__STATIC__/wminw/js/load.js"></script>
+<script src="__STATIC__/wminw/js/about.js"></script>
+</body>
+
+</html>

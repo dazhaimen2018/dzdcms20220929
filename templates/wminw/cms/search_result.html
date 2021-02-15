@@ -1,0 +1,36 @@
+{include file="common/header" /}
+{include file="common/banner" /}
+
+
+	<div class="mainBg">
+		<div class="container">
+			<ul class="newsList list-unstyled">
+				{volist name="list" id="vo" empty="<div class='tc font20 l-h80'>暂时没有数据</div>"}
+				<li class="wow fadeInUp">
+					<a href="{$vo.url}">
+						{if $vo.thumb}
+						<div class="newsImg"><img src="{$vo.thumb}"></div>
+						{/if}
+						<div class="newsRig">
+							<h3 class="newsTit ellipsis">{$vo.title|str_ireplace=$keyword,"<font style='color:red'>$keyword</font>",###|raw}</h3>
+							<p class="newsTime">{$vo.updatetime|date="Y-m-d"}</p>
+							<div class="newsDes fontHeight">
+								<p>{$vo.description|str_cut=###,60|str_ireplace=$keyword,"<font style='color:red'>$keyword</font>",###|raw}</p>
+							</div>
+						</div>
+						<div class="clear"></div>
+					</a>
+				</li>
+				{/volist}
+				
+			</ul>
+			<!-- 分页  -->
+			<ul class="pagination">
+				{$pages|raw}
+			</ul>
+			<!-- 分页  -->
+		</div>
+	</div>
+
+
+	{include file="common/footer" /}

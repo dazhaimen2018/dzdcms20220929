@@ -317,6 +317,100 @@ return [
                             ],
                         ],
                     ],
+                    [
+                        "route" => "cms/site/index",
+                        "type" => 1,
+                        "status" => 1,
+                        "name" => "站点管理",
+                        "icon" => "icon-apartment",
+                        "child" =>
+                            [
+                                [
+                                    "route" => "cms/site/index",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "站点管理",
+                                ],
+                                [
+                                    "route" => "cms/site/add",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "添加站点",
+                                ],
+                                [
+                                    "route" => "cms/site/edit",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "站点编辑",
+                                ],
+                                [
+                                    "route" => "cms/site/del",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "站点删除",
+                                ],
+                                [
+                                    "route" => "cms/site/listorder",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "站点排序",
+                                ],
+                                [
+                                    "route" => "cms/site/setstate",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "站点状态",
+                                ],
+
+                            ],
+                    ],
+                    [
+                        "route" => "cms/lang/index",
+                        "type" => 1,
+                        "status" => 1,
+                        "name" => "碎片管理",
+                        "icon" => "icon-setup",
+                        "child" =>
+                            [
+                                [
+                                    "route" => "cms/lang/index",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "碎片管理",
+                                ],
+                                [
+                                    "route" => "cms/lang/add",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "添加碎片",
+                                ],
+                                [
+                                    "route" => "cms/lang/edit",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "碎片编辑",
+                                ],
+                                [
+                                    "route" => "cms/lang/del",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "碎片删除",
+                                ],
+                                [
+                                    "route" => "cms/lang/listorder",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "碎片排序",
+                                ],
+                                [
+                                    "route" => "cms/lang/setstate",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "碎片状态",
+                                ],
+
+                            ],
+                    ],
                 ],
             ],
         ],

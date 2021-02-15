@@ -60,6 +60,13 @@ class Main extends Adminbase
         } else {
             $sys_info['gdinfo'] = "未知";
         }
+
+        // 新增
+        $sys_info['adminlog'] = Db::name('adminlog')->count();
+        $sys_info['model'] = Db::name('model')->where('status', 1)->count();
+        $sys_info['admin'] = Db::name('admin')->where('status', 1)->count();
+        $sys_info['site'] = Db::name('site')->where('status', 1)->count();
+
         return $sys_info;
     }
 

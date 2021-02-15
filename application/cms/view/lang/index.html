@@ -1,0 +1,101 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">碎片列表</div>
+    <div class="layui-card-body">
+        <blockquote class="layui-elem-quote">添加、修改和删除碎片全部完成后，请点击【更新碎片缓存】！</blockquote>
+        <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
+    </div>
+</div>
+
+<script type="text/html" id="barTool">
+    {{# if(d.type=='radio' || d.type=='select'){ }}
+    <a href='javascript:;' class="layui-btn layui-btn-xs copy" data-clipboard-text="{literal}键：{:config('{{d.name}}')['key']} 值：{:config('{{d.name}}')['value']}{/literal}">代码调用</a>
+    {{# } else if(d.type=='checkbox' || d.type=='array' || d.type=='images' || d.type=='files'){ }}
+    <a href='javascript:;' class="layui-btn layui-btn-xs copy" data-clipboard-text="{literal}{volist name=&quot;:config('{{d.name}}')&quot; id='vo'}  值：{$key}  描述：{$vo} <br> {/volist}{/literal}">代码调用</a>
+    {{# } else { }}
+    <a href='javascript:;' class="layui-btn layui-btn-xs copy" data-clipboard-text="{literal}{:patch('{{d.name}}')}{/literal}">代码调用</a>
+    {{# } }}
+    <a data-open='{:url("edit")}?id={{ d.id }}' data-title="编辑碎片" class="layui-btn layui-btn-xs">编辑</a>
+    <a href='{:url("del")}?ids={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
+</script>
+<script type="text/html" id="switchTpl">
+    <input type="checkbox" name="status" data-href="{:url('multi')}?id={{d.id}}&param=status" value="{{d.id}}" lay-skin="switch" lay-text="开启|关闭" lay-filter="switchStatus" {{ d.status==1 ? 'checked' : '' }}>
+</script>
+{/block}
+
+{block name="script"}
+<script>
+layui.use(['yznTable','clipboard'], function() {
+    var table = layui.yznTable,
+        $ = layui.$,
+        form = layui.form,
+        clipboard =  layui.clipboard;
+
+    var init = {
+        table_elem: '#currentTable',
+        add_url: "{:url('add')}",
+        modify_url:'{:url("multi")}',
+        delete_url: "{:url('del')}",
+    };
+
+    table.render({
+        init: init,
+        id:'currentTable',
+        elem: '#currentTable',
+        toolbar: ['refresh',[{
+            text: '添加',
+            title: '添加碎片',
+            url: init.add_url,
+            method: 'open',
+            class: 'layui-btn layui-btn-normal layui-btn-sm',
+            icon: 'iconfont icon-add',
+        }], [{
+            text: "更新碎片缓存",
+            url: "{:url('lang_cache')}",
+            method: 'request',
+            class: 'layui-btn layui-btn-sm layui-btn-danger',
+            extend: 'data-table="currentTable"',
+        }]
+        ],
+        url: '{:url("index")}',
+        cols: [
+            [
+                { field: 'id', title: 'ID', width: 70, align:'center' },
+			    { field: 'listorder', width: 70, title: '排序', edit: 'text' },
+                { field: 'name', title: '名称', width: 200},
+                { field: 'title', title: '标题', width: 200 },
+                { field: 'remark', title: '备注' },
+				{ field: 'update_time', width: 200, title: '更新时间', search: 'range', align:'center' },
+                { field: 'status', title: '状态', width: 100, templet: '#switchTpl', unresize: true },
+                { fixed: 'right', width: 250, title: '操作', toolbar: '#barTool', align:'center' }
+            ]
+        ],
+        page: {}
+    });
+
+    var clipboard = new clipboard('.copy');
+    clipboard.on('success', function(e) {
+        layer.msg("复制成功",{ icon: 1});
+    });
+    clipboard.on('error', function(e) {
+        layer.msg("复制失败！请手动调用",{ icon: 2});
+    });
+
+	 //监听单元格编辑
+	 table.on('edit(dataTable)', function(obj) {
+        var value = obj.value,data = obj.data;
+        $.post('{:url("cms/lang/listorder")}', {'id': data.id,'value':value }, function(data) {
+            if (data.code == 1) {
+                layer.msg(data.msg);
+            }else{
+                layer.msg(data.msg);
+            }
+
+        })
+    });
+});
+</script>
+{/block}
+
+
