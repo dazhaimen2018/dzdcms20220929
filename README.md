@@ -1,5 +1,5 @@
-# YznCMS1.0.0 后台开发框架
-### 后端基于thinkphp5.1框架,永久免费可商用的后台系统
+# dzdcms是基于YznCMS开发的多站点后台管理系统
+### 后端基于thinkphp5.1框架和layui2.5.*,永久免费可商用的后台系统
 
 [![YznCMS](https://img.shields.io/badge/license-Apache%202-blue.svg)](http://bbs.yzncms.com/)
 [![YznCMS](https://img.shields.io/badge/YznCMS-1.0.0-brightgreen.svg)](http://bbs.yzncms.com/)
