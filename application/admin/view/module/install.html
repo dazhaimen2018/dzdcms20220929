@@ -16,8 +16,8 @@
                 <colgroup>
                     <col width="180">
                     <col width="100">
-                    <col width="100">
                     <col>
+                    <col width="100">
                 </colgroup>
                 <thead>
                 <tr>
@@ -32,8 +32,8 @@
                 <tr>
                     <td>{$vo.module}</td>
                     <td width="100">{$vo.version}</td>
-                    <td width="100">{$vo.version_need}</td>
-                    <td class="text-center">{$vo.result|raw}</td>
+                    <td>{$vo.version_need}</td>
+                    <td width="100" class="text-center">{$vo.result|raw}</td>
                 </tr>
                 {/volist}
                 </tbody>
@@ -51,6 +51,7 @@
                     <col width="180">
                     <col width="100">
                     <col>
+                    <col width="100">
                 </colgroup>
                 <thead>
                 <tr>
@@ -65,7 +66,7 @@
                 <tr>
                     <td>{$vo.plugin}</td>
                     <td width="100">{$vo.version}</td>
-                    <td width="100">{$vo.version_need}</td>
+                    <td>{$vo.version_need}</td>
                     <td class="text-center" width="100">{$vo.result|raw}</td>
                 </tr>
                 {/volist}
@@ -82,9 +83,8 @@
         <div class="layui-form-field-label border-none">
             <table class="layui-table">
                 <colgroup>
-                    <col width="180">
+                    <col >
                     <col width="100">
-                    <col>
                 </colgroup>
                 <thead>
                 <tr>
@@ -96,7 +96,7 @@
                 {volist name="table_check" id="vo"}
                 <tr>
                     <td>{$vo.table}</td>
-                    <td class="text-center">{$vo.result|raw}</td>
+                    <td width="100" class="text-center">{$vo.result|raw}</td>
                 </tr>
                 {/volist}
                 </tbody>
