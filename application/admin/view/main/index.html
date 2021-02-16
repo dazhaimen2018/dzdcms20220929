@@ -1,8 +1,8 @@
 {extend name="index_layout"/}
 {block name="main"}
 <link rel="stylesheet" href="__STATIC__/admin/css/main.css">
-<div class="LM-container">
-    <div class="LM-main">
+<div class="dzd-container">
+    <div class="dzd-main">
         <div class="layui-row layui-col-space15">
 
             <div class="layui-col-sm6 layui-col-md12">
@@ -109,31 +109,31 @@
                             <div class="layui-card-header"><i class="fa fa-credit-card icon icon-blue"></i>快捷入口</div>
                             <div class="layui-card-body">
                                 <div class="welcome-module">
-                                    <div class="layui-row layui-col-space10 LM-qiuck">
-                                        <div class="layui-col-xs3 LM-qiuck-module">
+                                    <div class="layui-row layui-col-space10 dzd-qiuck">
+                                        <div class="layui-col-xs3 dzd-qiuck-module">
                                             <a href="{:url('cms/category/index')}" lay-id="75cms"><i class="iconfont icon-other"></i>&nbsp;栏目管理</a>
                                         </div>
-                                        <div class="layui-col-xs3 LM-qiuck-module">
+                                        <div class="layui-col-xs3 dzd-qiuck-module">
                                             <a href="{:url('cms/cms/index')}" lay-id="57cms"><i class="iconfont icon-draft-line"></i>&nbsp;管理内容</a>
                                         </div>
-                                        <div class="layui-col-xs3 LM-qiuck-module">
+                                        <div class="layui-col-xs3 dzd-qiuck-module">
                                             <a href="{:url('cms/tags/index')}" lay-id="68cms"><i class="iconfont icon-label"></i>&nbsp;Tags管理</a>
                                         </div>
-                                        <div class="layui-col-xs3 LM-qiuck-module">
+                                        <div class="layui-col-xs3 dzd-qiuck-module">
                                             <a href="{:url('cms/lang/index')}" lay-id="106cms"><i class="iconfont icon-setup"></i>&nbsp;碎片管理</a>
                                         </div>
 
-                                        <div class="layui-col-xs3 LM-qiuck-module">
+                                        <div class="layui-col-xs3 dzd-qiuck-module">
                                             <a href="{:url('cms/site/index')}" lay-id="99cms"><i class="iconfont icon-apartment"></i>&nbsp;站点管理</a>
                                         </div>
-                                        <div class="layui-col-xs3 LM-qiuck-module">
+                                        <div class="layui-col-xs3 dzd-qiuck-module">
                                             <a href="{:url('cms/models/index')}" lay-id="84cms"><i class="iconfont icon-apartment"></i>&nbsp;模型管理</a>
                                         </div>
-                                        <div class="layui-col-xs3 LM-qiuck-module">
+                                        <div class="layui-col-xs3 dzd-qiuck-module">
                                             <a href="{:url('member/member/manage')}" lay-id="116member"><i class="iconfont icon-huiyuan"></i>&nbsp;用户管理</a>
                                         </div>
 
-                                        <div class="layui-col-xs3 LM-qiuck-module">
+                                        <div class="layui-col-xs3 dzd-qiuck-module">
                                             <a href="{:url('member/member/userverify')}" lay-id="117member"><i class="iconfont icon-shenhe"></i>&nbsp;审核用户</a>
                                         </div>
                                     </div>
@@ -158,26 +158,37 @@
                 <div class="layui-card">
                     <div class="layui-card-header"><i class="fa fa-bullhorn icon icon-tip"></i>系统公告</div>
                     <div class="layui-card-body layui-text">
-                        <div class="LM-notice">
-                            <div class="LM-notice-title">{:config('web_site_name')}V2.0上线</div>
-                            <div class="LM-notice-extra">2020-03-28 8:00</div>
+                        <div class="dzd-notice">
+                            <div class="dzd-notice-title">{:config('system_name')}V2.0上线</div>
+                            <div class="dzd-notice-extra">2021-02-08 8:00</div>
+                            <div class="dzd-notice-content layui-hide">
+                                界面足够简洁清爽。<br>
+                                继承RBAC权限管理，无需复杂操作。<br>
+                                支持多tab，可以打开多窗口。<br>
+                                支持无限级菜单和对font-awesome图标库的完美支持。<br>
+                                失效以及报错菜单无法直接打开，并给出弹出层提示完美的线上用户体验。<br>
+                            </div>
                         </div>
-                        <div class="LM-notice">
-                            <div class="LM-notice-title">新增会员管理，修复其他bug</div>
-                            <div class="LM-notice-extra">2019-09-4 11:06</div>
+                        <div class="dzd-notice">
+                            <div class="dzd-notice-title">新增会员管理，修复其他bug</div>
+                            <div class="dzd-notice-extra">2019-09-4 11:06</div>
+                            <div class="dzd-notice-content layui-hide">新增会员管理，修复其他bug</div>
                         </div>
-                        <div class="LM-notice">
-                            <div class="LM-notice-title">新增文章管理以及修复bug</div>
-                            <div class="LM-notice-extra">2019-08-26 14:06</div>
+                        <div class="dzd-notice">
+                            <div class="dzd-notice-title">新增文章管理以及修复bug</div>
+                            <div class="dzd-notice-extra">2019-08-26 14:06</div>
+                            <div class="dzd-notice-content layui-hide">新增文章管理以及修复bug</div>
                         </div>
-                        <div class="LM-notice">
-                            <div class="LM-notice-title">新增内容管理以及修复bug</div>
-                            <div class="LM-notice-extra">2019-08-17 13:06</div>
+                        <div class="dzd-notice">
+                            <div class="dzd-notice-title">新增内容管理以及修复bug</div>
+                            <div class="dzd-notice-extra">2019-08-17 13:06</div>
+                            <div class="dzd-notice-content layui-hide">新增文章管理以及修复bug</div>
                         </div>
 
-                        <div class="LM-notice">
-                            <div class="LM-notice-title">{:config('web_site_name')}V1.0上线</div>
-                            <div class="LM-notice-extra">2019-08-11 23:06</div>
+                        <div class="dzd-notice">
+                            <div class="dzd-notice-title">{:config('system_name')}V1.0上线</div>
+                            <div class="dzd-notice-extra">2019-08-11 23:06</div>
+                            <div class="dzd-notice-content layui-hide">{:config('system_name')}V1.0上线</div>
                         </div>
 
                     </div>
@@ -245,6 +256,43 @@
     layui.use(['jquery','echarts'], function() {
         var $ = layui.jquery,
             echarts = layui.echarts;
+
+
+        /**查看公告信息**/
+        $('body').on('click', '.dzd-notice', function () {
+            var title = $(this).children('.dzd-notice-title').text(),
+                noticeTime = $(this).children('.dzd-notice-extra').text(),
+                content = $(this).children('.dzd-notice-content').html();
+            var html = '<div style="padding:15px 20px; text-align:justify; line-height: 22px;border-bottom:1px solid #e2e2e2;background-color: #2f4056;color: #ffffff">\n' +
+                '<div style="text-align: center;margin-bottom: 20px;font-weight: bold;border-bottom:1px solid #718fb5;padding-bottom: 5px"><h4 class="text-danger">' + title + '</h4></div>\n' +
+                '<div style="font-size: 12px">' + content + '</div>\n' +
+                '</div>\n';
+            parent.layer.open({
+                type: 1,
+                title: '系统公告'+'<span style="float: right;right: 1px;font-size: 12px;color: #b1b3b9;margin-top: 1px">'+noticeTime+'</span>',
+                area: '400px;',
+                shade: 0.8,
+                id: 'lemo-notice',
+                btn: ['查看', '取消'],
+                btnAlign: 'c',
+                moveType: 1,
+                content:html,
+                success: function (layero) {
+                    var btn = layero.find('.layui-layer-btn');
+                    btn.find('.layui-layer-btn0').attr({
+                        href: 'https://github.com/yue909/LEMOCMS',
+                        target: '_blank'
+                    });
+                }
+            });
+        });
+
+
+
+
+
+
+
 
         // 基于准备好的dom，初始化echarts实例
         var echartsRecords = echarts.init(document.getElementById('echarts-records'),'walden');
