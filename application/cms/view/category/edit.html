@@ -27,7 +27,7 @@
                         <input type="checkbox" name="site_id[]" value="{$vo.id}" lay-skin="primary" title="{$vo.name}" {if $data && in_array($vo.id,$data.site_id)}checked{/if}>
                         {/volist}
                     </div>
-                    <div class="layui-form-mid layui-word-aux">不选，表示所有站点共用</div>
+                    <div class="layui-form-mid layui-word-aux">只有选了某些站，在管理内容时才显示</div>
                 </div>
                 <div class="layui-form-item">
                     <label>上级菜单</label>
