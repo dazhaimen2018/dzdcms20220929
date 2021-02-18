@@ -101,19 +101,23 @@
 				</div>
 			</div>
 			<div class="layui-form-item item-flex">
+				<label class="layui-form-label">主题风格</label>
+				<div class="layui-input-inline item-wide">
+					<input type="text" name="template" autocomplete="off" placeholder="模版风格" class="layui-input" value="{if $data['template']}{$data.template}{else}{:config('theme')}{/if}">
+				</div>
+				<div class="layui-form-mid layui-word-aux">暂时只支持系统设置主题</div>
+			</div>
+			<div class="layui-form-item item-flex">
 				<label class="layui-form-label">排序</label>
 				<div class="layui-input-inline item-wide">
-					<input type="number" name="listorder" autocomplete="off" placeholder="排序" class="layui-input"
-						value="{$data.listorder}">
+					<input type="number" name="listorder" autocomplete="off" placeholder="排序" class="layui-input" value="{$data.listorder}">
 				</div>
 			</div>
 			<div class="layui-form-item item-flex">
 				<label class="layui-form-label">状态</label>
 				<div class="layui-input-inline item-wide">
-					<input type="radio" name="status" value="1" {eq name="data.status" value="1" }checked{/eq}
-						title="开启" lay-filter="status">
-					<input type="radio" name="status" value="0" {eq name="data.status" value="0" }checked{/eq}
-						title="关闭" lay-filter="status">
+					<input type="radio" name="status" value="1" {eq name="data.status" value="1" }checked{/eq} title="开启" lay-filter="status">
+					<input type="radio" name="status" value="0" {eq name="data.status" value="0" }checked{/eq} title="关闭" lay-filter="status">
 				</div>
 			</div>
 
