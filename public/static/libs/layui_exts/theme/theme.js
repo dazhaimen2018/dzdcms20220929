@@ -18,7 +18,7 @@ layui.define(["jquery", "layer"], function (exports) {
         config: function (bgcolorId) {
             var bgColorConfig = [
                 {
-                    headerRightBg: '#ffffff', //头部右侧背景色
+                    headerRightBg: '#f2f2f2', //头部右侧背景色
                     headerRightBgThis: '#e4e4e4', //头部右侧选中背景色,
                     headerRightColor: 'rgba(107, 107, 107, 0.7)', //头部右侧字体颜色,
                     headerRightChildColor: 'rgba(107, 107, 107, 0.7)', //头部右侧下拉字体颜色,

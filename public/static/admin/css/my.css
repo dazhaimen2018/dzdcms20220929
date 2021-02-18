@@ -100,9 +100,9 @@
 .layui-form-item .border-none{line-height: 20px!important;}
 .layui-form-item .js-upload-image, .layui-form-item .js-upload-images{display: flex}
 .layui-form-item .uploader-list{overflow: hidden;float: left}
-.layui-form-item .uploader-list .thumbnail{width: 100px!important;overflow: hidden!important;position: relative;border: 1px solid #e6e6e6;float: left;margin-right: 10px}
+.layui-form-item .uploader-list .thumbnail{width: 80px!important;height:80px;overflow: hidden!important;position: relative;border: 1px solid #e6e6e6;float: left;margin-right: 10px}
 .layui-form-item .uploader-list .thumbnail .file-panel{text-align: center}
-.layui-form-item .uploader-list img{width: 100%}
+.layui-form-item .uploader-list img{width: 100%;height: 100%}
 
 /*文件上传*/
 .js-upload-file th:last-child, .js-upload-file td:last-child{width: 100px;text-align: center}
