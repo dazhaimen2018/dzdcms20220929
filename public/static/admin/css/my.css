@@ -102,6 +102,11 @@
 .layui-form-item .uploader-list .thumbnail .file-panel{text-align: center}
 .layui-form-item .uploader-list img{width: 100%}
 
+/*文件上传*/
+.js-upload-file th:last-child, .js-upload-file td:last-child{width: 100px;text-align: center}
+.js-upload-file .uploader-list{border-left: 1px solid #e6e6e6;margin-right: 10px}
+.js-upload-file .uploader-list .layui-table td, .js-upload-file .uploader-list .layui-table th{line-height: 21px}
+
 .layadmin-text p {	margin: 5px 0;	text-indent: 2em;}
 .layuiadmin-badge{top:50%;margin-top:-9px;color:#01AAED;}
 .layuiadmin-badge,.layuiadmin-btn-group,.layuiadmin-span-color{position:absolute;right:15px;}
