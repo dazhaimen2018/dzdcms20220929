@@ -14,7 +14,7 @@
 .layui-header-menu .layui-tab .layui-tab-title .layui-this {color: #333!important;background-color: #f2f2f2!important;}
 
 .layui-side{background-size:contain; background: url("../img/left.png")center center no-repeat;}
-.layui-side .layui-nav{background-color: #ff3d0088; }
+.layui-side .layui-nav{background-color: #ff3d0000; }
 .layui-bg-black{background-color: #ff3d00!important; }
 .showMenu .layui-header .logo{width: 60px;background-color: #009688!important;}
 .layui-header .logo{font-weight:bold;color:#ffffff !important;height:60px!important;line-height:60px !important;overflow:hidden;line-height:64px;transition:all .2s !important;padding: 0!important;background-color: #c8102e!important;}
