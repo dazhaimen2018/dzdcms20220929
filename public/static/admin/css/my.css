@@ -2,25 +2,22 @@
 .fr {float: right;}
 .layui-form-item.layui-required:after{content:"*";color:red;position: absolute;top:5px;left:15px;}
 
-.showMenu .layui-footer{left: 0!important;}
-.layui-header .hideMenu{background-color: rgba(26, 160, 148, 0);margin-left: 15px;}
-.layui-header .hideMenu:hover{ background-color: rgba(95, 184, 120, 0.8); border-radius:5px ; -webkit-border-radius:5px ; -moz-border-radius:5px ; -ms-border-radius:5px ; -o-border-radius:5px ; }
-.layui-header .hideMenu{background: url(../img/indentation-right.png) center no-repeat;background-size: 16px;}
-.showMenu .layui-header .hideMenu{background: url(../img/indentation-left.png) center no-repeat;background-size: 16px;}
-.showMenu .layui-header .hideMenu:hover{ background-color: rgba(95, 184, 120, 0.8); border-radius:5px ; -webkit-border-radius:5px ; -moz-border-radius:5px ; -ms-border-radius:5px ; -o-border-radius:5px ; }
-
 /*默认头部*/
-.layui-layout-admin .layui-header {background-color: #ff6a00 !important;}
+.layui-layout-admin .layui-header {background-color: #ff3d00 !important;}
 .layui-layout-admin .layui-header .layui-header-content > ul > .layui-nav-item.layui-this, .layui-tool i:hover {background-color: #ffb800 !important;}
 .layui-layout-admin .layui-header .layui-nav .layui-nav-item a {color: rgba(255, 255, 255, 0.7);}
 .layui-layout-admin .layui-header .layui-nav .layui-nav-item .layui-nav-child a {color: #676767!important;}
-.layui-menu-left .layui-nav-tree .layui-this, .layui-menu-left .layui-nav-tree .layui-this > a, .layui-menu-left .layui-nav-tree .layui-nav-child dd.layui-this, .layui-menu-left .layui-nav-tree .layui-nav-child dd.layui-this a, .layui-menu-left-zoom.layui-nav-tree .layui-this, .layui-menu-left-zoom.layui-nav-tree .layui-this > a, .layui-menu-left-zoom.layui-nav-tree .layui-nav-child dd.layui-this, .layui-menu-left-zoom.layui-nav-tree .layui-nav-child dd.layui-this a {background-color: #ff6a00 !important; }
+.layui-menu-left .layui-nav-tree .layui-this, .layui-menu-left .layui-nav-tree .layui-this > a, .layui-menu-left .layui-nav-tree .layui-nav-child dd.layui-this, .layui-menu-left .layui-nav-tree .layui-nav-child dd.layui-this a, .layui-menu-left-zoom.layui-nav-tree .layui-this, .layui-menu-left-zoom.layui-nav-tree .layui-this > a, .layui-menu-left-zoom.layui-nav-tree .layui-nav-child dd.layui-this, .layui-menu-left-zoom.layui-nav-tree .layui-nav-child dd.layui-this a {background-color: #ff3d00 !important; }
+.layui-header .topLevelMenus .layui-nav-item.layui-this {	background-color: rgb(95, 184, 120) !important;}
+.layui-header .layui-header-menu.layui-pc-show.layui-nav .layui-this a {color: #fff !important;}
+.layui-header .layui-tool i{color: rgba(255, 255, 255, 0.7)!important;}
+.layui-header-menu .layui-tab .layui-tab-title .layui-this {color: #333!important;background-color: #f2f2f2!important;}
 
 .showMenu .layui-header .logo{width: 60px;background-color: #009688!important;}
 .layui-header .logo{background-color: rgba(36, 51, 70, 0.9);width: 200px;height: 60px ;white-space: normal;text-overflow: ellipsis;overflow: hidden;}
 .layui-header .logo{font-weight:bold;color:#ffffff !important;height:60px !important;line-height:60px !important;overflow:hidden;line-height:64px;transition:all .2s !important;padding: 0!important;}
 .layui-header .logo img{display:inline-block;height:40px;vertical-align:middle;max-width: 180px;}
-.layui-header .logo h1{display:inline-block;margin:0 0 0 10px;color:#dadde2;font-weight:600;font-size:20px;font-family:Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;vertical-align:middle;background-image:-webkit-gradient(linear,37.219838% 34.532506%,36.425669% 93.178216%,from(#ffffff),to(#0a60ff),color-stop(.37,#ff6a00));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.layui-header .logo h1{display:inline-block;margin:0 0 0 10px;color:#dadde2;font-weight:600;font-size:20px;font-family:Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;vertical-align:middle;background-image:-webkit-gradient(linear,37.219838% 34.532506%,36.425669% 93.178216%,from(#ffffff),to(#0a60ff),color-stop(.37,#ff3d00));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
 .layui-form-field-label .city-picker-span{border-bottom: none!important;padding-left: 10px}
 
@@ -43,12 +40,8 @@
 .form-search .layui-form-item .layui-input-inline{flex: auto;}
 /* form-search end */
 .layui-form-item .tagsinput input{width: 100%!important;}
-.layui-header .topLevelMenus .layui-nav-item.layui-this {	background-color: rgb(95, 184, 120) !important;}
-.layui-header .layui-header-menu.layui-pc-show.layui-nav .layui-this a {color: #fff !important;}
 
-.layui-header .layui-tool i{color: rgba(255, 255, 255, 0.7)!important;}
 
-.layui-header-menu .layui-tab .layui-tab-title .layui-this {color: #333!important;background-color: #f2f2f2!important;}
 #B_history li.layui-this:after {background-color: #f2f2f2!important; }
 
 .layui-tab-title .layui-this i{color: #009688;}
@@ -56,7 +49,7 @@
 .layui-form-item{position: relative;margin-bottom: 10px;display: flex;}
 .layui-form .layui-form-item:last-child .layui-input-block{border: none!important;width: 100%;text-align: center}
 .layui-form.w300 {width: 100%!important;}
-.layui-form-item label,.layui-form-item .layui-form-label{width:110px;padding:0 10px;height:38px;line-height:38px;border-width:1px;border-style:solid;border-radius:2px 0 0 2px;text-align:center;background-color:#FBFBFB;overflow:hidden;box-sizing:border-box;border-color:#e6e6e6;text-overflow:ellipsis;white-space:normal;}
+.layui-form-item label,.layui-form-item .layui-form-label{width:110px;padding:0 10px;height:38px;line-height:38px;border:1px solid #e6e6e6;border-radius:2px 0 0 2px;text-align:center;background-color:#FBFBFB;overflow:hidden;box-sizing:border-box;text-overflow:ellipsis;white-space:normal;}
 .layui-form-item .layui-form-field-label,.layui-form-item .layui-input-inline{flex:1;margin-left:-1px;margin-right: 0!important;}
 .layui-form-item .layui-input-block{margin-left: -1px;}
 .layui-form-item .layui-form-radio, .layui-form-item .layui-form-switch{margin:6px 0 0 10px}
@@ -145,6 +138,32 @@
 
 /*插件安装*/
 .install-text{height: 34px;line-height: 34px;padding-left: 10px}
+
+/*main*/
+.icon {margin-right:10px;color:#1aa094;}
+.icon-cray {color:#ffb800!important;}
+.icon-blue {color:#1e9fff!important;}
+.icon-tip {color:#ff5722!important;}
+.dzd-qiuck-module {text-align:center;margin-top: 10px}
+.dzd-qiuck-module a {display: inline-block;overflow: hidden}
+.dzd-qiuck-module a i {display:inline-block;width:100%;line-height: 56px;text-align:center;border-radius:2px;font-size:30px;color:#666;transition:all .3s;-webkit-transition:all .3s;}
+.dzd-qiuck-module a cite {position:relative;top:2px;display:block;color:#666;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;font-size:14px;}
+.welcome-module {width:100%;height:210px;}
+.panel {background-color:#fff;border:1px solid transparent;border-radius:3px;-webkit-box-shadow:0 1px 1px rgba(0,0,0,.05);box-shadow:0 1px 1px rgba(0,0,0,.05)}
+.panel-body {padding:10px}
+.panel-title {margin-top:0;margin-bottom:0;font-size:12px;color:inherit}
+.label {display:inline;padding:.2em .6em .3em;font-size:75%;font-weight:700;line-height:1;color:#fff;text-align:center;white-space:nowrap;vertical-align:baseline;border-radius:.25em;margin-top: .3em;}
+.layui-red {color:red}
+.main_btn > p {height:40px;}
+.layui-bg-number {background-color:#F8F8F8;}
+.dzd-notice:hover {background:#f6f6f6;}
+.dzd-notice {padding:7px 16px;clear:both;font-size:12px !important;cursor:pointer;position:relative;transition:background 0.2s ease-in-out;}
+.dzd-notice-title,.dzd-notice-label {padding-right: 70px !important;text-overflow:ellipsis!important;overflow:hidden!important;white-space:nowrap!important;}
+.dzd-notice-title {line-height:28px;font-size:14px;}
+.dzd-notice-extra {position:absolute;top:50%;margin-top:-8px;right:16px;display:inline-block;height:16px;color:#999;}
+.pull-right {float: right;}
+.layuiadmin-card-status li{position:relative;padding:10px 0;border-bottom:1px solid #EEE;}
+
 
 @media screen and (max-width: 720px){
 	.layui-header .logo{width: 150px;background-color: #009688!important;}

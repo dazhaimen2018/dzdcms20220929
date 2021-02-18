@@ -3,7 +3,7 @@
 ::-moz-placeholder {color: #999;}
 :-ms-input-placeholder {color: #999;}
 .login-main {width: 400px;position: absolute; left: 50%; top: 50%; margin: -200px 0 0 -200px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -o-box-sizing: border-box; box-sizing: border-box; background: #fff; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; box-shadow: 0 0 50px #000;overflow: hidden;}
-.login-main .layui-elip{height: 117px; background-color: #ff6a00;font-size: 30px; font-weight: 400; font-stretch: normal; letter-spacing: 0; color: #fff; line-height: 117px; text-align: center; overflow: hidden; -webkit-transform: rotate(0); -moz-transform: rotate(0); -ms-transform: rotate(0); -o-transform: rotate(0); transform: rotate(0); }
+.login-main .layui-elip{height: 117px; background-color: #ff3d00;font-size: 30px; font-weight: 400; font-stretch: normal; letter-spacing: 0; color: #fff; line-height: 117px; text-align: center; overflow: hidden; -webkit-transform: rotate(0); -moz-transform: rotate(0); -ms-transform: rotate(0); -o-transform: rotate(0); transform: rotate(0); }
 .login-main .layui-elip span.version {font-size: 12px; }
 .login-main .layui-elip .bg1 {display: inline-block;width: 80px;height: 80px;background: #fff;opacity: .1;border-radius: 0 80px 0 0;position: absolute;left: 0;bottom: 0;}
 .login-main .layui-elip .bg3 {display: inline-block;width: 37px;height: 37px;background: #fff;opacity: .1;border-radius: 0 0 37px 0;position: absolute;left: 0;top: 0; }
@@ -21,7 +21,7 @@
 .login-main .layui-form-checked[lay-skin=primary] i {border-color: #1e9fff!important; background-color: #1e9fff; color: #fff; width: 14px; height: 14px; line-height: 14px; }
 .login-main  .layui-form-checkbox[lay-skin=primary] i {width: 14px; height: 14px; line-height: 14px; }
 .login-main .layui-form-checkbox[lay-skin=primary]:hover i {border-color: #1e9fff; color: #fff; }
-.login-main .layui-btn-normal {background-color: #ff6a00;}
+.login-main .layui-btn-normal {background-color: #ff3d00;}
 .login-main .copyright{font-size:12px;color: #ccc; text-align: center;margin-bottom: 15px}
 .login-main .copyright a{color: #009688;}
 @media screen and (max-width: 450px) {
