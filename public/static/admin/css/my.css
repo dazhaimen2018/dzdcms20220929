@@ -10,7 +10,7 @@
 .layui-menu-left .layui-nav-tree .layui-this, .layui-menu-left .layui-nav-tree .layui-this > a, .layui-menu-left .layui-nav-tree .layui-nav-child dd.layui-this, .layui-menu-left .layui-nav-tree .layui-nav-child dd.layui-this a, .layui-menu-left-zoom.layui-nav-tree .layui-this, .layui-menu-left-zoom.layui-nav-tree .layui-this > a, .layui-menu-left-zoom.layui-nav-tree .layui-nav-child dd.layui-this, .layui-menu-left-zoom.layui-nav-tree .layui-nav-child dd.layui-this a {background-color: #ff3d00 !important; }
 .layui-header .topLevelMenus .layui-nav-item.layui-this {	background-color: rgb(95, 184, 120) !important;}
 .layui-header .layui-header-menu.layui-pc-show.layui-nav .layui-this a {color: #fff !important;}
-.layui-header .layui-tool i{color: rgba(255, 255, 255, 0.7)!important;}
+.layui-header .layui-tool i {color: #fff}
 .layui-header-menu .layui-tab .layui-tab-title .layui-this {color: #333!important;background-color: #f2f2f2!important;}
 
 .layui-side{background-size:contain; background: url("../img/left.png")center center no-repeat;}
