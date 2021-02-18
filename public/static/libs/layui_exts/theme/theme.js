@@ -300,6 +300,11 @@ layui.define(["jquery", "layer"], function (exports) {
                 '    background-color: ' + bgcolorData.headerRightBgThis + ' !important;\n' +
                 '}\n' +
                 '\n' +
+                '/*头部右侧系统名称颜色 headerRightBg */\n' +
+                '.layui-header .logo h1, .layui-header .logo i {\n' +
+                '    background-image:-webkit-gradient(linear,37.219838% 34.532506%,36.425669% 93.178216%,from(#ffffff),to(' + bgcolorData.headerRightBg + '),color-stop(.37,' + bgcolorData.headerRightBg + ')); !important;\n' +
+                '}\n' +
+                '\n' +
                 '/*头部右侧字体颜色 headerRightColor */\n' +
                 '.layui-layout-admin .layui-header .layui-nav .layui-nav-item a {\n' +
                 '    color:  ' + bgcolorData.headerRightColor + ';\n' +
