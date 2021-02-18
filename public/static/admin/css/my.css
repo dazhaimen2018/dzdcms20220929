@@ -128,6 +128,7 @@
 .layer-footer div .button .cu{padding: 3px 5px;margin: 0 8px; border-radius: 2px;box-shadow: 0 1px 2px rgba(0,0,0,0.1); background: #3498db;color:#fff;font-size: 14px;border: none;cursor: pointer;}
 .layer-footer div .button [name="dosubmit_continue"]{background: #19aa8d}
 .layer-footer div .button [name="close"]{background: #ff6c60}
+.layui-layer-yzn .layui-layer-footer {text-align: center !important;}
 
 .layui-form-item .layui-form-radio, .layui-form-item .layui-form-switch, .layui-form-item .layui-form-checkbox{margin:5px 0 5px 10px}
 .layui-form-item .layui-form-radio {line-height: 24px;}
