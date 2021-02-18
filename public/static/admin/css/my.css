@@ -17,7 +17,8 @@
 .layui-header .logo{background-color: rgba(36, 51, 70, 0.9);width: 200px;height: 60px ;white-space: normal;text-overflow: ellipsis;overflow: hidden;}
 .layui-header .logo{font-weight:bold;color:#ffffff !important;height:60px !important;line-height:60px !important;overflow:hidden;line-height:64px;transition:all .2s !important;padding: 0!important;}
 .layui-header .logo img{display:inline-block;height:40px;vertical-align:middle;max-width: 180px;}
-.layui-header .logo h1{display:inline-block;margin:0 0 0 10px;color:#dadde2;font-weight:600;font-size:20px;font-family:Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;vertical-align:middle;background-image:-webkit-gradient(linear,37.219838% 34.532506%,36.425669% 93.178216%,from(#ffffff),to(#0a60ff),color-stop(.37,#ff3d00));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.layui-header .logo h1{display:inline-block;color:#dadde2;font-weight:600;font-size:20px;font-family:Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;vertical-align:middle;background-image:-webkit-gradient(linear,37.219838% 34.532506%,36.425669% 93.178216%,from(#ffffff),to(#0a60ff),color-stop(.37,#ff3d00));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.layui-header .logo i{font-size: 0!important;color:#dadde2;font-weight:600; font-family:Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;vertical-align:middle;background-image:-webkit-gradient(linear,37.219838% 34.532506%,36.425669% 93.178216%,from(#ffffff),to(#0a60ff),color-stop(.37,#ff3d00));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
 .layui-form-field-label .city-picker-span{border-bottom: none!important;padding-left: 10px}
 
@@ -93,14 +94,21 @@
 
 .layui-form-item .layui-form-field-label{padding: 0; line-height: 36px;}
 
+/*上传图片布局*/
 .layui-form-item .border-none{line-height: 20px!important;}
+.layui-form-item .js-upload-image, .layui-form-item .js-upload-images{display: flex}
+.layui-form-item .uploader-list{overflow: hidden;float: left}
+.layui-form-item .uploader-list .thumbnail{width: 100px!important;overflow: hidden!important;position: relative;border: 1px solid #e6e6e6;float: left;margin-right: 10px}
+.layui-form-item .uploader-list .thumbnail .file-panel{text-align: center}
+.layui-form-item .uploader-list img{width: 100%}
+
 .layadmin-text p {	margin: 5px 0;	text-indent: 2em;}
 .layuiadmin-badge{top:50%;margin-top:-9px;color:#01AAED;}
 .layuiadmin-badge,.layuiadmin-btn-group,.layuiadmin-span-color{position:absolute;right:15px;}
 .layuiadmin-card-list p.layuiadmin-big-font{font-size:36px;color:#666;line-height:36px;padding:5px 0 10px;overflow:hidden;text-overflow:ellipsis;word-break:break-all;white-space:nowrap;}
 .layuiadmin-card-link a{display:inline-block;width:24.5%;color:#666;font-size:14px;margin-bottom:12px;}
 .layui-form-item .layui-form-field-label, .layui-form-item .layui-input-inline, .layui-form-item .layui-input-block, .layui-form-item .w300, .layui-col-md4 textarea{padding: 0;border: 1px solid #e6e6e6;box-sizing: unset;}
-/*.layui-form-item .layui-form-field-label:hover{border-style:solid;border-color: #20a53a;box-shadow: 0 0 2px #20a53a;}*/
+
 .layui-form-item .border-none, .layui-iconpicker-item, div.tagsinput{border: none!important;}
 .layui-form-item .layui-form-field-label:hover, .layui-form-item .layui-input-inline:hover, .layui-form-item .layui-input-block:hover, .layui-form-item .w300:hover{border-color: #ccc;}
 .layui-col-md4 textarea{padding: 10px;box-sizing: border-box;}
