@@ -30,7 +30,7 @@ layui.define(["jquery", "layer"], function (exports) {
                     headerLogoBg: '#192027', //logo背景颜色,
                     headerLogoColor: 'rgb(191, 187, 187)', //logo字体颜色,
                     leftMenuNavMore: 'rgb(191, 187, 187)', //左侧菜单更多下拉样式,
-                    leftMenuBg: '#28333E', //左侧菜单背景,
+                    leftMenuBg: '#46c37b', //左侧菜单背景,
                     leftMenuBgThis: '#46c37b', //左侧菜单选中背景,
                     leftMenuChildBg: '#0c0f13', //左侧菜单子菜单背景,
                     leftMenuColor: 'rgb(191, 187, 187)', //左侧菜单字体颜色,
@@ -70,7 +70,7 @@ layui.define(["jquery", "layer"], function (exports) {
                     headerLogoBg: '#e694bd', //logo背景颜色,
                     headerLogoColor: '#ffffff', //logo字体颜色,
                     leftMenuNavMore: 'rgb(191, 187, 187)', //左侧菜单更多下拉样式,
-                    leftMenuBg: '#1f1f1f', //左侧菜单背景,
+                    leftMenuBg: '#ffa4d1', //左侧菜单背景,
                     leftMenuBgThis: '#737373', //左侧菜单选中背景,
                     leftMenuChildBg: 'rgba(0,0,0,.3)', //左侧菜单子菜单背景,
                     leftMenuColor: 'rgb(191, 187, 187)', //左侧菜单字体颜色,
@@ -90,7 +90,7 @@ layui.define(["jquery", "layer"], function (exports) {
                     headerLogoBg: '#0c0c0c', //logo背景颜色,
                     headerLogoColor: '#ffffff', //logo字体颜色,
                     leftMenuNavMore: 'rgb(191, 187, 187)', //左侧菜单更多下拉样式,
-                    leftMenuBg: '#23262e', //左侧菜单背景,
+                    leftMenuBg: '#1aa094', //左侧菜单背景,
                     leftMenuBgThis: '#1aa094', //左侧菜单选中背景,
                     leftMenuChildBg: 'rgba(0,0,0,.3)', //左侧菜单子菜单背景,
                     leftMenuColor: 'rgb(191, 187, 187)', //左侧菜单字体颜色,
@@ -110,7 +110,7 @@ layui.define(["jquery", "layer"], function (exports) {
                     headerLogoBg: '#0c0c0c', //logo背景颜色,
                     headerLogoColor: '#ffffff', //logo字体颜色,
                     leftMenuNavMore: 'rgb(191, 187, 187)', //左侧菜单更多下拉样式,
-                    leftMenuBg: '#1f1f1f', //左侧菜单背景,
+                    leftMenuBg: '#1e9fff', //左侧菜单背景,
                     leftMenuBgThis: '#1e9fff', //左侧菜单选中背景,
                     leftMenuChildBg: 'rgba(0,0,0,.3)', //左侧菜单子菜单背景,
                     leftMenuColor: 'rgb(191, 187, 187)', //左侧菜单字体颜色,
@@ -130,7 +130,7 @@ layui.define(["jquery", "layer"], function (exports) {
                     headerLogoBg: '#243346', //logo背景颜色,
                     headerLogoColor: '#ffffff', //logo字体颜色,
                     leftMenuNavMore: 'rgb(191, 187, 187)', //左侧菜单更多下拉样式,
-                    leftMenuBg: '#2f4056', //左侧菜单背景,
+                    leftMenuBg: '#ffb800', //左侧菜单背景,
                     leftMenuBgThis: '#8593a7', //左侧菜单选中背景,
                     leftMenuChildBg: 'rgba(0,0,0,.3)', //左侧菜单子菜单背景,
                     leftMenuColor: 'rgb(191, 187, 187)', //左侧菜单字体颜色,
@@ -150,7 +150,7 @@ layui.define(["jquery", "layer"], function (exports) {
                     headerLogoBg: '#0c0c0c', //logo背景颜色,
                     headerLogoColor: '#ffffff', //logo字体颜色,
                     leftMenuNavMore: 'rgb(191, 187, 187)', //左侧菜单更多下拉样式,
-                    leftMenuBg: '#1f1f1f', //左侧菜单背景,
+                    leftMenuBg: '#e82121', //左侧菜单背景,
                     leftMenuBgThis: '#3b3f4b', //左侧菜单选中背景,
                     leftMenuChildBg: 'rgba(0,0,0,.3)', //左侧菜单子菜单背景,
                     leftMenuColor: 'rgb(191, 187, 187)', //左侧菜单字体颜色,
@@ -170,7 +170,7 @@ layui.define(["jquery", "layer"], function (exports) {
                     headerLogoBg: '#243346', //logo背景颜色,
                     headerLogoColor: '#ffffff', //logo字体颜色,
                     leftMenuNavMore: 'rgb(191, 187, 187)', //左侧菜单更多下拉样式,
-                    leftMenuBg: '#2f4056', //左侧菜单背景,
+                    leftMenuBg: '#963885', //左侧菜单背景,
                     leftMenuBgThis: '#586473', //左侧菜单选中背景,
                     leftMenuChildBg: 'rgba(0,0,0,.3)', //左侧菜单子菜单背景,
                     leftMenuColor: 'rgb(191, 187, 187)', //左侧菜单字体颜色,
@@ -190,7 +190,7 @@ layui.define(["jquery", "layer"], function (exports) {
                     headerLogoBg: '#0069b7', //logo背景颜色,
                     headerLogoColor: '#ffffff', //logo字体颜色,
                     leftMenuNavMore: 'rgb(191, 187, 187)', //左侧菜单更多下拉样式,
-                    leftMenuBg: '#1f1f1f', //左侧菜单背景,
+                    leftMenuBg: '#2D8CF0', //左侧菜单背景,
                     leftMenuBgThis: '#2D8CF0', //左侧菜单选中背景,
                     leftMenuChildBg: 'rgba(0,0,0,.3)', //左侧菜单子菜单背景,
                     leftMenuColor: 'rgb(191, 187, 187)', //左侧菜单字体颜色,
@@ -210,7 +210,7 @@ layui.define(["jquery", "layer"], function (exports) {
                     headerLogoBg: '#d09600', //logo背景颜色,
                     headerLogoColor: '#ffffff', //logo字体颜色,
                     leftMenuNavMore: 'rgb(191, 187, 187)', //左侧菜单更多下拉样式,
-                    leftMenuBg: '#2f4056', //左侧菜单背景,
+                    leftMenuBg: '#ffb800', //左侧菜单背景,
                     leftMenuBgThis: '#3b3f4b', //左侧菜单选中背景,
                     leftMenuChildBg: 'rgba(0,0,0,.3)', //左侧菜单子菜单背景,
                     leftMenuColor: 'rgb(191, 187, 187)', //左侧菜单字体颜色,
@@ -230,7 +230,7 @@ layui.define(["jquery", "layer"], function (exports) {
                     headerLogoBg: '#d91f1f', //logo背景颜色,
                     headerLogoColor: '#ffffff', //logo字体颜色,
                     leftMenuNavMore: 'rgb(191, 187, 187)', //左侧菜单更多下拉样式,
-                    leftMenuBg: '#1f1f1f', //左侧菜单背景,
+                    leftMenuBg: '#e82121', //左侧菜单背景,
                     leftMenuBgThis: '#3b3f4b', //左侧菜单选中背景,
                     leftMenuChildBg: 'rgba(0,0,0,.3)', //左侧菜单子菜单背景,
                     leftMenuColor: 'rgb(191, 187, 187)', //左侧菜单字体颜色,
@@ -250,7 +250,7 @@ layui.define(["jquery", "layer"], function (exports) {
                     headerLogoBg: '#772c6a', //logo背景颜色,
                     headerLogoColor: '#ffffff', //logo字体颜色,
                     leftMenuNavMore: 'rgb(191, 187, 187)', //左侧菜单更多下拉样式,
-                    leftMenuBg: '#2f4056', //左侧菜单背景,
+                    leftMenuBg: '#963885', //左侧菜单背景,
                     leftMenuBgThis: '#626f7f', //左侧菜单选中背景,
                     leftMenuChildBg: 'rgba(0,0,0,.3)', //左侧菜单子菜单背景,
                     leftMenuColor: 'rgb(191, 187, 187)', //左侧菜单字体颜色,
@@ -300,9 +300,9 @@ layui.define(["jquery", "layer"], function (exports) {
                 '    background-color: ' + bgcolorData.headerRightBgThis + ' !important;\n' +
                 '}\n' +
                 '\n' +
-                '/*头部右侧系统名称颜色 headerRightBg */\n' +
+                '/*头部右侧系统名称颜色 headerRightColor */\n' +
                 '.layui-header .logo h1, .layui-header .logo i {\n' +
-                '    background-image:-webkit-gradient(linear,37.219838% 34.532506%,36.425669% 93.178216%,from(#ffffff),to(' + bgcolorData.headerRightBg + '),color-stop(.37,' + bgcolorData.headerRightBg + ')); !important;\n' +
+                '    background-image:-webkit-gradient(linear,37.219838% 34.532506%,36.425669% 93.178216%,from(#ffffff),to(' + bgcolorData.headerRightColor + '),color-stop(.37,' + bgcolorData.headerRightColor + ')); !important;\n' +
                 '}\n' +
                 '\n' +
                 '/*头部右侧字体颜色 headerRightColor */\n' +
