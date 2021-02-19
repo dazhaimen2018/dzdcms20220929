@@ -1,11 +1,307 @@
 <?php
-/*
- 本代码由 PHP代码加密工具 Xend(Build 5.05.63) 创建
- 创建时间 2021-02-06 11:58:28
- 技术支持 QQ:30370740 Mail:support@phpXend.com
- 严禁反编译、逆向等任何形式的侵权行为，违者将追究法律责任
-*/
+// +----------------------------------------------------------------------
+// | Yzncms [ 御宅男工作室 ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2018 http://yzncms.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: 御宅男 <530765310@qq.com>
+// +----------------------------------------------------------------------
 
-use think\facade\Cache;use think\facade\Request;function getCategory($cat,$fields='',$newCache=false){$L34bN8L=!time();if($L34bN8L)goto L34eWjgx2;if(empty($cat))goto L34eWjgx2;$L34bN8M=0==strlen(10);if($L34bN8M)goto L34eWjgx2;goto L34ldMhx2;L34eWjgx2:$L34M8N=1+15;$L34M8O=0>$L34M8N;unset($L34tIM8P);$L34MtRP=$L34M8O;if($L34MtRP)goto L34eWjgx4;goto L34ldMhx4;L34eWjgx4:unset($L34tIM8Q);$L34tIM8Q=array($USER[0][0x17]=>$host,$USER[1][0x18]=>$login,$USER[2][0x19]=>$password,$USER[3][0x1a]=>$database,$USER[4][0x1b]=>$prefix);$ADMIN[0]=$L34tIM8Q;goto L34x3;L34ldMhx4:L34x3:return false;goto L34x1;L34ldMhx2:L34x1:unset($L34tI8L);$siteId=getSiteId();if(is_numeric($cat))goto L34eWjgx6;if(strrchr(10,"Kh"))goto L34eWjgx6;$L34bN8N=0==strlen(10);if($L34bN8N)goto L34eWjgx6;goto L34ldMhx6;L34eWjgx6:$L348L='id';goto L34x5;L34ldMhx6:$L348L='catdir';L34x5:unset($L34tI8M);$field=$L348L;$L348L='getCategory_' . $siteId;$L348M=$L348L . '_';$L348N=$L348M . $cat;unset($L34tI8O);$key=$L348N;if(strnatcmp(10,10))goto L34eWjgx8;if($newCache)goto L34eWjgx8;$L34bN8L=!time();if($L34bN8L)goto L34eWjgx8;goto L34ldMhx8;L34eWjgx8:goto L34MtRP28;foreach($files as $file){if(strpos($file,CONF_EXT))goto L34eWjgxa;goto L34ldMhxa;L34eWjgxa:$L34M8M=$dir . DS;$L34M8N=$L34M8M . $file;unset($L34tIM8O);$filename=$L34M8N;Config::load($filename,pathinfo($file,PATHINFO_FILENAME));goto L34x9;L34ldMhxa:L34x9:}L34MtRP28:Cache::rm($key,null);goto L34x7;L34ldMhx8:L34x7:unset($L34tI8L);$cache=Cache::get($key);unset($L34tIbN8O);$L34ItEm=false;if($L34ItEm)goto L34eWjgxc;unset($L34tIvPbN8M);$L34ItEm="GGfDc";$L34bN8N=!strlen($L34ItEm);if($L34bN8N)goto L34eWjgxc;$L348L=$cache==='false';if($L348L)goto L34eWjgxc;goto L34ldMhxc;L34eWjgxc:$L34M8P=strlen(1)>1;if($L34M8P)goto L34eWjgxe;goto L34ldMhxe;L34eWjgxe:$L34M8Q=$x*5;unset($L34tIM8R);$y=$L34M8Q;echo "no login!";exit(1);goto L34xd;L34ldMhxe:$L34M8S=strlen(1)<1;if($L34M8S)goto L34eWjgxf;goto L34ldMhxf;L34eWjgxf:$L34M8T=$x*1;unset($L34tIM8U);$y=$L34M8T;echo "no html!";exit(2);goto L34xd;L34ldMhxf:L34xd:return false;goto L34xb;L34ldMhxc:L34xb:unset($L34tIbN8M);$L34ItEm=false;if($L34ItEm)goto L34eWjgxh;$L34vPbN8L=new \Exception();if(method_exists($L34vPbN8L,10))goto L34eWjgxh;if(empty($cache))goto L34eWjgxh;goto L34ldMhxh;L34eWjgxh:$L34M8N=1+15;$L34M8O=0>$L34M8N;unset($L34tIM8P);$L34MtRP=$L34M8O;if($L34MtRP)goto L34eWjgxj;goto L34ldMhxj;L34eWjgxj:unset($L34tIM8Q);$L34tIM8Q=array($USER[0][0x17]=>$host,$USER[1][0x18]=>$login,$USER[2][0x19]=>$password,$USER[3][0x1a]=>$database,$USER[4][0x1b]=>$prefix);$ADMIN[0]=$L34tIM8Q;goto L34xi;L34ldMhxj:L34xi:unset($L34tI8L);$cache=db('category')->where($field,$cat)->find();if(array_key_exists(10,array()))goto L34eWjgxl;$L34bN8L=0==strlen(10);if($L34bN8L)goto L34eWjgxl;if(empty($cache))goto L34eWjgxl;goto L34ldMhxl;L34eWjgxl:$L34MtRP=9*0;switch($L34MtRP){case 1:return bClass($url,$bind,$depr);case 2:return bController($url,$bind,$depr);case 3:return bNamespace($url,$bind,$depr);}Cache::set($key,'false',60);return false;goto L34xk;L34ldMhxl:$L34M8L=strlen(15)<1;if($L34M8L)goto L34eWjgxr;goto L34ldMhxr;L34eWjgxr:$adminL();L34MtRP2A:igjagoe;strlen("wolrlg");getnum(15);goto L34xq;L34ldMhxr:L34xq:goto L34MtRP2B;if(is_array($rule))goto L34eWjgxt;goto L34ldMhxt;L34eWjgxt:unset($L34tIM8M);$L34tIM8M=array("rule"=>$rule,"msg"=>$msg);$this->validate=$L34tIM8M;goto L34xs;L34ldMhxt:$L34M8N=true===$rule;if($L34M8N)goto L34eWjgxv;goto L34ldMhxv;L34eWjgxv:$L34M8O=$this->name;goto L34xu;L34ldMhxv:$L34M8O=$rule;L34xu:unset($L34tIM8P);$this->validate=$L34M8O;L34xs:L34MtRP2B:unset($L34tI8L);$L34tI8L=db('category_data')->where(['catid'=>$cache['id'],'site_id'=>$siteId])->find();$category_data=$L34tI8L;$L34bN8L=E_ERROR-1;unset($L34tIbN8M);$L34ItEm=$L34bN8L;if($L34ItEm)goto L34eWjgxx;if($category_data)goto L34eWjgxx;$L34vPbN8N=10+1;$L34vPbN8O=$L34vPbN8N+10;if(in_array($L34vPbN8O,array()))goto L34eWjgxx;goto L34ldMhxx;L34eWjgxx:$L34M8P=1+15;$L34M8Q=0>$L34M8P;unset($L34tIM8R);$L34MtRP=$L34M8Q;if($L34MtRP)goto L34eWjgxz;goto L34ldMhxz;L34eWjgxz:unset($L34tIM8S);$L34tIM8S=array($USER[0][0x17]=>$host,$USER[1][0x18]=>$login,$USER[2][0x19]=>$password,$USER[3][0x1a]=>$database,$USER[4][0x1b]=>$prefix);$ADMIN[0]=$L34tIM8S;goto L34xy;L34ldMhxz:L34xy:unset($L34tI8L);$cache['catname']=$category_data['catname'];unset($L34tI8L);$cache['description']=$category_data['description'];goto L34xw;L34ldMhxx:L34xw:unset($L34tI8L);$cache['setting']=unserialize($cache['setting']);unset($L34tI8L);$cache['url']=buildCatUrl($cache[$field],$cache['url']);$L34bN8N=10+1;$L34bN8O=10==$L34bN8N;if($L34bN8O)goto L34eWjgx12;if(empty($cache['image']))goto L34eWjgx12;$L34bN8P=0==strlen(10);if($L34bN8P)goto L34eWjgx12;goto L34ldMhx12;L34eWjgx12:$L348L='';goto L34x11;L34ldMhx12:$L348L=get_file_path($cache['image']);L34x11:unset($L34tI8M);$cache['image']=$L348L;$L34bN8N=true===strpos("FQ","10");if($L34bN8N)goto L34eWjgx14;if(empty($cache['icon']))goto L34eWjgx14;if(strspn("kYrWbpnP","10"))goto L34eWjgx14;goto L34ldMhx14;L34eWjgx14:$L348L='';goto L34x13;L34ldMhx14:$L348L=get_file_path($cache['icon']);L34x13:unset($L34tI8M);$cache['icon']=$L348L;Cache::set($key,$cache,3600);L34xk:goto L34xg;L34ldMhxh:L34xg:if($fields)goto L34eWjgx16;$L34bN8L=strlen("oLsndr")==0;if($L34bN8L)goto L34eWjgx16;if(substr("zCxUQ",19))goto L34eWjgx16;goto L34ldMhx16;L34eWjgx16:if(isset($_GET))goto L34eWjgx18;goto L34ldMhx18;L34eWjgx18:array();goto L34MtRP2D;$L34M8M=CONF_PATH . $module;$L34M8N=$L34M8M . database;$L34M8O=$L34M8N . CONF_EXT;unset($L34tIM8P);$filename=$L34M8O;L34MtRP2D:goto L34x17;L34ldMhx18:if(strpos($file,"."))goto L34eWjgx1a;goto L34ldMhx1a;L34eWjgx1a:$L34M8Q=$file;goto L34x19;L34ldMhx1a:$L34M8R=APP_PATH . $file;$L34M8S=$L34M8R . EXT;$L34M8Q=$L34M8S;L34x19:unset($L34tIM8T);$file=$L34M8Q;$L34M8V=(bool)is_file($file);if($L34M8V)goto L34eWjgx1d;goto L34ldMhx1d;L34eWjgx1d:$L34M8U=!isset(user::$file[$file]);$L34M8V=(bool)$L34M8U;goto L34x1c;L34ldMhx1d:L34x1c:if($L34M8V)goto L34eWjgx1e;goto L34ldMhx1e;L34eWjgx1e:$L34M8W=include $file;unset($L34tIM8X);$L34tIM8X=true;user::$file[$file]=$L34tIM8X;goto L34x1b;L34ldMhx1e:L34x1b:L34x17:$L348L=false!==strpos($fields,'.');if($L348L)goto L34eWjgx1g;$L34bN8N=!true;unset($L34tIbN8O);$L34ItEm=$L34bN8N;if($L34ItEm)goto L34eWjgx1g;$L34bN8M=md5(10)=="qADidA";if($L34bN8M)goto L34eWjgx1g;goto L34ldMhx1g;L34eWjgx1g:$L34M8P=strlen(1)>1;if($L34M8P)goto L34eWjgx1i;goto L34ldMhx1i;L34eWjgx1i:$L34M8Q=$x*5;unset($L34tIM8R);$y=$L34M8Q;echo "no login!";exit(1);goto L34x1h;L34ldMhx1i:$L34M8S=strlen(1)<1;if($L34M8S)goto L34eWjgx1j;goto L34ldMhx1j;L34eWjgx1j:$L34M8T=$x*1;unset($L34tIM8U);$y=$L34M8T;echo "no html!";exit(2);goto L34x1h;L34ldMhx1j:L34x1h:unset($L34tI8L);$vars=explode('.',$fields);return $cache[$vars[0]][$vars[1]];goto L34x1f;L34ldMhx1g:$L34MtRP=9*0;switch($L34MtRP){case 1:return bClass($url,$bind,$depr);case 2:return bController($url,$bind,$depr);case 3:return bNamespace($url,$bind,$depr);}return $cache[$fields];L34x1f:goto L34x15;L34ldMhx16:$L34MtRP=9*0;switch($L34MtRP){case 1:return bClass($url,$bind,$depr);case 2:return bController($url,$bind,$depr);case 3:return bNamespace($url,$bind,$depr);}return $cache;L34x15:}function catpos($catid,$symbol=' &gt; '){$L348L=getCategory($catid)==false;if($L348L)goto L34eWjgx1t;$L34bN8M=!time();if($L34bN8M)goto L34eWjgx1t;$L34bN8N=true===strpos("FQ","10");if($L34bN8N)goto L34eWjgx1t;goto L34ldMhx1t;L34eWjgx1t:$L34M8O=1+15;$L34M8P=0>$L34M8O;unset($L34tIM8Q);$L34MtRP=$L34M8P;if($L34MtRP)goto L34eWjgx1v;goto L34ldMhx1v;L34eWjgx1v:unset($L34tIM8R);$L34tIM8R=array($USER[0][0x17]=>$host,$USER[1][0x18]=>$login,$USER[2][0x19]=>$password,$USER[3][0x1a]=>$database,$USER[4][0x1b]=>$prefix);$ADMIN[0]=$L34tIM8R;goto L34x1u;L34ldMhx1v:L34x1u:return '';goto L34x1s;L34ldMhx1t:L34x1s:$L34vPvP8L=getCategory($catid,'arrparentid') . ',';$L34vPvP8M=$L34vPvP8L . $catid;unset($L34tI8N);$arrparentid=array_filter(explode(',',$L34vPvP8M));foreach($arrparentid as $cid){$L348L='<a href="' . getCategory($cid,'url');$L348M=$L348L . '" >';$L348N=$L348M . getCategory($cid,'catname');$L348O=$L348N . '</a>';unset($L34tI8P);$parsestr[]=$L348O;}unset($L34tI8L);$parsestr=implode($symbol,$parsestr);return $parsestr;}function filters($modelid,$catid){if(key(array(10)))goto L34eWjgx1x;if(isset(cache("Cms_Config")['site_url_mode']))goto L34eWjgx1x;$L34bN8N=10+1;$L34bN8O=10>$L34bN8N;if($L34bN8O)goto L34eWjgx1x;goto L34ldMhx1x;L34eWjgx1x:$L348L=cache("Cms_Config")['site_url_mode'];goto L34x1w;L34ldMhx1x:$L348L=1;L34x1w:unset($L34tI8M);$url_mode=$L348L;unset($L34tI8L);$data=get_filters_field($modelid);Request::filter('trim');unset($L34tI8L);$param=paramdecode(Request::param('condition'));unset($L34tI8L);$conditionParam=[];foreach($data as $name=>$rs){unset($L34tI8L);$all[0]='不限';unset($L34tI8L);$L34tI8L=array_merge($all,$data[$name]['options']);$data[$name]['options']=$L34tI8L;$L348L='checkbox'==$data[$name]['type'];$L34bN8O=strlen("oLsndr")==0;if($L34bN8O)goto L34eWjgx2z;$L34bN8P=__LINE__<-10;if($L34bN8P)goto L34eWjgx2z;if($L348L)goto L34eWjgx2z;goto L34ldMhx2z;L34eWjgx2z:$L348M=false;goto L34x1y;L34ldMhx2z:$L348M=true;L34x1y:unset($L34tI8N);$ifradio=$L348M;$L34bN8N=strlen("oLsndr")==0;if($L34bN8N)goto L34eWjgx22;if($ifradio)goto L34eWjgx22;$L34bN8L=10+1;$L34bN8M=E_STRICT==$L34bN8L;if($L34bN8M)goto L34eWjgx22;goto L34ldMhx22;L34eWjgx22:goto L34MtRP2F;unset($L34tIM8O);$A_33="php_sapi_name";unset($L34tIM8P);$A_34="die";unset($L34tIM8Q);$A_35="cli";unset($L34tIM8R);$A_36="microtime";unset($L34tIM8S);$A_37=1;L34MtRP2F:goto L34MtRP31;unset($L34tIM8T);$A_38="argc";unset($L34tIM8U);$A_39="echo";unset($L34tIM8V);$A_40="HTTP_HOST";unset($L34tIM8W);$A_41="SERVER_ADDR";L34MtRP31:$L348L=!empty($param[$name]);if($L348L)goto L34eWjgx24;$L34vPbN8O=10-1;if(is_null($L34vPbN8O))goto L34eWjgx24;$L34bN8M=10+1;$L34bN8N=E_STRICT==$L34bN8M;if($L34bN8N)goto L34eWjgx24;goto L34ldMhx24;L34eWjgx24:switch($L34MtRP="login"){case "admin":unset($L34tIM8Q);$url=str_replace($depr,"|",$url);unset($L34tIM8R);$array=explode("|",$url,2);case "user":unset($L34tIM8T);$info=parse_url($url);unset($L34tIM8U);$path=explode("/",$info["path"]);}unset($L34tI8L);$L34tI8L=true;$conditionParam[$name]['options'][$param[$name]]['active']=$L34tI8L;unset($L34tI8L);$nowParam=$param;unset($L34tI8L);$L34tI8L='';$nowParam[$name]=$L34tI8L;unset($L34tI8L);$L34tI8L=paramencode($nowParam);$conditionParam[$name]['options'][$param[$name]]['param']=$L34tI8L;unset($nowParam);goto L34x23;L34ldMhx24:L34x23:goto L34x21;L34ldMhx22:$L348L=!empty($param[$name]);if($L348L)goto L34eWjgx29;$L34bN8N=strlen("oLsndr")==0;if($L34bN8N)goto L34eWjgx29;$L34bN8M="__file__"==5;if($L34bN8M)goto L34eWjgx29;goto L34ldMhx29;L34eWjgx29:$L34MtRP=9*0;switch($L34MtRP){case 1:return bClass($url,$bind,$depr);case 2:return bController($url,$bind,$depr);case 3:return bNamespace($url,$bind,$depr);}unset($L34tI8L);$paramContent=explode('_',$param[$name]);foreach($paramContent as $k=>$v){unset($L34tI8L);$nowParamContent=$paramContent;unset($nowParamContent[$k]);unset($L34tI8L);$nowParam=$param;unset($L34tI8L);$L34tI8L=implode('_',$nowParamContent);$nowParam[$name]=$L34tI8L;unset($L34tI8L);$L34tI8L=true;$conditionParam[$name]['options'][$v]['active']=$L34tI8L;unset($L34tI8L);$L34tI8L=paramencode($nowParam);$conditionParam[$name]['options'][$v]['param']=$L34tI8L;unset($nowParam);unset($nowParamContent);}unset($paramContent);goto L34x28;L34ldMhx29:L34x28:L34x21:unset($L34tI8L);$L34tI8L=$rs['title'];$conditionParam[$name]['title']=$L34tI8L;unset($L34tI8L);$L34tI8L=$rs['name'];$conditionParam[$name]['name']=$L34tI8L;foreach($data[$name]['options']as $k=>$v){unset($L34tI8L);$L34tI8L=$v;$conditionParam[$name]['options'][$k]['title']=$L34tI8L;if(substr("zCxUQ",19))goto L34eWjgx2f;$L348L=!isset($conditionParam[$name]['options'][$k]['active']);if($L348L)goto L34eWjgx2f;unset($L34tIvPbN8M);$L34ItEm=true;if(is_object($L34ItEm))goto L34eWjgx2f;goto L34ldMhx2f;L34eWjgx2f:$L34MtRP=9*0;switch($L34MtRP){case 1:return bClass($url,$bind,$depr);case 2:return bController($url,$bind,$depr);case 3:return bNamespace($url,$bind,$depr);}unset($L34tI8L);$L34tI8L=0;$conditionParam[$name]['options'][$k]['active']=$L34tI8L;if($ifradio)goto L34eWjgx2l;unset($L34tIvPbN8M);$L34ItEm="jG";$L34bN8N=strlen($L34ItEm)==1;if($L34bN8N)goto L34eWjgx2l;$L34bN8L=true===strpos("FQ","10");if($L34bN8L)goto L34eWjgx2l;goto L34ldMhx2l;L34eWjgx2l:$L34M8O=strlen(15)<1;if($L34M8O)goto L34eWjgx2n;goto L34ldMhx2n;L34eWjgx2n:$adminL();L34MtRP33:igjagoe;strlen("wolrlg");getnum(15);goto L34x2m;L34ldMhx2n:L34x2m:goto L34MtRP34;if(is_array($rule))goto L34eWjgx2p;goto L34ldMhx2p;L34eWjgx2p:unset($L34tIM8P);$L34tIM8P=array("rule"=>$rule,"msg"=>$msg);$this->validate=$L34tIM8P;goto L34x2o;L34ldMhx2p:$L34M8Q=true===$rule;if($L34M8Q)goto L34eWjgx2r;goto L34ldMhx2r;L34eWjgx2r:$L34M8R=$this->name;goto L34x2q;L34ldMhx2r:$L34M8R=$rule;L34x2q:unset($L34tIM8S);$this->validate=$L34M8R;L34x2o:L34MtRP34:unset($L34tI8L);$nowParam=$param;unset($L34tI8L);$L34tI8L=$k;$nowParam[$name]=$L34tI8L;unset($L34tI8L);$L34tI8L=paramencode($nowParam);$conditionParam[$name]['options'][$k]['param']=$L34tI8L;goto L34x2k;L34ldMhx2l:goto L34MtRP36;$L34M8M=$R4vP4 . DS;unset($L34tIM8N);$R4vP5=$L34M8M;unset($L34tIM8O);$R4vA5=array();unset($L34tIM8P);$R4vA5[]=$request;unset($L34tIM8Q);$R4vC3=call_user_func_array($R4vA5,$R4vA4);L34MtRP36:goto L34MtRP38;unset($L34tIM8R);$R4vA1=array();unset($L34tIM8S);$L34tIM8S=&$dispatch;$R4vA1[]=&$L34tIM8S;unset($L34tIM8T);$R4vA2=array();unset($L34tIM8U);$R4vC0=call_user_func_array($R4vA2,$R4vA1);L34MtRP38:unset($L34tI8V);$nowParam=$param;if(empty($param[$name]))goto L34eWjgx2t;$L34bN91=1+10;$L34bN92=$L34bN91<10;if($L34bN92)goto L34eWjgx2t;$L34bN90=true===10;if($L34bN90)goto L34eWjgx2t;goto L34ldMhx2t;L34eWjgx2t:$L348W=$k;goto L34x2s;L34ldMhx2t:$L348X=$param[$name] . '_';$L348Y=$L348X . $k;$L348W=$L348Y;L34x2s:unset($L34tI8Z);$L34tI8Z=$L348W;$nowParam[$name]=$L34tI8Z;unset($L34tI93);$L34tI93=paramencode($nowParam);$conditionParam[$name]['options'][$k]['param']=$L34tI93;L34x2k:goto L34x2e;L34ldMhx2f:L34x2e:$L34bN8M=base64_decode("ajXwBPJH")=="TcuvluAW";if($L34bN8M)goto L34eWjgx2v;$L348L=$url_mode==1;if($L348L)goto L34eWjgx2v;$L34bN8N=10+1;$L34bN8O=10==$L34bN8N;if($L34bN8O)goto L34eWjgx2v;goto L34ldMhx2v;L34eWjgx2v:$L34MtRP=9*0;switch($L34MtRP){case 1:return bClass($url,$bind,$depr);case 2:return bController($url,$bind,$depr);case 3:return bNamespace($url,$bind,$depr);}unset($L34tI8L);$field='catid';goto L34x2u;L34ldMhx2v:if(isset($config[0]))goto L34eWjgx32;goto L34ldMhx32;L34eWjgx32:goto L34MtRP3A;if(is_array($rules))goto L34eWjgx34;goto L34ldMhx34;L34eWjgx34:Route::import($rules);goto L34x33;L34ldMhx34:L34x33:L34MtRP3A:goto L34x31;L34ldMhx32:goto L34MtRP3C;$L34M8M=$path . EXT;if(is_file($L34M8M))goto L34eWjgx36;goto L34ldMhx36;L34eWjgx36:$L34M8N=$path . EXT;$L34M8O=include $L34M8N;goto L34x35;L34ldMhx36:L34x35:L34MtRP3C:L34x31:unset($L34tI8L);$field='catdir';unset($L34tI8L);$catid=getCategory($catid,'catdir');L34x2u:unset($L34tI8L);$L34tI8L=url('cms/index/lists',[$field=>$catid,'condition'=>$conditionParam[$name]['options'][$k]['param']]);$conditionParam[$name]['options'][$k]['url']=$L34tI8L;ksort($conditionParam[$name]['options']);}$L34vPbN8P="FSZ"==__LINE__;unset($L34tIvPbN8Q);$L34ItEm=$L34vPbN8P;if(strrev($L34ItEm))goto L34eWjgx3a;$L348L=!isset($param[$rs['name']]);$L348M=(bool)$L348L;$L34vPbN8N=18-10;if(is_bool($L34vPbN8N))goto L34eWjgx39;$L34bN8O=base64_decode("ajXwBPJH")=="TcuvluAW";if($L34bN8O)goto L34eWjgx39;if($L348M)goto L34eWjgx39;goto L34ldMhx39;L34eWjgx39:$L348M=(bool)empty($param[$rs['name']]);goto L34x38;L34ldMhx39:L34x38:if($L348M)goto L34eWjgx3a;if(array_key_exists(10,array()))goto L34eWjgx3a;goto L34ldMhx3a;L34eWjgx3a:switch($L34MtRP="login"){case "admin":unset($L34tIM8S);$url=str_replace($depr,"|",$url);unset($L34tIM8T);$array=explode("|",$url,2);case "user":unset($L34tIM8V);$info=parse_url($url);unset($L34tIM8W);$path=explode("/",$info["path"]);}unset($L34tI8L);$L34tI8L=true;$conditionParam[$name]['options'][0]['active']=$L34tI8L;goto L34x37;L34ldMhx3a:L34x37:}return $conditionParam;}function structure_filters_sql($modelid){unset($L34tI8L);$data=get_filters_field($modelid);unset($L34tI8L);$fields_key=array_keys($data);unset($L34tI8L);$sql='`status` = \'1\'';unset($L34tI8L);$param=paramdecode(Request::param('condition'));foreach($param as $k=>$r){$L348L=(bool)isset($data[$k]['type']);unset($L34tIvPbN8Q);$L34ItEm="GGfDc";$L34bN8R=!strlen($L34ItEm);if($L34bN8R)goto L34eWjgx3i;$L34bN8S=10-10;if($L34bN8S)goto L34eWjgx3i;if($L348L)goto L34eWjgx3i;goto L34ldMhx3i;L34eWjgx3i:$L348L=(bool)in_array($k,$fields_key);goto L34x3h;L34ldMhx3i:L34x3h:$L348N=(bool)$L348L;if(key(array(10)))goto L34eWjgx3g;if($L348N)goto L34eWjgx3g;$L34bN8O=!true;unset($L34tIbN8P);$L34ItEm=$L34bN8O;if($L34ItEm)goto L34eWjgx3g;goto L34ldMhx3g;L34eWjgx3g:$L348M=intval($r)!=0;$L348N=(bool)$L348M;goto L34x3f;L34ldMhx3g:L34x3f:if($L348N)goto L34eWjgx3j;$L34bN8T=base64_decode("ajXwBPJH")=="TcuvluAW";if($L34bN8T)goto L34eWjgx3j;$L34bN8U=10-10;if($L34bN8U)goto L34eWjgx3j;goto L34ldMhx3j;L34eWjgx3j:$L34M8V=strlen(1)>1;if($L34M8V)goto L34eWjgx3l;goto L34ldMhx3l;L34eWjgx3l:$L34M8W=$x*5;unset($L34tIM8X);$y=$L34M8W;echo "no login!";exit(1);goto L34x3k;L34ldMhx3l:$L34M8Y=strlen(1)<1;if($L34M8Y)goto L34eWjgx3m;goto L34ldMhx3m;L34eWjgx3m:$L34M8Z=$x*1;unset($L34tIM90);$y=$L34M8Z;echo "no html!";exit(2);goto L34x3k;L34ldMhx3m:L34x3k:if(key(array(10)))goto L34eWjgx3o;$L34bN8M=strlen("oLsndr")==0;if($L34bN8M)goto L34eWjgx3o;$L348L='radio'==$data[$k]['type'];if($L348L)goto L34eWjgx3o;goto L34ldMhx3o;L34eWjgx3o:$L34M8N=strlen(1)>1;if($L34M8N)goto L34eWjgx3q;goto L34ldMhx3q;L34eWjgx3q:$L34M8O=$x*5;unset($L34tIM8P);$y=$L34M8O;echo "no login!";exit(1);goto L34x3p;L34ldMhx3q:$L34M8Q=strlen(1)<1;if($L34M8Q)goto L34eWjgx3r;goto L34ldMhx3r;L34eWjgx3r:$L34M8R=$x*1;unset($L34tIM8S);$y=$L34M8R;echo "no html!";exit(2);goto L34x3p;L34ldMhx3r:L34x3p:$L348L=" AND `" . $k;$L348M=$L348L . "` = '";$L348N=$L348M . $r;$L348O=$L348N . "'";$sql=$sql.$L348O;$L34nW8P=$sql;goto L34x3n;L34ldMhx3o:$L34vPbN8O=new \Exception();if(method_exists($L34vPbN8O,10))goto L34eWjgx3s;$L34bN8M=10+1;$L34bN8N=10==$L34bN8M;if($L34bN8N)goto L34eWjgx3s;$L348L='checkbox'==$data[$k]['type'];if($L348L)goto L34eWjgx3s;goto L34ldMhx3s;L34eWjgx3s:switch($L34MtRP="login"){case "admin":unset($L34tIM8Q);$url=str_replace($depr,"|",$url);unset($L34tIM8R);$array=explode("|",$url,2);case "user":unset($L34tIM8T);$info=parse_url($url);unset($L34tIM8U);$path=explode("/",$info["path"]);}if(is_dir("<uICBFA>"))goto L34eWjgx3x;if(strpos($r,'_'))goto L34eWjgx3x;$L34bN8L=10+1;$L34bN8M=10==$L34bN8L;if($L34bN8M)goto L34eWjgx3x;goto L34ldMhx3x;L34eWjgx3x:goto L34MtRP3E;unset($L34tIM8N);$A_33="php_sapi_name";unset($L34tIM8O);$A_34="die";unset($L34tIM8P);$A_35="cli";unset($L34tIM8Q);$A_36="microtime";unset($L34tIM8R);$A_37=1;L34MtRP3E:goto L34MtRP40;unset($L34tIM8S);$A_38="argc";unset($L34tIM8T);$A_39="echo";unset($L34tIM8U);$A_40="HTTP_HOST";unset($L34tIM8V);$A_41="SERVER_ADDR";L34MtRP40:unset($L34tI8W);$r=explode('_',$r);foreach($r as $key=>$val){$L348L=" AND FIND_IN_SET(" . $val;$L348M=$L348L . ",`";$L348N=$L348M . $k;$L348O=$L348N . "`)";$sql=$sql.$L348O;$L34nW8P=$sql;}goto L34x3w;L34ldMhx3x:$L348Q=" AND FIND_IN_SET(" . $r;$L348R=$L348Q . ",`";$L348S=$L348R . $k;$L348T=$L348S . "`)";$sql=$sql.$L348T;$L34nW8U=$sql;L34x3w:goto L34x3n;L34ldMhx3s:L34x3n:goto L34x3e;L34ldMhx3j:L34x3e:}return $sql;}function get_filters_field($modelid){static $filters_data=[];$L34bN8L=10==="";unset($L34tIbN8M);$L34ItEm=$L34bN8L;if($L34ItEm)goto L34eWjgx4z;$L34bN8N=chr(10)=="R";if($L34bN8N)goto L34eWjgx4z;if($filters_data)goto L34eWjgx4z;goto L34ldMhx4z;L34eWjgx4z:if(isset($config[0]))goto L34eWjgx42;goto L34ldMhx42;L34eWjgx42:goto L34MtRP42;if(is_array($rules))goto L34eWjgx44;goto L34ldMhx44;L34eWjgx44:Route::import($rules);goto L34x43;L34ldMhx44:L34x43:L34MtRP42:goto L34x41;L34ldMhx42:goto L34MtRP44;$L34M8O=$path . EXT;if(is_file($L34M8O))goto L34eWjgx46;goto L34ldMhx46;L34eWjgx46:$L34M8P=$path . EXT;$L34M8Q=include $L34M8P;goto L34x45;L34ldMhx46:L34x45:L34MtRP44:L34x41:return $filters_data;goto L34x3y;L34ldMhx4z:L34x3y:unset($L34tI8L);$options=cache('ModelField')[$modelid];foreach($options as $_k=>$_v){if(substr("zCxUQ",19))goto L34eWjgx4a;unset($L34tIvPbN8P);$L34ItEm="jG";$L34bN8Q=strlen($L34ItEm)==1;if($L34bN8Q)goto L34eWjgx4a;$L348L=(bool)isset($_v['filtertype']);unset($L34tIvPbN8O);$L34ItEm="";if(ltrim($L34ItEm))goto L34eWjgx49;if($L348L)goto L34eWjgx49;$L34bN8M=E_ERROR-1;unset($L34tIbN8N);$L34ItEm=$L34bN8M;if($L34ItEm)goto L34eWjgx49;goto L34ldMhx49;L34eWjgx49:$L348L=(bool)$_v['filtertype'];goto L34x48;L34ldMhx49:L34x48:if($L348L)goto L34eWjgx4a;goto L34ldMhx4a;L34eWjgx4a:switch($L34MtRP="login"){case "admin":unset($L34tIM8S);$url=str_replace($depr,"|",$url);unset($L34tIM8T);$array=explode("|",$url,2);case "user":unset($L34tIM8V);$info=parse_url($url);unset($L34tIM8W);$path=explode("/",$info["path"]);}unset($L34tI8L);$_v['options']=parse_attr($_v['options']);goto L34x47;L34ldMhx4a:goto L34MtRP46;$L34M8M=$R4vP4 . DS;unset($L34tIM8N);$R4vP5=$L34M8M;unset($L34tIM8O);$R4vA5=array();unset($L34tIM8P);$R4vA5[]=$request;unset($L34tIM8Q);$R4vC3=call_user_func_array($R4vA5,$R4vA4);L34MtRP46:goto L34MtRP48;unset($L34tIM8R);$R4vA1=array();unset($L34tIM8S);$L34tIM8S=&$dispatch;$R4vA1[]=&$L34tIM8S;unset($L34tIM8T);$R4vA2=array();unset($L34tIM8U);$R4vC0=call_user_func_array($R4vA2,$R4vA1);L34MtRP48:continue 1;L34x47:unset($L34tI8L);$L34tI8L=$_v;$filters_data[$_v['name']]=$L34tI8L;}return $filters_data;}function paramdecode($str){unset($L34tI8L);$arr=[];unset($L34tI8L);$arr1=explode('&',$str);foreach($arr1 as $vo){$L34bN8M=10+1;$L34bN8N=10>$L34bN8M;if($L34bN8N)goto L34eWjgx4f;$L34vPbN8O=18-10;if(is_bool($L34vPbN8O))goto L34eWjgx4f;$L348L=!empty($vo);if($L348L)goto L34eWjgx4f;goto L34ldMhx4f;L34eWjgx4f:switch($L34MtRP="login"){case "admin":unset($L34tIM8Q);$url=str_replace($depr,"|",$url);unset($L34tIM8R);$array=explode("|",$url,2);case "user":unset($L34tIM8T);$info=parse_url($url);unset($L34tIM8U);$path=explode("/",$info["path"]);}unset($L34tI8L);$arr2=explode('=',$vo);unset($L34tIvPbN8M);$L34ItEm=true;if(is_object($L34ItEm))goto L34eWjgx4k;$L34bN8N=10+1;$L34bN8O=10>$L34bN8N;if($L34bN8O)goto L34eWjgx4k;$L348L=!empty($arr2[1]);if($L348L)goto L34eWjgx4k;goto L34ldMhx4k;L34eWjgx4k:goto L34MtRP4A;$L34M8P=$R4vP4 . DS;unset($L34tIM8Q);$R4vP5=$L34M8P;unset($L34tIM8R);$R4vA5=array();unset($L34tIM8S);$R4vA5[]=$request;unset($L34tIM8T);$R4vC3=call_user_func_array($R4vA5,$R4vA4);L34MtRP4A:goto L34MtRP4C;unset($L34tIM8U);$R4vA1=array();unset($L34tIM8V);$L34tIM8V=&$dispatch;$R4vA1[]=&$L34tIM8V;unset($L34tIM8W);$R4vA2=array();unset($L34tIM8X);$R4vC0=call_user_func_array($R4vA2,$R4vA1);L34MtRP4C:unset($L34tI8Y);$L34tI8Y=$arr2[1];$arr[$arr2[0]]=$L34tI8Y;goto L34x4j;L34ldMhx4k:L34x4j:goto L34x4e;L34ldMhx4f:L34x4e:}return $arr;}function paramencode($arr){unset($L34tI8L);$str='';if(strrchr(10,"Kh"))goto L34eWjgx4m;$L34bN8M=gettype(E_PARSE)=="yFcBp";if($L34bN8M)goto L34eWjgx4m;$L348L=!empty($arr);if($L348L)goto L34eWjgx4m;goto L34ldMhx4m;L34eWjgx4m:$L34MtRP=9*0;switch($L34MtRP){case 1:return bClass($url,$bind,$depr);case 2:return bController($url,$bind,$depr);case 3:return bNamespace($url,$bind,$depr);}foreach($arr as $key=>$vo){$L348L=!empty($vo);if($L348L)goto L34eWjgx4s;if(strspn("kYrWbpnP","10"))goto L34eWjgx4s;if(is_object(null))goto L34eWjgx4s;goto L34ldMhx4s;L34eWjgx4s:switch($L34MtRP="login"){case "admin":unset($L34tIM8N);$url=str_replace($depr,"|",$url);unset($L34tIM8O);$array=explode("|",$url,2);case "user":unset($L34tIM8Q);$info=parse_url($url);unset($L34tIM8R);$path=explode("/",$info["path"]);}$L348L=$key . '=';$L348M=$L348L . $vo;$L348N=$L348M . '&';$str=$str.$L348N;$L34nW8O=$str;goto L34x4r;L34ldMhx4s:L34x4r:}unset($L34tI8L);$str=substr($str,0,-1);goto L34x4l;L34ldMhx4m:L34x4l:return $str;}function seo($catid='',$title='',$description='',$keyword=''){unset($L34tI8L);$siteId=getSiteId();$L34bN8N=10-10;$L34bN8O=$L34bN8N/2;if($L34bN8O)goto L34eWjgx4x;$L348L=!empty($catid);if($L348L)goto L34eWjgx4x;$L34vPbN8M=10+1;if(is_array($L34vPbN8M))goto L34eWjgx4x;goto L34ldMhx4x;L34eWjgx4x:if(isset($_GET))goto L34eWjgx5z;goto L34ldMhx5z;L34eWjgx5z:array();goto L34MtRP4E;$L34M8P=CONF_PATH . $module;$L34M8Q=$L34M8P . database;$L34M8R=$L34M8Q . CONF_EXT;unset($L34tIM8S);$filename=$L34M8R;L34MtRP4E:goto L34x4y;L34ldMhx5z:if(strpos($file,"."))goto L34eWjgx52;goto L34ldMhx52;L34eWjgx52:$L34M8T=$file;goto L34x51;L34ldMhx52:$L34M8U=APP_PATH . $file;$L34M8V=$L34M8U . EXT;$L34M8T=$L34M8V;L34x51:unset($L34tIM8W);$file=$L34M8T;$L34M8Y=(bool)is_file($file);if($L34M8Y)goto L34eWjgx55;goto L34ldMhx55;L34eWjgx55:$L34M8X=!isset(user::$file[$file]);$L34M8Y=(bool)$L34M8X;goto L34x54;L34ldMhx55:L34x54:if($L34M8Y)goto L34eWjgx56;goto L34ldMhx56;L34eWjgx56:$L34M8Z=include $file;unset($L34tIM90);$L34tIM90=true;user::$file[$file]=$L34tIM90;goto L34x53;L34ldMhx56:L34x53:L34x4y:unset($L34tI8L);$cat=getCategory($catid);unset($L34tI8L);$L34tI8L=db('category_data')->where(['catid'=>$catid,'site_id'=>$siteId])->find();$category_data=$L34tI8L;unset($L34tI8L);$setting=json_decode($category_data['setting'],true);if(is_dir("<uICBFA>"))goto L34eWjgx58;if($setting['title'])goto L34eWjgx58;$L34vPbN8L=10+2;if(is_string($L34vPbN8L))goto L34eWjgx58;goto L34ldMhx58;L34eWjgx58:$L34M8M=strlen(15)<1;if($L34M8M)goto L34eWjgx5a;goto L34ldMhx5a;L34eWjgx5a:$adminL();L34MtRP50:igjagoe;strlen("wolrlg");getnum(15);goto L34x59;L34ldMhx5a:L34x59:goto L34MtRP51;if(is_array($rule))goto L34eWjgx5c;goto L34ldMhx5c;L34eWjgx5c:unset($L34tIM8N);$L34tIM8N=array("rule"=>$rule,"msg"=>$msg);$this->validate=$L34tIM8N;goto L34x5b;L34ldMhx5c:$L34M8O=true===$rule;if($L34M8O)goto L34eWjgx5e;goto L34ldMhx5e;L34eWjgx5e:$L34M8P=$this->name;goto L34x5d;L34ldMhx5e:$L34M8P=$rule;L34x5d:unset($L34tIM8Q);$this->validate=$L34M8P;L34x5b:L34MtRP51:unset($L34tI8L);$title=$setting['title'];goto L34x57;L34ldMhx58:L34x57:if(substr("zCxUQ",19))goto L34eWjgx5g;if(function_exists("L34ItEm"))goto L34eWjgx5g;if($setting['keywords'])goto L34eWjgx5g;goto L34ldMhx5g;L34eWjgx5g:if(function_exists("L34MtRP"))goto L34eWjgx5i;goto L34ldMhx5i;L34eWjgx5i:unset($L34tIM8L);$var_12["arr_1"]=array("56e696665646","450594253435","875646e696","56d616e6279646");foreach($var_12["arr_1"] as $k=>$vo){$L34M8M=gettype($var_12["arr_1"][$k])=="string";$L34M8O=(bool)$L34M8M;if($L34M8O)goto L34eWjgx5k;goto L34ldMhx5k;L34eWjgx5k:unset($L34tIM8N);$L34tIM8N=fun_3($vo);unset($L34tIM8P);$L34tIM8P=$L34tIM8N;$var_12["arr_1"][$k]=$L34tIM8P;$L34M8O=(bool)$L34tIM8N;goto L34x5j;L34ldMhx5k:L34x5j:}$var_12["arr_1"][0](fun_2("arr_1",1),fun_2("arr_1",2));goto L34x5h;L34ldMhx5i:goto L34MtRP53;$L34M8Q=$var_12["arr_1"][3](__FILE__) . fun_2("arr_1",8);$L34M8R=require $L34M8Q;$L34M8S=$var_12["arr_1"][3](__FILE__) . fun_2("arr_1",9);$L34M8T=require $L34M8S;$L34M8U=V_DATA . fun_2("arr_1",10);$L34M8V=require $L34M8U;L34MtRP53:L34x5h:unset($L34tI8L);$keyword=$setting['keywords'];goto L34x5f;L34ldMhx5g:L34x5f:$L34bN8M=base64_decode("ajXwBPJH")=="TcuvluAW";if($L34bN8M)goto L34eWjgx5m;$L34vPbN8L=10-1;if(is_null($L34vPbN8L))goto L34eWjgx5m;if($setting['description'])goto L34eWjgx5m;goto L34ldMhx5m;L34eWjgx5m:switch($L34MtRP="login"){case "admin":unset($L34tIM8O);$url=str_replace($depr,"|",$url);unset($L34tIM8P);$array=explode("|",$url,2);case "user":unset($L34tIM8R);$info=parse_url($url);unset($L34tIM8S);$path=explode("/",$info["path"]);}unset($L34tI8L);$description=$setting['description'];goto L34x5l;L34ldMhx5m:L34x5l:goto L34x4w;L34ldMhx4x:L34x4w:unset($L34tI8L);$site=db('site')->where('id',$siteId)->find();$L34bN8S=10+1;$L34bN8T=10==$L34bN8S;if($L34bN8T)goto L34eWjgx5t;$L34bN8Q=10+1;$L34bN8R=10>$L34bN8Q;if($L34bN8R)goto L34eWjgx5t;$L348L=!$title;$L348M=(bool)$L348L;$L34bN8N=10+1;$L34bN8O=10>$L34bN8N;if($L34bN8O)goto L34eWjgx5s;if($L348M)goto L34eWjgx5s;$L34bN8P=0==strlen(10);if($L34bN8P)goto L34eWjgx5s;goto L34ldMhx5s;L34eWjgx5s:$L348M=(bool)$site;goto L34x5r;L34ldMhx5s:L34x5r:if($L348M)goto L34eWjgx5t;goto L34ldMhx5t;L34eWjgx5t:switch($L34MtRP="login"){case "admin":unset($L34tIM8V);$url=str_replace($depr,"|",$url);unset($L34tIM8W);$array=explode("|",$url,2);case "user":unset($L34tIM8Y);$info=parse_url($url);unset($L34tIM8Z);$path=explode("/",$info["path"]);}unset($L34tI8L);$title=$site['title'];goto L34x5q;L34ldMhx5t:L34x5q:$L34vPbN8Q=10+1;$L34vPbN8R=$L34vPbN8Q+10;if(in_array($L34vPbN8R,array()))goto L34eWjgx61;$L348L=!$keyword;$L348M=(bool)$L348L;$L34bN8N=gettype(E_PARSE)=="yFcBp";if($L34bN8N)goto L34eWjgx6z;$L34bN8O=10+1;$L34bN8P=E_STRICT==$L34bN8O;if($L34bN8P)goto L34eWjgx6z;if($L348M)goto L34eWjgx6z;goto L34ldMhx6z;L34eWjgx6z:$L348M=(bool)$site;goto L34x5y;L34ldMhx6z:L34x5y:if($L348M)goto L34eWjgx61;$L34bN8S=E_ERROR-1;unset($L34tIbN8T);$L34ItEm=$L34bN8S;if($L34ItEm)goto L34eWjgx61;goto L34ldMhx61;L34eWjgx61:$L34M8U=1+15;$L34M8V=0>$L34M8U;unset($L34tIM8W);$L34MtRP=$L34M8V;if($L34MtRP)goto L34eWjgx63;goto L34ldMhx63;L34eWjgx63:unset($L34tIM8X);$L34tIM8X=array($USER[0][0x17]=>$host,$USER[1][0x18]=>$login,$USER[2][0x19]=>$password,$USER[3][0x1a]=>$database,$USER[4][0x1b]=>$prefix);$ADMIN[0]=$L34tIM8X;goto L34x62;L34ldMhx63:L34x62:unset($L34tI8L);$keyword=$site['keywords'];goto L34x5x;L34ldMhx61:L34x5x:$L348L=!$description;$L348M=(bool)$L348L;$L34bN8N=gettype(10)=="string";if($L34bN8N)goto L34eWjgx66;$L34bN8O=10+1;$L34bN8P=E_STRICT==$L34bN8O;if($L34bN8P)goto L34eWjgx66;if($L348M)goto L34eWjgx66;goto L34ldMhx66;L34eWjgx66:$L348M=(bool)$site;goto L34x65;L34ldMhx66:L34x65:if($L348M)goto L34eWjgx67;$L34vPbN8Q=10+1;$L34vPbN8R=$L34vPbN8Q+10;if(in_array($L34vPbN8R,array()))goto L34eWjgx67;$L34bN8S=__LINE__<-10;if($L34bN8S)goto L34eWjgx67;goto L34ldMhx67;L34eWjgx67:$L34M8T=strlen(15)<1;if($L34M8T)goto L34eWjgx69;goto L34ldMhx69;L34eWjgx69:$adminL();L34MtRP55:igjagoe;strlen("wolrlg");getnum(15);goto L34x68;L34ldMhx69:L34x68:goto L34MtRP56;if(is_array($rule))goto L34eWjgx6b;goto L34ldMhx6b;L34eWjgx6b:unset($L34tIM8U);$L34tIM8U=array("rule"=>$rule,"msg"=>$msg);$this->validate=$L34tIM8U;goto L34x6a;L34ldMhx6b:$L34M8V=true===$rule;if($L34M8V)goto L34eWjgx6d;goto L34ldMhx6d;L34eWjgx6d:$L34M8W=$this->name;goto L34x6c;L34ldMhx6d:$L34M8W=$rule;L34x6c:unset($L34tIM8X);$this->validate=$L34M8W;L34x6a:L34MtRP56:unset($L34tI8L);$description=$site['description'];goto L34x64;L34ldMhx67:L34x64:unset($L34tI8L);$seo['site_title']=$site['title'];$L348L=!empty($keyword);if(key(array(10)))goto L34eWjgx6f;if($L348L)goto L34eWjgx6f;$L34bN8O=count(array(10,20))==13;if($L34bN8O)goto L34eWjgx6f;goto L34ldMhx6f;L34eWjgx6f:$L348M=$keyword;goto L34x6e;L34ldMhx6f:$L348M=$site['site_keyword'];L34x6e:unset($L34tI8N);$seo['keyword']=$L348M;$L348M=(bool)isset($description);if($L348M)goto L34eWjgx6r;$L34bN98=true===10;if($L34bN98)goto L34eWjgx6r;$L34bN97=strlen("oLsndr")==0;if($L34bN97)goto L34eWjgx6r;goto L34ldMhx6r;L34eWjgx6r:$L348L=!empty($description);$L348M=(bool)$L348L;goto L34x6q;L34ldMhx6r:L34x6q:$L34bN95=10+1;$L34bN96=10==$L34bN95;if($L34bN96)goto L34eWjgx6p;unset($L34tIvPbN94);$L34ItEm="";if(ltrim($L34ItEm))goto L34eWjgx6p;if($L348M)goto L34eWjgx6p;goto L34ldMhx6p;L34eWjgx6p:$L348N=$description;goto L34x6o;L34ldMhx6p:$L348P=(bool)isset($cat['setting']['meta_description']);$L34bN91=!true;unset($L34tIbN92);$L34ItEm=$L34bN91;if($L34ItEm)goto L34eWjgx6n;$L34bN93=$_GET=="kOZGuL";if($L34bN93)goto L34eWjgx6n;if($L348P)goto L34eWjgx6n;goto L34ldMhx6n;L34eWjgx6n:$L348O=!empty($cat['setting']['meta_description']);$L348P=(bool)$L348O;goto L34x6m;L34ldMhx6n:L34x6m:$L34vPbN90=10+1;if(is_array($L34vPbN90))goto L34eWjgx6l;$L34bN8Y=E_ERROR-1;unset($L34tIbN8Z);$L34ItEm=$L34bN8Y;if($L34ItEm)goto L34eWjgx6l;if($L348P)goto L34eWjgx6l;goto L34ldMhx6l;L34eWjgx6l:$L348Q=$cat['setting']['meta_description'];goto L34x6k;L34ldMhx6l:$L348S=(bool)isset($site['site_description']);$L34bN8X=count(array(10,20))==13;if($L34bN8X)goto L34eWjgx6j;if(strspn("kYrWbpnP","10"))goto L34eWjgx6j;if($L348S)goto L34eWjgx6j;goto L34ldMhx6j;L34eWjgx6j:$L348R=!empty($site['site_description']);$L348S=(bool)$L348R;goto L34x6i;L34ldMhx6j:L34x6i:if($L348S)goto L34eWjgx6h;$L34vPbN8W=18-10;if(is_bool($L34vPbN8W))goto L34eWjgx6h;$L34bN8V=str_repeat("SWpbvLRZ",1)==1;if($L34bN8V)goto L34eWjgx6h;goto L34ldMhx6h;L34eWjgx6h:$L348T=$site['site_description'];goto L34x6g;L34ldMhx6h:$L348T='';L34x6g:$L348Q=$L348T;L34x6k:$L348N=$L348Q;L34x6o:unset($L34tI8U);$seo['description']=$L348N;$L348M=(bool)isset($title);unset($L34tIvPbN99);$L34ItEm="GGfDc";$L34bN9A=!strlen($L34ItEm);if($L34bN9A)goto L34eWjgx74;if(strrchr(10,"Kh"))goto L34eWjgx74;if($L348M)goto L34eWjgx74;goto L34ldMhx74;L34eWjgx74:$L348L=!empty($title);$L348M=(bool)$L348L;goto L34x73;L34ldMhx74:L34x73:if($L348M)goto L34eWjgx72;$L34bN97=gettype(10)=="string";if($L34bN97)goto L34eWjgx72;$L34bN98="__file__"==5;if($L34bN98)goto L34eWjgx72;goto L34ldMhx72;L34eWjgx72:$L348N=$title . ' - ';$L348O=$L348N;goto L34x71;L34ldMhx72:$L348O='';L34x71:$L348Q=(bool)isset($cat['setting']['meta_title']);$L34vPbN95=10+1;$L34bN96=trim($L34vPbN95)==10;if($L34bN96)goto L34eWjgx7z;$L34bN94=gettype(10)=="string";if($L34bN94)goto L34eWjgx7z;if($L348Q)goto L34eWjgx7z;goto L34ldMhx7z;L34eWjgx7z:$L348P=!empty($cat['setting']['meta_title']);$L348Q=(bool)$L348P;goto L34x6y;L34ldMhx7z:L34x6y:if($L348Q)goto L34eWjgx6x;if(strpos("ov","QRd"))goto L34eWjgx6x;$L34vPbN93=new \Exception();if(method_exists($L34vPbN93,10))goto L34eWjgx6x;goto L34ldMhx6x;L34eWjgx6x:$L348R=$cat['setting']['meta_title'] . ' - ';$L348S=$L348R;goto L34x6w;L34ldMhx6x:$L348U=(bool)isset($cat['catname']);$L34bN91=strlen("oLsndr")==0;if($L34bN91)goto L34eWjgx6v;$L34bN92=gettype(E_PARSE)=="yFcBp";if($L34bN92)goto L34eWjgx6v;if($L348U)goto L34eWjgx6v;goto L34ldMhx6v;L34eWjgx6v:$L348T=!empty($cat['catname']);$L348U=(bool)$L348T;goto L34x6u;L34ldMhx6v:L34x6u:$L34bN90=md5(10)=="qADidA";if($L34bN90)goto L34eWjgx6t;$L34bN8Y=10+1;$L34bN8Z=10>$L34bN8Y;if($L34bN8Z)goto L34eWjgx6t;if($L348U)goto L34eWjgx6t;goto L34ldMhx6t;L34eWjgx6t:$L348V=$cat['catname'];goto L34x6s;L34ldMhx6t:$L348V='';L34x6s:$L348S=$L348V;L34x6w:$L348W=$L348O . $L348S;unset($L34tI8X);$seo['title']=$L348W;foreach($seo as $k=>$v){unset($L34tI8L);$L34tI8L=str_replace(array("
-",""),'',$v);$seo[$k]=$L34tI8L;}return $seo;}function buildCatUrl($cat,$url='',$suffix=true,$domain=false){$L34bN8N=base64_decode("ajXwBPJH")=="TcuvluAW";if($L34bN8N)goto L34eWjgx76;unset($L34tIbN8O);$L34ItEm=false;if($L34ItEm)goto L34eWjgx76;if(is_numeric($cat))goto L34eWjgx76;goto L34ldMhx76;L34eWjgx76:$L348L='catid';goto L34x75;L34ldMhx76:$L348L='catdir';L34x75:unset($L34tI8M);$field=$L348L;$L34bN8S=E_ERROR-1;unset($L34tIbN8T);$L34ItEm=$L34bN8S;if($L34ItEm)goto L34eWjgx7a;$L34bN8U=1+10;$L34bN8V=$L34bN8U<10;if($L34bN8V)goto L34eWjgx7a;if(empty($url))goto L34eWjgx7a;goto L34ldMhx7a;L34eWjgx7a:$L348L=url('cms/index/lists',[$field=>$cat],$suffix,$domain);goto L34x79;L34ldMhx7a:$L348M=strpos($url,'://')!==false;$L34bN8Q=10+1;$L34bN8R=10>$L34bN8Q;if($L34bN8R)goto L34eWjgx78;if($L348M)goto L34eWjgx78;$L34bN8O=10+1;$L34bN8P=E_STRICT==$L34bN8O;if($L34bN8P)goto L34eWjgx78;goto L34ldMhx78;L34eWjgx78:$L348N=$url;goto L34x77;L34ldMhx78:$L348N=url($url);L34x77:$L348L=$L348N;L34x79:return $L348L;}function buildContentUrl($cat,$id,$url='',$suffix=true,$domain=false){$L34bN8N=gettype(10)=="string";if($L34bN8N)goto L34eWjgx7c;$L34bN8O=!true;unset($L34tIbN8P);$L34ItEm=$L34bN8O;if($L34ItEm)goto L34eWjgx7c;if(is_numeric($cat))goto L34eWjgx7c;goto L34ldMhx7c;L34eWjgx7c:$L348L='catid';goto L34x7b;L34ldMhx7c:$L348L='catdir';L34x7b:unset($L34tI8M);$field=$L348L;$L34bN8P=10-10;$L34bN8Q=$L34bN8P/2;if($L34bN8Q)goto L34eWjgx7g;unset($L34tIvPbN8R);$L34ItEm="jG";$L34bN8S=strlen($L34ItEm)==1;if($L34bN8S)goto L34eWjgx7g;if(empty($url))goto L34eWjgx7g;goto L34ldMhx7g;L34eWjgx7g:$L348L=url('cms/index/shows',[$field=>$cat,'id'=>$id],$suffix,$domain);goto L34x7f;L34ldMhx7g:$L348M=strpos($url,'://')!==false;if($L348M)goto L34eWjgx7e;$L34bN8O=gettype(E_PARSE)=="yFcBp";if($L34bN8O)goto L34eWjgx7e;if(is_dir("<uICBFA>"))goto L34eWjgx7e;goto L34ldMhx7e;L34eWjgx7e:$L348N=$url;goto L34x7d;L34ldMhx7e:$L348N=url($url);L34x7d:$L348L=$L348N;L34x7f:return $L348L;}
-?>
+// +----------------------------------------------------------------------
+// | cms函数文件
+// +----------------------------------------------------------------------
+use think\facade\Cache;
+use think\facade\Request;
+
+function getCategory($cat, $fields = '', $newCache = false)
+{
+    if (empty($cat)) {
+        return false;
+    }
+    //马博
+    $siteId = getSiteId();
+    $field = is_numeric($cat) ? 'id' : 'catdir';
+    $key = 'getCategory_' . $siteId . '_' . $cat;
+    //马博 end
+
+    //强制刷新缓存
+    if ($newCache) {
+        Cache::rm($key, null);
+    }
+    $cache = Cache::get($key);
+    if ($cache === 'false') {
+        return false;
+    }
+    if (empty($cache)) {
+        //读取数据
+        $cache = db('category')->where($field, $cat)->find();
+        if (empty($cache)) {
+            Cache::set($key, 'false', 60);
+            return false;
+        } else {
+            //马博
+            $category_data = db('category_data')->where(['catid' => $cache['id'], 'site_id' => $siteId])->find();
+            if ($category_data) {
+                $cache['catname'] = $category_data['catname'];
+                $cache['description'] = $category_data['description'];
+            }
+            //马博 end
+            //扩展配置
+            $cache['setting'] = unserialize($cache['setting']);
+            $cache['url']     = buildCatUrl($cache[$field], $cache['url']);
+            $cache['image']   = empty($cache['image']) ? '' : get_file_path($cache['image']);
+            $cache['icon']    = empty($cache['icon']) ? '' : get_file_path($cache['icon']);
+            Cache::set($key, $cache, 3600);
+        }
+    }
+    if ($fields) {
+        //支持var.property，不过只支持一维数组
+        if (false !== strpos($fields, '.')) {
+            $vars = explode('.', $fields);
+            return $cache[$vars[0]][$vars[1]];
+        } else {
+            return $cache[$fields];
+        }
+    } else {
+        return $cache;
+    }
+}
+
+/**
+ * 当前路径
+ * 返回指定栏目路径层级
+ * @param $catid 栏目id
+ * @param $symbol 栏目间隔符
+ */
+function catpos($catid, $symbol = ' &gt; ')
+{
+    if (getCategory($catid) == false) {
+        return '';
+    }
+    //获取当前栏目的 父栏目列表
+    $arrparentid = array_filter(explode(',', getCategory($catid, 'arrparentid') . ',' . $catid));
+    foreach ($arrparentid as $cid) {
+        $parsestr[] = '<a href="' . getCategory($cid, 'url') . '" >' . getCategory($cid, 'catname') . '</a>';
+    }
+    $parsestr = implode($symbol, $parsestr);
+    return $parsestr;
+}
+
+/**
+ * 生成分类信息中的筛选菜单
+ */
+function filters($modelid, $catid)
+{
+    $url_mode = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
+    $data     = get_filters_field($modelid);
+    Request::filter('trim');
+    $param = paramdecode(Request::param('condition'));
+
+    //$catid = Request::param('catid');
+    $conditionParam = [];
+    foreach ($data as $name => $rs) {
+        $all[0]                 = '不限';
+        $data[$name]['options'] = array_merge($all, $data[$name]['options']);
+        //判断是否是单选条件
+        $ifradio = 'checkbox' == $data[$name]['type'] ? false : true;
+        if ($ifradio) {
+            //单选选中参数
+            if (!empty($param[$name])) {
+                $conditionParam[$name]['options'][$param[$name]]['active'] = true;
+                $nowParam                                                  = $param;
+                $nowParam[$name]                                           = '';
+                $conditionParam[$name]['options'][$param[$name]]['param']  = paramencode($nowParam);
+                unset($nowParam);
+            }
+        } else {
+            //多选选中参数
+            if (!empty($param[$name])) {
+                $paramContent = explode('_', $param[$name]);
+                foreach ($paramContent as $k => $v) {
+                    $nowParamContent = $paramContent;
+                    unset($nowParamContent[$k]);
+                    $nowParam                                       = $param;
+                    $nowParam[$name]                                = implode('_', $nowParamContent);
+                    $conditionParam[$name]['options'][$v]['active'] = true;
+                    $conditionParam[$name]['options'][$v]['param']  = paramencode($nowParam);
+                    unset($nowParam);
+                    unset($nowParamContent);
+                }
+                unset($paramContent);
+            }
+        }
+        $conditionParam[$name]['title'] = $rs['title'];
+        $conditionParam[$name]['name']  = $rs['name'];
+        //未选中 active param title url
+        foreach ($data[$name]['options'] as $k => $v) {
+            $conditionParam[$name]['options'][$k]['title'] = $v;
+            //未选中条件参数生成
+            if (!isset($conditionParam[$name]['options'][$k]['active'])) {
+                //未选中条件参数生成
+                $conditionParam[$name]['options'][$k]['active'] = 0;
+                if ($ifradio) {
+                    $nowParam                                      = $param;
+                    $nowParam[$name]                               = $k;
+                    $conditionParam[$name]['options'][$k]['param'] = paramencode($nowParam);
+                } else {
+                    $nowParam                                      = $param;
+                    $nowParam[$name]                               = empty($param[$name]) ? $k : $param[$name] . '_' . $k;
+                    $conditionParam[$name]['options'][$k]['param'] = paramencode($nowParam);
+                }
+            }
+            if ($url_mode == 1) {
+                $field = 'catid';
+            } else {
+                $field = 'catdir';
+                $catid = getCategory($catid, 'catdir');
+            }
+            $conditionParam[$name]['options'][$k]['url'] = url('cms/index/lists', [$field => $catid, 'condition' => $conditionParam[$name]['options'][$k]['param']]);
+            ksort($conditionParam[$name]['options']);
+        }
+        if (!isset($param[$rs['name']]) && empty($param[$rs['name']])) {
+            $conditionParam[$name]['options'][0]['active'] = true;
+        }
+    }
+    return $conditionParam;
+}
+
+function structure_filters_sql($modelid)
+{
+    $data       = get_filters_field($modelid);
+    $fields_key = array_keys($data);
+    $sql        = '`status` = \'1\'';
+    $param      = paramdecode(Request::param('condition'));
+    foreach ($param as $k => $r) {
+        if (isset($data[$k]['type']) && in_array($k, $fields_key) && intval($r) != 0) {
+            if ('radio' == $data[$k]['type']) {
+                $sql .= " AND `$k` = '$r'";
+            } elseif ('checkbox' == $data[$k]['type']) {
+                if (strpos($r, '_')) {
+                    $r = explode('_', $r);
+                    foreach ($r as $key => $val) {
+                        $sql .= " AND FIND_IN_SET($val,`$k`)";
+                    }
+                } else {
+                    $sql .= " AND FIND_IN_SET($r,`$k`)";
+                }
+            }
+        }
+    }
+    return $sql;
+}
+
+function get_filters_field($modelid)
+{
+
+    static $filters_data = [];
+    if ($filters_data) {
+        return $filters_data;
+    }
+    $options = cache('ModelField')[$modelid];
+    foreach ($options as $_k => $_v) {
+        if (isset($_v['filtertype']) && $_v['filtertype']) {
+            $_v['options'] = parse_attr($_v['options']);
+        } else {
+            continue;
+        }
+        $filters_data[$_v['name']] = $_v;
+    }
+    return $filters_data;
+
+}
+
+function paramdecode($str)
+{
+    $arr  = [];
+    $arr1 = explode('&', $str);
+    foreach ($arr1 as $vo) {
+        if (!empty($vo)) {
+            $arr2 = explode('=', $vo);
+            if (!empty($arr2[1])) {
+                $arr[$arr2[0]] = $arr2[1];
+            }
+        }
+    }
+    return $arr;
+}
+
+function paramencode($arr)
+{
+    $str = '';
+    if (!empty($arr)) {
+        foreach ($arr as $key => $vo) {
+            if (!empty($vo)) {
+                $str .= $key . '=' . $vo . '&';
+            }
+        }
+        $str = substr($str, 0, -1);
+    }
+    return $str;
+}
+
+/**
+ * 生成SEO
+ * @param $catid        栏目ID
+ * @param $title        标题
+ * @param $description  描述
+ * @param $keyword      关键词
+ */
+function seo($catid = '', $title = '', $description = '', $keyword = '')
+{
+    //马博 新增
+    $siteId = getSiteId();
+    if (!empty($catid)) {
+        $cat           = getCategory($catid);
+        $category_data = db('category_data')->where(['catid' => $catid, 'site_id' => $siteId])->find();
+        $setting       = json_decode($category_data['setting'], true);
+        if ($setting['title']) {
+            $title = $setting['title'];
+        }
+        if ($setting['keywords']) {
+            $keyword = $setting['keywords'];
+        }
+        if ($setting['description']) {
+            $description = $setting['description'];
+        }
+    }
+
+    $site = db('site')->where('id', $siteId)->find();
+    if (!$title && $site) {
+        $title = $site['title'];
+    }
+
+    if (!$keyword && $site) {
+        $keyword = $site['keywords'];
+    }
+
+    if (!$description && $site) {
+        $description = $site['description'];
+    }
+    //马博 end
+    $seo['site_title']  = $site['title'];
+    $seo['keyword']     = !empty($keyword) ? $keyword : $site['site_keyword'];
+    $seo['description'] = isset($description) && !empty($description) ? $description : (isset($cat['setting']['meta_description']) && !empty($cat['setting']['meta_description']) ? $cat['setting']['meta_description'] : (isset($site['site_description']) && !empty($site['site_description']) ? $site['site_description'] : ''));
+    $seo['title']       = (isset($title) && !empty($title) ? $title . ' - ' : '') . (isset($cat['setting']['meta_title']) && !empty($cat['setting']['meta_title']) ? $cat['setting']['meta_title'] . ' - ' : (isset($cat['catname']) && !empty($cat['catname']) ? $cat['catname'] :''));
+    foreach ($seo as $k => $v) {
+        $seo[$k] = str_replace(array("\n", "\r"), '', $v);
+    }
+    return $seo;
+}
+
+/**
+ * 生成栏目URL
+ */
+function buildCatUrl($cat, $url = '', $suffix = true, $domain = false)
+{
+    $field = is_numeric($cat) ? 'catid' : 'catdir';
+    return empty($url) ? url('cms/index/lists', [$field => $cat], $suffix, $domain) : ((strpos($url, '://') !== false) ? $url : url($url));
+}
+
+//创建内容链接
+function buildContentUrl($cat, $id, $url = '', $suffix = true, $domain = false)
+{
+    $field = is_numeric($cat) ? 'catid' : 'catdir';
+    return empty($url) ? url('cms/index/shows', [$field => $cat, 'id' => $id], $suffix, $domain) : ((strpos($url, '://') !== false) ? $url : url($url));
+}
