@@ -33,13 +33,13 @@ class Models extends Modelbase
      * 创建模型
      * @param type $data 提交数据
      * @return boolean
+     * 减少参数module通过表单提交了
      */
-    public function addModel($data, $module = 'cms')
+    public function addModel($data)
     {
         if (empty($data)) {
             throw new \Exception('数据不得为空！');
         }
-        $data['module']  = $module;
         $data['setting'] = serialize($data['setting']);
         //添加模型记录
         if ($res = self::create($data)) {

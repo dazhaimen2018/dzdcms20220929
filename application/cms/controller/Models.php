@@ -42,7 +42,7 @@ class Models extends Adminbase
     public function index()
     {
         if ($this->request->isAjax()) {
-            $data = $this->modelClass->where('module', 'cms')->select();
+            $data = $this->modelClass->where('module','like',['cms','custom'],'OR')->select();
             return json(["code" => 0, "data" => $data]);
         }
         return $this->fetch();

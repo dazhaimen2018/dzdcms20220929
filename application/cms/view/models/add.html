@@ -15,6 +15,25 @@
         </div>
         <div class="layui-form-mid layui-word-aux">由小写字母组成</div>
     </div>
+
+    <div class="layui-form-item web_link">
+        <label>所属模块</label>
+        <div>
+            <div class="layui-input-inline w300">
+                <input type="text" name="module" autocomplete="off" placeholder="请选择模块"  value="cms" class="layui-input" id="module" readonly>
+            </div>
+            <div class="layui-input-inline">
+                <select lay-filter="fasttype">
+                    <option data-module="">请选择模块</option>
+                    <option data-module="cms">cms模块</option>
+                    <option data-module="custom">自定义</option>
+                </select>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+        <div class="layui-form-mid layui-word-aux">默认为cms模块、如果您要建其他模型请选自定义</div>
+    </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label">模型类型</label>
         <div class="layui-input-inline">
@@ -82,9 +101,14 @@
 {/block}
 {block name="script"}
 <script type="text/javascript">
-layui.use('yznForm', function() {
-    var yznForm = layui.yznForm;
-    yznForm.listen();
-});
+    layui.use(['form','yznForm'], function() {
+        var yznForm = layui.yznForm;
+        var form = layui.form;
+        yznForm.listen();
+
+        form.on('select(fasttype)', function(data) {
+            $('#module').val($(data.elem).find("option:selected").attr("data-module"));
+        });
+    });
 </script>
 {/block}
