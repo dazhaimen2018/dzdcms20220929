@@ -12,9 +12,9 @@
 // +----------------------------------------------------------------------
 // | 模型管理
 // +----------------------------------------------------------------------
-namespace app\cms\controller;
+namespace app\help\controller;
 
-use app\cms\model\Models as ModelsModel;
+use app\help\model\Models as ModelsModel;
 use app\common\controller\Adminbase;
 use think\Db;
 
@@ -28,12 +28,12 @@ class Models extends Adminbase
         //取得当前内容模型模板存放目录
         $this->filepath = TEMPLATE_PATH . (empty(config('theme')) ? "default" : config('theme')) . DS . "cms" . DS;
         //取得栏目频道模板列表
-        $this->tp_category = str_replace($this->filepath . DS, '', glob($this->filepath . DS . 'category*'));
+        $this->tp_Help = str_replace($this->filepath . DS, '', glob($this->filepath . DS . 'Help*'));
         //取得栏目列表模板列表
         $this->tp_list = str_replace($this->filepath . DS, '', glob($this->filepath . DS . 'list*'));
         //取得内容页模板列表
         $this->tp_show = str_replace($this->filepath . DS, '', glob($this->filepath . DS . 'show*'));
-        $this->assign("tp_category", $this->tp_category);
+        $this->assign("tp_Help", $this->tp_Help);
         $this->assign("tp_list", $this->tp_list);
         $this->assign("tp_show", $this->tp_show);
     }
@@ -42,7 +42,7 @@ class Models extends Adminbase
     public function index()
     {
         if ($this->request->isAjax()) {
-            $data = $this->modelClass->where('module', 'cms')->select();
+            $data = $this->modelClass->where('module', 'custom')->select();
             return json(["code" => 0, "data" => $data]);
         }
         return $this->fetch();
@@ -98,7 +98,7 @@ class Models extends Adminbase
         $id = $this->request->param('id/d');
         empty($id) && $this->error('参数不能为空！');
         //检查该模型是否已经被使用
-        $r = Db::name("category")->where("modelid", $id)->find();
+        $r = Db::name("Help")->where("modelid", $id)->find();
         if ($r) {
             $this->error("该模型使用中，删除栏目后再删除！");
         }

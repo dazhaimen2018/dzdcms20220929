@@ -491,8 +491,7 @@ class Cms extends Modelbase
             }
 
         } else {
-            //直接清除已有的tags
-            $tags_mode->deleteAll($id, $catid, $modelid);
+
         }
     }
 

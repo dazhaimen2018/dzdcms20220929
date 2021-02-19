@@ -4,43 +4,34 @@
     <div class="layui-form-item">
         <label class="layui-form-label">模型名称</label>
         <div class="layui-input-inline">
-            <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="模型名称" class="layui-input">
+            <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="模型名称" class="layui-input" value="{$data.name}">
         </div>
         <div class="layui-form-mid layui-word-aux">模型中文名称，用于添加栏目时选择使用。</div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">模型表键名</label>
         <div class="layui-input-inline">
-            <input type="text" name="tablename" lay-verify="required" autocomplete="off" placeholder="模型表键名" class="layui-input">
+            <input type="text" name="tablename" lay-verify="required" autocomplete="off" placeholder="模型表键名" class="layui-input" value="{$data.tablename}">
         </div>
         <div class="layui-form-mid layui-word-aux">由小写字母组成</div>
     </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label">模型类型</label>
-        <div class="layui-input-inline">
-            <input type="radio" name="type" value="1" title="独立表">
-            <input type="radio" name="type" value="2" title="主附表" checked>
-        </div>
-        <div class="layui-form-mid layui-word-aux">多站点只支持主附表类型，也能提高数据库操作效率</div>
-    </div>
     <div class="layui-form-item">
         <label class="layui-form-label">描述</label>
-        <div class="layui-input-inline w300">
-            <textarea name="description" placeholder="模型的相关描述" class="layui-textarea"></textarea>
+        <div class="layui-input-block w300">
+            <textarea name="description" placeholder="模型的相关描述" class="layui-textarea">{$data.description}</textarea>
         </div>
     </div>
     <div class="layui-form-item web_list">
         <label class="layui-form-label">栏目模板</label>
         <div class="layui-input-inline w300">
-            <select name="setting[category_template]">
-                <option value="category.html" selected>默认栏目首页:category.html</option>
-                {volist name="tp_category" id="vo"}
-                <option value="{$vo}">{$vo}</option>
+            <select name="setting[Help_template]">
+                <option value="Help.html" selected>默认栏目首页:Help.html</option>
+                {volist name="tp_Help" id="vo"}
+                <option value="{$vo}" {eq name="data['setting']['Help_template']" value="$vo" }selected{/eq}>{$vo}</option>
                 {/volist}
             </select>
         </div>
-        <div class="layui-form-mid layui-word-aux">新增模板以category_xx.html形式</div>
+        <div class="layui-form-mid layui-word-aux">新增模板以Help_xx.html形式</div>
     </div>
     <div class="layui-form-item web_list">
         <label class="layui-form-label">列表模板</label>
@@ -48,7 +39,7 @@
             <select name="setting[list_template]">
                 <option value="list.html" selected>默认栏目列表页:list.html</option>
                 {volist name="tp_list" id="vo"}
-                <option value="{$vo}">{$vo}</option>
+                <option value="{$vo}" {eq name="data['setting']['list_template']" value="$vo" }selected{/eq}>{$vo}</option>
                 {/volist}
             </select>
         </div>
@@ -60,7 +51,7 @@
             <select name="setting[show_template]">
                 <option value="show.html" selected>默认内容页:show.html</option>
                 {volist name="tp_show" id="vo"}
-                <option value="{$vo}">{$vo}</option>
+                <option value="{$vo}" {eq name="data['setting']['show_template']" value="$vo" }selected{/eq}>{$vo}</option>
                 {/volist}
             </select>
         </div>
@@ -69,10 +60,11 @@
     <div class="layui-form-item">
         <label class="layui-form-label">状态</label>
         <div class="layui-input-inline">
-            <input type="radio" name="status" value="1" title="正常" checked>
-            <input type="radio" name="status" value="0" title="禁止">
+            <input type="radio" name="status" value="1" title="正常" {if $data.status==1}checked{/if}>
+            <input type="radio" name="status" value="0" title="禁止" {if $data.status==0}checked{/if}>
         </div>
     </div>
+    <input type="hidden" value="{$data.id}" name="id" />
     <div class="layui-form-item layer-footer">
         <div class="layui-input-block">
             <button class="layui-btn" lay-submit>立即提交</button>
@@ -83,10 +75,9 @@
 {/block}
 {block name="script"}
 <script type="text/javascript">
-    layui.use(['form','yznForm'], function() {
-        var yznForm = layui.yznForm;
-        var form = layui.form;
-        yznForm.listen();
-    });
+layui.use('yznForm', function() {
+    var yznForm = layui.yznForm;
+    yznForm.listen();
+});
 </script>
 {/block}
