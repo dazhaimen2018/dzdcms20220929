@@ -278,7 +278,7 @@ EOF;
                 'name'      => 'inputtime',
                 'title'     => '创建时间',
                 'type'      => 'datetime',
-                'listorder' => 8,
+                'listorder' => 9,
                 'setting'   => "a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}",
             ],
             [

@@ -64,6 +64,12 @@ return [
                                 "name"   => "编辑",
                             ],
                             [
+                                "route"  => "help/cms/read",
+                                "type"   => 1,
+                                "status" => 0,
+                                "name"   => "阅读",
+                            ],
+                            [
                                 "route"  => "help/cms/del",
                                 "type"   => 1,
                                 "status" => 0,

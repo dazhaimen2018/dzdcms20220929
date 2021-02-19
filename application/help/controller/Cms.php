@@ -235,6 +235,44 @@ class Cms extends Adminbase
         }
     }
 
+    //编辑信息
+    public function read()
+    {
+        $this->check_priv('edit');
+        if ($this->request->isPost()) {
+            $data                  = $this->request->post();
+            $data['modelFieldExt'] = isset($data['modelFieldExt']) ? $data['modelFieldExt'] : [];
+            try {
+                $this->Cms_Model->editModelData($data['modelField'], $data['modelFieldExt']);
+            } catch (\Exception $ex) {
+                $this->error($ex->getMessage());
+            }
+            $this->success('编辑成功！');
+
+        } else {
+            $catid    = $this->request->param('catid/d', 0);
+            $id       = $this->request->param('id/d', 0);
+            $help = getHelp($catid);
+            if (empty($help)) {
+                $this->error('该栏目不存在！');
+            }
+            $cmsConfig = cache("Cms_Config");
+            $this->assign("cmsConfig", $cmsConfig);
+            if ($help['type'] == 2) {
+                $modelid   = $help['modelid'];
+                $fieldList = $this->Cms_Model->getFieldList($modelid, $id);
+                $this->assign([
+                    'catid'     => $catid,
+                    'id'        => $id,
+                    'fieldList' => $fieldList,
+                ]);
+                return $this->fetch();
+            } else {
+                return $this->fetch('singlepage');
+            }
+        }
+    }
+
     //删除
     public function del()
     {
