@@ -66,13 +66,13 @@ layui.use('yznTable', function() {
         cols: [
             [
 				{field: 'id', title: 'ID', width: 80, fixed: true, sort: true,align:"center"},
-				{ field: 'listorder', width: 70, title: '排序', edit: 'text' },
+				{ field: 'listorder', width: 70, title: '排序', edit: 'text',search:false },
                 {field: 'name', title: '站点名称', width: 120,align:"center"},
                 {field: 'mark', title: '站点标识', width: 120,align:"center" },
-                {field: 'icon', title: '站点图标', width: 100,templet:"#icon",align:"center" },
+                {field: 'icon', title: '站点图标', width: 100,templet:"#icon",align:"center",search:false },
 				{ field: 'domain', title: 'URL',templet:'#url'},
-                {field: 'logo', title: 'LOGO', width: 150,templet:"#logo",align:"center" },
-				{ field: 'status', width: 120, align: "center", title: '状态', templet: '#statusTpl', unresize: true },
+                {field: 'logo', title: 'LOGO', width: 150,templet:"#logo",align:"center",search:false },
+				{ field: 'status', width: 120, align: "center", title: '状态', templet: '#statusTpl', unresize: true,search:false },
                 {fixed: 'right', title:'操作',width:150, toolbar: '#barTool',align:"center"},
             ]
         ],

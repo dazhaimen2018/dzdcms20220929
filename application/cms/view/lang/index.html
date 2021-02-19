@@ -61,13 +61,13 @@ layui.use(['yznTable','clipboard'], function() {
         url: '{:url("index")}',
         cols: [
             [
-                { field: 'id', title: 'ID', width: 70, align:'center' },
-			    { field: 'listorder', width: 70, title: '排序', edit: 'text' },
+                { field: 'id', title: 'ID', width: 70, align:'center',search:false },
+			    { field: 'listorder', width: 70, title: '排序', edit: 'text',search:false },
                 { field: 'name', title: '名称', width: 200},
                 { field: 'title', title: '标题', width: 200 },
                 { field: 'remark', title: '备注' },
-				{ field: 'update_time', width: 200, title: '更新时间', search: 'range', align:'center' },
-                { field: 'status', title: '状态', width: 100, templet: '#switchTpl', unresize: true },
+				{ field: 'update_time', width: 200, title: '更新时间', search: 'range', align:'center',search:false },
+                { field: 'status', title: '状态', width: 100, templet: '#switchTpl', unresize: true,search:false },
                 { fixed: 'right', width: 250, title: '操作', toolbar: '#barTool', align:'center' }
             ]
         ],
