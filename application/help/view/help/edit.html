@@ -66,22 +66,18 @@
                 </div>
                 <div class="layui-form-item layui-form-text">
                     <label>栏目图片</label>
-                    <div class="layui-form-field-label">
+                    <div class="layui-form-field-label border-none">
                         <div class="js-upload-image">
                             {php}echo \util\Form::images('image','',$data['image']){/php}
                         </div>
                     </div>
                 </div>
-                <div class="layui-form-item layui-form-text">
-                    <label>栏目图标</label>
-                    <div class="layui-form-field-label">
-                        <div class="js-upload-image">
-                            {php}echo \util\Form::images('icon','',$data['icon']){/php}
-                        </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">栏目图标</label>
+                    <div class="layui-input-block">
+                        <input type="text" lay-verify="required" id="iconPicker" lay-filter="iconPicker" class="hide" name="icon" value="{$data.icon}">
                     </div>
                 </div>
-            </div>
-            <div class="layui-tab-item">
                 <div class="layui-form-item">
                     <label>在导航显示</label>
                     <div class="w300">
@@ -89,104 +85,14 @@
                         <input type="radio" name="status" value="0" title="隐藏" {eq name="data.status" value="0" }checked{/eq}>
                     </div>
                 </div>
-                    <div class="layui-form-item">
-                        <label>显示排序</label>
-                        <div class="w300">
-                            <input type="text" name="listorder" autocomplete="off" placeholder="显示排序" class="layui-input" value="{$data['listorder']}">
-                        </div>
+                <div class="layui-form-item">
+                    <label>显示排序</label>
+                    <div class="w300">
+                        <input type="text" name="listorder" autocomplete="off" placeholder="显示排序" class="layui-input" value="{$data['listorder']}">
                     </div>
-                    <div class="layui-form-item web_seo">
-                        <label>网页标题</label>
-                        <div class="w300">
-                            <input type="text" name="setting[meta_title]" autocomplete="off" placeholder="针对搜索引擎设置的标题" class="layui-input" value="{$setting['meta_title']}">
-                        </div>
-                    </div>
-                    <div class="layui-form-item web_seo">
-                        <label>网页关键词</label>
-                        <div class="w300">
-                            <input type="text" name="setting[meta_keywords]" autocomplete="off" placeholder="关键字中间用半角逗号隔开" class="layui-input" value="{$setting['meta_keywords']}">
-                        </div>
-                    </div>
-                    <div class="layui-form-item web_seo">
-                        <label>网页描述</label>
-                        <div class="w300">
-                            <textarea name="setting[meta_description]" placeholder="针对搜索引擎设置的网页描述" class="layui-textarea">{$setting['meta_description']}</textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-tab-item">
-                    <div class="layui-form-item web_list">
-                        <label>栏目首页模板</label>
-                        <div class="w300">
-                            <select name="setting[help_template]">
-                                <option value="help.{:config('template.view_suffix')}" selected>默认栏目首页:help.{:config('template.view_suffix')}</option>
-                                {volist name="tp_help" id="vo"}
-                                <option value="{$vo}" {eq name="setting['help_template']" value="$vo" }selected{/eq}>{$vo} </option>
-                                {/volist}
-                            </select>
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">新增模板以help_xx.{:config('template.view_suffix')}形式,【含有子栏目时生效】</div>
-                    </div>
-                    <div class="layui-form-item web_list">
-                        <label>栏目列表页模板</label>
-                        <div class="w300">
-                            <select name="setting[list_template]">
-                                <option value="list.{:config('template.view_suffix')}" selected>默认栏目列表页:list.{:config('template.view_suffix')}</option>
-                                {volist name="tp_list" id="vo"}
-                                <option value="{$vo}" {eq name="setting['list_template']" value="$vo" }selected{/eq}>{$vo} </option>
-                                {/volist}
-                            </select>
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">新增模板以list_xx.{:config('template.view_suffix')}形式,【没有子栏目时生效】</div>
-                    </div>
-                    <div class="layui-form-item web_list">
-                        <label>内容页模板</label>
-                        <div class="w300">
-                            <select name="setting[show_template]">
-                                <option value="show.{:config('template.view_suffix')}" selected>默认内容页:show.{:config('template.view_suffix')}</option>
-                                {volist name="tp_show" id="vo"}
-                                <option value="{$vo}" {eq name="setting['show_template']" value="$vo" }selected{/eq}>{$vo} </option>
-                                {/volist}
-                            </select>
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">新增模板以show_xx.{:config('template.view_suffix')}形式</div>
-                    </div>
-                    <div class="layui-form-item web_list">
-                        <label>模板应用到子栏目</label>
-                        <div class="w300">
-                            <input type="radio" name="template_child" value="1" title="是">
-                            <input type="radio" name="template_child" value="0" title="否" checked>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-tab-item">
-                    {if condition="isModuleInstall('member')"}
-                    <div class="layui-form-item web_list">
-                        <label>会员组权限</label>
-                        <table class="layui-table" style="max-width: 250px;">
-                          <colgroup>
-                            <col width="150">
-                            <col width="100">
-                          </colgroup>
-                          <thead>
-                            <tr>
-                              <th>会员组名称</th>
-                              <th>允许投稿</th>
-                            </tr> 
-                          </thead>
-                          <tbody>
-                            {volist name="Member_Group" id="vo"}
-                            <tr>
-                              <td>{$vo.name}</td>
-                              <td><input type="checkbox" name="priv_groupid[]" value="add,{$vo.id}" title="允许" lay-skin="primary" {php} echo model("cms/helpPriv")->check_help_priv($privs,'add',$vo['id'],0);{/php}></td>
-                            </tr>
-                            {/volist}
-                          </tbody>
-                        </table>
-                    </div>
-                    {/if}
                 </div>
             </div>
+        </div>
             <input type="hidden" name="modelid" value="{$data.modelid}">
             <input type="hidden" name="type" value="2">
             <input name="id" type="hidden" value="{$data.id}">
@@ -201,14 +107,36 @@
 {/block}
 {block name="script"}
 <script type="text/javascript">
-layui.use(['form','yznForm'], function() {
-    var form = layui.form,
-    yznForm = layui.yznForm;
+    layui.use(['form','yznForm','iconPicker'], function() {
+        var form = layui.form,
+            iconPicker = layui.iconPicker,
+            yznForm = layui.yznForm;
 
-    yznForm.listen();
-    form.on('select(fasttype)', function(data) {
-        $('#url').val($(data.elem).find("option:selected").attr("data-url"));
+        yznForm.listen();
+        iconPicker.render({
+            // 选择器，推荐使用input
+            elem: '#iconPicker',
+            // 数据类型：fontClass/unicode，推荐使用fontClass
+            type: 'fontClass',
+            // 是否开启搜索：true/false，默认true
+            search: true,
+            // 是否开启分页：true/false，默认true
+            page: true,
+            // 每页显示数量，默认12
+            limit: 12,
+            // 点击回调
+            click: function (data) {
+                //console.log(data);
+            },
+            // 渲染成功后的回调
+            success: function(d) {
+                //console.log(d);
+            }
+        });
+
+        form.on('select(fasttype)', function(data) {
+            $('#url').val($(data.elem).find("option:selected").attr("data-url"));
+        });
     });
-});
 </script>
 {/block}

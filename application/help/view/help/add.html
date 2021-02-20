@@ -12,60 +12,60 @@
             <div class="layui-tab-item layui-show">
                 <div class="layui-form-item">
                     <label>上级菜单</label>
-                        <div class="w300">
-                            <select name="parentid">
-                                <option value="0">作为顶级栏目</option>
-                                {$help|raw}
-                            </select>
-                        </div>
+                    <div class="w300">
+                        <select name="parentid">
+                            <option value="0">作为顶级栏目</option>
+                            {$help|raw}
+                        </select>
+                    </div>
                 </div>
                 <div class="layui-form-item web_list">
                     <label>选择模型</label>
-                        <div class="w300">
-                            <select name="modelid" lay-filter="filter">
-                                <option>请选择模型</option>
-                                {volist name="models" id="vo"}
-                                <option value="{$vo.id}" {if condition=" $parentid_modelid eq $vo['id'] "}selected{/if}>{$vo.name}</option>
-                                {/volist}
-                            </select>
-                        </div>
+                    <div class="w300">
+                        <select name="modelid" lay-filter="filter">
+                            <option>请选择模型</option>
+                            {volist name="models" id="vo"}
+                            <option value="{$vo.id}" {if condition=" $parentid_modelid eq $vo['id'] "}selected{/if}>{$vo.name}</option>
+                            {/volist}
+                        </select>
+                    </div>
                 </div>
                 <div class="layui-form-item">
                     <label>添加方式</label>
-                        <div class="w300">
-                            <input type="radio" name="isbatch" value="1" title="批量添加" lay-filter="filter">
-                            <input type="radio" name="isbatch" value="0" title="单条添加" checked lay-filter="filter">
-                        </div>
+                    <div class="w300">
+                        <input type="radio" name="isbatch" value="1" title="批量添加" lay-filter="filter">
+                        <input type="radio" name="isbatch" value="0" title="单条添加" checked lay-filter="filter">
+                    </div>
                 </div>
                 <div class="layui-form-item" id="normal_add">
                     <label>栏目标题 </label>
-                        <div class="w300">
-                            <input type="text" name="catname" lay-verify="required" autocomplete="off" placeholder="栏目名称" class="layui-input" id="catname">
-                        </div>
+                    <div class="w300">
+                        <input type="text" name="catname" lay-verify="required" autocomplete="off" placeholder="栏目名称" class="layui-input" id="catname">
+                    </div>
                 </div>
                 <div class="layui-form-item" id="catdir_tr">
                     <label>唯一标识</label>
-                        <div class="w300">
-                            <input type="text" name="catdir" autocomplete="off" placeholder="唯一标识" class="layui-input" id="catdir">
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">留空自动生成拼音，英文数字组成</div>
+                    <div class="w300">
+                        <input type="text" name="catdir" autocomplete="off" placeholder="唯一标识" class="layui-input" id="catdir">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">留空自动生成拼音，英文数字组成</div>
                 </div>
                 <div class="layui-form-item" id="batch_add" style="display:none">
                     <label>栏目名称</label>
-                        <div class="w300">
-                            <textarea name="batch_add" lay-verify="" placeholder="栏目名称|唯一标识" class="layui-textarea"></textarea>
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">例如：<br>国内新闻|china<br>国际新闻|world<br>唯一标识留空时自动生成拼音</div>
+                    <div class="w300">
+                        <textarea name="batch_add" lay-verify="" placeholder="栏目名称|唯一标识" class="layui-textarea"></textarea>
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">例如：<br>国内新闻|china<br>国际新闻|world<br>唯一标识留空时自动生成拼音</div>
                 </div>
                 <div class="layui-form-item">
                     <label>栏目简介</label>
-                        <div class="w300">
-                            <textarea name="description" placeholder="栏目简介" class="layui-textarea"></textarea>
-                        </div>
+                    <div class="w300">
+                        <textarea name="description" placeholder="栏目简介" class="layui-textarea"></textarea>
+                    </div>
                 </div>
                 <div class="layui-form-item layui-form-text">
                     <label>栏目图片</label>
-                    <div class="layui-form-field-label">
+                    <div class="layui-form-field-label border-none">
                         <div class="js-upload-image">
                             {php}echo \util\Form::images('image'){/php}
                         </div>

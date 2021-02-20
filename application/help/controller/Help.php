@@ -222,10 +222,6 @@ class Help extends Adminbase
             }
             $status = $this->modelClass->editHelp($data, ['parentid', 'catname', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'status']);
             if ($status) {
-                if (isModuleInstall('member')) {
-                    //更新会员组权限
-                    model("cms/HelpPriv")->update_priv($catid, $data['priv_groupid'], 0);
-                }
                 $this->success("修改成功！", url("Help/index"));
             } else {
                 $error = $this->modelClass->getError();
@@ -268,7 +264,7 @@ class Help extends Adminbase
             $this->assign("models", $models);
 
             //权限数据
-            $this->assign("privs", model("cms/HelpPriv")->where(array('catid' => $catid))->select());
+
             if ($data['type'] == 1) {
                 //单页栏目
                 return $this->fetch("singlepage_edit");
@@ -304,101 +300,6 @@ class Help extends Adminbase
         $this->success("栏目删除成功！", url('cms/help/public_cache'));
     }
 
-    //栏目授权
-    public function cat_priv()
-    {
-        $act = $this->request->param('act');
-        $id  = $this->request->param('id');
-        if ($act == 'authorization') {
-            if (empty($id)) {
-                $this->error('请指定需要授权的角色！');
-            }
-            if ($this->request->isAjax()) {
-                $data = $this->request->post();
-                $priv = array();
-                if (isset($data['priv'])) {
-                    foreach ($data['priv'] as $k => $v) {
-                        foreach ($v as $e => $q) {
-                            $priv[] = array("roleid" => $id, "catid" => $k, "action" => $q, "is_admin" => 1);
-                        }
-                    }
-                    Db::name("HelpPriv")->where("roleid", $id)->delete();
-                    Db::name("HelpPriv")->insertAll($priv);
-                    $this->success("栏目授权成功！");
-                } else {
-                    $this->error('请指定需要授权的栏目！');
-                }
-
-            } else {
-                $tree          = new \util\Tree();
-                $tree->icon    = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
-                $tree->nbsp    = '&nbsp;&nbsp;&nbsp;';
-                $help_priv = Db::name('HelpPriv')->where("roleid", $id)->select();
-                $priv          = [];
-                foreach ($help_priv as $k => $v) {
-                    $priv[$v['catid']][$v['action']] = true;
-                }
-                $helps = Db::name('help')->order(array('listorder', 'id' => 'ASC'))->select();
-                foreach ($helps as $k => $v) {
-                    if ($v['type'] == 1 || $v['child']) {
-                        $v['disabled']        = 'disabled';
-                        $v['init_check']      = '';
-                        $v['add_check']       = '';
-                        $v['delete_check']    = '';
-                        $v['listorder_check'] = '';
-                        $v['move_check']      = '';
-                        $v['edit_check']      = '';
-                        $v['status_check']    = '';
-                    } else {
-                        $v['disabled']        = '';
-                        $v['add_check']       = isset($priv[$v['id']]['add']) ? 'checked' : '';
-                        $v['delete_check']    = isset($priv[$v['id']]['delete']) ? 'checked' : '';
-                        $v['listorder_check'] = isset($priv[$v['id']]['listorder']) ? 'checked' : '';
-                        $v['move_check']      = isset($priv[$v['id']]['remove']) ? 'checked' : '';
-                        $v['edit_check']      = isset($priv[$v['id']]['edit']) ? 'checked' : '';
-                        $v['status_check']    = isset($priv[$v['id']]['status']) ? 'checked' : '';
-                    }
-                    $v['init_check'] = isset($priv[$v['id']]['init']) ? 'checked' : '';
-                    $helps[$k]   = $v;
-                }
-                $str = "<tr>
-    <td align='center'><input type='checkbox'  value='1' data-name='@id' lay-skin='primary'></td>
-    <td>@spacer@catname</td>
-    <td align='center'><input type='checkbox' name='priv[@id][]' @init_check  lay-skin='primary' value='init' ></td>
-    <td align='center'><input type='checkbox' name='priv[@id][]' @disabled @add_check lay-skin='primary' value='add' ></td>
-    <td align='center'><input type='checkbox' name='priv[@id][]' @disabled @edit_check lay-skin='primary' value='edit' ></td>
-    <td align='center'><input type='checkbox' name='priv[@id][]' @disabled @delete_check  lay-skin='primary' value='delete' ></td>
-    <td align='center'><input type='checkbox' name='priv[@id][]' @disabled @listorder_check lay-skin='primary' value='listorder' ></td>
-    <td align='center'><input type='checkbox' name='priv[@id][]' @disabled @status_check lay-skin='primary' value='status' ></td>
-    <td align='center'><input type='checkbox' name='priv[@id][]' @disabled @move_check lay-skin='primary' value='remove' ></td>
-            </tr>";
-                $tree->init($helps);
-                $helpdata = $tree->getTree(0, $str);
-                $this->assign("helps", $helpdata);
-                return $this->fetch('authorization');
-            }
-        } elseif ($act == 'remove') {
-            Db::name('HelpPriv')->where('roleid', $id)->delete();
-            $this->success('删除成功！');
-        }
-        if ($this->request->isAjax()) {
-            $priv_num      = [];
-            $help_priv = Db::name('HelpPriv')->field("count(*) as num,roleid")->group("roleid")->select();
-            foreach ($help_priv as $k => $v) {
-                $priv_num[$v['roleid']] = $v['num'];
-            }
-            $AuthGroupModel = new \app\admin\model\AuthGroup();
-            $_list          = Db::view('Admin', 'username')->view('AuthGroup', 'id,title', 'AuthGroup.id=Admin.roleid')->order('id', 'desc')->select();
-            foreach ($_list as $k => $v) {
-                $_list[$k]['admin'] = $v['id'] == 1 ? true : false;
-                $_list[$k]['num']   = isset($priv_num[$v['id']]) ? $priv_num[$v['id']] : 0;
-            }
-            $result = array("code" => 0, "data" => $_list);
-            return json($result);
-        } else {
-            return $this->fetch();
-        }
-    }
 
     //更新栏目缓存并修复
     public function public_cache()
