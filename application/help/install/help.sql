@@ -20,12 +20,3 @@ CREATE TABLE `yzn_help` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `catdir` (`catdir`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='栏目表';
-
-DROP TABLE IF EXISTS `yzn_help_priv`;
-CREATE TABLE `yzn_help_priv` (
-    `catid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目ID',
-    `roleid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '角色或者组ID',
-    `is_admin` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否为管理员 1、管理员',
-    `action` char(30) NOT NULL DEFAULT '' COMMENT '动作',
-    KEY `catid` (`catid`,`roleid`,`is_admin`,`action`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='栏目权限表';

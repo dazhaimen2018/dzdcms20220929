@@ -115,7 +115,7 @@ return [
                 "route"  => "help/help/index",
                 "type"   => 1,
                 "status" => 1,
-                "name"   => "相关设置",
+                "name"   => "帮助设置",
                 "icon"   => "icon-file-settings-line",
                 "child"  => [
 
@@ -123,7 +123,7 @@ return [
                         "route"  => "help/help/index",
                         "type"   => 1,
                         "status" => 1,
-                        "name"   => "栏目列表",
+                        "name"   => "帮助栏目",
                         "icon"   => "icon-other",
                         "child"  => [
                             [
@@ -162,7 +162,7 @@ return [
                         "route"  => "help/models/index",
                         "type"   => 1,
                         "status" => 1,
-                        "name"   => "模型管理",
+                        "name"   => "帮助模型",
                         "icon"   => "icon-apartment",
                         "child"  => [
                             [

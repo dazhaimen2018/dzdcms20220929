@@ -252,7 +252,7 @@ EOF;
             ],
             [
                 'name'    => 'listorder',
-                'listorder' => 5,
+                'listorder' => 100,
                 'title'   => '排序',
                 'type'    => 'number',
                 'setting' => "a:3:{s:6:\"define\";s:40:\"tinyint(3) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:3:\"100\";}",
@@ -261,7 +261,7 @@ EOF;
                 'name'    => 'status',
                 'title'   => '状态',
                 'type'    => 'radio',
-                'listorder' => 6,
+                'listorder' => 100,
                 'setting' => "a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:18:\"0:禁用\r\n1:启用\";s:5:\"value\";s:1:\"1\";}",
             ],
             [
