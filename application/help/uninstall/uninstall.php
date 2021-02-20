@@ -22,7 +22,6 @@ class Uninstall extends UninstallBase
     //固定相关表
     private $modelTabList = array(
         'help',
-        'help_priv',
     );
     protected $ext_table = '_data';
 

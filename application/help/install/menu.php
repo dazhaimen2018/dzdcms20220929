@@ -139,12 +139,6 @@ return [
                                 "name"   => "添加外部链接",
                             ],
                             [
-                                "route"  => "help/help/cat_priv",
-                                "type"   => 1,
-                                "status" => 0,
-                                "name"   => "栏目授权",
-                            ],
-                            [
                                 "route"  => "help/help/edit",
                                 "type"   => 1,
                                 "status" => 0,
