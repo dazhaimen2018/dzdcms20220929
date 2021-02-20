@@ -242,13 +242,6 @@ class Cms extends Adminbase
         if ($this->request->isPost()) {
             $data                  = $this->request->post();
             $data['modelFieldExt'] = isset($data['modelFieldExt']) ? $data['modelFieldExt'] : [];
-            try {
-                $this->Cms_Model->editModelData($data['modelField'], $data['modelFieldExt']);
-            } catch (\Exception $ex) {
-                $this->error($ex->getMessage());
-            }
-            $this->success('编辑成功！');
-
         } else {
             $catid    = $this->request->param('catid/d', 0);
             $id       = $this->request->param('id/d', 0);
@@ -256,6 +249,15 @@ class Cms extends Adminbase
             if (empty($help)) {
                 $this->error('该栏目不存在！');
             }
+            //模型ID
+            $modelid   = $help['modelid'];
+            $modelInfo = cache('Model')[$modelid];
+            if (empty($modelInfo)) {
+                throw new \think\Exception('栏目不存在!', 404);
+            }
+            //更新点击量
+            Db::name($modelInfo['tablename'])->where('id', $id)->setInc('hits');
+
             $cmsConfig = cache("Cms_Config");
             $this->assign("cmsConfig", $cmsConfig);
             if ($help['type'] == 2) {
