@@ -14,6 +14,7 @@
 // +----------------------------------------------------------------------
 namespace app\help\model;
 
+use app\admin\model\Menu as MenuModel;
 use think\facade\Cache;
 use \think\Db;
 use \think\Model;
@@ -44,7 +45,21 @@ class Help extends Model
         //序列化setting数据
         $data['setting'] = serialize($data['setting']);
         $res             = self::create($data, $fields, true);
-        if ($res) {
+        $catid           =$res['id'];
+        if($res){
+            //增加菜单
+            $dataMenu['parentid'] = db('menu')->where('action','helps')->value('id');
+            $dataMenu['title'] =  $data['catname'];
+            $dataMenu['icon'] =  $data['icon'];
+            $dataMenu['status'] =  $data['status'];
+            $dataMenu['app'] =  'help';
+            $dataMenu['controller'] =  'cms';
+            $dataMenu['action'] =  'classlist';
+            $dataMenu['parameter'] =  'catid='.$catid;
+            $resMenu = MenuModel::create($dataMenu);
+        }
+
+        if ($resMenu) {
             cache('Help', null);
             return $res->getAttr('id');
         } else {

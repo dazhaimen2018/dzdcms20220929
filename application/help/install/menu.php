@@ -20,7 +20,7 @@ return [
         //子菜单列表
         "child"     => [
             [
-                "route"  => "help/help/index",
+                "route"  => "help/help/helps",
                 "type"   => 1,
                 "status" => 1,
                 "name"   => "帮助内容",
@@ -29,7 +29,7 @@ return [
                     [
                         "route"  => "help/cms/index",
                         "type"   => 1,
-                        "status" => 1,
+                        "status" => 0,
                         "name"   => "管理内容",
                         "icon"   => "icon-draft-line",
                         "child"  => [

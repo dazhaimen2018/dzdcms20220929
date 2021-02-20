@@ -10,7 +10,7 @@ CREATE TABLE `yzn_help` (
   `arrchildid` mediumtext COMMENT '所有子栏目ID',
   `child` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否存在子栏目，1存在',
   `image` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '栏目图片',
-  `icon` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '栏目图标',
+  `icon` varchar(100) NOT NULL DEFAULT '' COMMENT '栏目图标',
   `description` mediumtext NOT NULL COMMENT '栏目描述',
   `url` varchar(100) NOT NULL DEFAULT '' COMMENT '链接地址',
   `items` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '文档数量',

@@ -94,11 +94,6 @@ class Help extends Adminbase
                 return false;
             }
             switch ($data['type']) {
-                //单页
-                case 1:
-                    $fields = ['parentid', 'catname', 'catdir', 'type', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'status'];
-                    $scene  = 'page';
-                    break;
                 //列表
                 case 2:
                     $fields = ['parentid', 'catname', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'status'];
@@ -128,12 +123,7 @@ class Help extends Adminbase
                         $this->error($result);
                     }
                     $catid = $this->modelClass->addHelp($data, $fields);
-                    if ($catid) {
-                        if (isModuleInstall('member')) {
-                            //更新会员组权限
-                            model("cms/HelpPriv")->update_priv($catid, $data['priv_groupid'], 0);
-                        }
-                    }
+
                 }
                 $this->success("添加成功！", url("Help/index"));
             } else {
@@ -184,10 +174,6 @@ class Help extends Adminbase
                 $helpdata = '';
             }
 
-            $this->assign("tp_help", $this->tp_help);
-            $this->assign("tp_list", $this->tp_list);
-            $this->assign("tp_show", $this->tp_show);
-            $this->assign("tp_page", $this->tp_page);
 
             $this->assign('parentid_modelid', isset($Ca['modelid']) ? $Ca['modelid'] : 0);
             if (isModuleInstall('member')) {
@@ -202,11 +188,6 @@ class Help extends Adminbase
 
     }
 
-    //添加单页
-    public function singlepage()
-    {
-        return $this->add();
-    }
 
     //编辑栏目
     public function edit()
@@ -280,19 +261,12 @@ class Help extends Adminbase
                 $helpdata = '';
             }
 
-            $this->assign("tp_help", $this->tp_help);
-            $this->assign("tp_list", $this->tp_list);
-            $this->assign("tp_show", $this->tp_show);
-            $this->assign("tp_page", $this->tp_page);
 
             $this->assign("data", $data);
             $this->assign("setting", $setting);
             $this->assign("help", $helpdata);
             $this->assign("models", $models);
-            if (isModuleInstall('member')) {
-                //会员组
-                $this->assign("Member_Group", cache("Member_Group"));
-            }
+
             //权限数据
             $this->assign("privs", model("cms/HelpPriv")->where(array('catid' => $catid))->select());
             if ($data['type'] == 1) {
