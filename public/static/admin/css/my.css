@@ -59,6 +59,7 @@
 .layui-iconpicker .layui-anim{width: 280px}
 .w300 {flex: 1; margin-left: -1px; }
 .layui-form-item .layui-text{padding: 0 10px!important;}
+.layui-form-item .layui-text img{max-width: 100%}
 
 .rules-item .layui-input-block:first-child{width: 200px!important;}
 .rules-item .layui-input-block:nth-child(2){flex: 1;}
