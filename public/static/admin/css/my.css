@@ -58,6 +58,7 @@
 .layui-form-item .layui-form-radio, .layui-form-item .layui-form-switch{margin:6px 0 0 10px}
 .layui-iconpicker .layui-anim{width: 280px}
 .w300 {flex: 1; margin-left: -1px; }
+.layui-form-item .layui-text{padding: 0 10px!important;}
 
 .rules-item .layui-input-block:first-child{width: 200px!important;}
 .rules-item .layui-input-block:nth-child(2){flex: 1;}

@@ -1,0 +1,236 @@
+{volist name="fieldList" id="vo"}
+{switch name="vo.type"}
+{case value="text"}
+<div class="layui-form-item">
+    <label>{$vo.title}</label>
+    <div class="layui-form-field-label layui-text">
+        {$vo.value}
+    </div>
+</div>
+{/case}
+
+{case value="number"}
+<div class="layui-form-item">
+    <label>{$vo.title}</label>
+    <div class="layui-form-field-label layui-text">
+        {$vo.value}
+    </div>
+</div>
+{/case}
+{case value="switch"}
+<div class="layui-form-item">
+    <label>{$vo.title}</label>
+    <div class="layui-form-field-label layui-text">
+        {$vo.value}
+    </div>
+</div>
+{/case}
+{case value="array"}
+<div class="layui-card">
+    <div class="layui-card-header">{$vo.title}</div>
+    <div class="layui-card-body">
+        <div class="layui-collapse" lay-filter="component-panel">
+            {{# layui.each(d.lists, function(index, item) { }}
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">{{item.row.key|| ''}}<i class="layui-icon layui-colla-icon"></i></h2>
+                <div class="layui-colla-content">
+                    <p>{{item.row.value|| ''}}</p>
+                </div>
+            </div>
+            {{# }); }}
+        </div>
+    </div>
+</div>
+{/case}
+{case value="checkbox"}
+
+<div class="layui-form-item">
+    <label>{$vo.title}</label>
+    <div class="layui-form-field-label layui-text">
+        {$vo.value}
+    </div>
+</div>
+{/case}
+{case value="radio"}
+<div class="layui-form-item">
+    <label>{$vo.title}</label>
+    <div class="layui-form-field-label layui-text">
+        {$vo.value}
+    </div>
+</div>
+{/case}
+{case value="select"}
+<div class="layui-form-item">
+    <label>{$vo.title}</label>
+    <div class="layui-form-field-label layui-text">
+        {$vo.value}
+    </div>
+</div>
+{/case}
+{case value="selects"}
+<div class="layui-form-item">
+    <label>{$vo.title}</label>
+    <div class="layui-form-field-label layui-text">
+        {$vo.value}
+    </div>
+</div>
+{/case}
+{case value="selectpage"}
+<div class="layui-form-item">
+    <label>{$vo.title}</label>
+    <div class="layui-form-field-label layui-text">
+        {$vo.value}
+    </div>
+</div>
+{/case}
+{case value="color"}
+<div class="layui-form-item">
+    <label>{$vo.title}</label>
+    <div class="layui-form-field-label layui-text">
+        {$vo.value}
+    </div>
+</div>
+{/case}
+{case value="datetime"}
+<div class="layui-form-item">
+    <label>{$vo.title}</label>
+    <div class="layui-form-field-label layui-text">
+        {$vo.value}
+    </div>
+</div>
+{/case}
+{case value="textarea"}
+<div class="layui-form-item">
+    <label>{$vo.title}</label>
+    <div class="layui-form-field-label layui-text">
+        {$vo.value}
+    </div>
+</div>
+{/case}
+{case value="image"}
+<div class="layui-form-item">
+    <label>{$vo.title}</label>
+    <div class="layui-form-field-label layui-text">
+        {notempty name="$vo.value"}
+        <div class="file-item thumbnail">
+            <img data-image class="{$vo.name}-{$vo.value}" data-original="{$vo.value|get_file_path|default='__STATIC__/admin/img/none.png'}" src="{$vo.value|get_file_path|default='__STATIC__/admin/img/none.png'}">
+            <div class="file-panel">
+                <i class="iconfont icon-tailor cropper" data-input-id="{$vo.value}" data-id="{$vo.name}"></i>
+                <i class="iconfont icon-trash remove-picture" data-id="{$vo.value}"></i>
+            </div>
+        </div>
+        {/notempty}
+    </div>
+</div>
+{/case}
+{case value="images"}
+
+<div class="layui-form-item">
+    <label>{$vo.title}</label>
+    <div class="layui-form-field-label border-none">
+        <div class="js-upload-images">
+            <div id="file_list_{$vo.name}" class="uploader-list">
+                {notempty name="$vo.value"}
+                {volist name="$vo.value|explode=',',###" id="v"}
+                <div class="file-item thumbnail">
+                    <img data-image class="{$vo.name}-{$v}" data-original="{$v|get_file_path}" src="{$v|get_file_path|default='__STATIC__/admin/img/none.png'}">
+                    <div class="file-panel">
+                        <i class="iconfont icon-yidong move-picture"></i>
+                        <i class="iconfont icon-tailor cropper" data-input-id="{$v}" data-id="{$vo.name}"></i>
+                        <i class="iconfont icon-trash remove-picture" data-id="{$v}"></i>
+                    </div>
+                </div>
+                {/volist}
+                {/notempty}
+            </div>
+        </div>
+    </div>
+</div>
+
+{/case}
+{case value="file"}
+<div class="layui-form-item">
+    <label>{$vo.title}</label>
+    <div class="layui-form-field-label border-none">
+        <div class="js-upload-file">
+            <div   class="uploader-list">
+                <table class="layui-table">
+                    <colgroup>
+                        <col width="150">
+                        <col width="150">
+                        <col width="150">
+                        <col>
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>文件名称</th>
+                        <th>提示</th>
+                        <th>进度</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody class="file-box">
+                    {notempty name="$vo.value"}
+                    <tr class="file-item">
+                        <td>{$vo.value|get_file_name}</td>
+                        <td>/</td>
+                        <td>/</td>
+                        <td><a href="{$vo.value|get_file_path}" class="layui-btn download-file layui-btn layui-btn-xs">下载</a> <a href="javascript:void(0);" class="layui-btn remove-file layui-btn layui-btn-xs layui-btn-danger">删除</a></td>
+                    </tr>
+                    {/notempty}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{/case}
+{case value="files"}
+<div class="layui-form-item layui-form-text">
+    <label>{$vo.title}</label>
+    <div class="layui-form-field-label border-none">
+        <div class="js-upload-file">
+            <div id="file_list_{$vo.name}" class="uploader-list">
+                <table class="layui-table">
+                    <colgroup>
+                        <col width="150">
+                        <col width="150">
+                        <col width="150">
+                        <col>
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>文件名称</th>
+                        <th>提示</th>
+                        <th>进度</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody class="file-box">
+                    {notempty name="$vo.value"}
+                    {volist name="$vo.value|explode=',',###" id="v"}
+                    <tr class="file-item">
+                        <td>{$v|get_file_name}</td>
+                        <td>/</td>
+                        <td>/</td>
+                        <td><a href="{$v|get_file_path}" class="layui-btn download-file layui-btn layui-btn-xs">下载</a> <a href="javascript:void(0);" class="layui-btn remove-file layui-btn layui-btn-xs layui-btn-danger" data-id="{$v}">删除</a></td>
+                    </tr>
+                    {/volist}
+                    {/notempty}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{/case}
+{case value="Ueditor"}
+<div class="layui-form-item">
+    <label>{$vo.title}</label>
+    <div class="layui-form-field-label layui-text">
+        {$vo.value|raw}
+    </div>
+</div>
+{/case}
+{/switch}
+{/volist}
