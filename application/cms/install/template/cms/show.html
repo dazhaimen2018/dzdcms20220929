@@ -44,7 +44,7 @@ body {
                             <ul class="otherlink">
                                 {notempty name="tags"}
                                 {volist name=":explode(',',$tags)" id="vo"}
-                                <a class="labelList" href="{:url('cms/index/tags',['tagdir'=>tagurl($vo)])}">{$vo}</a>
+                                <a class="labelList" href="{:url('cms/index/tags',['tagdir'=>getTagDir($vo)])}">{$vo}</a>
                                 {/volist}
                                 {/notempty}
                             </ul>

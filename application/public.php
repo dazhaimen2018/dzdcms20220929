@@ -50,7 +50,7 @@ function getHelp($cat, $fields = '', $newCache = false)
 }
 
 //获得Tag的URL
-function tagurl($tag)
+function getTagDir($tag)
 {
     $tagdir = db('tags')->where('tag',$tag)->value('tagdir');
     return  $tagdir;
