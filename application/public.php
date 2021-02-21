@@ -49,7 +49,7 @@ function getHelp($cat, $fields = '', $newCache = false)
     }
 }
 
-function tagurl($tag)
+function tagurls($tag)
 {
     $tagdir = db('tags')->where('tag',$tag)->value('tagdir');
     return  $tagdir;
