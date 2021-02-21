@@ -18,10 +18,12 @@
 <script type="text/javascript">
 layui.use(['form', 'layer','yznForm'], function() {
     var form = layui.form,
-    yznForm = layui.yznForm;
+        layer = layui.layer,
+        yznForm = layui.yznForm;
 
-    $('.layui-btn').on('click', function(e) {
-        layer.closeAll();
+    $('#back').click(function (e){
+        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+        parent.layer.close(index); //再执行关闭
     });
 
 })
