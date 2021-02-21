@@ -3,7 +3,7 @@
 //马博
 
 use think\facade\Cache;
-
+// 帮助模块获取帮助数据
 function getHelp($cat, $fields = '', $newCache = false)
 {
     $url_mode = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
@@ -88,6 +88,7 @@ function getSiteId()
     return $siteId;
 }
 
+//设置语言
 function setLang($lang)
 {
     $domain = $_SERVER['HTTP_HOST'];
@@ -97,7 +98,6 @@ function setLang($lang)
 }
 
 //当前站点信息
-
 function getSite($field)
 {
     if (!$field) {
@@ -165,7 +165,7 @@ function patch($langName, $newCache = false)
     return $lang_value;
 }
 
-//获取信息
+//获取站点信息
 function getSiteInfo($field)
 {
     if (!$field) {
@@ -180,6 +180,7 @@ function getSiteInfo($field)
     }
 }
 
+//获取站点名称
 function siteName($id)
 {
     $site = db('site')->where('id',$id)->value('mark');
