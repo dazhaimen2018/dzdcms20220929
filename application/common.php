@@ -30,8 +30,6 @@ define('TEMPLATE_PATH', ROOT_PATH . 'templates' . DS);
 Url::root('/');//加上这句
 // 加载用户函数文件
 include_once APP_PATH . 'function.php';
-// 加载用户共用函数文件
-include_once APP_PATH . 'public.php';
 
 // 20200620 马博 end
 /**
