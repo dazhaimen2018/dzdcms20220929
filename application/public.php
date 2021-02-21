@@ -49,13 +49,14 @@ function getHelp($cat, $fields = '', $newCache = false)
     }
 }
 
-function tagurls($tag)
+//获得Tag的URL
+function tagurl($tag)
 {
     $tagdir = db('tags')->where('tag',$tag)->value('tagdir');
     return  $tagdir;
 }
 
-
+//获得站点的ID
 function getSiteId()
 {
     $siteId = 1;
