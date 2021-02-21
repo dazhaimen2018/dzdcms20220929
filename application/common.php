@@ -31,7 +31,6 @@ Url::root('/');//加上这句
 // 加载用户函数文件
 include_once APP_PATH . 'function.php';
 
-// 20200620 马博 end
 /**
  * 系统缓存缓存管理
  * cache('model')        获取model缓存
@@ -398,10 +397,10 @@ function data_auth_sign($data)
  * select返回的数组进行整数映射转换
  *
  * @param array $map  映射关系二维数组  array(
- *                                          '字段名1'=>array(映射关系数组),
- *                                          '字段名2'=>array(映射关系数组),
- *                                           ......
- *                                       )
+ * '字段名1'=>array(映射关系数组),
+ * '字段名2'=>array(映射关系数组),
+ * ......
+ * )
  * @author 朱亚杰 <zhuyajie@topthink.net>
  * @return array
  *
