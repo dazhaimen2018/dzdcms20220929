@@ -3,7 +3,11 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{if $catid}{$SEO['title']}{else}{$SEO['site_title']}{/if}</title>
+    {if !$id}
+    <title>{if !isset($catid)}{:getSite('title')}{else}{$SEO['title']}{/if}{if getSite('brand')} -【{:getSite('brand')}】{/if}</title>
+    {else}
+    <title>{$title} - {:getCategory($catid,'catname')} -【{:getSite('brand')}】</title>
+    {/if}
     <meta name="keywords" content="{$SEO['keyword']}" />
     <meta name="description" content="{$SEO['description']}" />
     <link rel="stylesheet" href="__CSS_PATH__/base.css">
