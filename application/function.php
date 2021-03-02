@@ -61,7 +61,7 @@ function getSiteId()
 {
     $siteId = 1;
     $domain = $_SERVER['HTTP_HOST'];
-    $authDomain1 = "127.0.0.1";
+    $authDomain1 = "wminw.cn";
     $authDomain2 = "dzdcms.com";
     $authDomain3 = "wxinw.com";
     if (strpos($domain, $authDomain1) === false && strpos($domain, $authDomain2) === false && strpos($domain, $authDomain3) === false) {
