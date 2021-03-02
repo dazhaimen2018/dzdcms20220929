@@ -3,7 +3,7 @@ header('Content-type:text/html;charset=utf-8');
 session_start();
 //配置信息
 $config = array(
-    'version'     => '1.0.0',
+    'version'     => '2.0.1',
     'indexPage'   => 'step1',
     'checkPage'   => 'step2',
     'createPage'  => 'step3',
@@ -23,7 +23,7 @@ $config = array(
 $db_config = array(
     'DB_HOST'   => '127.0.0.1',
     'DB_PORT'   => '3306',
-    'DB_NAME'   => 'yzncms',
+    'DB_NAME'   => 'DzdCms',
     'DB_PREFIX' => 'yzn_',
     'DB_USER'   => 'root',
     'DB_PASS'   => '',

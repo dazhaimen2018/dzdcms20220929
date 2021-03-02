@@ -20,6 +20,12 @@ if (version_compare(PHP_VERSION, '7.0.0', '<')) {
     die('PHP 7.0.0 及以上版本系统才可运行~ ');
 }
 
+if (!is_file($_SERVER['DOCUMENT_ROOT'].'/install/install.lock'))
+{
+    header("location:/install/index.php");
+    exit;
+}
+
 define('IF_PUBLIC', true);
 define('ROOT_PATH', __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR);
 define('APP_PATH', ROOT_PATH . 'application' . DIRECTORY_SEPARATOR);
