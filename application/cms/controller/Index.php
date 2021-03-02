@@ -17,6 +17,7 @@ namespace app\cms\controller;
 use app\cms\model\Cms as Cms_Model;
 use app\cms\model\Site;
 use think\Db;
+use think\facade\Cache;
 
 class Index extends Cmsbase
 {
@@ -42,12 +43,13 @@ class Index extends Cmsbase
         }
 
         if (isset($_COOKIE['lang']) && !empty($_COOKIE['lang'])) {
-            $lang = trim($_COOKIE['lang']);
+            $lang   = trim($_COOKIE['lang']);
             if (Site::where("mark='{$lang}'")->find()) {
                 setLang($lang);
             }
         }
     }
+
     /**
      * 首页
      */

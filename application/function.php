@@ -62,7 +62,7 @@ function getSiteId()
     $siteId = 1;
     $domain = $_SERVER['HTTP_HOST'];
     $authDomain1 = "127.0.0.1";
-    $authDomain2 = "localhost";
+    $authDomain2 = "dzdcms.com";
     $authDomain3 = "wxinw.com";
     if (strpos($domain, $authDomain1) === false && strpos($domain, $authDomain2) === false && strpos($domain, $authDomain3) === false) {
         die;
@@ -96,6 +96,7 @@ function setLang($lang)
     Cache::clear();
     Cache::set($key, $lang);
 }
+
 
 //当前站点信息
 function getSite($field)
@@ -185,4 +186,12 @@ function siteName($id)
 {
     $site = db('site')->where('id',$id)->value('mark');
     return  "<span class='text-danger'>$site</span>";
+}
+
+//前端获取站点风格
+function siteTheme()
+{
+    $siteId = getSiteId();
+    $theme = db('site')->where('id',$siteId)->value('template');
+    return  $theme ;
 }
