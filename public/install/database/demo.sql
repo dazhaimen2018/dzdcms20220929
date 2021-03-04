@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2021-02-04 17:46:37
+-- 生成日期： 2021-03-04 15:04:53
 -- 服务器版本： 8.0.20
--- PHP 版本： 7.4.14
+-- PHP 版本： 7.4.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 数据库： `demo_wxinw_com`
+-- 数据库： `demo_dzdcms_com`
 --
 
 -- --------------------------------------------------------
@@ -46,7 +46,7 @@ CREATE TABLE `yzn_admin` (
 --
 
 INSERT INTO `yzn_admin` (`id`, `username`, `password`, `roleid`, `encrypt`, `nickname`, `last_login_time`, `last_login_ip`, `email`, `token`, `status`) VALUES
-(1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 'xW5OhH', '多站点', 1612177719, '117.100.176.13', '8355763@qq.com', '481eb27e-6bdf-4e7a-a94f-2f929a603d57', 1);
+(1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 'xW5OhH', '多站点', 1614839775, '117.100.205.204', '8355763@qq.com', 'a949ee2a-7e95-4070-b8cc-4c76b9387011', 1);
 
 -- --------------------------------------------------------
 
@@ -63,31 +63,6 @@ CREATE TABLE `yzn_adminlog` (
   `ip` char(15) NOT NULL DEFAULT '' COMMENT '操作IP',
   `get` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='操作日志';
-
---
--- 转存表中的数据 `yzn_adminlog`
---
-
-INSERT INTO `yzn_adminlog` (`id`, `status`, `uid`, `info`, `create_time`, `ip`, `get`) VALUES
-(1, 0, 0, '提示语:请先登陆', 1612431122, '59.109.217.52', '/admin'),
-(2, 0, 0, '提示语:请先登陆', 1612431127, '59.109.217.52', '/admin'),
-(3, 0, 0, '提示语:请先登陆', 1612431137, '59.109.217.52', '/admin'),
-(4, 1, 1, '提示语:清理缓存', 1612431368, '117.100.176.13', '/admin/index/cache.html?type=all&_=1612429604956'),
-(5, 1, 1, '提示语:模块安装成功！一键清理缓存后生效！', 1612431381, '117.100.176.13', '/admin/module/install.html?module=cms&dialog=1'),
-(6, 1, 1, '提示语:清理缓存', 1612431395, '117.100.176.13', '/admin/index/cache.html?type=all&_=1612431389388'),
-(7, 0, 0, '提示语:请先登陆', 1612431550, '124.132.206.164', '/admin/index/index.html'),
-(8, 1, 1, '提示语:模型新增成功！', 1612431600, '117.100.176.13', '/cms/models/add.html?dialog=1'),
-(9, 0, 0, '提示语:用户名不正确', 1612431605, '124.132.206.164', '/admin/index/login.html?__token__=f806baff958cb76eeecbd4ff74a68351&username=demo&password=12345678&verify=FNDM'),
-(10, 1, 1, '提示语:站点添加成功~', 1612431641, '117.100.176.13', '/cms/site/add.html?dialog=1'),
-(11, 1, 1, '提示语:站点添加成功~', 1612431664, '117.100.176.13', '/cms/site/add.html?dialog=1'),
-(12, 1, 1, '提示语:添加成功！', 1612431693, '117.100.176.13', '/cms/category/add.html?dialog=1'),
-(13, 1, 1, '提示语:添加成功！', 1612431715, '117.100.176.13', '/cms/category/singlepage.html?dialog=1'),
-(14, 1, 1, '提示语:更新成功！', 1612431734, '117.100.176.13', '/cms/setting/index/menuid/82.html'),
-(15, 1, 1, '提示语:修改成功！', 1612431775, '117.100.176.13', '/cms/category/edit.html?id=1&dialog=1'),
-(16, 1, 1, '提示语:修改成功！', 1612431794, '117.100.176.13', '/cms/category/edit.html?id=2&dialog=1'),
-(17, 1, 1, '提示语:操作成功！', 1612431869, '117.100.176.13', '/cms/cms/add/catid/1.html?dialog=1'),
-(18, 1, 1, '提示语:操作成功！', 1612431903, '117.100.176.13', '/cms/cms/add/catid/2.html'),
-(19, 1, 1, '提示语:操作成功！', 1612431974, '117.100.176.13', '/cms/cms/add/catid/2.html');
 
 -- --------------------------------------------------------
 
@@ -115,6 +90,13 @@ CREATE TABLE `yzn_attachment` (
   `listorders` int NOT NULL DEFAULT '100' COMMENT '排序',
   `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='附件表';
+
+--
+-- 转存表中的数据 `yzn_attachment`
+--
+
+INSERT INTO `yzn_attachment` (`id`, `aid`, `uid`, `name`, `module`, `path`, `thumb`, `url`, `mime`, `ext`, `size`, `md5`, `sha1`, `driver`, `create_time`, `update_time`, `listorders`, `status`) VALUES
+(1, 1, 0, 'ico.png', 'admin', '/uploads/images/ico.png', '', '', 'image/png', 'png', 16140, '693cf31fc1e433bf91cd178d658d4e36', '16f445461fd1218f6fdf258074c567f3cf4b490f', 'local', 1614839862, 1614839862, 100, 1);
 
 -- --------------------------------------------------------
 
@@ -217,7 +199,7 @@ CREATE TABLE `yzn_category` (
 --
 
 INSERT INTO `yzn_category` (`id`, `catname`, `catdir`, `type`, `modelid`, `parentid`, `arrparentid`, `arrchildid`, `site_id`, `child`, `image`, `icon`, `url`, `items`, `setting`, `listorder`, `status`) VALUES
-(1, '资讯栏目', 'news', 2, 1, 0, '', NULL, '1,2', 0, 0, '', '', 1, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 100, 1),
+(1, '新闻资讯', 'news', 2, 1, 0, '', NULL, '1,2', 0, 0, '', '', 1, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 100, 1),
 (2, '关于我们', 'about', 1, 0, 0, '', NULL, '1,2', 0, 0, '', '', 0, 'a:1:{s:13:\"page_template\";s:9:\"page.html\";}', 100, 1);
 
 -- --------------------------------------------------------
@@ -241,10 +223,10 @@ CREATE TABLE `yzn_category_data` (
 --
 
 INSERT INTO `yzn_category_data` (`id`, `catid`, `catname`, `description`, `setting`, `site_id`, `status`) VALUES
-(1, 1, '资讯栏目', '资讯栏目', '{\"title\":\"\\u8d44\\u8baf\\u680f\\u76ee\",\"keyword\":\"\\u8d44\\u8baf\\u680f\\u76ee\",\"description\":\"\\u8d44\\u8baf\\u680f\\u76ee\"}', 1, 0),
-(2, 1, 'news', 'news', '{\"title\":\"news\",\"keyword\":\"news\",\"description\":\"news\"}', 2, 0),
-(3, 2, '关于我们', '关于我们', '{\"title\":\"\\u5173\\u4e8e\\u6211\\u4eec\",\"keyword\":\"\\u5173\\u4e8e\\u6211\\u4eec\",\"description\":\"\\u5173\\u4e8e\\u6211\\u4eec\"}', 1, 0),
-(4, 2, 'about', 'about', '{\"title\":\"about\",\"keyword\":\"about\",\"description\":\"about\"}', 2, 0);
+(1, 1, '新闻资讯', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0),
+(2, 1, 'news', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, 0),
+(3, 2, '关于我们', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0),
+(4, 2, 'about', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -307,7 +289,8 @@ INSERT INTO `yzn_config` (`id`, `name`, `type`, `title`, `group`, `options`, `re
 (20, 'upload_thumb_water_pic', 'image', '水印图片', 'upload', '', '只有开启水印功能才生效', 1552435183, 1552436081, 1, '', 6),
 (21, 'upload_thumb_water_position', 'radio', '水印位置', 'upload', '1:左上角\r\n2:上居中\r\n3:右上角\r\n4:左居中\r\n5:居中\r\n6:右居中\r\n7:左下角\r\n8:下居中\r\n9:右下角', '只有开启水印功能才生效', 1552435257, 1552436082, 1, '9', 7),
 (22, 'upload_thumb_water_alpha', 'text', '水印透明度', 'upload', '', '请输入0~100之间的数字，数字越小，透明度越高', 1552435299, 1552436083, 1, '50', 8),
-(23, 'system_name', 'text', '系统名称', 'system', '', '', 1612178077, 1612178139, 1, 'DZDcms', 100);
+(23, 'system_name', 'text', '系统名称', 'system', '', '', 1612178077, 1612178139, 1, 'DZDcms', 100),
+(24, 'system_logo', 'image', '系统LOGO', 'system', '', '', 1614839822, 1614839893, 1, '1', 100);
 
 -- --------------------------------------------------------
 
@@ -401,6 +384,27 @@ CREATE TABLE `yzn_lang_data` (
   `site_id` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID',
   `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='网站配置附表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yzn_links`
+--
+
+CREATE TABLE `yzn_links` (
+  `id` smallint UNSIGNED NOT NULL COMMENT '链接id',
+  `linktype` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '0:文字链接,1:logo链接',
+  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '链接地址',
+  `name` varchar(255) NOT NULL DEFAULT '' COMMENT '链接名称',
+  `image` mediumint UNSIGNED NOT NULL COMMENT '链接图片',
+  `target` varchar(25) NOT NULL DEFAULT '' COMMENT '链接打开方式',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '链接描述',
+  `inputtime` int NOT NULL COMMENT '添加时间',
+  `listorder` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序',
+  `termsid` smallint NOT NULL COMMENT '分类id',
+  `site_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '所属站点',
+  `status` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '0未通过,1正常,2未审核'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='友情链接';
 
 -- --------------------------------------------------------
 
@@ -539,7 +543,16 @@ INSERT INTO `yzn_menu` (`id`, `title`, `icon`, `parentid`, `app`, `controller`, 
 (117, '碎片编辑', '', 114, 'cms', 'lang', 'edit', '', 0, '', 0, 0),
 (118, '碎片删除', '', 114, 'cms', 'lang', 'del', '', 0, '', 0, 0),
 (119, '碎片排序', '', 114, 'cms', 'lang', 'listorder', '', 0, '', 0, 0),
-(120, '碎片状态', '', 114, 'cms', 'lang', 'setstate', '', 0, '', 0, 0);
+(120, '碎片状态', '', 114, 'cms', 'lang', 'setstate', '', 0, '', 0, 0),
+(121, '友情链接', 'icon-lianjie', 81, 'links', 'links', 'index', '', 1, '友情链接！', 0, 0),
+(122, '添加友情链接', '', 121, 'links', 'links', 'add', '', 0, '', 0, 0),
+(123, '链接编辑', '', 121, 'links', 'links', 'edit', '', 0, '', 0, 0),
+(124, '链接删除', '', 121, 'links', 'links', 'del', '', 0, '', 0, 0),
+(125, '批量操作', '', 121, 'links', 'links', 'multi', '', 0, '', 0, 0),
+(126, '分类管理', '', 121, 'links', 'links', 'terms', '', 0, '', 0, 0),
+(127, '分类新增', '', 121, 'links', 'links', 'addTerms', '', 0, '', 0, 0),
+(128, '分类修改', '', 121, 'links', 'links', 'termsedit', '', 0, '', 0, 0),
+(129, '分类删除', '', 121, 'links', 'links', 'termsdelete', '', 0, '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -566,7 +579,7 @@ CREATE TABLE `yzn_model` (
 --
 
 INSERT INTO `yzn_model` (`id`, `module`, `name`, `tablename`, `description`, `setting`, `type`, `create_time`, `update_time`, `listorders`, `status`) VALUES
-(1, 'cms', '资讯模型', 'news', '', 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 2, 1612431600, 1612431600, 0, 1);
+(1, 'cms', '资讯模型', 'news', '', 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 2, 1614840852, 1614840852, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -601,28 +614,28 @@ CREATE TABLE `yzn_model_field` (
 --
 
 INSERT INTO `yzn_model_field` (`id`, `modelid`, `name`, `title`, `remark`, `pattern`, `errortips`, `type`, `setting`, `ifsystem`, `iscore`, `iffixed`, `ifrequire`, `ifsearch`, `isadd`, `create_time`, `update_time`, `listorder`, `status`) VALUES
-(1, 1, 'id', '文档id', '', '', '', 'hidden', NULL, 1, 0, 1, 0, 0, 1, 1612431600, 1612431600, 100, 1),
-(2, 1, 'catid', '栏目id', '', '', '', 'hidden', NULL, 1, 0, 1, 0, 0, 1, 1612431600, 1612431600, 100, 1),
-(3, 1, 'theme', '主题', '', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 1, 1, 1, 1612431600, 1612431600, 1, 1),
-(4, 1, 'flag', '属性', '', '', '', 'checkbox', 'a:3:{s:6:\"define\";s:31:\"varchar(32) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:76:\"1:置顶[1]\r\n2:头条[2]\r\n3:特荐[3]\r\n4:推荐[4]\r\n5:热点[5]\r\n6:幻灯[6]\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 0, 1612431600, 1612431600, 2, 0),
-(5, 1, 'url', '跳转连接', '', '', '', 'link', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 1, 1612431600, 1612431600, 3, 1),
-(6, 1, 'uid', '用户id', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1612431600, 1612431600, 100, 1),
-(7, 1, 'username', '用户名', '', '', '', 'text', NULL, 1, 1, 1, 0, 0, 0, 1612431600, 1612431600, 100, 1),
-(8, 1, 'sysadd', '是否后台添加', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1612431600, 1612431600, 100, 1),
-(9, 1, 'listorder', '排序', '', '', '', 'number', 'a:3:{s:6:\"define\";s:40:\"tinyint(3) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:3:\"100\";}', 1, 0, 1, 0, 0, 0, 1612431600, 1612431600, 7, 1),
-(10, 1, 'status', '状态', '', '', '', 'radio', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:18:\"0:禁用\r\n1:启用\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1612431600, 1612431600, 6, 1),
-(11, 1, 'thumb', '缩略图', '', '', '', 'image', 'a:3:{s:6:\"define\";s:36:\"int(5) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1612431600, 1612431600, 5, 1),
-(12, 1, 'inputtime', '创建时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1612431600, 1612431600, 100, 1),
-(13, 1, 'updatetime', '更新时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1612431600, 1612431600, 100, 1),
-(14, 1, 'hits', '点击量', '', '', '', 'number', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1612431600, 1612431600, 100, 1),
-(15, 1, 'id', '自然ID', '', '', '', 'hidden', NULL, 0, 0, 1, 0, 0, 1, 1612431600, 1612431600, 100, 1),
-(16, 1, 'did', '附表文档id', '', '', '', 'hidden', NULL, 0, 1, 1, 0, 0, 0, 1612431600, 1612431600, 100, 1),
-(17, 1, 'site_id', '站点ID', '', '', '', 'hidden', NULL, 0, 0, 1, 0, 0, 1, 1612431600, 1612431600, 100, 1),
-(18, 1, 'title', '标题', '', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 1, 1, 1, 1, 1612431600, 1612431600, 101, 1),
-(19, 1, 'tags', 'Tags标签', '关键词用回车确认', '', '', 'tags', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1612431600, 1612431600, 102, 1),
-(20, 1, 'keywords', 'SEO关键词', '关键词用回车确认', '', '', 'tags', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1612431600, 1612431600, 103, 1),
-(21, 1, 'description', 'SEO摘要', '如不填写，则自动截取附表中编辑器的200字符', '', '', 'textarea', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1612431600, 1612431600, 104, 1),
-(22, 1, 'content', '内容', '', '', '', 'Ueditor', 'a:3:{s:6:\"define\";s:13:\"text NOT NULL\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 1, 0, 1, 1612431600, 1612431600, 200, 1);
+(1, 1, 'id', '文档id', '', '', '', 'hidden', NULL, 1, 0, 1, 0, 0, 1, 1614840852, 1614840852, 100, 1),
+(2, 1, 'catid', '栏目id', '', '', '', 'hidden', NULL, 1, 0, 1, 0, 0, 1, 1614840852, 1614840852, 100, 1),
+(3, 1, 'theme', '主题', '', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 1, 1, 1, 1614840852, 1614840852, 1, 1),
+(4, 1, 'flag', '属性', '', '', '', 'checkbox', 'a:3:{s:6:\"define\";s:31:\"varchar(32) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:76:\"1:置顶[1]\r\n2:头条[2]\r\n3:特荐[3]\r\n4:推荐[4]\r\n5:热点[5]\r\n6:幻灯[6]\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 0, 1614840852, 1614840852, 2, 0),
+(5, 1, 'url', '跳转连接', '', '', '', 'link', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 1, 1614840852, 1614840852, 3, 1),
+(6, 1, 'uid', '用户id', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1614840852, 1614840852, 100, 1),
+(7, 1, 'username', '用户名', '', '', '', 'text', NULL, 1, 1, 1, 0, 0, 0, 1614840852, 1614840852, 100, 1),
+(8, 1, 'sysadd', '是否后台添加', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1614840852, 1614840852, 100, 1),
+(9, 1, 'listorder', '排序', '', '', '', 'number', 'a:3:{s:6:\"define\";s:40:\"tinyint(3) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:3:\"100\";}', 1, 0, 1, 0, 0, 0, 1614840852, 1614840852, 7, 1),
+(10, 1, 'status', '状态', '', '', '', 'radio', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:18:\"0:禁用\r\n1:启用\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1614840852, 1614840852, 6, 1),
+(11, 1, 'thumb', '缩略图', '', '', '', 'image', 'a:3:{s:6:\"define\";s:36:\"int(5) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1614840852, 1614840852, 5, 1),
+(12, 1, 'inputtime', '创建时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1614840852, 1614840852, 100, 1),
+(13, 1, 'updatetime', '更新时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1614840852, 1614840852, 100, 1),
+(14, 1, 'hits', '点击量', '', '', '', 'number', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1614840852, 1614840852, 100, 1),
+(15, 1, 'id', '自然ID', '', '', '', 'hidden', NULL, 0, 0, 1, 0, 0, 1, 1614840852, 1614840852, 100, 1),
+(16, 1, 'did', '附表文档id', '', '', '', 'hidden', NULL, 0, 1, 1, 0, 0, 0, 1614840852, 1614840852, 100, 1),
+(17, 1, 'site_id', '站点ID', '', '', '', 'hidden', NULL, 0, 0, 1, 0, 0, 1, 1614840852, 1614840852, 100, 1),
+(18, 1, 'title', '标题', '', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 1, 1, 1, 1, 1614840852, 1614840852, 101, 1),
+(19, 1, 'tags', 'Tags标签', '关键词用回车确认', '', '', 'tags', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1614840852, 1614840852, 102, 1),
+(20, 1, 'keywords', 'SEO关键词', '关键词用回车确认', '', '', 'tags', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1614840852, 1614840852, 103, 1),
+(21, 1, 'description', 'SEO摘要', '如不填写，则自动截取附表中编辑器的200字符', '', '', 'textarea', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1614840852, 1614840852, 104, 1),
+(22, 1, 'content', '内容', '', '', '', 'Ueditor', 'a:3:{s:6:\"define\";s:13:\"text NOT NULL\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 1, 0, 1, 1614840852, 1614840852, 200, 1);
 
 -- --------------------------------------------------------
 
@@ -648,7 +661,8 @@ CREATE TABLE `yzn_module` (
 --
 
 INSERT INTO `yzn_module` (`module`, `name`, `sign`, `iscore`, `version`, `setting`, `create_time`, `update_time`, `listorder`, `status`) VALUES
-('cms', 'cms模块', 'b19cc279ed484c13c96c2f7142e2f437', 0, '1.0.0', 'a:8:{s:15:\"web_site_status\";i:1;s:9:\"icon_mode\";s:1:\"1\";s:13:\"site_url_mode\";s:1:\"1\";s:12:\"publish_mode\";s:1:\"1\";s:13:\"category_mode\";s:1:\"1\";s:4:\"site\";s:1:\"1\";s:15:\"site_cache_time\";s:4:\"3600\";s:9:\"autolinks\";s:55:\"百度|https://www.baidu.com/腾讯|https://www.qq.com/\";}', 1612431380, 1612431734, 0, 1);
+('cms', 'cms模块', 'b19cc279ed484c13c96c2f7142e2f437', 0, '1.0.0', 'a:8:{s:15:\"web_site_status\";i:1;s:9:\"icon_mode\";s:1:\"1\";s:13:\"site_url_mode\";s:1:\"1\";s:12:\"publish_mode\";s:1:\"1\";s:13:\"category_mode\";s:1:\"1\";s:4:\"site\";s:1:\"1\";s:15:\"site_cache_time\";s:4:\"3600\";s:9:\"autolinks\";s:55:\"百度|https://www.baidu.com/腾讯|https://www.qq.com/\";}', 1614840795, 1614841140, 0, 1),
+('links', '友情链接', '960c30f9b119fa6c39a4a31867441c82', 0, '1.0.0', NULL, 1614840809, 1614840809, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -678,7 +692,7 @@ CREATE TABLE `yzn_news` (
 --
 
 INSERT INTO `yzn_news` (`id`, `catid`, `theme`, `url`, `thumb`, `flag`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `inputtime`, `updatetime`, `status`) VALUES
-(1, 1, '测试发布文章', '', 0, '', 100, 1, 'admin', 1, 0, 1612431801, 1612431869, 1);
+(1, 1, '发布内容时可以一次发布多站也可以只发布一个站', '', 0, '', 100, 1, 'admin', 1, 1, 1614841178, 1614841316, 1);
 
 -- --------------------------------------------------------
 
@@ -702,8 +716,8 @@ CREATE TABLE `yzn_news_data` (
 --
 
 INSERT INTO `yzn_news_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`, `description`, `content`) VALUES
-(1, 1, 1, '测试发布文章测试发布文章', '测试,发布,文章', '', '测试发布文章测试发布文章测试发布文章', '<p>测试发布文章测试发布文章测试发布文章</p>'),
-(2, 1, 2, 'Test English', 'Test,English', '', 'Test EnglishTest EnglishTest English', '<p>Test EnglishTest EnglishTest EnglishTest English</p>');
+(1, 1, 1, '发布内容时可以一次发布多站也可以只发布一个站', '', '', '发布内容时可以一次发布多站也可以只发布一个站，可以在 内容 -  CMS设置 设置发布模式', '<p>发布内容时可以一次发布多站也可以只发布一个站，可以在&nbsp;内容 -&nbsp; CMS设置&nbsp;设置发布模式</p>'),
+(2, 1, 2, 'When publishing content, you can publish multiple sites at one time or only one site', '', '', 'When publishing content, you can publish multiple sites at one time or only one site. You can set the publishing mode in content CMS', '<p>When publishing content, you can publish multiple sites at one time or only one site. You can set the publishing mode in content CMS</p>');
 
 -- --------------------------------------------------------
 
@@ -729,8 +743,8 @@ CREATE TABLE `yzn_page` (
 --
 
 INSERT INTO `yzn_page` (`id`, `catid`, `site_id`, `title`, `image`, `keywords`, `description`, `content`, `inputtime`, `updatetime`) VALUES
-(1, 2, 1, '关于我们关于我们', 0, '', '关于我们关于我们关于我们关于我们', '<p>关于我们关于我们关于我们关于我们关于我们关于我们</p>', 0, 0),
-(2, 2, 2, 'about', 0, '', 'about about', '<p>about&nbsp;about&nbsp;about</p>', 0, 0);
+(1, 2, 1, '什么是dzdcms', 0, '', '', '<p>DZDcms多站点内容管理系统是基于yzncms二次开发而来，原系统cms模块只支持一个站，本系统集成了原cms模块的所有功能和优点，衍生为多站点cms，不光可以建中文英文等不限语言数量的多语言网站，还可以建城市分站，集团分站、站群等任何你能想到的站。</p><p><br/></p><p>当然了，你要用他来建一个站，那肯定是没有问题的，那天有需要了，直接增加第二个站，第N个站，是非常方便的。</p><p><br/></p><p>主站和分站可单独设置域名，二级域名或顶级域名都行、一个站一个域名，还是多个站共用域名，都是可以的，不过不支持二级目录！</p><p><br/></p><p>本系统还增加了很多功能，如数据同步功能、这个功能我一提到就兴奋、你知道了也一定会兴奋、那就是在管理分站时可一键同步主站数据、然后修改后就可以发布、如果你比我还懒，导入后不用修改直接发布，哈哈！</p><p><br/></p>', 0, 0),
+(2, 2, 2, 'What is dzdcms', 0, '', '', '<p>Dzdcms multi site content management system is based on the secondary development of yzncms. The CMS module of the original system only supports one station. This system integrates all the functions and advantages of the original CMS module, and is derived into multi site CMS. It can not only build multi language websites in Chinese, English and other languages, but also build city sub stations, group sub stations, station groups and any other stations you can think of.</p><p><br/></p><p>Of course, if you want to use it to build a station, there must be no problem. If you need it that day, it is very convenient to directly add a second station, the nth station.</p><p><br/></p><p>The main station and sub station can set the domain name separately, the secondary domain name or the top-level domain name is OK, a station has a domain name, or multiple stations share the domain name, which is OK, but the secondary directory is not supported!</p><p><br/></p><p>This system has also added many functions, such as data synchronization function. I am excited when I mention this function, and you will be excited when you know it. That is, when managing the sub station, you can synchronize the data of the main station with one key, and then you can publish it after modification. If you are lazier than me, you can directly publish it without modification after import, ha ha!</p>', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -760,8 +774,8 @@ CREATE TABLE `yzn_site` (
 --
 
 INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `logo`, `template`, `brand`, `title`, `keywords`, `description`, `listorder`, `status`, `inputtime`) VALUES
-(1, '中文', 'zh-cn', 0, 'demo.wxinw.com', 0, '', '', '中文', '中文', '中文', 1, 1, 0),
-(2, 'English', 'en-gb', 0, 'demo.wxinw.com', 0, '', '', 'English', 'English', 'English', 2, 1, 0);
+(1, '中文', 'zh-cn', 0, 'demo.dzdcms.com', 0, 'default', 'dzdcms', '多站点内容管理系统', '多站点、dzdcms、内容管理系统', 'DZDcms是基于最新TP5.1x框架和layui2.5x的多站点内容管理系统', 1, 1, 0),
+(2, 'English', 'en-gb', 0, 'demo.dzdcms.com', 0, 'default', 'dzdcms', 'Multi site content management system', 'Multi site content management system, multi site, dzdcms, content management system', 'Dzdcms is a multi site content management system based on the latest tp5.1x framework and layui2.5x', 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -800,17 +814,6 @@ CREATE TABLE `yzn_tags` (
   `listorder` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='tags主表';
 
---
--- 转存表中的数据 `yzn_tags`
---
-
-INSERT INTO `yzn_tags` (`id`, `tag`, `site_id`, `tagdir`, `seo_title`, `seo_keyword`, `seo_description`, `usetimes`, `hits`, `create_time`, `update_time`, `listorder`) VALUES
-(7, '测试', 1, 'ceshi', '', '', '', 1, 0, 1612431869, 1612431869, 0),
-(8, '发布', 1, 'fabu', '', '', '', 1, 0, 1612431869, 1612431869, 0),
-(9, '文章', 1, 'wenzhang', '', '', '', 1, 0, 1612431869, 1612431869, 0),
-(10, 'Test', 2, 'Test', '', '', '', 1, 0, 1612431869, 1612431869, 0),
-(11, 'English', 2, 'English', '', '', '', 1, 0, 1612431869, 1612431869, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -825,17 +828,6 @@ CREATE TABLE `yzn_tags_content` (
   `site_id` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID',
   `updatetime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='tags数据表';
-
---
--- 转存表中的数据 `yzn_tags_content`
---
-
-INSERT INTO `yzn_tags_content` (`tag`, `modelid`, `contentid`, `catid`, `site_id`, `updatetime`) VALUES
-('测试', 1, 1, 1, 1, 1612431869),
-('发布', 1, 1, 1, 1, 1612431869),
-('文章', 1, 1, 1, 1, 1612431869),
-('Test', 1, 1, 1, 2, 1612431869),
-('English', 1, 1, 1, 2, 1612431869);
 
 -- --------------------------------------------------------
 
@@ -948,6 +940,12 @@ ALTER TABLE `yzn_lang_data`
   ADD PRIMARY KEY (`id`);
 
 --
+-- 表的索引 `yzn_links`
+--
+ALTER TABLE `yzn_links`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- 表的索引 `yzn_menu`
 --
 ALTER TABLE `yzn_menu`
@@ -1042,13 +1040,13 @@ ALTER TABLE `yzn_admin`
 -- 使用表AUTO_INCREMENT `yzn_adminlog`
 --
 ALTER TABLE `yzn_adminlog`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '日志ID', AUTO_INCREMENT=20;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '日志ID';
 
 --
 -- 使用表AUTO_INCREMENT `yzn_attachment`
 --
 ALTER TABLE `yzn_attachment`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_auth_group`
@@ -1084,7 +1082,7 @@ ALTER TABLE `yzn_category_data`
 -- 使用表AUTO_INCREMENT `yzn_config`
 --
 ALTER TABLE `yzn_config`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_INCREMENT=24;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_INCREMENT=25;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_ems`
@@ -1105,10 +1103,16 @@ ALTER TABLE `yzn_lang_data`
   MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- 使用表AUTO_INCREMENT `yzn_links`
+--
+ALTER TABLE `yzn_links`
+  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '链接id';
+
+--
 -- 使用表AUTO_INCREMENT `yzn_menu`
 --
 ALTER TABLE `yzn_menu`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '菜单ID', AUTO_INCREMENT=121;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '菜单ID', AUTO_INCREMENT=130;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_model`
@@ -1156,7 +1160,7 @@ ALTER TABLE `yzn_sms`
 -- 使用表AUTO_INCREMENT `yzn_tags`
 --
 ALTER TABLE `yzn_tags`
-  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'tagID', AUTO_INCREMENT=12;
+  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'tagID', AUTO_INCREMENT=7;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_terms`
