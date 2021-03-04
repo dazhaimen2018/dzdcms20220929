@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2021-02-01 19:21:41
+-- 生成日期： 2021-03-04 14:43:59
 -- 服务器版本： 8.0.20
--- PHP 版本： 7.4.14
+-- PHP 版本： 7.4.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 数据库： `demo_wxinw_com`
+-- 数据库： `demo_dzdcms_com`
 --
 
 -- --------------------------------------------------------
@@ -46,7 +46,7 @@ CREATE TABLE `yzn_admin` (
 --
 
 INSERT INTO `yzn_admin` (`id`, `username`, `password`, `roleid`, `encrypt`, `nickname`, `last_login_time`, `last_login_ip`, `email`, `token`, `status`) VALUES
-(1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 'xW5OhH', '多站点', 1612177719, '117.100.176.13', '8355763@qq.com', '481eb27e-6bdf-4e7a-a94f-2f929a603d57', 1);
+(1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 'xW5OhH', '多站点', 1614839775, '117.100.205.204', '8355763@qq.com', 'a949ee2a-7e95-4070-b8cc-4c76b9387011', 1);
 
 -- --------------------------------------------------------
 
@@ -63,6 +63,15 @@ CREATE TABLE `yzn_adminlog` (
   `ip` char(15) NOT NULL DEFAULT '' COMMENT '操作IP',
   `get` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='操作日志';
+
+--
+-- 转存表中的数据 `yzn_adminlog`
+--
+
+INSERT INTO `yzn_adminlog` (`id`, `status`, `uid`, `info`, `create_time`, `ip`, `get`) VALUES
+(1, 0, 0, '提示语:请先登陆', 1614840198, '223.99.20.70', '/admin'),
+(2, 0, 0, '提示语:用户名不正确', 1614840211, '223.99.20.70', '/admin/index/login.html'),
+(3, 1, 1, '提示语:设置更新成功', 1614840224, '117.100.205.204', '/admin/config/setting/group/system.html');
 
 -- --------------------------------------------------------
 
@@ -90,6 +99,13 @@ CREATE TABLE `yzn_attachment` (
   `listorders` int NOT NULL DEFAULT '100' COMMENT '排序',
   `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='附件表';
+
+--
+-- 转存表中的数据 `yzn_attachment`
+--
+
+INSERT INTO `yzn_attachment` (`id`, `aid`, `uid`, `name`, `module`, `path`, `thumb`, `url`, `mime`, `ext`, `size`, `md5`, `sha1`, `driver`, `create_time`, `update_time`, `listorders`, `status`) VALUES
+(1, 1, 0, 'ico.png', 'admin', '/uploads/images/ico.png', '', '', 'image/png', 'png', 16140, '693cf31fc1e433bf91cd178d658d4e36', '16f445461fd1218f6fdf258074c567f3cf4b490f', 'local', 1614839862, 1614839862, 100, 1);
 
 -- --------------------------------------------------------
 
@@ -207,7 +223,8 @@ INSERT INTO `yzn_config` (`id`, `name`, `type`, `title`, `group`, `options`, `re
 (20, 'upload_thumb_water_pic', 'image', '水印图片', 'upload', '', '只有开启水印功能才生效', 1552435183, 1552436081, 1, '', 6),
 (21, 'upload_thumb_water_position', 'radio', '水印位置', 'upload', '1:左上角\r\n2:上居中\r\n3:右上角\r\n4:左居中\r\n5:居中\r\n6:右居中\r\n7:左下角\r\n8:下居中\r\n9:右下角', '只有开启水印功能才生效', 1552435257, 1552436082, 1, '9', 7),
 (22, 'upload_thumb_water_alpha', 'text', '水印透明度', 'upload', '', '请输入0~100之间的数字，数字越小，透明度越高', 1552435299, 1552436083, 1, '50', 8),
-(23, 'system_name', 'text', '系统名称', 'system', '', '', 1612178077, 1612178139, 1, 'DZDcms', 100);
+(23, 'system_name', 'text', '系统名称', 'system', '', '', 1612178077, 1612178139, 1, 'DZDcms', 100),
+(24, 'system_logo', 'image', '系统LOGO', 'system', '', '', 1614839822, 1614839893, 1, '1', 100);
 
 -- --------------------------------------------------------
 
@@ -597,13 +614,13 @@ ALTER TABLE `yzn_admin`
 -- 使用表AUTO_INCREMENT `yzn_adminlog`
 --
 ALTER TABLE `yzn_adminlog`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '日志ID';
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '日志ID', AUTO_INCREMENT=4;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_attachment`
 --
 ALTER TABLE `yzn_attachment`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_auth_group`
@@ -627,7 +644,7 @@ ALTER TABLE `yzn_cache`
 -- 使用表AUTO_INCREMENT `yzn_config`
 --
 ALTER TABLE `yzn_config`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_INCREMENT=24;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_INCREMENT=25;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_ems`

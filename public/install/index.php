@@ -16,7 +16,8 @@ $config = array(
     'demoData'    => 'demo',          //演示数据文件名称
     'databaseUrl' => '../../config/database.php',//database.php文件地址
     'account'     => 'admin',         //默认账号
-    'password'    => 'admin',        //默认密码
+    'password'    => '123654',        //默认密码
+    'email'    => 'admin@admin.com',        //默认密码
     'limit'       =>'50',
 );
 //数据库配置
@@ -155,10 +156,11 @@ if ($get == $config['endPage']) {
             
             //插入数据库默认账号密码
             $account  = $_POST['admin_account'];
+            $email  = $_POST['admin_email'];
             $time     = time();
             $auth_code = "Wo0bAa";
             $password = md5($_POST['admin_password'].$auth_code);
-            $add_admin_sql = "INSERT INTO `" . $db['DB_PREFIX'] . "admin` (`id`,`username`,`password`,`roleid`,`encrypt`, `nickname`,`last_login_time`,`last_login_ip`,`email`,`token`,`status`) VALUES ('1','".$account."','" . $password . "','1','" . $auth_code . "','御宅男'," . $time . ",'','530765310@qq.com','','1');";
+            $add_admin_sql = "INSERT INTO `" . $db['DB_PREFIX'] . "admin` (`id`,`username`,`password`,`roleid`,`encrypt`, `nickname`,`last_login_time`,`last_login_ip`,`email`,`token`,`status`) VALUES ('1','".$account."','" . $password . "','1','" . $auth_code . "','多站点'," . $time . ",'','" . $email . "','','1');";
             $link->query($add_admin_sql);
             //插入数据
             $return['data']['page']=1;
