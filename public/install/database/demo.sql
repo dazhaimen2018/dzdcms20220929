@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2021-03-04 15:04:53
+-- 生成日期： 2021-03-04 15:16:10
 -- 服务器版本： 8.0.20
 -- PHP 版本： 7.4.15
 
@@ -46,7 +46,8 @@ CREATE TABLE `yzn_admin` (
 --
 
 INSERT INTO `yzn_admin` (`id`, `username`, `password`, `roleid`, `encrypt`, `nickname`, `last_login_time`, `last_login_ip`, `email`, `token`, `status`) VALUES
-(1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 'xW5OhH', '多站点', 1614839775, '117.100.205.204', '8355763@qq.com', 'a949ee2a-7e95-4070-b8cc-4c76b9387011', 1);
+(1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 'xW5OhH', '多站点', 1614839775, '117.100.205.204', '8355763@qq.com', 'a949ee2a-7e95-4070-b8cc-4c76b9387011', 1),
+(2, 'demo', 'be50759f245ec957b7d8df1d625ba614', 2, 'NZE13F', 'demo', 0, '', 'demo@dzdcms.com', '', 1);
 
 -- --------------------------------------------------------
 
@@ -121,7 +122,7 @@ CREATE TABLE `yzn_auth_group` (
 
 INSERT INTO `yzn_auth_group` (`id`, `parentid`, `module`, `type`, `title`, `description`, `rules`, `status`) VALUES
 (1, 0, 'admin', 1, '超级管理员', '拥有所有权限', '*', 1),
-(2, 1, 'admin', 1, '编辑', '编辑', '', 1);
+(2, 1, 'admin', 1, '编辑', '编辑', '1,4,2,5,17,112,113,114,7,8,18,19,20,21,111,22,23,24,25,26,27,9,10,12,13,15,11,16,33,34,35,36,14,6,115,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,90,91,92,93,94,95,96,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,116,31,32,38,32,117,28,29,40,42,43,30', 1);
 
 -- --------------------------------------------------------
 
@@ -138,6 +139,129 @@ CREATE TABLE `yzn_auth_rule` (
   `condition` varchar(300) NOT NULL DEFAULT '' COMMENT '规则附加条件',
   `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='规则表';
+
+--
+-- 转存表中的数据 `yzn_auth_rule`
+--
+
+INSERT INTO `yzn_auth_rule` (`id`, `module`, `type`, `name`, `title`, `condition`, `status`) VALUES
+(1, 'admin', 2, 'admin/setting/index', '设置', '', 1),
+(2, 'admin', 1, 'admin/profile/index', '个人资料', '', 1),
+(3, 'admin', 1, 'admin/profile/update', '资料更新', '', 1),
+(4, 'admin', 1, 'admin/config/index1', '系统配置', '', 1),
+(5, 'admin', 1, 'admin/config/index', '配置管理', '', 1),
+(6, 'admin', 1, 'admin/adminlog/deletelog', '删除日志', '', 1),
+(7, 'admin', 1, 'admin/config/setting', '网站设置', '', 1),
+(8, 'admin', 1, 'admin/menu/index', '菜单管理', '', 1),
+(9, 'admin', 1, 'admin/manager/index1', '权限管理', '', 1),
+(10, 'admin', 1, 'admin/manager/index', '管理员管理', '', 1),
+(11, 'admin', 1, 'admin/authManager/index', '角色管理', '', 1),
+(12, 'admin', 1, 'admin/manager/add', '添加管理员', '', 1),
+(13, 'admin', 1, 'admin/manager/edit', '编辑管理员', '', 1),
+(14, 'admin', 1, 'admin/adminlog/index', '管理日志', '', 1),
+(15, 'admin', 1, 'admin/manager/del', '删除管理员', '', 1),
+(16, 'admin', 1, 'admin/authManager/createGroup', '添加角色', '', 1),
+(17, 'admin', 1, 'admin/config/multi', '批量更新', '', 1),
+(18, 'admin', 1, 'admin/menu/add', '新增菜单', '', 1),
+(19, 'admin', 1, 'admin/menu/edit', '编辑菜单', '', 1),
+(20, 'admin', 1, 'admin/menu/del', '删除菜单', '', 1),
+(21, 'admin', 1, 'admin/menu/multi', '批量更新', '', 1),
+(22, 'attachment', 1, 'attachment/attachments/upload', '附件上传', '', 1),
+(23, 'attachment', 1, 'attachment/attachments/del', '附件删除', '', 1),
+(24, 'attachment', 1, 'attachment/ueditor/run', '编辑器附件', '', 1),
+(25, 'attachment', 1, 'attachment/attachments/showFileLis', '图片列表', '', 1),
+(26, 'attachment', 1, 'attachment/attachments/getUrlFile', '图片本地化', '', 1),
+(27, 'attachment', 1, 'attachment/attachments/select', '图片选择', '', 1),
+(28, 'addons', 1, 'addons/addons/index2', '插件扩展', '', 1),
+(29, 'addons', 1, 'addons/addons/index', '插件管理', '', 1),
+(30, 'addons', 1, 'addons/addons/addonadmin', '插件后台列表', '', 1),
+(31, 'admin', 1, 'admin/module/index2', '本地模块', '', 1),
+(32, 'admin', 1, 'admin/module/index', '模块后台列表', '', 1),
+(33, 'admin', 1, 'admin/authManager/editGroup', '编辑角色', '', 1),
+(34, 'admin', 1, 'admin/authManager/deleteGroup', '删除角色', '', 1),
+(35, 'admin', 1, 'admin/authManager/access', '访问授权', '', 1),
+(36, 'admin', 1, 'admin/authManager/writeGroup', '角色授权', '', 1),
+(37, 'admin', 1, 'admin/module/install', '模块安装', '', 1),
+(38, 'admin', 1, 'admin/module/uninstall', '模块卸载', '', 1),
+(39, 'admin', 1, 'admin/module/local', '本地安装', '', 1),
+(40, 'addons', 1, 'addons/addons/config', '插件设置', '', 1),
+(41, 'addons', 1, 'addons/addons/install', '插件安装', '', 1),
+(42, 'addons', 1, 'addons/addons/uninstall', '插件卸载', '', 1),
+(43, 'addons', 1, 'addons/addons/state', '插件状态', '', 1),
+(44, 'addons', 1, 'addons/addons/local', '本地安装', '', 1),
+(45, 'cms', 1, 'cms/cms/index2', '内容管理', '', 1),
+(46, 'cms', 1, 'cms/cms/index', '管理内容', '', 1),
+(47, 'cms', 1, 'cms/cms/panl', '面板', '', 1),
+(48, 'cms', 1, 'cms/cms/public_categorys', '栏目列表', '', 1),
+(49, 'cms', 1, 'cms/cms/classlist', '信息列表', '', 1),
+(50, 'cms', 1, 'cms/cms/add', '添加', '', 1),
+(51, 'cms', 1, 'cms/cms/edit', '编辑', '', 1),
+(52, 'cms', 1, 'cms/cms/del', '删除', '', 1),
+(53, 'cms', 1, 'cms/cms/listorder', '排序', '', 1),
+(54, 'cms', 1, 'cms/cms/remove', '批量移动', '', 1),
+(55, 'cms', 1, 'cms/cms/setstate', '状态', '', 1),
+(56, 'cms', 1, 'cms/cms/check_title', '标题检查', '', 1),
+(57, 'cms', 1, 'cms/cms/recycle', '回收站', '', 1),
+(58, 'cms', 1, 'cms/publish/index', '稿件管理', '', 1),
+(59, 'cms', 1, 'cms/tags/index', '列表', '', 1),
+(60, 'cms', 1, 'cms/tags/add', '添加', '', 1),
+(61, 'cms', 1, 'cms/tags/edit', '编辑', '', 1),
+(62, 'cms', 1, 'cms/tags/del', '删除', '', 1),
+(63, 'cms', 1, 'cms/tags/multi', '批量更新', '', 1),
+(64, 'cms', 1, 'cms/category/index1', '相关设置', '', 1),
+(65, 'cms', 1, 'cms/setting/index', 'CMS配置', '', 1),
+(66, 'cms', 1, 'cms/category/index', '栏目列表', '', 1),
+(67, 'cms', 1, 'cms/category/add', '添加栏目', '', 1),
+(68, 'cms', 1, 'cms/category/singlepage', '添加单页', '', 1),
+(69, 'cms', 1, 'cms/category/wadd', '添加外部链接', '', 1),
+(70, 'cms', 1, 'cms/category/cat_priv', '栏目授权', '', 1),
+(71, 'cms', 1, 'cms/category/edit', '编辑栏目', '', 1),
+(72, 'cms', 1, 'cms/category/del', '删除栏目', '', 1),
+(73, 'cms', 1, 'cms/category/multi', '批量更新', '', 1),
+(74, 'cms', 1, 'cms/models/index', '模型管理', '', 1),
+(75, 'cms', 1, 'cms/field/index', '字段管理', '', 1),
+(76, 'cms', 1, 'cms/field/add', '字段添加', '', 1),
+(77, 'cms', 1, 'cms/field/edit', '字段编辑', '', 1),
+(78, 'cms', 1, 'cms/field/del', '字段删除', '', 1),
+(79, 'cms', 1, 'cms/field/listorder', '字段排序', '', 1),
+(80, 'cms', 1, 'cms/field/setstate', '字段状态', '', 1),
+(81, 'cms', 1, 'cms/field/setsearch', '字段搜索', '', 1),
+(82, 'cms', 1, 'cms/field/setvisible', '字段隐藏', '', 1),
+(83, 'cms', 1, 'cms/field/setrequire', '字段必须', '', 1),
+(84, 'cms', 1, 'cms/models/add', '添加模型', '', 1),
+(85, 'cms', 1, 'cms/models/edit', '修改模型', '', 1),
+(86, 'cms', 1, 'cms/models/del', '删除模型', '', 1),
+(87, 'cms', 1, 'cms/models/setSub', '模型投稿', '', 1),
+(88, 'cms', 1, 'cms/models/setstate', '设置模型状态', '', 1),
+(89, 'cms', 1, 'cms/models/multi', '批量更新', '', 1),
+(90, 'cms', 1, 'cms/site/index', '站点管理', '', 1),
+(91, 'cms', 1, 'cms/site/add', '添加站点', '', 1),
+(92, 'cms', 1, 'cms/site/edit', '站点编辑', '', 1),
+(93, 'cms', 1, 'cms/site/del', '站点删除', '', 1),
+(94, 'cms', 1, 'cms/site/listorder', '站点排序', '', 1),
+(95, 'cms', 1, 'cms/site/setstate', '站点状态', '', 1),
+(96, 'cms', 1, 'cms/lang/index', '碎片管理', '', 1),
+(97, 'cms', 1, 'cms/lang/add', '添加碎片', '', 1),
+(98, 'cms', 1, 'cms/lang/edit', '碎片编辑', '', 1),
+(99, 'cms', 1, 'cms/lang/del', '碎片删除', '', 1),
+(100, 'cms', 1, 'cms/lang/listorder', '碎片排序', '', 1),
+(101, 'cms', 1, 'cms/lang/setstate', '碎片状态', '', 1),
+(102, 'links', 1, 'links/links/index', '友情链接', '', 1),
+(103, 'links', 1, 'links/links/add', '添加友情链接', '', 1),
+(104, 'links', 1, 'links/links/edit', '链接编辑', '', 1),
+(105, 'links', 1, 'links/links/del', '链接删除', '', 1),
+(106, 'links', 1, 'links/links/multi', '批量操作', '', 1),
+(107, 'links', 1, 'links/links/terms', '分类管理', '', 1),
+(108, 'links', 1, 'links/links/addTerms', '分类新增', '', 1),
+(109, 'links', 1, 'links/links/termsedit', '分类修改', '', 1),
+(110, 'links', 1, 'links/links/termsdelete', '分类删除', '', 1),
+(111, 'attachment', 1, 'attachment/attachments/index', '附件管理', '', 1),
+(112, 'admin', 1, 'admin/config/add', '新增配置', '', 1),
+(113, 'admin', 1, 'admin/config/edit', '编辑配置', '', 1),
+(114, 'admin', 1, 'admin/config/del', '删除配置', '', 1),
+(115, 'cms', 2, 'cms/cms/index1', '内容', '', 1),
+(116, 'admin', 2, 'admin/module/index1', '模块', '', 1),
+(117, 'addons', 2, 'addons/addons/index1', '扩展', '', 1);
 
 -- --------------------------------------------------------
 
@@ -240,6 +364,20 @@ CREATE TABLE `yzn_category_priv` (
   `is_admin` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否为管理员 1、管理员',
   `action` char(30) NOT NULL DEFAULT '' COMMENT '动作'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='栏目权限表';
+
+--
+-- 转存表中的数据 `yzn_category_priv`
+--
+
+INSERT INTO `yzn_category_priv` (`catid`, `roleid`, `is_admin`, `action`) VALUES
+(1, 2, 1, 'add'),
+(1, 2, 1, 'delete'),
+(1, 2, 1, 'edit'),
+(1, 2, 1, 'init'),
+(1, 2, 1, 'listorder'),
+(1, 2, 1, 'remove'),
+(1, 2, 1, 'status'),
+(2, 2, 1, 'init');
 
 -- --------------------------------------------------------
 
@@ -1034,7 +1172,7 @@ ALTER TABLE `yzn_terms`
 -- 使用表AUTO_INCREMENT `yzn_admin`
 --
 ALTER TABLE `yzn_admin`
-  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户ID', AUTO_INCREMENT=2;
+  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户ID', AUTO_INCREMENT=3;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_adminlog`
@@ -1058,7 +1196,7 @@ ALTER TABLE `yzn_auth_group`
 -- 使用表AUTO_INCREMENT `yzn_auth_rule`
 --
 ALTER TABLE `yzn_auth_rule`
-  MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '规则id,自增主键';
+  MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '规则id,自增主键', AUTO_INCREMENT=118;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_cache`
