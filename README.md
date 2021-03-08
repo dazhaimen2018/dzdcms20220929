@@ -1,5 +1,5 @@
-# dzdcms是基于YznCMS开发的多站点后台管理系统
-### 后端基于thinkphp5.1框架和layui2.5.*,永久免费可商用的后台系统
+# YznCMS1.0.0 后台开发框架
+### 后端基于thinkphp5.1框架,永久免费可商用的后台系统
 
 [![YznCMS](https://img.shields.io/badge/license-Apache%202-blue.svg)](http://bbs.yzncms.com/)
 [![YznCMS](https://img.shields.io/badge/YznCMS-1.0.0-brightgreen.svg)](http://bbs.yzncms.com/)
@@ -40,6 +40,7 @@
 |在线客服|近十种不同样式的QQ在线客服|插件|授权|
 |安全检测|检测文件是否篡改或丢失|插件|授权|
 |阿里云邮箱|阿里云的邮箱推送|插件|授权|
+|百度收录查询|查询文章是否被百度收录|插件|授权|
 
 ## [项目介绍]
 `YznCMSV1.0(又名御宅男CMS)是基于最新TP5.1x框架和layui2.5x的后台管理系统。创立于2017年初，是一款完全免费开源的项目，他将是您轻松建站的首选利器。框架易于功能扩展，代码维护，方便二次开发，帮助开发者简单高效降低二次开发成本，满足专注业务深度开发的需求。`
@@ -61,10 +62,10 @@
 
 
 ## [安装教程]
-- 第一步：修改数据库配置 根目录/config/database.php  
-- 第二步：将根目录的yzncms.sql文件导入数据库即可  
+- 第一步：修改数据库配置（[在源代码根目录/config/database.php](https://gitee.com/ken678/YZNCMS/blob/master/config/database.php)） 
+- 第二步：将根目录的[yzncms.sql](https://gitee.com/ken678/YZNCMS/blob/master/yzncms.sql)文件导入数据库即可  
 - 第三步：后台入口 http://您的域名/admin 默认账号密码 （超级管理员：admin admin)
-- 如果你还是不会搭建，可以将FTP，服务器信息发送给邮箱530765310@qq.com进行免费搭建（仅限点赞用户）
+- 如果你还是不会搭建，可以将FTP或者服务器等信息发送给邮箱530765310@qq.com进行免费搭建（仅限点赞用户）
 
 
 ## [必看教程]
