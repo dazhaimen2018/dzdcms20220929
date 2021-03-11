@@ -47,13 +47,13 @@
                         {yzn module="cms" action="category" catid="0" siteId="$site_id" cache="3600" order="listorder ASC" num="10" return="data"}
                         {volist name="data" id="vo"}
                         <li {if isset($catid) && in_array($catid,explode(',',$vo['arrchildid']))}class='hover'{/if}>
-                            <a href="{$vo.url}" title="{$vo.catname}">{:getCategory($vo['id'],'catname')}</a>
+                            <a href="{$vo.url}" title="{$vo.catname}">{$vo.catname}</a>
                             <!--判断是否有子栏目-->
                             {eq name="vo.child" value="1"}
                             <div class="subnav">
                                 {yzn module="cms" action="category" catid="$vo['id']" siteId="$site_id" cache="3600" order="listorder ASC" num="10" return="data"}
                                 {foreach $data as $key=>$vo }
-                                <a href="{$vo.url}" title="{$vo.catname}">{:getCategory($vo['id'],'catname')}</a>
+                                <a href="{$vo.url}" title="{$vo.catname}">{$vo.catname}</a>
                                 {/foreach}
                                 {/yzn}
                             </div>
@@ -63,6 +63,7 @@
                         {/yzn}
                     </ul>
                 </div>
+                <!--E 所有站域名相同的站点切换方式。适用于多语言站 导航-->
                 {if $siteArray}
                 <div class="nav fl" style="float: right;color: white;">
                     <ul class="navlist">
@@ -80,8 +81,23 @@
                         </li>
                     </ul>
                 </div>
-                {/if}
-                <!--E 导航-->
+                <!--E 所有站域名相同的站点切换方式。适用于多语言站 导航 end-->
+                <!--E 所有站列表 根据需要去修改-->
+                <div class="nav fl" style="float: right;color: white;">
+                    <ul class="navlist">
+                        <li>所有站点
+                            <div class="subnav">
+
+                                {get table="site"  status="1" return="data"}
+                                {volist name="data" id="vo"}
+                                <a {if $site_id==$vo.id}class="active"{/if} href="{if $vo.http==0}http://{else}https://{/if}{$vo.domain}/" title="{$vo.name}">{$vo.name}</a>
+                                {/volist}
+                                {/get}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--E 所有站列表 根据需要去修改 end-->
                 <!--S 会员中心 需要安装会员模块-->
                 {if isModuleInstall('member')}
                 <div class="user fr">

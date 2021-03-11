@@ -67,10 +67,10 @@ body {
                         </div>
                         <div class="viewpage">
                             <div class="main_r_nav">
-                                {yzn module="cms" action="pre" catid="$catid" id="$id" cache="3600" return="data"}
+                                {yzn module="cms" action="pre" catid="$catid" siteId="$site_id" id="$id" cache="3600" return="data"}
                                 <a href="{$data.url}" {$data.target}>上一篇：{$data.title}</a>
                                 {/yzn}
-                                {yzn module="cms" action="next" catid="$catid" id="$id" cache="3600" return="data"}
+                                {yzn module="cms" action="next" catid="$catid" siteId="$site_id" id="$id" cache="3600" return="data"}
                                 <a href="{$data.url}" {$data.target}>下一篇：{$data.title}</a>
                                 {/yzn}
                             </div>
