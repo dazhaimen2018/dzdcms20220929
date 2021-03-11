@@ -69,7 +69,7 @@
                     <ul class="navlist">
                         <li>
                             {if(isset($_COOKIE['lang']) && !empty($_COOKIE['lang']))}
-                            <img src="/static/language/{:getSite('mark')}.png" alt=""> {:getSite('name')}
+                            <img src="/static/language/{:getSite('mark')}.png" alt=""> {:getSite('name')}(可切换内容)
                             {else}
                             语言切换
                             {/if}
@@ -81,13 +81,13 @@
                         </li>
                     </ul>
                 </div>
+                {/if}
                 <!--E 所有站域名相同的站点切换方式。适用于多语言站 导航 end-->
                 <!--E 所有站列表 根据需要去修改-->
                 <div class="nav fl" style="float: right;color: white;">
                     <ul class="navlist">
-                        <li>所有站点
+                        <li>所有站点(不会切换内容)
                             <div class="subnav">
-
                                 {get table="site"  status="1" return="data"}
                                 {volist name="data" id="vo"}
                                 <a {if $site_id==$vo.id}class="active"{/if} href="{if $vo.http==0}http://{else}https://{/if}{$vo.domain}/" title="{$vo.name}">{$vo.name}</a>
