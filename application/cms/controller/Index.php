@@ -17,7 +17,6 @@ namespace app\cms\controller;
 use app\cms\model\Cms as Cms_Model;
 use app\cms\model\Site;
 use think\Db;
-use think\facade\Cache;
 
 class Index extends Cmsbase
 {
@@ -247,7 +246,9 @@ class Index extends Cmsbase
     public function search()
     {
         $siteId = getSiteId();
+
         $seo = seo('', '搜索结果');
+
         //模型
         $modelid = $this->request->param('modelid/d', 0);
         //关键词
@@ -317,7 +318,8 @@ class Index extends Cmsbase
             $list = $this->Cms_Model->getList($modelid, $where, false, '*', "listorder desc", 10, 1, false, ['query' => ['keyword' => $keyword, 'modelid' => $modelid]]);
         } else {
             foreach ($modellist as $key => $vo) {
-                $searchField = Db::name('model_field')->where('modelid', $key)->where('ifsystem', 1)->where('ifsearch', 1)->column('name');
+                //$searchField = Db::name('model_field')->where('modelid', $key)->where('ifsystem', 1)->where('ifsearch', 1)->column('name');
+                $searchField = Db::name('model_field')->where('modelid', $key)->where('ifsearch', 1)->column('name');
                 if (empty($searchField)) {
                     continue;
                 }
@@ -328,6 +330,7 @@ class Index extends Cmsbase
 
                 $tableName = $this->Cms_Model->getModelTableName($key);
                 $extTable = $tableName .  $this->Cms_Model->ext_table;
+                halt($extTable);
                 $where .= $extTable . ".`title` like '%$keyword%'";
                 $where = '(' . $where . ') ';
                 $where .= " AND status='1' $sql_time";

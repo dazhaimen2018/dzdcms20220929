@@ -15,6 +15,7 @@ namespace app\cms\controller;
 
 use app\common\controller\Adminbase;
 use app\cms\model\Site as SiteModel;
+use think\Db;
 
 class Site extends Adminbase
 {
@@ -28,7 +29,7 @@ class Site extends Adminbase
 	/**
 	 * 语言组列表
 	 */
-	public function index()
+	public function indexBak()
 	{
 		if ($this->request->isAjax()) {
             list($page, $limit, $where) = $this->buildTableParames();
@@ -39,6 +40,32 @@ class Site extends Adminbase
 		}
 		return $this->fetch();
 	}
+
+    public function index()
+    {
+        if ($this->request->isAjax()) {
+            $models     = cache('Model');
+            $tree       = new \util\Tree();
+            $tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
+            $tree->nbsp = '&nbsp;&nbsp;&nbsp;';
+            $sites  = array();
+            $result     = Db::name('site')->order(array('listorder', 'id' => 'ASC'))->select();
+            foreach ($result as $k => $v) {
+                $v['name'] = '<a data-width="900px" data-height="600px" data-open="' . url('edit', ['id' => $v['id']]) . '"">' . $v['name'] . '</a>';
+                $v['add_url'] = url("Site/add", array("parentid" => $v['id']));
+                $sites[$v['id']] = $v;
+            }
+            $tree->init($sites);
+            $_list  = $tree->getTreeList($tree->getTreeArray(0), 'name');
+            $total  = count($_list);
+            $result = array("code" => 0, "count" => $total, "data" => $_list);
+            return json($result);
+        }
+        return $this->fetch('site');
+    }
+
+
+
 	/**
 	 * 站点添加
 	 */
@@ -60,6 +87,28 @@ class Site extends Adminbase
 				$this->error("添加失败！");
 			}
 		} else {
+            $parentid = $this->request->param('parentid/d', 0);
+            if (!empty($parentid)) {
+                $Ca = getCategory($parentid);
+                if (empty($Ca)) {
+                    $this->error("父栏目不存在！");
+                }
+            }
+            //站点列表 可以用缓存的方式
+            $array = Db::name('site')->order('listorder ASC, id ASC')->column('*', 'id');
+            if (!empty($array) && is_array($array)) {
+                $tree       = new \util\Tree();
+                $tree->icon = array('&nbsp;&nbsp;│ ', '&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;└─ ');
+                $tree->nbsp = '&nbsp;&nbsp;';
+                $str        = "<option value=@id @selected @disabled>@spacer @name</option>";
+                $tree->init($array);
+                $siteData = $tree->getTree(0, $str, $parentid);
+            } else {
+                $siteData = '';
+            }
+
+            $this->assign("site", $siteData);
+
 			return $this->fetch('edit');
 		}
 	}
@@ -121,5 +170,10 @@ class Site extends Adminbase
             return '参数错误';
         }
         $this->error('站点只能修改或关闭，不能删除！');
+    }
+
+    //更新碎片缓存
+    public function site_cache() {
+        $this->success("站点缓存更新成功！");
     }
 }

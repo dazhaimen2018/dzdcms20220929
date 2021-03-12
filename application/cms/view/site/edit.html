@@ -62,6 +62,16 @@
 				</div>
 			</div>
 
+			<div class="layui-form-item">
+				<label>上级站点</label>
+				<div class="w300">
+					<select name="parentid">
+						<option value="0">作为顶级站点</option>
+						{$site|raw}
+					</select>
+				</div>
+			</div>
+
 			<div class="layui-form-item item-flex">
 				<label class="layui-form-label">品牌名称</label>
 				<div class="layui-input-inline item-wide">
