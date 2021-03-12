@@ -89,7 +89,7 @@ class Site extends Adminbase
 		} else {
             $parentid = $this->request->param('parentid/d', 0);
             if (!empty($parentid)) {
-                $Ca = getCategory($parentid);
+                $Ca = getSiteName($parentid);
                 if (empty($Ca)) {
                     $this->error("父栏目不存在！");
                 }
