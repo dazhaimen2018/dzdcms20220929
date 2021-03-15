@@ -29,6 +29,8 @@ return [
         '__CSS_PATH__'  => ROOT_URL . (defined('IF_PUBLIC') ? 'static' : 'public/static') . '/modules/cms/css',
         '__JS_PATH__'   => ROOT_URL . (defined('IF_PUBLIC') ? 'static' : 'public/static') . '/modules/cms/js',
         '__HOME_PATH__' => ROOT_URL . (defined('IF_PUBLIC') ? 'static' : 'public/static') . '/modules/cms',
+        // DZDCMS
+        '__DZD__'  => ROOT_URL . (defined('IF_PUBLIC') ? 'static' : 'public/static') . '/modules/cms',
     ],
     // 模板文件名分隔符
     'view_depr'          => DIRECTORY_SEPARATOR,

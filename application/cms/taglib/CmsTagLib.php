@@ -204,7 +204,7 @@ class CmsTagLib
         //是否新窗口打开
         $target    = !empty($data['target']) ? ' target=_blank ' : '';
         $tableName = model('cms/Cms')->getModelTableName(getCategory($data['catid'], 'modelid'));
-        $result    = model('cms/Cms')->getContent(getCategory($data['catid'], 'modelid'), "`catid` =" . $data['catid'] . " AND " . $tableName . ".'status'=1 AND " . $tableName . ".'id' <" . $data['id'], false, '*','', $cache = false, $site_id = 0,$type="pre");
+        $result    = model('cms/Cms')->getContent(getCategory($data['catid'], 'modelid'), "catid =" . $data['catid'] . " AND " . $tableName . ".status=1 AND " . $tableName . ".id <" . $data['id'], false, '*','', $cache = false, $site_id = 0,$type="pre");
         if (!$result) {
             $result['title'] = $msg;
             $result['url']   = 'javascript:alert("' . $msg . '");';
@@ -225,7 +225,7 @@ class CmsTagLib
         //是否新窗口打开
         $target    = !empty($data['target']) ? ' target=_blank ' : '';
         $tableName = model('cms/Cms')->getModelTableName(getCategory($data['catid'], 'modelid'));
-        $result    = model('cms/Cms')->getContent(getCategory($data['catid'], 'modelid'), "'catid' =" . $data['catid'] . " AND " . $tableName . ".'status'=1 AND " . $tableName . ".'id' >" . $data['id'], false, '*');
+        $result    = model('cms/Cms')->getContent(getCategory($data['catid'], 'modelid'), "catid =" . $data['catid'] . " AND " . $tableName . ".status=1 AND " . $tableName . ".id >" . $data['id'], false, '*');
         if (!$result) {
             $result['title'] = $msg;
             $result['url']   = 'javascript:alert("' . $msg . '");';

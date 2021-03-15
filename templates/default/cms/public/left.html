@@ -1,0 +1,12 @@
+<div class="layui-col-sm3 layui-col-md2 shop-nav">
+    <div class="product-list">
+        <dl>
+            <dt><a href="{:getCategory($top_parentid,'url')}">{:getCategory($top_parentid,'catname')}</a></dt>
+            {yzn module="cms" action="category" catid="$top_parentid" siteId="$site_id" cache="3600" order="listorder ASC" num="10" return="data"}
+            {volist name="data" id="vo"}
+            <dd {if $vo['id']==$catid}class="layui-this"{/if} ><a href="{$vo.url}"><i class="iconfont icon-xiazai"></i>{$vo.catname}</a></dd>
+            {/volist}
+            {/yzn}
+        </dl>
+    </div>
+</div>
