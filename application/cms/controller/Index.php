@@ -20,7 +20,7 @@ use think\Db;
 
 class Index extends Cmsbase
 {
-    protected $resultSetType = 'collection';
+    //protected $resultSetType = 'collection';
     protected function initialize()
     {
         parent::initialize();
@@ -252,9 +252,7 @@ class Index extends Cmsbase
     {
 
         $siteId = getSiteId();
-
         $seo = seo('', '搜索结果');
-
         //模型
         $modelid = $this->request->param('modelid/d', 0);
         //关键词

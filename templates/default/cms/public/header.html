@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+    <html lang="zh">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>{if !isset($catid)}{:getSite('title')}{else}{$SEO['title']}{/if}{if getSite('brand')} -【{:getSite('brand')}】{/if}</title>
+        <meta name="keywords" content="{$SEO['keyword']}" />
+        <meta name="description" content="{$SEO['description']}" />
+        <link href="__DZD__/images/favicon.ico" rel="icon">
+        <link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css">
+        <link rel="stylesheet" href="__DZD__/css/global.css"/>
+        <link rel="stylesheet" href="__DZD__/css/style.css"/>
+        <link href="__DZD__/css/swiper.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="__STATIC__/libs/awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="//at.alicdn.com/t/font_2377328_cb5nlydg0w7.css">
+    </head>
+    <body>
+    <div class="header">
+        <div class="layui-container">
+            <a class="layui-logo" href="/">{:patch('siteName')}</a>
+            <div class="ew-nav-group">
+                <div class="nav-toggle"><i class="layui-icon layui-icon-more-vertical"></i></div>
+                <ul class="layui-nav" lay-filter="header-nav">
+                    <li class="layui-nav-item {if !isset($catid)}layui-this{/if}"><a href="{:url('cms/index/index')}" target="_self">首页</a></li>
+                    {yzn module="cms" action="category" catid="0" siteId="$site_id" cache="3600"   order="listorder ASC" num="10" return="data"}
+                    {volist name="data" id="vo"}
+                    <li class="layui-nav-item {if isset($catid) && in_array($catid,explode(',',$vo['arrchildid']))}layui-this{/if}">
+                        {if $vo['child'] && $vo['id']!=14}
+                        <a href="{$vo.url}">{$vo.catname}<i class="layui-hide-xs"> </i><span class="layui-nav-more"></span></a>
+                        <dl class="layui-nav-child">
+                            {yzn module="cms" action="category" catid="$vo['id']" siteId="$site_id" cache="3600" order="listorder ASC" num="10" return="data"}
+                            {foreach $data as $key=>$vo }
+                            <dd lay-unselect><a href="{$vo.url}">{$vo.catname}</a></dd>
+                            {/foreach}
+                            {/yzn}
+                        </dl>
+                        {else}
+                        <a href="{$vo.url}" target="_self">{$vo.catname}{if $vo['id']==6}<span class="layui-badge-dot" style="margin-top: -5px;"></span>{/if}</a>
+                        {/if}
+                    </li>
+                    {/volist}
+                    {/yzn}
+                    {if $siteArray}
+                    <li class="layui-nav-item">
+                        <a title="域名相同的站适用于多语言站，点击网址不变，内容切换">同域站点<i class="layui-hide-xs"> </i><span class="layui-nav-more"></span></a>
+                        <dl class="layui-nav-child layui-anim layui-anim-upbit">
+                            {volist name="siteArray" id="vo"}
+                            <dd><a href="javascript:void(0);" onclick="setLang('{$vo.mark}')" title="切换到{$vo.name}"><img src= "/static/language/{$vo.mark}.png"> {$vo.name}</a></dd>
+                            {/volist}
+                        </dl>
+                    </li>
+                    {/if}
+                    <li class="layui-nav-item">
+                        <a title="所有站点点击后跳转到各站首页,相同域名的不会切换内容">所有站点<i class="layui-hide-xs"> </i><span class="layui-nav-more"></span></a>
+                        <dl class="layui-nav-child layui-anim layui-anim-upbit">
+                            {get table="site"  status="1" return="data"}
+                            {volist name="data" id="vo"}
+                            <dd> <a {if $site_id==$vo.id}class="active"{/if} href="{if $vo.http==0}http://{else}https://{/if}{$vo.domain}/" title="跳转到{$vo.name}"><img src= "/static/language/{$vo.mark}.png"> {$vo.name}</a></dd>
+                            {/volist}
+                            {/get}
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <form name="formsearch" action="{:url('cms/index/search')}">
+                            <input class="layui-input" type="text" name="keyword" value="请输入关键字" onfocus="if(this.value==defaultValue)this.value=''" onblur="if(this.value=='')this.value=defaultValue">
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
