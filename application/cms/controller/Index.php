@@ -330,16 +330,17 @@ class Index extends Cmsbase
 
                 $tableName = $this->Cms_Model->getModelTableName($key);
                 $extTable = $tableName .  $this->Cms_Model->ext_table;
-                halt($extTable);
+
                 $where .= $extTable . ".`title` like '%$keyword%'";
                 $where = '(' . $where . ') ';
                 $where .= " AND status='1' $sql_time";
+
                 $list = $this->Cms_Model->getList($key, $where, false, '*', 'listorder desc', 10, 1, false, ['query' => ['keyword' => $keyword, 'modelid' => $modelid]]);
-                if ($list->isEmpty()) {
-                    continue;
-                } else {
-                    break;
-                }
+//                if ($list->isEmpty()) {
+//                    continue;
+//                } else {
+//                    break;
+//                }
             }
         }
         if ($list) {

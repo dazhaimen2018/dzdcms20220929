@@ -1,0 +1,24 @@
+{include file="public/header" /}
+{include file="public/banner" /}
+<div class="layui-container page">
+    <div class="layui-row layui-col-space20">
+        <div class="layui-col-sm3 layui-col-md2 shop-nav">
+            <div class="product-list">
+                <dl>
+                    <dt><a href="/">按时间搜索</a></dt>
+                    <dd {empty name="time"}class="layui-this"{/empty}> <a href="?keyword={$keyword}&modelid={$modelid}&time=">全部时间</a></dd>
+                    <dd {eq name="time" value="day"}class="layui-this"{/eq}> <a href="?keyword={$keyword}&modelid={$modelid}&time=day">一天内</a></dd>
+                    <dd {eq name="time" value="week"}class="layui-this"{/eq}> <a href="?keyword={$keyword}&modelid={$modelid}&time=week">一周内</a></dd>
+                    <dd {eq name="time" value="month"}class="layui-this"{/eq}> <a href="?keyword={$keyword}&modelid={$modelid}&time=month">一月内</a></dd>
+                    <dd {eq name="time" value="year"}class="layui-this"{/eq}> <a href="?keyword={$keyword}&modelid={$modelid}&time=year">一年内</a></dd>
+                </dl>
+            </div>
+        </div>
+        <div class="layui-col-sm9 layui-col-md10 listAjax">
+            {volist name="list" id="item" empty="<div class='tc font20 l-h80'>暂时没有数据</div>"}
+            {include file="public/list_item" /}
+            {/volist}
+        </div>
+    </div>
+</div>
+{include file="public/footer" /}
