@@ -19,7 +19,7 @@
     <div class="header">
         <div class="layui-container">
             <a class="layui-logo" href="/">{:patch('siteName')}</a>
-            <div class="ew-nav-group">
+            <div class="ew-nav-group header">
                 <div class="nav-toggle"><i class="layui-icon layui-icon-more-vertical"></i></div>
                 <ul class="layui-nav" lay-filter="header-nav">
                     <li class="layui-nav-item {if !isset($catid)}layui-this{/if}"><a href="{:url('cms/index/index')}" target="_self">首页</a></li>
@@ -42,7 +42,7 @@
                     {/volist}
                     {/yzn}
                     {if $siteArray}
-                    <li class="layui-nav-item ">
+                    <li class="layui-nav-item">
                         <a title="域名相同的站适用于多语言站，点击网址不变，内容切换">同域站点<i class="layui-hide-xs"> </i><span class="layui-nav-more"></span></a>
                         <dl class="layui-nav-child layui-anim layui-anim-upbit">
                             {volist name="siteArray" id="vo"}
@@ -51,7 +51,7 @@
                         </dl>
                     </li>
                     {/if}
-                    <li class="layui-nav-item ">
+                    <li class="layui-nav-item">
                         <a title="所有站点点击后跳转到各站首页,相同域名的不会切换内容">所有站点<i class="layui-hide-xs"> </i><span class="layui-nav-more"></span></a>
                         <dl class="layui-nav-child layui-anim layui-anim-upbit">
                             {get table="site"  status="1" return="data"}
@@ -60,6 +60,19 @@
                             {/volist}
                             {/get}
                         </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <div class="searchBg">
+                            <div class="search">
+                                <span class="searchClose"></span>
+                                <div class="searchBox">
+                                    <form name="formsearch" action="{:url('cms/index/search')}">
+                                        <input class="searchInput" type="text" name="keyword" placeholder="请输入关键词搜索" onfocus="if(this.value==defaultValue)this.value=''" onblur="if(this.value=='')this.value=defaultValue">
+                                        <input type="submit" value="" class="searchIco">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </div>
