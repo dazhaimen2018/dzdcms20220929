@@ -10,11 +10,11 @@ return [
     // 服务器地址
     'hostname'        => '127.0.0.1',
     // 数据库名
-    'database' => 'wxinw_com',
+    'database' => 'dzdcms',
     // 用户名
-    'username' => 'wxinw_com',
+    'username' => 'dzdcms',
     // 密码
-    'password' => 'YdF3zpceLyhcf3ry',
+    'password' => '123456',
     // 端口
     'hostport'        => '',
     // 连接dsn

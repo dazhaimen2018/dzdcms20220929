@@ -20,9 +20,11 @@ use think\Db;
 
 class Index extends Cmsbase
 {
+    protected $resultSetType = 'collection';
     protected function initialize()
     {
         parent::initialize();
+
         $this->Cms_Model = new Cms_Model;
         $domain          = $_SERVER['HTTP_HOST'];
         $site            = Site::where("domain='{$domain}'")->find();
@@ -47,6 +49,7 @@ class Index extends Cmsbase
                 setLang($lang);
             }
         }
+
     }
 
     /**
@@ -243,8 +246,11 @@ class Index extends Cmsbase
     }
 
     // 搜索
+
     public function search()
+
     {
+
         $siteId = getSiteId();
 
         $seo = seo('', '搜索结果');
@@ -335,16 +341,24 @@ class Index extends Cmsbase
                 $where = '(' . $where . ') ';
                 $where .= " AND status='1' $sql_time";
 
-                $list = $this->Cms_Model->getList($key, $where, false, '*', 'listorder desc', 10, 1, false, ['query' => ['keyword' => $keyword, 'modelid' => $modelid]]);
+                $list = $this->Cms_Model->getList($key, $where, false, '*', 'listorder,id desc', 10, 1, false, ['query' => ['keyword' => $keyword, 'modelid' => $modelid]]);
+
 //                if ($list->isEmpty()) {
 //                    continue;
 //                } else {
 //                    break;
 //                }
+                if (!$list) {
+                    continue;
+                } else {
+                    break;
+                }
             }
         }
+
         if ($list) {
-            $count = $list->total();
+            $count = 0;
+            //$count = $list->total();
         } else {
             $count = 0;
         }
@@ -360,7 +374,7 @@ class Index extends Cmsbase
                 'count'       => $count,
                 'modellist'   => $modellist,
                 'search_time' => debug('begin', 'end', 6), //运行时间
-                'pages'       => $list->render(),
+//                'pages'       => $list->render(),
             ]);
         } else {
             $this->assign([
