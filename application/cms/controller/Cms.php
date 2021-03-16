@@ -27,6 +27,8 @@ class Cms extends Adminbase
     {
         parent::initialize();
         $this->Cms_Model = new Cms_Model;
+        $this->cmsConfig = cache("Cms_Config");
+        $this->assign("cmsConfig", $this->cmsConfig);
         // 20200805 马博
         $site = Site::select()->toArray();
         $this->site = $site;
@@ -219,8 +221,6 @@ class Cms extends Adminbase
             if (empty($category)) {
                 $this->error('该栏目不存在！');
             }
-            $cmsConfig = cache("Cms_Config");
-            $this->assign("cmsConfig", $cmsConfig);
             if ($category['type'] == 2) {
                 $modelid = $category['modelid'];
                 $fieldList = $this->Cms_Model->getFieldList($modelid);
@@ -329,8 +329,6 @@ class Cms extends Adminbase
             if (empty($category)) {
                 $this->error('该栏目不存在！');
             }
-            $cmsConfig = cache("Cms_Config");
-            $this->assign("cmsConfig", $cmsConfig);
             if ($category['type'] == 2) {
                 $modelid   = $category['modelid'];
                 $fieldList = $this->Cms_Model->getFieldList($modelid, $id);
@@ -401,10 +399,9 @@ class Cms extends Adminbase
             $ids = array(0 => $ids);
         }
         $modelid   = getCategory($catid, 'modelid');
-        $cmsConfig = cache("Cms_Config");
         try {
             foreach ($ids as $id) {
-                $this->Cms_Model->deleteModelData($modelid, $id, $cmsConfig['web_site_recycle']);
+                $this->Cms_Model->deleteModelData($modelid, $id, $this->cmsConfig['web_site_recycle']);
             }
         } catch (\Exception $ex) {
             $this->error($ex->getMessage());
@@ -424,8 +421,6 @@ class Cms extends Adminbase
         if (!is_array($ids)) {
             $ids = array(0 => $ids);
         }
-        $modelid   = getCategory($catid, 'modelid');
-        $cmsConfig = cache("Cms_Config");
         try {
             foreach ($ids as $id) {
                 $this->Cms_Model->deleteModelData($modelid, $id);
@@ -544,12 +539,14 @@ class Cms extends Adminbase
     {
         $isAdministrator = User::instance()->isAdministrator();
         $json            = $priv_catids            = [];
-        //栏目权限 超级管理员例外
-        if ($isAdministrator !== true) {
-            $role_id     = User::instance()->roleid;
-            $priv_result = Db::name('CategoryPriv')->where(['roleid' => $role_id, 'action' => 'init'])->select();
-            foreach ($priv_result as $_v) {
-                $priv_catids[] = $_v['catid'];
+        if (0 !== (int) $this->cmsConfig['site_category_auth']) {
+            //栏目权限 超级管理员例外
+            if ($isAdministrator !== true) {
+                $role_id     = User::instance()->roleid;
+                $priv_result = Db::name('CategoryPriv')->where(['roleid' => $role_id, 'action' => 'init'])->select();
+                foreach ($priv_result as $_v) {
+                    $priv_catids[] = $_v['catid'];
+                }
             }
         }
         if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode']) {
@@ -570,12 +567,14 @@ class Cms extends Adminbase
             if ($rs['type'] == 3 && $rs['child'] == 0) {
                 continue;
             }
-            //只显示有init权限的，超级管理员除外
-            if ($isAdministrator !== true && !in_array($rs['id'], $priv_catids)) {
-                $arrchildid      = explode(',', $rs['arrchildid']);
-                $array_intersect = array_intersect($priv_catids, $arrchildid);
-                if (empty($array_intersect)) {
-                    continue;
+            if (0 !== (int) $this->cmsConfig['site_category_auth']) {
+                //只显示有init权限的，超级管理员除外
+                if ($isAdministrator !== true && !in_array($rs['id'], $priv_catids)) {
+                    $arrchildid      = explode(',', $rs['arrchildid']);
+                    $array_intersect = array_intersect($priv_catids, $arrchildid);
+                    if (empty($array_intersect)) {
+                        continue;
+                    }
                 }
             }
             $data = array(
@@ -734,11 +733,13 @@ class Cms extends Adminbase
     protected function check_priv($action)
     {
         if (User::instance()->isAdministrator() !== true) {
-            $catid      = $this->request->param('catid/d', 0);
-            $action     = getCategory($catid, 'type') == 1 ? 'init' : $action;
-            $priv_datas = Db::name('CategoryPriv')->where(['catid' => $catid, 'is_admin' => 1, 'roleid' => User::instance()->roleid, 'action' => $action])->find();
-            if (empty($priv_datas)) {
-                $this->error('您没有操作该项的权限！');
+            if (0 !== (int) $this->cmsConfig['site_category_auth']) {
+                $catid      = $this->request->param('catid/d', 0);
+                $action     = getCategory($catid, 'type') == 1 ? 'init' : $action;
+                $priv_datas = Db::name('CategoryPriv')->where(['catid' => $catid, 'is_admin' => 1, 'roleid' => User::instance()->roleid, 'action' => $action])->find();
+                if (empty($priv_datas)) {
+                    $this->error('您没有操作该项的权限！');
+                }
             }
         }
     }

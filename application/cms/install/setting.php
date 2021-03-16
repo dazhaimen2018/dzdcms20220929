@@ -13,6 +13,7 @@ return array(
     'publish_mode'      => 2,
     'category_mode'      => 2,
     'site_url_mode'      => 1,
+    'site_category_auth' => 0,
     'data_import'      => 0,
     'icon_mode'      => 1,
     'site'      => 1,

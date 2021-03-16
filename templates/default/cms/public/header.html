@@ -19,7 +19,7 @@
     <div class="header">
         <div class="layui-container">
             <a class="layui-logo" href="/">{:patch('siteName')}</a>
-            <div class="ew-nav-group header">
+            <div class="ew-nav-group">
                 <div class="nav-toggle"><i class="layui-icon layui-icon-more-vertical"></i></div>
                 <ul class="layui-nav" lay-filter="header-nav">
                     <li class="layui-nav-item {if !isset($catid)}layui-this{/if}"><a href="{:url('cms/index/index')}" target="_self">首页</a></li>
@@ -62,17 +62,9 @@
                         </dl>
                     </li>
                     <li class="layui-nav-item">
-                        <div class="searchBg">
-                            <div class="search">
-                                <span class="searchClose"></span>
-                                <div class="searchBox">
-                                    <form name="formsearch" action="{:url('cms/index/search')}">
-                                        <input class="searchInput" type="text" name="keyword" placeholder="请输入关键词搜索" onfocus="if(this.value==defaultValue)this.value=''" onblur="if(this.value=='')this.value=defaultValue">
-                                        <input type="submit" value="" class="searchIco">
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                        <form name="formsearch" action="{:url('cms/index/search')}">
+                            <input class="layui-input" type="text" name="keyword" value="请输入关键字" onfocus="if(this.value==defaultValue)this.value=''" onblur="if(this.value=='')this.value=defaultValue">
+                        </form>
                     </li>
                 </ul>
             </div>
