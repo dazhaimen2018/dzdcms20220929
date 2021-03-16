@@ -42,7 +42,7 @@
                     {/volist}
                     {/yzn}
                     {if $siteArray}
-                    <li class="layui-nav-item ">
+                    <li class="layui-nav-item">
                         <a title="域名相同的站适用于多语言站，点击网址不变，内容切换">同域站点<i class="layui-hide-xs"> </i><span class="layui-nav-more"></span></a>
                         <dl class="layui-nav-child layui-anim layui-anim-upbit">
                             {volist name="siteArray" id="vo"}
@@ -51,7 +51,7 @@
                         </dl>
                     </li>
                     {/if}
-                    <li class="layui-nav-item ">
+                    <li class="layui-nav-item">
                         <a title="所有站点点击后跳转到各站首页,相同域名的不会切换内容">所有站点<i class="layui-hide-xs"> </i><span class="layui-nav-more"></span></a>
                         <dl class="layui-nav-child layui-anim layui-anim-upbit">
                             {get table="site"  status="1" return="data"}
@@ -60,6 +60,11 @@
                             {/volist}
                             {/get}
                         </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <form name="formsearch" action="{:url('cms/index/search')}">
+                            <input class="layui-input" type="text" name="keyword" value="请输入关键字" onfocus="if(this.value==defaultValue)this.value=''" onblur="if(this.value=='')this.value=defaultValue">
+                        </form>
                     </li>
                 </ul>
             </div>

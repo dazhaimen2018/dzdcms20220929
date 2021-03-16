@@ -37,7 +37,9 @@
                         <span><i class="layui-icon layui-icon-username"></i> 多站点</span>
                         <span><i class="layui-icon layui-icon-time"></i> {$inputtime|date='Y-m-d H:i'} </span>
                         <span><i class="layui-icon layui-icon-read"></i> {$hits}浏览</span>
+                        {if isModuleInstall('baidu_record')}
                         <span><i class="iconfont icon-baidu"></i> {:hook('baidu_record')}</span>
+                        {/if}
                     </div>
                 </div>
 
