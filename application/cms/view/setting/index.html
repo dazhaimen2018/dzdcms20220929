@@ -20,17 +20,19 @@
                             <div class="layui-form-mid layui-word-aux">站点关闭后前台将不能访问</div>
                         </div>
                         <div class="layui-form-item">
-                            <label>站点引导页</label>
+                            <label>站引导页</label>
                             <div class="layui-form-field-label">
-                                <input type="checkbox" name="setting[web_site_guide]" lay-skin="switch" lay-text="ON|OFF" value="1" {if 1==$setting['web_site_guide']}checked=''{/if}>
+                                <input type="radio" name="setting[web_site_guide]" value="1" title="开启" {if 1==$setting['web_site_guide']}checked{/if}>
+                                <input type="radio" name="setting[web_site_guide]" value="0" title="关闭" {if 0==$setting['web_site_guide']}checked{/if}>
                             </div>
-                            <div class="layui-form-mid layui-word-aux">站点引导页关闭后前台将不能访问引导页</div>
+                            <div class="layui-form-mid layui-word-aux">站点引导页开启后默认页为default.html 关闭后前台首页为index.html</div>
                         </div>
 
                         <div class="layui-form-item">
                             <label title="开启同步后，在管理分站内容和单页时可手动导入主站数据">数据同步</label>
                             <div class="layui-form-field-label">
-                                <input type="checkbox" name="setting[data_import]" lay-skin="switch" lay-text="ON|OFF" value="1" {if 1==$setting['data_import']}checked=''{/if}>
+                                <input type="radio" name="setting[data_import]" value="1" title="开启" {if 1==$setting['data_import']}checked{/if}>
+                                <input type="radio" name="setting[data_import]" value="0" title="关闭" {if 0==$setting['data_import']}checked{/if}>
                             </div>
                             <div class="layui-form-mid layui-word-aux">数据同步主要用在城市站和站群中，多语言站不太适合</div>
                         </div>
