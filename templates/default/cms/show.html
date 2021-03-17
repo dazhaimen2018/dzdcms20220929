@@ -1,0 +1,39 @@
+{include file="public/header" /}
+<div class="layui-main">
+    <div class="layui-container case">
+        <div class="layui-card case-content">
+            {include file="public/location" /}
+            <div class="title-article">
+                <h1>{$title}</h1>
+                <div class="title-msg">
+                    <span><i class="layui-icon layui-icon-username"></i> 多站点</span>
+                    <span><i class="layui-icon layui-icon-time"></i> {$inputtime|date='Y-m-d H:i'} </span>
+                    <span><i class="layui-icon layui-icon-read"></i> {$hits}浏览</span>
+                    {if isModuleInstall('baidu_record')}
+                    <span><i class="iconfont icon-baidu"></i> {:hook('baidu_record')}</span>
+                    {/if}
+                </div>
+            </div>
+            <div class="layui-card-body detail-body layui-text">
+                {$content|raw}
+                {if $images}
+                {volist name="images" id="vo"}
+                <img src="{$vo}" class="img-responsive">
+                {/volist}
+                {else}
+                <img src="{$thumb}" class="img-responsive">
+                {/if}
+
+                <!--S 分页-->
+                {$pages|raw}
+                <!--E 分页-->
+
+                {include file="public/page_text" /}
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+{include file="public/footer" /}
