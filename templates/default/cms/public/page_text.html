@@ -3,7 +3,6 @@
     <div class="layui-card-header"> <i class="layui-icon layui-icon-note"> Tags</i> </div>
     <div class="layui-card-body">
         <div class="layui-btn-container layadmin-layer-demo">
-
             {notempty name="tags"}
             {volist name=":explode(',',$tags)" id="vo"}
             <a class="layui-btn layui-btn-primary layui-btn-sm layui-btn-radius" href="{:url('cms/index/tags',['tagdir'=>getTagDir($vo)])}">{$vo}</a>

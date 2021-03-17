@@ -55,7 +55,7 @@ class Index extends Cmsbase
     /**
      * 首页
      */
-    public function home()
+    public function default()
     {
         $page = $this->request->param('page/d', 1);
         $seo = seo();
@@ -64,7 +64,7 @@ class Index extends Cmsbase
             'page' => $page,
         ]);
 
-        return $this->fetch('/home');
+        return $this->fetch('/default');
     }
 
     public function index()

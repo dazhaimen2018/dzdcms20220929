@@ -6,70 +6,72 @@
         <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
     </div>
 </div>
+
 <script type="text/html" id="titleTpl">
-{{#  if(d.create_time == "" || d.create_time == null || d.create_time == undefined){ }}
+    {{#  if(d.create_time == "" || d.create_time == null || d.create_time == undefined){ }}
     <a class="layui-btn layui-btn-xs" data-open="{:url('install')}?module={{ d.module }}" data-table="currentTable" title="安装">安装</a>
-{{#  } else { }}
+    {{#  } else { }}
     {{#  if(d.iscore == 0){ }}
     <a class="layui-btn layui-btn-xs layui-btn-danger" data-open="{:url('uninstall')}?module={{ d.module }}" data-table="currentTable" data-width="400px" data-height="250px" title="卸载">卸载</a>
     {{#  } }}
-{{#  } }}
+    {{#  } }}
 </script>
 {/block}
 {block name="script"}
+
 <script>
-layui.use(['yznTable', 'upload'], function() {
-    var table = layui.yznTable,
-        $ = layui.$,
-        upload = layui.upload;
+    layui.use(['yznTable', 'upload'], function() {
+        var table = layui.yznTable,
+            $ = layui.$,
+            upload = layui.upload;
 
-    var init = {
-        table_elem: '#currentTable',
-    };
+        var init = {
+            table_elem: '#currentTable',
+        };
 
-    table.render({
-        init: init,
-        id: 'currentTable',
-        elem: '#currentTable',
-        toolbar: ['refresh',
-            [{
-               html:'<a class="layui-btn layui-btn-sm" id="local-install"><i class="iconfont icon-upload-fill"></i>&nbsp;本地安装</a>'
-            }],
-        ],
-        url: '{:url("index")}',
-        cols: [
-            [
-                { field: 'name', width: 150, title: '名称' },
-                { field: 'module', width: 150, title: '标识' },
-                { field: 'introduce', title: '描述' },
-                { field: 'create_time', width: 200, title: '安装时间', templet: '<div>{{#  if(d.create_time){ }} {{d.create_time}} {{#  } else { }} / {{#  } }}</div>' },
-                { field: 'author', width: 90, title: '作者',hide:'true' },
-                { field: 'version', width: 90, title: '版本' },
-                { fixed: 'right', width: 80, title: '操作', templet: '#titleTpl' }
+        table.render({
+            init: init,
+            id: 'currentTable',
+            elem: '#currentTable',
+            toolbar: ['refresh',
+                [{
+                    html:'<a class="layui-btn layui-btn-sm" id="local-install"><i class="iconfont icon-upload-fill"></i>&nbsp;本地安装</a>'
+                }],
+            ],
+            url: '{:url("index")}',
+            cols: [
+                [
+                    { field: 'name', width: 150, title: '名称' },
+                    { field: 'module', width: 150, title: '标识' },
+                    { field: 'introduce', title: '描述' },
+                    { field: 'create_time', width: 200, title: '安装时间', templet: '<div>{{#  if(d.create_time){ }} {{d.create_time}} {{#  } else { }} / {{#  } }}</div>' },
+                    { field: 'author', width: 90, title: '作者',hide:'true' },
+                    { field: 'version', width: 90, title: '版本' },
+                    { fixed: 'right', width: 80, title: '操作', templet: '#titleTpl' }
+                ]
             ]
-        ]
-    });
+        });
 
-    //执行实例
-    var uploadInst = upload.render({
-        elem: '#local-install',
-        url: '{:url("admin/module/local")}',
-        accept: 'file',
-        exts: 'zip',
-        done: function(res) {
-            //上传完毕回调
-            layer.alert(res.msg, {}, function(index) {
-                if (res.code != 0) {
-                    location.reload();
-                }else{
-                    layer.close(index);
-                }
-            });
-        },
-        error: function() {
-            //请求异常回调
-        }
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#local-install',
+            url: '{:url("admin/module/local")}',
+            accept: 'file',
+            exts: 'zip',
+            done: function(res) {
+                //上传完毕回调
+                layer.alert(res.msg, {}, function(index) {
+                    if (res.code != 0) {
+                        location.reload();
+                    }else{
+                        layer.close(index);
+                    }
+                });
+            },
+            error: function() {
+                //请求异常回调
+            }
+        });
     });
-});
 </script>
 {/block}
