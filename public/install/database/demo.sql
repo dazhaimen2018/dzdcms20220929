@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2021-03-17 07:30:36
+-- 生成日期： 2021-03-18 09:12:26
 -- 服务器版本： 8.0.20
 -- PHP 版本： 7.4.16
 
@@ -46,8 +46,8 @@ CREATE TABLE `yzn_admin` (
 --
 
 INSERT INTO `yzn_admin` (`id`, `username`, `password`, `roleid`, `encrypt`, `nickname`, `last_login_time`, `last_login_ip`, `email`, `token`, `status`) VALUES
-(1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 'xW5OhH', '多站点', 1615885399, '117.100.163.109', '8355763@qq.com', 'aace79f7-c6f5-4ede-b258-c2b91edfe4ad', 1),
-(2, 'demo', 'af99084fff58091fd0dd65add0d17186', 2, 'RWgBL9', 'demo', 1615924962, '223.104.107.110', 'demo@dzdcms.com', 'ac6ca2ae-71d0-4212-8b8e-920109090be6', 1);
+(1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 'xW5OhH', '多站点', 1616029752, '117.100.163.109', '8355763@qq.com', 'aa3fdd12-9210-44c6-a2d1-8668d13c0090', 1),
+(2, 'demo', 'af99084fff58091fd0dd65add0d17186', 2, 'RWgBL9', 'demo', 1616026433, '113.120.239.44', 'demo@dzdcms.com', '1e635ed1-f337-4772-b2e5-a41246632697', 1);
 
 -- --------------------------------------------------------
 
@@ -99,7 +99,8 @@ CREATE TABLE `yzn_attachment` (
 INSERT INTO `yzn_attachment` (`id`, `aid`, `uid`, `name`, `module`, `path`, `thumb`, `url`, `mime`, `ext`, `size`, `md5`, `sha1`, `driver`, `create_time`, `update_time`, `listorders`, `status`) VALUES
 (1, 1, 0, 'ico.png', 'admin', '/uploads/images/ico.png', '', '', 'image/png', 'png', 16140, '693cf31fc1e433bf91cd178d658d4e36', '16f445461fd1218f6fdf258074c567f3cf4b490f', 'local', 1614839862, 1614839862, 100, 1),
 (2, 1, 0, 'banner.png', 'cms', '/uploads/images/banner.png', '', '', 'image/png', 'png', 1573089, '5545474fedb30a8651f02125c7893213', '7a94db83c3f77aa163734e71712421455bd81768', 'local', 1615821110, 1615821110, 100, 1),
-(3, 1, 0, 'logo.png', 'cms', '/uploads/images/logo.png', '', '', 'image/png', 'png', 7094, '80784dba0655f5653b38b80feabff97f', 'c64ff38bde00dcf35c89babbb6d2635bb0f80061', 'local', 1615844116, 1615844116, 100, 1);
+(3, 1, 0, 'logo.png', 'cms', '/uploads/images/logo.png', '', '', 'image/png', 'png', 7094, '80784dba0655f5653b38b80feabff97f', 'c64ff38bde00dcf35c89babbb6d2635bb0f80061', 'local', 1615844116, 1615844116, 100, 1),
+(4, 2, 0, '扫码咨询.png', 'admin', '/uploads/images/20210317/9018b2789175e74d492406cac9d49ba3.png', '', '', 'image/png', 'png', 120482, '08510234e0f6d5dc022a170538efb0a4', '74307094f2caa249ae8d7805a8c3b423fa62e4c4', 'local', 1615968019, 1615968019, 100, 1);
 
 -- --------------------------------------------------------
 
@@ -328,7 +329,7 @@ INSERT INTO `yzn_category` (`id`, `catname`, `catdir`, `type`, `modelid`, `paren
 (1, '资讯栏目', 'news', 2, 1, 0, '0', '1,5,6', '1,2', 1, 0, '', '', 0, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 1, 1),
 (2, '关于我们', 'about', 1, 0, 0, '0', '2,7,8', '1,2', 1, 0, '', 'cms/index/lists?catid=7', 0, 'a:1:{s:13:\"page_template\";s:9:\"page.html\";}', 1, 1),
 (3, '案例中心', 'case', 2, 2, 0, '0', '3', '1,2', 0, 0, '', '', 3, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:15:\"list_photo.html\";s:13:\"show_template\";s:15:\"show_photo.html\";}', 100, 1),
-(4, '系统优点', 'youdian', 2, 1, 0, '0', '4', '1,2', 0, 0, '', '', 4, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:14:\"list_icon.html\";s:13:\"show_template\";s:15:\"show_photo.html\";}', 100, 1),
+(4, '系统优点', 'youdian', 2, 1, 0, '0', '4', '1,2', 0, 0, '', '', 6, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:14:\"list_icon.html\";s:13:\"show_template\";s:15:\"show_photo.html\";}', 100, 1),
 (5, '行业新闻', 'hangye', 2, 1, 1, '0,1', '5', '1,2', 0, 0, '', '', 2, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 100, 1),
 (6, '公司动态', 'dongtai', 2, 1, 1, '0,1', '6', '1,2', 0, 0, '', '', 3, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 100, 1),
 (7, '公司简介', 'jianjie', 1, 0, 2, '0,2', '7', '1,2', 0, 0, '', '', 0, 'a:1:{s:13:\"page_template\";s:9:\"page.html\";}', 100, 1),
@@ -558,9 +559,10 @@ CREATE TABLE `yzn_lang` (
 --
 
 INSERT INTO `yzn_lang` (`id`, `name`, `type`, `title`, `group`, `options`, `remark`, `create_time`, `update_time`, `value`, `listorder`, `status`) VALUES
-(1, 'siteName', 'text', '网站名称', '', '', '', 1615821490, 1615821490, NULL, 100, 1),
-(2, 'beian', 'text', '备案号', '', '', '', 1615821524, 1615821524, NULL, 100, 1),
-(3, 'copyright', 'text', '尾部版权', '', '', '', 1615821624, 1615821624, NULL, 100, 1);
+(1, 'siteName', 'text', '网站名称', '', '', '', 1615821490, 1615961078, NULL, 100, 1),
+(2, 'beian', 'text', '备案号', '', '', '', 1615821524, 1615961102, NULL, 100, 1),
+(3, 'copyright', 'text', '尾部版权', '', '', '', 1615821624, 1615961090, NULL, 100, 1),
+(4, 'home', 'text', '首页', '', '', '', 1615961008, 1615961178, NULL, 100, 1);
 
 -- --------------------------------------------------------
 
@@ -581,9 +583,14 @@ CREATE TABLE `yzn_lang_data` (
 --
 
 INSERT INTO `yzn_lang_data` (`id`, `lang_id`, `value`, `site_id`, `status`) VALUES
-(1, 1, 'DZDCMS', 1, 0),
+(1, 1, '多站点CMS', 1, 0),
 (2, 2, '京ICP备12010025号-11', 1, 0),
-(3, 3, 'Copyright © 2006-2021 dzdcms.com All rights reserved.', 1, 0);
+(3, 3, 'Copyright © 2006-2021 dzdcms.com All rights reserved.', 1, 0),
+(4, 4, '首页', 1, 0),
+(5, 4, 'Home', 2, 0),
+(6, 1, 'DZDCMS', 2, 0),
+(7, 3, 'Copyright © 2006-2021 dzdcms.com All rights reserved.', 2, 0),
+(8, 2, '京ICP备12010025号-11', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -895,7 +902,7 @@ CREATE TABLE `yzn_module` (
 --
 
 INSERT INTO `yzn_module` (`module`, `name`, `sign`, `iscore`, `version`, `setting`, `create_time`, `update_time`, `listorder`, `status`) VALUES
-('cms', 'cms模块', 'b19cc279ed484c13c96c2f7142e2f437', 0, '1.0.0', 'a:12:{s:15:\"web_site_status\";i:1;s:9:\"icon_mode\";s:1:\"1\";s:13:\"site_url_mode\";s:1:\"1\";s:12:\"publish_mode\";s:1:\"1\";s:13:\"category_mode\";s:1:\"1\";s:4:\"site\";s:1:\"1\";s:15:\"site_cache_time\";s:4:\"3600\";s:16:\"web_site_recycle\";s:1:\"0\";s:18:\"site_category_auth\";s:1:\"0\";s:18:\"web_site_baidupush\";s:1:\"0\";s:17:\"web_site_getwords\";s:1:\"0\";s:9:\"autolinks\";s:55:\"百度|https://www.baidu.com/腾讯|https://www.qq.com/\";}', 1615820020, 1615897797, 0, 1),
+('cms', 'cms模块', 'b19cc279ed484c13c96c2f7142e2f437', 0, '1.0.0', 'a:13:{s:15:\"web_site_status\";i:1;s:14:\"web_site_guide\";s:1:\"1\";s:11:\"data_import\";s:1:\"1\";s:9:\"icon_mode\";s:1:\"1\";s:13:\"site_url_mode\";s:1:\"1\";s:12:\"publish_mode\";s:1:\"2\";s:4:\"site\";s:1:\"1\";s:15:\"site_cache_time\";s:4:\"3600\";s:16:\"web_site_recycle\";s:1:\"0\";s:18:\"site_category_auth\";s:1:\"0\";s:18:\"web_site_baidupush\";s:1:\"0\";s:17:\"web_site_getwords\";s:1:\"0\";s:9:\"autolinks\";s:55:\"百度|https://www.baidu.com/腾讯|https://www.qq.com/\";}', 1615820020, 1616025530, 0, 1),
 ('links', '友情链接', '960c30f9b119fa6c39a4a31867441c82', 0, '1.0.0', NULL, 1615820042, 1615820042, 0, 1);
 
 -- --------------------------------------------------------
@@ -928,15 +935,17 @@ CREATE TABLE `yzn_news` (
 --
 
 INSERT INTO `yzn_news` (`id`, `catid`, `theme`, `url`, `thumb`, `flag`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `inputtime`, `updatetime`, `status`, `icon`, `image`) VALUES
-(1, 5, 'DZDCMS', '', 3, '6', 100, 1, 'admin', 1, 53, 1615821073, 1615845231, 1, '', 2),
-(2, 5, '多站点CMS是基于最新TP5.1x框架和layui2.5x的多站点内容管理系统', '', 3, '6', 100, 1, 'admin', 1, 17, 1615821115, 1615845217, 1, '', 2),
-(3, 4, '域名灵活', '', 0, '', 100, 1, 'admin', 1, 18, 1615842549, 1615842650, 1, 'layui-icon-star', 0),
-(4, 4, '一站管理', '', 0, '', 100, 1, 'admin', 1, 9, 1615842656, 1615842699, 1, 'layui-icon-user', 0),
-(5, 4, '数据同步', '', 0, '', 100, 1, 'admin', 1, 2, 1615842764, 1615842790, 1, 'layui-icon-transfer', 0),
-(6, 4, '插件丰富', '', 0, '', 100, 1, 'admin', 1, 1, 1615842818, 1615842855, 1, 'layui-icon-app', 0),
-(7, 6, '恭喜多站点CMS2.0.0正式版上线啦 ', '', 3, '', 100, 1, 'admin', 1, 9, 1615844016, 1615844118, 1, '', 0),
-(8, 6, '恭喜多站点CMS入住thinkphp服务市场', '', 3, '', 100, 1, 'admin', 1, 8, 1615844134, 1615844223, 1, '', 0),
-(9, 6, '恭喜多站点CMS入住thinkphp服务市场', '', 3, '', 100, 1, 'admin', 1, 1, 1615844276, 1615844307, 1, '', 0);
+(1, 5, 'DZDCMS', '', 3, '6', 1, 1, 'admin', 1, 63, 1615821073, 1615961608, 1, '', 2),
+(2, 5, '多站点CMS是基于最新TP5.1x框架和layui2.5x的多站点内容管理系统', '', 3, '6', 2, 1, 'admin', 1, 20, 1615821115, 1615961591, 1, '', 2),
+(3, 4, '域名灵活', '', 0, '', 100, 1, 'admin', 1, 25, 1615842549, 1615842650, 1, 'layui-icon-star', 0),
+(4, 4, '一站管理', '', 0, '', 100, 1, 'admin', 1, 16, 1615842656, 1615842699, 1, 'layui-icon-user', 0),
+(5, 4, '数据同步', '', 0, '', 100, 1, 'admin', 1, 3, 1615842764, 1615842790, 1, 'layui-icon-transfer', 0),
+(6, 4, '插件丰富', '', 0, '', 100, 1, 'admin', 1, 4, 1615842818, 1615842855, 1, 'layui-icon-app', 0),
+(7, 6, '恭喜多站点CMS2.0.0正式版上线啦 ', '', 3, '', 100, 1, 'admin', 1, 12, 1615844016, 1615961335, 1, '', 0),
+(8, 6, '恭喜多站点CMS入住thinkphp服务市场', '', 3, '', 100, 1, 'admin', 1, 13, 1615844134, 1615961325, 1, '', 0),
+(9, 6, '恭喜多站点CMS入住thinkphp服务市场', '', 3, '', 100, 1, 'admin', 1, 8, 1615844276, 1615961316, 1, '', 0),
+(10, 4, '多端支持', '', 0, '', 100, 1, 'admin', 1, 0, 1616025535, 1616025575, 1, 'layui-icon-cellphone', 0),
+(11, 4, '长期更新', '', 0, '', 100, 1, 'admin', 1, 0, 1616025576, 1616025621, 1, 'layui-icon-auz', 0);
 
 -- --------------------------------------------------------
 
@@ -968,7 +977,14 @@ INSERT INTO `yzn_news_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`
 (6, 6, 1, '插件丰富', '', '', '可提供yzncms免费开发的所有插件，授权用户也可提供付费插件，还会开发更多插件供大家使用。', '<p>可提供yzncms免费开发的所有插件，授权用户也可提供付费插件，还会开发更多插件供大家使用。</p>'),
 (7, 7, 1, '恭喜多站点CMS2.0.0正式版上线啦 ', '', '', '恭喜多站点CMS2.0.0正式版上线啦 恭喜多站点CMS2.0.0正式版上线啦 ', '<p>恭喜多站点CMS2.0.0正式版上线啦&nbsp;恭喜多站点CMS2.0.0正式版上线啦&nbsp;恭喜多站点CMS2.0.0正式版上线啦&nbsp;恭喜多站点CMS2.0.0正式版上线啦&nbsp;</p>'),
 (8, 8, 1, '恭喜多站点CMS入住thinkphp服务市场', '', '', '恭喜多站点CMS入住thinkphp服务市场', '<p>恭喜多站点CMS入住thinkphp服务市场</p><p>连接地址：<a href=\"https://market.topthink.com/product/389\" target=\"_blank\">https://market.topthink.com/product/389</a> </p><p><br/></p>'),
-(9, 9, 1, '恭喜多站点CMS入住thinkphp服务市场', '', '', '恭喜多站点CMS入住thinkphp服务市场', '<p>恭喜多站点CMS入住thinkphp服务市场恭喜多站点CMS入住thinkphp服务市场恭喜多站点CMS入住thinkphp服务市场</p><p style=\"white-space: normal;\">恭喜多站点CMS入住thinkphp服务市场</p><p style=\"white-space: normal;\">连接地址：<a href=\"https://market.topthink.com/product/389\" target=\"_blank\">https://market.topthink.com/product/389</a></p><p><br/></p>');
+(9, 9, 1, '恭喜多站点CMS入住thinkphp服务市场', '', '', '恭喜多站点CMS入住thinkphp服务市场', '<p>恭喜多站点CMS入住thinkphp服务市场恭喜多站点CMS入住thinkphp服务市场恭喜多站点CMS入住thinkphp服务市场</p><p style=\"white-space: normal;\">恭喜多站点CMS入住thinkphp服务市场</p><p style=\"white-space: normal;\">连接地址：<a href=\"https://market.topthink.com/product/389\" target=\"_blank\">https://market.topthink.com/product/389</a></p><p><br/></p>'),
+(10, 2, 2, 'DZDCMS is a multi site content management system', '', '', 'DZDCMS is a multi site content management system', '<p>DZDCMS is a multi site content management system</p>'),
+(15, 10, 1, '多端支持', '', '', '页面为响应式设计，支持电脑、平板、智能手机等设备，微信浏览器以及各种常见浏览器。', '<p>页面为响应式设计，支持电脑、平板、智能手机等设备，微信浏览器以及各种常见浏览器。</p>'),
+(11, 1, 2, 'DZDCMS', '', '', 'DZDCMS is a multi site content management system', '<p>DZDCMS is a powerful multi site content management system</p>'),
+(12, 9, 2, 'DZDCMS is a powerful multi site content management system', '', '', 'DZDCMS is a powerful multi site content management system', '<p>DZDCMS is a powerful multi site content management system</p>'),
+(13, 8, 2, 'DZDCMS is a powerful multi site content management system', '', '', 'DZDCMS is a powerful multi site content management system', '<p>DZDCMS is a powerful multi site content management system</p>'),
+(14, 7, 2, 'DZDCMS is a powerful multi site content management system', '', '', 'DZDCMS is a powerful multi site content management system', '<p>DZDCMS is a powerful multi site content management system</p>'),
+(16, 11, 1, '长期更新', '', '', '我公司成立于2006年，十多年来一直致力于网站建设、我们的客户也是使用这套系统，长期更新升级，保证让大家使用最安全优化最好的程序！', NULL);
 
 -- --------------------------------------------------------
 
@@ -994,8 +1010,10 @@ CREATE TABLE `yzn_page` (
 --
 
 INSERT INTO `yzn_page` (`id`, `catid`, `site_id`, `title`, `image`, `keywords`, `description`, `content`, `inputtime`, `updatetime`) VALUES
-(1, 7, 1, '公司简介', 0, '', '', '<p>DZDcms多站点内容管理系统是基于yzncms二次开发而来，原系统cms模块只支持一个站，本系统集成了原cms模块的所有功能和优点，衍生为多站点cms，不光可以建中文英文等不限语言数量的多语言网站，还可以建城市分站，集团分站、站群等任何你能想到的站。</p><p>当然了，你要用他来建一个站，那肯定是没有问题的，那天有需要了，直接增加第二个站，第N个站，是非常方便的。<br/></p><p>主站和分站可单独设置域名，二级域名或顶级域名都行、一个站一个域名，还是多个站共用域名，都是可以的，不过不支持二级目录！<br/></p><p>本系统还增加了很多功能，如数据同步功能、这个功能我一提到就兴奋、你知道了也一定会兴奋、那就是在管理分站时可一键同步主站数据、然后修改后就可以发布、如果你比我还懒，导入后不用修改直接发布，哈哈！<br/></p><p>YznCMS(又名御宅男CMS)是基于最新TP5.1x框架和layui2.5x的后台管理系统。创立于2017年初，是一款完全免费开源的项目，他将是您轻松建站的首选利器。框架易于功能扩展，代码维护，方便二次开发，帮助开发者简单高效降低二次开发成本，满足专注业务深度开发的需求。<br/></p><p><br/></p><p>鸣谢：</p><p>yzncms:http://bbs.yzncms.com<br/></p><p>thinkphp:http://www.thinkphp.cn</p><p>layui: http://www.layui.com</p><p>layuimini: http://layuimini.99php.cn</p><p><br/></p>', 0, 0),
-(2, 8, 1, '联系我们', 0, '', '', '<p>QQ：8355763（注明：多站点）</p><p>QQ群：712780220</p><p>手机@微信：13693153699</p>', 0, 0);
+(1, 7, 1, '多站点CMS', 0, '', '', '<p>　　多站点CMS是基于yzncms二次开发而来的多站点内容管理系统，原系统cms模块只支持一个站，本系统继承了原cms模块的所有功能和优点，衍生为多站点cms，本多站点CMS不光可以建中文英文等不限语言数量的多语言网站，还可以建城市分站，集团分站、站群等任何你能想到的站。</p><p><br/></p><p>　　当然了，你要用他来建一个站，那肯定是没有问题的，那天有需要了，直接增加第二个站，第N个站，是非常方便的。<br/></p><p><br/></p><p>　　主站和分站可单独设置域名，二级域名或顶级域名都行、一个站一个域名，还是多个站共用域名，都是可以的，不过不支持二级目录！<br/></p><p>　　</p><p>　　本系统还增加了很多功能，如数据同步功能、这个功能我一提到就兴奋、你知道了也一定会兴奋、那就是在管理分站时可一键同步主站数据、然后修改后就可以发布、如果你比我还懒，导入后不用修改直接发布，哈哈！<br/></p><p><br/></p><p>　　YznCMS(又名御宅男CMS)是基于最新TP5.1x框架和layui2.5x的后台管理系统。创立于2017年初，是一款完全免费开源的项目，他将是您轻松建站的首选利器。框架易于功能扩展，代码维护，方便二次开发，帮助开发者简单高效降低二次开发成本，满足专注业务深度开发的需求。<br/></p><p><br/></p><p>鸣谢：</p><p>yzncms:http://bbs.yzncms.com<br/></p><p>thinkphp:http://www.thinkphp.cn</p><p>layui: http://www.layui.com</p><p>layuimini: http://layuimini.99php.cn</p>', 0, 0),
+(2, 8, 1, '联系我们', 0, '', '', '<p>QQ：8355763（注明：多站点）</p><p>QQ群：712780220</p><p>手机@微信：13693153699</p>', 0, 0),
+(3, 7, 2, 'dzdcms', 0, '', '', '<p style=\"white-space: normal;\">　　多站点CMS是基于yzncms二次开发而来的多站点内容管理系统，原系统cms模块只支持一个站，本系统继承了原cms模块的所有功能和优点，衍生为多站点cms，本多站点CMS不光可以建中文英文等不限语言数量的多语言网站，还可以建城市分站，集团分站、站群等任何你能想到的站。</p><p style=\"white-space: normal;\"><br/></p><p style=\"white-space: normal;\">　　当然了，你要用他来建一个站，那肯定是没有问题的，那天有需要了，直接增加第二个站，第N个站，是非常方便的。<br/></p><p style=\"white-space: normal;\"><br/></p><p style=\"white-space: normal;\">　　主站和分站可单独设置域名，二级域名或顶级域名都行、一个站一个域名，还是多个站共用域名，都是可以的，不过不支持二级目录！<br/></p><p style=\"white-space: normal;\">　　</p><p style=\"white-space: normal;\">　　本系统还增加了很多功能，如数据同步功能、这个功能我一提到就兴奋、你知道了也一定会兴奋、那就是在管理分站时可一键同步主站数据、然后修改后就可以发布、如果你比我还懒，导入后不用修改直接发布，哈哈！<br/></p><p style=\"white-space: normal;\"><br/></p><p style=\"white-space: normal;\">　　YznCMS(又名御宅男CMS)是基于最新TP5.1x框架和layui2.5x的后台管理系统。创立于2017年初，是一款完全免费开源的项目，他将是您轻松建站的首选利器。框架易于功能扩展，代码维护，方便二次开发，帮助开发者简单高效降低二次开发成本，满足专注业务深度开发的需求。<br/></p><p style=\"white-space: normal;\"><br/></p><p style=\"white-space: normal;\">鸣谢：</p><p style=\"white-space: normal;\">yzncms:http://bbs.yzncms.com<br/></p><p style=\"white-space: normal;\">thinkphp:http://www.thinkphp.cn</p><p style=\"white-space: normal;\">layui: http://www.layui.com</p><p style=\"white-space: normal;\">layuimini: http://layuimini.99php.cn</p>', 0, 0),
+(4, 8, 2, 'Contact us', 0, '', '', '<p style=\"white-space: normal;\">QQ：8355763（注明：多站点）</p><p style=\"white-space: normal;\">QQ群：712780220</p><p style=\"white-space: normal;\">手机@微信：13693153699</p>', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1026,9 +1044,9 @@ CREATE TABLE `yzn_photo` (
 --
 
 INSERT INTO `yzn_photo` (`id`, `catid`, `theme`, `url`, `thumb`, `flag`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `inputtime`, `updatetime`, `status`, `images`) VALUES
-(1, 3, '官网模版', '', 3, '', 100, 1, 'admin', 1, 16, 1615842884, 1615856579, 1, ''),
-(2, 3, '官网模版', '', 3, '', 100, 1, 'admin', 1, 12, 1615842928, 1615856590, 1, ''),
-(3, 3, '官网模版', '', 3, '', 100, 1, 'admin', 1, 0, 1615842971, 1615856600, 1, '');
+(1, 3, '官网模版', '', 3, '', 100, 1, 'admin', 1, 25, 1615842884, 1615856579, 1, ''),
+(2, 3, '官网模版', '', 3, '', 100, 1, 'admin', 1, 25, 1615842928, 1615856590, 1, ''),
+(3, 3, '官网模版', '', 3, '', 100, 1, 'admin', 1, 3, 1615842971, 1615856600, 1, '');
 
 -- --------------------------------------------------------
 
@@ -1088,8 +1106,10 @@ CREATE TABLE `yzn_site` (
 --
 
 INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `logo`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `status`, `inputtime`) VALUES
-(1, '中文站', 'zh-cn', 0, 'demo.dzdcms.com', 0, 'default', '', '中文站', '中文站', '中文站', 0, '', NULL, 0, 1, 1, 0),
-(2, 'English', 'zh-cn', 0, 'demo.dzdcms.com', 0, 'defaultsdfsaf', '', 'English', 'English', 'English', 0, '', NULL, 0, 2, 1, 0);
+(1, '中文站', 'zh-cn', 0, 'demo.dzdcms.com', 0, 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 0),
+(2, 'English', 'en-gb', 0, 'demo.dzdcms.com', 0, 'default', '', 'English', 'English', 'English', 0, '', NULL, 0, 2, 1, 0),
+(3, '北京站', 'zh-cn', 0, 'bj.dzdcms.com', 0, 'default', '', '北京站', '北京站', '北京站', 0, '', NULL, 0, 0, 1, 0),
+(4, '上海站', 'zh-cn', 0, 'sh.dzdcms.com', 0, 'default', '', '上海站', '上海站', '上海站', 0, '', NULL, 0, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -1372,7 +1392,7 @@ ALTER TABLE `yzn_adminlog`
 -- 使用表AUTO_INCREMENT `yzn_attachment`
 --
 ALTER TABLE `yzn_attachment`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_auth_group`
@@ -1420,13 +1440,13 @@ ALTER TABLE `yzn_ems`
 -- 使用表AUTO_INCREMENT `yzn_lang`
 --
 ALTER TABLE `yzn_lang`
-  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_INCREMENT=4;
+  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_INCREMENT=5;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_lang_data`
 --
 ALTER TABLE `yzn_lang_data`
-  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_links`
@@ -1456,19 +1476,19 @@ ALTER TABLE `yzn_model_field`
 -- 使用表AUTO_INCREMENT `yzn_news`
 --
 ALTER TABLE `yzn_news`
-  MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '文档ID', AUTO_INCREMENT=10;
+  MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '文档ID', AUTO_INCREMENT=12;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_news_data`
 --
 ALTER TABLE `yzn_news_data`
-  MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自然ID', AUTO_INCREMENT=10;
+  MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自然ID', AUTO_INCREMENT=17;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_page`
 --
 ALTER TABLE `yzn_page`
-  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_photo`
@@ -1486,7 +1506,7 @@ ALTER TABLE `yzn_photo_data`
 -- 使用表AUTO_INCREMENT `yzn_site`
 --
 ALTER TABLE `yzn_site`
-  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '站点ID', AUTO_INCREMENT=3;
+  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '站点ID', AUTO_INCREMENT=5;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_sms`
