@@ -246,11 +246,8 @@ class Index extends Cmsbase
     }
 
     // 搜索
-
     public function search()
-
     {
-
         $siteId = getSiteId();
         $seo = seo('', '搜索结果');
         //模型
@@ -295,7 +292,8 @@ class Index extends Cmsbase
         $shistory = array_slice(array_unique($shistory), 0, 10);
         //加入搜索历史
         cookie("shistory", $shistory);
-        $modellist = cache('Model');
+        //$modellist = cache('Model');
+        $modellist = Db::name('Model')->where('status', 1)->where('module','cms')->select();
         if (!$modellist) {
             return $this->error('没有可搜索模型~');
         }
@@ -319,7 +317,7 @@ class Index extends Cmsbase
             $where = '(' . $where . ') ';
 
             $where .= " AND status='1' $sql_time";
-            $list = $this->Cms_Model->getList($modelid, $where, false, '*', "listorder desc", 10, 1, false, ['query' => ['keyword' => $keyword, 'modelid' => $modelid]]);
+            $list = $this->Cms_Model->getList($modelid, $where, false, '*', $siteId, "listorder desc", 10, 1, false, ['query' => ['keyword' => $keyword, 'modelid' => $modelid]]);
         } else {
             foreach ($modellist as $key => $vo) {
                 //$searchField = Db::name('model_field')->where('modelid', $key)->where('ifsystem', 1)->where('ifsearch', 1)->column('name');
@@ -334,29 +332,19 @@ class Index extends Cmsbase
 
                 $tableName = $this->Cms_Model->getModelTableName($key);
                 $extTable = $tableName .  $this->Cms_Model->ext_table;
-
                 $where .= $extTable . ".`title` like '%$keyword%'";
                 $where = '(' . $where . ') ';
                 $where .= " AND status='1' $sql_time";
-
-                $list = $this->Cms_Model->getList($key, $where, false, '*', 'listorder,id desc', 10, 1, false, ['query' => ['keyword' => $keyword, 'modelid' => $modelid]]);
-
-//                if ($list->isEmpty()) {
-//                    continue;
-//                } else {
-//                    break;
-//                }
-                if (!$list) {
+                $list = $this->Cms_Model->getList($key, $where, false, '*',$siteId, 'listorder desc', 10, 1, false, ['query' => ['keyword' => $keyword, 'modelid' => $modelid]]);
+                if ($list->isEmpty()) {
                     continue;
                 } else {
                     break;
                 }
             }
         }
-
         if ($list) {
-            $count = 0;
-            //$count = $list->total();
+            $count = $list->total();
         } else {
             $count = 0;
         }
@@ -372,7 +360,7 @@ class Index extends Cmsbase
                 'count'       => $count,
                 'modellist'   => $modellist,
                 'search_time' => debug('begin', 'end', 6), //运行时间
-//                'pages'       => $list->render(),
+                'pages'       => $list->render(),
             ]);
         } else {
             $this->assign([
