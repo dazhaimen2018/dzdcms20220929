@@ -367,6 +367,8 @@ a.icon-text > .layui-icon{font-size:14px}
 
 /*上下页*/
 .page-text {margin-bottom: 10px; font-size: 14px; overflow: hidden;padding: 10px 20px}
+.page-text a{color: #666!important;}
+.page-text i{font-size: 14px!important;}
 .page-text .previous {border-right: 1px solid #f3f3f3; }
 .page-text .nav-span {float: left; width: 49%; text-align: center; padding: 10px 20px; white-space: nowrap; word-wrap: normal; text-overflow: ellipsis; overflow: hidden;box-sizing: border-box }
 .page-text .d-block {display: block; }
