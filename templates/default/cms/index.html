@@ -9,7 +9,7 @@
         <div class="layui-row layui-col-space25">
             {yzn module="cms" action="lists" catid="4" siteId="$site_id" cache="3600" order="listorder DESC,inputtime DESC" num="8" return="data"}
             {volist name="data" id="item"}
-            <div class="layui-col-sm6 layui-col-md3">
+            <div class="layui-col-md4 layui-col-sm6">
                 <div class="content" title="{$item.description}">
                     <div class="layui-icon {$item.icon}"><i></i></div>
                     <div class="layui-text">
