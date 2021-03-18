@@ -1,12 +1,16 @@
 # YznCMS1.0.0 后台开发框架
-### 后端基于thinkphp5.1框架,永久免费可商用的后台系统
+### 后端基于thinkphp5.1框架,前端基于Layui2.5.x,是一款【真正意义的永久免费,可商用,可去前台版权】的后台系统
 
-[![YznCMS](https://img.shields.io/badge/license-Apache%202-blue.svg)](http://bbs.yzncms.com/)
-[![YznCMS](https://img.shields.io/badge/YznCMS-1.0.0-brightgreen.svg)](http://bbs.yzncms.com/)
+[![YznCMS](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://gitee.com/ken678/YZNCMS/)
+[![YznCMS](https://img.shields.io/badge/YznCMS-1.0.0-brightgreen.svg)](https://gitee.com/ken678/YZNCMS/)
 [![star](https://gitee.com/ken678/YZNCMS/badge/star.svg?theme=dark)](https://gitee.com/ken678/YZNCMS/stargazers)
 [![fork](https://gitee.com/ken678/YZNCMS/badge/fork.svg?theme=dark)](https://gitee.com/ken678/YZNCMS/members)
 
 ## [模块插件清单]
+
+- 免费模块or插件：和框架一样无任何使用限制，可以商业使用
+- 授权模块or插件：可用于个人或企业自营网站或应用或为客户定制开发，禁止二次转售插件源码
+
 |  名称 | 简介  |类型　　|价格　　|
 |---|---|---|---|
 |cms内容管理|这是一个功能强大的内容管理模块！自定义模块，字段不在话下，支持近二十种类型字段|模块|免费|
@@ -46,8 +50,8 @@
 `YznCMSV1.0(又名御宅男CMS)是基于最新TP5.1x框架和layui2.5x的后台管理系统。创立于2017年初，是一款完全免费开源的项目，他将是您轻松建站的首选利器。框架易于功能扩展，代码维护，方便二次开发，帮助开发者简单高效降低二次开发成本，满足专注业务深度开发的需求。`
 - 手册地址：https://www.kancloud.cn/ken678/yzncms
 - 官方博客：http://blog.yzncms.com/
+- 视频教程：https://www.bilibili.com/video/av417106995 (持续更新中)
 - 演示地址：发送到邮箱【530765310@qq.com】获取演示地址
-- 社区地址：http://bbs.yzncms.com
 - 软件著作权编号：2020SR0038539
 
 ## [环境要求]
@@ -69,9 +73,8 @@
 
 
 ## [必看教程]
-- URL重写： https://www.kancloud.cn/ken678/yzncms/1003231
+- 伪静态(URL重写)： https://www.kancloud.cn/ken678/yzncms/1003231
 - 虚拟主机不支持绑定public的方法： https://www.kancloud.cn/ken678/yzncms/1003254
-
 
 ## [如何授权]
 - 截止2020/6/17 赞助过任意金额(≥1分)的 可以直接获取资格
