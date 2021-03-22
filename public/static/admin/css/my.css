@@ -40,8 +40,7 @@
 
 .layui-form-select .layui-edge:before{content: "\e61a";position: absolute;right: -1px;top: -4px}
 .layui-form-selected .layui-edge{-ms-transform: rotate(-180deg);-moz-transform: rotate(-180deg);-webkit-transform: rotate(-180deg);-o-transform: rotate(-180deg);transform: rotate(-180deg);margin-top: auto}
-.layui-form-select .layui-edge{font-family: layui-icon !important;font-size: 12px;font-weight: 600;font-style: normal;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;overflow: hidden;line-height: normal;border: 0;margin: -3px 0 0 0;padding: 0;width: 10px;height: 6px;top: 50%;display: inline-block;-webkit-transition: all .3s ease;transition: all .3s ease}
-
+.layui-form-select .layui-edge{font-family: layui-icon !important;font-size: 12px;font-weight: 600;font-style: normal;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;overflow: hidden;line-height: normal;border: 0;margin: -3px 0 0 0;padding: 0;width: 10px;height: 6px;top: 50%;display: inline-block;-webkit-transition: all .3s ease;transition: all .3s ease;color: #999;}
 
 .layui-card-body{padding: 5px!important;}
 .LM-main .left-main{padding: 0!important;}
