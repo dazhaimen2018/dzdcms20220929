@@ -208,18 +208,24 @@ body .layui-util-face .layui-layer-content{padding:0;background-color:#fff;box-s
 .product-card:hover .product-cover:after{background-color:rgba(0,0,0,.35)}
 .product-card .product-body{padding:15px 20px;position:relative}
 .product-card .product-body .product-title{color:#333;font-size:20px;font-weight:400;display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;text-align: center}
-.product-card .product-body .product-desc{font-size:14px;margin-top:5px;line-height: 28px;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;}
+.product-card .product-body .product-desc{font-size:14px;margin-top:5px;height:56px;line-height: 28px;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;}
 .product-card .product-body .layui-badge-rim{position:absolute;right:20px;top:22px;color:#ff5722;border-color:#ff5722;padding:0 3px 0 1px;border-radius:0}
 .contact{max-width:850px;margin:0 auto;padding:0 0 50px 0}
 .contact .layui-textarea{min-height:140px}
 .contact .layui-form-item{margin-bottom:25px}
 .contact .layui-form-label{padding-left:0;width:57px}
 .contact .layui-input-block{margin-left:72px}
+.swiper-news-wap{display: none}
+.swiper-news{display:block}
+.swiper-button-prev:after, .swiper-container-rtl .swiper-button-next:after{color: #fff}
+.swiper-button-next:after, .swiper-container-rtl .swiper-button-prev:after{color: #fff}
 @media screen and (max-width:768px){.section-title{padding:25px 0}
     .section-title h2{font-size:24px}
     .section-title p{font-size:16px}
     .section > .layui-container{padding-bottom:35px !important}
     .merit{margin-bottom:0}
+    .swiper-news{display: none}
+    .swiper-news-wap{display: block}
 }
 
 .input-icon-group{position:relative}
@@ -328,8 +334,12 @@ a.icon-text > .layui-icon{font-size:14px}
 
 @media screen and (max-width:768px){
     .inner{width: 100%}
-    #banner #mainTheme h1 {font: italic bold 80px/100% Arial;padding-right: 0px;}
+    #banner #mainTheme h1 {font: italic bold 60px/100% Arial;padding-right: 0px;}
     #banner .item2 h2 {font: normal 20px/200% arial,microsoft yahei;}
+    #banner #mainTheme{padding-top: 100px}
+    #banner .item1 p{font: normal 20px/200% arial,microsoft yahei;}
+
+    .title-article h2{font-weight: 300!important;font-size: 14px;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;}
 }
 
 
@@ -567,8 +577,8 @@ a.icon-text > .layui-icon{font-size:14px}
 
 
 @media screen and (max-width: 768px){
-
-    .shop-nav .product-list{display: none;}
+    .shop-nav .product-list{width: 100%;top: 10px;}
+    .shop-nav .product-list dl dd{margin-top: 8px}
     .shop-temp .temp-hot{padding-top: 30px;}
     .temp-title-cn{margin-bottom: 30px; font-size: 20px;}
     .temp-title-cn span{height: 2px; margin-left: -105px;}
