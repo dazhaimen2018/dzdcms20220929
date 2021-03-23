@@ -62,8 +62,9 @@
                         </dl>
                     </li>
                     <li class="layui-nav-item">
-                        <form name="formsearch" action="{:url('cms/index/search')}">
+                        <form name="formsearch" action="{:url('cms/index/search')}" class="layui-search">
                             <input class="layui-input" type="text" name="keyword" value="请输入关键字" onfocus="if(this.value==defaultValue)this.value=''" onblur="if(this.value=='')this.value=defaultValue">
+                            <button type="submit" class="search-btn layui-btn"><i class="layui-icon layui-icon-search"></i></button>
                         </form>
                     </li>
                 </ul>
