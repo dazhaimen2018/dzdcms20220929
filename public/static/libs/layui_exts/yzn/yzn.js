@@ -31,6 +31,9 @@ layui.define(['layer','notice'], function(exports) {
                 moveOut: true,
                 success: function(layero, index) {
                     var that = this;
+                    $(layero).data("callback", that.callback);
+                    layer.setTop(layero);
+
                     var frame = layer.getChildFrame('body', index);
                     var layerfooter = frame.find(".layer-footer");
                     yzn.layerfooter(layero, index, that);
@@ -287,7 +290,6 @@ layui.define(['layer','notice'], function(exports) {
             }
         },
     }
-
     //把提示修改为弹窗 马博加
     var font = document.getElementsByClassName("layui-form-mid")
     for (var i = 0; i < font.length; i++) {
