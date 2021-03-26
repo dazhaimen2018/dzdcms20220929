@@ -186,6 +186,252 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
             },
         },
         events: {
+            init:function(){
+                // 放大图片
+                $('body').on('click', '[data-image]', function() {
+                    var title = $(this).attr('data-image'),
+                        src = $(this).attr('src'),
+                        alt = $(this).attr('alt');
+                    var photos = {
+                        "title": title,
+                        "id": Math.random(),
+                        "data": [{
+                            "alt": alt,
+                            "pid": Math.random(),
+                            "src": src,
+                            "thumb": src
+                        }]
+                    };
+                    layer.photos({
+                        photos: photos,
+                        anim: 5
+                    });
+                    return false;
+                });
+
+                // 监听动态表格刷新
+                $('body').on('click', '[data-table-refresh]', function() {
+                    var tableId = $(this).attr('data-table-refresh');
+                    if (tableId === undefined || tableId === '' || tableId == null) {
+                        tableId = init.table_render_id;
+                    }
+                    table.reload(tableId);
+                });
+
+                // 列表页批量操作按钮组
+                $('body').on('click', '[data-batch-all]', function() {
+                    var that = $(this),
+                        tableId = that.attr('data-batch-all'),
+                        url = that.attr('data-href');
+                    tableId = tableId || init.table_render_id;
+                    url = url !== undefined ? url : window.location.href;
+                    var checkStatus = table.checkStatus(tableId),
+                        data = checkStatus.data;
+                    if (data.length <= 0) {
+                        yzn.msg.error('请选择要操作的数据');
+                        return false;
+                    }
+                    var ids = [];
+                    $.each(data, function(i, v) {
+                        ids.push(v.id);
+                    });
+                    yzn.msg.confirm('您确定要执行此操作吗？', function() {
+                        yzn.request.post({
+                            url: url,
+                            data: {
+                                ids: ids
+                            },
+                        }, function(res) {
+                            yzn.msg.success(res.msg, function() {
+                                table.reload(tableId);
+                            });
+                        });
+                    });
+                    return false;
+                });
+
+                // 监听请求
+                $('body').on('click', '[data-request]', function() {
+                    var that = $(this);
+                    var title = $(this).data('title'),
+                        url = $(this).data('request'),
+                        tableId = $(this).data('table'),
+                        checkbox = $(this).data('checkbox');
+
+                    var postData = {};
+                    if (checkbox === 'true') {
+                        tableId = tableId || init.table_render_id;
+                        var checkStatus = table.checkStatus(tableId),
+                            data = checkStatus.data;
+                        if (data.length <= 0) {
+                            yzn.msg.error('请勾选需要操作的数据');
+                            return false;
+                        }
+                        var ids = [];
+                        $.each(data, function(i, v) {
+                            ids.push(v.id);
+                        });
+                        postData.id = ids;
+                    }
+
+                    title = title || '确定进行该操作？';
+                    tableId = tableId || init.table_render_id;
+
+                    func = function() {
+                        yzn.request.post({
+                            url: url,
+                            data: postData,
+                        }, function(res) {
+                            yzn.msg.success(res.msg, function() {
+                                tableId && table.reload(tableId);
+                            });
+                        })
+                    }
+                    if (typeof(that.attr('confirm')) == 'undefined') {
+                        func();
+                    } else {
+                        yzn.msg.confirm(title, func);
+                    }
+                    return false;
+                });
+
+                // 监听弹出层的打开
+                $('body').on('click', '[data-open]', function() {
+                    var clienWidth = $(this).attr('data-width'),
+                        clientHeight = $(this).attr('data-height'),
+                        dataFull = $(this).attr('data-full'),
+                        checkbox = $(this).attr('data-checkbox'),
+                        url = $(this).attr('data-open'),
+                        title = $(this).attr("title") || $(this).data("title"),
+                        tableId = $(this).attr('data-table');
+
+                    if (checkbox === 'true') {
+                        tableId = tableId || init.table_render_id;
+                        var checkStatus = table.checkStatus(tableId),
+                            data = checkStatus.data;
+                        if (data.length <= 0) {
+                            yzn.msg.error('请勾选需要操作的数据');
+                            return false;
+                        }
+                        var ids = [];
+                        $.each(data, function(i, v) {
+                            ids.push(v.id);
+                        });
+                        if (url.indexOf("?") === -1) {
+                            url += '?id=' + ids.join(',');
+                        } else {
+                            url += '&id=' + ids.join(',');
+                        }
+                    }
+                    if (clienWidth === undefined || clientHeight === undefined) {
+                        clienWidth = $(window).width() >= 800 ? '800px' : '100%';
+                        clientHeight = $(window).height() >= 600 ? '600px' : '100%';
+
+                    }
+                    if (dataFull === 'true') {
+                        clienWidth = '100%';
+                        clientHeight = '100%';
+                    }
+                    yzn.open(title, url, clienWidth, clientHeight, );
+                });
+
+                //通用状态设置开关
+                form.on('switch(switchStatus)', function(data) {
+                    var that = $(this),
+                        status = 0;
+                    if (!that.attr('data-href')) {
+                        notice.info({ message: '请设置data-href参数' });
+                        return false;
+                    }
+                    if (this.checked) {
+                        status = 1;
+                    }
+                    $.get(that.attr('data-href'), { value: status }, function(res) {
+                        if (res.code === 1) {
+                            notice.success({ message: res.msg });
+                        } else {
+                            notice.error({ message: res.msg });
+                            that.trigger('click');
+                            form.render('checkbox');
+                        }
+                    });
+                });
+                
+                //单行表格删除
+                $(document).on('click', '.layui-tr-del', function() {
+                    var that = $(this),
+                        href = !that.attr('data-href') ? that.attr('href') : that.attr('data-href');
+                    layer.confirm('删除之后无法恢复，您确定要删除吗？', { icon: 3, title: '提示信息' }, function(index) {
+                        if (!href) {
+                            notice.info({ message: '请设置data-href参数' });
+                            return false;
+                        }
+                        $.get(href, function(res) {
+                            if (res.code == 1) {
+                                notice.success({ message: res.msg });
+                                that.parents('tr').remove();
+                            } else {
+                                notice.error({ message: res.msg });
+                            }
+                        });
+                        layer.close(index);
+                    });
+                    return false;
+                });
+
+                /**
+                 * 普通按钮点击iframe弹窗
+                 * @href 弹窗地址
+                 * @title 弹窗标题
+                 * @lay-data {width: '弹窗宽度', height: '弹窗高度', idSync: '是否同步ID', table: '数据表ID(同步ID时必须)', type: '弹窗类型'}
+                 */
+                $(document).on('click', '.layui-iframe', function() {
+                    var that = $(this),
+                        query = '';
+                    var def = { width: '750px', height: '500px', idSync: false, table: 'dataTable', type: 2, url: !that.attr('data-href') ? that.attr('href') : that.attr('data-href'), title: that.attr('title') };
+                    var opt = new Function('return ' + that.attr('lay-data'))() || {};
+
+                    opt.url = opt.url || def.url;
+                    opt.title = opt.title || def.title;
+                    opt.width = opt.width || def.width;
+                    opt.height = opt.height || def.height;
+                    opt.type = opt.type || def.type;
+                    opt.table = opt.table || def.table;
+                    opt.idSync = opt.idSync || def.idSync;
+
+                    if (!opt.url) {
+                        notice.info({ message: '请设置data-href参数' });
+                        return false;
+                    }
+
+                    if (opt.idSync) { // ID 同步
+                        if ($('.checkbox-ids:checked').length <= 0) {
+                            var checkStatus = table.checkStatus(opt.table);
+                            if (checkStatus.data.length <= 0) {
+                                notice.info({ message: '请选择要操作的数据' });
+                                return false;
+                            }
+
+                            for (var i in checkStatus.data) {
+                                query += '&id[]=' + checkStatus.data[i].id;
+                            }
+                        } else {
+                            $('.checkbox-ids:checked').each(function() {
+                                query += '&id[]=' + $(this).val();
+                            })
+                        }
+                    }
+
+                    if (opt.url.indexOf('?') >= 0) {
+                        opt.url += '&iframe=yes' + query;
+                    } else {
+                        opt.url += '?iframe=yes' + query;
+                    }
+
+                    layer.open({ type: opt.type, title: opt.title, content: opt.url, area: [opt.width, opt.height] });
+                    return false;
+                });
+            },
             faselect: function () {
                 // 绑定图片选择组件
                 if ($('.layui-form .fachoose-image').length > 0) {
@@ -363,30 +609,217 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                     })
                 }
             },
-            plupload: function () {
+            selectpage:function(){
+                // 绑定selectpage组件
+                if ($(".layui-form .selectpage").size() > 0) {
+                    layui.define('selectPage', function(exports) {
+                        var selectPage = layui.selectPage;
+                        $('.layui-form .selectpage').selectPage({
+                            eAjaxSuccess: function(data) {
+                                //console.log(data);
+                                data.list = typeof data.data !== 'undefined' ? data.data : [];
+                                data.totalRow = typeof data.count !== 'undefined' ? data.count : data.data.length;
+                                return data;
+                            }
+                        })
+                    })
+                }
+            },
+            citypicker:function(){
+                // 绑定城市选择组件
+                if ($("[data-toggle='city-picker']").size() > 0) {
+                    layui.define('citypicker', function(exports) {
+                        var citypicker = layui.citypicker;
+                    })
+                }
+            },
+            datetimepicker:function(){
+                // 绑定时间组件
+                if ($(".layui-form .datetime").size() > 0) {
+                    layui.define('laydate', function(exports) {
+                        var laydate = layui.laydate;
+                        $(".layui-form .datetime").each(function() {
+                            var format = $(this).attr('data-date'),
+                                type = $(this).attr('data-date-type'),
+                                range = $(this).attr('data-date-range');
+                            if (type === undefined || type === '' || type === null) {
+                                type = 'datetime';
+                            }
+                            var options = {
+                                elem: this,
+                                type: type,
+                                trigger: 'click',
+                            };
+                            if (format !== undefined && format !== '' && format !== null) {
+                                options['format'] = format;
+                            }
+                            if (range !== undefined) {
+                                if (range === null || range === '') {
+                                    range = '-';
+                                }
+                                options['range'] = range;
+                            }
+                            laydate.render(options);
+                        });
+                    })
+                }
+            },
+            tagsinput:function(){
+                // 绑定tags标签组件
+                if ($(".layui-form .form-tags").size() > 0) {
+                    layui.define('tagsinput', function(exports) {
+                        var tagsinput = layui.tagsinput;
+                        $('.form-tags').each(function() {
+                            $(this).tagsInput({
+                                width: 'auto',
+                                defaultText: $(this).data('remark'),
+                                height: '26px',
+                            })
+                        })
+                    })
+                }
+            },
+            colorpicker:function(){
+                // 绑定颜色组件
+                if ($('.layui-form .layui-color-box').length > 0) {
+                    layui.define('colorpicker', function(exports) {
+                        var colorpicker = layui.colorpicker;
+                        $('.layui-color-box').each(function() {
+                            colorpicker.render({
+                                elem: $(this),
+                                color: $('.test-form-input').val(),
+                                done: function(color) {
+                                    $('.test-form-input').val(color);
+                                }
+                            });
+                        });
+                    })
+                }
+            },
+            ueditor:function(){
+                // ueditor编辑器集合
+                var ueditors = {};
+                // 绑定ueditor编辑器组件
+                if ($(".layui-form .js-ueditor").size() > 0) {
+                    layui.define('ueditor', function(exports) {
+                        var ueditor = layui.ueditor;
+                        $('.layui-form .js-ueditor').each(function() {
+                            var ueditor_name = $(this).attr('id');
+                            ueditors[ueditor_name] = UE.getEditor(ueditor_name, {
+                                initialFrameWidth: '100%',
+                                initialFrameHeight: 400, //初始化编辑器高度,默认320
+                                autoHeightEnabled: false, //是否自动长高
+                                maximumWords: 50000, //允许的最大字符数
+                                serverUrl: GV.ueditor_upload_url,
+                            });
+                            $('#' + ueditor_name + 'grabimg').click(function() {
+                                var con = ueditors[ueditor_name].getContent();
+                                $.post(GV.ueditor_grabimg_url, { 'content': con, 'type': 'images' },
+                                    function(data) {
+                                        ueditors[ueditor_name].setContent(data);
+                                        layer.msg("图片本地化完成");
+                                    }, 'html');
+                            });
+                            //分词检测
+                            if (ueditor_name == 'content') {
+                                $('#getwords').click(function() {
+                                    var con = ueditors['content'].getContentTxt();
+                                    $.post(GV.ueditor_getwords_url, { 'content': con },
+                                        function(data) {
+                                            if (data.code == 0) {
+                                                $(".tags-keywords").importTags(data.arr);
+                                                //$(".tags-keywords").val(data.arr);
+                                            } else {
+                                                layer.msg(data.msg, { icon: 2 });
+                                            }
+                                        });
+                                });
+                            }
+                            //过滤敏感字
+                            $('#' + ueditor_name + 'filterword').click(function() {
+                                var con = ueditors[ueditor_name].getContent();
+                                $.post(GV.filter_word_url, { 'content': con }).success(function(res) {
+                                    if (res.code == 0) {
+                                        if ($.isArray(res.data)) {
+                                            layer.msg("违禁词：" + res.data.join(","), { icon: 2 });
+                                        }
+                                    } else {
+                                        layer.msg("内容没有违禁词！", { icon: 1 });
+                                    }
+                                })
+                            })
+                        });
+                    })
+                }
+            },
+            cropper:function(){
+                //裁剪图片
+                $(document).on('click', '.cropper', function() {
+                    var inputId = $(this).attr("data-input-id");
+                    var image = $(this).closest(".thumbnail").children('img').data('original');
+                    var dataId = $(this).data("id");
+                    var index = layer.open({
+                        type: 2,
+                        shadeClose: true,
+                        shade: false,
+                        area: ['880px', '620px'],
+                        title: '图片裁剪',
+                        content: GV.jcrop_upload_url + '?url=' + image,
+                        success: function(layero, index) {
+                            $(layero).data("arr", [inputId, dataId]);
+                        }
+                    });
+                });
+            },
+            xmSelect:function(){
+                // 绑定下拉框多选组件
+                if ($('.layui-form .form-selects').length > 0) {
+                    layui.define('xmSelect', function(exports) {
+                        var xmselect = layui.xmSelect;
+                        $('.layui-form .form-selects').each(function() {
+                            var name = $(this).data("name");
+                            var list = $(this).data("list");
+                            var value = $(this).data("value");
+
+                            var newArr = [];
+                            $.each(list, function(i, j) {
+                                var vote = {};
+                                vote.value = i;
+                                vote.name = j;
+                                newArr.push(vote);
+                            })
+                            xmSelect.render({
+                                el: document.querySelector('.form-selects'),
+                                initValue: value !== "" ? value.split(',') : [],
+                                name: name,
+                                data: newArr
+                            })
+                        })
+                    })
+                }
+            },
+            upload_image: function (elements, onUploadSuccess, onUploadError) {
+                elements = typeof elements === 'undefined' ? document.body : elements;
                 // 绑定图片上传组件
-                if ($('.js-upload-image,.js-upload-images').length > 0) {
+                if ($(elements).length > 0) {
                     layui.define('webuploader', function(exports) {
                         var webuploader = layui.webuploader;
-                        $('.js-upload-image,.js-upload-images').each(function() {
+                        $(elements).each(function() {
                             if ($(this).attr("initialized")) {
                                return true;
                             }
                             $(this).attr("initialized", true);
+                            var that = this;
                             var $input_file = $(this).find('input');
                             var $input_file_name = $input_file.attr('id');
                             // 图片列表
                             var $file_list = $('#file_list_' + $input_file_name);
-                            // 缩略图参数
-                            var $thumb = $input_file.data('thumb');
-                            // 水印参数
-                            var $watermark = $input_file.data('watermark');
                             // 是否多图片上传
                             var $multiple = $input_file.data('multiple');
                             // 允许上传的后缀
-                            var $ext = $input_file.data('ext');
+                            var $ext = GV.site.upload_image_ext;
                             // 图片限制大小
-                            var $size = $input_file.data('size') * 1024;
+                            var $size = GV.site.upload_image_size*1024;
                             // 优化retina, 在retina下这个值是2
                             var ratio = window.devicePixelRatio || 1;
                             // 缩略图大小
@@ -416,8 +849,8 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                                 },
                                 // 自定义参数
                                 formData: {
-                                    thumb: $thumb,
-                                    watermark: $watermark
+                                    thumb: GV.site.upload_thumb_water,
+                                    watermark: GV.site.upload_thumb_water_pic
                                 }
 
                             })
@@ -488,6 +921,11 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                                 $li.find('img').attr('data-original', response.path).addClass($input_file_name + '-' + response.id);
                                 $li.find('.file-panel .cropper').attr('data-input-id', response.id).attr('data-id', $input_file_name);
                                 $li.find('.file-panel .remove-picture').attr('data-id', response.id);
+                                if (typeof onUploadSuccess === 'function') {
+                                    var result = onUploadSuccess.call(file, response);
+                                    if (result === false)
+                                        return;
+                                }
                             });
 
                             // 文件上传失败，显示上传出错。
@@ -563,24 +1001,27 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                         });
                     })
                 }
-
+            },
+            upload_file: function (elements, onUploadSuccess, onUploadError) {
+                elements = typeof elements === 'undefined' ? document.body : elements;
                 // 绑定文件上传组件
-                if ($('.js-upload-file,.js-upload-files').length > 0) {
+                if ($(elements).length > 0) {
                     layui.define('webuploader', function(exports) {
                         var webuploader = layui.webuploader;
-                        $('.js-upload-file,.js-upload-files').each(function() {
+                        $(elements).each(function() {
                             if ($(this).attr("initialized")) {
                                return true;
                             }
                             $(this).attr("initialized", true);
+                            var that = this;
                             var $input_file = $(this).find('input');
                             var $input_file_name = $input_file.attr('id');
                             // 是否多文件上传
                             var $multiple = $input_file.data('multiple');
                             // 允许上传的后缀
-                            var $ext = $input_file.data('ext');
-                            // 文件限制大小
-                            var $size = $input_file.data('size') * 1024;
+                            var $ext = GV.site.upload_image_ext;
+                            // 图片限制大小
+                            var $size = GV.site.upload_image_size*1024;
                             // 文件列表
                             var $file_list = $('#file_list_' + $input_file_name);
                             // 实例化上传
@@ -646,6 +1087,11 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                                 $li.find('.file-state').html('<span class="text-' + response.class + '">' + response.info + '</span>');
                                 // 添加下载链接
                                 $li.find('.download-file').attr('href', response.path);
+                                if (typeof onUploadSuccess === 'function') {
+                                    var result = onUploadSuccess.call(file, response);
+                                    if (result === false)
+                                        return;
+                                }
                             });
 
                             // 文件上传过程中创建进度条实时显示。
@@ -700,9 +1146,19 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
         },
         bindevent: function () {
             var events = yznForm.events;
+            events.init();
+            events.selectpage();
             events.faselect();
             events.fieldlist();
-            events.plupload();
+            events.citypicker();
+            events.datetimepicker();
+            events.tagsinput();
+            events.colorpicker();
+            events.ueditor();
+            events.cropper();
+            events.xmSelect();
+            events.upload_image('.js-upload-image,.js-upload-images');
+            events.upload_file('.js-upload-file,.js-upload-files');
         }
     }
     yznForm.bindevent();
@@ -715,439 +1171,6 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
     if ($(".layer-footer").size() > 0 && self === top) {
         $(".layer-footer").show();
     }
-
-    // 放大图片
-    $('body').on('click', '[data-image]', function() {
-        var title = $(this).attr('data-image'),
-            src = $(this).attr('src'),
-            alt = $(this).attr('alt');
-        var photos = {
-            "title": title,
-            "id": Math.random(),
-            "data": [{
-                "alt": alt,
-                "pid": Math.random(),
-                "src": src,
-                "thumb": src
-            }]
-        };
-        layer.photos({
-            photos: photos,
-            anim: 5
-        });
-        return false;
-    });
-
-    // 绑定tags标签组件
-    if ($(".layui-form .form-tags").size() > 0) {
-        layui.define('tagsinput', function(exports) {
-            var tagsinput = layui.tagsinput;
-            $('.form-tags').each(function() {
-                $(this).tagsInput({
-                    width: 'auto',
-                    defaultText: $(this).data('remark'),
-                    height: '26px',
-                })
-            })
-        })
-    }
-
-    // 绑定城市选择组件
-    if ($("[data-toggle='city-picker']").size() > 0) {
-        layui.define('citypicker', function(exports) {
-            var citypicker = layui.citypicker;
-        })
-    }
-
-    // 绑定时间组件
-    if ($(".layui-form .datetime").size() > 0) {
-        layui.define('laydate', function(exports) {
-            var laydate = layui.laydate;
-            $(".layui-form .datetime").each(function() {
-                var format = $(this).attr('data-date'),
-                    type = $(this).attr('data-date-type'),
-                    range = $(this).attr('data-date-range');
-                if (type === undefined || type === '' || type === null) {
-                    type = 'datetime';
-                }
-                var options = {
-                    elem: this,
-                    type: type,
-                    trigger: 'click',
-                };
-                if (format !== undefined && format !== '' && format !== null) {
-                    options['format'] = format;
-                }
-                if (range !== undefined) {
-                    if (range === null || range === '') {
-                        range = '-';
-                    }
-                    options['range'] = range;
-                }
-                laydate.render(options);
-            });
-        })
-    }
-
-    // 绑定selectpage组件
-    if ($(".layui-form .selectpage").size() > 0) {
-        layui.define('selectPage', function(exports) {
-            var selectPage = layui.selectPage;
-            $('.layui-form .selectpage').selectPage({
-                eAjaxSuccess: function(data) {
-                    //console.log(data);
-                    data.list = typeof data.data !== 'undefined' ? data.data : [];
-                    data.totalRow = typeof data.count !== 'undefined' ? data.count : data.data.length;
-                    return data;
-                }
-            })
-        })
-    }
-
-    // 绑定下拉框多选组件
-    if ($('.layui-form .form-selects').length > 0) {
-        layui.define('xmSelect', function(exports) {
-            var xmselect = layui.xmSelect;
-            $('.layui-form .form-selects').each(function() {
-                var name = $(this).data("name");
-                var list = $(this).data("list");
-                var value = $(this).data("value");
-
-                var newArr = [];
-                $.each(list, function(i, j) {
-                    var vote = {};
-                    vote.value = i;
-                    vote.name = j;
-                    newArr.push(vote);
-                })
-                console.log(newArr);
-                xmSelect.render({
-                    el: document.querySelector('.form-selects'),
-                    initValue: value !== "" ? value.split(',') : [],
-                    name: name,
-                    data: newArr
-                })
-            })
-        })
-    }
-
-    // 绑定颜色组件
-    if ($('.layui-form .layui-color-box').length > 0) {
-        layui.define('colorpicker', function(exports) {
-            var colorpicker = layui.colorpicker;
-            $('.layui-color-box').each(function() {
-                colorpicker.render({
-                    elem: $(this),
-                    color: $('.test-form-input').val(),
-                    done: function(color) {
-                        $('.test-form-input').val(color);
-                    }
-                });
-            });
-        })
-    }
-
-    // ueditor编辑器集合
-    var ueditors = {};
-    // 绑定ueditor编辑器组件
-    if ($(".layui-form .js-ueditor").size() > 0) {
-        layui.define('ueditor', function(exports) {
-            var ueditor = layui.ueditor;
-            $('.layui-form .js-ueditor').each(function() {
-                var ueditor_name = $(this).attr('id');
-                ueditors[ueditor_name] = UE.getEditor(ueditor_name, {
-                    initialFrameWidth: '100%',
-                    initialFrameHeight: 400, //初始化编辑器高度,默认320
-                    autoHeightEnabled: false, //是否自动长高
-                    maximumWords: 50000, //允许的最大字符数
-                    serverUrl: GV.ueditor_upload_url,
-                });
-                $('#' + ueditor_name + 'grabimg').click(function() {
-                    var con = ueditors[ueditor_name].getContent();
-                    $.post(GV.ueditor_grabimg_url, { 'content': con, 'type': 'images' },
-                        function(data) {
-                            ueditors[ueditor_name].setContent(data);
-                            layer.msg("图片本地化完成");
-                        }, 'html');
-                });
-                //分词检测
-                if (ueditor_name == 'content') {
-                    $('#getwords').click(function() {
-                        var con = ueditors['content'].getContentTxt();
-                        $.post(GV.ueditor_getwords_url, { 'content': con },
-                            function(data) {
-                                if (data.code == 0) {
-                                    $(".tags-keywords").importTags(data.arr);
-                                    //$(".tags-keywords").val(data.arr);
-                                } else {
-                                    layer.msg(data.msg, { icon: 2 });
-                                }
-                            });
-                    });
-                }
-                //过滤敏感字
-                $('#' + ueditor_name + 'filterword').click(function() {
-                    var con = ueditors[ueditor_name].getContent();
-                    $.post(GV.filter_word_url, { 'content': con }).success(function(res) {
-                        if (res.code == 0) {
-                            if ($.isArray(res.data)) {
-                                layer.msg("违禁词：" + res.data.join(","), { icon: 2 });
-                            }
-                        } else {
-                            layer.msg("内容没有违禁词！", { icon: 1 });
-                        }
-                    })
-                })
-            });
-        })
-    }
-
-    //裁剪图片
-    $(document).on('click', '.cropper', function() {
-        var inputId = $(this).attr("data-input-id");
-        var image = $(this).closest(".thumbnail").children('img').data('original');
-
-        var dataId = $(this).data("id");
-        var index = layer.open({
-            type: 2,
-            shadeClose: true,
-            shade: false,
-            area: ['880px', '620px'],
-            title: '图片裁剪',
-            content: GV.jcrop_upload_url + '?url=' + image,
-            success: function(layero, index) {
-                $(layero).data("arr", [inputId, dataId]);
-            }
-        });
-
-    });
-
-
-    // 监听动态表格刷新
-    $('body').on('click', '[data-table-refresh]', function() {
-        var tableId = $(this).attr('data-table-refresh');
-        if (tableId === undefined || tableId === '' || tableId == null) {
-            tableId = init.table_render_id;
-        }
-        table.reload(tableId);
-    });
-
-    // 监听请求
-    $('body').on('click', '[data-request]', function() {
-        var that = $(this);
-        var title = $(this).data('title'),
-            url = $(this).data('request'),
-            tableId = $(this).data('table'),
-            checkbox = $(this).data('checkbox');
-
-        var postData = {};
-        if (checkbox === 'true') {
-            tableId = tableId || init.table_render_id;
-            var checkStatus = table.checkStatus(tableId),
-                data = checkStatus.data;
-            if (data.length <= 0) {
-                yzn.msg.error('请勾选需要操作的数据');
-                return false;
-            }
-            var ids = [];
-            $.each(data, function(i, v) {
-                ids.push(v.id);
-            });
-            postData.id = ids;
-        }
-
-        title = title || '确定进行该操作？';
-        tableId = tableId || init.table_render_id;
-
-        func = function() {
-            yzn.request.post({
-                url: url,
-                data: postData,
-            }, function(res) {
-                yzn.msg.success(res.msg, function() {
-                    tableId && table.reload(tableId);
-                });
-            })
-        }
-        if (typeof(that.attr('confirm')) == 'undefined') {
-            func();
-        } else {
-            yzn.msg.confirm(title, func);
-        }
-        return false;
-    });
-
-    // 列表页批量操作按钮组
-    $('body').on('click', '[data-batch-all]', function() {
-        var that = $(this),
-            tableId = that.attr('data-batch-all'),
-            url = that.attr('data-href');
-        tableId = tableId || init.table_render_id;
-        url = url !== undefined ? url : window.location.href;
-        var checkStatus = table.checkStatus(tableId),
-            data = checkStatus.data;
-        if (data.length <= 0) {
-            yzn.msg.error('请选择要操作的数据');
-            return false;
-        }
-        var ids = [];
-        $.each(data, function(i, v) {
-            ids.push(v.id);
-        });
-        yzn.msg.confirm('您确定要执行此操作吗？', function() {
-            yzn.request.post({
-                url: url,
-                data: {
-                    ids: ids
-                },
-            }, function(res) {
-                yzn.msg.success(res.msg, function() {
-                    table.reload(tableId);
-                });
-            });
-        });
-        return false;
-    });
-
-    // 监听弹出层的打开
-    $('body').on('click', '[data-open]', function() {
-        var clienWidth = $(this).attr('data-width'),
-            clientHeight = $(this).attr('data-height'),
-            dataFull = $(this).attr('data-full'),
-            checkbox = $(this).attr('data-checkbox'),
-            url = $(this).attr('data-open'),
-            title = $(this).attr("title") || $(this).data("title"),
-            tableId = $(this).attr('data-table');
-
-        if (checkbox === 'true') {
-            tableId = tableId || init.table_render_id;
-            var checkStatus = table.checkStatus(tableId),
-                data = checkStatus.data;
-            if (data.length <= 0) {
-                yzn.msg.error('请勾选需要操作的数据');
-                return false;
-            }
-            var ids = [];
-            $.each(data, function(i, v) {
-                ids.push(v.id);
-            });
-            if (url.indexOf("?") === -1) {
-                url += '?id=' + ids.join(',');
-            } else {
-                url += '&id=' + ids.join(',');
-            }
-        }
-        if (clienWidth === undefined || clientHeight === undefined) {
-            clienWidth = $(window).width() >= 800 ? '800px' : '100%';
-            clientHeight = $(window).height() >= 600 ? '600px' : '100%';
-
-        }
-        if (dataFull === 'true') {
-            clienWidth = '100%';
-            clientHeight = '100%';
-        }
-        yzn.open(title, url, clienWidth, clientHeight, );
-    });
-
-    /**
-     * 通用状态设置开关
-     * @attr data-href 请求地址
-     */
-    form.on('switch(switchStatus)', function(data) {
-        var that = $(this),
-            status = 0;
-        if (!that.attr('data-href')) {
-            notice.info({ message: '请设置data-href参数' });
-            return false;
-        }
-        if (this.checked) {
-            status = 1;
-        }
-        $.get(that.attr('data-href'), { value: status }, function(res) {
-            if (res.code === 1) {
-                notice.success({ message: res.msg });
-            } else {
-                notice.error({ message: res.msg });
-                that.trigger('click');
-                form.render('checkbox');
-            }
-        });
-    });
-
-    $(document).on('click', '.layui-tr-del', function() {
-        var that = $(this),
-            href = !that.attr('data-href') ? that.attr('href') : that.attr('data-href');
-        layer.confirm('删除之后无法恢复，您确定要删除吗？', { icon: 3, title: '提示信息' }, function(index) {
-            if (!href) {
-                notice.info({ message: '请设置data-href参数' });
-                return false;
-            }
-            $.get(href, function(res) {
-                if (res.code == 1) {
-                    notice.success({ message: res.msg });
-                    that.parents('tr').remove();
-                } else {
-                    notice.error({ message: res.msg });
-                }
-            });
-            layer.close(index);
-        });
-        return false;
-    });
-
-    /**
-     * 普通按钮点击iframe弹窗
-     * @href 弹窗地址
-     * @title 弹窗标题
-     * @lay-data {width: '弹窗宽度', height: '弹窗高度', idSync: '是否同步ID', table: '数据表ID(同步ID时必须)', type: '弹窗类型'}
-     */
-    $(document).on('click', '.layui-iframe', function() {
-        var that = $(this),
-            query = '';
-        var def = { width: '750px', height: '500px', idSync: false, table: 'dataTable', type: 2, url: !that.attr('data-href') ? that.attr('href') : that.attr('data-href'), title: that.attr('title') };
-        var opt = new Function('return ' + that.attr('lay-data'))() || {};
-
-        opt.url = opt.url || def.url;
-        opt.title = opt.title || def.title;
-        opt.width = opt.width || def.width;
-        opt.height = opt.height || def.height;
-        opt.type = opt.type || def.type;
-        opt.table = opt.table || def.table;
-        opt.idSync = opt.idSync || def.idSync;
-
-        if (!opt.url) {
-            notice.info({ message: '请设置data-href参数' });
-            return false;
-        }
-
-        if (opt.idSync) { // ID 同步
-            if ($('.checkbox-ids:checked').length <= 0) {
-                var checkStatus = table.checkStatus(opt.table);
-                if (checkStatus.data.length <= 0) {
-                    notice.info({ message: '请选择要操作的数据' });
-                    return false;
-                }
-
-                for (var i in checkStatus.data) {
-                    query += '&id[]=' + checkStatus.data[i].id;
-                }
-            } else {
-                $('.checkbox-ids:checked').each(function() {
-                    query += '&id[]=' + $(this).val();
-                })
-            }
-        }
-
-        if (opt.url.indexOf('?') >= 0) {
-            opt.url += '&iframe=yes' + query;
-        } else {
-            opt.url += '?iframe=yes' + query;
-        }
-
-        layer.open({ type: opt.type, title: opt.title, content: opt.url, area: [opt.width, opt.height] });
-        return false;
-    });
-
 
     /**
      * 监听表单提交

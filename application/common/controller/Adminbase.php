@@ -109,12 +109,21 @@ class Adminbase extends Base
             $siteId = intval($_GET['site_id']);
             setSiteId($siteId);
         }
-//        if (getSiteId()) {
-//            $siteId = getSiteId();
-//        }
+
         $this->siteId = $siteId;
         $this->view->assign('siteId', $siteId);
         // 20200620 马博 end
+
+        $config = \think\facade\config::get('app.');
+        $site   = [
+            'upload_thumb_water'     => $config['upload_thumb_water'],
+            'upload_thumb_water_pic' => $config['upload_thumb_water_pic'],
+            'upload_image_size'      => $config['upload_image_size'],
+            'upload_file_size'       => $config['upload_file_size'],
+            'upload_image_ext'       => $config['upload_image_ext'],
+            'upload_file_ext'        => $config['upload_file_ext'],
+        ];
+        $this->assign('site', $site);
     }
 
     public function match($arr = [])
