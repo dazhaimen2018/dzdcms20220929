@@ -73,8 +73,6 @@ class Category extends Adminbase
                     $v['add_url'] = url("Category/singlepage", array("parentid" => $v['id']));
                 } elseif ($v['type'] == 2) {
                     $v['add_url'] = url("Category/add", array("parentid" => $v['id']));
-                } elseif ($v['type'] == 3) {
-                    $v['add_url'] = url("Category/wadd", array("parentid" => $v['id']));
                 }
                 $v['url']            = buildCatUrl($v['id'], $v['url']);
                 $categorys[$v['id']] = $v;
@@ -94,8 +92,7 @@ class Category extends Adminbase
         if ($this->request->isPost()) {
             $data = $this->request->post();
             if (empty($data)) {
-                $this->error = '添加栏目数据不能为空！';
-                return false;
+                $this->error('添加栏目数据不能为空！');
             }
             switch ($data['type']) {
                 //单页
@@ -153,7 +150,6 @@ class Category extends Adminbase
                 if (true !== $result) {
                     $this->error($result);
                 }
-                //20200518 ethan update: $res should be a string, not arrays.
                 $catid = $this->modelClass->addCategory($data, $fields);
                 if ($catid) {
                     if (isModuleInstall('member')) {
@@ -197,23 +193,21 @@ class Category extends Adminbase
             } else {
                 $categorydata = '';
             }
-
-            $this->assign("tp_category", $this->tp_category);
-            $this->assign("tp_list", $this->tp_list);
-            $this->assign("tp_show", $this->tp_show);
-            $this->assign("tp_page", $this->tp_page);
-
-            $this->assign('parentid_modelid', isset($Ca['modelid']) ? $Ca['modelid'] : 0);
+            $site = Site::select()->toArray();
+            $this->assign([
+                'site'             => $site,
+                'category'         => $categorydata,
+                'models'           => $models,
+                'tp_category'      => $this->tp_category,
+                'tp_list'          => $this->tp_list,
+                'tp_show'          => $this->tp_show,
+                'tp_page'          => $this->tp_page,
+                'parentid_modelid' => isset($Ca['modelid']) ? $Ca['modelid'] : 0,
+            ]);
             if (isModuleInstall('member')) {
                 //会员组
                 $this->assign("Member_Group", cache("Member_Group"));
             }
-            $this->assign("category", $categorydata);
-            $this->assign("models", $models);
-            // 20200805 马博添加
-            $site = Site::select()->toArray();
-            $this->view->assign('site', $site);
-            // 20200805 马博添加 end
             return $this->fetch();
 
         }
@@ -367,26 +361,24 @@ class Category extends Adminbase
                     $ret[$k]['site_id'] = $s['id'];
                 }
             }
-            //halt($ret);
-            $this->assign("category_data", $ret);
-            // 20200805 马博 end
-            $this->assign("tp_category", $this->tp_category);
-            $this->assign("tp_list", $this->tp_list);
-            $this->assign("tp_show", $this->tp_show);
-            $this->assign("tp_page", $this->tp_page);
-            $this->assign("data", $data);
-            $this->assign("setting", $setting);
-            $this->assign("category", $categorydata);
-            $this->assign("models", $models);
-            // 20200805 马博
-            $this->view->assign('site', $site);
+            $this->assign([
+                'category_data' => $ret,
+                'site'        => $site,
+                'data'        => $data,
+                'setting'     => $setting,
+                'category'    => $categorydata,
+                'models'      => $models,
+                'tp_category' => $this->tp_category,
+                'tp_list'     => $this->tp_list,
+                'tp_show'     => $this->tp_show,
+                'tp_page'     => $this->tp_page,
+                'privs'       => model("cms/CategoryPriv")->where('catid', $catid)->select(),
+            ]);
             // 20200805 马博 end
             if (isModuleInstall('member')) {
                 //会员组
                 $this->assign("Member_Group", cache("Member_Group"));
             }
-            //权限数据
-            $this->assign("privs", model("cms/CategoryPriv")->where(array('catid' => $catid))->select());
             if ($data['type'] == 1) {
                 //单页栏目
                 return $this->fetch("singlepage_edit");
@@ -507,8 +499,7 @@ class Category extends Adminbase
             foreach ($category_priv as $k => $v) {
                 $priv_num[$v['roleid']] = $v['num'];
             }
-            $AuthGroupModel = new \app\admin\model\AuthGroup();
-            $_list          = Db::view('Admin', 'username')->view('AuthGroup', 'id,title', 'AuthGroup.id=Admin.roleid')->order('id', 'desc')->select();
+            $_list = Db::name('AuthGroup')->where('status', 1)->order('id', 'desc')->field('id,title')->select();
             foreach ($_list as $k => $v) {
                 $_list[$k]['admin'] = $v['id'] == 1 ? true : false;
                 $_list[$k]['num']   = isset($priv_num[$v['id']]) ? $priv_num[$v['id']] : 0;
@@ -541,7 +532,7 @@ class Category extends Adminbase
     private function repair()
     {
         //取出需要处理的栏目数据
-        $categorys = Db::name('Category')->order('listorder ASC, id ASC')->column('*','id');
+        $categorys = Db::name('Category')->order('listorder ASC, id ASC')->column('*', 'id');
         if (empty($categorys)) {
             return true;
         }
@@ -556,7 +547,7 @@ class Category extends Adminbase
                 $child      = is_numeric($arrchildid) ? 0 : 1; //是否有子栏目
                 //检查所有父id 子栏目id 等相关数据是否正确，不正确更新
                 if ($categorys[$catid]['arrparentid'] !== $arrparentid || $categorys[$catid]['arrchildid'] !== $arrchildid || $categorys[$catid]['child'] !== $child) {
-                    Db::name('Category')->where('id',$catid)->update(['arrparentid' => $arrparentid, 'arrchildid' => $arrchildid, 'child' => $child]);
+                    Db::name('Category')->where('id', $catid)->update(['arrparentid' => $arrparentid, 'arrchildid' => $arrchildid, 'child' => $child]);
                 }
                 \think\facade\Cache::rm('getCategory_' . $catid, null);
                 //删除在非正常显示的栏目
