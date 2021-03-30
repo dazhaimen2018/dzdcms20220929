@@ -24,8 +24,7 @@ class Setting extends Adminbase
     public function index()
     {
         if ($this->request->isPost()) {
-            $setting = $this->request->param('setting/a');
-            $setting['web_site_status'] = isset($setting['web_site_status']) ? intval($setting['web_site_status']) : 0;
+            $setting         = $this->request->param('setting/a');
             $data['setting'] = serialize($setting);
             if (Module_Model::update($data, ['module' => 'cms'])) {
                 cache('Cms_Config', null);
@@ -34,7 +33,7 @@ class Setting extends Adminbase
                 $this->success("更新失败！");
             }
         } else {
-            $setting = Module_Model::where(['module' => 'cms'])->value("setting");
+            $setting = Module_Model::where('module', 'cms')->value("setting");
             $siteArray = Site::select()->toArray();
             $this->assign('siteArray', $siteArray);
             $this->assign("setting", unserialize($setting));
