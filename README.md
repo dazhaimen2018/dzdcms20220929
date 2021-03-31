@@ -1,5 +1,5 @@
-# YznCMS1.0.0 后台开发框架
-### 后端基于thinkphp5.1框架,前端基于Layui2.5.x,是一款【真正意义的永久免费,可商用,可去前台版权】的后台系统
+# YznCMS 后台开发框架
+### 后端基于thinkphp5.1框架,前端基于Layui2.6.x,是一款【真正意义的永久免费,可商用,可去前台版权】的后台系统
 
 [![YznCMS](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://gitee.com/ken678/YZNCMS/)
 [![YznCMS](https://img.shields.io/badge/YznCMS-1.0.0-brightgreen.svg)](https://gitee.com/ken678/YZNCMS/)
@@ -10,6 +10,7 @@
 
 - 免费模块or插件：和框架一样无任何使用限制，可以商业使用
 - 授权模块or插件：可用于个人或企业自营网站或应用或为客户定制开发，禁止二次转售插件源码
+- 授权说明：一经授权，后续所有由官方开发的模块和插件均可永久免费下载和更新
 
 |  名称 | 简介  |类型　　|价格　　|
 |---|---|---|---|
@@ -47,7 +48,7 @@
 |百度收录查询|查询文章是否被百度收录|插件|授权|
 
 ## [项目介绍]
-`YznCMSV1.0(又名御宅男CMS)是基于最新TP5.1x框架和layui2.5x的后台管理系统。创立于2017年初，是一款完全免费开源的项目，他将是您轻松建站的首选利器。框架易于功能扩展，代码维护，方便二次开发，帮助开发者简单高效降低二次开发成本，满足专注业务深度开发的需求。`
+YznCMS(又名御宅男CMS)是基于最新TP5.1x框架和layui2.5x的后台管理系统。创立于2017年初，是一款完全免费开源的项目，他将是您轻松建站的首选利器。框架易于功能扩展，代码维护，方便二次开发，帮助开发者简单高效降低二次开发成本，满足专注业务深度开发的需求。
 - 手册地址：https://www.kancloud.cn/ken678/yzncms
 - 官方博客：http://blog.yzncms.com/
 - 视频教程：https://www.bilibili.com/video/av417106995 (持续更新中)
@@ -60,15 +61,13 @@
 - PHP版本：php >= 7.0
 - 数据库：MySQL >= 5.0
 
-## [空间要求]
-- 服务器需支持将域名绑定public目录
-- 如果您的服务器不支持绑定目录（也就是你需要二级目录安装） 请查看public目录下的index.php入口文件 有详细具体操作
-
 
 ## [安装教程]
-- 第一步：修改数据库配置（[在源代码根目录/config/database.php](https://gitee.com/ken678/YZNCMS/blob/master/config/database.php)） 
-- 第二步：将根目录的[yzncms.sql](https://gitee.com/ken678/YZNCMS/blob/master/yzncms.sql)文件导入数据库即可  
-- 第三步：后台入口 http://您的域名/admin 默认账号密码 （超级管理员：admin admin)
+- 第一步：下载源码压缩包解压到你的项目根目录
+- 第二步：绑定到项目中的public目录为运行目录，ps:如果您的服务器不支持绑定目录，请查看public目录下的index.php入口文件代码注释，有详细具体操作
+- 第三步：修改数据库配置（[在源代码根目录/config/database.php](https://gitee.com/ken678/YZNCMS/blob/master/config/database.php)） 
+- 第四步：将根目录的[yzncms.sql](https://gitee.com/ken678/YZNCMS/blob/master/yzncms.sql)文件导入数据库即可  
+- 第五步：后台入口 http://您的域名/admin 默认账号密码 （超级管理员：admin admin)
 - 如果你还是不会搭建，可以将FTP或者服务器等信息发送给邮箱530765310@qq.com进行免费搭建（仅限点赞用户）
 
 
@@ -79,7 +78,7 @@
 ## [如何授权]
 - 截止2020/6/17 赞助过任意金额(≥1分)的 可以直接获取资格
 - 提交1款免费开源模块（需审核）
-- 提交3款免费开源插件（需审核）
+- 提交2款免费开源插件（需审核）
 - 提交讲解清晰易懂的教学视频（需审核）
 - 定期举行授权活动，第二期活动链接：https://blog.yzncms.com/shows/25/101.html
 - 审核前,请先咨询作者,满足条件即可拉进官方授权群，享受丰富的插件,模块,各种资源及便捷的交流学习
@@ -98,5 +97,4 @@
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0110/181152_57b5113e_555541.jpeg "mm_facetoface_collect_qrcode_1547113957376_01.jpg")
 
 ## [开源协议]  
-YznCMS遵循Apache2开源协议发布，并提供免费使用。  
-部分代码来自互联网，若有异议，可以联系作者进行删除。
+YznCMS遵循[Apache2.0](https://www.apache.org/licenses/LICENSE-2.0.html)开源协议发布，并允许商业使用。  
