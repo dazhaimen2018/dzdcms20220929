@@ -48,6 +48,7 @@
         <div class="layui-form-field-label">
             <select name="site_id" lay-filter="filter">
                 <option>请选择站点</option>
+                <option value="0" {eq name="vo.id" value="$data.site_id" }selected{/eq}>所有站</option>
                 {volist name="site" id="vo"}
                 <option value="{$vo.id}" {eq name="vo.id" value="$data.site_id" }selected{/eq}>{$vo.name}</option>
                 {/volist}
