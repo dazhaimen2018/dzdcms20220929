@@ -73,6 +73,9 @@ class Manager extends Adminbase
                 ->withAttr('roleid', function ($value, $data) {
                     return $this->AuthGroupModel->getRoleIdName($value);
                 })
+                ->withAttr('site_id', function ($value, $data) {
+                    return getSiteName($value);
+                })
                 ->count();
 
             $_list = $this->modelClass
@@ -81,6 +84,9 @@ class Manager extends Adminbase
                 ->order(array('id' => 'ASC'))
                 ->withAttr('roleid', function ($value, $data) {
                     return $this->AuthGroupModel->getRoleIdName($value);
+                })
+                ->withAttr('site_id', function ($value, $data) {
+                    return getSiteName($value);
                 })
                 ->page($page, $limit)
                 ->select();
