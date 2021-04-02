@@ -13,6 +13,7 @@ namespace app\admin\controller;
 use app\admin\model\AdminUser as Admin_User;
 use app\admin\model\AuthGroup as AuthGroupModel;
 use app\admin\service\User;
+use app\cms\model\Site;
 use app\common\controller\Adminbase;
 use think\facade\Session;
 use util\Tree;
@@ -45,15 +46,14 @@ class Manager extends Adminbase
             $groups = User::instance()->getGroups();
             foreach ($groups as $m => $n) {
                 $childlist = Tree::instance()->getTreeList(Tree::instance()->getTreeArray($n['id']), 'title');
-                //$temp = [];
                 foreach ($childlist as $k => $v) {
                     $groupdata[$v['id']] = $v['title'];
                 }
-                //$result[$n['title']] = $temp;
             }
-            //$groupdata = $result;
         }
+        $site = Site::select()->toArray();
         $this->assign('groupdata', $groupdata);
+        $this->assign('site', $site);
     }
 
     /**
