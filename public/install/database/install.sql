@@ -32,7 +32,7 @@ CREATE TABLE `yzn_admin` (
   `username` varchar(20) DEFAULT NULL COMMENT '管理账号',
   `password` varchar(32) DEFAULT NULL COMMENT '管理密码',
   `roleid` tinyint UNSIGNED DEFAULT '0',
-  `site_id` mediumtext COMMENT '所属站点',
+  `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
   `encrypt` varchar(6) DEFAULT NULL COMMENT '加密因子',
   `nickname` char(16) NOT NULL COMMENT '昵称',
   `last_login_time` int UNSIGNED DEFAULT '0' COMMENT '最后登录时间',
