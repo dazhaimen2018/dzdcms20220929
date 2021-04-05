@@ -83,9 +83,9 @@ class Adminbase extends Base
             // 判断是否有登录权 20200617 马博
             $domain = $_SERVER['HTTP_HOST'];
             $authDomain = config('admin_domain');
-            //$adminDomain = "dzdcms.com";
-            if ($adminDomain) {
-                if  (strpos($domain, $adminDomain) === false){
+            //$authDomain = "dzdcms.com";
+            if ($authDomain) {
+                if  (strpos($domain, $authDomain) === false){
                     $this->error("地址错误", url('cms/index/index'));
                 }
             }
