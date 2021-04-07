@@ -20,21 +20,21 @@
 {/block}
 {block name="script"}
 <script>
-layui.use('yznTable', function() {
-    var table = layui.yznTable;
+    layui.use('yznTable', function() {
+        var table = layui.yznTable;
 
-    var init = {
-        table_elem: '#currentTable',
-        delete_url: "{:url('del')}",
-        modify_url: '{:url("multi")}',
-    };
+        var init = {
+            table_elem: '#currentTable',
+            delete_url: "{:url('del')}",
+            modify_url: '{:url("multi")}',
+        };
 
-    table.render({
-        init: init,
-        id: 'currentTable',
-        elem: '#currentTable',
-        toolbar: ['refresh',
-            [{
+        table.render({
+            init: init,
+            id: 'currentTable',
+            elem: '#currentTable',
+            toolbar: ['refresh',
+                [{
                     text: '新增栏目',
                     url: "{:url('add')}",
                     method: 'open',
@@ -42,57 +42,57 @@ layui.use('yznTable', function() {
                     icon: 'iconfont icon-add',
                     extend: 'data-width="900px" data-height="600px"',
                 },
-                {
-                    text: '新增单页',
-                    url: "{:url('singlepage')}",
-                    method: 'open',
-                    class: 'layui-btn layui-btn-sm layui-btn-normal',
-                    icon: 'iconfont icon-add',
-                    extend: 'data-width="900px" data-height="600px"',
-                }
-            ], 'delete', [{
+                    {
+                        text: '新增单页',
+                        url: "{:url('singlepage')}",
+                        method: 'open',
+                        class: 'layui-btn layui-btn-sm layui-btn-normal',
+                        icon: 'iconfont icon-add',
+                        extend: 'data-width="900px" data-height="600px"',
+                    }
+                ], 'delete', [{
                     text: '栏目授权',
                     url: "{:url('cat_priv')}",
                     method: 'open',
                     class: 'layui-btn layui-btn-sm layui-btn-normal',
                     icon: 'iconfont icon-other',
                 },
-                {
-                    text: '栏目数据校正',
-                    url: "{:url('count_items')}",
-                    method: 'request',
-                    class: 'layui-btn layui-btn-sm',
-                    icon:'iconfont icon-right',
-                    extend: 'data-table="currentTable"',
-                },
-                {
-                text: "更新栏目缓存",
-                url: "{:url('public_cache')}",
-                method: 'request',
-                class: 'layui-btn layui-btn-sm',
-                icon:'iconfont icon-shuaxin1',
-                extend: 'data-table="currentTable"',
-            }]
-        ],
-        url: '{:url("index")}',
-        search:true,
-        cols: [
-            [
-                { type: 'checkbox', fixed: 'left' },
-                { field: 'listorder', width: 70, title: '排序', edit: 'text' ,search:false, align: "center"},
-                { field: 'id', width: 70, title: 'ID',search:false , align: "center" ,search:false},
-                { field: 'site_id', width: 200, title: '所属站点', align: "center" },
-                { field: 'catname',align: "left", title: '栏目名称' },
-                { field: 'items', width: 80, title: '数据量',search:false, align: "center" },
-                { field: 'catdir', width: 120, title: '唯一标识' },
-                { field: 'type', width: 100, title: '栏目类型', templet: '<div>{{#  if(d.type==1){ }} 单页 {{#  } else if(d.type==2){  }} 列表 {{#  }  else { }} 未知 {{#  } }}</div>' },
-                { field: 'modelname', width: 120, title: '所属模型' },
-                { field: 'url', width: 60, align: "center", title: 'URL', templet: table.url,search:false },
-                { field: 'status', width: 100, align: "center", title: '状态', templet: '#statusTpl', unresize: true,search:false },
-                { fixed: 'right', width: 200, title: '操作', toolbar: '#barTool', align: "center" }
-            ]
-        ],
+                    {
+                        text: '栏目数据校正',
+                        url: "{:url('count_items')}",
+                        method: 'request',
+                        class: 'layui-btn layui-btn-sm',
+                        icon:'iconfont icon-right',
+                        extend: 'data-table="currentTable"',
+                    },
+                    {
+                        text: "更新栏目缓存",
+                        url: "{:url('public_cache')}",
+                        method: 'request',
+                        class: 'layui-btn layui-btn-sm',
+                        icon:'iconfont icon-shuaxin1',
+                        extend: 'data-table="currentTable"',
+                    }]
+            ],
+            url: '{:url("index")}',
+            search:true,
+            cols: [
+                [
+                    { type: 'checkbox', fixed: 'left' },
+                    { field: 'listorder', width: 70, title: '排序', edit: 'text' ,search:false, align: "center"},
+                    { field: 'id', width: 70, title: 'ID',search:false , align: "center" ,search:false},
+                    { field: 'site_id', width: 200, title: '所属站点', align: "center" },
+                    { field: 'catname',align: "left", title: '栏目名称' },
+                    { field: 'items', width: 80, title: '数据量',search:false, align: "center" },
+                    { field: 'catdir', width: 120, title: '唯一标识' },
+                    { field: 'type', width: 100, title: '栏目类型', templet: '<div>{{#  if(d.type==1){ }} 单页 {{#  } else if(d.type==2){  }} 列表 {{#  }  else { }} 未知 {{#  } }}</div>' },
+                    { field: 'modelname', width: 120, title: '所属模型' },
+                    { field: 'url', width: 60, align: "center", title: 'URL', templet: table.url,search:false },
+                    { field: 'status', width: 100, align: "center", title: '状态', templet: '#statusTpl', unresize: true,search:false },
+                    { fixed: 'right', width: 210, title: '操作', toolbar: '#barTool', align: "center" }
+                ]
+            ],
+        });
     });
-});
 </script>
 {/block}
