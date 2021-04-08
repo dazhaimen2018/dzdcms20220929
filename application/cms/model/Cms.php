@@ -84,15 +84,6 @@ class Cms extends Modelbase
         try {
             //主表
             $id = Db::name($tablename)->insertGetId($data);
-            //TAG标签处理 以下马博屏蔽
-            //if (!empty($data['tags'])) {
-            //    $this->tagDispose($data['tags'], $id, $catid, $modelid);
-            //}
-            //附表
-            //if (!empty($dataExt)) {
-            //    $dataExt['did'] = $id;
-            //   Db::name($tablename . $this->ext_table)->insert($dataExt);
-            //}
             // 以下下马博增加
             if ($extraData) {
                 $extra_data = [];
@@ -141,12 +132,6 @@ class Cms extends Modelbase
             throw new \Exception('数据表不存在！');
         }
         $this->getAfterText($data, $dataExt);
-        //TAG标签处理以下马博屏蔽
-        //if (!empty($data['tags'])) {
-        //    $this->tagDispose($data['tags'], $id, $catid, $modelid);
-        //} else {
-        //    $this->tagDispose([], $id, $catid, $modelid);
-        //}
         $dataAll              = $this->dealModelPostData($modelid, $data, $dataExt);
         list($data, $dataExt) = $dataAll;
 
@@ -155,15 +140,6 @@ class Cms extends Modelbase
         }
         //主表
         Db::name($tablename)->where('id', $id)->update($data);
-        //附表以下马博屏蔽
-        //if (!empty($dataExt)) {
-        //查询是否存在ID 不存在则新增
-        //    if (Db::name($tablename . $this->ext_table)->where('did', $id)->find()) {
-        //        Db::name($tablename . $this->ext_table)->where('did', $id)->update($dataExt);
-        //    } else {
-        //        $dataExt['did'] = $id;
-        //        Db::name($tablename . $this->ext_table)->insert($dataExt);
-        //    };
         // 以下下马博增加
         if ($extraData) {
             $extra_data = [];
@@ -293,7 +269,6 @@ class Cms extends Modelbase
     //查询解析模型数据用以构造from表单
     public function getFieldList($modelId, $id = null)
     {
-
         $list = self::where('modelid', $modelId)->where('status', 1)->where('ifsystem', 1)->order('listorder asc,id asc')->column("name,title,remark,type,isadd,iscore,ifsystem,ifrequire,setting");
         if (!empty($list)) {
             //编辑信息时查询出已有信息
@@ -372,7 +347,7 @@ class Cms extends Modelbase
      * @param  array     $config   配置参数
      */
 
-    public function getList($modeId, $where, $moreifo, $siteId, $field = '*', $order = '', $limit, $page = null, $simple = false, $config = [])
+    public function getList($modeId, $where, $moreifo, $siteId, $field = '*', $order = '', $limit = 10, $page = null, $simple = false, $config = [])
     {
         $url_mode  = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
         $tableName = $this->getModelTableName($modeId);
