@@ -20,12 +20,11 @@ use think\Db;
 
 class Index extends Cmsbase
 {
-    //protected $resultSetType = 'collection';
     protected function initialize()
     {
         parent::initialize();
 
-        $this->Cms_Model = new Cms_Model;
+        $this->Cms_Model = new \think\Model;
         $domain          = $_SERVER['HTTP_HOST'];
         $site            = Site::where("domain='{$domain}'")->find();
         $mark            = 'zh-cn';
@@ -128,13 +127,14 @@ class Index extends Cmsbase
             $this->success('', '', $this->fetch('/' . $template . '_ajax'));
         }
         //获取顶级栏目ID
-        $arrparentid = explode(',', $category['arrparentid']);
-        $top_parentid = isset($arrparentid[1]) ? $arrparentid[1] : $catid;
-        $parentid = $category['parentid'];
+        $category['arrparentid'] = explode(',', $category['arrparentid']);
+        $top_parentid            = isset($category['arrparentid'][1]) ? $category['arrparentid'][1] : $catid;
+        $parentid                = $category['parentid'];
+        unset($category['id']);
+        $this->assign($category);
         $this->assign([
             'top_parentid' => $top_parentid,
             'parentid' => $parentid,
-            'arrparentid'  => $arrparentid,
             'SEO'          => $seo,
             'catid'        => $catid,
             'page'         => $page,

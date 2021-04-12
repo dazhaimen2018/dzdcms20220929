@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2021-03-18 09:12:26
+-- 生成日期： 2021-04-10 15:47:55
 -- 服务器版本： 8.0.20
 -- PHP 版本： 7.4.16
 
@@ -32,7 +32,7 @@ CREATE TABLE `yzn_admin` (
   `username` varchar(20) DEFAULT NULL COMMENT '管理账号',
   `password` varchar(32) DEFAULT NULL COMMENT '管理密码',
   `roleid` tinyint UNSIGNED DEFAULT '0',
-  `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
+  `site_id` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID',
   `encrypt` varchar(6) DEFAULT NULL COMMENT '加密因子',
   `nickname` char(16) NOT NULL COMMENT '昵称',
   `last_login_time` int UNSIGNED DEFAULT '0' COMMENT '最后登录时间',
@@ -46,8 +46,9 @@ CREATE TABLE `yzn_admin` (
 -- 转存表中的数据 `yzn_admin`
 --
 
-INSERT INTO `yzn_admin` (`id`, `username`, `password`, `roleid`,'site_id', `encrypt`, `nickname`, `last_login_time`, `last_login_ip`, `email`, `token`, `status`) VALUES
-(1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 0, 'xW5OhH', '多站点', 1614839775, '117.100.205.204', '8355763@qq.com', 'a949ee2a-7e95-4070-b8cc-4c76b9387011', 1);
+INSERT INTO `yzn_admin` (`id`, `username`, `password`, `roleid`, `site_id`, `encrypt`, `nickname`, `last_login_time`, `last_login_ip`, `email`, `token`, `status`) VALUES
+(1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 0, 'xW5OhH', '多站点', 1614839775, '117.100.205.204', '8355763@qq.com', 'a949ee2a-7e95-4070-b8cc-4c76b9387011', 1),
+(2, 'demo', '53423c4a65c8e4c5be8c5bc70f0b41bc', 2, 0, 'jreG4r', 'demo', 0, '', 'demo@dzdcms.com', '', 1);
 
 -- --------------------------------------------------------
 
@@ -64,6 +65,18 @@ CREATE TABLE `yzn_adminlog` (
   `ip` char(15) NOT NULL DEFAULT '' COMMENT '操作IP',
   `get` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='操作日志';
+
+--
+-- 转存表中的数据 `yzn_adminlog`
+--
+
+INSERT INTO `yzn_adminlog` (`id`, `status`, `uid`, `info`, `create_time`, `ip`, `get`) VALUES
+(1, 0, 0, '提示语:请先登陆', 1618040647, '42.236.10.114', '/admin'),
+(2, 1, 1, '提示语:添加管理员成功！', 1618040742, '124.64.96.151', '/admin/manager/add.html?dialog=1'),
+(3, 1, 1, '提示语:操作成功!', 1618040821, '124.64.96.151', '/admin/auth_manager/writegroup.html'),
+(4, 1, 1, '提示语:模块安装成功！一键清理缓存后生效！', 1618040836, '124.64.96.151', '/admin/module/install.html?module=member&dialog=1'),
+(5, 1, 1, '提示语:清理缓存', 1618040842, '124.64.96.151', '/admin/index/cache.html?type=all&_=1618040828499'),
+(6, 1, 1, '提示语:清理缓存', 1618040864, '124.64.96.151', '/admin/index/cache.html?type=all&_=1618040844168');
 
 -- --------------------------------------------------------
 
@@ -125,7 +138,7 @@ CREATE TABLE `yzn_auth_group` (
 
 INSERT INTO `yzn_auth_group` (`id`, `parentid`, `module`, `type`, `title`, `description`, `rules`, `status`) VALUES
 (1, 0, 'admin', 1, '超级管理员', '拥有所有权限', '*', 1),
-(2, 1, 'admin', 1, '编辑', '编辑', '1,4,2,5,17,7,8,21,111,22,23,24,25,26,27,9,10,13,11,36,14,6,115,45,46,47,48,49,53,54,55,56,57,58,59,59,60,61,62,63,64,65,66,69,70,73,74,79,80,81,82,83,87,88,89,90,90,92,94,95,96,96,100,101,102,104,106,107,108,109,110,116,31,32,39,32,117,28,29,40,44,30', 1);
+(2, 1, 'admin', 1, '编辑', '编辑', '1,4,2,5,17,112,113,7,8,18,19,21,111,22,23,24,25,26,27,9,10,13,11,36,14,6,115,45,46,47,48,49,50,51,53,54,55,56,57,58,59,59,60,61,62,63,64,65,66,67,68,69,70,71,73,74,75,76,77,79,80,81,82,83,84,85,87,88,89,90,90,91,92,94,95,96,96,97,98,100,101,102,103,104,106,107,108,109,110,116,31,32,39,32,117,28,29,40,44,30', 1);
 
 -- --------------------------------------------------------
 
@@ -293,7 +306,9 @@ INSERT INTO `yzn_cache` (`id`, `key`, `name`, `module`, `model`, `action`, `syst
 (4, 'Model', '模型列表', 'admin', 'Models', 'model_cache', 1),
 (5, 'ModelField', '模型字段', 'admin', 'ModelField', 'model_field_cache', 1),
 (6, 'Category', '栏目索引', 'cms', 'Category', 'category_cache', 0),
-(7, 'Cms_Config', 'CMS配置', 'cms', 'Cms', 'cms_cache', 0);
+(7, 'Cms_Config', 'CMS配置', 'cms', 'Cms', 'cms_cache', 0),
+(8, 'Member_Config', '会员配置', 'member', 'Member', 'member_cache', 0),
+(9, 'Member_Group', '会员组', 'member', 'MemberGroup', 'membergroup_cache', 0);
 
 -- --------------------------------------------------------
 
@@ -624,6 +639,98 @@ INSERT INTO `yzn_links` (`id`, `linktype`, `url`, `name`, `image`, `target`, `de
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `yzn_member`
+--
+
+CREATE TABLE `yzn_member` (
+  `id` int UNSIGNED NOT NULL COMMENT '用户ID',
+  `username` char(16) NOT NULL COMMENT '用户名',
+  `nickname` char(16) NOT NULL DEFAULT '' COMMENT '昵称',
+  `password` char(32) NOT NULL COMMENT '密码',
+  `encrypt` varchar(6) DEFAULT NULL COMMENT '加密因子',
+  `point` mediumint NOT NULL DEFAULT '0' COMMENT '用户积分',
+  `amount` decimal(8,2) UNSIGNED NOT NULL DEFAULT '0.00' COMMENT '钱金总额',
+  `login` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '登录次数',
+  `email` char(32) NOT NULL DEFAULT '' COMMENT '电子邮箱',
+  `mobile` varchar(11) NOT NULL DEFAULT '' COMMENT '手机号',
+  `avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '头像',
+  `groupid` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户组ID',
+  `modelid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户模型ID',
+  `vip` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT 'VIP会员',
+  `overduedate` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '过期时间',
+  `reg_ip` char(15) NOT NULL DEFAULT '' COMMENT '注册IP',
+  `reg_time` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '注册时间',
+  `last_login_ip` char(15) NOT NULL DEFAULT '' COMMENT '最后登录IP',
+  `last_login_time` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '最后登录时间',
+  `ischeck_email` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否验证过邮箱',
+  `ischeck_mobile` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否验证过手机',
+  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='会员表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yzn_member_content`
+--
+
+CREATE TABLE `yzn_member_content` (
+  `id` int NOT NULL,
+  `catid` smallint NOT NULL COMMENT '栏目ID',
+  `content_id` int NOT NULL COMMENT '信息ID',
+  `uid` mediumint NOT NULL COMMENT '会员ID',
+  `username` char(16) NOT NULL COMMENT '用户名',
+  `create_time` int NOT NULL COMMENT '添加时间',
+  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='会员投稿信息记录表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yzn_member_group`
+--
+
+CREATE TABLE `yzn_member_group` (
+  `id` tinyint UNSIGNED NOT NULL COMMENT '会员组id',
+  `name` char(15) NOT NULL COMMENT '用户组名称',
+  `issystem` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否是系统组',
+  `starnum` tinyint UNSIGNED NOT NULL COMMENT '会员组星星数',
+  `point` smallint UNSIGNED NOT NULL COMMENT '积分范围',
+  `allowmessage` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '许允发短消息数量',
+  `allowvisit` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否允许访问',
+  `allowpost` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否允许发稿',
+  `allowpostverify` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否投稿不需审核',
+  `allowsearch` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否允许搜索',
+  `allowupgrade` tinyint UNSIGNED NOT NULL DEFAULT '1' COMMENT '是否允许自主升级',
+  `allowsendmessage` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '允许发送短消息',
+  `allowpostnum` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '每天允许发文章数',
+  `allowattachment` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否允许上传附件',
+  `price_y` decimal(8,2) UNSIGNED NOT NULL DEFAULT '0.00',
+  `price_m` decimal(8,2) UNSIGNED NOT NULL DEFAULT '0.00',
+  `price_d` decimal(8,2) UNSIGNED NOT NULL DEFAULT '0.00',
+  `icon` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户组图标',
+  `usernamecolor` char(7) NOT NULL DEFAULT '' COMMENT '用户名颜色',
+  `description` char(100) NOT NULL DEFAULT '' COMMENT '描述',
+  `listorder` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
+  `expand` mediumtext COMMENT '拓展'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `yzn_member_group`
+--
+
+INSERT INTO `yzn_member_group` (`id`, `name`, `issystem`, `starnum`, `point`, `allowmessage`, `allowvisit`, `allowpost`, `allowpostverify`, `allowsearch`, `allowupgrade`, `allowsendmessage`, `allowpostnum`, `allowattachment`, `price_y`, `price_m`, `price_d`, `icon`, `usernamecolor`, `description`, `listorder`, `status`, `expand`) VALUES
+(1, '禁止访问', 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, '0.00', '0.00', '0.00', 0, '', '0', 0, 1, ''),
+(2, '新手上路', 1, 1, 50, 100, 1, 1, 0, 0, 0, 1, 0, 0, '50.00', '10.00', '1.00', 0, '', '', 2, 1, ''),
+(6, '注册会员', 1, 2, 100, 150, 0, 1, 0, 0, 1, 1, 0, 0, '300.00', '30.00', '1.00', 0, '', '', 6, 1, ''),
+(4, '中级会员', 1, 3, 150, 500, 1, 1, 0, 1, 1, 1, 0, 0, '360.00', '60.00', '1.00', 0, '', '', 4, 1, ''),
+(5, '高级会员', 1, 5, 300, 999, 1, 1, 0, 1, 1, 1, 0, 0, '500.00', '90.00', '1.00', 0, '', '', 5, 1, ''),
+(7, '邮件认证', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0.00', '0.00', '0.00', 0, '#000000', '', 7, 1, ''),
+(8, '游客', 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, '0.00', '0.00', '0.00', 0, '', '', 0, 1, '');
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `yzn_menu`
 --
 
@@ -712,7 +819,7 @@ INSERT INTO `yzn_menu` (`id`, `title`, `icon`, `parentid`, `app`, `controller`, 
 (71, '状态', '', 62, 'cms', 'cms', 'setstate', '', 0, '', 0, 0),
 (72, '标题检查', '', 62, 'cms', 'cms', 'check_title', '', 0, '', 0, 0),
 (73, '回收站', 'icon-trash', 62, 'cms', 'cms', 'recycle', '', 0, '', 0, 0),
-(74, '稿件管理', 'icon-draft-line', 61, 'cms', 'publish', 'index', '', 0, '', 0, 0),
+(74, '稿件管理', 'icon-draft-line', 61, 'cms', 'publish', 'index', '', 1, '', 0, 0),
 (75, 'Tags管理', 'icon-label', 61, 'cms', 'tags', 'index', '', 1, '', 0, 0),
 (76, '列表', '', 75, 'cms', 'tags', 'index', '', 0, '', 0, 0),
 (77, '添加', '', 75, 'cms', 'tags', 'add', '', 0, '', 0, 0),
@@ -767,7 +874,14 @@ INSERT INTO `yzn_menu` (`id`, `title`, `icon`, `parentid`, `app`, `controller`, 
 (126, '分类管理', '', 121, 'links', 'links', 'terms', '', 0, '', 0, 0),
 (127, '分类新增', '', 121, 'links', 'links', 'addTerms', '', 0, '', 0, 0),
 (128, '分类修改', '', 121, 'links', 'links', 'termsedit', '', 0, '', 0, 0),
-(129, '分类删除', '', 121, 'links', 'links', 'termsdelete', '', 0, '', 0, 0);
+(129, '分类删除', '', 121, 'links', 'links', 'termsdelete', '', 0, '', 0, 0),
+(130, '会员', 'icon-user-line', 0, 'member', 'member', 'index1', '', 1, '', 0, 4),
+(131, '会员管理', 'icon-user-line', 130, 'member', 'member', 'index', '', 1, '', 0, 0),
+(132, '会员设置', 'icon-user-settings-line', 131, 'member', 'setting', 'setting', '', 1, '', 0, 0),
+(133, '会员管理', 'icon-user-shared-2-line', 131, 'member', 'member', 'manage', '', 1, '', 0, 0),
+(134, '审核会员', 'icon-user-star-line', 131, 'member', 'member', 'userverify', '', 1, '', 0, 0),
+(135, '会员组', 'icon-group-line', 130, 'member', 'group', 'index1', '', 1, '', 0, 0),
+(136, '会员组管理', 'icon-user-settings-line', 135, 'member', 'group', 'index', '', 1, '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -903,7 +1017,8 @@ CREATE TABLE `yzn_module` (
 
 INSERT INTO `yzn_module` (`module`, `name`, `sign`, `iscore`, `version`, `setting`, `create_time`, `update_time`, `listorder`, `status`) VALUES
 ('cms', 'cms模块', 'b19cc279ed484c13c96c2f7142e2f437', 0, '1.0.0', 'a:13:{s:15:\"web_site_status\";i:1;s:14:\"web_site_guide\";s:1:\"1\";s:11:\"data_import\";s:1:\"1\";s:9:\"icon_mode\";s:1:\"1\";s:13:\"site_url_mode\";s:1:\"1\";s:12:\"publish_mode\";s:1:\"2\";s:4:\"site\";s:1:\"1\";s:15:\"site_cache_time\";s:4:\"3600\";s:16:\"web_site_recycle\";s:1:\"0\";s:18:\"site_category_auth\";s:1:\"0\";s:18:\"web_site_baidupush\";s:1:\"0\";s:17:\"web_site_getwords\";s:1:\"0\";s:9:\"autolinks\";s:55:\"百度|https://www.baidu.com/腾讯|https://www.qq.com/\";}', 1615820020, 1616025530, 0, 1),
-('links', '友情链接', '960c30f9b119fa6c39a4a31867441c82', 0, '1.0.0', NULL, 1615820042, 1615820042, 0, 1);
+('links', '友情链接', '960c30f9b119fa6c39a4a31867441c82', 0, '1.0.0', NULL, 1615820042, 1615820042, 0, 1),
+('member', '会员模块', 'fcfe4d97f35d1f30df5d6018a84f74ba', 0, '1.0.0', 'a:10:{s:13:\"allowregister\";i:1;s:14:\"registerverify\";i:0;s:22:\"register_mobile_verify\";i:0;s:21:\"register_email_verify\";i:0;s:16:\"openverification\";i:1;s:16:\"password_confirm\";i:0;s:15:\"remove_nickname\";i:0;s:12:\"defualtpoint\";i:0;s:13:\"defualtamount\";i:0;s:14:\"rmb_point_rate\";i:10;}', 1618040836, 1618040836, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -917,7 +1032,7 @@ CREATE TABLE `yzn_news` (
   `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
   `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',
   `thumb` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '缩略图',
-  `flag` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
+  `flag` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
   `listorder` smallint UNSIGNED NOT NULL DEFAULT '100' COMMENT '排序',
   `uid` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
   `username` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
@@ -926,7 +1041,7 @@ CREATE TABLE `yzn_news` (
   `inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updatetime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
   `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
-  `icon` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '标题图标',
+  `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '标题图标',
   `image` int UNSIGNED NOT NULL COMMENT '大图Banner'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='资讯模型模型表';
 
@@ -1036,7 +1151,7 @@ CREATE TABLE `yzn_photo` (
   `inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updatetime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
   `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
-  `images` varchar(256) COLLATE utf8_unicode_ci NOT NULL COMMENT '图组'
+  `images` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '图组'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='图片模型模型表';
 
 --
@@ -1280,6 +1395,28 @@ ALTER TABLE `yzn_links`
   ADD PRIMARY KEY (`id`);
 
 --
+-- 表的索引 `yzn_member`
+--
+ALTER TABLE `yzn_member`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD KEY `email` (`email`),
+  ADD KEY `mobile` (`mobile`);
+
+--
+-- 表的索引 `yzn_member_content`
+--
+ALTER TABLE `yzn_member_content`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `uid` (`catid`,`content_id`,`status`);
+
+--
+-- 表的索引 `yzn_member_group`
+--
+ALTER TABLE `yzn_member_group`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- 表的索引 `yzn_menu`
 --
 ALTER TABLE `yzn_menu`
@@ -1380,13 +1517,13 @@ ALTER TABLE `yzn_terms`
 -- 使用表AUTO_INCREMENT `yzn_admin`
 --
 ALTER TABLE `yzn_admin`
-  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户ID', AUTO_INCREMENT=2;
+  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户ID', AUTO_INCREMENT=3;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_adminlog`
 --
 ALTER TABLE `yzn_adminlog`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '日志ID';
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '日志ID', AUTO_INCREMENT=7;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_attachment`
@@ -1410,7 +1547,7 @@ ALTER TABLE `yzn_auth_rule`
 -- 使用表AUTO_INCREMENT `yzn_cache`
 --
 ALTER TABLE `yzn_cache`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_category`
@@ -1455,10 +1592,28 @@ ALTER TABLE `yzn_links`
   MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '链接id', AUTO_INCREMENT=3;
 
 --
+-- 使用表AUTO_INCREMENT `yzn_member`
+--
+ALTER TABLE `yzn_member`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户ID';
+
+--
+-- 使用表AUTO_INCREMENT `yzn_member_content`
+--
+ALTER TABLE `yzn_member_content`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `yzn_member_group`
+--
+ALTER TABLE `yzn_member_group`
+  MODIFY `id` tinyint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '会员组id', AUTO_INCREMENT=9;
+
+--
 -- 使用表AUTO_INCREMENT `yzn_menu`
 --
 ALTER TABLE `yzn_menu`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '菜单ID', AUTO_INCREMENT=130;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '菜单ID', AUTO_INCREMENT=137;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_model`
