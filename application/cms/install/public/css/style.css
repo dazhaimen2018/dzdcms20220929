@@ -446,16 +446,13 @@ a.icon-text > .layui-icon{font-size:14px}
 .shop-banner .layui-carousel>*[carousel-item] > *{background: none;}
 .shop-banner .layui-carousel>*[carousel-item]:before{color: #fff; color: rgba(255,255,255,.6);}
 
-.shop-nav .product-list{position: absolute; left: 0; width: 220px; z-index: 100;top: -60px; background: #fff;  box-shadow: 0px 1px 5px rgba(0,0,0,0.15);text-align: center}
-
-.shop-nav .product-list dl{font-size: 0;}
-.shop-nav .product-list dl dt{display: none; font-size: 16px; background: #FF9434; line-height: 60px;}
-.shop-nav .product-list dl dt a{color: #FFF;}
-.shop-nav .product-list dl dd{display: inline-block; font-size: 16px; color: #666; border: 1px solid #f0f0f0; border-radius: 2px; width: 30%; margin-left: 1.5%; margin-bottom: 10px;}
-.shop-nav .product-list dl dd a{display: block; line-height: 40px;}
-.shop-nav .product-list dl dd a:hover{color: #5eba78; background: #f0f0f0;}
-.shop-nav .product-list dl dd.layui-this{background: #f0f0f0;}
-.shop-nav .product-list dl dd.layui-this a{color: #5eba78;}
+.shop-nav{padding: 0!important;margin-bottom: 10px}
+.shop-nav .product-list{position: absolute; left: 0; width: 100%; z-index: 100;top: -50px; background: #fff;  box-shadow: 0px 1px 5px rgba(0,0,0,0.15);text-align: center}
+.shop-nav .product-list .title{font-size: 16px; background: #FF9434; line-height: 50px;color: #FFF;}
+.shop-nav .layui-panel{text-align: left;border-width: 0px;width: 100%;}
+.shop-nav .layui-panel .layui-menu{margin: 0!important;}
+.shop-nav .layui-panel .layui-menu li{margin: 0!important;padding: 10px;text-align: center}
+.shop-nav .layui-panel .layui-menu .layui-menu-item-divider{margin: 0!important;padding: 0!important;}
 /*çƒ­é—¨æ¨¡æ¿*/
 .shop-temp .temp-hot{padding-top: 80px; padding-bottom: 80px; background: #FFF; text-align: center;}
 .shop-temp .temp-hot p{padding-bottom: 10px; text-align: center; font-size: 16px;}
