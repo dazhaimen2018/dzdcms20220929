@@ -14,7 +14,7 @@
 
 namespace app\cms\controller;
 
-use app\cms\model\Cms as Cms_Model;
+use app\cms\model\Cms as CmsModel;
 use app\cms\model\Site;
 use think\Db;
 
@@ -23,8 +23,7 @@ class Index extends Cmsbase
     protected function initialize()
     {
         parent::initialize();
-
-        $this->Cms_Model = new \think\Model;
+        $this->CmsModel = new CmsModel;
         $domain          = $_SERVER['HTTP_HOST'];
         $site            = Site::where("domain='{$domain}'")->find();
         $mark            = 'zh-cn';
@@ -171,7 +170,7 @@ class Index extends Cmsbase
         Db::name($modelInfo['tablename'])->where('id', $id)->setInc('hits');
         //内容所有字段
         $ifcache = $this->cmsConfig['site_cache_time'] ? $this->cmsConfig['site_cache_time'] : false;
-        $info = $this->Cms_Model->getContent($modelid, "id={$id}", true, '*', '', $ifcache, $this->site_id);
+        $info = $this->CmsModel->getContent($modelid, "id={$id}", true, '*', '', $ifcache, $this->site_id);
         if (!$info || ($info['status'] !== 1 && !\app\admin\service\User::instance()->isLogin())) {
             throw new \think\Exception('内容不存在或未审核!', 404);
         }
@@ -303,13 +302,13 @@ class Index extends Cmsbase
             }
 
 
-            $tableName = $this->Cms_Model->getModelTableName($modeId);
-            $extTable = $tableName .  $this->Cms_Model->ext_table;
+            $tableName = $this->CmsModel->getModelTableName($modeId);
+            $extTable = $tableName .  $this->CmsModel->ext_table;
             $where .= $extTable . ".`title` like '%$keyword%'";
             $where = '(' . $where . ') ';
 
             $where .= " AND status='1' $sql_time";
-            $list = $this->Cms_Model->getList($modelid, $where, false, '*', $siteId, "listorder desc", 10, 1, false, ['query' => ['keyword' => $keyword, 'modelid' => $modelid]]);
+            $list = $this->CmsModel->getList($modelid, $where, false, '*', $siteId, "listorder desc", 10, 1, false, ['query' => ['keyword' => $keyword, 'modelid' => $modelid]]);
         } else {
             foreach ($modellist as $key => $vo) {
                 $searchField = Db::name('model_field')->where('modelid', $key)->where('ifsearch', 1)->column('name');
@@ -321,12 +320,12 @@ class Index extends Cmsbase
                     $where .= "$v like '%$keyword%' or ";
                 }
 
-                $tableName = $this->Cms_Model->getModelTableName($key);
-                $extTable = $tableName .  $this->Cms_Model->ext_table;
+                $tableName = $this->CmsModel->getModelTableName($key);
+                $extTable = $tableName .  $this->CmsModel->ext_table;
                 $where .= $extTable . ".`title` like '%$keyword%'";
                 $where = '(' . $where . ') ';
                 $where .= " AND status='1' $sql_time";
-                $list = $this->Cms_Model->getList($key, $where, false, '*',$siteId, 'listorder desc', 10, 1, false, ['query' => ['keyword' => $keyword, 'modelid' => $modelid]]);
+                $list = $this->CmsModel->getList($key, $where, false, '*',$siteId, 'listorder desc', 10, 1, false, ['query' => ['keyword' => $keyword, 'modelid' => $modelid]]);
                 if ($list->isEmpty()) {
                     continue;
                 } else {
