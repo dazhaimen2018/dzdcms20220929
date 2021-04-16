@@ -17,10 +17,10 @@
 <body class="layui-layout-body layui-all layui-multi-module">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-        	<div class="layui-logo logo">
+        	<div class="layui-logo">
 	            <a href="#">
-	            	<i class="layui-icon layui-icon-component"><img src="{:config('system_logo')}" alt="{:config('system_name')}"></i>
-	            	<h1><img src="{:config('system_logo')}" alt="{:config('system_name')}"> {:config('system_name')}</h1>
+	            	<i class="layui-icon layui-icon-component"></i>
+	            	<h1>{:config('system_name')}后台</h1>
 	            </a>
         	</div>
         	<div class="layui-header-content">
@@ -108,7 +108,7 @@
             </div>
         </div>
         <div class="layui-footer">
-            © {:config('system_name')} v{$Think.config.version.yzncms_version}
+            © YznCMS v{$Think.config.version.yzncms_version}
         </div>
     </div>
     <script src="__STATIC__/libs/layui/layui.js"></script>
@@ -415,7 +415,7 @@
         $('#J_refresh').click(function(e) {
             e.preventDefault();
             e.stopPropagation();
-            const J_refresh = $("#J_refresh i");
+            var J_refresh = $("#J_refresh i");
             J_refresh.removeClass("icon-shuaxin1 iconfont");
             J_refresh.addClass("layui-anim layui-anim-rotate layui-anim-loop layui-icon-loading");
             var index = layer.load(0,{time: 4*1000});
