@@ -17,7 +17,7 @@
 <body class="layui-layout-body layui-all layui-multi-module">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-        	<div class="layui-logo">
+        	<div class="layui-logo logo">
 	            <a href="#">
 	            	<i class="layui-icon layui-icon-component"></i>
 	            	<h1>{:config('system_name')}后台</h1>
@@ -84,8 +84,7 @@
                 <div class="tab-go-refresh" id="J_refresh"><i class="layui-icon iconfont icon-shuaxin1"></i></div>
                 <div class="tab-go-left" id="page-prev"><i class="layui-icon layui-icon-left"></i></div>
                 <ul class="layui-tab-title top_tab" id="B_history">
-                    <li class="layui-this" lay-id="default"><i class="iconfont icon-homepage"></i>&nbsp;后台首页
-                    </li>
+                    <li class="layui-this" lay-id="default"><i class="iconfont icon-homepage"></i>&nbsp;后台首页</li>
                 </ul>
                 <div class="tab-right">
                     <div class="tab-go-right" id="page-next"><i class="layui-icon layui-icon-right"></i></div>
@@ -94,8 +93,6 @@
                             <a href="javascript:;"><i class="layui-icon layui-icon-radio"></i>&nbsp;页面操作</a>
                             <dl class="layui-nav-child">
                                 <dd><a href="javascript:;" class="closePageAll"><i class="layui-icon layui-icon-close"></i>&nbsp;关闭全部</a></dd>
-                                <!--<dd><a href="javascript:;" class="closePageOther"><i class="seraph icon-prohibit"></i> 关闭其他</a></dd>
-                        -->
                             </dl>
                         </li>
                     </ul>
@@ -108,7 +105,7 @@
             </div>
         </div>
         <div class="layui-footer">
-            © YznCMS v{$Think.config.version.yzncms_version}
+            © {:config('system_name')} v{$Think.config.version.yzncms_version}
         </div>
     </div>
     <script src="__STATIC__/libs/layui/layui.js"></script>
