@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2021-04-10 15:47:55
+-- 生成日期： 2021-04-19 10:53:17
 -- 服务器版本： 8.0.20
 -- PHP 版本： 7.4.16
 
@@ -66,18 +66,6 @@ CREATE TABLE `yzn_adminlog` (
   `get` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='操作日志';
 
---
--- 转存表中的数据 `yzn_adminlog`
---
-
-INSERT INTO `yzn_adminlog` (`id`, `status`, `uid`, `info`, `create_time`, `ip`, `get`) VALUES
-(1, 0, 0, '提示语:请先登陆', 1618040647, '42.236.10.114', '/admin'),
-(2, 1, 1, '提示语:添加管理员成功！', 1618040742, '124.64.96.151', '/admin/manager/add.html?dialog=1'),
-(3, 1, 1, '提示语:操作成功!', 1618040821, '124.64.96.151', '/admin/auth_manager/writegroup.html'),
-(4, 1, 1, '提示语:模块安装成功！一键清理缓存后生效！', 1618040836, '124.64.96.151', '/admin/module/install.html?module=member&dialog=1'),
-(5, 1, 1, '提示语:清理缓存', 1618040842, '124.64.96.151', '/admin/index/cache.html?type=all&_=1618040828499'),
-(6, 1, 1, '提示语:清理缓存', 1618040864, '124.64.96.151', '/admin/index/cache.html?type=all&_=1618040844168');
-
 -- --------------------------------------------------------
 
 --
@@ -138,7 +126,7 @@ CREATE TABLE `yzn_auth_group` (
 
 INSERT INTO `yzn_auth_group` (`id`, `parentid`, `module`, `type`, `title`, `description`, `rules`, `status`) VALUES
 (1, 0, 'admin', 1, '超级管理员', '拥有所有权限', '*', 1),
-(2, 1, 'admin', 1, '编辑', '编辑', '1,4,2,5,17,112,113,7,8,18,19,21,111,22,23,24,25,26,27,9,10,13,11,36,14,6,115,45,46,47,48,49,50,51,53,54,55,56,57,58,59,59,60,61,62,63,64,65,66,67,68,69,70,71,73,74,75,76,77,79,80,81,82,83,84,85,87,88,89,90,90,91,92,94,95,96,96,97,98,100,101,102,103,104,106,107,108,109,110,116,31,32,39,32,117,28,29,40,44,30', 1);
+(2, 1, 'admin', 1, '编辑', '编辑', '1,4,2,5,17,112,113,7,8,21,111,22,23,24,25,26,27,9,11,33,14,6,115,45,46,47,48,49,50,51,53,54,55,56,57,58,59,59,60,61,62,63,64,65,66,67,68,69,70,71,73,74,75,76,77,79,80,81,82,83,84,85,87,88,89,90,90,91,92,94,95,96,96,97,98,100,101,102,103,104,106,107,108,109,110,116,31,32,39,32,117,28,29,40,44,30', 1);
 
 -- --------------------------------------------------------
 
@@ -277,7 +265,14 @@ INSERT INTO `yzn_auth_rule` (`id`, `module`, `type`, `name`, `title`, `condition
 (114, 'admin', 1, 'admin/config/del', '删除配置', '', 1),
 (115, 'cms', 2, 'cms/cms/index1', '内容', '', 1),
 (116, 'admin', 2, 'admin/module/index1', '模块', '', 1),
-(117, 'addons', 2, 'addons/addons/index1', '扩展', '', 1);
+(117, 'addons', 2, 'addons/addons/index1', '扩展', '', 1),
+(118, 'member', 1, 'member/member/index', '会员管理', '', 1),
+(119, 'member', 1, 'member/setting/setting', '会员设置', '', 1),
+(120, 'member', 1, 'member/member/manage', '会员管理', '', 1),
+(121, 'member', 1, 'member/member/userverify', '审核会员', '', 1),
+(122, 'member', 1, 'member/group/index1', '会员组', '', 1),
+(123, 'member', 1, 'member/group/index', '会员组管理', '', 1),
+(124, 'member', 2, 'member/member/index1', '会员', '', 1);
 
 -- --------------------------------------------------------
 
@@ -1523,7 +1518,7 @@ ALTER TABLE `yzn_admin`
 -- 使用表AUTO_INCREMENT `yzn_adminlog`
 --
 ALTER TABLE `yzn_adminlog`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '日志ID', AUTO_INCREMENT=7;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '日志ID';
 
 --
 -- 使用表AUTO_INCREMENT `yzn_attachment`
@@ -1541,7 +1536,7 @@ ALTER TABLE `yzn_auth_group`
 -- 使用表AUTO_INCREMENT `yzn_auth_rule`
 --
 ALTER TABLE `yzn_auth_rule`
-  MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '规则id,自增主键', AUTO_INCREMENT=118;
+  MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '规则id,自增主键', AUTO_INCREMENT=125;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_cache`
