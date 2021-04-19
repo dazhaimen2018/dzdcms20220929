@@ -141,23 +141,6 @@ var swiper = new Swiper('.swiper-news', {
     },
 });
 
-//首页新闻
-var swiper = new Swiper('.swiper-news-wap', {
-    slidesPerView: 1,
-    spaceBetween: 30,
-    slidesPerGroup: 1,
-    loop: true,
-    loopFillGroupWithBlank: true,
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-    },
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
-});
-
 //store
 var swiper = new Swiper('.store-img', {
     slidesPerView: 1,

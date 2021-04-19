@@ -36,23 +36,10 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">所属角色</label>
+        <label class="layui-form-label">权限组</label>
         <div class="layui-input-inline">
             {php}echo \util\Form::select($groupdata,'','name="roleid" lay-filter="roleid" lay-verify="required"');{/php}
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">所属站点</label>
-        <div class="layui-form-field-label">
-            <select name="site_id" lay-filter="filter">
-                <option>请选择站点</option>
-                <option value="0">所有站</option>
-                {volist name="site" id="vo"}
-                <option value="{$vo.id}" {if condition=" $site_id eq $vo['id'] "}selected{/if}>{$vo.name}</option>
-                {/volist}
-            </select>
-        </div>
-        <div class="layui-form-mid layui-word-aux">只有选了某些站，才能管理哪个站的内容</div>
     </div>
     <div class="layui-form-item layer-footer">
         <div class="layui-input-block">

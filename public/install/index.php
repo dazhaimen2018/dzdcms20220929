@@ -160,7 +160,7 @@ if ($get == $config['endPage']) {
             $time     = time();
             $auth_code = "Wo0bAa";
             $password = md5($_POST['admin_password'].$auth_code);
-            $add_admin_sql = "INSERT INTO `" . $db['DB_PREFIX'] . "admin` (`id`,`username`,`password`,`roleid`,`site_id`,`encrypt`, `nickname`,`last_login_time`,`last_login_ip`,`email`,`token`,`status`) VALUES ('1','".$account."','" . $password . "','1','0','" . $auth_code . "','多站点'," . $time . ",'','" . $email . "','','1');";
+            $add_admin_sql = "INSERT INTO `" . $db['DB_PREFIX'] . "admin` (`id`,`username`,`password`,`roleid`,`encrypt`, `nickname`,`last_login_time`,`last_login_ip`,`email`,`token`,`status`) VALUES ('1','".$account."','" . $password . "','1','" . $auth_code . "','多站点'," . $time . ",'','" . $email . "','','1');";
             $link->query($add_admin_sql);
             //插入数据
             $return['data']['page']=1;

@@ -22,9 +22,8 @@ trait Arrayable
 
         foreach ((new ReflectionClass($this))->getProperties() as $item) {
             $k = $item->getName();
-            $method = 'get'.Str::studly($k);
 
-            $result[Str::snake($k)] = method_exists($this, $method) ? $this->{$method}() : $this->{$k};
+            $result[Str::snake($k)] = $this->{$item->getName()};
         }
 
         return $result;

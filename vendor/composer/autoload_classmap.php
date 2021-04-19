@@ -6,13 +6,16 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+    'ArithmeticError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
+    'AssertionError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'DivisionByZeroError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/DivisionByZeroError.php',
+    'Error' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/Error.php',
     'Normalizer' => $vendorDir . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
+    'ParseError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/ParseError.php',
     'QrReader' => $vendorDir . '/khanamiryan/qrcode-detector-decoder/lib/QrReader.php',
-    'Stringable' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
-    'UnhandledMatchError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
-    'ValueError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
+    'SessionUpdateTimestampHandlerInterface' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/SessionUpdateTimestampHandlerInterface.php',
+    'TypeError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/TypeError.php',
     'Zxing\\Binarizer' => $vendorDir . '/khanamiryan/qrcode-detector-decoder/lib/Binarizer.php',
     'Zxing\\BinaryBitmap' => $vendorDir . '/khanamiryan/qrcode-detector-decoder/lib/BinaryBitmap.php',
     'Zxing\\ChecksumException' => $vendorDir . '/khanamiryan/qrcode-detector-decoder/lib/ChecksumException.php',

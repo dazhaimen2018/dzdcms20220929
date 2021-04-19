@@ -13,7 +13,6 @@ namespace app\admin\controller;
 use app\admin\model\AdminUser as Admin_User;
 use app\admin\model\AuthGroup as AuthGroupModel;
 use app\admin\service\User;
-use app\cms\model\Site;
 use app\common\controller\Adminbase;
 use think\facade\Session;
 use util\Tree;
@@ -46,14 +45,15 @@ class Manager extends Adminbase
             $groups = User::instance()->getGroups();
             foreach ($groups as $m => $n) {
                 $childlist = Tree::instance()->getTreeList(Tree::instance()->getTreeArray($n['id']), 'title');
+                //$temp = [];
                 foreach ($childlist as $k => $v) {
                     $groupdata[$v['id']] = $v['title'];
                 }
+                //$result[$n['title']] = $temp;
             }
+            //$groupdata = $result;
         }
-        $site = Site::select()->toArray();
         $this->assign('groupdata', $groupdata);
-        $this->assign('site', $site);
     }
 
     /**
@@ -73,9 +73,6 @@ class Manager extends Adminbase
                 ->withAttr('roleid', function ($value, $data) {
                     return $this->AuthGroupModel->getRoleIdName($value);
                 })
-                ->withAttr('site_id', function ($value, $data) {
-                    return getSiteName($value);
-                })
                 ->count();
 
             $_list = $this->modelClass
@@ -84,9 +81,6 @@ class Manager extends Adminbase
                 ->order(array('id' => 'ASC'))
                 ->withAttr('roleid', function ($value, $data) {
                     return $this->AuthGroupModel->getRoleIdName($value);
-                })
-                ->withAttr('site_id', function ($value, $data) {
-                    return getSiteName($value);
                 })
                 ->page($page, $limit)
                 ->select();

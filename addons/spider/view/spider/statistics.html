@@ -1,0 +1,249 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+<style type="text/css">
+.layui-btn-group .layui-btn {
+    margin-right: 5px!important;border-radius: 2px;border-left: none;
+}
+</style>
+<div class="layui-row layui-col-space10">
+    <div class="layui-col-lg12 layui-col-md12">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md6">
+                <div class="layui-panel">
+                    <div style="padding: 30px;">
+                        <div class="layui-btn-group">
+                            <button class="layui-btn layui-btn-sm btn-refresh yzn-btn-primary"><i class="iconfont icon-shuaxin1"></i> </button>
+                            <button class="layui-btn layui-btn-normal layui-btn-sm btn-time" data-time="1">今天</button>
+                            <button class="layui-btn layui-btn-normal layui-btn-sm btn-time" data-time="3">最近30天</button>
+                            <button class="layui-btn layui-btn-normal layui-btn-sm btn-time" data-time="5">本月</button>
+                            <button class="layui-btn layui-btn-normal layui-btn-sm btn-time" data-time="6">今年</button>
+                            <div class="layui-input-inline">
+                                <input type="text" class="layui-input datetime" data-type="spider" placeholder="请选择日期范围" style="width: 300px;height: 30px;line-height: 30px;font-size: 14px;">
+                            </div>
+                        </div>
+                        <div id="echarts1" style="height:550px;width:100%;margin-top:15px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <div class="layui-panel">
+                    <div style="padding: 30px;">
+                        <div class="layui-btn-group">
+                            <button class="layui-btn layui-btn-sm btn-refresh yzn-btn-primary"><i class="iconfont icon-shuaxin1"></i> </button>
+                            <button class="layui-btn layui-btn-normal layui-btn-sm btn-time" data-time="1">今天</button>
+                            <button class="layui-btn layui-btn-normal layui-btn-sm btn-time" data-time="3">最近30天</button>
+                            <button class="layui-btn layui-btn-normal layui-btn-sm btn-time" data-time="5">本月</button>
+                            <button class="layui-btn layui-btn-normal layui-btn-sm btn-time" data-time="6">今年</button>
+                            <div class="layui-input-inline">
+                                <input type="text" class="layui-input datetime" data-type="source" placeholder="请选择日期范围" style="width: 300px;height: 30px;line-height: 30px;font-size: 14px;">
+                            </div>
+                        </div>
+                        <div id="echarts2" style="height:550px;width:100%;margin-top:15px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+{php}use \util\Date;{/php}
+<script type="text/javascript">
+layui.use(['jquery','echarts','laydate','yzn'], function() {
+    var $ = layui.jquery,
+    echarts = layui.echarts,
+    yzn = layui.yzn,
+    laydate = layui.laydate;
+
+    var option1 = {
+        title: {
+            text: '爬虫统计',
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {},
+        toolbox: {
+            show: true,
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        calculable: true,
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: {$xAxisData|raw|json_encode}
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name: "所有爬虫",
+                type: 'line',
+                smooth: true,
+                areaStyle: {
+                    normal: {}
+                },
+                lineStyle: {
+                    normal: {
+                        width: 1.5
+                    }
+                },
+                data: {$seriesData|raw|json_encode}
+            }]
+    };
+    var myChart1 = echarts.init($('#echarts1')[0],'walden');
+    myChart1.setOption(option1);
+
+    var option2 = {
+        title: {
+            text: '来源统计',
+        },
+        tooltip: {
+            trigger: 'item'
+        },
+        legend: {
+            top: '5%',
+            left: 'center'
+        },
+        series: [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: ['45%', '60%'],
+                labelLine: {
+                    length: 30,
+                },
+                label: {
+                    formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+                    backgroundColor: '#F6F8FC',
+                    borderColor: '#8C8D8E',
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    
+                    rich: {
+                        a: {
+                            color: '#6E7079',
+                            lineHeight: 22,
+                            align: 'center'
+                        },
+                        hr: {
+                            borderColor: '#8C8D8E',
+                            width: '100%',
+                            borderWidth: 1,
+                            height: 0
+                        },
+                        b: {
+                            color: '#4C5058',
+                            fontSize: 14,
+                            fontWeight: 'bold',
+                            lineHeight: 33
+                        },
+                        per: {
+                            color: '#fff',
+                            backgroundColor: '#4C5058',
+                            padding: [3, 4],
+                            borderRadius: 4
+                        }
+                    }
+                },
+                avoidLabelOverlap: false,
+                data:{$SourceData|raw|json_encode}
+            }
+        ]
+    };
+    var myChart2 = echarts.init($('#echarts2')[0], 'walden');
+    myChart2.setOption(option2);
+
+    window.onresize = function(){
+        myChart1.resize();
+        myChart2.resize();
+    }
+
+    //点击刷新
+    $(document).on("click", ".btn-refresh", function () {
+        if ($(this).data("type")) {
+            refreshEchart($(this).data("type"), "");
+        }else{
+            var input = $(this).closest(".layui-btn-group").find(".datatime");
+            var type = $(input).data("type");
+            var date = $(input).val();
+            refreshEchart(type, date);
+        }
+    });
+
+    lay('.datetime').each(function () {
+        var type = $(this).data('type');
+        laydate.render({
+            elem: this,
+            trigger: 'click',
+            range: true,
+            type: 'datetime',
+            done: function(value, date){
+                refreshEchart(type,value);
+            }
+        });
+    });
+
+    //点击按钮
+    $(document).on("click", ".btn-time", function () {
+        var input = $(this).closest(".layui-btn-group").find(".datetime");
+        var type = $(input).data("type");
+        var time=$(this).data('time');
+        switch(time) {
+             case 1:
+                start_time ='{:date("Y-m-d H:i:s",Date::unixtime("day", 0, "begin"))}'; 
+                end_time ='{:date("Y-m-d H:i:s",Date::unixtime("day", 0, "end"))}'; 
+                break;
+             case 3:
+                start_time ='{:date("Y-m-d H:i:s",Date::unixtime("day", -30, "begin"))}'; 
+                end_time ='{:date("Y-m-d H:i:s",Date::unixtime("day", 0, "end"))}'; 
+                break;
+             case 5:
+                start_time ='{:date("Y-m-d H:i:s",Date::unixtime("month", 0, "begin"))}'; 
+                end_time ='{:date("Y-m-d H:i:s",Date::unixtime("month", 0, "end"))}'; 
+                break;
+             case 6:
+                start_time ='{:date("Y-m-d H:i:s",Date::unixtime("year", 0, "begin"))}'; 
+                end_time ='{:date("Y-m-d H:i:s",Date::unixtime("year", 0, "end"))}'; 
+                break;
+        }
+        refreshEchart(type,start_time + ' - ' + end_time);
+    });
+
+    var refreshEchart = function (type, date) {
+        if (type == 'spider') {
+            var ok =  function(res) {
+                option1.xAxis.data = res.data.xAxisData;
+                option1.series[0].data = res.data.seriesData;
+                myChart1.clear();
+                myChart1.setOption(option1, true);
+                return false;
+            };
+        }else if (type == 'source') {
+            var ok =  function(res) {
+                option2.series[0].data = res.data.SourceData;
+                myChart2.clear();
+                myChart2.setOption(option2, true);
+                return false;
+            };
+        }
+        yzn.request.post({
+            url: '{:url("addons/spider/statistics",["isadmin"=>1])}',
+            data: {date: date, type: type}
+        }, ok);
+    };
+})
+</script>
+{/block}

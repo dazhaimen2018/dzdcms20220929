@@ -33,15 +33,6 @@ class Ems extends Api
     {
         $this->Ems_Model = new Ems_Model();
         parent::initialize();
-        \think\facade\Hook::add('ems_send', function ($params) {
-            $obj    = \util\Email::instance();
-            $result = $obj
-                ->to($params->email)
-                ->subject('验证码')
-                ->message("你的验证码是：" . $params->code)
-                ->send();
-            return $result;
-        });
     }
 
     /**
@@ -77,6 +68,9 @@ class Ems extends Api
             } elseif (in_array($event, ['changepwd', 'resetpwd', 'actemail']) && !$userinfo) {
                 $this->error('未注册');
             }
+        }
+        if (!\think\facade\Hook::get('ems_send')) {
+            $this->error('请在后台插件管理安装邮箱验证插件');
         }
         $ret = $this->Ems_Model->send($email, null, $event);
         if ($ret) {

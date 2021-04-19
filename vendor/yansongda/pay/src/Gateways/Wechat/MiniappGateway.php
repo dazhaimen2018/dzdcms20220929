@@ -16,16 +16,19 @@ class MiniappGateway extends MpGateway
      * @author yansongda <me@yansongda.cn>
      *
      * @param string $endpoint
+     * @param array  $payload
      *
      * @throws GatewayException
      * @throws InvalidArgumentException
      * @throws InvalidSignException
+     *
+     * @return Collection
      */
     public function pay($endpoint, array $payload): Collection
     {
         $payload['appid'] = Support::getInstance()->miniapp_id;
 
-        if (Wechat::MODE_SERVICE === $this->mode) {
+        if ($this->mode === Wechat::MODE_SERVICE) {
             $payload['sub_appid'] = Support::getInstance()->sub_miniapp_id;
             $this->payRequestUseSubAppId = true;
         }

@@ -5,7 +5,7 @@ namespace Yansongda\Supports\Traits;
 use Predis\Client;
 
 /**
- * Trait ShouldThrottle.
+ * Trait ShouldThrottle
  *
  * @property Client $redis
  */
@@ -20,7 +20,7 @@ trait ShouldThrottle
         'limit' => 60,
         'period' => 60,
         'count' => 0,
-        'reset_time' => 0,
+        'reset_time' => 0
     ];
 
     /**
@@ -37,7 +37,7 @@ trait ShouldThrottle
      */
     public function isThrottled($key, $limit = 60, $period = 60, $auto_add = false)
     {
-        if (-1 === $limit) {
+        if ($limit === -1) {
             return false;
         }
 
@@ -70,6 +70,8 @@ trait ShouldThrottle
      *
      * @param string $key
      * @param int    $period
+     *
+     * @return void
      */
     public function throttleAdd($key, $period = 60)
     {
@@ -98,7 +100,7 @@ trait ShouldThrottle
             ['limit' => [0, 1]]
         );
 
-        if (0 === count($data)) {
+        if (count($data) === 0) {
             return $this->_throttle['reset_time'] = time() + $this->_throttle['period'];
         }
 
@@ -110,8 +112,8 @@ trait ShouldThrottle
      *
      * @author yansongda <me@yansongda.cn>
      *
-     * @param string|null $key
-     * @param mixed|null  $default
+     * @param null $key
+     * @param null $default
      *
      * @return array|null
      */
@@ -133,8 +135,8 @@ trait ShouldThrottle
      *
      * @author yansongda <me@yansongda.cn>
      *
-     * @param string $key
-     * @param int    $period
+     * @param     $key
+     * @param int $period
      *
      * @return string
      */

@@ -24,14 +24,14 @@ class StrictSessionHandler extends AbstractSessionHandler
     public function __construct(\SessionHandlerInterface $handler)
     {
         if ($handler instanceof \SessionUpdateTimestampHandlerInterface) {
-            throw new \LogicException(sprintf('"%s" is already an instance of "SessionUpdateTimestampHandlerInterface", you cannot wrap it with "%s".', get_debug_type($handler), self::class));
+            throw new \LogicException(sprintf('"%s" is already an instance of "SessionUpdateTimestampHandlerInterface", you cannot wrap it with "%s".', \get_class($handler), self::class));
         }
 
         $this->handler = $handler;
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
      */
     public function open($savePath, $sessionName)
     {
@@ -43,13 +43,13 @@ class StrictSessionHandler extends AbstractSessionHandler
     /**
      * {@inheritdoc}
      */
-    protected function doRead(string $sessionId)
+    protected function doRead($sessionId)
     {
         return $this->handler->read($sessionId);
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
      */
     public function updateTimestamp($sessionId, $data)
     {
@@ -59,13 +59,13 @@ class StrictSessionHandler extends AbstractSessionHandler
     /**
      * {@inheritdoc}
      */
-    protected function doWrite(string $sessionId, string $data)
+    protected function doWrite($sessionId, $data)
     {
         return $this->handler->write($sessionId, $data);
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
      */
     public function destroy($sessionId)
     {
@@ -78,7 +78,7 @@ class StrictSessionHandler extends AbstractSessionHandler
     /**
      * {@inheritdoc}
      */
-    protected function doDestroy(string $sessionId)
+    protected function doDestroy($sessionId)
     {
         $this->doDestroy = false;
 
@@ -86,7 +86,7 @@ class StrictSessionHandler extends AbstractSessionHandler
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
      */
     public function close()
     {

@@ -1,28 +1,12 @@
 <div class="layui-col-sm3 layui-col-md2 shop-nav">
     <div class="product-list">
-        <div class="title">{:getCategory($top_parentid,'catname')}</div>
-    </div>
-    <div class="layui-panel">
-        <ul class="layui-menu" id="docDemoMenu1">
-            {yzn module="cms" action="category" catid="$top_parentid" siteId="$site_id" cache="3600" order="listorder ASC" num="30" return="data"}
+        <dl>
+            <dt><a href="{:getCategory($top_parentid,'url')}">{:getCategory($top_parentid,'catname')}</a></dt>
+            {yzn module="cms" action="category" catid="$top_parentid" siteId="$site_id" cache="3600" order="listorder ASC" num="10" return="data"}
             {volist name="data" id="vo"}
-            {if $vo['child']}
-            <li class="layui-menu-item-group {if isset($catid) && in_array($catid,explode(',',$vo['arrchildid']))}layui-menu-item-down{else}layui-menu-item-up{/if}">
-                <div class="layui-menu-body-title">{$vo.catname} <i class="layui-icon {if isset($catid) && in_array($catid,explode(',',$vo['arrchildid']))}layui-icon-up{else}layui-icon-down{/if}"></i></div>
-                <ul>
-                    {yzn module="cms" action="category" catid="$vo['id']" cache="3600" order="listorder ASC" num="10" return="data"}
-                    {foreach $data as $key=>$vo }
-                    <li  {if isset($catid) && in_array($catid,explode(',',$vo['arrchildid']))}class="layui-menu-item-checked"{/if}><a href="{$vo.url}" title="{$vo.catname}">{$vo.catname}</a></li>
-                    {/foreach}
-                    {/yzn}
-                </ul>
-            </li>
-            {else}
-            <li {if isset($catid) && in_array($catid,explode(',',$vo['arrchildid']))}class="layui-menu-item-checked"{/if}><div class="layui-menu-body-title"><a href="{$vo.url}">{$vo.catname}</a></div></li>
-            {/if}
-            <li class="layui-menu-item-divider"></li>
+            <dd {if $vo['id']==$catid}class="layui-this"{/if} ><a href="{$vo.url}"><i class="iconfont icon-xiazai"></i>{$vo.catname}</a></dd>
             {/volist}
             {/yzn}
-        </ul>
+        </dl>
     </div>
 </div>

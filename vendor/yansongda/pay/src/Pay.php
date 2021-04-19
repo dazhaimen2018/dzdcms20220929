@@ -10,7 +10,6 @@ use Yansongda\Pay\Gateways\Wechat;
 use Yansongda\Pay\Listeners\KernelLogSubscriber;
 use Yansongda\Supports\Config;
 use Yansongda\Supports\Log;
-use Yansongda\Supports\Logger;
 use Yansongda\Supports\Str;
 
 /**
@@ -30,6 +29,8 @@ class Pay
      * Bootstrap.
      *
      * @author yansongda <me@yansongda.cn>
+     *
+     * @param array $config
      *
      * @throws Exception
      */
@@ -51,6 +52,8 @@ class Pay
      *
      * @throws InvalidGatewayException
      * @throws Exception
+     *
+     * @return GatewayApplicationInterface
      */
     public static function __callStatic($method, $params): GatewayApplicationInterface
     {
@@ -67,6 +70,8 @@ class Pay
      * @param string $method
      *
      * @throws InvalidGatewayException
+     *
+     * @return GatewayApplicationInterface
      */
     protected function create($method): GatewayApplicationInterface
     {
@@ -87,6 +92,8 @@ class Pay
      * @param string $gateway
      *
      * @throws InvalidGatewayException
+     *
+     * @return GatewayApplicationInterface
      */
     protected function make($gateway): GatewayApplicationInterface
     {
@@ -108,19 +115,23 @@ class Pay
      */
     protected function registerLogService()
     {
-        $config = $this->config->get('log');
-        $config['identify'] = 'yansongda.pay';
+        $logger = Log::createLogger(
+            $this->config->get('log.file'),
+            'yansongda.pay',
+            $this->config->get('log.level', 'warning'),
+            $this->config->get('log.type', 'daily'),
+            $this->config->get('log.max_file', 30)
+        );
 
-        $logger = new Logger();
-        $logger->setConfig($config);
-
-        Log::setInstance($logger);
+        Log::setLogger($logger);
     }
 
     /**
      * Register event service.
      *
      * @author yansongda <me@yansongda.cn>
+     *
+     * @return void
      */
     protected function registerEventService()
     {

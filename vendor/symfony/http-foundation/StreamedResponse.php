@@ -30,7 +30,12 @@ class StreamedResponse extends Response
     protected $streamed;
     private $headersSent;
 
-    public function __construct(callable $callback = null, int $status = 200, array $headers = [])
+    /**
+     * @param callable|null $callback A valid PHP callback or null to set it later
+     * @param int           $status   The response status code
+     * @param array         $headers  An array of response headers
+     */
+    public function __construct(callable $callback = null, $status = 200, $headers = [])
     {
         parent::__construct(null, $status, $headers);
 
@@ -45,20 +50,20 @@ class StreamedResponse extends Response
      * Factory method for chainability.
      *
      * @param callable|null $callback A valid PHP callback or null to set it later
+     * @param int           $status   The response status code
+     * @param array         $headers  An array of response headers
      *
      * @return static
-     *
-     * @deprecated since Symfony 5.1, use __construct() instead.
      */
-    public static function create($callback = null, int $status = 200, array $headers = [])
+    public static function create($callback = null, $status = 200, $headers = [])
     {
-        trigger_deprecation('symfony/http-foundation', '5.1', 'The "%s()" method is deprecated, use "new %s()" instead.', __METHOD__, static::class);
-
         return new static($callback, $status, $headers);
     }
 
     /**
      * Sets the PHP callback associated with this Response.
+     *
+     * @param callable $callback A valid PHP callback
      *
      * @return $this
      */
@@ -106,7 +111,7 @@ class StreamedResponse extends Response
             throw new \LogicException('The Response callback must not be null.');
         }
 
-        ($this->callback)();
+        \call_user_func($this->callback);
 
         return $this;
     }
@@ -118,7 +123,7 @@ class StreamedResponse extends Response
      *
      * @return $this
      */
-    public function setContent(?string $content)
+    public function setContent($content)
     {
         if (null !== $content) {
             throw new \LogicException('The content cannot be set on a StreamedResponse instance.');

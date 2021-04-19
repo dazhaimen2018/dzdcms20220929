@@ -1,0 +1,49 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">蜘蛛访问列表</div>
+    <div class="layui-card-body">
+        <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
+    </div>
+</div>
+<script type="text/html" id="barTool">
+    <a href='{:url("addons/spider/del",["isadmin"=>1])}?ids={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
+</script>
+{/block}
+{block name="script"}
+<script>
+layui.use('yznTable', function() {
+    var table = layui.yznTable;
+
+    var init = {
+        table_elem: '#currentTable',
+        delete_url: "{:url('addons/spider/del',['isadmin'=>1])}",
+    };
+
+    table.render({
+        init: init,
+        id: 'currentTable',
+        elem: '#currentTable',
+        toolbar: ['refresh','delete', [{
+              html: '<a class="layui-btn layui-btn-sm" href="{:url("addons/spider/statistics",["isadmin"=>1])}"><i class="iconfont icon-tubiaoqiehuan"></i>&nbsp;图形分析</a>'
+        }]
+        ],
+        url: '{:url("addons/spider/index",["isadmin"=>1])}',
+        cols: [
+            [
+                { type: 'checkbox', fixed: 'left' },
+                { field: 'id', width: 100, title: 'ID' },
+                { field: 'spider', width: 100, title: '蜘蛛来源' },
+                { field: 'title',title: '标题' },
+                { field: 'url',  width:300,title: '访问url' },
+                { field: 'ismobile', width:80,title: '来源',templet: '<div>{{#  if(d.ismobile==1){ }} WAP {{#  } else { }} PC {{#  } }} </div>' },
+                { field: 'ip', width:120,title: 'IP'},
+                { field: 'create_time',width:180, title: '创建时间' },
+                { fixed: 'right', title: '操作', width: 80, templet: '#barTool' }
+            ]
+        ],
+        page: {}
+    });
+});
+</script>
+{/block}

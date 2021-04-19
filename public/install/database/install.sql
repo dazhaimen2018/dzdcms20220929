@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2021-03-04 14:43:59
+-- 生成日期： 2021-04-20 07:28:44
 -- 服务器版本： 8.0.20
--- PHP 版本： 7.4.15
+-- PHP 版本： 7.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,7 +32,6 @@ CREATE TABLE `yzn_admin` (
   `username` varchar(20) DEFAULT NULL COMMENT '管理账号',
   `password` varchar(32) DEFAULT NULL COMMENT '管理密码',
   `roleid` tinyint UNSIGNED DEFAULT '0',
-  `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
   `encrypt` varchar(6) DEFAULT NULL COMMENT '加密因子',
   `nickname` char(16) NOT NULL COMMENT '昵称',
   `last_login_time` int UNSIGNED DEFAULT '0' COMMENT '最后登录时间',
@@ -46,8 +45,8 @@ CREATE TABLE `yzn_admin` (
 -- 转存表中的数据 `yzn_admin`
 --
 
-INSERT INTO `yzn_admin` (`id`, `username`, `password`, `roleid`,'site_id', `encrypt`, `nickname`, `last_login_time`, `last_login_ip`, `email`, `token`, `status`) VALUES
-(1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 0, 'xW5OhH', '多站点', 1614839775, '117.100.205.204', '8355763@qq.com', 'a949ee2a-7e95-4070-b8cc-4c76b9387011', 1);
+INSERT INTO `yzn_admin` (`id`, `username`, `password`, `roleid`, `encrypt`, `nickname`, `last_login_time`, `last_login_ip`, `email`, `token`, `status`) VALUES
+(1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 'xW5OhH', '多站点', 1614839775, '117.100.205.204', '8355763@qq.com', 'a949ee2a-7e95-4070-b8cc-4c76b9387011', 1);
 
 -- --------------------------------------------------------
 
@@ -64,15 +63,6 @@ CREATE TABLE `yzn_adminlog` (
   `ip` char(15) NOT NULL DEFAULT '' COMMENT '操作IP',
   `get` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='操作日志';
-
---
--- 转存表中的数据 `yzn_adminlog`
---
-
-INSERT INTO `yzn_adminlog` (`id`, `status`, `uid`, `info`, `create_time`, `ip`, `get`) VALUES
-(1, 0, 0, '提示语:请先登陆', 1614840198, '223.99.20.70', '/admin'),
-(2, 0, 0, '提示语:用户名不正确', 1614840211, '223.99.20.70', '/admin/index/login.html'),
-(3, 1, 1, '提示语:设置更新成功', 1614840224, '117.100.205.204', '/admin/config/setting/group/system.html');
 
 -- --------------------------------------------------------
 
@@ -204,28 +194,20 @@ CREATE TABLE `yzn_config` (
 INSERT INTO `yzn_config` (`id`, `name`, `type`, `title`, `group`, `options`, `remark`, `create_time`, `update_time`, `status`, `value`, `listorder`) VALUES
 (1, 'web_site_icp', 'text', '备案信息', 'base', '', '', 1551244923, 1551244971, 1, '', 1),
 (2, 'web_site_statistics', 'textarea', '站点代码', 'base', '', '', 1551244957, 1551244957, 1, '', 100),
-(3, 'mail_type', 'radio', '邮件发送模式', 'email', '1:SMTP\r\n2:Mail', '', 1553652833, 1553652915, 1, '1', 1),
-(4, 'mail_smtp_host', 'text', '邮件服务器', 'email', '', '错误的配置发送邮件会导致服务器超时', 1553652889, 1553652917, 1, 'smtp.163.com', 2),
-(5, 'mail_smtp_port', 'text', '邮件发送端口', 'email', '', '不加密默认25,SSL默认465,TLS默认587', 1553653165, 1553653292, 1, '465', 3),
-(6, 'mail_auth', 'radio', '身份认证', 'email', '0:关闭\r\n1:开启', '', 1553658375, 1553658392, 1, '1', 4),
-(7, 'mail_smtp_user', 'text', '用户名', 'email', '', '', 1553653267, 1553658393, 1, '', 5),
-(8, 'mail_smtp_pass', 'text', '密码', 'email', '', '', 1553653344, 1553658394, 1, '', 6),
-(9, 'mail_verify_type', 'radio', '验证方式', 'email', '1:TLS\r\n2:SSL', '', 1553653426, 1553658395, 1, '2', 7),
-(10, 'mail_from', 'text', '发件人邮箱', 'email', '', '', 1553653500, 1553658397, 1, '', 8),
-(11, 'config_group', 'array', '配置分组', 'system', '', '', 1494408414, 1494408414, 1, '{\"base\":\"基础\",\"email\":\"邮箱\",\"system\":\"系统\",\"upload\":\"上传\",\"develop\":\"开发\"}', 0),
-(12, 'theme', 'text', '主题风格', 'system', '', '', 1541752781, 1541756888, 1, 'default', 1),
-(13, 'admin_forbid_ip', 'textarea', '后台禁止访问IP', 'system', '', '匹配IP段用\"*\"占位，如192.168.*.*，多个IP地址请用英文逗号\",\"分割', 1551244957, 1551244957, 1, '', 2),
-(14, 'upload_image_size', 'text', '图片上传大小限制', 'upload', '', '0为不限制大小，单位：kb', 1540457656, 1552436075, 1, '0', 2),
-(15, 'upload_image_ext', 'text', '允许上传的图片后缀', 'upload', '', '多个后缀用逗号隔开，不填写则不限制类型', 1540457657, 1552436074, 1, 'gif,jpg,jpeg,bmp,png', 1),
-(16, 'upload_file_size', 'text', '文件上传大小限制', 'upload', '', '0为不限制大小，单位：kb', 1540457658, 1552436078, 1, '0', 3),
-(17, 'upload_file_ext', 'text', '允许上传的文件后缀', 'upload', '', '多个后缀用逗号隔开，不填写则不限制类型', 1540457659, 1552436080, 1, 'doc,docx,xls,xlsx,ppt,pptx,pdf,wps,txt,rar,zip,gz,bz2,7z', 4),
-(18, 'upload_driver', 'radio', '上传驱动', 'upload', 'local:本地', '图片或文件上传驱动', 1541752781, 1552436085, 1, 'local', 9),
-(19, 'upload_thumb_water', 'switch', '添加水印', 'upload', '', '', 1552435063, 1552436080, 1, '0', 5),
-(20, 'upload_thumb_water_pic', 'image', '水印图片', 'upload', '', '只有开启水印功能才生效', 1552435183, 1552436081, 1, '', 6),
-(21, 'upload_thumb_water_position', 'radio', '水印位置', 'upload', '1:左上角\r\n2:上居中\r\n3:右上角\r\n4:左居中\r\n5:居中\r\n6:右居中\r\n7:左下角\r\n8:下居中\r\n9:右下角', '只有开启水印功能才生效', 1552435257, 1552436082, 1, '9', 7),
-(22, 'upload_thumb_water_alpha', 'text', '水印透明度', 'upload', '', '请输入0~100之间的数字，数字越小，透明度越高', 1552435299, 1552436083, 1, '50', 8),
-(23, 'system_name', 'text', '系统名称', 'system', '', '', 1612178077, 1612178139, 1, 'DZDcms', 100),
-(24, 'system_logo', 'image', '系统LOGO', 'system', '', '', 1614839822, 1614839893, 1, '1', 100);
+(3, 'config_group', 'array', '配置分组', 'system', '', '', 1494408414, 1494408414, 1, '{\"base\":\"基础\",\"system\":\"系统\",\"upload\":\"上传\",\"develop\":\"开发\"}', 0),
+(4, 'theme', 'text', '主题风格', 'system', '', '', 1541752781, 1541756888, 1, 'default', 1),
+(5, 'admin_forbid_ip', 'textarea', '后台禁止访问IP', 'system', '', '匹配IP段用\"*\"占位，如192.168.*.*，多个IP地址请用英文逗号\",\"分割', 1551244957, 1551244957, 1, '', 2),
+(6, 'upload_image_size', 'text', '图片上传大小限制', 'upload', '', '0为不限制大小，单位：kb', 1540457656, 1552436075, 1, '0', 2),
+(7, 'upload_image_ext', 'text', '允许上传的图片后缀', 'upload', '', '多个后缀用逗号隔开，不填写则不限制类型', 1540457657, 1552436074, 1, 'gif,jpg,jpeg,bmp,png', 1),
+(8, 'upload_file_size', 'text', '文件上传大小限制', 'upload', '', '0为不限制大小，单位：kb', 1540457658, 1552436078, 1, '0', 3),
+(9, 'upload_file_ext', 'text', '允许上传的文件后缀', 'upload', '', '多个后缀用逗号隔开，不填写则不限制类型', 1540457659, 1552436080, 1, 'doc,docx,xls,xlsx,ppt,pptx,pdf,wps,txt,rar,zip,gz,bz2,7z', 4),
+(10, 'upload_driver', 'radio', '上传驱动', 'upload', 'local:本地', '图片或文件上传驱动', 1541752781, 1552436085, 1, 'local', 9),
+(11, 'upload_thumb_water', 'switch', '添加水印', 'upload', '', '', 1552435063, 1552436080, 1, '0', 5),
+(12, 'upload_thumb_water_pic', 'image', '水印图片', 'upload', '', '只有开启水印功能才生效', 1552435183, 1552436081, 1, '', 6),
+(13, 'upload_thumb_water_position', 'radio', '水印位置', 'upload', '1:左上角\r\n2:上居中\r\n3:右上角\r\n4:左居中\r\n5:居中\r\n6:右居中\r\n7:左下角\r\n8:下居中\r\n9:右下角', '只有开启水印功能才生效', 1552435257, 1552436082, 1, '9', 7),
+(14, 'upload_thumb_water_alpha', 'text', '水印透明度', 'upload', '', '请输入0~100之间的数字，数字越小，透明度越高', 1552435299, 1552436083, 1, '50', 8),
+(15, 'system_name', 'text', '系统名称', 'system', '', '', 1618874857, 1618874857, 1, 'DZDCMS', 100),
+(16, 'system_logo', 'image', '系统LOGO', 'system', '', '', 1618874890, 1618874890, 1, '1', 100);
 
 -- --------------------------------------------------------
 
@@ -615,7 +597,7 @@ ALTER TABLE `yzn_admin`
 -- 使用表AUTO_INCREMENT `yzn_adminlog`
 --
 ALTER TABLE `yzn_adminlog`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '日志ID', AUTO_INCREMENT=4;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '日志ID';
 
 --
 -- 使用表AUTO_INCREMENT `yzn_attachment`
@@ -645,7 +627,7 @@ ALTER TABLE `yzn_cache`
 -- 使用表AUTO_INCREMENT `yzn_config`
 --
 ALTER TABLE `yzn_config`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_INCREMENT=25;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_INCREMENT=17;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_ems`
