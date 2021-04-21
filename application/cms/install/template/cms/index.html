@@ -68,6 +68,25 @@
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>
                 </div>
+
+                <div class="swiper-container swiper-news-wap">
+                    <div class="swiper-wrapper">
+                        {yzn module="cms" action="lists" catid="1" siteId="$site_id" cache="3600" order="listorder DESC,inputtime DESC" num="12" return="data"}
+                        {volist name="data" id="item"}
+                        <div class="swiper-slide">
+                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12 layui-col-lg12">
+                                {include file="public/item" /}
+                            </div>
+                        </div>
+                        {/volist}
+                        {/yzn}
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
             </div>
         </div>
     </div>
