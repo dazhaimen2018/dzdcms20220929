@@ -122,7 +122,7 @@ function getSite($field)
 function getSiteName($id)
 {
     if (!$id) {
-        return false;
+        return '所有站';
     }
 
     if ($id !== 'false') {
@@ -133,7 +133,7 @@ function getSiteName($id)
             return false;
         }
     } else {
-        return false;
+        return '所有站';
     }
 
 }
@@ -172,7 +172,14 @@ function getSiteInfo($field)
     if (!$field) {
         return false;
     }
-    $siteId = cache("Cms_Config")['site'];
+    //$siteId = cache("Cms_Config")['site'];
+    $userInfo = Session::get('admin');
+    $adminId = $userInfo['site_id'];
+    if($adminId){
+        $siteId =   $adminId;
+    }else{
+        $siteId = cache("Cms_Config")['site'];
+    }
     $site = db('site')->where(['id' => $siteId])->find();
     if ($site) {
         return $site[$field];
