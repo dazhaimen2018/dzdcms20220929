@@ -70,10 +70,7 @@ class Manager extends Adminbase
             $count = $this->modelClass
                 ->where($where)
                 ->where('id', 'in', $this->childrenAdminIds)
-                ->order(array('id' => 'ASC'))
-                //->withAttr('roleid', function ($value, $data) {
-                //    return $this->AuthGroupModel->getRoleIdName($value);
-                //})
+                ->order('id DESC')
                 ->withAttr('site_id', function ($value, $data) {
                     return getSiteName($value);
                 })
@@ -82,7 +79,7 @@ class Manager extends Adminbase
             $_list = $this->modelClass
                 ->where($where)
                 ->where('id', 'in', $this->childrenAdminIds)
-                ->order(array('id' => 'ASC'))
+                ->order('id DESC')
                 ->withAttr('roleid', function ($value, $data) {
                     return $this->AuthGroupModel->getRoleIdName($value);
                 })

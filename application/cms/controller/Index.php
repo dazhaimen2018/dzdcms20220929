@@ -223,6 +223,7 @@ class Index extends Cmsbase
         $top_parentid = isset($arrparentid[1]) ? $arrparentid[1] : $catid;
         $this->view->assign($info);
         $this->view->assign([
+            'category'      => $category,
             'readpoint'     => $readpoint,
             'allow_visitor' => $allow_visitor,
             'top_parentid'  => $top_parentid,
