@@ -22,7 +22,7 @@ return [
     // 应用调试模式
     'app_debug'              => true,
     // 应用Trace
-    'app_trace'              => false,
+    'app_trace'              => true,
     // 应用模式状态
     'app_status'             => '',
     // 是否支持多模块
@@ -134,7 +134,7 @@ return [
     // 错误显示信息,非调试模式有效
     'error_message'          => '页面错误！请稍后再试～',
     // 显示错误信息
-    'show_error_msg'         => true,
+    'show_error_msg'         => false,
     // 异常处理handle类 留空使用 \think\exception\Handle
     'exception_handle'       => '',
 
@@ -147,4 +147,8 @@ return [
     'login_unique'           => false,
     //是否开启IP变动检测
     'loginip_check'          => false,
+    //是否支持分片上传(文件按钮)
+    'chunking'               => false,
+    //默认分片大小5M
+    'chunksize'              => 5242880,
 ];

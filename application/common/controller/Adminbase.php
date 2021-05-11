@@ -36,9 +36,9 @@ class Adminbase extends Base
     protected $multiFields = 'status,listorder';
     //模型对象
     protected $modelClass = null;
-    /**
-     * 是否是关联查询
-     */
+    //Selectpage可显示的字段
+    protected $selectpageFields = '*';
+    //是否是关联查询
     protected $relationSearch = false;
 
     /*
@@ -123,6 +123,8 @@ class Adminbase extends Base
             'upload_file_size'       => $config['upload_file_size'],
             'upload_image_ext'       => $config['upload_image_ext'],
             'upload_file_ext'        => $config['upload_file_ext'],
+            'chunking'               => $config['chunking'],
+            'chunksize'              => $config['chunksize'],
         ];
         $this->assign('site', $site);
     }
@@ -260,7 +262,7 @@ class Adminbase extends Base
     protected function selectpage()
     {
         //设置过滤方法
-        $this->request->filter(['strip_tags', 'htmlspecialchars']);
+        $this->request->filter(['trim', 'strip_tags', 'htmlspecialchars']);
 
         //搜索关键词,客户端输入以空格分开,这里接收为数组
         $word = (array) $this->request->request("q_word/a");
@@ -304,11 +306,18 @@ class Adminbase extends Base
             $where = function ($query) use ($word, $andor, $field, $searchfield, $custom) {
                 $logic       = $andor == 'AND' ? '&' : '|';
                 $searchfield = is_array($searchfield) ? implode($logic, $searchfield) : $searchfield;
-                $word        = array_filter($word);
-                if ($word) {
-                    foreach ($word as $k => $v) {
-                        $query->where(str_replace(',', $logic, $searchfield), "like", "%{$v}%");
-                    }
+                $searchfield = str_replace(',', $logic, $searchfield);
+                $word        = array_filter(array_unique($word));
+                if (count($word) == 1) {
+                    $query->where($searchfield, "like", "%" . reset($word) . "%");
+                } else {
+                    $query->where(function ($query) use ($word, $searchfield) {
+                        foreach ($word as $index => $item) {
+                            $query->whereOr(function ($query) use ($item, $searchfield) {
+                                $query->where($searchfield, "like", "%{$item}%");
+                            });
+                        }
+                    });
                 }
                 if ($custom && is_array($custom)) {
                     foreach ($custom as $k => $v) {
@@ -321,28 +330,41 @@ class Adminbase extends Base
                 }
             };
         }
-        /*$adminIds = $this->getDataLimitAdminIds();
-        if (is_array($adminIds)) {
-        $this->model->where($this->dataLimitField, 'in', $adminIds);
-        }*/
         $list  = [];
         $total = $this->modelClass->where($where)->count();
         if ($total > 0) {
-            /*if (is_array($adminIds)) {
-            $this->model->where($this->dataLimitField, 'in', $adminIds);
-            }*/
+            $fields = is_array($this->selectpageFields) ? $this->selectpageFields : ($this->selectpageFields && $this->selectpageFields != '*' ? explode(',', $this->selectpageFields) : []);
+            //如果有primaryvalue,说明当前是初始化传值,按照选择顺序排序
+            if ($primaryvalue !== null && preg_match("/^[a-z0-9_\-]+$/i", $primarykey)) {
+                $primaryvalue = array_unique(is_array($primaryvalue) ? $primaryvalue : explode(',', $primaryvalue));
+                //修复自定义data-primary-key为字符串内容时，给排序字段添加上引号
+                $primaryvalue = array_map(function ($value) {
+                    return '\'' . $value . '\'';
+                }, $primaryvalue);
+
+                $primaryvalue = implode(',', $primaryvalue);
+
+                $this->modelClass->orderRaw("FIELD(`{$primarykey}`, {$primaryvalue})");
+            } else {
+                $this->modelClass->order($order);
+            }
+
             $datalist = $this->modelClass->where($where)
-                ->order($order)
                 ->page($page, $pagesize)
-                ->field($this->selectpageFields)
                 ->select();
+
             foreach ($datalist as $index => $item) {
                 unset($item['password'], $item['salt']);
-                $list[] = [
-                    $primarykey => isset($item[$primarykey]) ? $item[$primarykey] : '',
-                    $field      => isset($item[$field]) ? $item[$field] : '',
-                    'pid'       => isset($item['pid']) ? $item['pid'] : 0,
-                ];
+                if ($this->selectpageFields == '*') {
+                    $result = [
+                        $primarykey => isset($item[$primarykey]) ? $item[$primarykey] : '',
+                        $field      => isset($item[$field]) ? $item[$field] : '',
+                    ];
+                } else {
+                    $result = array_intersect_key(($item instanceof Model ? $item->toArray() : (array) $item), array_flip($fields));
+                }
+                $result['pid'] = isset($item['pid']) ? $item['pid'] : (isset($item['parent_id']) ? $item['parent_id'] : 0);
+                $list[]        = $result;
             }
             if ($istree && !$primaryvalue) {
                 $tree = \util\Tree::instance();
