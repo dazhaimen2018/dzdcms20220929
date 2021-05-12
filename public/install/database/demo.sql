@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2021-03-18 09:12:26
+-- 生成日期： 2021-05-11 20:44:37
 -- 服务器版本： 8.0.20
 -- PHP 版本： 7.4.16
 
@@ -47,8 +47,8 @@ CREATE TABLE `yzn_admin` (
 --
 
 INSERT INTO `yzn_admin` (`id`, `username`, `password`, `roleid`, `site_id`, `encrypt`, `nickname`, `last_login_time`, `last_login_ip`, `email`, `token`, `status`) VALUES
-(1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 0, 'xW5OhH', '多站点', 1614839775, '117.100.205.204', '8355763@qq.com', 'a949ee2a-7e95-4070-b8cc-4c76b9387011', 1),
-(2, 'demo', '53423c4a65c8e4c5be8c5bc70f0b41bc', 2, 0, 'jreG4r', 'demo', 0, '', 'demo@dzdcms.com', '', 1);
+(1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 0, 'xW5OhH', '多站点', 1620736397, '111.193.178.23', '8355763@qq.com', 'd1ca70d2-d572-4fb2-ac9d-e65e7ae673a7', 1),
+(2, 'demo', '0f7a376366b32fc37953711cffc90ae2', 1, 0, '1klApJ', 'DZD', 0, '', 'demo@dzdcms.com', '', 1);
 
 -- --------------------------------------------------------
 
@@ -126,7 +126,7 @@ CREATE TABLE `yzn_auth_group` (
 
 INSERT INTO `yzn_auth_group` (`id`, `parentid`, `module`, `type`, `title`, `description`, `rules`, `status`) VALUES
 (1, 0, 'admin', 1, '超级管理员', '拥有所有权限', '*', 1),
-(2, 1, 'admin', 1, '编辑', '编辑', '1,4,2,5,17,7,8,21,111,22,23,24,25,26,27,9,10,13,11,36,14,6,115,45,46,47,48,49,53,54,55,56,57,58,59,59,60,61,62,63,64,65,66,69,70,73,74,79,80,81,82,83,87,88,89,90,90,92,94,95,96,96,100,101,102,104,106,107,108,109,110,116,31,32,39,32,117,28,29,40,44,30', 1);
+(2, 1, 'admin', 1, '编辑', '编辑', '', 1);
 
 -- --------------------------------------------------------
 
@@ -143,129 +143,6 @@ CREATE TABLE `yzn_auth_rule` (
   `condition` varchar(300) NOT NULL DEFAULT '' COMMENT '规则附加条件',
   `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='规则表';
-
---
--- 转存表中的数据 `yzn_auth_rule`
---
-
-INSERT INTO `yzn_auth_rule` (`id`, `module`, `type`, `name`, `title`, `condition`, `status`) VALUES
-(1, 'admin', 2, 'admin/setting/index', '设置', '', 1),
-(2, 'admin', 1, 'admin/profile/index', '个人资料', '', 1),
-(3, 'admin', 1, 'admin/profile/update', '资料更新', '', 1),
-(4, 'admin', 1, 'admin/config/index1', '系统配置', '', 1),
-(5, 'admin', 1, 'admin/config/index', '配置管理', '', 1),
-(6, 'admin', 1, 'admin/adminlog/deletelog', '删除日志', '', 1),
-(7, 'admin', 1, 'admin/config/setting', '网站设置', '', 1),
-(8, 'admin', 1, 'admin/menu/index', '菜单管理', '', 1),
-(9, 'admin', 1, 'admin/manager/index1', '权限管理', '', 1),
-(10, 'admin', 1, 'admin/manager/index', '管理员管理', '', 1),
-(11, 'admin', 1, 'admin/authManager/index', '角色管理', '', 1),
-(12, 'admin', 1, 'admin/manager/add', '添加管理员', '', 1),
-(13, 'admin', 1, 'admin/manager/edit', '编辑管理员', '', 1),
-(14, 'admin', 1, 'admin/adminlog/index', '管理日志', '', 1),
-(15, 'admin', 1, 'admin/manager/del', '删除管理员', '', 1),
-(16, 'admin', 1, 'admin/authManager/createGroup', '添加角色', '', 1),
-(17, 'admin', 1, 'admin/config/multi', '批量更新', '', 1),
-(18, 'admin', 1, 'admin/menu/add', '新增菜单', '', 1),
-(19, 'admin', 1, 'admin/menu/edit', '编辑菜单', '', 1),
-(20, 'admin', 1, 'admin/menu/del', '删除菜单', '', 1),
-(21, 'admin', 1, 'admin/menu/multi', '批量更新', '', 1),
-(22, 'attachment', 1, 'attachment/attachments/upload', '附件上传', '', 1),
-(23, 'attachment', 1, 'attachment/attachments/del', '附件删除', '', 1),
-(24, 'attachment', 1, 'attachment/ueditor/run', '编辑器附件', '', 1),
-(25, 'attachment', 1, 'attachment/attachments/showFileLis', '图片列表', '', 1),
-(26, 'attachment', 1, 'attachment/attachments/getUrlFile', '图片本地化', '', 1),
-(27, 'attachment', 1, 'attachment/attachments/select', '图片选择', '', 1),
-(28, 'addons', 1, 'addons/addons/index2', '插件扩展', '', 1),
-(29, 'addons', 1, 'addons/addons/index', '插件管理', '', 1),
-(30, 'addons', 1, 'addons/addons/addonadmin', '插件后台列表', '', 1),
-(31, 'admin', 1, 'admin/module/index2', '本地模块', '', 1),
-(32, 'admin', 1, 'admin/module/index', '模块后台列表', '', 1),
-(33, 'admin', 1, 'admin/authManager/editGroup', '编辑角色', '', 1),
-(34, 'admin', 1, 'admin/authManager/deleteGroup', '删除角色', '', 1),
-(35, 'admin', 1, 'admin/authManager/access', '访问授权', '', 1),
-(36, 'admin', 1, 'admin/authManager/writeGroup', '角色授权', '', 1),
-(37, 'admin', 1, 'admin/module/install', '模块安装', '', 1),
-(38, 'admin', 1, 'admin/module/uninstall', '模块卸载', '', 1),
-(39, 'admin', 1, 'admin/module/local', '本地安装', '', 1),
-(40, 'addons', 1, 'addons/addons/config', '插件设置', '', 1),
-(41, 'addons', 1, 'addons/addons/install', '插件安装', '', 1),
-(42, 'addons', 1, 'addons/addons/uninstall', '插件卸载', '', 1),
-(43, 'addons', 1, 'addons/addons/state', '插件状态', '', 1),
-(44, 'addons', 1, 'addons/addons/local', '本地安装', '', 1),
-(45, 'cms', 1, 'cms/cms/index2', '内容管理', '', 1),
-(46, 'cms', 1, 'cms/cms/index', '管理内容', '', 1),
-(47, 'cms', 1, 'cms/cms/panl', '面板', '', 1),
-(48, 'cms', 1, 'cms/cms/public_categorys', '栏目列表', '', 1),
-(49, 'cms', 1, 'cms/cms/classlist', '信息列表', '', 1),
-(50, 'cms', 1, 'cms/cms/add', '添加', '', 1),
-(51, 'cms', 1, 'cms/cms/edit', '编辑', '', 1),
-(52, 'cms', 1, 'cms/cms/del', '删除', '', 1),
-(53, 'cms', 1, 'cms/cms/listorder', '排序', '', 1),
-(54, 'cms', 1, 'cms/cms/remove', '批量移动', '', 1),
-(55, 'cms', 1, 'cms/cms/setstate', '状态', '', 1),
-(56, 'cms', 1, 'cms/cms/check_title', '标题检查', '', 1),
-(57, 'cms', 1, 'cms/cms/recycle', '回收站', '', 1),
-(58, 'cms', 1, 'cms/publish/index', '稿件管理', '', 1),
-(59, 'cms', 1, 'cms/tags/index', '列表', '', 1),
-(60, 'cms', 1, 'cms/tags/add', '添加', '', 1),
-(61, 'cms', 1, 'cms/tags/edit', '编辑', '', 1),
-(62, 'cms', 1, 'cms/tags/del', '删除', '', 1),
-(63, 'cms', 1, 'cms/tags/multi', '批量更新', '', 1),
-(64, 'cms', 1, 'cms/category/index1', '相关设置', '', 1),
-(65, 'cms', 1, 'cms/setting/index', 'CMS配置', '', 1),
-(66, 'cms', 1, 'cms/category/index', '栏目列表', '', 1),
-(67, 'cms', 1, 'cms/category/add', '添加栏目', '', 1),
-(68, 'cms', 1, 'cms/category/singlepage', '添加单页', '', 1),
-(69, 'cms', 1, 'cms/category/wadd', '添加外部链接', '', 1),
-(70, 'cms', 1, 'cms/category/cat_priv', '栏目授权', '', 1),
-(71, 'cms', 1, 'cms/category/edit', '编辑栏目', '', 1),
-(72, 'cms', 1, 'cms/category/del', '删除栏目', '', 1),
-(73, 'cms', 1, 'cms/category/multi', '批量更新', '', 1),
-(74, 'cms', 1, 'cms/models/index', '模型管理', '', 1),
-(75, 'cms', 1, 'cms/field/index', '字段管理', '', 1),
-(76, 'cms', 1, 'cms/field/add', '字段添加', '', 1),
-(77, 'cms', 1, 'cms/field/edit', '字段编辑', '', 1),
-(78, 'cms', 1, 'cms/field/del', '字段删除', '', 1),
-(79, 'cms', 1, 'cms/field/listorder', '字段排序', '', 1),
-(80, 'cms', 1, 'cms/field/setstate', '字段状态', '', 1),
-(81, 'cms', 1, 'cms/field/setsearch', '字段搜索', '', 1),
-(82, 'cms', 1, 'cms/field/setvisible', '字段隐藏', '', 1),
-(83, 'cms', 1, 'cms/field/setrequire', '字段必须', '', 1),
-(84, 'cms', 1, 'cms/models/add', '添加模型', '', 1),
-(85, 'cms', 1, 'cms/models/edit', '修改模型', '', 1),
-(86, 'cms', 1, 'cms/models/del', '删除模型', '', 1),
-(87, 'cms', 1, 'cms/models/setSub', '模型投稿', '', 1),
-(88, 'cms', 1, 'cms/models/setstate', '设置模型状态', '', 1),
-(89, 'cms', 1, 'cms/models/multi', '批量更新', '', 1),
-(90, 'cms', 1, 'cms/site/index', '站点管理', '', 1),
-(91, 'cms', 1, 'cms/site/add', '添加站点', '', 1),
-(92, 'cms', 1, 'cms/site/edit', '站点编辑', '', 1),
-(93, 'cms', 1, 'cms/site/del', '站点删除', '', 1),
-(94, 'cms', 1, 'cms/site/listorder', '站点排序', '', 1),
-(95, 'cms', 1, 'cms/site/setstate', '站点状态', '', 1),
-(96, 'cms', 1, 'cms/lang/index', '碎片管理', '', 1),
-(97, 'cms', 1, 'cms/lang/add', '添加碎片', '', 1),
-(98, 'cms', 1, 'cms/lang/edit', '碎片编辑', '', 1),
-(99, 'cms', 1, 'cms/lang/del', '碎片删除', '', 1),
-(100, 'cms', 1, 'cms/lang/listorder', '碎片排序', '', 1),
-(101, 'cms', 1, 'cms/lang/setstate', '碎片状态', '', 1),
-(102, 'links', 1, 'links/links/index', '友情链接', '', 1),
-(103, 'links', 1, 'links/links/add', '添加友情链接', '', 1),
-(104, 'links', 1, 'links/links/edit', '链接编辑', '', 1),
-(105, 'links', 1, 'links/links/del', '链接删除', '', 1),
-(106, 'links', 1, 'links/links/multi', '批量操作', '', 1),
-(107, 'links', 1, 'links/links/terms', '分类管理', '', 1),
-(108, 'links', 1, 'links/links/addTerms', '分类新增', '', 1),
-(109, 'links', 1, 'links/links/termsedit', '分类修改', '', 1),
-(110, 'links', 1, 'links/links/termsdelete', '分类删除', '', 1),
-(111, 'attachment', 1, 'attachment/attachments/index', '附件管理', '', 1),
-(112, 'admin', 1, 'admin/config/add', '新增配置', '', 1),
-(113, 'admin', 1, 'admin/config/edit', '编辑配置', '', 1),
-(114, 'admin', 1, 'admin/config/del', '删除配置', '', 1),
-(115, 'cms', 2, 'cms/cms/index1', '内容', '', 1),
-(116, 'admin', 2, 'admin/module/index1', '模块', '', 1),
-(117, 'addons', 2, 'addons/addons/index1', '扩展', '', 1);
 
 -- --------------------------------------------------------
 
@@ -327,7 +204,7 @@ CREATE TABLE `yzn_category` (
 --
 
 INSERT INTO `yzn_category` (`id`, `catname`, `catdir`, `type`, `modelid`, `parentid`, `arrparentid`, `arrchildid`, `site_id`, `child`, `image`, `icon`, `url`, `items`, `setting`, `listorder`, `status`) VALUES
-(1, '资讯栏目', 'news', 2, 1, 0, '0', '1,5,6', '1,2', 1, 0, '', '', 0, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 1, 1),
+(1, '资讯栏目', 'news', 2, 1, 0, '0', '1,5,6', '1,2', 1, 0, '', '', 0, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 1, 0),
 (2, '关于我们', 'about', 1, 0, 0, '0', '2,7,8', '1,2', 1, 0, '', 'cms/index/lists?catid=7', 0, 'a:1:{s:13:\"page_template\";s:9:\"page.html\";}', 1, 1),
 (3, '案例中心', 'case', 2, 2, 0, '0', '3', '1,2', 0, 0, '', '', 3, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:15:\"list_photo.html\";s:13:\"show_template\";s:15:\"show_photo.html\";}', 100, 1),
 (4, '系统优点', 'youdian', 2, 1, 0, '0', '4', '1,2', 0, 0, '', '', 6, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:14:\"list_icon.html\";s:13:\"show_template\";s:15:\"show_photo.html\";}', 100, 1),
@@ -451,7 +328,7 @@ CREATE TABLE `yzn_config` (
 --
 
 INSERT INTO `yzn_config` (`id`, `name`, `type`, `title`, `group`, `options`, `remark`, `create_time`, `update_time`, `status`, `value`, `listorder`) VALUES
-(1, 'web_site_icp', 'text', '备案信息', 'base', '', '', 1551244923, 1551244971, 1, '', 1),
+(1, 'web_site_icp', 'text', '备案信息', 'base', '', '', 1551244923, 1620280576, 1, '', 1),
 (2, 'web_site_statistics', 'textarea', '站点代码', 'base', '', '', 1551244957, 1551244957, 1, '', 100),
 (3, 'config_group', 'array', '配置分组', 'system', '', '', 1494408414, 1494408414, 1, '{\"base\":\"基础\",\"system\":\"系统\",\"upload\":\"上传\",\"develop\":\"开发\"}', 0),
 (4, 'theme', 'text', '主题风格', 'system', '', '', 1541752781, 1541756888, 1, 'default', 1),
@@ -787,7 +664,7 @@ CREATE TABLE `yzn_model` (
 --
 
 INSERT INTO `yzn_model` (`id`, `module`, `name`, `tablename`, `description`, `setting`, `type`, `create_time`, `update_time`, `listorders`, `status`) VALUES
-(1, 'cms', '资讯模型', 'news', '', 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 2, 1615820163, 1615820163, 0, 1),
+(1, 'cms', '资讯模型', 'news', '', 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 2, 1615820163, 1619746527, 0, 1),
 (2, 'cms', '图片模型', 'photo', '', 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:14:\"list_case.html\";s:13:\"show_template\";s:9:\"show.html\";}', 2, 1615820925, 1615820988, 0, 1);
 
 -- --------------------------------------------------------
@@ -895,7 +772,7 @@ CREATE TABLE `yzn_module` (
 --
 
 INSERT INTO `yzn_module` (`module`, `name`, `sign`, `iscore`, `version`, `setting`, `create_time`, `update_time`, `listorder`, `status`) VALUES
-('cms', 'cms模块', 'b19cc279ed484c13c96c2f7142e2f437', 0, '1.0.0', 'a:13:{s:15:\"web_site_status\";i:1;s:14:\"web_site_guide\";s:1:\"1\";s:11:\"data_import\";s:1:\"1\";s:9:\"icon_mode\";s:1:\"1\";s:13:\"site_url_mode\";s:1:\"1\";s:12:\"publish_mode\";s:1:\"2\";s:4:\"site\";s:1:\"1\";s:15:\"site_cache_time\";s:4:\"3600\";s:16:\"web_site_recycle\";s:1:\"0\";s:18:\"site_category_auth\";s:1:\"0\";s:18:\"web_site_baidupush\";s:1:\"0\";s:17:\"web_site_getwords\";s:1:\"0\";s:9:\"autolinks\";s:55:\"百度|https://www.baidu.com/腾讯|https://www.qq.com/\";}', 1615820020, 1616025530, 0, 1),
+('cms', 'cms模块', 'b19cc279ed484c13c96c2f7142e2f437', 0, '1.0.0', 'a:14:{s:15:\"web_site_status\";s:1:\"1\";s:14:\"web_site_guide\";s:1:\"1\";s:11:\"data_import\";s:1:\"1\";s:9:\"icon_mode\";s:1:\"1\";s:13:\"site_url_mode\";s:1:\"2\";s:12:\"publish_mode\";s:1:\"1\";s:13:\"category_mode\";s:1:\"1\";s:4:\"site\";s:1:\"2\";s:15:\"site_cache_time\";s:4:\"3600\";s:16:\"web_site_recycle\";s:1:\"0\";s:18:\"site_category_auth\";s:1:\"0\";s:18:\"web_site_baidupush\";s:1:\"0\";s:17:\"web_site_getwords\";s:1:\"0\";s:9:\"autolinks\";s:55:\"百度|https://www.baidu.com/腾讯|https://www.qq.com/\";}', 1615820020, 1619603194, 0, 1),
 ('links', '友情链接', '960c30f9b119fa6c39a4a31867441c82', 0, '1.0.0', NULL, 1615820042, 1615820042, 0, 1);
 
 -- --------------------------------------------------------
@@ -910,7 +787,7 @@ CREATE TABLE `yzn_news` (
   `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
   `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',
   `thumb` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '缩略图',
-  `flag` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
+  `flag` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
   `listorder` smallint UNSIGNED NOT NULL DEFAULT '100' COMMENT '排序',
   `uid` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
   `username` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
@@ -919,7 +796,7 @@ CREATE TABLE `yzn_news` (
   `inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updatetime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
   `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
-  `icon` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '标题图标',
+  `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '标题图标',
   `image` int UNSIGNED NOT NULL COMMENT '大图Banner'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='资讯模型模型表';
 
@@ -928,17 +805,17 @@ CREATE TABLE `yzn_news` (
 --
 
 INSERT INTO `yzn_news` (`id`, `catid`, `theme`, `url`, `thumb`, `flag`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `inputtime`, `updatetime`, `status`, `icon`, `image`) VALUES
-(1, 5, 'DZDCMS', '', 3, '6', 1, 1, 'admin', 1, 63, 1615821073, 1615961608, 1, '', 2),
-(2, 5, '多站点CMS是基于最新TP5.1x框架和layui2.5x的多站点内容管理系统', '', 3, '6', 2, 1, 'admin', 1, 20, 1615821115, 1615961591, 1, '', 2),
-(3, 4, '域名灵活', '', 0, '', 100, 1, 'admin', 1, 25, 1615842549, 1615842650, 1, 'layui-icon-star', 0),
-(4, 4, '一站管理', '', 0, '', 100, 1, 'admin', 1, 16, 1615842656, 1615842699, 1, 'layui-icon-user', 0),
-(5, 4, '数据同步', '', 0, '', 100, 1, 'admin', 1, 3, 1615842764, 1615842790, 1, 'layui-icon-transfer', 0),
-(6, 4, '插件丰富', '', 0, '', 100, 1, 'admin', 1, 4, 1615842818, 1615842855, 1, 'layui-icon-app', 0),
-(7, 6, '恭喜多站点CMS2.0.0正式版上线啦 ', '', 3, '', 100, 1, 'admin', 1, 12, 1615844016, 1615961335, 1, '', 0),
-(8, 6, '恭喜多站点CMS入住thinkphp服务市场', '', 3, '', 100, 1, 'admin', 1, 13, 1615844134, 1615961325, 1, '', 0),
-(9, 6, '恭喜多站点CMS入住thinkphp服务市场', '', 3, '', 100, 1, 'admin', 1, 8, 1615844276, 1615961316, 1, '', 0),
-(10, 4, '多端支持', '', 0, '', 100, 1, 'admin', 1, 0, 1616025535, 1616025575, 1, 'layui-icon-cellphone', 0),
-(11, 4, '长期更新', '', 0, '', 100, 1, 'admin', 1, 0, 1616025576, 1616025621, 1, 'layui-icon-auz', 0);
+(1, 5, 'DZDCMS', '', 3, '6', 1, 1, 'admin', 1, 87, 1615821073, 1615961608, 1, '', 2),
+(2, 5, '多站点CMS是基于最新TP5.1x框架和layui2.5x的多站点内容管理系统', '', 3, '6', 2, 1, 'admin', 1, 50, 1615821115, 1615961591, 1, '', 2),
+(3, 4, '域名灵活', '', 0, '', 100, 1, 'admin', 1, 39, 1615842549, 1615842650, 1, 'layui-icon-star', 0),
+(4, 4, '一站管理', '', 0, '', 100, 1, 'admin', 1, 32, 1615842656, 1615842699, 1, 'layui-icon-user', 0),
+(5, 4, '数据同步', '', 0, '', 100, 1, 'admin', 1, 21, 1615842764, 1615842790, 1, 'layui-icon-transfer', 0),
+(6, 4, '插件丰富', '', 0, '', 100, 1, 'admin', 1, 16, 1615842818, 1615842855, 1, 'layui-icon-app', 0),
+(7, 6, '恭喜多站点CMS2.0.0正式版上线啦 ', '', 3, '', 100, 1, 'admin', 1, 34, 1615844016, 1615961335, 1, '', 0),
+(8, 6, '恭喜多站点CMS入住thinkphp服务市场', '', 3, '', 100, 1, 'admin', 1, 37, 1615844134, 1615961325, 1, '', 0),
+(9, 6, '恭喜多站点CMS入住thinkphp服务市场', '', 3, '', 100, 1, 'admin', 1, 33, 1615844276, 1615961316, 1, '', 0),
+(10, 4, '多端支持', '', 0, '', 100, 1, 'admin', 1, 13, 1616025535, 1616025575, 1, 'layui-icon-cellphone', 0),
+(11, 4, '长期更新', '', 0, '', 100, 1, 'admin', 1, 12, 1616025576, 1616025621, 1, 'layui-icon-auz', 0);
 
 -- --------------------------------------------------------
 
@@ -1029,7 +906,7 @@ CREATE TABLE `yzn_photo` (
   `inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updatetime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
   `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
-  `images` varchar(256) COLLATE utf8_unicode_ci NOT NULL COMMENT '图组'
+  `images` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '图组'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='图片模型模型表';
 
 --
@@ -1037,9 +914,9 @@ CREATE TABLE `yzn_photo` (
 --
 
 INSERT INTO `yzn_photo` (`id`, `catid`, `theme`, `url`, `thumb`, `flag`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `inputtime`, `updatetime`, `status`, `images`) VALUES
-(1, 3, '官网模版', '', 3, '', 100, 1, 'admin', 1, 25, 1615842884, 1615856579, 1, ''),
-(2, 3, '官网模版', '', 3, '', 100, 1, 'admin', 1, 25, 1615842928, 1615856590, 1, ''),
-(3, 3, '官网模版', '', 3, '', 100, 1, 'admin', 1, 3, 1615842971, 1615856600, 1, '');
+(1, 3, '官网模版', '', 3, '', 100, 1, 'admin', 1, 39, 1615842884, 1615856579, 1, ''),
+(2, 3, '官网模版', '', 3, '', 100, 1, 'admin', 1, 42, 1615842928, 1615856590, 1, ''),
+(3, 3, '官网模版', '', 3, '', 100, 1, 'admin', 1, 23, 1615842971, 1615856600, 1, '');
 
 -- --------------------------------------------------------
 
@@ -1100,8 +977,8 @@ CREATE TABLE `yzn_site` (
 
 INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `logo`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `status`, `inputtime`) VALUES
 (1, '中文站', 'zh-cn', 0, 'demo.dzdcms.com', 0, 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 0),
-(2, 'English', 'en-gb', 0, 'demo.dzdcms.com', 0, 'default', '', 'English', 'English', 'English', 0, '', NULL, 0, 2, 1, 0),
-(3, '北京站', 'zh-cn', 0, 'bj.dzdcms.com', 0, 'default', '', '北京站', '北京站', '北京站', 0, '', NULL, 0, 0, 1, 0),
+(2, 'English', 'en-gb', 0, 'www.wminw.com', 0, 'default', '', 'English', 'English', 'English', 0, '', NULL, 0, 2, 1, 0),
+(3, '北京站', 'zh-cn', 0, 'www.wminw.com', 0, 'default', '', '北京站', '北京站', '北京站', 0, '', NULL, 0, 0, 1, 0),
 (4, '上海站', 'zh-cn', 0, 'sh.dzdcms.com', 0, 'default', '', '上海站', '上海站', '上海站', 0, '', NULL, 0, 0, 1, 0);
 
 -- --------------------------------------------------------
@@ -1397,7 +1274,7 @@ ALTER TABLE `yzn_auth_group`
 -- 使用表AUTO_INCREMENT `yzn_auth_rule`
 --
 ALTER TABLE `yzn_auth_rule`
-  MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '规则id,自增主键', AUTO_INCREMENT=118;
+  MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '规则id,自增主键';
 
 --
 -- 使用表AUTO_INCREMENT `yzn_cache`
