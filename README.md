@@ -1,4 +1,7 @@
-# YznCMS 后台开发框架
+# 多站点CMS是通过YznCMS的CMS模块二次开发而来的后台开发框架
+### 所有授权插件和模块需要找YznCMS进行授权
+### 本系统在本地用127.0.0.1访问时可进行全功能测试
+### 多站点CMS上线时需要找QQ：8355763进行授权！不然显示空白页！
 ### 后端基于thinkphp5.1框架,前端基于Layui2.6.x,是一款【真正意义的永久免费,可商用,可去前台版权】的后台系统
 
 [![YznCMS](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://gitee.com/ken678/YZNCMS/)
