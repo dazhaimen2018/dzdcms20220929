@@ -18,8 +18,8 @@ use app\admin\service\User as admin_user;
 use app\attachment\model\Attachment as Attachment_Model;
 use app\common\controller\Base;
 use app\member\service\User as home_user;
-use think\facade\Hook;
 use FilesystemIterator;
+use think\facade\Hook;
 
 class Upload extends Base
 {
@@ -31,7 +31,7 @@ class Upload extends Base
     //是否后台
     public $isadmin = 0;
     //上传模块
-    public $module      = 'cms';
+    public $module = 'cms';
 
     protected $merging  = false;
     protected $file     = null;
@@ -176,10 +176,18 @@ class Upload extends Base
         }
         $chunkid = $this->request->post("chunkid");
         if ($chunkid) {
+            if (!config('chunking')) {
+                return json([
+                    'code' => -1,
+                    'info' => '未开启分片上传功能',
+                ]);
+            }
+            $id      = $this->request->post("id/s", '', 'strtolower');
+            $chunkid = $chunkid . $id;
             //分片
             $action     = $this->request->post("action");
-            $chunkindex = $this->request->post("chunk/d");
-            $chunkcount = $this->request->post("chunks/d");
+            $chunkindex = $this->request->post("chunk/d", 0);
+            $chunkcount = $this->request->post("chunks/d", 1);
             $filename   = $this->request->post("filename");
             $method     = $this->request->method(true);
             if ($action == 'merge') {
@@ -215,7 +223,7 @@ class Upload extends Base
     protected function isUpload($module)
     {
         $module_list = cache('Module');
-        if ($module_list[strtolower($module)] || strtolower($module) == 'admin' || strtolower($module) == 'addons' || strtolower($module) == 'attachment') {
+        if (isset($module_list[strtolower($module)]) || strtolower($module) == 'admin' || strtolower($module) == 'addons' || strtolower($module) == 'attachment') {
             $this->module = strtolower($module);
         } else {
             return false;
@@ -278,7 +286,7 @@ class Upload extends Base
             ]);
         }
 
-        $filePath = $this->chunkDir . DS  . $chunkid;
+        $filePath = $this->chunkDir . DS . $chunkid;
 
         $completed = true;
         //检查所有分片是否都存在
@@ -372,10 +380,10 @@ class Upload extends Base
             ]);
         }
         $iterator = new \GlobIterator($this->chunkDir . DS . $chunkid . '-*', FilesystemIterator::KEY_AS_FILENAME);
-        $array = iterator_to_array($iterator);
+        $array    = iterator_to_array($iterator);
         foreach ($array as $index => &$item) {
             $sourceFile = $item->getRealPath() ?: $item->getPathname();
-            $item = null;
+            $item       = null;
             @unlink($sourceFile);
         }
     }
@@ -415,7 +423,7 @@ class Upload extends Base
             }
         }
 
-        $savekey   = $savekey ? $savekey : $this->getSavekey($dir);
+        $savekey = $savekey ? $savekey : $this->getSavekey($dir);
         //$savekey   = '/' . ltrim($savekey, '/');
         $savekey   = ltrim($savekey, '/');
         $uploadDir = substr($savekey, 0, strripos($savekey, '/') + 1);
@@ -433,7 +441,7 @@ class Upload extends Base
             if (!is_dir($destDir)) {
                 @mkdir($destDir, 0755, true);
             }
-            $rs   = rename($sourceFile, $destFile);
+            rename($sourceFile, $destFile);
             $info = new \think\File($destFile);
             $info->setSaveName($fileName)->setUploadInfo($fileinfo);
         } else {
