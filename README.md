@@ -5,10 +5,10 @@
 ### 后端基于thinkphp5.1框架,前端基于Layui2.6.x,是一款【真正意义的永久免费,可商用,可去前台版权】的后台系统
 
 # 演示地址
-前台：http://www.dzdcms.com/
-后台：http://demo.dzdcms.com/admin/
-账号：demo  密码：123456
-文档：https://doc.dzdcms.com/
+### 前台：http://www.dzdcms.com/
+### 后台：http://demo.dzdcms.com/admin/
+### 账号：demo  密码：123456
+### 文档：https://doc.dzdcms.com/
 
 [![YznCMS](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://gitee.com/ken678/YZNCMS/)
 [![YznCMS](https://img.shields.io/badge/YznCMS-1.0.0-brightgreen.svg)](https://gitee.com/ken678/YZNCMS/)
