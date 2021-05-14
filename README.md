@@ -8,6 +8,7 @@
 ### 后台：http://demo.dzdcms.com/admin/
 ### 账号：demo  密码：123456
 ### 文档：https://doc.dzdcms.com/
+### YznCMS：https://gitee.com/ken678/YZNCMS
 
 [![YznCMS](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://gitee.com/ken678/YZNCMS/)
 [![YznCMS](https://img.shields.io/badge/YznCMS-1.0.0-brightgreen.svg)](https://gitee.com/ken678/YZNCMS/)
