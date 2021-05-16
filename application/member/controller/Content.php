@@ -31,9 +31,9 @@ class Content extends MemberBase
     {
         $groupinfo = $this->_check_group_auth($this->userinfo['groupid']);
         //没有认证用户不得投稿
-        if (empty($this->userinfo['ischeck_email']) && empty($this->userinfo['ischeck_mobile'])) {
-            $this->error("投稿必须激活邮箱或手机！");
-        }
+//        if (empty($this->userinfo['ischeck_email']) && empty($this->userinfo['ischeck_mobile'])) {
+//            $this->error("投稿必须激活邮箱或手机！");
+//        }
         //判断每日投稿数
         $allowpostnum = Member_Content_Model::where('uid', $this->userid)->whereTime('create_time', 'd')->count();
         if ($groupinfo['allowpostnum'] > 0 && $allowpostnum >= $groupinfo['allowpostnum']) {
@@ -141,9 +141,11 @@ class Content extends MemberBase
                 if ($category['type'] == 2) {
                     $modelid   = $category['modelid'];
                     $fieldList = $this->Cms_Model->getFieldList($modelid);
+                    $extraFieldList = $this->Cms_Model->getExtraField($modelid, 0);
                     $this->assign([
                         'catid'     => $catid,
                         'fieldList' => $fieldList,
+                        'extraFieldList' => $extraFieldList,
                     ]);
                 }
             }
