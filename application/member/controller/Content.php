@@ -44,7 +44,7 @@ class Content extends MemberBase
             $token = $this->request->param('__token__');
             // 验证数据
             $rule = [
-                'modelField.title|标题' => 'require|length:3,100',
+                'modelField.theme|主题' => 'require|length:3,100',
                 'modelField.catid|栏目' => 'require|integer',
                 '__token__'           => 'require|token',
             ];
@@ -86,7 +86,7 @@ class Content extends MemberBase
             if ($category['type'] == 2) {
                 $_data['modelFieldExt'] = isset($_data['modelFieldExt']) ? $_data['modelFieldExt'] : [];
                 try {
-                    $id = $this->Cms_Model->addModelData($_data['modelField'], $_data['modelFieldExt']);
+                    $id = $this->Cms_Model->addModelData($_data['modelField'], $_data['modelFieldExt'], $data['extra_data']);
                 } catch (\Exception $ex) {
                     $this->error($ex->getMessage());
                 }
