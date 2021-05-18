@@ -279,7 +279,7 @@ class Content extends MemberBase
                 $info      = Db::name($tablename)->where(array("id" => $v['content_id'], "sysadd" => 0))->find();
                 if ($info) {
                     $_list[$k]['url']     = buildContentUrl($v['catid'], $v['content_id'], $info['url']);
-                    $_list[$k]['title']   = $info['title'];
+                    $_list[$k]['theme']   = $info['theme'];
                     $_list[$k]['catname'] = getCategory($v['catid'], 'catname');
                 }
             }
