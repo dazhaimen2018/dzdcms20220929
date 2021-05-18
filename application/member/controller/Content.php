@@ -115,7 +115,19 @@ class Content extends MemberBase
             $catid = $this->request->param('catid/d', 0);
             $tree  = new \util\Tree();
             $str   = "<option value=@catidurl @selected @disabled>@spacer @catname</option>";
-            $array = Db::name('Category')->order('listorder ASC, id ASC')->column('*', 'id');
+
+            //用户投稿只显示站点1的栏目
+            $sites = 1;
+            $site = [];
+            foreach (explode(',', $sites) as $k => $v) {
+                $site[] = "FIND_IN_SET('" . $v . "', site_id)";
+            }
+            if ($site) {
+                $where = "  (" . implode(' OR ', $site) . ")";
+            }
+            //用户投稿只显示站点1的栏目 下方代码中增㘡where
+
+            $array = Db::name('Category')->where($where)->order('listorder ASC, id ASC')->column('*', 'id');
             foreach ($array as $k => $v) {
                 //$array[$k] = $v = Db::name('Category')->find($v['id']);
                 if ($v['id'] == $catid) {
