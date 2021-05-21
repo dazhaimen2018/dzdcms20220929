@@ -56,6 +56,15 @@
 .js-upload-image, .js-upload-file{display:flex;position:relative;}
 .js-upload-file #file_list_file{flex: 1;}
 
+/*上传图片布局*/
+.layui-form-item .border-none{line-height: 20px!important;}
+.layui-form-item .js-upload-image, .layui-form-item .js-upload-images{display: flex}
+.layui-form-item .uploader-list{overflow: hidden;float: left}
+.layui-form-item .uploader-list .thumbnail{width: 80px!important;height:80px;overflow: hidden!important;position: relative;border: 1px solid #e6e6e6;float: left;margin-right: 10px;position: relative}
+.layui-form-item .uploader-list .thumbnail .file-panel{text-align: center}
+.layui-form-item .uploader-list img{width: 100%;height: 100%}
+.layui-form-item .uploader-list .thumbnail .remove-picture{position: absolute;top: 0;right: 0}
+
 .webuploader-pick{ padding: 0 15px!important; height: 38px; line-height: 38px;background: #ff5722!important; border-radius: 2px; -webkit-border-radius: 2px; -moz-border-radius: 2px; -ms-border-radius: 2px; -o-border-radius: 2px; }
 .webuploader-container{position:relative;}
 .webuploader-element-invisible{position:absolute !important;clip:rect(1px 1px 1px 1px);/* IE6,IE7 */ clip:rect(1px,1px,1px,1px);}
@@ -75,9 +84,3 @@
 
 .avatar-add{position:relative;width:100%;height:350px;background-color:#fff;}
 .fly-header .fly-nav-user .layui-nav-child{width: auto!important;}
-
-
-
-
-
-
