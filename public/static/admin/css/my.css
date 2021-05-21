@@ -52,7 +52,7 @@
 .layui-form-item{position: relative;margin-bottom: 10px;display: flex;}
 .layui-form .layui-form-item:last-child .layui-input-block{border: none!important;width: 100%;text-align: center}
 .layui-form.w300 {width: 100%!important;}
-.layui-form-item label,.layui-form-item .layui-form-label{width:110px;padding:0 10px;height:38px;line-height:38px;border:1px solid #e6e6e6;border-radius:2px 0 0 2px;text-align:center;background-color:#FBFBFB;overflow:hidden;box-sizing:border-box;text-overflow:ellipsis;white-space:normal;}
+.layui-form-item label,.layui-form-item .layui-form-label{min-width:110px;padding:0 10px;height:38px;line-height:38px;border:1px solid #e6e6e6;border-radius:2px 0 0 2px;text-align:center;background-color:#FBFBFB;overflow:hidden;box-sizing:border-box;text-overflow:ellipsis;white-space:normal;}
 .layui-form-item .layui-form-field-label,.layui-form-item .layui-input-inline{flex:1;margin-left:-1px;margin-right: 0!important;}
 .layui-form-item .layui-input-block{margin-left: -1px;}
 .layui-form-item .layui-form-radio, .layui-form-item .layui-form-switch{margin:6px 0 0 10px}
@@ -97,6 +97,10 @@
 .layui-table, .layui-table-view {margin: 0 0 0 -1px!important;}
 
 .layui-form-item .layui-form-field-label{padding: 0; line-height: 36px;}
+
+.layui-form-item .layui-inline{display: flex}
+.layui-form-item .layui-inline:last-child{margin-right: 0!important;}
+.layui-form-item .layui-inline .layui-input-inline{flex: 1!important;width: auto!important;}
 
 /*上传图片布局*/
 .layui-form-item .border-none{line-height: 20px!important;}
