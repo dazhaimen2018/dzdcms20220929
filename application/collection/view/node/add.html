@@ -16,13 +16,13 @@
                             <div class="layui-field-box">
                                 <div class="layui-form-item">
                                     <label>采集任务名</label>
-                                    <div>
+                                    <div class="layui-form-field-label">
                                         <input type="text" name="data[name]" required lay-verify="required" placeholder="采集任务名" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
                                     <label>页面编码</label>
-                                    <div>
+                                    <div class="layui-form-field-label">
                                         <input type="radio" name="data[sourcecharset]" value="utf-8" title="utf-8" checked>
                                         <input type="radio" name="data[sourcecharset]" value="auto" title="自动(会删除HEAD头部)">
                                     </div>
@@ -34,7 +34,7 @@
                             <div class="layui-field-box">
                                 <div class="layui-form-item">
                                     <label>网址类型</label>
-                                    <div>
+                                    <div class="layui-form-field-label">
                                         <input type="radio" name="data[sourcetype]" lay-filter="urlType" value="1" title="序列网址" checked>
                                         <input type="radio" name="data[sourcetype]" lay-filter="urlType" value="2" title="多个网页">
                                     </div>
@@ -42,23 +42,28 @@
                                 <div class="url_type">
                                     <div class="layui-form-item">
                                         <label>采集网址</label>
-                                        <div>
+                                        <div class="layui-form-field-label">
                                             <input type="text" name="urlpage1" placeholder="采集网址" autocomplete="off" class="layui-input">
                                         </div>
                                         <div class="layui-form-mid layui-word-aux">(如：http://bbs.yzncms.com/?index-(*).htm,页码使用(*)做为通配符。</div>
                                     </div>
+
                                     <div class="layui-form-item">
-                                        <div>
-                                            <div class="layui-form-mid">页码从</div>
-                                            <div class="layui-input-inline" style="width:60px;">
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label">页码从</label>
+                                            <div class="layui-input-inline">
                                                 <input type="text" class="layui-input" name="data[pagesize_start]" placeholder="开始页" value="1">
                                             </div>
-                                            <div class="layui-form-mid">至</div>
-                                            <div class="layui-input-inline" style="width:60px;">
+                                        </div>
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label">至</label>
+                                            <div class="layui-input-inline">
                                                 <input type="text" class="layui-input" name="data[pagesize_end]" placeholder="结束页" value="10">
                                             </div>
-                                            <div class="layui-form-mid">页，每次增加</div>
-                                            <div class="layui-input-inline" style="width:60px;">
+                                        </div>
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label">页，每次增加</label>
+                                            <div class="layui-input-inline">
                                                 <input type="text" class="layui-input" name="data[par_num]" placeholder="加 ? 页" value="1">
                                             </div>
                                         </div>
@@ -66,7 +71,7 @@
                                 </div>
                                 <div class="layui-form-item layui-form-text url_type2" style="display:none;">
                                     <label>采集网址</label>
-                                    <div>
+                                    <div class="layui-form-field-label">
                                         <textarea name="urlpage2" placeholder="采集网址" class="layui-textarea"></textarea>
                                     </div>
                                     <div class="layui-form-mid layui-word-aux">每行一条网址</div>
@@ -76,23 +81,44 @@
                         <fieldset class="layui-elem-field">
                             <legend>内容页网址</legend>
                             <div class="layui-field-box">
-								<div class="layui-form-item">
-								    <div class="layui-input-inline" style="width:150px;"><input type="text" class="layui-input" name="data[url_rule1]" placeholder="选择器" value=""> </div>
-								    <div class="layui-input-inline" style="width:60px;"><input type="text" class="layui-input" name="data[url_rule2]" placeholder="属性" value=""> </div>
-								    <div class="layui-input-inline" style="width:140px;"><input type="text" class="layui-input" name="data[url_rule3]" placeholder="内容过滤器" value=""> </div>
-								</div>
+
                                 <div class="layui-form-item">
-                                    <div>
-                                        <div class="layui-form-mid">网址中必须包含</div>
-                                        <div class="layui-input-inline" style="width:150px;">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">选择器</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" class="layui-input" name="data[url_rule1]" placeholder="选择器" value="">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">属性</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" class="layui-input" name="data[url_rule2]" placeholder="属性" value="">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">内容过滤器</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" class="layui-input" name="data[url_rule3]" placeholder="内容过滤器" value="">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">网址中必须包含</label>
+                                        <div class="layui-input-inline">
                                             <input type="text" class="layui-input" name="data[url_contain]" value="">
                                         </div>
-                                        <div class="layui-form-mid">网址中不得包含</div>
-                                        <div class="layui-input-inline" style="width:150px;">
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">网址中不得包含</label>
+                                        <div class="layui-input-inline">
                                             <input type="text" class="layui-input" name="data[url_except]" value="">
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </fieldset>
                     </div>
@@ -137,14 +163,14 @@
                     <div class="layui-tab-item">
                         <div class="layui-form-item">
                             <label>下载图片</label>
-                            <div>
+                            <div class="layui-form-field-label">
                                 <input type="radio" name="data[down_attachment]" value="1" title="是">
                                 <input type="radio" name="data[down_attachment]" value="0" title="否" checked>
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label>图片水印</label>
-                            <div>
+                            <div class="layui-form-field-label">
                                 <input type="radio" name="data[watermark]" value="1" title="是">
                                 <input type="radio" name="data[watermark]" value="0" title="否" checked>
                             </div>
