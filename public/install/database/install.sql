@@ -45,10 +45,6 @@ CREATE TABLE `yzn_admin` (
 --
 -- 转存表中的数据 `yzn_admin`
 --
-
-INSERT INTO `yzn_admin` (`id`, `username`, `password`, `roleid`, `site_id`, `encrypt`, `nickname`, `last_login_time`, `last_login_ip`, `email`, `token`, `status`) VALUES
-(1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 0, 'xW5OhH', '多站点', 1614839775, '117.100.205.204', '8355763@qq.com', 'a949ee2a-7e95-4070-b8cc-4c76b9387011', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -592,7 +588,7 @@ ALTER TABLE `yzn_terms`
 -- 使用表AUTO_INCREMENT `yzn_admin`
 --
 ALTER TABLE `yzn_admin`
-  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户ID', AUTO_INCREMENT=2;
+  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户ID';
 
 --
 -- 使用表AUTO_INCREMENT `yzn_adminlog`

@@ -3,7 +3,7 @@ header('Content-type:text/html;charset=utf-8');
 session_start();
 //配置信息
 $config = array(
-    'version'     => '2.0.1',
+    'version'     => '1.0.0',
     'indexPage'   => 'step1',
     'checkPage'   => 'step2',
     'createPage'  => 'step3',
@@ -16,7 +16,7 @@ $config = array(
     'demoData'    => 'demo',          //演示数据文件名称
     'databaseUrl' => '../../config/database.php',//database.php文件地址
     'account'     => 'admin',         //默认账号
-    'password'    => '123654',        //默认密码
+    'password'    => 'admin',        //默认密码
     'email'    => 'admin@admin.com',        //默认密码
     'limit'       =>'50',
 );
@@ -24,7 +24,7 @@ $config = array(
 $db_config = array(
     'DB_HOST'   => '127.0.0.1',
     'DB_PORT'   => '3306',
-    'DB_NAME'   => 'DzdCms',
+    'DB_NAME'   => 'yzncms',
     'DB_PREFIX' => 'yzn_',
     'DB_USER'   => 'root',
     'DB_PASS'   => '',
@@ -121,8 +121,10 @@ if ($get == $config['endPage']) {
             $link->query("SET NAMES 'utf8'");
             $link->select_db($db['DB_NAME']);
             // 获取数据
+
             $sqlPath = $config['sqlDir'] . $config['sqlName'] . '.sql';
             $sql_str = file_get_contents($sqlPath);
+
             //修改表前缀
             $sql_array = preg_split("/;[\r\n]+/", str_replace($config['prefix'], $db['DB_PREFIX'], $sql_str));
             $start = ($_POST['page']-1)*$config['limit'];
@@ -148,19 +150,20 @@ if ($get == $config['endPage']) {
         }elseif($_POST['type']=='3'){//插入默认管理员账号
             $_SESSION['admin_account'] = $_POST['admin_account'];//账号
             $_SESSION['admin_password'] = $_POST['admin_password'];//密码
+            $_SESSION['demo'] = $_POST['demo'];//是否安装演示数据
             $db = $_SESSION['db'];
             $link = @new mysqli("{$db['DB_HOST']}:{$db['DB_PORT']}", $db['DB_USER'], $db['DB_PASS']);
             //设置字符集
             $link->query("SET NAMES 'utf8'");
             $link->select_db($db['DB_NAME']);
-            
+
             //插入数据库默认账号密码
             $account  = $_POST['admin_account'];
             $email  = $_POST['admin_email'];
             $time     = time();
-            $auth_code = "Wo0bAa";
+            $auth_code = "xW5OhH";
             $password = md5($_POST['admin_password'].$auth_code);
-            $add_admin_sql = "INSERT INTO `" . $db['DB_PREFIX'] . "admin` (`id`,`username`,`password`,`roleid`,`encrypt`, `nickname`,`last_login_time`,`last_login_ip`,`email`,`token`,`status`) VALUES ('1','".$account."','" . $password . "','1','" . $auth_code . "','多站点'," . $time . ",'','" . $email . "','','1');";
+            $add_admin_sql = "INSERT INTO `" . $db['DB_PREFIX'] . "admin` (`id`,`username`,`password`,`roleid`,`site_id`,`encrypt`, `nickname`,`last_login_time`,`last_login_ip`,`email`,`token`,`status`) VALUES ('1','".$account."','" . $password . "','1','0','" . $auth_code . "','多站点'," . $time . ",'','" . $email . "','','1');";
             $link->query($add_admin_sql);
             //插入数据
             $return['data']['page']=1;
@@ -176,6 +179,7 @@ if ($get == $config['endPage']) {
             //设置字符集
             $link->query("SET NAMES 'utf8'");
             $link->select_db($db['DB_NAME']);
+
             //判断是否添加演示数据
             $demoPath = $config['sqlDir'] . $config['demoData'] . '.sql';
             $demo_sql = file_get_contents($demoPath);
