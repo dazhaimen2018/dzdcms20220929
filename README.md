@@ -10,6 +10,8 @@
 ### 文档：https://doc.dzdcms.com/
 ### YznCMS：https://gitee.com/ken678/YZNCMS
 
+# 本地安装测试教程 https://doc.dzdcms.com/downs.html
+
 [![YznCMS](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://gitee.com/ken678/YZNCMS/)
 [![YznCMS](https://img.shields.io/badge/YznCMS-1.0.0-brightgreen.svg)](https://gitee.com/ken678/YZNCMS/)
 [![star](https://gitee.com/ken678/YZNCMS/badge/star.svg?theme=dark)](https://gitee.com/ken678/YZNCMS/stargazers)
