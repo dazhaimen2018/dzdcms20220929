@@ -1,7 +1,8 @@
 # 多站点CMS是通过YznCMS的CMS模块二次开发而来的后台开发框架
+### 下载前先star一下，您的star是我们更新的动力！
 ### 所有授权插件和模块需要找YznCMS进行授权
 ### 本系统在本地用127.0.0.1访问时可进行全功能测试
-### 多站点CMS上线时需要找QQ：8355763进行授权！不然显示空白页！
+### 上线用域名访问时需要找QQ：8355763进行授权！不然显示空白页！
 
 # 演示地址
 ### 前台：http://www.dzdcms.com/
@@ -10,7 +11,7 @@
 ### 文档：https://doc.dzdcms.com/
 ### YznCMS：https://gitee.com/ken678/YZNCMS
 
-# 本地安装测试教程 https://doc.dzdcms.com/downs.html
+# 本地安装教程 https://doc.dzdcms.com/downs.html
 
 [![YznCMS](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://gitee.com/ken678/YZNCMS/)
 [![YznCMS](https://img.shields.io/badge/YznCMS-1.0.0-brightgreen.svg)](https://gitee.com/ken678/YZNCMS/)
@@ -62,7 +63,7 @@
 |内容收藏|用于会员对cms的内容进行收藏|插件|授权|
 
 ## [项目介绍]
-YznCMS(又名御宅男CMS)是基于最新TP5.1x框架和layui2.5x的后台管理系统。创立于2017年初，是一款完全免费开源的项目，他将是您轻松建站的首选利器。框架易于功能扩展，代码维护，方便二次开发，帮助开发者简单高效降低二次开发成本，满足专注业务深度开发的需求。
+YznCMS(又名御宅男CMS)是基于最新TP5.1x框架和layui2.6x的后台管理系统。创立于2017年初，是一款完全免费开源的项目，他将是您轻松建站的首选利器。框架易于功能扩展，代码维护，方便二次开发，帮助开发者简单高效降低二次开发成本，满足专注业务深度开发的需求。。
 - 手册地址：https://www.kancloud.cn/ken678/yzncms
 - 官方博客：http://blog.yzncms.com/
 - 视频教程：https://www.bilibili.com/video/av417106995 (持续更新中)
@@ -74,15 +75,6 @@ YznCMS(又名御宅男CMS)是基于最新TP5.1x框架和layui2.5x的后台管理
 - WEB服务器：iis/apache/nginx
 - PHP版本：php >= 7.0（支持8.0）
 - 数据库：MySQL >= 5.0
-
-
-## [安装教程]
-- 第一步：下载源码压缩包解压到你的项目根目录
-- 第二步：绑定到项目中的public目录为运行目录，ps:如果您的服务器不支持绑定目录，请查看public目录下的index.php入口文件代码注释，有详细具体操作
-- 第三步：修改数据库配置（[在源代码根目录/config/database.php](https://gitee.com/ken678/YZNCMS/blob/master/config/database.php)） 
-- 第四步：将根目录的[yzncms.sql](https://gitee.com/ken678/YZNCMS/blob/master/yzncms.sql)文件导入数据库即可  
-- 第五步：后台入口 http://您的域名/admin 默认账号密码 （超级管理员：admin admin)
-- 如果你还是不会搭建，可以将FTP或者服务器等信息发送给邮箱530765310@qq.com进行免费搭建（仅限点赞用户）
 
 
 ## [必看教程]
