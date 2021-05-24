@@ -150,7 +150,7 @@ if ($get == $config['endPage']) {
         }elseif($_POST['type']=='3'){//插入默认管理员账号
             $_SESSION['admin_account'] = $_POST['admin_account'];//账号
             $_SESSION['admin_password'] = $_POST['admin_password'];//密码
-            $_SESSION['demo'] = $_POST['demo'];//是否安装演示数据
+
             $db = $_SESSION['db'];
             $link = @new mysqli("{$db['DB_HOST']}:{$db['DB_PORT']}", $db['DB_USER'], $db['DB_PASS']);
             //设置字符集
@@ -179,7 +179,6 @@ if ($get == $config['endPage']) {
             //设置字符集
             $link->query("SET NAMES 'utf8'");
             $link->select_db($db['DB_NAME']);
-
             //判断是否添加演示数据
             $demoPath = $config['sqlDir'] . $config['demoData'] . '.sql';
             $demo_sql = file_get_contents($demoPath);
