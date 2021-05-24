@@ -80,12 +80,17 @@
                             </div>
                         </fieldset>
                         <fieldset class="layui-elem-field">
-                            <legend>内容页网址</legend>
+                            <legend>列表页网址和标题</legend>
                             <div class="layui-field-box">
-
+                                <div class="layui-form-item">
+                                    <label>切片</label>
+                                    <div class="layui-form-field-label">
+                                        <input type="text" class="layui-input" name="data[url_range]" placeholder="切片" value="{$data.url_range}">
+                                    </div>
+                                </div>
                                 <div class="layui-form-item">
                                     <div class="layui-inline">
-                                        <label class="layui-form-label">选择器</label>
+                                        <label class="layui-form-label">URL选择器</label>
                                         <div class="layui-input-inline">
                                             <input type="text" class="layui-input" name="data[url_rule1]" placeholder="选择器" value="{$data.url_rule1}">
                                         </div>
@@ -103,6 +108,27 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">标题选择器</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" class="layui-input" name="data[url_rule4]" placeholder="选择器" value="{$data.url_rule4}">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">属性</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" class="layui-input" name="data[url_rule5]" placeholder="属性" value="{$data.url_rule5}">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">内容过滤器</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" class="layui-input" name="data[url_rule6]" placeholder="内容过滤器" value="{$data.url_rule6}">
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="layui-form-item">
                                     <div class="layui-inline">
                                         <label class="layui-form-label">网址中必须包含</label>
@@ -130,7 +156,7 @@
                             </div>
                         </div>
                         <script type="text/html" id="customize_configTpl">
-                            <label class="layui-form-item customize_config-item border-none">
+                            <label class="layui-form-item rules-item border-none">
                             {{# layui.each(d.lists, function(index, item) { }}
                             <div class="layui-input-inline" style="width:90px;">
                                 <input type="text" class="layui-input" name="{{item.name}}[{{item.index}}][title]" placeholder="标题" value="{{item.row.title|| ''}}" />
@@ -154,7 +180,7 @@
                                 <label class="layui-input-button">
                                 <button type="button" class="layui-btn layui-btn-danger btn-remove layui-btn-xs"><i class="iconfont icon-close"></i></button>
                                 <button type="button" class="layui-btn btn-dragsort layui-btn-xs"><i class="iconfont icon-yidong"></i></button>
-                            </label>
+                                </label>
                             {{# }); }}
                             </label>
                         </script>
