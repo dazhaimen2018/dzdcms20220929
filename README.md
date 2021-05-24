@@ -1,17 +1,16 @@
 # 多站点CMS是通过YznCMS的CMS模块二次开发而来的后台开发框架
-### 下载前先star一下，您的star是我们更新的动力！
-### 所有授权插件和模块需要找YznCMS进行授权
-### 本系统在本地用127.0.0.1访问时可进行全功能测试
-### 上线用域名访问时需要找QQ：8355763进行授权！不然显示空白页！
+- 下载前先star一下，您的star是我们更新的动力！
+- 所有授权插件和模块需要找YznCMS进行授权
+- 本系统在本地用127.0.0.1访问时可进行全功能测试
+- 上线用域名访问时需要找QQ：8355763进行授权！不然显示空白页！
 
-# 演示地址
-### 前台：http://www.dzdcms.com/
-### 后台：http://demo.dzdcms.com/admin/
-### 账号：demo  密码：123456
-### 文档：https://doc.dzdcms.com/
-### YznCMS：https://gitee.com/ken678/YZNCMS
-
-# 本地安装教程 https://doc.dzdcms.com/downs.html
+# 演示地址和相关连接
+- 前台：http://www.dzdcms.com/
+- 后台：http://demo.dzdcms.com/admin/
+- 账号：demo  密码：123456
+- 文档：https://doc.dzdcms.com/
+- YznCMS：https://gitee.com/ken678/YZNCMS
+- 本地安装教程 https://doc.dzdcms.com/downs.html
 
 [![YznCMS](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://gitee.com/ken678/YZNCMS/)
 [![YznCMS](https://img.shields.io/badge/YznCMS-1.0.0-brightgreen.svg)](https://gitee.com/ken678/YZNCMS/)
