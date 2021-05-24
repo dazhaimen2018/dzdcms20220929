@@ -202,8 +202,7 @@ body .layui-util-face .layui-layer-content{padding:0;background-color:#fff;box-s
 
 .product-card{background-color:#fff;box-shadow:0 2px 5px 0 rgba(0,0,0,0.04),0 2px 10px 0 rgba(0,0,0,0.06);margin-bottom:10px}
 .product-card .product-cover{position:relative;height:240px;width:100%;overflow:hidden;text-align:center}
-.product-card .product-cover > .product-cover-img{background-repeat:no-repeat;background-position:center;background-size:cover;transition:all .4s}
-.product-card .product-cover > .product-cover-img{width:100%;height:0;padding-bottom:60%;position: relative;}
+.product-card .product-cover > .product-cover-img{height:100%;width:100%;background-repeat:no-repeat;background-position:center;background-size:cover;transition:all .4s}
 .product-card .product-cover:after{content:"";position:absolute;top:0;left:0;right:0;bottom:0;background-color:rgba(0,0,0,0);transition:all .4s}
 .product-card .product-cover > .product-tools{position:absolute;top:45%;left:45%;z-index:1}
 .layuimini-btn-show{margin-top:15px !important;}
@@ -704,61 +703,3 @@ a.icon-text > .layui-icon{font-size:14px}
 .layui-load a{ margin:.5rem auto; display:block; width:230px; line-height:56px; background:#ff5722; color:#FFFFFF; font-size:16px; text-align:center;}
 .layui-load a.no-date{ background:#ccc;}
 .layui-load:last-child{ width:100%;}
-
-#home-users{width: 100%;float: left;padding: 70px 0;}
-#home-users h2{color: #333;text-align: center;font: 30px/2 normal , microsoft yahei;margin-bottom: 20px;}
-#home-users p{font-size:16px;text-align:center;color:#999;margin-top:20px;margin-bottom:80px;}
-#home-users ul li{position: relative;width: 212px;height: 118px;margin: 0 32px 30px 0;border: 1px solid #f1f1f1;float:left;text-align: center;line-height: 118px;}
-#home-users ul .gree{background:#3568df;}
-#home-users ul li:hover{text-decoration: none;border: 2px solid #f6ab1a;width: 210px;height: 116px;line-height: 116px;overflow: hidden;}
-#home-users ul li:nth-child(5n){margin-right:0;}
-#home-users ul li img{display:inline;vertical-align:middle;max-width: 210px;max-height: 62px;}
-#home-users .more{margin-top:45px;text-align:center;font-size: 16px;}
-
-.customer{width: 100%;padding: 50px 0;background-color: #fff;display: block;float: left;overflow: hidden}
-.customer_t{text-align:center;color:#666;font-size:18px;line-height:32px;padding-bottom:50px}
-.customer_t h2{height:66px;line-height:66px;font-size:40px;color:#000;font-weight:400;letter-spacing:1px;font-family:"华文细黑"}
-.customer_t p{font-size:18px}
-.customer_top{text-align:center;margin-top:10px;padding-bottom:40px;border-bottom:1px solid #dfdfdf}
-.customer_top a.two_sel{color:#fff;background-color:#f67524}
-.customer_top a{display:inline-block;font-size:16px;color:#000;line-height:38px;margin-left:5px;margin-right:5px;width:140px;border-radius:20px}
-.customer_list{border-right:1px solid #dfdfdf;border-bottom:1px solid #dfdfdf;}
-.customer_list ul li{float:left;width:calc(20% - 1px);border-left:1px solid #dfdfdf;border-top:1px solid #dfdfdf;overflow:hidden;position:relative}
-.customer_list ul li img{display:block;width:100%;height: 318px}
-.customer_list ul li:first-child{width:40%;border-left:0;border-top:0}
-.customer_list ul li .imgs{cursor:pointer;overflow:hidden;border-color:#fff}
-.customer_list ul li .imgs:after{content:'';display:block;width:100%;height:100%;position:absolute;top:0;left:0;box-shadow:inset 0 0 0 0 #eee;transition:.2s}
-.customer_list ul li .imgs:hover:after{box-shadow:inset 0 0 0 10px #f6f6f6}
-.customer_list ul li .imgs img{/*opacity:.5;filter:grayscale(100%);*/filter:gray;transition:.3s;height: 158px}
-.customer_list ul li:hover .imgs img{opacity:1;filter:grayscale(0);filter:none;transform:scale(.9) translateY(-8px)}
-.customer_list{position:relative}
-.customer_list .item{display:none;overflow:hidden}
-.customer_list .customer-buttons{position:absolute;top:20px;width:40%;left:0;height:0;text-align:right}
-.customer_list .customer-buttons div{color:#FFF;display:inline-block;zoom:1;width:50px;height:50px;text-indent:60px;overflow:hidden;transition:all .3s ease-out 0s;cursor:pointer}
-.customer_list .customer-buttons div.owl-prev{background:url(../images/left.png) no-repeat;margin-right:-1px}
-.customer_list .customer-buttons div.owl-prev:hover{opacity:.6;background:url(../images/left_on.png) no-repeat}
-.customer_list .customer-buttons div.owl-prev.disabled{background:url(../images/left_on.png) no-repeat}
-.customer_list .customer-buttons div.owl-next{background:url(../images/right.png) no-repeat;margin-right:20px}
-.customer_list .customer-buttons div.owl-next:hover{opacity:.6;background:url(../images/right_on.png) no-repeat}
-.customer_list .customer-buttons div.owl-next.disabled{background:url(../images/right_on.png) no-repeat}
-.solution_ul2{overflow:hidden;padding-top:60px}
-.solution_ul2 ul li{float:left;width:49%;height:188px;overflow:hidden;position:relative;background-color:#f9f9f9;z-index:0;border:1px solid #dfdfdf;margin-bottom:2%}
-.solution_ul2 ul li:nth-child(2n+0){float:right}
-.solution_ul2 ul li:nth-child(3){margin-bottom:0}
-.solution_ul2 ul li:nth-child(4){margin-bottom:0}
-.solution_ul2 ul li .shade{width:238px;height:188px;background:url(../images/solution_pic.png) center center no-repeat;position:absolute;top:0;left:-238px;transition:all .3s linear}
-.solution_ul2 ul li .bg{width:calc(100% - 239px);width:-webkit-calc(100% - 239px);width:-moz-calc(100% - 239px);height:188px;background:#f67524;background-size:100% 100%;position:absolute;bottom:0;left:100%;z-index:1;transition:all .3s linear}
-.solution_ul2 ul li:hover .bg{left:239px}
-.solution_ul2 ul li:hover p{color:#fff}
-.solution_ul2 ul li:hover p strong{color:#fff}
-.solution_ul2 ul li img{width:238px;height:188px;transition:all .4s linear;float:left;border-right:1px solid #dfdfdf}
-.solution_ul2 ul li p{color:#666;line-height:24px;height:140px;overflow:hidden;padding:20px 6%;padding-bottom:0;position:relative;z-index:2;font-size:14px}
-.solution_ul2 ul li p strong{color:#000;font-size:20px;line-height:48px;font-weight:400}
-.anim-1{transform:translateY(100px) translateX(0);transition:transform .8s,opacity .8s}
-.anim-2{transform:translateY(100px) translateX(0);transition:transform 1s,opacity 1s}
-.anim-show{transform:translateY(0) translateX(0);opacity:1}
-
-@media screen and (max-width: 768px){
-    .customer_list ul li:first-child{display: none;width: 0!important;}
-    .customer_list ul li{width: calc(50% - 1px);}
-}

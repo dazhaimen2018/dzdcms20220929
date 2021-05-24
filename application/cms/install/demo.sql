@@ -97,7 +97,6 @@ INSERT INTO `yzn_category_data` (`id`, `catid`, `catname`, `description`, `setti
 (15, 3, 'case', 'case case case', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, 0),
 (16, 4, 'advantages', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, 0);
 
-
 INSERT INTO `yzn_lang` (`id`, `name`, `type`, `title`, `group`, `options`, `remark`, `create_time`, `update_time`, `value`, `listorder`, `status`) VALUES
 (1, 'siteName', 'text', '网站名称', '', '', '', 1615821490, 1615961078, NULL, 100, 1),
 (2, 'beian', 'text', '备案号', '', '', '', 1615821524, 1615961102, NULL, 100, 1),

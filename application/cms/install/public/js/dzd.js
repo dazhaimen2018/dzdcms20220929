@@ -199,12 +199,3 @@ function setLang(lang){
     $.cookie('lang', lang);
     window.location.reload();
 }
-
-//合作客户翻页调用
-$(".customer-buttons div").click(function() {
-    var linum = $(this).index();
-    var CaseList = $(".customer_items .item");
-    $(this).addClass('disabled').siblings().removeClass('disabled');
-    CaseList.eq(linum).show().siblings().hide();
-});
-

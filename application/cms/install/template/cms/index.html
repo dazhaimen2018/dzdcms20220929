@@ -92,47 +92,4 @@
     </div>
 </div>
 
-<div class="customer ">
-    <div class="layui-container">
-        <div class="customer_t">
-            <h2>{:getCategory(191,'catname')}</h2>
-            <p>{:getCategory(191,'description')}</p>
-        </div>
-        <div id="solutiondiv1">
-            <div class="customer_list w1440  anim anim-2 anim-show">
-                <div class="customer_items">
-                    <div class="item" style="display: block;">
-                        <ul>
-                            <li>
-                                <img src="{:getCategory(191,'image')}" class="imgbg" alt="{:getCategory(191,'catname')}">
-                            </li>
-                            {yzn module="cms" action="lists" catid="191" siteId="$site_id" cache="3600" order="listorder DESC,inputtime DESC" num="33" return="data"}
-                            {volist name="data" id="item"}
-                            <li>
-                                <div class="imgs"><img src="{$item.thumb}" alt="{$item.title}"></div>
-                            </li>
-                            {if $i%11==0}
-                        </ul>
-                    </div>
-                    <div class="item" style="display: none;">
-                        <ul>
-                            <li>
-                                <img src="{:getCategory(191,'image')}" class="imgbg" alt="{:getCategory(191,'catname')}">
-                            </li>
-                            {/if}
-                            {/volist}
-                            {/yzn}
-                        </ul>
-                    </div>
-
-                </div>
-                <div class="customer-buttons">
-                    <div class="owl-prev disabled">prev</div>
-                    <div class="owl-next ">next</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 {include file="public/footer" /}
