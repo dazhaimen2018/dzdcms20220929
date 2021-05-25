@@ -1,4 +1,5 @@
 <div class="footer-bottom copyright hidden-xs">
+    {if isModuleInstall('link')}
     <div class="links">
         友情链接：
         <ul>
@@ -9,6 +10,7 @@
             {/yzn}
         </ul>
     </div>
+    {/if}
     {:patch('copyright')} | <a href="https://beian.miit.gov.cn" target="_blank">{:patch('beian')}</a>
 </div>
 {:hook('page_footer')}
