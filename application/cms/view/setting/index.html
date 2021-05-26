@@ -19,23 +19,7 @@
                             </div>
                             <div class="layui-form-mid layui-word-aux">站点关闭后前台将不能访问</div>
                         </div>
-                        <div class="layui-form-item">
-                            <label>站引导页</label>
-                            <div class="layui-form-field-label">
-                                <input type="radio" name="setting[web_site_guide]" value="1" title="开启" {if 1==$setting['web_site_guide']}checked{/if}>
-                                <input type="radio" name="setting[web_site_guide]" value="0" title="关闭" {if 0==$setting['web_site_guide']}checked{/if}>
-                            </div>
-                            <div class="layui-form-mid layui-word-aux">站点引导页开启后默认页为default.html 关闭后前台首页为index.html</div>
-                        </div>
 
-                        <div class="layui-form-item">
-                            <label title="开启同步后，在管理分站内容和单页时可手动导入主站数据">数据同步</label>
-                            <div class="layui-form-field-label">
-                                <input type="radio" name="setting[data_import]" value="1" title="开启" {if 1==$setting['data_import']}checked{/if}>
-                                <input type="radio" name="setting[data_import]" value="0" title="关闭" {if 0==$setting['data_import']}checked{/if}>
-                            </div>
-                            <div class="layui-form-mid layui-word-aux">数据同步主要用在城市站和站群中，多语言站不太适合</div>
-                        </div>
                         <div class="layui-form-item">
                             <label title="栏目图标直接上传图片选2；用iconfont或layui字休图片选1">栏目图标</label>
                             <div class="layui-form-field-label">
@@ -74,7 +58,7 @@
                                 <input type="radio" name="setting[site]" value="{$vo.id}" title="{$vo.name}" {if $vo['id']==$setting['site']}checked{/if}>
                                 {/volist}
                             </div>
-                            <div class="layui-form-mid layui-word-aux">1、只有发布模式选了单站时才有效；2、多人同时作业时，只能针对同一个站！</div>
+                            <div class="layui-form-mid layui-word-aux">1、只有发布模式选了单站时才有效；2、多人同时作业时，只能针对同一个站；3、只针对管理所有站的管理员有效！</div>
                         </div>
                         {/if}
                         <div class="layui-form-item">
@@ -95,6 +79,14 @@
                             <div class="layui-form-mid layui-word-aux">开启后，误删的文章可以恢复,反之不可还原</div>
                         </div>
                         <div class="layui-form-item">
+                            <label>引导页</label>
+                            <div class="layui-form-field-label">
+                                <input type="radio" name="setting[web_site_guide]" value="1" title="开启" {if 1==$setting['web_site_guide']}checked{/if}>
+                                <input type="radio" name="setting[web_site_guide]" value="0" title="关闭" {if 0==$setting['web_site_guide']}checked{/if}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">开启后，默认页为default.html 关闭后前台首页为index.html</div>
+                        </div>
+                        <div class="layui-form-item">
                             <label  class="layui-form-label">栏目授权</label>
                             <div class="layui-input-inline w300">
                                 <input type="radio" name="setting[site_category_auth]" value="1" title="开启" {if 1==$setting['site_category_auth']}checked{/if}>
@@ -102,6 +94,25 @@
                             </div>
                             <div class="layui-form-mid layui-word-aux">开启后，可在【栏目授权】单独给管理员分配可管理的内容栏目</div>
                         </div>
+
+                        <div class="layui-form-item">
+                            <label title="开启同步后，在管理分站内容和单页时可手动导入主站数据">数据同步</label>
+                            <div class="layui-form-field-label">
+                                <input type="radio" name="setting[data_import]" value="1" title="开启" {if 1==$setting['data_import']}checked{/if}>
+                                <input type="radio" name="setting[data_import]" value="0" title="关闭" {if 0==$setting['data_import']}checked{/if}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">开启后，管理分站内容时，点击数据同步按钮分站会自动调用主站内容，然后简单编辑后就可发布！</div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label  class="layui-form-label">数据共享</label>
+                            <div class="layui-input-inline w300">
+                                <input type="radio" name="setting[data_share]" value="1" title="开启" {if 1==$setting['data_share']}checked{/if}>
+                                <input type="radio" name="setting[data_share]" value="0" title="关闭" {if 0==$setting['data_share']}checked{/if}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">开启后，分站如果没有单独编辑内容前端会自动调用主站内容</div>
+                        </div>
+
                         <div class="layui-form-item">
                             <label  class="layui-form-label">站长推送</label>
                             <div class="layui-input-inline w300">
@@ -176,6 +187,13 @@
                 <h2 class="layui-colla-title">5、栏目图标如果用不着，可设置为字体，然后用于栏目的其他参数输入<i class="layui-icon layui-colla-icon"></i></h2>
                 <div class="layui-colla-content">
                     <p>1、有一些网站根本不需要栏目图标，可是需要增加一个栏目其他参数时，设置为字体，就可以当做一个输入框了。2、如果用系统自带的字体，可直接输入 layui-icon layui-icon-shrink-right这样的格式</p>
+                </div>
+            </div>
+
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">6、数据共享有啥功能？<i class="layui-icon layui-colla-icon"></i></h2>
+                <div class="layui-colla-content">
+                    <p>1、开启后，分站如果没有单独编辑内容前端会自动调用主站内容；2、主要使用于城市分站。</p>
                 </div>
             </div>
         </div>
