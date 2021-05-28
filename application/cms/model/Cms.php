@@ -347,9 +347,10 @@ class Cms extends Modelbase
      * @param  array     $config   配置参数
      */
 
-    public function getList($modeId, $where, $moreifo, $siteId, $field = '*', $order = '', $limit = 10, $page = null, $simple = false, $config = [])
+    public function getList($modeId, $where, $moreifo, $siteId = 1, $field = '*', $order = '', $limit = 10, $page = null, $simple = false, $config = [])
     {
         $url_mode  = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
+        $dataShare = cache("Cms_Config")['data_share']; //数据共享
         $tableName = $this->getModelTableName($modeId);
         $result = [];
         $siteId = getSiteId();
@@ -357,6 +358,9 @@ class Cms extends Modelbase
             if (2 == getModel($modeId, 'type') && $moreifo) {
                 $extTable = $tableName . $this->ext_table;
                 //马博增加
+                if($dataShare){
+                    $siteId = 1;
+                }
                 $where .= " and " . $extTable . '.site_id=' . $siteId;
                 if ($page) {
                     $result = Db::view($tableName, $field)
@@ -374,6 +378,10 @@ class Cms extends Modelbase
                 }
             } else {
                 $extTable = $tableName . $this->ext_table;
+                //数据共享时，or查询当前站和主站数据并排除重复数据 待完善
+                if($dataShare){
+                    $siteId = 1;
+                }
                 $where .= " and " . $extTable . '.site_id=' . $siteId;
                 if ($page) {
                     $result = Db::view($tableName, '*')
@@ -393,6 +401,7 @@ class Cms extends Modelbase
                 }
             }
         }
+
         // 马博增加
         if (!empty($result)) {
             foreach ($result as &$r) {
@@ -401,6 +410,7 @@ class Cms extends Modelbase
                 }
             }
         }
+
         //数据格式化处理
         if (!empty($result)) {
             $ModelField = cache('ModelField');
@@ -427,13 +437,22 @@ class Cms extends Modelbase
     {
         $url_mode  = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
         $tableName = $this->getModelTableName($modeId);
+
         $site_id   = getSiteId();
         if (2 == getModel($modeId, 'type') && $moreifo) {
             $where    = $tableName . '.' . $where;
             $extTable = $tableName . $this->ext_table;
-            if ($site_id != 0) {
-                $where .= " and " . $extTable . ".site_id=" . $site_id;
+            //增加数据共享功能 如果按当前站点查不到数据就调用站1的数据
+            $dataShare = cache("Cms_Config")['data_share']; //数据共享
+            if($dataShare){
+                $whereExt =  $extTable . ".site_id=" . $site_id;
+                $dataInfo = Db::view($tableName, '*')->where($where)->where($whereExt)->cache($cache)->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')->field('`' . $tableName . "`.id as id")->find();
+                if(is_null($dataInfo)){
+                    $site_id   = 1;
+                }
             }
+            //增加数据共享功能 end
+            $where .= " and " . $extTable . ".site_id=" . $site_id;
             $dataInfo = Db::view($tableName, '*')->where($where)->cache($cache)->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')->field('`' . $tableName . "`.id as id")->find();
         } else {
             $where    = $tableName . '.' . $where;
@@ -462,6 +481,7 @@ class Cms extends Modelbase
             $dataInfo['url'] = buildContentUrl($cat, $dataInfo['id'], $dataInfo['url']);
         }
         return $dataInfo;
+
     }
 
 
