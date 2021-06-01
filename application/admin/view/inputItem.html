@@ -74,7 +74,7 @@
     <label>{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
     <dl class="layui-form-field-label fieldlist border-none" data-name="{$vo.fieldArr}[{$vo.name}]" data-id="{$vo.name}">
         <dd><ins>键名</ins><ins>键值</ins></dd>
-        <dd><button type="button" class="layui-btn btn-append">追加</button></dd>
+        <dd class="border-none"><button type="button" class="layui-btn btn-append">追加</button></dd>
         <textarea name="{$vo.fieldArr}[{$vo.name}]" class="layui-textarea layui-hide">{$vo.value}</textarea>
     </dl>
     {if $vo.remark}<div class="layui-form-mid layui-word-aux">{$vo.remark|raw}</div>{/if}
