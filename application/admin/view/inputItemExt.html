@@ -39,29 +39,26 @@
 {/case}
 {case value="array"}
 <div class="layui-form-item layui-form-text">
-	<label class="">{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
-	<div class="layui-form-field-label fieldlist border-none" data-name="extra_data[{$k}][{$vo.name}]" data-id="{$vo.name}">
-		<div class="arrBox"></div>
-		<button type="button" class="layui-btn btn-append"><i class="iconfont icon-add"></i> 追加</button>
+	<label>{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
+	<dl class="layui-form-field-label fieldlist border-none" data-name="extra_data[{$k}][{$vo.name}]" data-id="{$vo.name}">
+		<dd>
+			<ins>键名</ins>
+			<ins>键值</ins>
+		</dd>
+		<dd><button type="button" class="layui-btn btn-append">追加</button></dd>
 		<textarea name="extra_data[{$k}][{$vo.name}]" class="layui-textarea layui-hide">{$value}</textarea>
-	</div>
+	</dl>
 	{if $vo.remark}<div class="layui-form-mid layui-word-aux">{$vo.remark|raw}</div>{/if}
 </div>
 <script type="text/html" id="{$vo.name}Tpl">
-	<div class="layui-form-item rules-item">
+	<dd class="layui-form-item rules-item">
 		{{# layui.each(d.lists, function(index, item) { }}
-		<div class="layui-input-block" >
-			<input type="text" class="layui-input" name="{{item.name}}[{{item.index}}][key]" placeholder="键" value="{{item.row.key|| ''}}">
-		</div>
-		<div class="layui-input-block">
-			<textarea type="text" class="layui-input" name="{{item.name}}[{{item.index}}][value]" placeholder="值">{{item.row.value|| ''}}</textarea>
-		</div>
-		<label class="layui-input-button">
-			<button type="button" class="layui-btn layui-btn-danger btn-remove layui-btn-xs"><i class="iconfont icon-close"></i></button>
-			<button type="button" class="layui-btn btn-dragsort layui-btn-xs"><i class="iconfont icon-yidong"></i></button>
-		</label>
+		<input type="text" class="layui-input" name="{{item.name}}[{{item.index}}][key]" placeholder="键" value="{{item.row.key|| ''}}" />
+		<input type="text" class="layui-input" name="{{item.name}}[{{item.index}}][value]" placeholder="值" value="{{item.row.value|| ''}}" />
+		<button type="button" class="layui-btn layui-btn-danger btn-remove layui-btn-xs"><i class="iconfont icon-close"></i></button>
+		<button type="button" class="layui-btn btn-dragsort layui-btn-xs"><i class="iconfont icon-yidong"></i></button>
 		{{# }); }}
-	</div>
+	</dd>
 </script>
 {/case}
 {case value="checkbox"}
@@ -147,7 +144,7 @@
 <div class="layui-form-item layui-form-text">
 	<label class="">{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
 	<div class="layui-form-field-label">
-		   <textarea placeholder="请输入{$vo.title}" class="layui-textarea" name="extra_data[{$k}][{$vo.name}]">{$value}</textarea>
+		<textarea placeholder="请输入{$vo.title}" class="layui-textarea" name="extra_data[{$k}][{$vo.name}]">{$value}</textarea>
 	</div>
 	{if $vo.remark}<div class="layui-form-mid layui-word-aux">{$vo.remark|raw}</div>{/if}
 </div>
