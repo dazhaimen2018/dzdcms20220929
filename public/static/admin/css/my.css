@@ -61,7 +61,6 @@
 .layui-form-item .layui-text{padding: 0 10px!important;}
 .layui-form-item .layui-text img{max-width: 100%}
 
-
 .fieldlist dd {border: 1px solid #e6e6e6;margin:0 0 10px 0!important;display: flex}
 .fieldlist dd:first-child {display: none!important;}
 .fieldlist dd>.btn-append {margin: 0!important;}
@@ -69,11 +68,6 @@
 .fieldlist dd input:nth-child(2){flex: 1;border-right: 1px solid #e6e6e6}
 .fieldlist dd button{margin: 6px}
 .fieldlist dd button:last-child{float: right}
-
-
-
-
-
 
 .layui-form-mid .remark{ margin-right:30px; margin-bottom:-2px; text-align: right; display: none; border: 1px solid #20a53a; padding: 0 5px;background-color: #20a53a; border-radius:5px;}
 .layui-form-mid i{position:absolute;right:18px;bottom:9px; display:block!important; color:#999; cursor: pointer; font-size:16px; font-style: normal;}
