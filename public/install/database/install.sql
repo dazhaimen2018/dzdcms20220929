@@ -89,15 +89,6 @@ CREATE TABLE `yzn_attachment` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='附件表';
 
 --
--- 转存表中的数据 `yzn_attachment`
---
-
-INSERT INTO `yzn_attachment` (`id`, `aid`, `uid`, `name`, `module`, `path`, `thumb`, `url`, `mime`, `ext`, `size`, `md5`, `sha1`, `driver`, `create_time`, `update_time`, `listorders`, `status`) VALUES
-(1, 1, 0, 'ico.png', 'admin', '/uploads/images/ico.png', '', '', 'image/png', 'png', 16140, '693cf31fc1e433bf91cd178d658d4e36', '16f445461fd1218f6fdf258074c567f3cf4b490f', 'local', 1614839862, 1614839862, 100, 1);
-
--- --------------------------------------------------------
-
---
 -- 表的结构 `yzn_auth_group`
 --
 
@@ -600,7 +591,7 @@ ALTER TABLE `yzn_adminlog`
 -- 使用表AUTO_INCREMENT `yzn_attachment`
 --
 ALTER TABLE `yzn_attachment`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_auth_group`
