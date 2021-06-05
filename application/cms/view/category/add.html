@@ -14,7 +14,7 @@
                 <div class="layui-form-item">
                     <label>所属站点</label>
                     <div class="layui-form-field-label">
-                        {volist name="site" id="vo"}
+                        {volist name="site" id="vo" empty="<div class='layui-tips'>请先建站点</div>"}
                         <input type="checkbox" name="site_id[]" value="{$vo.id}" lay-skin="primary" title="{$vo.name}" {if $data && in_array($vo.id,$data.name)}checked{/if}>
                         {/volist}
                     </div>
@@ -34,7 +34,7 @@
                     <div class="w300">
                         <select name="modelid" lay-filter="filter">
                             <option>请选择模型</option>
-                            {volist name="models" id="vo"}
+                            {volist name="models" id="vo" empty="<div class='layui-tips'>请先创建模型</div>"}
                             <option value="{$vo.id}" {if condition=" $parentid_modelid eq $vo['id'] "}selected{/if}>{$vo.name}</option>
                             {/volist}
                         </select>
