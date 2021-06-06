@@ -8,7 +8,6 @@
 {case value="link"}
 <div class="layui-form-item web_link">
     <label>{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
-    <div>
         <div class="layui-input-inline w300">
             <input type="text" name="{$vo.fieldArr}[{$vo.name}]" id="link" placeholder="请输入{$vo.title}" autocomplete="off" class="layui-input" value="{$vo.value}">
         </div>
@@ -28,9 +27,6 @@
                 {/if}
             </select>
         </div>
-    </div>
-    <div style="clear: both;">
-    </div>
     {if $vo.remark}<div class="layui-form-mid layui-word-aux">{$vo.remark|raw}</div>{/if}
 </div>
 {/case}
