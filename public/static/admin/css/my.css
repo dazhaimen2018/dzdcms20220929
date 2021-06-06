@@ -70,6 +70,7 @@
 .fieldlist dd button:last-child{float: right}
 
 .layui-form-mid .remark{ margin-right:30px; margin-bottom:-2px; text-align: right; display: none; border: 1px solid #20a53a; padding: 0 5px;background-color: #20a53a; border-radius:5px;}
+.layui-form-mid{width: 0!important;padding: 0!important;margin-right:0!important;}
 .layui-form-mid i{position:absolute;right:18px;bottom:9px; display:block!important; color:#999; cursor: pointer; font-size:16px; font-style: normal;}
 .layui-form-mid i:hover{color:#20a53a;}
 .layui-form-mid:hover .remark{display: block;color:#fff;}
