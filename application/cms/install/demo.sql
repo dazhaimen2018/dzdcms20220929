@@ -229,6 +229,41 @@ INSERT INTO `yzn_attachment` (`id`, `aid`, `uid`, `name`, `module`, `path`, `thu
 (2, 1, 0, 'banner.png', 'cms', '/uploads/images/banner.png', '', '', 'image/png', 'png', 1573089, '5545474fedb30a8651f02125c7893213', '7a94db83c3f77aa163734e71712421455bd81768', 'local', 1615821110, 1615821110, 100, 1),
 (3, 1, 0, 'logo.png', 'cms', '/uploads/images/logo.png', '', '', 'image/png', 'png', 7094, '80784dba0655f5653b38b80feabff97f', 'c64ff38bde00dcf35c89babbb6d2635bb0f80061', 'local', 1615844116, 1615844116, 100, 1);
 
+
+INSERT INTO `yzn_category_priv` (`catid`, `roleid`, `is_admin`, `action`) VALUES
+(1, 2, 1, 'init'),
+(2, 2, 1, 'init'),
+(3, 2, 1, 'add'),
+(3, 2, 1, 'delete'),
+(3, 2, 1, 'edit'),
+(3, 2, 1, 'init'),
+(3, 2, 1, 'listorder'),
+(3, 2, 1, 'remove'),
+(3, 2, 1, 'status'),
+(4, 2, 1, 'add'),
+(4, 2, 1, 'delete'),
+(4, 2, 1, 'edit'),
+(4, 2, 1, 'init'),
+(4, 2, 1, 'listorder'),
+(4, 2, 1, 'remove'),
+(4, 2, 1, 'status'),
+(5, 2, 1, 'add'),
+(5, 2, 1, 'delete'),
+(5, 2, 1, 'edit'),
+(5, 2, 1, 'init'),
+(5, 2, 1, 'listorder'),
+(5, 2, 1, 'remove'),
+(5, 2, 1, 'status'),
+(6, 2, 1, 'add'),
+(6, 2, 1, 'delete'),
+(6, 2, 1, 'edit'),
+(6, 2, 1, 'init'),
+(6, 2, 1, 'listorder'),
+(6, 2, 1, 'remove'),
+(6, 2, 1, 'status'),
+(7, 2, 1, 'init'),
+(8, 2, 1, 'init');
+
 --
 -- 使用表AUTO_INCREMENT `yzn_attachment`
 --
