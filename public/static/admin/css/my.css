@@ -69,11 +69,9 @@
 .fieldlist dd button{margin: 6px}
 .fieldlist dd button:last-child{float: right}
 
-.layui-form-mid .remark{ margin-right:30px; margin-bottom:-2px; text-align: right; display: none; border: 1px solid #20a53a; padding: 0 5px;background-color: #20a53a; border-radius:5px;}
 .layui-form-mid{width: 0!important;padding: 0!important;margin-right:0!important;}
-.layui-form-mid i{position:absolute;right:18px;bottom:9px; display:block!important; color:#999; cursor: pointer; font-size:16px; font-style: normal;}
+.layui-form-mid i{position:absolute;right:8px;bottom:9px; display:block!important; color:#999; cursor: pointer; font-size:16px; font-style: normal;}
 .layui-form-mid i:hover{color:#20a53a;}
-.layui-form-mid:hover .remark{display: block;color:#fff;}
 
 .layui-form-pane .auto-width{width: auto;text-align: left!important;}
 .layui-form-pane .layui-form-label{width: 110px;}
@@ -125,6 +123,8 @@
 .layui-form-item .border-none, .layui-iconpicker-item, div.tagsinput{border: none!important;}
 .layui-form-item .layui-form-field-label:hover, .layui-form-item .layui-input-inline:hover, .layui-form-item .layui-input-block:hover, .layui-form-item .w300:hover{border-color: #ccc;}
 .layui-col-md4 textarea{padding: 10px;box-sizing: border-box;}
+.layui-form-item .layui-form-select{flex: 1}
+.layui-form-item .layui-form-select .layui-edge{right: 28px}
 
 /* 浮动提交 */
 .layui-layer-footer div{width: 100%;text-align: center;margin-left: 0!important;}
