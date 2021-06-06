@@ -134,10 +134,8 @@ class Category extends Adminbase
 
                     $catid = $this->modelClass->addCategory($data, $fields);
                     if ($catid) {
-                        if (isModuleInstall('member')) {
-                            //更新会员组权限
-                            model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
-                        }
+                        //更新会员组权限
+                        model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
                     }
                 }
                 // 20200805 马博添加
@@ -152,9 +150,7 @@ class Category extends Adminbase
                 }
                 $catid = $this->modelClass->addCategory($data, $fields);
                 if ($catid) {
-                    if (isModuleInstall('member')) {
-                        model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
-                    }
+                    model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
                     // 20200805 马博添加
                     $this->addCategoryData($data['category_data'], $catid);
                     // 20200805 马博添加 end
@@ -204,10 +200,7 @@ class Category extends Adminbase
                 'tp_page'          => $this->pageTemplate,
                 'parentid_modelid' => isset($Ca['modelid']) ? $Ca['modelid'] : 0,
             ]);
-            if (isModuleInstall('member')) {
-                //会员组
-                $this->assign("Member_Group", cache("Member_Group"));
-            }
+            $this->assign("Member_Group", cache("Member_Group"));
             return $this->fetch();
         }
     }
@@ -297,10 +290,8 @@ class Category extends Adminbase
             }
             $status = $this->modelClass->editCategory($data, ['parentid', 'catname', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'site_id', 'status']);
             if ($status) {
-                if (isModuleInstall('member')) {
-                    //更新会员组权限
-                    model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
-                }
+                //更新会员组权限
+                model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
                 // 20200805 马博
                 $this->updateCategoryData($data['category_data'], $catid);
                 // 20200805 马博 end
@@ -373,10 +364,8 @@ class Category extends Adminbase
                 'privs'       => model("cms/CategoryPriv")->where('catid', $catid)->select(),
             ]);
             // 20200805 马博 end
-            if (isModuleInstall('member')) {
-                //会员组
-                $this->assign("Member_Group", cache("Member_Group"));
-            }
+            //会员组
+            $this->assign("Member_Group", cache("Member_Group"));
             if ($data['type'] == 1) {
                 //单页栏目
                 return $this->fetch("singlepage_edit");

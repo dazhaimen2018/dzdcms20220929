@@ -67,20 +67,20 @@
                             <button type="submit" class="search-btn layui-btn"><i class="layui-icon layui-icon-search"></i></button>
                         </form>
                     </li>
-                    {if isModuleInstall('member')}
+
                     <li class="layui-nav-item ">
                         <a>会员中心<i class="layui-hide-xs"> </i><span class="layui-nav-more"></span></a>
                         <dl class="layui-nav-child layui-anim layui-anim-upbit">
-                            {if !$Think.session.user_auth.uid}
-                            <dd lay-unselect=""><a href="{:url('member/index/login')}">登录</a></dd>
-                            <dd lay-unselect=""><a href="{:url('member/index/register')}">注册</a></dd>
-                            {else}
+                            {if $userinfo}
                             <dd lay-unselect=""><a href="{:url('member/index/index')}">会员：{$Think.session.user_auth.username}</a></dd>
                             <dd lay-unselect=""><a href="{:url('member/index/logout')}">退出</a></dd>
+                            {else}
+                            <dd lay-unselect=""><a href="{:url('member/index/login')}">登录</a></dd>
+                            <dd lay-unselect=""><a href="{:url('member/index/register')}">注册</a></dd>
                             {/if}
                         </dl>
                     </li>
-                    {/if}
+
                 </ul>
             </div>
         </div>
