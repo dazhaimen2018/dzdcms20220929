@@ -30,7 +30,9 @@ return array(
     //签名[必填]
     'sign' => '960c30f9b119fa6c39a4a31867441c82',
     //依赖模块
-    'need_module' => [],
+    'need_module' => [
+        ['cms', '1.0.0'],
+    ],
     //依赖插件
     'need_plugin' => [],
     //行为注册
