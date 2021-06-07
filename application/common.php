@@ -31,6 +31,12 @@ Url::root('/');//加上这句
 // 加载用户函数文件
 include_once APP_PATH . 'function.php';
 
+//判断程序是否安装
+if (!is_file($_SERVER['DOCUMENT_ROOT'].'/install/install.lock'))
+{
+    header("location:/install/index.php");exit;
+}
+
 /**
  * 系统缓存缓存管理
  * cache('model')        获取model缓存
@@ -201,6 +207,39 @@ function get_addon_list()
             continue;
         }
         //$info['url'] = addon_url($name);
+        $list[$name] = $info;
+    }
+    return $list;
+}
+
+/**
+ * 获得插件列表
+ * @return array
+ */
+function get_template_list()
+{
+    $results = scandir(TEMPLATE_PATH);
+    $list    = [];
+    foreach ($results as $name) {
+        if ($name === '.' or $name === '..' or $name ==='.gitkeep') {
+            continue;
+        }
+        if (is_file(TEMPLATE_PATH . $name)) {
+            continue;
+        }
+        $templateDir = TEMPLATE_PATH . $name . DS;
+        if (!is_dir($templateDir)) {
+            continue;
+        }
+
+        $info_file = $templateDir . 'info.ini';
+        if (!is_file($info_file)) {
+            continue;
+        }
+        $info = parse_ini_file($info_file, true, INI_SCANNER_TYPED) ?: [];
+        if (!isset($info['name'])) {
+            continue;
+        }
         $list[$name] = $info;
     }
     return $list;
