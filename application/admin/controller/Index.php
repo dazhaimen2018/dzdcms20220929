@@ -14,9 +14,8 @@
 // +----------------------------------------------------------------------
 namespace app\admin\controller;
 
-use app\admin\service\User;
-use app\cms\model\Site;
 use app\common\controller\Adminbase;
+use app\cms\model\Site;
 use think\facade\Cache;
 
 class Index extends Adminbase
@@ -54,12 +53,17 @@ class Index extends Adminbase
         }
         // 判断是否有登录权 end 20200617 马博
         $url = $this->request->get('url', 'index/index');
-        if (User::instance()->isLogin()) {
+        if ($this->auth->isLogin()) {
             $this->redirect('admin/index/index');
         }
         if ($this->request->isPost()) {
             $data      = $this->request->post();
             $keeplogin = $this->request->post('keeplogin');
+            //验证码
+            /*if (!captcha_check($data['verify'])) {
+            $this->error('验证码输入错误！');
+            return false;
+            }*/
             // 验证数据
             $rule = [
                 'verify|验证码'   => 'require|captcha',
@@ -71,15 +75,15 @@ class Index extends Adminbase
             if (true !== $result) {
                 $this->error($result, $url, ['token' => $this->request->token()]);
             }
-            if (User::instance()->login($data['username'], $data['password'], $keeplogin ? 86400 : 0)) {
+            if ($this->auth->login($data['username'], $data['password'], $keeplogin ? 86400 : 0)) {
                 $this->success('恭喜您，登陆成功', url('admin/Index/index'));
             } else {
-                $msg = User::instance()->getError();
+                $msg = $this->auth->getError();
                 $msg = $msg ? $msg : '用户名或者密码错误!';
                 $this->error($msg, $url, ['token' => $this->request->token()]);
             }
         } else {
-            if (User::instance()->autologin()) {
+            if ($this->auth->autologin()) {
                 $this->redirect('admin/index/index');
             }
             return $this->fetch();
@@ -90,7 +94,7 @@ class Index extends Adminbase
     //手动退出登录
     public function logout()
     {
-        if (User::instance()->logout()) {
+        if ($this->auth->logout()) {
             //手动登出时，清空forward
             //cookie("forward", NULL);
             $this->success('注销成功！', url("admin/index/login"));
