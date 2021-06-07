@@ -1,0 +1,80 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">模板管理</div>
+    <div class="layui-card-body">
+        <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script>
+layui.use(['yznTable', 'upload'], function() {
+    var table = layui.yznTable,
+        $ = layui.$,
+        upload = layui.upload;
+
+    var init = {
+        table_elem: '#currentTable',
+    };
+
+    table.render({
+        init: init,
+        id: 'currentTable',
+        elem: '#currentTable',
+        toolbar: ['refresh',
+            [{
+               html:'<a class="layui-btn layui-btn-sm" id="local-install"><i class="iconfont icon-upload-fill"></i>&nbsp;本地安装</a>'
+            }],
+        ],
+        url: '{:url("index")}',
+        search:false,
+        cols: [
+            [
+                { field: 'title', width: 150, title: '名称' },
+                { field: 'name', width: 150, title: '标识' },
+                { field: 'description', title: '描述' },
+                { field: 'author', width: 120, title: '作者' },
+                { field: 'version', width: 120, title: '版本' }
+            ]
+        ]
+    });
+
+    // 监听请求
+    /*$('body').on('click', '[data-url]', function() {
+        var url = $(this).data('url');
+        yzn.msg.confirm('确定进行该操作？',function() {
+            yzn.request.get({
+                url: url
+            }, function(res) {
+                yzn.msg.success(res.msg, function() {
+                   location.reload();
+                });
+            });
+        })
+        return false;
+    });*/
+
+    //执行实例
+    var uploadInst = upload.render({
+        elem: '#local-install',
+        url: '{:url("cms/template/local")}',
+        accept: 'file',
+        exts: 'zip',
+        done: function(res) {
+            //上传完毕回调
+            layer.alert(res.msg, {}, function(index) {
+                if (res.code != 0) {
+                    location.reload();
+                }else{
+                	layer.close(index);
+                }
+            });
+        },
+        error: function() {
+            //请求异常回调
+        }
+    });
+});
+</script>
+{/block}

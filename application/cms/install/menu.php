@@ -411,6 +411,28 @@ return [
 
                             ],
                     ],
+                    [
+                        "route" => "cms/template/index",
+                        "type" => 1,
+                        "status" => 1,
+                        "name" => "模版管理",
+                        "icon" => "icon-palette-line",
+                        "child" =>
+                            [
+                                [
+                                    "route" => "cms/template/index",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "模版管理",
+                                ],
+                                [
+                                    "route" => "cms/template/local",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "本地安装",
+                                ],
+                            ],
+                    ],
                 ],
             ],
         ],
