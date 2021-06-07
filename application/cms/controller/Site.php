@@ -27,19 +27,8 @@ class Site extends Adminbase
 		$this->modelClass = new SiteModel;
 	}
 	/**
-	 * 语言组列表
+	 * 站点列表
 	 */
-	public function indexBak()
-	{
-		if ($this->request->isAjax()) {
-            list($page, $limit, $where) = $this->buildTableParames();
-            $_list = $this->modelClass->where($where)->order(["listorder" => "ASC", "id" => "DESC"])->page($page, $limit)->select();
-            $total = $this->modelClass->where($where)->count();
-            $result = array("code" => 0, "count" => $total, "data" => $_list);
-			return json($result);
-		}
-		return $this->fetch();
-	}
 
     public function index()
     {
@@ -61,10 +50,8 @@ class Site extends Adminbase
             $result = array("code" => 0, "count" => $total, "data" => $_list);
             return json($result);
         }
-        return $this->fetch('site');
+        return $this->fetch();
     }
-
-
 
 	/**
 	 * 站点添加
@@ -94,6 +81,7 @@ class Site extends Adminbase
                     $this->error("父栏目不存在！");
                 }
             }
+            $templates = get_template_list();
             //站点列表 可以用缓存的方式
             $array = Db::name('site')->order('listorder ASC, id ASC')->column('*', 'id');
             if (!empty($array) && is_array($array)) {
@@ -108,7 +96,7 @@ class Site extends Adminbase
             }
 
             $this->assign("site", $siteData);
-
+            $this->assign("templates", $templates);
 			return $this->fetch('edit');
 		}
 	}
@@ -151,12 +139,14 @@ class Site extends Adminbase
 				$this->error("修改失败！");
 			}
 		} else {
+            $templates = get_template_list();
 			$siteId = $this->request->param('id/d', 0);
 			$data = SiteModel::where(["id" => $siteId])->find();
 			if (empty($data)) {
 				$this->error("该语言组不存在！", url("Site/index"));
 			}
 			$this->assign("data", $data);
+            $this->assign("templates", $templates);
 			return $this->fetch('edit');
 		}
 	}

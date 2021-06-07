@@ -112,8 +112,13 @@
 			</div>
 			<div class="layui-form-item item-flex">
 				<label class="layui-form-label">主题风格</label>
-				<div class="layui-input-inline item-wide">
-					<input type="text" name="template" autocomplete="off" placeholder="模版风格" class="layui-input" value="{if $data['template']}{$data.template}{else}{:config('theme')}{/if}">
+				<div class="w300">
+					<select name="template">
+						<option value="">请选择主题风格</option>
+						{volist name="templates" id="vo"}
+						<option value="{$vo.name}" {eq name="vo.name" value="$data.template" }selected{/eq}>{$vo.name}</option>
+						{/volist}
+					</select>
 				</div>
 				<div class="layui-form-mid layui-word-aux">暂时只支持系统设置主题</div>
 			</div>
