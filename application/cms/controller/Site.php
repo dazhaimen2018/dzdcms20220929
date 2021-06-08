@@ -81,7 +81,7 @@ class Site extends Adminbase
                     $this->error("父栏目不存在！");
                 }
             }
-            $templates = get_template_list();
+
             //站点列表 可以用缓存的方式
             $array = Db::name('site')->order('listorder ASC, id ASC')->column('*', 'id');
             if (!empty($array) && is_array($array)) {
@@ -94,9 +94,11 @@ class Site extends Adminbase
             } else {
                 $siteData = '';
             }
-
-            $this->assign("site", $siteData);
-            $this->assign("templates", $templates);
+            $templates = get_template_list();
+            $this->assign([
+                'site'             => $siteData,
+                'templates'         => $templates,
+            ]);
 			return $this->fetch('edit');
 		}
 	}
@@ -139,14 +141,30 @@ class Site extends Adminbase
 				$this->error("修改失败！");
 			}
 		} else {
-            $templates = get_template_list();
+
 			$siteId = $this->request->param('id/d', 0);
 			$data = SiteModel::where(["id" => $siteId])->find();
 			if (empty($data)) {
 				$this->error("该语言组不存在！", url("Site/index"));
 			}
-			$this->assign("data", $data);
-            $this->assign("templates", $templates);
+            //站点列表 可以用缓存的方式
+            $array = Db::name('site')->order('listorder ASC, id ASC')->column('*', 'id');
+            if (!empty($array) && is_array($array)) {
+                $tree       = new \util\Tree();
+                $tree->icon = array('&nbsp;&nbsp;│ ', '&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;└─ ');
+                $tree->nbsp = '&nbsp;&nbsp;';
+                $str        = "<option value=@id @selected @disabled>@spacer @name</option>";
+                $tree->init($array);
+                $siteData = $tree->getTree(0, $str, $parentid);
+            } else {
+                $siteData = '';
+            }
+            $templates = get_template_list();
+            $this->assign([
+                'site'             => $siteData,
+                'templates'         => $templates,
+                'data'         => $data,
+            ]);
 			return $this->fetch('edit');
 		}
 	}
