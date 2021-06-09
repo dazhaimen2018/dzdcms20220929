@@ -322,7 +322,7 @@ return [
                         "type" => 1,
                         "status" => 1,
                         "name" => "站点管理",
-                        "icon" => "icon-apartment",
+                        "icon" => "icon-global",
                         "child" =>
                             [
                                 [
@@ -369,7 +369,7 @@ return [
                         "type" => 1,
                         "status" => 1,
                         "name" => "碎片管理",
-                        "icon" => "icon-setup",
+                        "icon" => "icon-manage",
                         "child" =>
                             [
                                 [
