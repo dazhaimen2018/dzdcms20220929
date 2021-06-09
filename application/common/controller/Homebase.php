@@ -39,7 +39,6 @@ class Homebase extends Base
         $this->assign('site', $site);
     }
 
-    protected function fetch($template = '', $vars = [], $config = [], $renderContent = false)
 
     protected function fetch($template = '', $vars = [], $config = [], $renderContent = false)
     {
