@@ -4,6 +4,6 @@ namespace app\cms\model;
 
 use \think\Model;
 
-class NewsData extends Model
+class SearchLog extends Model
 {
 }

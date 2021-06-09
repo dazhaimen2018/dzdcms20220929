@@ -1,0 +1,37 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">搜索管理</div>
+    <div class="layui-card-body">
+        <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script>
+layui.use(['yznTable', 'upload'], function() {
+    var table = layui.yznTable,
+        $ = layui.$,
+        upload = layui.upload;
+
+    var init = {
+        table_elem: '#currentTable',
+    };
+
+    table.render({
+        init: init,
+        id: 'currentTable',
+        elem: '#currentTable',
+        url: '{:url("index")}',
+        search:false,
+        cols: [
+            [
+                { field: 'keywords', width: 150, title: '关键字' },
+                { field: 'site_id', width: 150, title: '站点ID' },
+                { field: 'nums', title: '搜索次数' }
+            ]
+        ]
+    });
+});
+</script>
+{/block}

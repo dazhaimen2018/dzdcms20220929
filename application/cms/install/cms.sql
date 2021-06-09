@@ -142,3 +142,14 @@ CREATE TABLE `yzn_lang_data` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='网站配置附表';
 
+DROP TABLE IF EXISTS `yzn_search_log`;
+CREATE TABLE `yzn_search_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
+  `keywords` varchar(100) CHARACTER SET utf8mb4 DEFAULT '' COMMENT '关键字',
+  `nums` int(10) unsigned DEFAULT '0' COMMENT '搜索次数',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `keywords` (`keywords`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='搜索记录表';
+
+

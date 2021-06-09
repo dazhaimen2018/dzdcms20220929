@@ -55,5 +55,6 @@ return array(
         'page',
         'tags',
         'tags_content',
+        'search_log',
     ],
 );

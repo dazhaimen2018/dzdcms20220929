@@ -433,6 +433,40 @@ return [
                                 ],
                             ],
                     ],
+                    [
+                        "route" => "cms/search/index",
+                        "type" => 1,
+                        "status" => 1,
+                        "name" => "搜索管理",
+                        "icon" => "icon-search",
+                        "child" =>
+                            [
+                                [
+                                    "route" => "cms/search/index",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "搜索管理",
+                                ],
+                                [
+                                    "route" => "cms/search/add",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "添加搜索",
+                                ],
+                                [
+                                    "route" => "cms/search/edit",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "搜索编辑",
+                                ],
+                                [
+                                    "route" => "cms/search/del",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "搜索删除",
+                                ],
+                            ],
+                    ],
                 ],
             ],
         ],

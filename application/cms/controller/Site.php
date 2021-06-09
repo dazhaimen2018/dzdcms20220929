@@ -145,7 +145,7 @@ class Site extends Adminbase
 			$siteId = $this->request->param('id/d', 0);
 			$data = SiteModel::where(["id" => $siteId])->find();
 			if (empty($data)) {
-				$this->error("该语言组不存在！", url("Site/index"));
+				$this->error("该站点不存在！", url("Site/index"));
 			}
             //站点列表 可以用缓存的方式
             $array = Db::name('site')->order('listorder ASC, id ASC')->column('*', 'id');

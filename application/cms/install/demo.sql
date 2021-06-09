@@ -1,69 +1,69 @@
 DROP TABLE IF EXISTS `yzn_news`;
 CREATE TABLE `yzn_news` (
-                            `id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
-                            `catid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '栏目ID',
-                            `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
-                            `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',
-                            `thumb` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '缩略图',
-                            `flag` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
-                            `listorder` smallint UNSIGNED NOT NULL DEFAULT '100' COMMENT '排序',
-                            `uid` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
-                            `username` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
-                            `sysadd` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否后台添加',
-                            `hits` mediumint UNSIGNED DEFAULT '0' COMMENT '点击量',
-                            `inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
-                            `updatetime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
-                            `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
-                            `icon` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '标题图标',
-                            `image` int UNSIGNED NOT NULL COMMENT '大图Banner',
-                             PRIMARY KEY (`id`)
+    `id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
+    `catid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '栏目ID',
+    `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
+    `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',
+    `thumb` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '缩略图',
+    `flag` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
+    `listorder` smallint UNSIGNED NOT NULL DEFAULT '100' COMMENT '排序',
+    `uid` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
+    `username` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
+    `sysadd` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否后台添加',
+    `hits` mediumint UNSIGNED DEFAULT '0' COMMENT '点击量',
+    `inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
+    `updatetime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
+    `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
+    `icon` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '标题图标',
+    `image` int UNSIGNED NOT NULL COMMENT '大图Banner',
+     PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='资讯模型模型表';
 
 DROP TABLE IF EXISTS `yzn_news_data`;
 CREATE TABLE `yzn_news_data` (
-                                 `id` mediumint UNSIGNED NOT NULL COMMENT '自然ID',
-                                 `did` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '文档ID',
-                                 `site_id` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID',
-                                 `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
-                                 `tags` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Tags标签',
-                                 `keywords` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO关键词',
-                                 `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
-                                 `content` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '内容',
-                                    PRIMARY KEY (`id`)
+     `id` mediumint UNSIGNED NOT NULL COMMENT '自然ID',
+     `did` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '文档ID',
+     `site_id` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID',
+     `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
+     `tags` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Tags标签',
+     `keywords` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO关键词',
+     `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
+     `content` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '内容',
+     PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='资讯模型模型表';
 
 DROP TABLE IF EXISTS `yzn_photo`;
 CREATE TABLE `yzn_photo` (
-                             `id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
-                             `catid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '栏目ID',
-                             `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
-                             `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',
-                             `thumb` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '缩略图',
-                             `flag` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
-                             `listorder` smallint UNSIGNED NOT NULL DEFAULT '100' COMMENT '排序',
-                             `uid` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
-                             `username` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
-                             `sysadd` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否后台添加',
-                             `hits` mediumint UNSIGNED DEFAULT '0' COMMENT '点击量',
-                             `inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
-                             `updatetime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
-                             `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
-                             `images` varchar(256) COLLATE utf8_unicode_ci NOT NULL COMMENT '图组',
-                               PRIMARY KEY (`id`)
+    `id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
+    `catid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '栏目ID',
+    `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
+    `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',
+    `thumb` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '缩略图',
+    `flag` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
+    `listorder` smallint UNSIGNED NOT NULL DEFAULT '100' COMMENT '排序',
+    `uid` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
+    `username` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
+    `sysadd` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否后台添加',
+    `hits` mediumint UNSIGNED DEFAULT '0' COMMENT '点击量',
+    `inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
+    `updatetime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
+    `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
+    `images` varchar(256) COLLATE utf8_unicode_ci NOT NULL COMMENT '图组',
+    PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='图片模型模型表';
 
 
 DROP TABLE IF EXISTS `yzn_photo_data`;
 CREATE TABLE `yzn_photo_data` (
-                                  `id` mediumint UNSIGNED NOT NULL COMMENT '自然ID',
-                                  `did` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '文档ID',
-                                  `site_id` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID',
-                                  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
-                                  `tags` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Tags标签',
-                                  `keywords` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO关键词',
-                                  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
-                                  `content` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '内容',
-                                    PRIMARY KEY (`id`)
+    `id` mediumint UNSIGNED NOT NULL COMMENT '自然ID',
+    `did` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '文档ID',
+    `site_id` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID',
+    `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
+    `tags` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Tags标签',
+    `keywords` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO关键词',
+    `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
+    `content` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '内容',
+    PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='图片模型模型表';
 
 
@@ -76,7 +76,6 @@ INSERT INTO `yzn_category` (`id`, `catname`, `catdir`, `type`, `modelid`, `paren
 (6, '公司动态', 'dongtai', 2, 1, 1, '0,1', '6', '1,2', 0, 0, '', '', 3, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 100, 1),
 (7, '公司简介', 'jianjie', 1, 0, 2, '0,2', '7', '1,2', 0, 0, '', '', 0, 'a:1:{s:13:\"page_template\";s:9:\"page.html\";}', 100, 1),
 (8, '联系我们', 'lianxi', 1, 0, 2, '0,2', '8', '1,2', 0, 0, '', '', 0, 'a:1:{s:13:\"page_template\";s:9:\"page.html\";}', 100, 1);
-
 
 
 INSERT INTO `yzn_category_data` (`id`, `catid`, `catname`, `description`, `setting`, `site_id`, `status`) VALUES
@@ -118,7 +117,6 @@ INSERT INTO `yzn_lang_data` (`id`, `lang_id`, `value`, `site_id`, `status`) VALU
 INSERT INTO `yzn_model` (`id`, `module`, `name`, `tablename`, `description`, `setting`, `type`, `create_time`, `update_time`, `listorders`, `status`) VALUES
 (1, 'cms', '资讯模型', 'news', '', 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 2, 1615820163, 1615820163, 0, 1),
 (2, 'cms', '图片模型', 'photo', '', 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:14:\"list_case.html\";s:13:\"show_template\";s:9:\"show.html\";}', 2, 1615820925, 1615820988, 0, 1);
-
 
 
 INSERT INTO `yzn_model_field` (`id`, `modelid`, `name`, `title`, `remark`, `pattern`, `errortips`, `type`, `setting`, `ifsystem`, `iscore`, `iffixed`, `ifrequire`, `ifsearch`, `isadd`, `create_time`, `update_time`, `listorder`, `status`) VALUES
@@ -264,86 +262,45 @@ INSERT INTO `yzn_category_priv` (`catid`, `roleid`, `is_admin`, `action`) VALUES
 (7, 2, 1, 'init'),
 (8, 2, 1, 'init');
 
---
--- 使用表AUTO_INCREMENT `yzn_attachment`
---
+
 ALTER TABLE `yzn_attachment`
     MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
---
--- 使用表AUTO_INCREMENT `yzn_category`
---
 ALTER TABLE `yzn_category`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '栏目ID', AUTO_INCREMENT=9;
 
---
--- 使用表AUTO_INCREMENT `yzn_category_data`
---
 ALTER TABLE `yzn_category_data`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
---
--- 使用表AUTO_INCREMENT `yzn_lang`
---
 ALTER TABLE `yzn_lang`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_INCREMENT=5;
 
---
--- 使用表AUTO_INCREMENT `yzn_lang_data`
---
 ALTER TABLE `yzn_lang_data`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
---
--- 使用表AUTO_INCREMENT `yzn_model`
---
 ALTER TABLE `yzn_model`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
---
--- 使用表AUTO_INCREMENT `yzn_model_field`
---
 ALTER TABLE `yzn_model_field`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
---
--- 使用表AUTO_INCREMENT `yzn_news`
---
 ALTER TABLE `yzn_news`
     MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '文档ID', AUTO_INCREMENT=12;
 
---
--- 使用表AUTO_INCREMENT `yzn_news_data`
---
 ALTER TABLE `yzn_news_data`
     MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自然ID', AUTO_INCREMENT=17;
 
---
--- 使用表AUTO_INCREMENT `yzn_page`
---
 ALTER TABLE `yzn_page`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
---
--- 使用表AUTO_INCREMENT `yzn_photo`
---
 ALTER TABLE `yzn_photo`
     MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '文档ID', AUTO_INCREMENT=4;
 
---
--- 使用表AUTO_INCREMENT `yzn_photo_data`
---
 ALTER TABLE `yzn_photo_data`
     MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自然ID', AUTO_INCREMENT=4;
 
---
--- 使用表AUTO_INCREMENT `yzn_site`
---
 ALTER TABLE `yzn_site`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '站点ID', AUTO_INCREMENT=5;
 
---
--- 使用表AUTO_INCREMENT `yzn_tags`
---
 ALTER TABLE `yzn_tags`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'tagID', AUTO_INCREMENT=7;

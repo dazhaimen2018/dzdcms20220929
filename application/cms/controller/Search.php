@@ -13,53 +13,45 @@
 // +----------------------------------------------------------------------
 namespace app\cms\controller;
 
+use app\cms\model\SearchLog;
 use app\common\controller\Adminbase;
 
-use sys\ModuleService;
 use think\Db;
 
-class Template extends Adminbase
+class Search extends Adminbase
 {
 	protected $modelClass = null;
 	//初始化
 	protected function initialize()
 	{
 		parent::initialize();
-
+		$this->modelClass = new SearchLog();
 	}
 	/**
 	 * 站点列表
 	 */
 
-    public function index()
-    {
-        if ($this->request->isAjax()) {
-            $templates = get_template_list();
-            $list   = [];
-            foreach ($templates as $k => &$v) {
-                $config      = get_addon_config($v['name']);
-                $v['config'] = $config ? 1 : 0;
-            }
-            $result = array("code" => 0, "data" => $templates);
-            return json($result);
-        }
-        return $this->fetch();
+	/**
+	 * 站点添加
+	 */
+	public function add()
+	{
 
-    }
+	}
 
-    /**
-     * 本地上传
-     */
-    public function local()
+	/**
+	 * 站点编辑
+	 */
+	public function edit()
+	{
+
+	}
+	/**
+	 * 站点删除
+	 */
+	public function del()
     {
-        $this->success("离线安装模版正在开发吧，请手动上传！");
-        $file = $this->request->file('file');
-        try {
-            ModuleService::local($file);
-        } catch (\Exception $e) {
-            $this->error($e->getMessage());
-        }
-        $this->success('插件解压成功，可以进入插件管理进行安装！');
+
     }
 
 }
