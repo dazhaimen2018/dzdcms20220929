@@ -99,7 +99,7 @@ class Site extends Adminbase
                 'site'             => $siteData,
                 'templates'         => $templates,
             ]);
-			return $this->fetch('edit');
+			return $this->fetch();
 		}
 	}
 	/*
@@ -155,7 +155,7 @@ class Site extends Adminbase
                 $tree->nbsp = '&nbsp;&nbsp;';
                 $str        = "<option value=@id @selected @disabled>@spacer @name</option>";
                 $tree->init($array);
-                $siteData = $tree->getTree(0, $str, $parentid);
+                $siteData   = $tree->getTree(0, $str, $data['parentid']);
             } else {
                 $siteData = '';
             }
@@ -165,7 +165,7 @@ class Site extends Adminbase
                 'templates'         => $templates,
                 'data'         => $data,
             ]);
-			return $this->fetch('edit');
+			return $this->fetch('add');
 		}
 	}
 	/**
