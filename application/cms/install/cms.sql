@@ -148,6 +148,9 @@ CREATE TABLE `yzn_search_log` (
   `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
   `keywords` varchar(100) CHARACTER SET utf8mb4 DEFAULT '' COMMENT '关键字',
   `nums` int(10) unsigned DEFAULT '0' COMMENT '搜索次数',
+  `ip` varchar(30) NOT NULL DEFAULT '' COMMENT 'IP',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `keywords` (`keywords`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='搜索记录表';

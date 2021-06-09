@@ -27,31 +27,4 @@ class Search extends Adminbase
 		parent::initialize();
 		$this->modelClass = new SearchLog();
 	}
-	/**
-	 * 站点列表
-	 */
-
-	/**
-	 * 站点添加
-	 */
-	public function add()
-	{
-
-	}
-
-	/**
-	 * 站点编辑
-	 */
-	public function edit()
-	{
-
-	}
-	/**
-	 * 站点删除
-	 */
-	public function del()
-    {
-
-    }
-
 }

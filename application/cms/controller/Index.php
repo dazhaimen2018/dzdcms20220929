@@ -258,7 +258,12 @@ class Index extends Cmsbase
             if ($log) {
                 $log->setInc("nums");
             } else {
-                SearchLog::create(['keywords' => $keyword,'site_id' => $siteId, 'nums' => 1], true);
+                SearchLog::create([
+                    'keywords' => $keyword,
+                    'site_id'  => $siteId,
+                    'nums'    => 1,
+                    'ip'      => $this->request->ip()
+                ]);
             }
         }
         //时间范围
