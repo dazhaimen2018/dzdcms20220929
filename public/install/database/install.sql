@@ -253,7 +253,7 @@ INSERT INTO `yzn_field_type` (`name`, `title`, `listorder`, `default_define`, `i
 ('file', '单文件', 18, 'int(5) UNSIGNED NOT NULL', 0, 0),
 ('color', '颜色值', 19, 'varchar(7) NOT NULL', 0, 0),
 ('city', '城市地区', 20, 'varchar(255) NOT NULL', 0, 0),
-('custom', '自定义', 21, 'varchar(255) NOT NULL', 1, 0);
+('custom', '自定义', 21, 'text NOT NULL', 1, 0);
 
 -- --------------------------------------------------------
 
