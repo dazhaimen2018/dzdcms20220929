@@ -82,24 +82,12 @@ class Cms extends Adminbase
                 if (isset($v['thumb'])) {
                     $v['thumb'] = get_file_path($v['thumb']);
                 }
-                $v['url'] = buildContentUrl($v['catid'], $v['id'], $v['url']);
-                //马博 验证多站数据是否全添
-                $sites  = Site::where("status=1")->field('id')->select()->toArray();
-                $datas = Db::name($tableName . '_data')->where('did', $v['id'])->field('site_id as id')->select();
-                // 二维数据转一维数据并找出不同的
-                $result = (array_diff(array_column($sites,'id'),array_column($datas,'id')));
-                if (!$result){
-                    $v['site'] = "全有";
-                }else{
-                    if($result[0]==1){
-                        $v['site'] = siteName(2);
-                    }elseif($result[1]==2){
-                        $v['site'] = siteName(1);
-                    };
-                };
-                //马博 end
-                $_list[]  = $v;
-
+                $v['url']  = buildContentUrl($v['catid'], $v['id'], $v['url']);
+                //马博 显示已添站点ID
+                $sites     = Db::name($tableName . '_data')->where('did', $v['id'])->field('site_id as id')->select();
+                $v['site'] = array_column($sites,'id');
+                // end
+                $_list[]   = $v;
             }
             $result = array("code" => 0, "count" => $total, "data" => $_list);
             return json($result);
@@ -124,13 +112,14 @@ class Cms extends Adminbase
         $str = "<option value=@id @selected @disabled>@spacer @catname</option>";
         $tree->init($categorys);
         $string = $tree->getTree(0, $str, $catid);
-
-        $this->assign('string', $string);
-        $this->assign('catid', $catid);
         // 20200620 马博
         $siteArray = Site::where("status=1")->select()->toArray();
-        $this->assign('siteArray', $siteArray);
         // 20200620 end 马博
+        $this->assign([
+            'string' => $string,
+            'catid'  => $catid,
+            'site'   => $siteData,
+        ]);
         return $this->fetch();
     }
 
@@ -288,8 +277,6 @@ class Cms extends Adminbase
     //编辑信息
     public function edit()
     {
-
-
         if ($this->request->isPost()) {
             $data                  = $this->request->post();
             $data['modelFieldExt'] = isset($data['modelFieldExt']) ? $data['modelFieldExt'] : [];
@@ -456,7 +443,6 @@ class Cms extends Adminbase
             list($xAxisData, $seriesData) = $this->getAdminPostData();
             $this->assign('xAxisData', $xAxisData);
             $this->assign('seriesData', $seriesData);
-
             $this->assign('info', $info);
             return $this->fetch();
         }

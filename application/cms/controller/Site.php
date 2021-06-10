@@ -96,8 +96,8 @@ class Site extends Adminbase
             }
             $templates = get_template_list();
             $this->assign([
-                'site'             => $siteData,
-                'templates'         => $templates,
+                'site'      => $siteData,
+                'templates' => $templates,
             ]);
 			return $this->fetch();
 		}
@@ -108,10 +108,10 @@ class Site extends Adminbase
 	public function lang_save()
 	{
 		$data = [
-			'm_title' => 1,
+		    'm_title' => 1,
 		];
 		$code = "return [
-                            'title' => '" . $data['m_title'] . "',
+		    'title' => '" . $data['m_title'] . "',
                         ]";
 		$code = "<?php\n " . $code . ";";
 		try {
@@ -143,7 +143,7 @@ class Site extends Adminbase
 		} else {
 
 			$siteId = $this->request->param('id/d', 0);
-			$data = SiteModel::where(["id" => $siteId])->find();
+			$data   = SiteModel::where(["id" => $siteId])->find();
 			if (empty($data)) {
 				$this->error("该站点不存在！", url("Site/index"));
 			}
@@ -161,9 +161,9 @@ class Site extends Adminbase
             }
             $templates = get_template_list();
             $this->assign([
-                'site'             => $siteData,
-                'templates'         => $templates,
-                'data'         => $data,
+                'site'      => $siteData,
+                'templates' => $templates,
+                'data'      => $data,
             ]);
 			return $this->fetch('add');
 		}

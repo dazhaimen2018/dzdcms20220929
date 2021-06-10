@@ -25,6 +25,8 @@ layui.use(['yznTable', 'upload'], function() {
         init: init,
         id: 'currentTable',
         elem: '#currentTable',
+        toolbar: ['refresh','delete',
+        ],
         url: '{:url("index")}',
         search:false,
         cols: [

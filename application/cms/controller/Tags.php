@@ -209,11 +209,11 @@ class Tags extends Adminbase
 
                 $catid = Db::name(ucwords($models_v['tablename']))->where('id',$keyword['did'])->value('catid');
                 $data = array(
-                    'tag' => $key_v,
-                    "modelid" => $models_v['id'],
-                    "contentid" => $keyword['did'],
-                    "catid" => $catid,
-                    "site_id" => $keyword['site_id'],
+                    'tag'        => $key_v,
+                    "modelid"    => $models_v['id'],
+                    "contentid"  => $keyword['did'],
+                    "catid"      => $catid,
+                    "site_id"    => $keyword['site_id'],
                     "updatetime" => $time,
                 );
                 Db::name('TagsContent')->insert($data);
