@@ -40,7 +40,13 @@ class Lang extends Adminbase
 	{
         if ($this->request->isAjax()) {
             list($page, $limit, $where) = $this->buildTableParames();
-            $_list = $this->modelClass->where($where)->order(["listorder" => "ASC", "id" => "DESC"])->page($page, $limit)->select();
+            $list = $this->modelClass->where($where)->order(["listorder" => "ASC", "id" => "DESC"])->page($page, $limit)->select();
+            $_list = [];
+            foreach ($list as $k => $v) {
+                $sites     = Db::name('lang_data')->where('lang_id', $v['id'])->field('site_id as id')->select();
+                $v['site'] = array_column($sites,'id');
+                $_list[]   = $v;
+            }
             $total = $this->modelClass->where($where)->count();
             $result = array("code" => 0, "count" => $total, "data" => $_list);
             return json($result);
