@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '14ea31902edbeecce9186dcf86f2b4a9fd3ce111',
+    'reference' => 'ad6a0f21f7030b4bc2e6cc90229fec24fe276189',
     'name' => 'topthink/think',
   ),
   'versions' => 
@@ -210,12 +210,12 @@ private static $installed = array (
     ),
     'symfony/event-dispatcher' => 
     array (
-      'pretty_version' => 'v5.2.4',
-      'version' => '5.2.4.0',
+      'pretty_version' => 'v5.3.0',
+      'version' => '5.3.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd08d6ec121a425897951900ab692b612a61d6240',
+      'reference' => '67a5f354afa8e2f231081b3fa11a5912f933c3ce',
     ),
     'symfony/event-dispatcher-contracts' => 
     array (
@@ -235,21 +235,21 @@ private static $installed = array (
     ),
     'symfony/finder' => 
     array (
-      'pretty_version' => 'v5.2.9',
-      'version' => '5.2.9.0',
+      'pretty_version' => 'v5.3.0',
+      'version' => '5.3.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ccccb9d48ca42757dd12f2ca4bf857a4e217d90d',
+      'reference' => '0ae3f047bed4edff6fd35b26a9a6bfdc92c953c6',
     ),
     'symfony/http-foundation' => 
     array (
-      'pretty_version' => 'v5.2.8',
-      'version' => '5.2.8.0',
+      'pretty_version' => 'v5.3.1',
+      'version' => '5.3.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e8fbbab7c4a71592985019477532629cb2e142dc',
+      'reference' => '8827b90cf8806e467124ad476acd15216c2fceb6',
     ),
     'symfony/options-resolver' => 
     array (
@@ -339,7 +339,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '14ea31902edbeecce9186dcf86f2b4a9fd3ce111',
+      'reference' => 'ad6a0f21f7030b4bc2e6cc90229fec24fe276189',
     ),
     'topthink/think-captcha' => 
     array (
@@ -349,6 +349,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '54c8a51552f99ff9ea89ea9c272383a8f738ceee',
+    ),
+    'topthink/think-helper' => 
+    array (
+      'pretty_version' => 'v3.1.4',
+      'version' => '3.1.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'c28d37743bda4a0455286ca85b17b5791d626e10',
     ),
     'topthink/think-image' => 
     array (
