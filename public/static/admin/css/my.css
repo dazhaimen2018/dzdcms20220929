@@ -90,7 +90,7 @@
 .layui-col-space10{margin: 0 5px;}
 .quoteBox .search_btn{height: 36px;line-height: 36px;}
 .closeBox .layui-nav-child{left: 0!important;padding: 0!important;}
-.layui-form-item .layui-form-checkbox[lay-skin=primary]{margin: 8px 0 0 8px;}
+.layui-form-item .layui-form-checkbox[lay-skin=primary]{margin: 8px 0 8px 8px;}
 
 .layui-card-body .layui-table {margin: 0 -1px;}
 .layui-table td, .layui-table th {padding: 8px 15px;}
