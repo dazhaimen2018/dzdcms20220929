@@ -36,7 +36,7 @@
             </div>
             <input type="hidden" name="modelField[catid]" value="{$catid}">
             <div class="layui-form-item layer-footer">
-                <div>
+                <div class="layui-input-block">
                     {if (isset(cache("Cms_Config")['data_import']) && 1 == cache("Cms_Config")['data_import'] && 1 != cache("Cms_Config")['site'])}
                     <button class="layui-btn layui-btn-danger btn-import iconfont icon-dibu" type="button" title="一键同步主站数据，然后修改再提交！">数据同步</button>
                     {/if}
