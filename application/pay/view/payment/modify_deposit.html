@@ -3,36 +3,36 @@
 <form class="layui-form" method="post">
     <div class="layui-form-item">
         <label class="layui-form-label">充值类型</label>
-        <div class="layui-form-field-label">
+        <div class="layui-input-block">
             <input type="radio" name="pay_type" value="1" title="金钱" checked>
             <input type="radio" name="pay_type" value="2" title="积分">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">用户名</label>
-        <div class="layui-form-field-label">
+        <div class="layui-input-block">
             <input type="text" name="username" lay-verify="required" autocomplete="off" placeholder="用户名" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">充值额度</label>
-        <div class="layui-form-field-label">
+        <div class="layui-input-block">
             <input type="radio" name="pay_unit" value="1" title="增加" checked>
             <input type="radio" name="pay_unit" value="0" title="减少">
         </div>
-        <div class="layui-form-field-label">
+        <div class="layui-input-block">
             <input type="text" name="unit" autocomplete="off" class="layui-input" placeholder="输入修改数量" lay-verify="required">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">交易备注</label>
-        <div class="layui-form-field-label">
+        <div class="layui-input-block">
             <textarea name="usernote" placeholder="交易备注" class="layui-textarea"></textarea>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label" title="是否发送email通知会员">是否发送email通知会员</label>
-        <div class="layui-form-field-label">
+        <div class="layui-input-block">
             <input type="checkbox" name="sendemail" title="发送e-mail通知会员" lay-skin="primary" checked>
         </div>
     </div>
