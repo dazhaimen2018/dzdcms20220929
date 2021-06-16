@@ -12,8 +12,8 @@
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
                 <div class="layui-form-item">
-                    <label>所属站点</label>
-                    <div class="layui-form-field-label">
+                    <label class="layui-form-label">所属站点</label>
+                    <div class="layui-input-block">
                         {volist name="site" id="vo" empty="<div class='layui-tips'>请先建站点</div>"}
                         <input type="checkbox" name="site_id[]" value="{$vo.id}" lay-skin="primary" title="{$vo.name}" {if $data && in_array($vo.id,$data.name)}checked{/if}>
                         {/volist}
@@ -21,8 +21,8 @@
                     <div class="layui-form-mid layui-word-aux">只有选了某些站，在管理内容时才显示</div>
                 </div>
                 <div class="layui-form-item">
-                    <label>上级菜单</label>
-                    <div class="w300">
+                    <label class="layui-form-label">上级菜单</label>
+                    <div class="layui-input-block">
                         <select name="parentid">
                             <option value="0">作为顶级栏目</option>
                             {$category|raw}
@@ -30,8 +30,8 @@
                     </div>
                 </div>
                 <div class="layui-form-item web_list">
-                    <label>选择模型</label>
-                    <div class="w300">
+                    <label class="layui-form-label">选择模型</label>
+                    <div class="layui-input-block">
                         <select name="modelid" lay-filter="filter">
                             <option>请选择模型</option>
                             {volist name="models" id="vo" empty="<div class='layui-tips'>请先创建模型</div>"}
@@ -41,28 +41,28 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label>添加方式</label>
-                    <div class="w300">
+                    <label class="layui-form-label">添加方式</label>
+                    <div class="layui-input-block">
                         <input type="radio" name="isbatch" value="1" title="批量添加" lay-filter="filter">
                         <input type="radio" name="isbatch" value="0" title="单条添加" checked lay-filter="filter">
                     </div>
                 </div>
                 <div class="layui-form-item" id="normal_add">
-                    <label>栏目标题 </label>
-                    <div class="w300">
+                    <label class="layui-form-label">栏目标题 </label>
+                    <div class="layui-input-block">
                         <input type="text" name="catname" lay-verify="required" lay-reqText="栏目标题不能为空" autocomplete="off" placeholder="栏目名称" class="layui-input" id="catname">
                     </div>
                 </div>
                 <div class="layui-form-item" id="catdir_tr">
-                    <label>唯一标识</label>
-                    <div class="w300">
+                    <label class="layui-form-label">唯一标识</label>
+                    <div class="layui-input-block">
                         <input type="text" name="catdir" autocomplete="off" placeholder="唯一标识" class="layui-input" id="catdir">
                     </div>
                     <div class="layui-form-mid layui-word-aux">英文数字组成，留空则自动生成拼音</div>
                 </div>
                 <div class="layui-form-item web_link">
-                    <label>链接地址</label>
-                        <div class="layui-input-inline w300">
+                    <label class="layui-form-label">链接地址</label>
+                        <div class="layui-input-inline">
                             <input type="text" name="url" autocomplete="off" placeholder="自定义链接地址" class="layui-input" id="url">
                         </div>
                         <div class="layui-input-inline">
@@ -84,15 +84,15 @@
                     <div class="layui-form-mid layui-word-aux">有值时生效，内部链接格式:模块/控制器/操作?参数=参数值&...，外部链接则必须http://开头</div>
                 </div>
                 <div class="layui-form-item" id="batch_add" style="display:none">
-                    <label>栏目名称</label>
-                    <div class="w300">
+                    <label class="layui-form-label">栏目名称</label>
+                    <div class="layui-input-block">
                         <textarea name="batch_add" lay-verify="" placeholder="栏目名称|唯一标识" class="layui-textarea"></textarea>
                     </div>
                     <div class="layui-form-mid layui-word-aux">例如：<br>国内新闻|china<br>国际新闻|world<br>唯一标识留空时自动生成拼音</div>
                 </div>
                 <div class="layui-form-item layui-form-text">
-                    <label>栏目图片</label>
-                    <div class="layui-form-field-label border-none">
+                    <label class="layui-form-label">栏目图片</label>
+                    <div class="layui-input-block border-none">
                         <div class="js-upload-image">
                             {php}echo \util\Form::images('image'){/php}
                         </div>
@@ -100,8 +100,8 @@
                 </div>
                 {if isset(cache("Cms_Config")['icon_mode']) && 1==cache("Cms_Config")['icon_mode']}
                 <div class="layui-form-item layui-form-text">
-                    <label>栏目图标</label>
-                    <div class="layui-form-field-label border-none">
+                    <label class="layui-form-label">栏目图标</label>
+                    <div class="layui-input-block border-none">
                         <div class="js-upload-image">
                             {php}echo \util\Form::images('icon'){/php}
                         </div>
@@ -109,23 +109,23 @@
                 </div>
                 {else}
                 <div class="layui-form-item">
-                    <label>栏目图标</label>
-                    <div class="w300">
+                    <label class="layui-form-label">栏目图标</label>
+                    <div class="layui-input-block">
                         <input type="text" name="icon" autocomplete="off" placeholder="栏目图标格式iconfont-icon或layui-icon-rate" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">手动输入字体样式：如iconfont-icon或layui-icon-rate</div>
                 </div>
                 {/if}
                 <div class="layui-form-item">
-                    <label>在导航显示</label>
-                    <div class="w300">
+                    <label class="layui-form-label">在导航显示</label>
+                    <div class="layui-input-block">
                         <input type="radio" name="status" value="1" title="显示" checked>
                         <input type="radio" name="status" value="0" title="隐藏">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label>显示排序</label>
-                    <div class="w300">
+                    <label class="layui-form-label">显示排序</label>
+                    <div class="layui-input-block">
                         <input type="text" name="listorder" autocomplete="off" placeholder="显示排序" class="layui-input" value="100">
                     </div>
                 </div>
@@ -133,8 +133,8 @@
 
             <div class="layui-tab-item">
                 <div class="layui-form-item web_list">
-                    <label>栏目首页模板</label>
-                    <div class="w300">
+                    <label class="layui-form-label">栏目首页模板</label>
+                    <div class="layui-input-block">
                         <select name="setting[category_template]">
                             <option value="category.html" selected>默认栏目首页:category.html</option>
                             {volist name="tp_category" id="vo"}
@@ -145,8 +145,8 @@
                     <div class="layui-form-mid layui-word-aux">新增模板以category_xx.html形式,【含有子栏目时生效】</div>
                 </div>
                 <div class="layui-form-item web_list">
-                    <label>栏目列表模板</label>
-                    <div class="w300">
+                    <label class="layui-form-label">栏目列表模板</label>
+                    <div class="layui-input-block">
                         <select name="setting[list_template]">
                             <option value="list.html" selected>默认栏目列表页:list.html</option>
                             {volist name="tp_list" id="vo"}
@@ -157,8 +157,8 @@
                     <div class="layui-form-mid layui-word-aux">新增模板以list_xx.html形式,【没有子栏目时生效】</div>
                 </div>
                 <div class="layui-form-item web_list">
-                    <label>内容页模板</label>
-                    <div class="w300">
+                    <label class="layui-form-label">内容页模板</label>
+                    <div class="layui-input-block">
                         <select name="setting[show_template]">
                             <option value="show.html" selected>默认内容页:show.html</option>
                             {volist name="tp_show" id="vo"}
@@ -174,7 +174,7 @@
             <!-- 多语言设置 end -->
             <div class="layui-tab-item">
                 <div class="layui-form-item web_list">
-                    <label>会员组权限</label>
+                    <label class="layui-form-label">会员组权限</label>
                     <table class="layui-table" style="max-width: 250px;">
                         <colgroup>
                             <col width="150">
@@ -200,7 +200,7 @@
         </div>
         <input type="hidden" name="type" value="2">
         <div class="layui-form-item layer-footer">
-            <div>
+            <div class="layui-input-block">
                 <button class="layui-btn" lay-submit> 立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>

@@ -18,8 +18,8 @@
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
                 <div class="layui-form-item">
-                    <label>所属站点</label>
-                    <div class="layui-form-field-label">
+                    <label class="layui-form-label">所属站点</label>
+                    <div class="layui-input-block">
                         {volist name="site" id="vo"}
                         <input type="checkbox" name="site_id[]" value="{$vo.id}" lay-skin="primary" title="{$vo.name}" {if $data && in_array($vo.id,$data.site_id)}checked{/if}>
                         {/volist}
@@ -27,8 +27,8 @@
                     <div class="layui-form-mid layui-word-aux">不选，表示所有站点共用</div>
                 </div>
                 <div class="layui-form-item">
-                    <label>上级菜单</label>
-                    <div class="w300">
+                    <label class="layui-form-label">上级菜单</label>
+                   <div class="layui-input-block">
                         <select name="parentid" lay-verify="required">
                             <option value="0">作为顶级栏目</option>
                             {$category|raw}
@@ -36,20 +36,20 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label>栏目标题 </label>
-                    <div class="w300">
+                    <label class="layui-form-label">栏目标题 </label>
+                   <div class="layui-input-block">
                         <input type="text" name="catname" lay-verify="required" autocomplete="off" placeholder="栏目名称" class="layui-input" value="{$data.catname}">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label>唯一标识</label>
-                    <div class="w300">
+                    <label class="layui-form-label">唯一标识</label>
+                   <div class="layui-input-block">
                         <input type="text" name="catdir"  autocomplete="off" placeholder="唯一标识" class="layui-input" value="{$data.catdir}">
                     </div>
                     <div class="layui-form-mid layui-word-aux">英文数字组成，留空则自动生成拼音</div>
                 </div>
                 <div class="layui-form-item web_link">
-                    <label>链接地址</label>
+                    <label class="layui-form-label">链接地址</label>
                         <div class="layui-input-inline w300">
                             <input type="text" name="url" autocomplete="off" placeholder="自定义链接地址" class="layui-input" id="url" value="{$data.url}">
                         </div>
@@ -73,8 +73,8 @@
                 </div>
 
                 <div class="layui-form-item layui-form-text">
-                    <label>栏目图片</label>
-                    <div class="layui-form-field-label border-none">
+                    <label class="layui-form-label">栏目图片</label>
+                    <div class="layui-input-block border-none">
                         <div class="js-upload-image">
                             {php}echo \util\Form::images('image','',$data['image']){/php}
                         </div>
@@ -82,8 +82,8 @@
                 </div>
                 {if isset(cache("Cms_Config")['icon_mode']) && 1==cache("Cms_Config")['icon_mode']}
                 <div class="layui-form-item layui-form-text">
-                    <label>栏目图标</label>
-                    <div class="layui-form-field-label border-none">
+                    <label class="layui-form-label">栏目图标</label>
+                    <div class="layui-input-block border-none">
                         <div class="js-upload-image">
                             {php}echo \util\Form::images('icon','',$data['icon']){/php}
                         </div>
@@ -91,19 +91,19 @@
                 </div>
                 {else}
                 <div class="layui-form-item">
-                    <label>栏目图标</label>
-                    <div class="w300">
+                    <label class="layui-form-label">栏目图标</label>
+                   <div class="layui-input-block">
                         <input type="text" name="icon" autocomplete="off" placeholder="栏目图标格式iconfont-icon或layui-icon-rate" class="layui-input" value="{$data.icon}">
                     </div>
                     <div class="layui-form-mid layui-word-aux">手动输入字体样式：如iconfont-icon或layui-icon-rate</div>
                 </div>
                 {/if}
                 <div class="layui-form-item">
-                    <label>在导航显示</label>
-                    <div class="w300">
+                    <label class="layui-form-label">在导航显示</label>
+                   <div class="layui-input-block">
                         <input type="radio" name="status" value="1" title="显示" {eq name="data.status" value="1"}checked{/eq}> <input type="radio" name="status" value="0" title="隐藏" {eq name="data.status" value="0" }checked{/eq}> </div> </div> <div class="layui-form-item">
-                <label>显示排序</label>
-                <div class="w300">
+                <label class="layui-form-label">显示排序</label>
+               <div class="layui-input-block">
                     <input type="text" name="listorder" autocomplete="off" placeholder="显示排序" class="layui-input" value="{$data['listorder']}">
                 </div>
             </div>
@@ -112,7 +112,7 @@
             <div class="layui-tab-item">
                 <div class="layui-form-item web_page">
                     <label class="w100">单页模板</label>
-                    <div class="w300">
+                   <div class="layui-input-block">
                         <select name="setting[page_template]">
                             <option value="page.{:config('template.view_suffix')}" selected>默认内容页:page.{:config('template.view_suffix')}</option>
                             {volist name="tp_page" id="vo"}
@@ -147,7 +147,7 @@
         <input type="hidden" name="type" value="1">
         <input name="id" type="hidden" value="{$data.id}">
         <div class="layui-form-item layer-footer">
-            <div>
+            <div class="layui-input-block">
                 <button class="layui-btn" lay-submit>立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>

@@ -2,7 +2,7 @@
 {switch name="vo.type"}
 {case value="text"}
 <div class="layui-form-item">
-    <label>{$vo.title}</label>
+    <label class="layui-form-label">{$vo.title}</label>
     <div class="layui-form-field-label layui-text">
         {$vo.value}
     </div>
@@ -11,7 +11,7 @@
 
 {case value="number"}
 <div class="layui-form-item">
-    <label>{$vo.title}</label>
+    <label class="layui-form-label">{$vo.title}</label>
     <div class="layui-form-field-label layui-text">
         {$vo.value}
     </div>
@@ -19,7 +19,7 @@
 {/case}
 {case value="switch"}
 <div class="layui-form-item">
-    <label>{$vo.title}</label>
+    <label class="layui-form-label">{$vo.title}</label>
     <div class="layui-form-field-label layui-text">
         {$vo.value}
     </div>
@@ -45,7 +45,7 @@
 {case value="checkbox"}
 
 <div class="layui-form-item">
-    <label>{$vo.title}</label>
+    <label class="layui-form-label">{$vo.title}</label>
     <div class="layui-form-field-label layui-text">
         {$vo.value}
     </div>
@@ -53,7 +53,7 @@
 {/case}
 {case value="radio"}
 <div class="layui-form-item">
-    <label>{$vo.title}</label>
+    <label class="layui-form-label">{$vo.title}</label>
     <div class="layui-form-field-label layui-text">
         {$vo.value}
     </div>
@@ -61,7 +61,7 @@
 {/case}
 {case value="select"}
 <div class="layui-form-item">
-    <label>{$vo.title}</label>
+    <label class="layui-form-label">{$vo.title}</label>
     <div class="layui-form-field-label layui-text">
         {$vo.value}
     </div>
@@ -69,7 +69,7 @@
 {/case}
 {case value="selects"}
 <div class="layui-form-item">
-    <label>{$vo.title}</label>
+    <label class="layui-form-label">{$vo.title}</label>
     <div class="layui-form-field-label layui-text">
         {$vo.value}
     </div>
@@ -77,7 +77,7 @@
 {/case}
 {case value="selectpage"}
 <div class="layui-form-item">
-    <label>{$vo.title}</label>
+    <label class="layui-form-label">{$vo.title}</label>
     <div class="layui-form-field-label layui-text">
         {$vo.value}
     </div>
@@ -85,7 +85,7 @@
 {/case}
 {case value="color"}
 <div class="layui-form-item">
-    <label>{$vo.title}</label>
+    <label class="layui-form-label">{$vo.title}</label>
     <div class="layui-form-field-label layui-text">
         {$vo.value}
     </div>
@@ -93,7 +93,7 @@
 {/case}
 {case value="datetime"}
 <div class="layui-form-item">
-    <label>{$vo.title}</label>
+    <label class="layui-form-label">{$vo.title}</label>
     <div class="layui-form-field-label layui-text">
         {$vo.value}
     </div>
@@ -101,7 +101,7 @@
 {/case}
 {case value="textarea"}
 <div class="layui-form-item">
-    <label>{$vo.title}</label>
+    <label class="layui-form-label">{$vo.title}</label>
     <div class="layui-form-field-label layui-text">
         {$vo.value}
     </div>
@@ -109,7 +109,7 @@
 {/case}
 {case value="image"}
 <div class="layui-form-item">
-    <label>{$vo.title}</label>
+    <label class="layui-form-label">{$vo.title}</label>
     <div class="layui-form-field-label layui-text">
         {notempty name="$vo.value"}
         <div class="file-item thumbnail">
@@ -126,7 +126,7 @@
 {case value="images"}
 
 <div class="layui-form-item">
-    <label>{$vo.title}</label>
+    <label class="layui-form-label">{$vo.title}</label>
     <div class="layui-form-field-label border-none">
         <div class="js-upload-images">
             <div id="file_list_{$vo.name}" class="uploader-list">
@@ -150,7 +150,7 @@
 {/case}
 {case value="file"}
 <div class="layui-form-item">
-    <label>{$vo.title}</label>
+    <label class="layui-form-label">{$vo.title}</label>
     <div class="layui-form-field-label border-none">
         <div class="js-upload-file">
             <div   class="uploader-list">
@@ -187,7 +187,7 @@
 {/case}
 {case value="files"}
 <div class="layui-form-item layui-form-text">
-    <label>{$vo.title}</label>
+    <label class="layui-form-label">{$vo.title}</label>
     <div class="layui-form-field-label border-none">
         <div class="js-upload-file">
             <div id="file_list_{$vo.name}" class="uploader-list">
@@ -226,7 +226,7 @@
 {/case}
 {case value="Ueditor"}
 <div class="layui-form-item">
-    <label>{$vo.title}</label>
+    <label class="layui-form-label">{$vo.title}</label>
     <div class="layui-form-field-label layui-text">
         {$vo.value|raw}
     </div>
