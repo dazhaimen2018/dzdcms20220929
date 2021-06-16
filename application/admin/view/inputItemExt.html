@@ -38,9 +38,9 @@
 </div>
 {/case}
 {case value="array"}
-<div class="layui-form-item layui-form-text">
+<div class="layui-form-item">
 	<label>{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
-	<dl class="layui-form-field-label fieldlist border-none" data-name="extra_data[{$k}][{$vo.name}]" data-id="{$vo.name}">
+	<dl class="layui-input-block fieldlist border-none" data-name="extra_data[{$k}][{$vo.name}]" data-id="{$vo.name}">
 		<dd><ins>键名</ins><ins>键值</ins></dd>
 		<dd class="border-none"><button type="button" class="layui-btn btn-append">追加</button></dd>
 		<textarea name="extra_data[{$k}][{$vo.name}]" class="layui-textarea layui-hide">{$value}</textarea>
@@ -138,7 +138,7 @@
 </div>
 {/case}
 {case value="textarea"}
-<div class="layui-form-item layui-form-text">
+<div class="layui-form-item">
 	<label class="layui-form-label">{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
 	<div class="layui-input-block">
 		   <textarea placeholder="请输入{$vo.title}" class="layui-textarea" name="extra_data[{$k}][{$vo.name}]">{$value}</textarea>
@@ -147,9 +147,9 @@
 </div>
 {/case}
 {case value="image"}
-<div class="layui-form-item layui-form-text">
+<div class="layui-form-item">
 	<label class="layui-form-label">{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
-	<div class="layui-form-field-label border-none">
+	<div class="layui-input-block border-none">
 		<div class="js-upload-image">
 			<div id="file_list_{$vo.name}" class="uploader-list">
 				{notempty name="$value"}
@@ -171,9 +171,9 @@
 </div>
 {/case}
 {case value="images"}
-<div class="layui-form-item layui-form-text">
+<div class="layui-form-item">
 	<label class="layui-form-label">{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
-	<div class="layui-form-field-label border-none">
+	<div class="layui-input-block border-none">
 		<div class="js-upload-images">
 			<div id="file_list_{$vo.name}" class="uploader-list">
 				{notempty name="$value"}
@@ -198,9 +198,9 @@
 </div>
 {/case}
 {case value="file"}
-<div class="layui-form-item layui-form-text">
+<div class="layui-form-item">
 	<label class="layui-form-label">{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
-	<div class="layui-form-field-label border-none">
+	<div class="layui-input-block border-none">
 		<div class="js-upload-file">
 			<div id="file_list_{$vo.name}" class="uploader-list">
 				<table class="layui-table">
@@ -240,9 +240,9 @@
 </div>
 {/case}
 {case value="files"}
-<div class="layui-form-item layui-form-text">
+<div class="layui-form-item">
 	<label class="layui-form-label">{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
-	<div class="layui-form-field-label border-none">
+	<div class="layui-input-block border-none">
 		<div class="js-upload-file">
 			<div id="file_list_{$vo.name}" class="uploader-list">
 				<table class="layui-table">
@@ -284,9 +284,9 @@
 </div>
 {/case}
 {case value="Ueditor"}
-<div class="layui-form-item layui-form-text">
+<div class="layui-form-item">
 	<label title="{:getSiteName($k)}{$vo.title}">{:getSiteName($k)}{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
-	<div class="layui-form-field-label border-none">
+	<div class="layui-input-block border-none">
 		<div class="edit">
 			<script type="text/plain" class="js-ueditor" id="{$vo.name}{$k}" name="extra_data[{$k}][{$vo.name}]"> {$value|raw}</script>
 		</div>
@@ -300,7 +300,7 @@
 </div>
 {/case}
 {case value="city"}
-<div class="layui-form-item layui-form-text">
+<div class="layui-form-item">
 	<label>{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
 	<div class="layui-input-block">
 		<input type="text" autocomplete="on" class="layui-input" name="{$vo.fieldArr}[{$vo.name}]" id="{$vo.name}" value="{$vo.value}" data-toggle="city-picker" placeholder="请选择"/>
