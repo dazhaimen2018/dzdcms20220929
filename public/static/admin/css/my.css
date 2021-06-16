@@ -105,7 +105,7 @@
 /*上传图片布局*/
 .layui-form-item .border-none{line-height: 20px!important;}
 .layui-form-item .js-upload-image, .layui-form-item .js-upload-images{display: flex}
-.layui-form-item .uploader-list{overflow: hidden;float: left}
+.layui-form-item .uploader-list{overflow: hidden;float: left;width: auto!important;}
 .layui-form-item .uploader-list .thumbnail .file-panel{text-align: center}
 
 /*文件上传*/
