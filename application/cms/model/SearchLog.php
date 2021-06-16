@@ -6,4 +6,5 @@ use \think\Model;
 
 class SearchLog extends Model
 {
+    protected $autoWriteTimestamp = true;
 }

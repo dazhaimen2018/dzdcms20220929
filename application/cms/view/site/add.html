@@ -64,7 +64,7 @@
 
 			<div class="layui-form-item">
 				<label>上级站点</label>
-				<div class="w300">
+				<div class="layui-input-block">
 					<select name="parentid">
 						<option value="0">作为顶级站点</option>
 						{$site|raw}
@@ -112,7 +112,7 @@
 			</div>
 			<div class="layui-form-item item-flex">
 				<label class="layui-form-label">主题风格</label>
-				<div class="w300">
+				<div class="layui-input-block">
 					<select name="template">
 						<option value="">请选择主题风格</option>
 						{volist name="templates" id="vo"}

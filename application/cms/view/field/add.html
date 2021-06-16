@@ -16,7 +16,7 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">字段描述</label>
-        <div class="layui-input-inline w300">
+        <div class="layui-input-block">
             <textarea name="remark" placeholder="字段的相关描述" class="layui-textarea"></textarea>
         </div>
     </div>
@@ -33,7 +33,7 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">字段定义</label>
-        <div class="layui-input-inline w300">
+        <div class="layui-input-block">
             <input type="text" name="setting[define]" lay-verify="required" autocomplete="off" placeholder="字段定义" class="layui-input" id="define">
         </div>
         <div class="layui-input-inline">
@@ -50,7 +50,7 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">数据校验</label>
-        <div class="layui-input-inline w300">
+        <div class="layui-input-block">
             <input type="text" name="pattern" autocomplete="off" placeholder="正则校验数据合法性，留空不校验" class="layui-input" id="pattern">
         </div>
         <div class="layui-input-inline">
@@ -141,7 +141,7 @@
 </form>
 <div id="options1" style="display: none;">
     <label class="layui-form-label">配置项</label>
-    <div class="layui-input-inline w300">
+    <div class="layui-input-block">
         <textarea name="setting[options]" placeholder="键值:键名
 键值:键名
 键值:键名
@@ -155,7 +155,7 @@
 </div>
 <div id="options2" style="display: none;">
     <label class="layui-form-label">配置项</label>
-    <div class="layui-input-inline w300">
+    <div class="layui-input-block">
         <textarea name="setting[options]" placeholder="url:提供数据源的URL地址
 field:列表显示读取的字段,默认[name]
 key:列表选中后渲染的字段,默认[id]
@@ -173,7 +173,7 @@ order:排序字段，默认[id]" class="layui-textarea"></textarea>
 </div>
 <div id="options3" style="display: none;">
     <label class="layui-form-label">自定义模板</label>
-    <div class="layui-input-inline w300">
+    <div class="layui-input-block">
         <select name="setting[options]">
             <option value="custom.html" selected>默认模板:custom.html</option>
             {volist name="custom" id="vo"}

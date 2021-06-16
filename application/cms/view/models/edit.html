@@ -17,13 +17,13 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">描述</label>
-        <div class="layui-input-block w300">
+       <div class="layui-input-block">
             <textarea name="description" placeholder="模型的相关描述" class="layui-textarea">{$data.description}</textarea>
         </div>
     </div>
     <div class="layui-form-item web_list">
         <label class="layui-form-label">栏目模板</label>
-        <div class="layui-input-inline w300">
+        <div class="layui-input-block">
             <select name="setting[category_template]">
                 <option value="category.html" selected>默认栏目首页:category.html</option>
                 {volist name="tp_category" id="vo"}
@@ -35,7 +35,7 @@
     </div>
     <div class="layui-form-item web_list">
         <label class="layui-form-label">列表模板</label>
-        <div class="layui-input-inline w300">
+        <div class="layui-input-block">
             <select name="setting[list_template]">
                 <option value="list.html" selected>默认栏目列表页:list.html</option>
                 {volist name="tp_list" id="vo"}
@@ -47,7 +47,7 @@
     </div>
     <div class="layui-form-item web_list">
         <label class="layui-form-label">内容模板</label>
-        <div class="layui-input-inline w300">
+        <div class="layui-input-block">
             <select name="setting[show_template]">
                 <option value="show.html" selected>默认内容页:show.html</option>
                 {volist name="tp_show" id="vo"}

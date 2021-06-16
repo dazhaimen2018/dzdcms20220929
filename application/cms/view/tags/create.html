@@ -7,7 +7,7 @@
         <form class="layui-form" method="post" lay-filter="layui-form">
             <div class="layui-form-item">
                 <label>请选择需要重建的模型</label>
-                <div class="w300">
+                <div class="layui-input-block">
                     {php} echo \util\Form::select($Model, 0, 'name="modelid" id="modelid"', '重建全部模型');{/php}
                 </div>
             </div>

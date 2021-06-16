@@ -437,7 +437,7 @@ return [
                         "route" => "cms/search/index",
                         "type" => 1,
                         "status" => 1,
-                        "name" => "搜索管理",
+                        "name" => "搜索记录",
                         "icon" => "icon-search",
                         "child" =>
                             [
@@ -445,7 +445,7 @@ return [
                                     "route" => "cms/search/index",
                                     "type" => 1,
                                     "status" => 0,
-                                    "name" => "搜索管理",
+                                    "name" => "搜索列表",
                                 ],
                                 [
                                     "route" => "cms/search/add",
