@@ -57,7 +57,7 @@
                         <input type="hidden" name="lang_data[{$k}][lang_id]" value="{$s['lang_id']}" />
                         <input type="hidden" name="lang_data[{$k}][id]" value="{$s['id']}" />
                         <div class="layui-form-item">
-                            <label>{:getSiteName($k)}数据</label>
+                            <label class="layui-form-label">{:getSiteName($k)}数据</label>
                             <div class="layui-input-block">
                                 <textarea lay-verify="required" lay-reqText="{:getSiteName($k)}数据不能为空" name="lang_data[{$k}][value]" placeholder="{:lang('Setting Value',[],$s['mark'])}" class="layui-textarea">{$s['value']}</textarea>
                             </div>
@@ -70,7 +70,7 @@
                         <input type="hidden" name="lang_data[{$k}][lang_id]" value="{$s['lang_id']}" />
                         <input type="hidden" name="lang_data[{$k}][id]" value="{$s['id']}" />
                         <div class="layui-form-item">
-                            <label>{:getSiteName($k)}数据</label>
+                            <label class="layui-form-label">{:getSiteName($k)}数据</label>
                             <div class="layui-input-block">
                                 <textarea lay-verify="required" lay-reqText="{:getSiteName($k)}数据不能为空" name="lang_data[{$k}][value]" placeholder="{:lang('Setting Value',[],$s['mark'])}" class="layui-textarea">{$s['value']}</textarea>
                             </div>

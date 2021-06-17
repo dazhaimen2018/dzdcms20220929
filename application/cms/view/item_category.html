@@ -1,42 +1,34 @@
 <div class="layui-tab-item">
     <input type="hidden" name="category_data[{$k}][site_id]" value="{$siteId}"/>
     <input type="hidden" name="category_data[{$k}][cd_id]" value="{$cdId}"/>
-    <!-- 暂时无用
     <div class="layui-form-item">
-            <label>在导航显示</label>
-            <div class="layui-input-block">
-                <input type="checkbox" name="category_data[{$k}][status]" lay-skin="switch" lay-text="显示|隐藏" value="1" {if 1==$category_data[$k-1]['status']}checked{/if}>
-            </div>
-        </div>
-    -->
-        <div class="layui-form-item">
-            <label>{:lang('Category Title',[],$s['mark'])}</label>
-            <div class="layui-input-block">
-                <input class="layui-input" name="category_data[{$k}][catname]"  lay-verify="required" lay-reqText="{:getSiteName($k)}栏目标题不能为空"  placeholder="{:lang('Category Title',[],$s['mark'])}" type="text" value="{$category_data[$k-1]['catname']}">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label>{:lang('Category Description',[],$s['mark'])}</label>
-            <div class="layui-input-block">
-                <textarea class="layui-textarea" name="category_data[{$k}][description]" placeholder="{:lang('Category Description',[],$s['mark'])}">{$category_data[$k-1]['description']}</textarea>
-            </div>
-        </div>
-        <div class="layui-form-item web_seo">
-            <label>{:lang('Page Title',[],$s['mark'])}</label>
-            <div class="layui-input-block">
-                <input class="layui-input" name="category_data[{$k}][setting][title]" placeholder="{:lang('Title set for search engine',[],$s['mark'])}" type="text" value="{$page_title}">
-            </div>
-        </div>
-        <div class="layui-form-item web_seo">
-            <label>{:lang('Page Keyword',[],$s['mark'])}</label>
-            <div class="layui-input-block">
-                <input class="layui-input" name="category_data[{$k}][setting][keyword]" placeholder="{:lang('Keywords separated by half comma',[],$s['mark'])}" type="text" value="{$page_keyword}">
-            </div>
-        </div>
-        <div class="layui-form-item web_seo">
-            <label>{:lang('Page Description',[],$s['mark'])}</label>
-            <div class="layui-input-block">
-                <textarea class="layui-textarea" name="category_data[{$k}][setting][description]" placeholder="{:lang('Page description for search engine settings',[],$s['mark'])}">{$page_description}</textarea>
-            </div>
+        <label>{:lang('Category Title',[],$s['mark'])}</label>
+        <div class="layui-input-block">
+            <input class="layui-input" name="category_data[{$k}][catname]"  lay-verify="required" lay-reqText="{:getSiteName($k)}栏目标题不能为空"  placeholder="{:lang('Category Title',[],$s['mark'])}" type="text" value="{$category_data[$k-1]['catname']}">
         </div>
     </div>
+    <div class="layui-form-item">
+        <label>{:lang('Category Description',[],$s['mark'])}</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" name="category_data[{$k}][description]" placeholder="{:lang('Category Description',[],$s['mark'])}">{$category_data[$k-1]['description']}</textarea>
+        </div>
+    </div>
+    <div class="layui-form-item web_seo">
+        <label>{:lang('Page Title',[],$s['mark'])}</label>
+        <div class="layui-input-block">
+            <input class="layui-input" name="category_data[{$k}][setting][title]" placeholder="{:lang('Title set for search engine',[],$s['mark'])}" type="text" value="{$page_title}">
+        </div>
+    </div>
+    <div class="layui-form-item web_seo">
+        <label>{:lang('Page Keyword',[],$s['mark'])}</label>
+        <div class="layui-input-block">
+            <input class="layui-input" name="category_data[{$k}][setting][keyword]" placeholder="{:lang('Keywords separated by half comma',[],$s['mark'])}" type="text" value="{$page_keyword}">
+        </div>
+    </div>
+    <div class="layui-form-item web_seo">
+        <label>{:lang('Page Description',[],$s['mark'])}</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" name="category_data[{$k}][setting][description]" placeholder="{:lang('Page description for search engine settings',[],$s['mark'])}">{$page_description}</textarea>
+        </div>
+    </div>
+</div>

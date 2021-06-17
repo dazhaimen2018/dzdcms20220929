@@ -3,11 +3,11 @@
     <input type="hidden" name="extra_data[{$k}][id]" value="{$s.id}" />
     {volist name="extraFieldList" id="vo"}
     <?php
-                        $value = '';
-                        if(!empty($s[$vo['name']])){
-                         $value= $s[$vo['name']];
-                         }
-                        ?>
+    $value = '';
+    if(!empty($s[$vo['name']])){
+     $value= $s[$vo['name']];
+     }
+    ?>
     {include file="admin@inputItemExt" /}
     {/volist}
 </div>
