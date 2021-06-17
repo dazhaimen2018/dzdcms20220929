@@ -98,10 +98,7 @@
 .layui-form-item .layui-inline .layui-input-inline{flex: 1!important;width: auto!important;}
 
 /*上传图片布局*/
-.layui-form-item .border-none{line-height: 20px!important;}
-.layui-form-item .js-upload-image, .layui-form-item .js-upload-images{display: flex}
-.layui-form-item .uploader-list{overflow: hidden;float: left;width: auto!important;}
-.layui-form-item .uploader-list .thumbnail .file-panel{text-align: center}
+.layui-form-item .thumbnail{margin-top: 0px!important;}
 
 /*文件上传*/
 .js-upload-file th:last-child, .js-upload-file td:last-child{width: 100px;text-align: center}
