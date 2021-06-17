@@ -98,12 +98,11 @@
 .layui-form-item .layui-inline .layui-input-inline{flex: 1!important;width: auto!important;}
 
 /*上传图片布局*/
-.layui-form-item .thumbnail{margin-top: 0px!important;}
-
+.layui-form-item .thumbnail{margin: 0 10px 10px 10px!important; }
 /*文件上传*/
-.js-upload-file th:last-child, .js-upload-file td:last-child{width: 100px;text-align: center}
-.js-upload-file .uploader-list{border-left: 1px solid #e6e6e6;margin-right: 10px}
-.js-upload-file .uploader-list .layui-table td, .js-upload-file .uploader-list .layui-table th{line-height: 21px}
+/*.js-upload-file th:last-child, .js-upload-file td:last-child{width: 100px;text-align: center}*/
+/*.js-upload-file .uploader-list{border-left: 1px solid #e6e6e6;margin-right: 10px}*/
+/*.js-upload-file .uploader-list .layui-table td, .js-upload-file .uploader-list .layui-table th{line-height: 21px}*/
 
 .layadmin-text p {	margin: 5px 0;	text-indent: 2em;}
 .layuiadmin-badge{top:50%;margin-top:-9px;color:#01AAED;}
@@ -111,6 +110,7 @@
 .layuiadmin-card-list p.layuiadmin-big-font{font-size:36px;color:#666;line-height:36px;padding:5px 0 10px;overflow:hidden;text-overflow:ellipsis;word-break:break-all;white-space:nowrap;}
 .layuiadmin-card-link a{display:inline-block;width:24.5%;color:#666;font-size:14px;margin-bottom:12px;}
 .layui-form-item .layui-form-field-label, .layui-form-item .layui-input-inline, .layui-form-item .layui-input-block, .layui-col-md4 textarea{padding: 0;border: 1px solid #e6e6e6;box-sizing: unset;}
+
 
 .layui-form-item .border-none, .layui-iconpicker-item, div.tagsinput{border: none!important;}
 .layui-form-item .layui-form-field-label:hover, .layui-form-item .layui-input-inline:hover, .layui-form-item .layui-input-block:hover{border-color: #ccc;}
@@ -131,7 +131,7 @@
 .layui-form-item .layui-form-radio, .layui-form-item .layui-form-switch, .layui-form-item .layui-form-checkbox{margin:5px 0 5px 10px}
 .layui-form-item .layui-form-radio {line-height: 24px;}
 .layadmin-text p {	margin: 8px 0;	text-indent: 2em;}
-.layui-input, .layui-select, .layui-textarea {height: 36px;border-width: 0;}
+.layui-input, .layui-select, .layui-textarea {height: 36px;border-width: 0;min-width: 250px;}
 .layui-textarea{height: 78px;}
 
 /* 编辑器 */

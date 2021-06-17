@@ -186,14 +186,12 @@
 {/case}
 {case value="file" break="0"}{/case}
 {case value="files"}
-<div class="layui-form-item layui-form-text">
+<div class="layui-form-item">
     <label class="layui-form-label {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}layui-form-item-required{/if}">{$vo.title}</label>
-    <div class="layui-input-block border-none">
-        <div class="layui-col-xs4">
-            <input type="text" name="{$vo.fieldArr}[{$vo.name}]"  id="c-{$vo.name}" value="{$vo.value|default=''}" class="layui-input">
-        </div>
-        <div class="webUpload" id="picker_{$vo.name}" data-multiple="{$vo.type=='file'?'false':'true'}" data-input-id="c-{$vo.name}" data-preview-id="p-{$vo.name}" data-type="file"><i class="layui-icon layui-icon-upload"></i> 上传文件</div>
+    <div class="layui-input-block">
+        <input type="text" name="{$vo.fieldArr}[{$vo.name}]"  id="c-{$vo.name}" value="{$vo.value|default=''}" class="layui-input">
     </div>
+    <div class="webUpload" id="picker_{$vo.name}" data-multiple="{$vo.type=='file'?'false':'true'}" data-input-id="c-{$vo.name}" data-preview-id="p-{$vo.name}" data-type="file"><i class="layui-icon layui-icon-upload"></i> 上传文件</div>
     {if $vo.remark}<div class="layui-form-mid layui-word-aux">{$vo.remark|raw}</div>{/if}
 </div>
 {/case}
