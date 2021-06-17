@@ -11,8 +11,8 @@
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
                 <div class="layui-form-item">
-                    <label>上级菜单</label>
-                    <div class="w300">
+                    <label class="layui-form-label">上级菜单</label>
+                    <div class="layui-input-block">
                         <select name="parentid">
                             <option value="0">作为顶级栏目</option>
                             {$help|raw}
@@ -20,20 +20,20 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label>栏目标题 </label>
-                    <div class="w300">
+                    <label class="layui-form-label">栏目标题 </label>
+                    <div class="layui-input-block">
                         <input type="text" name="catname" autocomplete="off" lay-verify="required" placeholder="栏目名称" class="layui-input" value="{$data.catname}">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label>唯一标识</label>
-                    <div class="w300">
+                    <label class="layui-form-label">唯一标识</label>
+                    <div class="layui-input-block">
                         <input type="text" name="catdir" autocomplete="off" placeholder="唯一标识" class="layui-input" value="{$data.catdir}">
                     </div>
                     <div class="layui-form-mid layui-word-aux">留空自动生成拼音，英文数字组成</div>
                 </div>
                 <div class="layui-form-item web_link">
-                    <label>链接地址</label>
+                    <label class="layui-form-label">链接地址</label>
                     <div>
                         <div class="layui-input-inline w300">
                             <input type="text" name="url" autocomplete="off" placeholder="自定义链接地址" class="layui-input" id="url" value="{$data.url}">
@@ -59,13 +59,13 @@
                     <div class="layui-form-mid layui-word-aux">有值时生效，内部链接格式:模块/控制器/操作?参数=参数值&...，外部链接则必须http://开头</div>
                 </div>
                 <div class="layui-form-item web_seo">
-                    <label>栏目简介</label>
-                    <div class="w300">
+                    <label class="layui-form-label">栏目简介</label>
+                    <div class="layui-input-block">
                         <textarea name="description" placeholder="栏目简介" class="layui-textarea">{$data.description}</textarea>
                     </div>
                 </div>
                 <div class="layui-form-item layui-form-text">
-                    <label>栏目图片</label>
+                    <label class="layui-form-label">栏目图片</label>
                     <div class="layui-form-field-label border-none">
                         <div class="js-upload-image">
                             {php}echo \util\Form::images('image','',$data['image']){/php}
@@ -79,15 +79,15 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label>在导航显示</label>
-                    <div class="w300">
+                    <label class="layui-form-label">在导航显示</label>
+                    <div class="layui-input-block">
                         <input type="radio" name="status" value="1" title="显示" {eq name="data.status" value="1" }checked{/eq}>
                         <input type="radio" name="status" value="0" title="隐藏" {eq name="data.status" value="0" }checked{/eq}>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label>显示排序</label>
-                    <div class="w300">
+                    <label class="layui-form-label">显示排序</label>
+                    <div class="layui-input-block">
                         <input type="text" name="listorder" autocomplete="off" placeholder="显示排序" class="layui-input" value="{$data['listorder']}">
                     </div>
                 </div>

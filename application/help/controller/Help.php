@@ -135,9 +135,6 @@ class Help extends Adminbase
                 //20200518 ethan update: $res should be a string, not arrays.
                 $catid = $this->modelClass->addHelp($data, $fields);
                 if ($catid) {
-                    if (isModuleInstall('member')) {
-                        model("cms/HelpPriv")->update_priv($catid, $data['priv_groupid'], 0);
-                    }
                     $this->success("添加成功！", url("Help/index"));
                 } else {
                     $error = $this->modelClass->getError();
