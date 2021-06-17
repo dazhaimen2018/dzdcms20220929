@@ -92,8 +92,6 @@ class CmsTagLib
 
                 $cat         = $url_mode == 1 ? $vo['id'] : $vo['catdir'];
                 $vo['url']   = buildCatUrl($cat, $vo['url']);
-                $vo['image'] = empty($vo['image']) ? '' : get_file_path($vo['image']);
-                $vo['icon']  = empty($vo['icon']) ? '' : get_file_path($vo['icon']);
             }
         }
         return $categorys;

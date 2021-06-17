@@ -79,15 +79,12 @@ class Cms extends Adminbase
             $_list = [];
             foreach ($list as $k => $v) {
                 $v['updatetime'] = date('Y-m-d H:i', $v['updatetime']);
-                if (isset($v['thumb'])) {
-                    $v['thumb'] = get_file_path($v['thumb']);
-                }
-                $v['url']  = buildContentUrl($v['catid'], $v['id'], $v['url']);
+                $v['url']        = buildContentUrl($v['catid'], $v['id'], $v['url']);
                 //马博 显示已添站点ID
-                $sites     = Db::name($tableName . '_data')->where('did', $v['id'])->field('site_id as id')->select();
-                $v['site'] = array_column($sites,'id');
+                $sites           = Db::name($tableName . '_data')->where('did', $v['id'])->field('site_id as id')->select();
+                $v['site']       = array_column($sites,'id');
                 // end
-                $_list[]   = $v;
+                $_list[]         = $v;
             }
             $result = array("code" => 0, "count" => $total, "data" => $_list);
             return json($result);
