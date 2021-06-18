@@ -25,7 +25,7 @@ class LinksTagLib
     {
         $where = isset($data['where']) ? $data['where'] : "status=1";
         $order = isset($data['order']) ? $data['order'] : 'listorder,id desc';
-        $num = isset($data['num']) ? (int) $data['num'] : 10;
+        $num   = isset($data['num']) ? (int) $data['num'] : 10;
         if (isset($data['linktype'])) {
             $where .= empty($where) ? "linktype = " . (int) $data['linktype'] : " AND linktype = " . (int) $data['linktype'];
         }
@@ -41,10 +41,7 @@ class LinksTagLib
                 $where .= " AND (" . implode(' OR ', $site) . ")";
             }
         }
-        $result = Db::name('Links')->where($where)->limit($num)->order($order)->withAttr('image', function ($value, $data) {
-            return get_file_path($value);
-        })->select();
-
+        $result = Db::name('Links')->where($where)->limit($num)->order($order)->select();
         return $result;
     }
 
