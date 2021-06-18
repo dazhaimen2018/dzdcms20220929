@@ -129,7 +129,7 @@
 .layui-form-item .layui-form-radio, .layui-form-item .layui-form-switch, .layui-form-item .layui-form-checkbox{margin:5px 0 5px 10px}
 .layui-form-item .layui-form-radio {line-height: 24px;}
 .layadmin-text p {	margin: 8px 0;	text-indent: 2em;}
-.layui-input, .layui-select, .layui-textarea {height: 36px;border-width: 0;min-width: 250px;}
+.layui-input, .layui-select, .layui-textarea {height: 36px;border-width: 0;}
 .layui-textarea{height: 78px;}
 
 /* 编辑器 */
