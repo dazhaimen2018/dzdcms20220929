@@ -170,17 +170,17 @@ INSERT INTO `yzn_model_field` (`id`, `modelid`, `name`, `title`, `remark`, `patt
 
 
 INSERT INTO `yzn_news` (`id`, `catid`, `theme`, `url`, `thumb`, `flag`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `inputtime`, `updatetime`, `status`, `icon`, `image`) VALUES
-(1, 5, 'DZDCMS', '', 3, '6', 1, 1, 'admin', 1, 63, 1615821073, 1615961608, 1, '', 2),
-(2, 5, '多站点CMS是基于最新TP5.1x框架和layui2.5x的多站点内容管理系统', '', 3, '6', 2, 1, 'admin', 1, 20, 1615821115, 1615961591, 1, '', 2),
-(3, 4, '域名灵活', '', 0, '', 100, 1, 'admin', 1, 25, 1615842549, 1615842650, 1, 'layui-icon-star', 0),
-(4, 4, '一站管理', '', 0, '', 100, 1, 'admin', 1, 16, 1615842656, 1615842699, 1, 'layui-icon-user', 0),
-(5, 4, '数据同步', '', 0, '', 100, 1, 'admin', 1, 3, 1615842764, 1615842790, 1, 'layui-icon-transfer', 0),
-(6, 4, '插件丰富', '', 0, '', 100, 1, 'admin', 1, 4, 1615842818, 1615842855, 1, 'layui-icon-app', 0),
-(7, 6, '恭喜多站点CMS2.0.0正式版上线啦 ', '', 3, '', 100, 1, 'admin', 1, 12, 1615844016, 1615961335, 1, '', 0),
-(8, 6, '恭喜多站点CMS入住thinkphp服务市场', '', 3, '', 100, 1, 'admin', 1, 13, 1615844134, 1615961325, 1, '', 0),
-(9, 6, '恭喜多站点CMS入住thinkphp服务市场', '', 3, '', 100, 1, 'admin', 1, 8, 1615844276, 1615961316, 1, '', 0),
-(10, 4, '多端支持', '', 0, '', 100, 1, 'admin', 1, 0, 1616025535, 1616025575, 1, 'layui-icon-cellphone', 0),
-(11, 4, '长期更新', '', 0, '', 100, 1, 'admin', 1, 0, 1616025576, 1616025621, 1, 'layui-icon-auz', 0);
+(1, 5, 'DZDCMS', '', '/uploads/images/logo.png', '6', 1, 1, 'admin', 1, 63, 1615821073, 1623977644, 1, '', '/uploads/images/banner.png'),
+(2, 5, '多站点CMS是基于最新TP5.1x框架和layui2.5x的多站点内容管理系统', '', '/uploads/images/logo.png', '6', 2, 1, 'admin', 1, 20, 1615821115, 1623977659, 1, '', '/uploads/images/banner.png'),
+(3, 4, '域名灵活', '', '/uploads/images/logo.png', '', 100, 1, 'admin', 1, 25, 1615842549, 1623977808, 1, 'layui-icon-star', '/uploads/images/banner.png'),
+(4, 4, '一站管理', '', '/uploads/images/logo.png', '', 100, 1, 'admin', 1, 16, 1615842656, 1623977794, 1, 'layui-icon-user', '/uploads/images/banner.png'),
+(5, 4, '数据同步', '', '/uploads/images/logo.png', '', 100, 1, 'admin', 1, 3, 1615842764, 1623977782, 1, 'layui-icon-transfer', '/uploads/images/banner.png'),
+(6, 4, '插件丰富', '', '/uploads/images/logo.png', '', 100, 1, 'admin', 1, 4, 1615842818, 1623977769, 1, 'layui-icon-app', '/uploads/images/banner.png'),
+(7, 6, '恭喜多站点CMS2.0.0正式版上线啦 ', '', '/uploads/images/logo.png', '', 100, 1, 'admin', 1, 12, 1615844016, 1623977905, 1, '', '/uploads/images/banner.png'),
+(8, 6, '恭喜多站点CMS入住thinkphp服务市场', '', '/uploads/images/logo.png', '', 100, 1, 'admin', 1, 13, 1615844134, 1623977893, 1, '', '/uploads/images/banner.png'),
+(9, 6, '恭喜多站点CMS入住thinkphp服务市场', '', '/uploads/images/logo.png', '', 100, 1, 'admin', 1, 8, 1615844276, 1623977880, 1, '', '/uploads/images/banner.png'),
+(10, 4, '多端支持', '', '/uploads/images/logo.png', '', 100, 1, 'admin', 1, 0, 1616025535, 1623977755, 1, 'layui-icon-cellphone', '/uploads/images/banner.png'),
+(11, 4, '长期更新', '', '/uploads/images/logo.png', '', 100, 1, 'admin', 1, 0, 1616025576, 1623977742, 1, 'layui-icon-auz', '/uploads/images/banner.png');
 
 INSERT INTO `yzn_news_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`, `description`, `content`) VALUES
 (1, 1, 1, 'DZDCMS', '', '', '多站点CMS是一款功能强大的多站点内容管理系统', '<p>首页幻灯片</p>'),
@@ -207,9 +207,9 @@ INSERT INTO `yzn_page` (`id`, `catid`, `site_id`, `title`, `image`, `keywords`, 
 (4, 8, 2, 'Contact us', 0, '', '', '<p style=\"white-space: normal;\">QQ：8355763（注明：多站点）</p><p style=\"white-space: normal;\">QQ群：712780220</p><p style=\"white-space: normal;\">手机@微信：13693153699</p>', 0, 0);
 
 INSERT INTO `yzn_photo` (`id`, `catid`, `theme`, `url`, `thumb`, `flag`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `inputtime`, `updatetime`, `status`, `images`) VALUES
-(1, 3, '官网模版', '', 3, '', 100, 1, 'admin', 1, 25, 1615842884, 1615856579, 1, ''),
-(2, 3, '官网模版', '', 3, '', 100, 1, 'admin', 1, 25, 1615842928, 1615856590, 1, ''),
-(3, 3, '官网模版', '', 3, '', 100, 1, 'admin', 1, 3, 1615842971, 1615856600, 1, '');
+(1, 3, '官网模版', '', '/uploads/images/logo.png', '', 100, 1, 'admin', 1, 25, 1615842884, 1623977712, 1, '/uploads/images/banner.png,/uploads/images/banner.png'),
+(2, 3, '官网模版', '', '/uploads/images/logo.png', '', 100, 1, 'admin', 1, 25, 1615842928, 1623977696, 1, '/uploads/images/banner.png,/uploads/images/banner.png'),
+(3, 3, '官网模版', '', '/uploads/images/logo.png', '', 100, 1, 'admin', 1, 3, 1615842971, 1623977725, 1, '/uploads/images/banner.png,/uploads/images/banner.png');
 
 INSERT INTO `yzn_photo_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`, `description`, `content`) VALUES
 (1, 1, 1, '官网模版', '', '', '官网模版', '<p>官网模版</p>'),
