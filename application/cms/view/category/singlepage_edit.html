@@ -74,19 +74,15 @@
 
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">栏目图片</label>
-                    <div class="layui-input-block border-none">
-                        <div class="js-upload-image">
-                            {php}echo \util\Form::images('image','',$data['image']){/php}
-                        </div>
+                    <div class="layui-input-block layui-upload">
+                        {php}echo \util\Form::images('image','',$data['image']){/php}
                     </div>
                 </div>
                 {if isset(cache("Cms_Config")['icon_mode']) && 1==cache("Cms_Config")['icon_mode']}
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">栏目图标</label>
-                    <div class="layui-input-block border-none">
-                        <div class="js-upload-image">
-                            {php}echo \util\Form::images('icon','',$data['icon']){/php}
-                        </div>
+                    <div class="layui-input-block layui-upload">
+                       {php}echo \util\Form::images('icon','',$data['icon']){/php}
                     </div>
                 </div>
                 {else}

@@ -149,9 +149,9 @@
 {case value="image" break="0"}{/case}
 
 {case value="images"}
-<div class="layui-form-item layui-form-text">
+<div class="layui-form-item">
 	<label class="layui-form-label {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}layui-form-item-required{/if}">{$vo.title}</label>
-	<div class="layui-input-block">
+	<div class="layui-input-block layui-upload">
 		<div class="layui-col-xs4">
 			<input type="text" name="extra_data[{$k}][{$vo.name}]"  id="c-{$vo.name}" value="{$value|default=''}" class="layui-input">
 		</div>
@@ -159,22 +159,22 @@
 		<button type="button" class="layui-btn fachoose-image" data-multiple="{$vo.type=='image'?'false':'true'}" data-input-id="c-{$vo.name}" id="fachoose-c-{$vo.name}"><i class="iconfont icon-other"></i> 选择</button>
 		<ul class="layui-row list-inline plupload-preview" id="p-{$vo.name}"></ul>
 	</div>
-	{if $vo.remark}<div class="layui-form-mid2 layui-word-aux">{$vo.remark|raw}</div>{/if}
+	{if $vo.remark}<div class="layui-form-mid layui-word-aux">{$vo.remark|raw}</div>{/if}
 </div>
 {/case}
 
 {case value="file" break="0"}{/case}
 
 {case value="files"}
-<div class="layui-form-item layui-form-text">
+<div class="layui-form-item">
 	<label class="layui-form-label {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}layui-form-item-required{/if}">{$vo.title}</label>
-	<div class="layui-input-block">
+	<div class="layui-input-block layui-upload">
 		<div class="layui-col-xs4">
 			<input type="text" name="extra_data[{$k}][{$vo.name}]"  id="c-{$vo.name}" value="{$value|default=''}" class="layui-input">
 		</div>
 		<div class="webUpload" id="picker_{$vo.name}" data-multiple="{$vo.type=='file'?'false':'true'}" data-input-id="c-{$vo.name}" data-preview-id="p-{$vo.name}" data-type="file"><i class="layui-icon layui-icon-upload"></i> 上传</div>
 	</div>
-	{if $vo.remark}<div class="layui-form-mid2 layui-word-aux">{$vo.remark|raw}</div>{/if}
+	{if $vo.remark}<div class="layui-form-mid layui-word-aux">{$vo.remark|raw}</div>{/if}
 </div>
 {/case}
 

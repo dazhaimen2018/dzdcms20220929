@@ -98,9 +98,9 @@
             </div>
             {/case}
             {case value="image"}
-            <div class="layui-form-item layui-form-text">
+            <div class="layui-form-item">
                 <label class="layui-form-label">{$form.title}</label>
-                <div class="layui-input-block">
+                <div class="layui-input-block layui-upload">
                     <div class="layui-col-xs4">
                         <input type="text" name="config[{$form.name}]"  id="c-{$form.name}" value="{$form.value|default=''}" class="layui-input">
                     </div>

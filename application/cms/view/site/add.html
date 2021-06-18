@@ -94,10 +94,8 @@
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">网站Logo</label>
-				<div class="layui-input-block border-none">
-					<div class="js-upload-image">
-						{php}echo \util\Form::images('logo','',$data['logo']){/php}
-					</div>
+				<div class="layui-input-block layui-upload">
+				 {php}echo \util\Form::images('logo','',$data['logo']){/php}
 				</div>
 			</div>
 			<div class="layui-form-item">
