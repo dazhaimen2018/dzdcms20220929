@@ -98,7 +98,9 @@
 .layui-form-item .layui-inline .layui-input-inline{flex: 1!important;width: auto!important;}
 
 /*上传图片布局*/
-.layui-form-item .thumbnail{margin-top: 0!important;margin-left: 10px!important; }
+.layui-form-item .thumbnail{margin-top: 10px!important;margin-left: 10px!important; }
+.layui-form-item .layui-upload{    border: none!important;}
+.layui-form-item .layui-upload input{border: 1px solid #e6e6e6;height: 38px;line-height: 38px}
 
 .layadmin-text p {	margin: 5px 0;	text-indent: 2em;}
 .layuiadmin-badge{top:50%;margin-top:-9px;color:#01AAED;}
