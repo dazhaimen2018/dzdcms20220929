@@ -4,8 +4,8 @@ CREATE TABLE `yzn_news` (
     `catid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '栏目ID',
     `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
     `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',
-    `thumb` varchar(255) NOT NULL DEFAULT '' COMMENT '缩略图',
-    `flag` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
+    `thumb` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '缩略图',
+    `flag` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
     `listorder` smallint UNSIGNED NOT NULL DEFAULT '100' COMMENT '排序',
     `uid` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
     `username` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
@@ -14,8 +14,8 @@ CREATE TABLE `yzn_news` (
     `inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
     `updatetime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
     `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
-    `icon` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '标题图标',
-    `image` int UNSIGNED NOT NULL COMMENT '大图Banner',
+    `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '标题图标',
+    `image` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '大图Banner',
      PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='资讯模型模型表';
 
@@ -34,21 +34,21 @@ CREATE TABLE `yzn_news_data` (
 
 DROP TABLE IF EXISTS `yzn_photo`;
 CREATE TABLE `yzn_photo` (
-    `id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
-    `catid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '栏目ID',
-    `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
-    `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',
-    `thumb` varchar(255) NOT NULL DEFAULT '' COMMENT '缩略图',
-    `flag` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
-    `listorder` smallint UNSIGNED NOT NULL DEFAULT '100' COMMENT '排序',
-    `uid` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
-    `username` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
-    `sysadd` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否后台添加',
-    `hits` mediumint UNSIGNED DEFAULT '0' COMMENT '点击量',
-    `inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
-    `updatetime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
-    `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
-    `images` varchar(256) COLLATE utf8_unicode_ci NOT NULL COMMENT '图组',
+     `id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
+     `catid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '栏目ID',
+     `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
+     `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',
+     `thumb` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '缩略图',
+     `flag` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
+     `listorder` smallint UNSIGNED NOT NULL DEFAULT '100' COMMENT '排序',
+     `uid` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
+     `username` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
+     `sysadd` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否后台添加',
+     `hits` mediumint UNSIGNED DEFAULT '0' COMMENT '点击量',
+     `inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
+     `updatetime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
+     `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
+     `images` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '图组',
     PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='图片模型模型表';
 
@@ -118,7 +118,6 @@ INSERT INTO `yzn_model` (`id`, `module`, `name`, `tablename`, `description`, `se
 (1, 'cms', '资讯模型', 'news', '', 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 2, 1615820163, 1615820163, 0, 1),
 (2, 'cms', '图片模型', 'photo', '', 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:14:\"list_case.html\";s:13:\"show_template\";s:9:\"show.html\";}', 2, 1615820925, 1615820988, 0, 1);
 
-
 INSERT INTO `yzn_model_field` (`id`, `modelid`, `name`, `title`, `remark`, `pattern`, `errortips`, `type`, `setting`, `ifsystem`, `iscore`, `iffixed`, `ifrequire`, `ifsearch`, `isadd`, `create_time`, `update_time`, `listorder`, `status`) VALUES
 (1, 1, 'id', '文档id', '', '', '', 'hidden', NULL, 1, 0, 1, 0, 0, 1, 1615820162, 1615820162, 100, 1),
 (2, 1, 'catid', '栏目id', '', '', '', 'hidden', NULL, 1, 0, 1, 0, 0, 1, 1615820162, 1615820162, 100, 1),
@@ -130,7 +129,7 @@ INSERT INTO `yzn_model_field` (`id`, `modelid`, `name`, `title`, `remark`, `patt
 (8, 1, 'sysadd', '是否后台添加', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1615820162, 1615820162, 100, 1),
 (9, 1, 'listorder', '排序', '', '', '', 'number', 'a:3:{s:6:\"define\";s:40:\"tinyint(3) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:3:\"100\";}', 1, 0, 1, 0, 0, 0, 1615820162, 1615820162, 7, 1),
 (10, 1, 'status', '状态', '', '', '', 'radio', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:18:\"0:禁用\r\n1:启用\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1615820162, 1615820162, 6, 1),
-(11, 1, 'thumb', '缩略图', '', '', '', 'image', 'a:3:{s:6:\"define\";s:36:\"int(5) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1615820162, 1615820162, 5, 1),
+(11, 1, 'thumb', '缩略图', '', '', '', 'image', 'a:4:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:7:\"options\";s:0:\"\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1615820162, 1623977580, 5, 1),
 (12, 1, 'inputtime', '创建时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1615820162, 1615820162, 100, 1),
 (13, 1, 'updatetime', '更新时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1615820162, 1615820162, 100, 1),
 (14, 1, 'hits', '点击量', '', '', '', 'number', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1615820162, 1615820162, 100, 1),
@@ -152,7 +151,7 @@ INSERT INTO `yzn_model_field` (`id`, `modelid`, `name`, `title`, `remark`, `patt
 (30, 2, 'sysadd', '是否后台添加', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1615820925, 1615820925, 100, 1),
 (31, 2, 'listorder', '排序', '', '', '', 'number', 'a:3:{s:6:\"define\";s:40:\"tinyint(3) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:3:\"100\";}', 1, 0, 1, 0, 0, 0, 1615820925, 1615820925, 7, 1),
 (32, 2, 'status', '状态', '', '', '', 'radio', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:18:\"0:禁用\r\n1:启用\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1615820925, 1615820925, 6, 1),
-(33, 2, 'thumb', '缩略图', '', '', '', 'image', 'a:3:{s:6:\"define\";s:36:\"int(5) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1615820925, 1615843743, 4, 1),
+(33, 2, 'thumb', '缩略图', '', '', '', 'image', 'a:4:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:7:\"options\";s:0:\"\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1615820925, 1623977615, 4, 1),
 (34, 2, 'inputtime', '创建时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1615820925, 1615820925, 100, 1),
 (35, 2, 'updatetime', '更新时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1615820925, 1615820925, 100, 1),
 (36, 2, 'hits', '点击量', '', '', '', 'number', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1615820925, 1615820925, 100, 1),
@@ -166,8 +165,7 @@ INSERT INTO `yzn_model_field` (`id`, `modelid`, `name`, `title`, `remark`, `patt
 (44, 2, 'content', '内容', '', '', '', 'Ueditor', 'a:3:{s:6:\"define\";s:13:\"text NOT NULL\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 1, 0, 1, 1615820925, 1615820925, 200, 1),
 (45, 1, 'icon', '标题图标', '', '', '', 'text', 'a:3:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:5:\"value\";s:0:\"\";s:7:\"options\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1615842617, 1615842629, 4, 1),
 (46, 2, 'images', '图组', '', '', '', 'images', 'a:3:{s:6:\"define\";s:21:\"varchar(256) NOT NULL\";s:5:\"value\";s:0:\"\";s:7:\"options\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1615843719, 1615843740, 5, 1),
-(47, 1, 'image', '大图Banner', '', '', '', 'image', 'a:3:{s:6:\"define\";s:24:\"int(5) UNSIGNED NOT NULL\";s:5:\"value\";s:0:\"\";s:7:\"options\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1615845183, 1615845196, 6, 1);
-
+(47, 1, 'image', '大图Banner', '', '', '', 'image', 'a:4:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:7:\"options\";s:0:\"\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1615845183, 1623977593, 6, 1);
 
 INSERT INTO `yzn_news` (`id`, `catid`, `theme`, `url`, `thumb`, `flag`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `inputtime`, `updatetime`, `status`, `icon`, `image`) VALUES
 (1, 5, 'DZDCMS', '', '/uploads/images/logo.png', '6', 1, 1, 'admin', 1, 63, 1615821073, 1623977644, 1, '', '/uploads/images/banner.png'),
@@ -218,7 +216,7 @@ INSERT INTO `yzn_photo_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords
 
 INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `logo`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `status`, `inputtime`) VALUES
 (1, '中文站', 'zh-cn', 0, 'demo.dzdcms.com', 0, 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 0),
-(2, 'English', 'en-gb', 0, 'demo.dzdcms.com', 0, 'default', '', 'English', 'English', 'English', 0, '', NULL, 0, 2, 1, 0),
+(2, 'English', 'en-gb', 0, 'en.dzdcms.com', 0, 'default', '', 'English', 'English', 'English', 0, '', NULL, 0, 2, 1, 0),
 (3, '北京站', 'zh-cn', 0, 'bj.dzdcms.com', 0, 'default', '', '北京站', '北京站', '北京站', 0, '', NULL, 0, 0, 1, 0),
 (4, '上海站', 'zh-cn', 0, 'sh.dzdcms.com', 0, 'default', '', '上海站', '上海站', '上海站', 0, '', NULL, 0, 0, 1, 0);
 
