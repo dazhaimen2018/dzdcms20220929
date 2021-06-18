@@ -190,7 +190,7 @@
 {case value="files"}
 <div class="layui-form-item">
     <label class="layui-form-label {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}layui-form-item-required{/if}">{$vo.title}</label>
-    <div class="layui-input-block border-none">
+    <div class="layui-input-block layui-upload">
         <div class="layui-col-xs4">
             <input type="text" name="{$vo.fieldArr}[{$vo.name}]"  id="c-{$vo.name}" value="{$vo.value|default=''}" class="layui-input">
         </div>
