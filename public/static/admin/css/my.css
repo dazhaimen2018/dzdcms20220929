@@ -117,15 +117,15 @@
 .layui-form-item .layui-form-select .layui-edge{right: 28px}
 
 /* 浮动提交 */
-.layui-layer-footer div{width: 100%;text-align: center;margin-left: 0!important;}
+
 .layer-footer{position: fixed;bottom: 0px;width: 100%;box-sizing: border-box;z-index: 99999;margin-bottom: 0!important;background-color: #ecf0f1;padding: 10px !important;}
-.layer-footer div{width: 100%;text-align: center;}
-.layer-footer div .button{background: none;padding: 0;margin:0; }
-.layer-footer div .button .cu{padding: 3px 5px;margin: 0 8px; border-radius: 2px;box-shadow: 0 1px 2px rgba(0,0,0,0.1); background: #3498db;color:#fff;font-size: 14px;border: none;cursor: pointer;}
-.layer-footer div .button [name="dosubmit_continue"]{background: #19aa8d}
-.layer-footer div .button [name="close"]{background: #ff6c60}
-.layui-layer-yzn .layui-layer-footer {text-align: center !important;}
-.layer-footer .layui-input-block{border: none!important;}
+.layer-footer .layui-input-block{border: none!important;width: 100%; max-width: 100% !important;text-align: center;margin-left: 0!important;}
+.layer-footer .layui-input-block .button{background: none;padding: 0;margin:0; }
+.layer-footer .layui-input-block .button .cu{padding: 3px 5px;margin: 0 8px; border-radius: 2px;box-shadow: 0 1px 2px rgba(0,0,0,0.1); background: #3498db;color:#fff;font-size: 14px;border: none;cursor: pointer;}
+.layer-footer .layui-input-block .button [name="dosubmit_continue"]{background: #19aa8d}
+.layer-footer .layui-input-block .button [name="close"]{background: #ff6c60}
+.layui-layer-footer {text-align: center !important;}
+
 .layui-form-item .layui-form-radio, .layui-form-item .layui-form-switch, .layui-form-item .layui-form-checkbox{margin:5px 0 5px 10px}
 .layui-form-item .layui-form-radio {line-height: 24px;}
 .layadmin-text p {	margin: 8px 0;	text-indent: 2em;}
