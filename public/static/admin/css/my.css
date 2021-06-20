@@ -179,7 +179,7 @@
 /*editormd*/
 .editormd .CodeMirror, .editormd-preview{width: 50% !important}
 .CodeMirror-sizer{  margin-left: 30px;  margin-bottom: -6px;  border-right-width: 24px;  min-height: 30px;  padding-right: 0px;  padding-bottom: 0px;  }
-.CodeMirror-sizer{top:60px!important;}
+.CodeMirror-sizer, .editormd-preview-container{margin-top: 50px;}
 
 .layui-tips{padding-left: 10px;color: red}
 
