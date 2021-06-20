@@ -125,7 +125,7 @@
 .layer-footer div .button [name="dosubmit_continue"]{background: #19aa8d}
 .layer-footer div .button [name="close"]{background: #ff6c60}
 .layui-layer-yzn .layui-layer-footer {text-align: center !important;}
-
+.layer-footer .layui-input-block{border: none!important;}
 .layui-form-item .layui-form-radio, .layui-form-item .layui-form-switch, .layui-form-item .layui-form-checkbox{margin:5px 0 5px 10px}
 .layui-form-item .layui-form-radio {line-height: 24px;}
 .layadmin-text p {	margin: 8px 0;	text-indent: 2em;}
