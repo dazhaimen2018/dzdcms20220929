@@ -68,9 +68,9 @@
 .fieldlist dd button{margin: 6px}
 .fieldlist dd button:last-child{float: right}
 
-.layui-form-mid{width: 0!important;padding: 0!important;margin-right:0!important;}
-.layui-form-mid i{position:absolute;right:8px;bottom:9px; display:block!important; color:#999; cursor: pointer; font-size:16px; font-style: normal;}
-.layui-form-mid i:hover{color:#20a53a;}
+.layui-word-aux{width: 0!important;padding: 0!important;margin-right:0!important;}
+.layui-word-aux i{position:absolute;right:8px;bottom:9px; display:block!important; color:#999; cursor: pointer; font-size:16px; font-style: normal;}
+.layui-word-aux i:hover{color:#20a53a;}
 
 .layui-form-pane .auto-width{width: auto;text-align: left!important;}
 .layui-form-pane .layui-form-label{width: 110px;}
