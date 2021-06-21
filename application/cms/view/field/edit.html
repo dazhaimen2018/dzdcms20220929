@@ -16,7 +16,7 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">字段描述</label>
-        <div class="layui-input-block">
+        <div class="layui-input-inline w300">
             <textarea name="remark" placeholder="字段的相关描述" class="layui-textarea">{$data.remark}</textarea>
         </div>
     </div>
@@ -33,7 +33,7 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">字段定义</label>
-        <div class="layui-input-block">
+        <div class="layui-input-inline w300">
             <input type="text" name="setting[define]" lay-verify="required" autocomplete="off" placeholder="字段定义" class="layui-input" id="define" value="{$data.setting.define}">
         </div>
         <div class="layui-input-inline">
@@ -50,7 +50,7 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">数据校验</label>
-        <div class="layui-input-block">
+        <div class="layui-input-inline w300">
             <input type="text" name="pattern" autocomplete="off" placeholder="正则校验数据合法性，留空不校验" class="layui-input" value="{$data.pattern}" id="pattern">
         </div>
         <div class="layui-input-inline">
@@ -79,7 +79,7 @@
         <div class="layui-form-item options">
             {if $data.type == 'custom'}
             <label class="layui-form-label">自定义模板</label>
-            <div class="layui-input-block">
+            <div class="layui-input-inline">
                 <select name="setting[options]">
                     <option value="custom.html">默认模板:custom.html</option>
                     {volist name="custom" id="vo"}
@@ -91,7 +91,7 @@
             <div class="layui-form-mid layui-word-aux">新增模板以custom_xx.html形式<br>模板位于application/admin/view/custom目录下</div>
             {else}
             <label class="layui-form-label">选项</label>
-            <div class="layui-input-block">
+            <div class="layui-input-inline w300">
                 <textarea name="setting[options]" placeholder="{if $data.type !== 'selectpage'}
 键值:键名
 键值:键名
@@ -183,7 +183,7 @@ order:排序字段，默认[id]
 
 <div id="options1" style="display: none;">
     <label class="layui-form-label">配置项</label>
-    <div class="layui-input-block">
+    <div class="layui-input-inline w300">
         <textarea name="setting[options]" placeholder="键值:键名
 键值:键名
 键值:键名
@@ -197,7 +197,7 @@ order:排序字段，默认[id]
 </div>
 <div id="options2" style="display: none;">
     <label class="layui-form-label">配置项</label>
-    <div class="layui-input-block">
+    <div class="layui-input-inline w300">
         <textarea name="setting[options]" placeholder="url:提供数据源的URL地址
 field:列表显示读取的字段,默认[name]
 key:列表选中后渲染的字段,默认[id]
@@ -215,7 +215,7 @@ order:排序字段，默认[id]" class="layui-textarea"></textarea>
 </div>
 <div id="options3" style="display: none;">
     <label class="layui-form-label">自定义模板</label>
-    <div class="layui-input-block">
+    <div class="layui-input-inline">
         <select name="setting[options]">
             <option value="custom.html" selected>默认模板:custom.html</option>
             {volist name="custom" id="vo"}
