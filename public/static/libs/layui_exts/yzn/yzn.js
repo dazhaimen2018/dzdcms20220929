@@ -292,7 +292,7 @@ layui.define(['layer','notice'], function(exports) {
         },
     }
     //把提示修改为弹窗 马博加
-    var font = document.getElementsByClassName("layui-form-mid")
+    var font = document.getElementsByClassName("layui-word-aux")
     for (var i = 0; i < font.length; i++) {
         font[i].innerHTML = "<i class='layui-icon layui-icon-tips' lay-offset='5' lay-tips='" + font[i].innerHTML + "'></i>";
     }
