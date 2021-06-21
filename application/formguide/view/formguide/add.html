@@ -12,7 +12,7 @@
         <div class="layui-input-block">
             <input type="text" name="tablename" lay-verify="required" autocomplete="off" placeholder="表单键名" class="layui-input">
         </div>
-        <div class="layui-form-mid layui-word-aux">由小写字母组成</div>
+        <div class="layui-form-mid2 layui-word-aux">由小写字母组成</div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">简介</label>
@@ -25,21 +25,21 @@
         <div class="layui-input-block">
             <input type="text" name="setting[forward]" autocomplete="off" placeholder="提交后跳转地址" class="layui-input">
         </div>
-        <div class="layui-form-mid layui-word-aux">有值时生效，内部链接格式:模块/控制器/操作?参数=参数值&amp;...，外部链接则必须http://开头</div>
+        <div class="layui-form-mid2 layui-word-aux">有值时生效，内部链接格式:模块/控制器/操作?参数=参数值&amp;...，外部链接则必须http://开头</div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">邮件地址</label>
         <div class="layui-input-block">
             <input type="text" name="setting[mails]" autocomplete="off" placeholder="接受邮件的地址" class="layui-input">
         </div>
-        <div class="layui-form-mid layui-word-aux">需要安装邮箱插件，多个地址请用“,”隔开</div>
+        <div class="layui-form-mid2 layui-word-aux">需要安装邮箱插件，多个地址请用“,”隔开</div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">提交间隔</label>
         <div class="layui-input-block">
             <input type="text" name="setting[interval]" autocomplete="off" placeholder="提交间隔" class="layui-input" value="0">
         </div>
-        <div class="layui-form-mid layui-word-aux">单位秒，0为不限</div>
+        <div class="layui-form-mid2 layui-word-aux">单位秒，0为不限</div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">IP多次提交</label>
@@ -72,9 +72,9 @@
     <div class="layui-form-item web_list">
         <label class="layui-form-label">模板选择</label>
         <div class="layui-input-block">
-            {php} echo \util\Form::select($show_template, $data['setting']['show_template'], 'name="setting[show_template]"') {/php}
+            {php} echo \util\Form::select($show_template, 0, 'name="setting[show_template]"') {/php}
         </div>
-        <div class="layui-form-mid layui-word-aux">新增模板以show_xx.html形式</div>
+        <div class="layui-form-mid2 layui-word-aux">新增模板以show_xx.html形式</div>
     </div>
     <div class="layui-form-item layer-footer">
         <div class="layui-input-block">
