@@ -42,7 +42,11 @@ class Site extends Adminbase
             foreach ($result as $k => $v) {
                 $v['name'] = '<a data-width="900px" data-height="600px" data-open="' . url('edit', ['id' => $v['id']]) . '"">' . $v['name'] . '</a>';
                 $v['add_url'] = url("Site/add", array("parentid" => $v['id']));
+                if (empty(adminDomain())){
+                    $v['sites']  = 1;
+                }
                 $sites[$v['id']] = $v;
+
             }
             $tree->init($sites);
             $_list  = $tree->getTreeList($tree->getTreeArray(0), 'name');
@@ -58,6 +62,9 @@ class Site extends Adminbase
 	 */
 	public function add()
 	{
+        if (empty(adminDomain())){
+            return $this->error(tipsText());
+        }
 		if ($this->request->isPost()) {
 			$data = $this->request->post();
 			try {
@@ -81,7 +88,6 @@ class Site extends Adminbase
                     $this->error("父栏目不存在！");
                 }
             }
-
             //站点列表 可以用缓存的方式
             $array = Db::name('site')->order('listorder ASC, id ASC')->column('*', 'id');
             if (!empty($array) && is_array($array)) {
