@@ -73,8 +73,8 @@ DZDcms多站点内容管理系统是基于yzncms二次开发而来,YznCMS(又名
 
 
 ## [必看教程]
-- 伪静态(URL重写)： https://www.kancloud.cn/ken678/yzncms/1003231
-- 虚拟主机不支持绑定public的方法： https://www.kancloud.cn/ken678/yzncms/1003254
+- 伪静态(URL重写)： https://doc.dzdcms.com/ask/57.html
+- 虚拟主机不支持绑定public的方法： https://doc.dzdcms.com/ask/66.html
 
 ## [如何授权]
 - 如果需要CMS模块增加多站功能需要找QQ8355763进行授权
