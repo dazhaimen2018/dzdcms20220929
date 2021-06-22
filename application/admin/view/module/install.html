@@ -5,7 +5,7 @@
 <form class="layui-form" method="post">
     <input type="hidden" name="module" value="{$config.module}">
     <div class="layui-form-item">
-        <label title="是否适配系统版本">是否适配系统版本 </label>
+        <label title="是否适配系统版本">版本是否适配 </label>
         <div class="layui-form-field-label">
             <div class="install-text">{$version_check|raw}</div>
         </div>
@@ -81,7 +81,7 @@
     {notempty name="table_check"}
 
     <div class="layui-form-item">
-        <label title="数据表检查">数据表检查 </label>
+        <label title="数据表检查">数据库表检查 </label>
         <div class="layui-form-field-label border-none">
             <table class="layui-table">
                 <colgroup>
@@ -108,7 +108,7 @@
     {/notempty}
 
     <div class="layui-form-item">
-        <label title="是否清除旧数据">是否清除旧数据 </label>
+        <label title="是否清除旧数据">清除老旧数据 </label>
         <div class="layui-form-field-label item-wide">
             <input type="radio" name="clear" value="0" title="否" checked>
             <input type="radio" name="clear" value="1" title="是">
@@ -117,9 +117,9 @@
     </div>
 
     <div class="layui-form-item">
-        <label title="是否安装演示数据">是否安装演示数据 </label>
+        <label title="是否安装演示数据">安装演示数据 </label>
         <div class="layui-form-field-label">
-            <input type="checkbox" name="demo" title="安装演示数据" value="1" lay-skin="primary">
+            <input type="checkbox" name="demo" title="是" value="1" lay-skin="primary">
         </div>
         <div class="layui-form-mid layui-word-aux">含有旧数据时,请勿勾选,以免数据冲突</div>
     </div>
@@ -131,25 +131,25 @@
 {/block}
 {block name="script"}
 <script>
-layui.use('yznForm', function() {
-    var yznForm = layui.yznForm;
+    layui.use('yznForm', function() {
+        var yznForm = layui.yznForm;
 
-    $('#install').click(function() {
-        var table_exists = false;
-        var target;
-        if ($('.layui-form i.text-danger').length) {
-            layer.msg('系统版本过低或缺少依赖模块或插件',{ icon: 2})
-            return false;
-        }
-        if ($('.layui-form span.text-danger').length) {
-            table_exists = true;
-        }
-        if (table_exists && $('.layui-form input[name=clear]:checked').val() == 0) {
-            layer.msg('数据库表存在冲突，如果需要覆盖原有数据，请选择“清除旧数据”',{ icon: 2})
-            return false;
-        }
-        yznForm.listen();
+        $('#install').click(function() {
+            var table_exists = false;
+            var target;
+            if ($('.layui-form i.text-danger').length) {
+                layer.msg('系统版本过低或缺少依赖模块或插件',{ icon: 2})
+                return false;
+            }
+            if ($('.layui-form span.text-danger').length) {
+                table_exists = true;
+            }
+            if (table_exists && $('.layui-form input[name=clear]:checked').val() == 0) {
+                layer.msg('数据库表存在冲突，如果需要覆盖原有数据，请选择“清除旧数据”',{ icon: 2})
+                return false;
+            }
+            yznForm.listen();
+        });
     });
-});
 </script>
 {/block}
