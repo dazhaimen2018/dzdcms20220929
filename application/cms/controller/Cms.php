@@ -534,8 +534,8 @@ class Cms extends Adminbase
             }
         }
         if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode']) {
-            $sites = cache("Cms_Config")['site'];
-            $site = [];
+            $sites = onSite();
+            $site  = [];
             foreach (explode(',', $sites) as $k => $v) {
                 $site[] = "FIND_IN_SET('" . $v . "', site_id)";
             }
