@@ -184,6 +184,9 @@
 .editormd-form .fa-btns label{min-width: 30px!important;}
 .editormd-form .fa-btns a{padding: 0 5px 0 0!important;}
 .editormd-form .fa-btns .fa{font-size: 1em!important;}
+.editormd-code-toolbar{display: flex}
+.editormd .editormd-dialog .CodeMirror-sizer{margin-top: 0px}
+.editormd-dialog-container select{float: right;flex: 1}
 
 .layui-tips{padding-left: 10px;color: red}
 
