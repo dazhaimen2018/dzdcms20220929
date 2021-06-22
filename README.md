@@ -84,10 +84,11 @@ DZDcms多站点内容管理系统是基于yzncms二次开发而来,YznCMS(又名
 > 更多的常见问题和教程见手册
 
 ## [截图预览]
-![输入图片说明](https://images.gitee.com/uploads/images/2020/1229/133034_265df309_555541.gif "GIF (1).gif")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/1104/165618_3f12f7f5_555541.png "YZNCMS后台管理系统")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/1104/165632_61e32825_555541.png "YZNCMS后台管理系统")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/1104/165745_b4e41e16_555541.png "YZNCMS后台管理系统")
+
+![后台首页](https://images.gitee.com/uploads/images/2021/0623/065655_993d4953_1625366.png "index.png")
+![CMS面板](https://images.gitee.com/uploads/images/2021/0623/065729_06c0c8d3_1625366.jpeg "cms_index.jpg")
+![CMS文章列表](https://images.gitee.com/uploads/images/2021/0623/065806_4deb46d9_1625366.png "cms_list.png")
+![站点列表](https://images.gitee.com/uploads/images/2021/0623/065840_1a2d7ffd_1625366.png "site.png")
 
 
 ## [开源协议]  
