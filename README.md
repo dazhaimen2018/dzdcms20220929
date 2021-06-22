@@ -78,11 +78,8 @@ YznCMS(又名御宅男CMS)是基于最新TP5.1x框架和layui2.6x的后台管理
 - 虚拟主机不支持绑定public的方法： https://www.kancloud.cn/ken678/yzncms/1003254
 
 ## [如何授权]
-- 截止2020/6/17 赞助过任意金额(≥1分)的 可以直接获取资格
-- 提交1款免费开源模块（需审核）
-- 提交2款免费开源插件（需审核）
-- 提交讲解清晰易懂的教学视频（需审核）
-- 审核前,请先咨询作者,满足条件即可拉进官方授权群（退群视为放弃权益），享受丰富的插件,模块,各种资源及便捷的交流学习
+- 如果需要CMS模块增加多站功能需要找QQ8355763进行授权
+- 需要其他授权模块和插件可以在YZNCMS博客找授权方式
 
 
 > 更多的常见问题和教程见手册
@@ -93,9 +90,6 @@ YznCMS(又名御宅男CMS)是基于最新TP5.1x框架和layui2.6x的后台管理
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/1104/165632_61e32825_555541.png "YZNCMS后台管理系统")
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/1104/165745_b4e41e16_555541.png "YZNCMS后台管理系统")
 
-## [友情捐赠]  
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0110/175836_7cb23388_555541.jpeg "1547112799941_01.jpg")
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0110/181152_57b5113e_555541.jpeg "mm_facetoface_collect_qrcode_1547113957376_01.jpg")
 
 ## [开源协议]  
 YznCMS遵循[Apache2.0](https://www.apache.org/licenses/LICENSE-2.0.html)开源协议发布，并允许商业使用。  
