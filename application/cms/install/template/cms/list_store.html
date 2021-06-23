@@ -1,5 +1,5 @@
 {include file="public/header" /}
-<div class="layui-main">
+<div class="layui-main body-height">
     <div class="layui-container layui-botton-20">
         <div class="layui-card">
             {include file="public/location" /}
@@ -14,11 +14,10 @@
                 </div>
                 {/volist}
             </div>
-
         </div>
     </div>
     {php}$where=structure_filters_sql($modelid);{/php}
-    <div class="layui-container merit" style="padding-bottom: 85px;">
+    <div class="layui-container merit layui-top-20">
         <div class="layui-row layui-col-space30">
             {yzn module="cms" action="lists" where="$where" catid="$catid" cache="3600" order="listorder DESC" num="20" page="$page" return="data"}
             {volist name="data" id="item"}

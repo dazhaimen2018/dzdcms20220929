@@ -1,0 +1,54 @@
+{include file="public/header" /}
+{include file="public/banner" /}
+<div class="layui-container page">
+    <div class="layui-row layui-col-space20">
+        {include file="public/left" /}
+        <div class="layui-col-sm9 layui-col-md10">
+
+            <div class="layui-card">
+                <div class="layui-card-header">{:getCategory($catid,'catname')}</div>
+                <div class="layui-card-body">
+                    <blockquote class="layui-elem-quote layui-quote-nm">
+                        {:getCategory($catid,'description')}
+                    </blockquote>
+                </div>
+                <div class="layui-card-body">
+                    <ul class="layui-timeline">
+                        {yzn module="cms" action="lists" catid="$catid"  siteId="$site_id" cache="3600" order="inputtime DESC" num="12" page="$page" return="data"}
+                        {volist name="data" id="item"}
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis"></i>
+                            <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">{$item.inputtime|date='Y-m-d H:i'} {$item.title}</h3>
+                                {$item.content|raw}
+
+                                    {if $item.file}
+                                    <p><a href="{$item.file}" target="_blank" class="layui-btn layui-btn-warm"> <i class="layui-icon layui-icon-download-circle"></i>下载更新文件</a></p>
+                                    {elseif $item['id']==12}
+                                    <p><a class="layui-btn"> <i class="layui-icon layui-icon-download-circle"></i>请联系客服索取QQ8355763</a></p>
+                                    {else}
+                                    <p><a class="layui-btn"> <i class="layui-icon layui-icon-download-circle"></i>git pull 更新</a></p>
+                                    {/if}
+
+                                {if $item.description}
+                                <p>备注：{$item.description}</p>
+                                {/if}
+                            </div>
+                        </li>
+                        {/volist}
+                        {/yzn}
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis"></i>
+                            <div class="layui-timeline-content layui-text">
+                                <div class="layui-timeline-title">过去</div>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file="public/footer" /}

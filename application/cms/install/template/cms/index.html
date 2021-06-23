@@ -5,9 +5,9 @@
         <h2>{:getCategory(4,'catname')}</h2>
         <p class="layui-text">{:getCategory(4,'description')}</p>
     </div>
-    <div class="layui-container merit">
-        <div class="layui-row layui-col-space25">
-            {yzn module="cms" action="lists" catid="4" siteId="$site_id" cache="3600" order="listorder DESC,inputtime DESC" num="8" return="data"}
+    <div class="layui-container">
+        <div class="layui-row layui-col-space25 merit">
+            {yzn module="cms" action="lists" catid="4" siteId="$site_id" cache="3600" order="listorder DESC,inputtime DESC" num="9" return="data"}
             {volist name="data" id="item"}
             <div class="layui-col-md4 layui-col-sm6">
                 <div class="content" title="{$item.description}">
@@ -23,7 +23,7 @@
         </div>
     </div>
 </div>
-
+<!--案例中心-->
 <div class="section" nav-id="type">
     <div class="section-title">
         <h2>{:getCategory(3,'catname')}</h2>
@@ -50,42 +50,8 @@
                 <p class="layui-text">{:getCategory(1,'description')}</p>
             </div>
             <div class="layui-row layui-col-space20">
-                <div class="swiper-container swiper-news">
-                    <div class="swiper-wrapper">
-                        {yzn module="cms" action="lists" catid="1" siteId="$site_id" cache="3600" order="listorder DESC,inputtime DESC" num="12" return="data"}
-                        {volist name="data" id="item"}
-                        <div class="swiper-slide">
-                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12 layui-col-lg12">
-                                {include file="public/item" /}
-                            </div>
-                        </div>
-                        {/volist}
-                        {/yzn}
-                    </div>
-                    <!-- Add Pagination -->
-                    <div class="swiper-pagination"></div>
-                    <!-- Add Arrows -->
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                </div>
-
-                <div class="swiper-container swiper-news-wap">
-                    <div class="swiper-wrapper">
-                        {yzn module="cms" action="lists" catid="1" siteId="$site_id" cache="3600" order="listorder DESC,inputtime DESC" num="12" return="data"}
-                        {volist name="data" id="item"}
-                        <div class="swiper-slide">
-                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12 layui-col-lg12">
-                                {include file="public/item" /}
-                            </div>
-                        </div>
-                        {/volist}
-                        {/yzn}
-                    </div>
-                    <!-- Add Pagination -->
-                    <div class="swiper-pagination"></div>
-                    <!-- Add Arrows -->
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
+                <div class="layui-row layui-col-space30 listAjax">
+                    {include file="public/index_list" /}
                 </div>
             </div>
         </div>

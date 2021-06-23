@@ -1,9 +1,10 @@
-<div class="layui-col-sm3 layui-col-md2 shop-nav">
-    <div class="product-list">
+<div class="layui-col-sm3 layui-col-md2 layui-left">
+    <div class="left-nav-title">
         <div class="title">{:getCategory($top_parentid,'catname')}</div>
     </div>
     <div class="layui-panel">
-        <ul class="layui-menu" id="docDemoMenu1">
+        <ul class="layui-menu">
+            {if getCategory($top_parentid,'child')}
             {yzn module="cms" action="category" catid="$top_parentid" siteId="$site_id" cache="3600" order="listorder ASC" num="30" return="data"}
             {volist name="data" id="vo"}
             {if $vo['child']}
@@ -23,6 +24,9 @@
             <li class="layui-menu-item-divider"></li>
             {/volist}
             {/yzn}
+            {else}
+            <li class="layui-menu-item-checked"><div class="layui-menu-body-title"><a href="{$url}">{$catname}</a></div></li>
+            {/if}
         </ul>
     </div>
 </div>

@@ -1,16 +1,20 @@
 <div class="title-article list-card item-box">
+    {if $item['thumb']}
     <div class="list-pic">
         <a href="{$item.url}" title="{$item.title}" alt="{$item.title}">
             <img src="{$item.thumb}" alt="{$item.title}" class="img-full">
         </a>
     </div>
-    <a href="{$item.url}" title="{$item.title}" alt="{$item.title}">
-        <h2>{$item.title|str_ireplace=$keyword,"<font style='color:red'>$keyword</font>",###|raw}</h2>
-        <p>{$item.description|str_ireplace=$keyword,"<font style='color:red'>$keyword</font>",###|raw}</p>
-    </a>
-    <div class="title-msg">
-        <span><i class="layui-icon layui-icon-cols"></i> <a href="{:getCategory($item['catid'],'url')} ">{:getCategory($item['catid'],'catname')} </a></span>
-        <span><i class="layui-icon layui-icon-date"></i> {$item.updatetime|date="Y-m-d"}</span>
-        <span><i class="layui-icon layui-icon-read"></i> {$item.hits}浏览</span>
+    {/if}
+    <div class="list-text">
+        <a href="{$item.url}" title="{$item.title}" alt="{$item.title}">
+            <h2>{$item.title|str_ireplace=$keyword,"<font style='color:red'>$keyword</font>",###|raw}</h2>
+            <p>{$item.description|str_ireplace=$keyword,"<font style='color:red'>$keyword</font>",###|raw}</p>
+        </a>
+        <div class="title-msg">
+            <span><i class="layui-icon layui-icon-cols"></i> <a href="{:getCategory($item['catid'],'url')} ">{:getCategory($item['catid'],'catname')} </a></span>
+            <span><i class="layui-icon layui-icon-date"></i> {$item.updatetime|date="Y-m-d"}</span>
+            <span><i class="layui-icon layui-icon-read"></i> {$item.hits}浏览</span>
+        </div>
     </div>
 </div>
