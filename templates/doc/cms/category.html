@@ -1,0 +1,27 @@
+{extend name="public/layout"/}
+{block name="main"}
+<div class="article">
+    <div class="article-head">
+        <div class="left tools" onclick="leftside()">
+            <a class="item icon" ><i class="icon align justify"></i></a>
+        </div>
+        <h1>{:getCategory($catid,'catname')}</h1>
+        {include file="public/right" /}
+    </div>
+    <div id="content" class="article-body kancloud-markdown-body"><h2>{:getCategory($catid,'description')}</h2>
+        <ol start="0">
+            {yzn module="cms" action="lists" catid="$catid" siteId="$site_id" cache="3600" order="listorder DESC" num="12" page="$page" return="data"}
+            {volist name="data" id="item"}
+            <li class=""><a href="{$item.url}">{$item.title}</a>   </li>
+            {/volist}
+            {/yzn}
+        </ol>
+    </div>
+    <div class="article-navigation">
+        <span class="prev">上一篇：<a href="{:getCategory($catid-1,'url')}">{:getCategory($catid-1,'catname')}</a></span>
+        <span class="next">下一篇：<a href="{:getCategory($catid+1,'url')}">{:getCategory($catid+1,'catname')}</a></span>
+    </div>
+    <div class="article-foot">
+    </div>
+</div>
+{/block}

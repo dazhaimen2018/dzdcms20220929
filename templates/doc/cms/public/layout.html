@@ -1,0 +1,60 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{if !isset($catid)}{:getSite('title')}{else}{$SEO['title']}{/if}{if getSite('brand')} -【{:getSite('brand')}】{/if}</title>
+    <meta name="keywords" content="{$SEO['keyword']}"/>
+    <meta name="description" content="{$SEO['description']}"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" data-react-helmet="true">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="__DOC_PATH__/css/style.css">
+    <link rel="stylesheet" data-react-helmet="true" href="__DOC_PATH__/css/css.css">
+    <!-- 代码高亮 -->
+
+    <!-- 代码高亮结束 -->
+</head>
+<body>
+
+<div id="main">
+    <div class="window-container with-head">
+        <img src="https://cover.kancloud.cn/manual/thinkphp6_0!middle" style="position: absolute; visibility: hidden;">
+        <div>
+            <div class="Loading__loading___1m_fZ">
+                <div class="Loading__bar___21yOt" style="background: rgb(33, 186, 69); width: 0%; display: none;">
+                    <div class="Loading__peg___3Y_28"></div>
+                </div>
+            </div>
+            <div class="Loading__spinner___11Pm4">
+                <div class="Loading__icon___3OOyu" style="display: none; border-color: rgb(33, 186, 69);">
+                </div>
+            </div>
+        </div>
+        <div class="window-head">
+            <div class="toolbar"><a data-no-pjax="true" class="title" href="/">{:getCategory(14,'description')}</a>
+                <div class="extra">
+                    <div class="ui menu small secondary">
+                        {get table="site"  status="1" return="data"}
+                        {volist name="data" id="vo"}
+                        {if $vo['id']==8}
+                        <a data-no-pjax="true" class="item" target="_blank" href="{if $vo.http==0}http://{else}https://{/if}{$vo.domain}/">{$vo.name}</a>
+                        {/if}
+                        {/volist}
+                        {/get}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="window-body with-sidebar">
+            {include file="public/sidebar" /}
+            <div class="workspace">
+                {block name="main"}主内容{/block}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="__DOC_PATH__/js/marked.min.js"></script>
+<script src="__DOC_PATH__/js/clipboard.js"></script>
+<script src="__DOC_PATH__/js/jquery-3.5.1.js"></script>
+<script src="__DOC_PATH__/js/doc.js"></script>
+</body>
+</html>

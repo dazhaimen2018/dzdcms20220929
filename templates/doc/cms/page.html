@@ -1,0 +1,21 @@
+{extend name="public/layout"/}
+{block name="main"}
+<div class="article">
+    <div class="article-head">
+        <div class="left tools" onclick="leftside()">
+            <a class="item icon" ><i class="icon align justify"></i></a>
+        </div>
+        <h1>{$title}</h1>
+        {include file="public/right" /}
+    </div>
+    <div id="content" class="article-body kancloud-markdown-body" deep="5">
+        {$content|raw}
+    </div>
+    <div class="article-navigation">
+        <span class="prev">上一篇：<a href="{:getCategory($catid-1,'url')}">{:getCategory($catid-1,'catname')}</a></span>
+        <span class="next">下一篇：<a href="{:getCategory($catid+1,'url')}">{:getCategory($catid+1,'catname')}</a></span>
+    </div>
+    <div class="article-foot">
+    </div>
+</div>
+{/block}
