@@ -1,0 +1,28 @@
+<div class="product-card" title="{$item.description}">
+    <a href="{$item.url}">
+        <div class="product-cover">
+            <div class="product-cover-img" style="background-image: url('{$item.thumb}');"></div>
+        </div>
+        <div class="product-body">
+            <p class="attr">
+                {if $item.price}
+                <em>￥<strong>{$item.price}</strong></em>
+                {else}
+                免费
+                {/if}
+            </p>
+            <p class="title">
+                <a href="{$item.url}" title="{$item.title}" target="_blank">{$item.title}</a>
+            </p>
+            <p class="info">
+
+                <a title="{$item.title}"><img src="__SKIN__/dzd/cms/images/logo.png" class="pic_Layer">{$item.username}</a>
+                <span class="note_icon">
+                    <a class="tips tipso_style" title="官方自营"><i class="send">官</i></a>
+                    <a class="installing tips tipso_style" title="免费安装"><i class="install0">安</i></a>
+                    <a class="tips tipso_style"><i class="protect" title="已缴保证金">保</i></a>
+				</span>
+            </p>
+        </div>
+    </a>
+</div>

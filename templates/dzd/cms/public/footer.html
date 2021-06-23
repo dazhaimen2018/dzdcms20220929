@@ -1,0 +1,20 @@
+<div class="footer-bottom copyright hidden-xs">
+    <div class="links">
+        友情链接：
+        <ul>
+            {yzn module="links" action="lists" siteId="$site_id" cache="3600" order="listorder ASC" num="10"  return="data"}
+            {volist name="data" id="vo"}
+            <li><a href="{$vo.url}" target="_blank">{$vo.name} </a></li>
+            {/volist}
+            {/yzn}
+        </ul>
+    </div>
+    {:config('web_site_copyright')} | <a href="https://beian.miit.gov.cn" target="_blank">{:patch('beian')}</a>
+</div>
+{:hook('page_footer')}
+<script src="__SKIN__/dzd/cms/js/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="__STATIC__/libs/layui/layui.js"></script>
+<script src="__SKIN__/dzd/cms/js/dzd.js"></script>
+</body>
+</html>
