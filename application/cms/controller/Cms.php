@@ -537,7 +537,7 @@ class Cms extends Adminbase
             $sites = onSite();
             $site  = [];
             foreach (explode(',', $sites) as $k => $v) {
-                $site[] = "FIND_IN_SET('" . $v . "', site_id)";
+                $site[] = "FIND_IN_SET('" . $v . "', sites)";
             }
             if ($site) {
                 $where = "  (" . implode(' OR ', $site) . ")";

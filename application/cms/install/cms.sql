@@ -32,7 +32,7 @@ CREATE TABLE `yzn_category` (
   `parentid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '父ID',
   `arrparentid` varchar(255) NOT NULL DEFAULT '' COMMENT '所有父ID',
   `arrchildid` mediumtext COMMENT '所有子栏目ID',
-  `site_id` mediumtext COMMENT '所属站点',
+  `sites` mediumtext COMMENT '所属站点',
   `child` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否存在子栏目，1存在',
   `image` varchar(255) NOT NULL DEFAULT '' COMMENT '栏目图片',
   `icon` varchar(255) NOT NULL DEFAULT '' COMMENT '栏目图标',

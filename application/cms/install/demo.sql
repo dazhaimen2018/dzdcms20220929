@@ -67,7 +67,7 @@ CREATE TABLE `yzn_photo_data` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='图片模型模型表';
 
 
-INSERT INTO `yzn_category` (`id`, `catname`, `catdir`, `type`, `modelid`, `parentid`, `arrparentid`, `arrchildid`, `site_id`, `child`, `image`, `icon`, `url`, `items`, `setting`, `listorder`, `status`) VALUES
+INSERT INTO `yzn_category` (`id`, `catname`, `catdir`, `type`, `modelid`, `parentid`, `arrparentid`, `arrchildid`, `sites`, `child`, `image`, `icon`, `url`, `items`, `setting`, `listorder`, `status`) VALUES
 (1, '资讯栏目', 'news', 2, 1, 0, '0', '1,5,6', '1,2', 1, 0, '', '', 0, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 1, 1),
 (2, '关于我们', 'about', 1, 0, 0, '0', '2,7,8', '1,2', 1, 0, '', 'cms/index/lists?catid=7', 0, 'a:1:{s:13:\"page_template\";s:9:\"page.html\";}', 1, 1),
 (3, '案例中心', 'case', 2, 2, 0, '0', '3', '1,2', 0, 0, '', '', 3, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:15:\"list_photo.html\";s:13:\"show_template\";s:15:\"show_photo.html\";}', 100, 1),

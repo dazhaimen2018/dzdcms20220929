@@ -97,19 +97,19 @@ class Category extends Adminbase
             switch ($data['type']) {
                 //单页
                 case 1:
-                    $fields = ['parentid', 'catname', 'catdir', 'type', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'site_id', 'status'];
+                    $fields = ['parentid', 'catname', 'catdir', 'type', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'status'];
                     $scene  = 'page';
                     break;
                 //列表
                 case 2:
-                    $fields = ['parentid', 'catname', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'site_id', 'status'];
+                    $fields = ['parentid', 'catname', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'status'];
                     $scene  = 'list';
                     break;
                 default:
                     $this->error('栏目类型错误~');
             }
             //马博添加
-            $data['site_id']  = !empty($data['site_id']) ? implode(',', $data['site_id']) : '';
+            $data['sites']  = !empty($data['sites']) ? implode(',', $data['sites']) : '';
             //马博添加 end
             if ($data['isbatch']) {
                 unset($data['isbatch'], $data['info']['catname'], $data['info']['catdir']);
@@ -282,13 +282,13 @@ class Category extends Adminbase
             }
             $data['catdir'] = $this->get_dirpinyin($data['catname'], $data['catdir'], $catid);
             //马博添加
-            $data['site_id']  = !empty($data['site_id']) ? implode(',', $data['site_id']) : '';
+            $data['sites']  = !empty($data['sites']) ? implode(',', $data['sites']) : '';
             //马博添加 end
             $result         = $this->validate($data, 'Category.' . $scene);
             if (true !== $result) {
                 $this->error($result);
             }
-            $status = $this->modelClass->editCategory($data, ['parentid', 'catname', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'site_id', 'status']);
+            $status = $this->modelClass->editCategory($data, ['parentid', 'catname', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'status']);
             if ($status) {
                 //更新会员组权限
                 model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
@@ -308,7 +308,7 @@ class Category extends Adminbase
             }
             $data    = Db::name('category')->where(['id' => $catid])->find();
             //马博添加
-            $data['site_id'] = explode(',', $data['site_id']);
+            $data['sites'] = explode(',', $data['sites']);
             //马博添加 end
             $setting = unserialize($data['setting']);
 
@@ -340,14 +340,14 @@ class Category extends Adminbase
             foreach ($this->site as $k => $s) {
                 if ($categoryData) {
                     foreach ($categoryData as $e) {
-                        if ($e['site_id'] == $s['id']) {
+                        if ($e['sites'] == $s['id']) {
                             $ret[$k] = $e;
                         } else {
-                            $ret[$k]['site_id'] = $s['id'];
+                            $ret[$k]['sites'] = $s['id'];
                         }
                     }
                 } else {
-                    $ret[$k]['site_id'] = $s['id'];
+                    $ret[$k]['sites'] = $s['id'];
                 }
             }
             $this->assign([
