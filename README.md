@@ -14,6 +14,16 @@
 - YznCMS：https://gitee.com/ken678/YZNCMS
 - 本地安装教程 https://doc.dzdcms.com/downs.html
 
+# 系统自带模版
+- 1、默认模版（default/dzd）
+- 2、文档模版（doc）
+- 3、资讯站模版一（开发中。。。）
+- 4、资讯站模版二（开发中。。。）
+- 5、资讯站模版三（开发中。。。）
+- 6、企业站模版一（开发中。。。）
+- 7、企业站模版二（开发中。。。）
+- 8、企业站模版三（开发中。。。）
+
 [![YznCMS](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://gitee.com/ken678/YZNCMS/)
 [![YznCMS](https://img.shields.io/badge/YznCMS-1.0.0-brightgreen.svg)](https://gitee.com/ken678/YZNCMS/)
 [![star](https://gitee.com/ken678/YZNCMS/badge/star.svg?theme=dark)](https://gitee.com/ken678/YZNCMS/stargazers)
