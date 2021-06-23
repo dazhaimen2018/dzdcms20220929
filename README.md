@@ -24,6 +24,10 @@
 - 7、企业站模版二（开发中。。。）
 - 8、企业站模版三（开发中。。。）
 
+# 每日更新说明
+- 每日更新可用git pull拉取最新程序
+- 当天拉取的文件中，如果update下面有sql文件，可在phpmyadmin中打开SQL窗口，复制所需要的语句执行一下即可！
+
 [![YznCMS](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://gitee.com/ken678/YZNCMS/)
 [![YznCMS](https://img.shields.io/badge/YznCMS-1.0.0-brightgreen.svg)](https://gitee.com/ken678/YZNCMS/)
 [![star](https://gitee.com/ken678/YZNCMS/badge/star.svg?theme=dark)](https://gitee.com/ken678/YZNCMS/stargazers)
