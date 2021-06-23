@@ -30,7 +30,7 @@
         <label class="layui-form-label">所属站点</label>
         <div class="layui-input-block">
             {volist name="siteArray" id="vo"}
-            <input type="checkbox" name="site_id[]" value="{$vo.id}" lay-skin="primary" title="{$vo.name}" {if $data && in_array($vo.id,$data.site_id)}checked{/if}>
+            <input type="checkbox" name="sites[]" value="{$vo.id}" lay-skin="primary" title="{$vo.name}" {if $data && in_array($vo.id,$data.sites)}checked{/if}>
             {/volist}
         </div>
     </div>

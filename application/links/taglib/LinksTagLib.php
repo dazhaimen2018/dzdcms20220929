@@ -35,7 +35,7 @@ class LinksTagLib
         if (isset($data['siteId'])) {
             $site = [];
             foreach (explode(',', $data['siteId']) as $k => $v) {
-                $site[] = "FIND_IN_SET('" . $v . "', site_id)";
+                $site[] = "FIND_IN_SET('" . $v . "', sites)";
             }
             if ($site) {
                 $where .= " AND (" . implode(' OR ', $site) . ")";

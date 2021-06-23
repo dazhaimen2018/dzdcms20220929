@@ -52,7 +52,7 @@ class Links extends Adminbase
                 $data['termsid'] = $this->addTerms($data['terms']['name']);
             }
             //马博添加
-            $data['site_id']  = !empty($data['site_id']) ? implode(',', $data['site_id']) : '';
+            $data['sites']  = !empty($data['sites']) ? implode(',', $data['sites']) : '';
             //马博添加 end
             $status = $this->modelClass->allowField(true)->save($data);
             if ($status) {
@@ -91,7 +91,7 @@ class Links extends Adminbase
                 $data['termsid'] = $this->addTerms($data['terms']['name']);
             }
             //马博添加
-            $data['site_id']  = !empty($data['site_id']) ? implode(',', $data['site_id']) : '';
+            $data['sites']  = !empty($data['sites']) ? implode(',', $data['sites']) : '';
             //马博添加 end
             $status = $this->modelClass->allowField(true)->save($data, ['id' => $data['id']]);
             if ($status) {
@@ -107,7 +107,7 @@ class Links extends Adminbase
                 $this->error("该信息不存在！");
             }
             //马博添加
-            $data['site_id'] = explode(',', $data['site_id']);
+            $data['sites'] = explode(',', $data['sites']);
             //马博添加 end
             $Terms = Db::name('Terms')->where(["module" => "links"])->select();
             $this->assign("Terms", $Terms);
