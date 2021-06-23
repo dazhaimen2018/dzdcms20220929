@@ -99,6 +99,12 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
+				<label class="layui-form-label">网站图标</label>
+				<div class="layui-input-block layui-upload">
+					{php}echo \util\Form::images('favicon','',$data['favicon']){/php}
+				</div>
+			</div>
+			<div class="layui-form-item">
 				<label class="layui-form-label">主题风格</label>
 				<div class="layui-input-block">
 					<select name="template">

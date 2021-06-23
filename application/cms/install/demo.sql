@@ -214,16 +214,17 @@ INSERT INTO `yzn_photo_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords
 (2, 2, 1, '官网模版', '', '', '官网模版官网模版官网模版官网模版官网模版官网模版', '<p>官网模版官网模版官网模版官网模版官网模版官网模版</p>'),
 (3, 3, 1, '官网模版', '', '', '官网模版官网模版官网模版官网模版官网模版官网模版', '<p>官网模版官网模版官网模版官网模版官网模版官网模版官网模版</p>');
 
-INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `logo`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `status`, `inputtime`) VALUES
-(1, '中文站', 'zh-cn', 0, 'demo.dzdcms.com', 0, 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 0),
-(2, 'English', 'en-gb', 0, 'en.dzdcms.com', 0, 'default', '', 'English', 'English', 'English', 0, '', NULL, 0, 2, 1, 0),
-(3, '北京站', 'zh-cn', 0, 'bj.dzdcms.com', 0, 'default', '', '北京站', '北京站', '北京站', 0, '', NULL, 0, 0, 1, 0),
-(4, '上海站', 'zh-cn', 0, 'sh.dzdcms.com', 0, 'default', '', '上海站', '上海站', '上海站', 0, '', NULL, 0, 0, 1, 0);
+INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `status`, `inputtime`) VALUES
+(1, '中文站', 'zh-cn', 0, 'demo.dzdcms.com', 0, 0, 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 0),
+(2, 'English', 'en-gb', 0, 'en.dzdcms.com', 0, 0, 'default', '', 'English', 'English', 'English', 0, '', NULL, 0, 2, 1, 0),
+(3, '北京站', 'zh-cn', 0, 'bj.dzdcms.com', 0, 0, 'default', '', '北京站', '北京站', '北京站', 0, '', NULL, 0, 0, 1, 0),
+(4, '上海站', 'zh-cn', 0, 'sh.dzdcms.com', 0, 0, 'default', '', '上海站', '上海站', '上海站', 0, '', NULL, 0, 0, 1, 0);
 
 INSERT INTO `yzn_attachment` (`id`, `aid`, `uid`, `name`, `module`, `path`, `thumb`, `url`, `mime`, `ext`, `size`, `md5`, `sha1`, `driver`, `create_time`, `update_time`, `listorders`, `status`) VALUES
 (1, 1, 0, 'ico.png', 'admin', '/uploads/images/ico.png', '', '', 'image/png', 'png', 16140, '693cf31fc1e433bf91cd178d658d4e36', '16f445461fd1218f6fdf258074c567f3cf4b490f', 'local', 1614839862, 1614839862, 100, 1),
 (2, 1, 0, 'banner.png', 'cms', '/uploads/images/banner.png', '', '', 'image/png', 'png', 1573089, '5545474fedb30a8651f02125c7893213', '7a94db83c3f77aa163734e71712421455bd81768', 'local', 1615821110, 1615821110, 100, 1),
-(3, 1, 0, 'logo.png', 'cms', '/uploads/images/logo.png', '', '', 'image/png', 'png', 7094, '80784dba0655f5653b38b80feabff97f', 'c64ff38bde00dcf35c89babbb6d2635bb0f80061', 'local', 1615844116, 1615844116, 100, 1);
+(3, 1, 0, 'logo.png', 'cms', '/uploads/images/logo.png', '', '', 'image/png', 'png', 7094, '80784dba0655f5653b38b80feabff97f', 'c64ff38bde00dcf35c89babbb6d2635bb0f80061', 'local', 1615844116, 1615844116, 100, 1),
+(4, 1, 0, 'favicon.ico', 'cms', '/favicon.ico', '', '', 'image/x-icon', 'ico', 1150, 'fabed83f1e2944e510b80aad828bbac7', 'c54edc4a91c093e10e14ca15288a8559d58c2f84', 'local', 1624409065, 1624409065, 100, 1);
 
 
 INSERT INTO `yzn_category_priv` (`catid`, `roleid`, `is_admin`, `action`) VALUES
@@ -262,7 +263,7 @@ INSERT INTO `yzn_category_priv` (`catid`, `roleid`, `is_admin`, `action`) VALUES
 
 
 ALTER TABLE `yzn_attachment`
-    MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+    MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 ALTER TABLE `yzn_category`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '栏目ID', AUTO_INCREMENT=9;
