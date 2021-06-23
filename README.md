@@ -1,6 +1,10 @@
 # 多站点CMS是一款功能强大的多站点内容管理系统
 - 下载前先star一下，您的star是我们更新的动力！
-- 技术QQ：8355763
+- 模版定制、功能升级、系统授权联系QQ：8355763
+- 可做多语言站
+- 可做集团城市分站
+- 可做站群等等
+
 
 # 演示地址和相关连接
 - 前台：http://www.dzdcms.com/
@@ -69,8 +73,8 @@ DZDcms多站点内容管理系统是基于yzncms二次开发而来,YznCMS(又名
 
 
 ## [必看教程]
-- 伪静态(URL重写)： https://www.kancloud.cn/ken678/yzncms/1003231
-- 虚拟主机不支持绑定public的方法： https://www.kancloud.cn/ken678/yzncms/1003254
+- 伪静态(URL重写)： https://doc.dzdcms.com/ask/57.html
+- 虚拟主机不支持绑定public的方法： https://doc.dzdcms.com/ask/66.html
 
 ## [如何授权]
 - 如果需要CMS模块增加多站功能需要找QQ8355763进行授权
@@ -80,10 +84,11 @@ DZDcms多站点内容管理系统是基于yzncms二次开发而来,YznCMS(又名
 > 更多的常见问题和教程见手册
 
 ## [截图预览]
-![输入图片说明](https://images.gitee.com/uploads/images/2020/1229/133034_265df309_555541.gif "GIF (1).gif")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/1104/165618_3f12f7f5_555541.png "YZNCMS后台管理系统")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/1104/165632_61e32825_555541.png "YZNCMS后台管理系统")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/1104/165745_b4e41e16_555541.png "YZNCMS后台管理系统")
+
+![后台首页](https://images.gitee.com/uploads/images/2021/0623/065655_993d4953_1625366.png "index.png")
+![CMS面板](https://images.gitee.com/uploads/images/2021/0623/065729_06c0c8d3_1625366.jpeg "cms_index.jpg")
+![CMS文章列表](https://images.gitee.com/uploads/images/2021/0623/065806_4deb46d9_1625366.png "cms_list.png")
+![站点列表](https://images.gitee.com/uploads/images/2021/0623/065840_1a2d7ffd_1625366.png "site.png")
 
 
 ## [开源协议]  
