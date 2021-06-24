@@ -29,6 +29,14 @@ class Index extends Adminbase
         'admin/index/cache',
     ];
 
+    //初始化
+    protected function initialize()
+    {
+        parent::initialize();
+        //移除HTML标签
+        $this->request->filter('trim,strip_tags,htmlspecialchars');
+    }
+
     //后台首页
     public function index()
     {
@@ -59,13 +67,8 @@ class Index extends Adminbase
         if ($this->request->isPost()) {
             $data      = $this->request->post();
             $keeplogin = $this->request->post('keeplogin');
-            //验证码
-            /*if (!captcha_check($data['verify'])) {
-            $this->error('验证码输入错误！');
-            return false;
-            }*/
             // 验证数据
-            $rule = [
+            $rule      = [
                 'verify|验证码'   => 'require|captcha',
                 'username|用户名' => 'require|alphaDash|length:3,20',
                 'password|密码'  => 'require|length:3,20',
@@ -104,20 +107,31 @@ class Index extends Adminbase
     //缓存更新
     public function cache()
     {
-        $type = $this->request->request("type");
-        switch ($type) {
-            case 'data' || 'all':
-                \util\File::del_dir(ROOT_PATH . 'runtime' . DIRECTORY_SEPARATOR . 'cache');
-                Cache::clear();
-                if ($type == 'content') {
-                    break;
-                }
+        try {
+            $type = $this->request->request("type");
+            switch ($type) {
+                case 'all':
+                case 'data':
+                    \util\File::del_dir(ROOT_PATH . 'runtime' . DIRECTORY_SEPARATOR . 'cache');
+                    Cache::clear();
+                    if ($type == 'data') {
+                        break;
+                    }
 
-            case 'template' || 'all':
-                \util\File::del_dir(ROOT_PATH . 'runtime' . DIRECTORY_SEPARATOR . 'temp');
-                if ($type == 'template') {
-                    break;
-                }
+                case 'template':
+                    \util\File::del_dir(ROOT_PATH . 'runtime' . DIRECTORY_SEPARATOR . 'temp');
+                    if ($type == 'template') {
+                        break;
+                    }
+                case 'addons':
+                    // 插件缓存
+                    \sys\AddonService::refresh();
+                    if ($type == 'addons') {
+                        break;
+                    }
+            }
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
         }
         $this->success('清理缓存');
     }
