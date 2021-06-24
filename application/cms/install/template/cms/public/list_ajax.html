@@ -14,8 +14,4 @@ $limit="$offset,5";
 {/volist}
 {/yzn}
 
-{if !$__LIST__}
-<div class="layui-load"><a class="no-date" href="javascipt:;">暂无更多数据</a></div>
-{else /}
-<div class="layui-load"><a href="?page={:$page+1}" data-page="{$page}" class="btn-loadmore">加载更多</a></div>
-{/if}
+{include file="public/pageinfo" /}

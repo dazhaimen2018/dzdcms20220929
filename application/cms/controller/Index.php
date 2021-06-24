@@ -128,7 +128,8 @@ class Index extends Cmsbase
         $template = $tpar[0];
         unset($tpar);
         if ($this->request->isAjax()) {
-            $this->success('', '', $this->fetch('/' . $template . '_ajax'));
+            //马博修改 ajax文件路径./public/
+            $this->success('', '', $this->fetch('./public/' . $template . '_ajax'));
         }
         //获取顶级栏目ID
         $category['arrparentid'] = explode(',', $category['arrparentid']);
