@@ -133,7 +133,7 @@ class Category extends Adminbase
                     }
 
                     $catid = $this->modelClass->addCategory($data, $fields);
-                    if ($catid) {
+                    if ($catid && isset($data['priv_groupid'])) {
                         //更新会员组权限
                         model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
                     }
@@ -150,7 +150,7 @@ class Category extends Adminbase
                 }
                 $catid = $this->modelClass->addCategory($data, $fields);
                 if ($catid) {
-                    model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
+                    isset($data['priv_groupid']) && model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
                     // 20200805 马博添加
                     $this->addCategoryData($data['category_data'], $catid);
                     // 20200805 马博添加 end
@@ -291,7 +291,7 @@ class Category extends Adminbase
             $status = $this->modelClass->editCategory($data, ['parentid', 'catname', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'status']);
             if ($status) {
                 //更新会员组权限
-                model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
+                isset($data['priv_groupid']) && model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
                 // 20200805 马博
                 $this->updateCategoryData($data['category_data'], $catid);
                 // 20200805 马博 end
