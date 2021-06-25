@@ -97,12 +97,12 @@ class Category extends Adminbase
             switch ($data['type']) {
                 //单页
                 case 1:
-                    $fields = ['parentid', 'catname', 'catdir', 'type', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'status'];
+                    $fields = ['parentid', 'catname', 'catdir', 'type', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites','site_id', 'status'];
                     $scene  = 'page';
                     break;
                 //列表
                 case 2:
-                    $fields = ['parentid', 'catname', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'status'];
+                    $fields = ['parentid', 'catname', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites','site_id', 'status'];
                     $scene  = 'list';
                     break;
                 default:
@@ -288,7 +288,7 @@ class Category extends Adminbase
             if (true !== $result) {
                 $this->error($result);
             }
-            $status = $this->modelClass->editCategory($data, ['parentid', 'catname', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'status']);
+            $status = $this->modelClass->editCategory($data, ['parentid', 'catname', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'site_id', 'status']);
             if ($status) {
                 //更新会员组权限
                 isset($data['priv_groupid']) && model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
@@ -340,14 +340,14 @@ class Category extends Adminbase
             foreach ($this->site as $k => $s) {
                 if ($categoryData) {
                     foreach ($categoryData as $e) {
-                        if ($e['sites'] == $s['id']) {
+                        if ($e['site_id'] == $s['id']) {
                             $ret[$k] = $e;
                         } else {
-                            $ret[$k]['sites'] = $s['id'];
+                            $ret[$k]['site_id'] = $s['id'];
                         }
                     }
                 } else {
-                    $ret[$k]['sites'] = $s['id'];
+                    $ret[$k]['site_id'] = $s['id'];
                 }
             }
             $this->assign([
