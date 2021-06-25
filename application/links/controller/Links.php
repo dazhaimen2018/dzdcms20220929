@@ -14,10 +14,9 @@
 // +----------------------------------------------------------------------
 namespace app\links\controller;
 
-use app\cms\model\Site;
+use app\cms\model\Site as SiteModel;
 use app\common\controller\Adminbase;
 use app\links\model\Links as LinksModel;
-use app\cms\model\Site as SiteModel;
 use think\Db;
 
 /**
@@ -25,7 +24,9 @@ use think\Db;
  */
 class Links extends Adminbase
 {
-    protected $modelClass = null;
+    protected $modelClass    = null;
+    protected $modelValidate = true;
+
     protected function initialize()
     {
         parent::initialize();
@@ -40,11 +41,10 @@ class Links extends Adminbase
         if ($this->request->isPost()) {
             $data = $this->request->post();
             //验证器
-            $rule = [
-                'name|网站名称' => 'require',
-                'url|网站链接'  => 'require|url',
-            ];
-            $result = $this->validate($data, $rule);
+            $result = $this->validate($data, 'links');
+            if (true !== $result) {
+                $this->error($result);
+            }
             if (true !== $result) {
                 $this->error($result);
             }
@@ -62,11 +62,11 @@ class Links extends Adminbase
             }
         } else {
             $Terms = Db::name('Terms')->where(["module" => "links"])->select();
-            $this->assign("Terms", $Terms);
-            // 20200620 马博
             $siteArray = SiteModel::where("status=1")->select()->toArray();
-            $this->assign('siteArray', $siteArray);
-            // 20200620 end 马博
+            $this->assign([
+                'siteArray' => $siteArray,
+                'Terms'     => $Terms,
+            ]);
             return $this->fetch();
         }
     }
@@ -79,11 +79,7 @@ class Links extends Adminbase
         if ($this->request->isPost()) {
             $data = $this->request->post();
             //验证器
-            $rule = [
-                'name|网站名称' => 'require',
-                'url|网站链接'  => 'require|url',
-            ];
-            $result = $this->validate($data, $rule);
+            $result = $this->validate($data, 'links');
             if (true !== $result) {
                 $this->error($result);
             }
@@ -110,22 +106,22 @@ class Links extends Adminbase
             $data['sites'] = explode(',', $data['sites']);
             //马博添加 end
             $Terms = Db::name('Terms')->where(["module" => "links"])->select();
-            $this->assign("Terms", $Terms);
-            $this->assign("data", $data);
-            // 20200620 马博
             $siteArray = SiteModel::where("status=1")->select()->toArray();
-            $this->assign('siteArray', $siteArray);
+            $this->assign([
+                'siteArray' => $siteArray,
+                'Terms'     => $Terms,
+                'data'      => $data,
+            ]);
             // 20200620 end 马博
             return $this->fetch();
         }
-
     }
 
     //分类管理
     public function terms()
     {
         if ($this->request->isAjax()) {
-            $_list  = Db::name('Terms')->where(["module" => "links"])->select();
+            $_list  = Db::name('Terms')->where("module", "links")->select();
             $total  = count($_list);
             $result = array("code" => 0, "count" => $total, "data" => $_list);
             return json($result);

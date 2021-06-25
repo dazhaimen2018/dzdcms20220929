@@ -40,7 +40,7 @@
             <select name="termsid">
                 <option value="">==分类选择==</option>
                 {volist name="Terms" id="vo"}
-                 <option value="{$vo.id}">{$vo.name}</option>
+                <option value="{$vo.id}">{$vo.name}</option>
                 {/volist}
             </select>
         </div>
@@ -67,7 +67,7 @@
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">网站Logo</label>
         <div class="layui-input-block  layui-upload">
-                {php}echo \util\Form::images('image'){/php}
+            {php}echo \util\Form::images('image'){/php}
         </div>
     </div>
     <div class="layui-form-item layer-footer">
@@ -80,9 +80,9 @@
 {/block}
 {block name="script"}
 <script type="text/javascript">
-layui.use('yznForm', function() {
-    var yznForm = layui.yznForm;
-    yznForm.listen();
-});
+    layui.use('yznForm', function() {
+        var yznForm = layui.yznForm;
+        yznForm.listen();
+    });
 </script>
 {/block}
