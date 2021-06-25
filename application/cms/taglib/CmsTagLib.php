@@ -179,9 +179,9 @@ class CmsTagLib
             $data['limit'] = 0 == (int) $data['num'] ? 10 : (int) $data['num'];
         }
         $where_str .= " and site_id=" . getSiteId();
-        $data = Db::name('TagsContent')->where($where_str)->limit($data['limit'])->select();
+        $res = Db::name('TagsContent')->where($where_str)->limit($data['limit'])->select();
         //读取文章信息
-        foreach ($data as $k => $v) {
+        foreach ($res as $k => $v) {
             $p = model('cms/Cms')->getParentData(['id' => $v['contentid'], 'catid' => $v['catid']]);
             $r = model('cms/Cms')->getContent($v['modelid'], "`id` =" . $p['did'], false, '*', $data['limit'], $data['page']);
             if ($r) {

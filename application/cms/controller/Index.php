@@ -129,7 +129,8 @@ class Index extends Cmsbase
         unset($tpar);
         if ($this->request->isAjax()) {
             //马博修改 ajax文件路径./public/
-            $this->success('', '', $this->fetch('./public/' . $template . '_ajax'));
+            $ajax = './public/' . $template . '_ajax';
+            $this->success('', '', $this->fetch($ajax));
         }
         //获取顶级栏目ID
         $category['arrparentid'] = explode(',', $category['arrparentid']);
@@ -397,13 +398,17 @@ class Index extends Cmsbase
     public function tags()
     {
         $page  = $page  = $this->request->param('page/d', 1);
-        $tagid = $this->request->param('tagid/d', 0);
-        $tag   = $this->request->param('tag/s', '');
+        $tag   = $this->request->param('tag', '');
         $tagdir   = $this->request->param('tagdir/s', '');
         $siteId = getSiteId();
         $where = array();
         if (!empty($tagdir)) {
             $where['tagdir'] = $tagdir;
+        }
+        if ($tag && is_numeric($tag)) {
+            $where['id'] = $tag;
+        } else {
+            $where['tag'] = $tag;
         }
         //如果条件为空，则显示标签首页
         if (empty($where)) {
@@ -421,7 +426,8 @@ class Index extends Cmsbase
         //访问数+1
         Db::name('Tags')->where($where)->setInc("hits");
         $this->assign($info);
-        $this->assign("SEO", seo('', $tagdir, $info['seo_description'], $info['seo_keyword']));
+        //$this->assign("SEO", seo('', $tagdir, $info['seo_description'], $info['seo_keyword']));
+        $this->assign("SEO", seo('', $info['tag'], $info['seo_description'], $info['seo_keyword']));
         $this->assign("page", $page);
         $this->assign($info);
         return $this->fetch('/tags');
