@@ -468,6 +468,30 @@ class Index extends Cmsbase
 
     }
 
+    //下载次数
+    public function times(){
+        $id  = $this->request->param('id/d', 0);
+        $cat = $this->request->param('catid/d', 0);
+        if ($id) {
+            //获取栏目数据
+            $category = getCategory($cat);
+            if (empty($category)) {
+                $this->error('栏目不存在！');
+            }
+            $catid = $category['id'];
+            //模型ID
+            $modelid = $category['modelid'];
+            $modelInfo = cache('Model')[$modelid];
+            if (empty($modelInfo)) {
+                throw new \think\Exception('栏目不存在!', 404);
+            }
+            //更新点击量
+            Db::name($modelInfo['tablename'])->where('id', $id)->setInc('times');
+        } else {
+            $this->error('请先模型中增加times字段！');
+        }
+    }
+
     // 检查支付状态
     protected function _check_payment($flag, $paytype)
     {
