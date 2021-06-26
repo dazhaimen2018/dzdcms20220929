@@ -398,18 +398,18 @@ class Index extends Cmsbase
     public function tags()
     {
         $page  = $page  = $this->request->param('page/d', 1);
-        $tag   = $this->request->param('tag', '');
+        $tag   = $this->request->param('tag/s', '');
         $tagdir   = $this->request->param('tagdir/s', '');
         $siteId = getSiteId();
         $where = array();
         if (!empty($tagdir)) {
             $where['tagdir'] = $tagdir;
         }
-        if ($tag && is_numeric($tag)) {
-            $where['id'] = $tag;
-        } else {
-            $where['tag'] = $tag;
-        }
+//        if ($tag && is_numeric($tag)) {
+//            $where['id'] = $tag;
+//        } else {
+//            $where['tag'] = $tag;
+//        }
         //如果条件为空，则显示标签首页
         if (empty($where)) {
             $data = Db::name('Tags')->where('site_id',$siteId)->order(['hits' => 'DESC'])->limit(100)->select();
