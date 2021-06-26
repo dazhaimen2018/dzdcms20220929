@@ -1,14 +1,19 @@
 {include file="public/header" /}
 {include file="public/banner" /}
-<div class="layui-container page">
+<div class="layui-container">
     <div class="layui-row layui-col-space20">
         {include file="public/left" /}
         <div class="layui-col-sm9 layui-col-md10">
             <div class="layui-card">
                 {include file="public/location" /}
+                <!--S 筛选列表 -->
+                {include file="public/item_screen" /}
+                <!--S 筛选列表 end -->
             </div>
+            <!--S 筛选条件 -->
+            {php}$where=structure_filters_sql($modelid);{/php}
             <div class="layui-row layui-col-space30">
-                {yzn module="cms" action="lists" catid="$catid" siteId="$site_id" cache="3600" order="listorder DESC" num="12" page="$page" return="data"}
+                {yzn module="cms" action="lists" where="$where" catid="$catid" siteId="$site_id" cache="3600" order="listorder DESC" num="12" page="$page" return="data"}
                 {volist name="data" id="item"}
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg4">
                     {include file="public/item_temp" /}
