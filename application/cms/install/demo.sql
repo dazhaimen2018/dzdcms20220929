@@ -126,14 +126,14 @@ INSERT INTO `yzn_category` (`id`, `catname`, `catdir`, `type`, `modelid`, `paren
 (8, '联系我们', 'lianxi', 1, 0, 2, '0,2', '8', '1,2', 0, '0', '', '', 0, 'a:4:{s:13:\"page_template\";s:9:\"page.html\";s:17:\"category_template\";s:0:\"\";s:13:\"list_template\";s:0:\"\";s:13:\"show_template\";s:0:\"\";}', 100, 1),
 (9, '下载', 'download', 2, 3, 0, '0', '9', '1,2,3,4', 0, '', '', '', 2, 'a:3:{s:17:\"category_template\";s:22:\"category_download.html\";s:13:\"list_template\";s:18:\"list_download.html\";s:13:\"show_template\";s:18:\"show_download.html\";}', 100, 1),
 (10, '视频', 'video', 2, 4, 0, '0', '10', '1,2,3,4', 0, '', '', '', 2, 'a:3:{s:17:\"category_template\";s:19:\"category_video.html\";s:13:\"list_template\";s:15:\"list_video.html\";s:13:\"show_template\";s:15:\"show_video.html\";}', 100, 1),
-(11, '留言', 'message', 1, 0, 0, '0', '11', '1,2,3,4', 0, '', '', '', 0, 'a:1:{s:13:\"page_template\";s:14:\"page_form.html\";}', 100, 1);
-
+(11, '留言', 'message', 1, 0, 0, '0', '11', '1,2,3,4', 0, '', '', '', 0, 'a:1:{s:13:\"page_template\";s:14:\"page_form.html\";}', 100, 1),
+(12, '文档', 'doc', 1, 0, 0, '0', '11', '1,2,3,4', 0, '', '', 'https://doc.dzdcms.com/', 0, 'a:1:{s:13:\"page_template\";s:14:\"page_form.html\";}', 100, 1);
 
 INSERT INTO `yzn_category_data` (`id`, `catid`, `catname`, `description`, `setting`, `site_id`, `status`) VALUES
 (1, 5, '行业新闻', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0),
 (2, 4, '系统优点', 'dzdcms优势不限如下所列，本系统作者从事网站建设快20年！', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0),
 (3, 1, '资讯', '下面列举了使用dzdcms多站点内容管理系统的部分资讯！', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0),
-(4, 3, '案例中心', '下面列举了使用dzdcms多站点内容管理系统的部分案例！', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0),
+(4, 3, '案例', '下面列举了使用dzdcms多站点内容管理系统的部分案例！', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0),
 (5, 1, 'News', 'News News', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, 0),
 (6, 5, 'Industry news', 'Industry news Industry news', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, 0),
 (7, 6, '公司动态', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0),
@@ -146,14 +146,14 @@ INSERT INTO `yzn_category_data` (`id`, `catid`, `catname`, `description`, `setti
 (14, 8, 'contact us', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, 0),
 (15, 3, 'case', 'case case case', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, 0),
 (16, 4, 'advantages', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, 0),
-(17, 3, '案例', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0),
+(17, 3, '案例', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 3, 0),
 (18, 4, '优点', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0),
 (19, 2, '关于我们', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, 0),
 (20, 7, '公司简介', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, 0),
 (21, 11, '留言', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0),
 (22, 11, 'Message', 'Message Message', '{\"title\":\"Message\",\"keyword\":\"\",\"description\":\"\"}', 2, 0),
-(23, 11, '1', '1', '{\"title\":\"1111\",\"keyword\":\"1111\",\"description\":\"1111\"}', 3, 0),
-(24, 10, '视频', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0),
+(23, 11, 'doc', '', '{\"title\":\"1111\",\"keyword\":\"1111\",\"description\":\"1111\"}', 3, 0),
+(24, 12, '视频', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0),
 (25, 9, '下载', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0);
 
 INSERT INTO `yzn_lang` (`id`, `name`, `type`, `title`, `group`, `options`, `remark`, `create_time`, `update_time`, `value`, `listorder`, `status`) VALUES
@@ -400,7 +400,7 @@ ALTER TABLE `yzn_attachment`
     MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 ALTER TABLE `yzn_category`
-    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '栏目ID', AUTO_INCREMENT=12;
+    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '栏目ID', AUTO_INCREMENT=13;
 
 ALTER TABLE `yzn_category_data`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
