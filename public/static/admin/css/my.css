@@ -148,6 +148,12 @@
 /*插件安装*/
 .install-text{height: 34px;line-height: 34px;padding-left: 10px}
 
+/*采集*/
+.layui-form-text .layui-form-item{display: revert;}
+.layui-form-text .fieldlist tbody{width: 100%;display: inline-table;}
+.layui-form-text .layui-table td, .layui-form-text .layui-table th {padding: 5px;}
+.layui-form-text .layui-table td{text-align: center}
+
 /*main*/
 .icon {margin-right:10px;color:#1aa094;}
 .icon-cray {color:#ffb800!important;}
