@@ -193,7 +193,7 @@ body{padding-top:70px;color:#666;background:#f4f7f7;font-family:-apple-system,Bl
 .section-title > p{font-size:14px;color:#666}
 
 .layui-text, .layui-text p{line-height: 22px;font-size: 14px;color: #666;}
-.layui-text a:not(.layui-btn){color: #666!important;}
+.layui-text a:not(.layui-btn){color: #666;}
 .layui-text a:not(.layui-btn):hover{color: #66d09d!important;}
 
 .layui-btn-center{text-align: center}
@@ -410,6 +410,6 @@ body{padding-top:70px;color:#666;background:#f4f7f7;font-family:-apple-system,Bl
 
 /*加载更多*/
 .layui-load{width:auto; margin:0; overflow: hidden}
-.layui-load a{ margin:.5rem auto; display:block; width:230px; line-height:56px; background:#ff5722; color:#FFFFFF; font-size:16px; text-align:center;}
+.layui-load a{ margin:.5rem auto; display:block; width:230px; line-height:56px; background:#ff5722; color:#FFF!important; font-size:16px; text-align:center;}
 .layui-load a.no-date{ background:#ccc;}
 .layui-load:last-child{ width:100%;}
