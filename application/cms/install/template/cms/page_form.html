@@ -1,13 +1,12 @@
 {include file="public/header" /}
 {include file="public/banner" /}
-
-<div class="layui-container page">
+<div class="layui-container">
     <div class="layui-row layui-col-space20">
         {include file="public/left" /}
         <div class="layui-col-sm9 layui-col-md10">
             {include file="public/location" /}
             <div class="layui-card fly-extend-doc layui-show body-height-page">
-                <div class="layui-card-header"><h3 class="layui-inline layui-this">{$title}{$siteId}</h3></div>
+                <div class="layui-card-header"><h3 class="layui-inline layui-this">{$title}</h3></div>
 
                 <div class="layui-card-body detail-body layui-text">
                     <blockquote class="layui-elem-quote layui-text">
@@ -16,8 +15,8 @@
                     <div class="content">
                         <form class="layui-form" id="layuiForm">
                             {:token()}
-                            <input type="hidden" name="id" value="3" />
-                            <input type="hidden" name="modelField[site_id]" value="1" />
+                            <input type="hidden" name="id" value="5" />
+                            <input type="hidden" name="modelField[site_id]" value="{$site_id}" />
                             <div class="layui-form-item">
                                 <label class="layui-form-label">姓名</label>
                                 <div class="layui-input-block">
