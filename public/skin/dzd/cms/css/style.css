@@ -196,6 +196,7 @@ body{padding-top:70px;color:#666;background:#f4f7f7;font-family:-apple-system,Bl
 .layui-text a:not(.layui-btn){color: #666;}
 .layui-text a:not(.layui-btn):hover{color: #66d09d!important;}
 .layui-text img{display: block;margin: 0 auto;max-width: 100%}
+.layui-desc{height: 48px;line-height: 24px;width: 100%;overflow: hidden;white-space: normal;text-overflow: ellipsis}
 
 .layui-btn-center{text-align: center}
 .product-card{background-color:#fff;box-shadow:0 2px 5px 0 rgba(0,0,0,0.04),0 2px 10px 0 rgba(0,0,0,0.06);margin-bottom:10px}
