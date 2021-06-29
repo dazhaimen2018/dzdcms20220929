@@ -7,41 +7,22 @@
         <div class="layui-tab-item layui-show">
             <form class="layui-form" method="post">
                 {:token()}
-                <div class="layui-tab">
-                    <ul class="layui-tab-title">
-                        <li class="layui-this">基本信息</li>
-                        <li>附表信息</li>
-                    </ul>
-                    <div class="layui-tab-content">
-                        <div class="layui-tab-item layui-show">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">栏目分类</label>
-                                <div class="layui-input-block">
-                                    <select lay-filter="filter">
-                                        <option value="{:url('publish','step=2')}">请选择发布栏目</option>
-                                        {$categoryselect|raw}
-                                    </select>
-                                </div>
-                                <div class="layui-form-mid layui-word-aux">请先选择栏目(阴影的表示没有权限)，选择栏目后页面会刷新。</div>
-                            </div>
-                            {include file="inputItem" /}
-                        </div>
-
-                        <div class="layui-tab-item">
-                            {volist name="extraFieldList" id="vo"}
-                            {include file="inputItemExt" /}
-                            {/volist}
-                        </div>
-
+                <div class="layui-form-item">
+                    <label class="layui-form-label">栏目分类</label>
+                    <div class="layui-input-block">
+                        <select lay-filter="filter">
+                            <option value="{:url('publish','step=2')}">请选择发布栏目</option>
+                            {$categoryselect|raw}
+                        </select>
                     </div>
+                    <div class="layui-form-mid2 layui-word-aux">请先选择栏目(阴影的表示没有权限)，选择栏目后页面会刷新。</div>
                 </div>
-
+                {include file="inputItem" /}
                 {if isset($fieldList) && count($fieldList)}
                 <input type="hidden" name="modelField[catid]" value="{$catid}">
-                <div class="layui-form-item layer-footer">
+                <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn  iconfont icon-send" lay-submit data-type="layui-form" data-refresh="true">立即提交</button>
-                        <button type="reset" class="layui-btn layui-btn-primary iconfont icon-trash"> 重置</button>
+                        <button class="layui-btn" lay-submit data-type="layui-form" data-refresh="true">立即提交</button>
                     </div>
                 </div>
                 {/if}
@@ -51,14 +32,14 @@
 </div>
 {template file="member/layui.html"/}
 <script>
-    layui.use(['form','yznForm'], function() {
-        var form = layui.form,
-            yznForm = layui.yznForm;
+layui.use(['form','yznForm'], function() {
+    var form = layui.form,
+    yznForm = layui.yznForm;
 
-        yznForm.listen();
-        form.on('select(filter)', function(data) {
-            location.href = data.value
-        });
+    yznForm.listen();
+    form.on('select(filter)', function(data) {
+        location.href = data.value
     });
+});
 </script>
 {template file="member/footer.html"/}

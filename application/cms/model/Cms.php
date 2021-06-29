@@ -46,7 +46,7 @@ class Cms extends Modelbase
     }
 
     //添加模型内容  马博增加 extraData
-    public function addModelData($data, $dataExt = [], $extraData = [])
+    public function addModelDataAll($data, $dataExt = [], $extraData = [])
     {
         $catid = (int) $data['catid'];
         if (isset($data['modelid'])) {
@@ -118,8 +118,8 @@ class Cms extends Modelbase
         return $id;
     }
 
-    //添加模型内容-采集和投稿
-    public function addModelDataAll($data, $dataExt = [])
+    //添加模型内容-原-采集和投稿
+    public function addModelData($data, $dataExt = [])
     {
         $catid = (int) $data['catid'];
         if (isset($data['modelid'])) {
@@ -180,7 +180,7 @@ class Cms extends Modelbase
     }
 
     //编辑模型内容 马博增加extraData
-    public function editModelData($data, $dataExt = [], $extraData = [])
+    public function editModelDataAll($data, $dataExt = [], $extraData = [])
     {
         $catid = (int) $data['catid'];
         $id    = (int) $data['id'];
@@ -227,6 +227,48 @@ class Cms extends Modelbase
                 }
             }
             // 以下下马博增加 end
+        }
+        //标签
+        hook('content_edit_end', $data);
+    }
+
+    //编辑模型内容
+    public function editModelData($data, $dataExt = [])
+    {
+        $catid = (int) $data['catid'];
+        $id    = (int) $data['id'];
+        unset($data['catid']);
+        unset($data['id']);
+        $modelid = getCategory($catid, 'modelid');
+        //完整表名获取
+        $tablename = $this->getModelTableName($modelid);
+        if (!$this->table_exists($tablename)) {
+            throw new \Exception('数据表不存在！');
+        }
+        $this->getAfterText($data, $dataExt);
+        //TAG标签处理
+        if (!empty($data['tags'])) {
+            $this->tagDispose($data['tags'], $id, $catid, $modelid);
+        } else {
+            $this->tagDispose([], $id, $catid, $modelid);
+        }
+        $dataAll              = $this->dealModelPostData($modelid, $data, $dataExt);
+        list($data, $dataExt) = $dataAll;
+
+        if (!isset($data['updatetime'])) {
+            $data['updatetime'] = request()->time();
+        }
+        //主表
+        Db::name($tablename)->where('id', $id)->update($data);
+        //附表
+        if (!empty($dataExt)) {
+            //查询是否存在ID 不存在则新增
+            if (Db::name($tablename . $this->ext_table)->where('did', $id)->find()) {
+                Db::name($tablename . $this->ext_table)->where('did', $id)->update($dataExt);
+            } else {
+                $dataExt['did'] = $id;
+                Db::name($tablename . $this->ext_table)->insert($dataExt);
+            };
         }
         //标签
         hook('content_edit_end', $data);
@@ -328,7 +370,7 @@ class Cms extends Modelbase
     }
 
     //查询解析模型数据用以构造from表单
-    public function getFieldList($modelId, $id = null)
+    public function getFieldListAll($modelId, $id = null)
     {
         $list = self::where('modelid', $modelId)->where('status', 1)->where('ifsystem',1)->order('listorder asc,id asc')->column("name,title,remark,type,isadd,iscore,ifsystem,ifrequire,setting");
         if (!empty($list)) {
@@ -395,8 +437,8 @@ class Cms extends Modelbase
         return $list;
     }
 
-    //采集和投稿用，所有字段
-    public function getFieldListAll($modelId, $id = null)
+    //采集和投稿用，所有字段 原
+    public function getFieldList($modelId, $id = null)
     {
         $list = self::where('modelid', $modelId)->where('status', 1)->order('listorder asc,id asc')->column("name,title,remark,type,isadd,iscore,ifsystem,ifrequire,setting");
         if (!empty($list)) {

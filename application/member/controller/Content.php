@@ -31,9 +31,9 @@ class Content extends MemberBase
     {
         $groupinfo = $this->_check_group_auth($this->auth->groupid);
         //没有认证用户不得投稿
-        if (empty($this->auth->ischeck_email) && empty($this->auth->ischeck_mobile)) {
-            $this->error("投稿必须激活邮箱或手机！");
-        }
+//        if (empty($this->auth->ischeck_email) && empty($this->auth->ischeck_mobile)) {
+//            $this->error("投稿必须激活邮箱或手机！");
+//        }
         //判断每日投稿数
         $allowpostnum = Member_Content_Model::where('uid', $this->auth->id)->whereTime('create_time', 'd')->count();
         if ($groupinfo['allowpostnum'] > 0 && $allowpostnum >= $groupinfo['allowpostnum']) {
@@ -44,7 +44,7 @@ class Content extends MemberBase
             $token = $this->request->param('__token__');
             // 验证数据
             $rule = [
-                'modelField.theme|主题' => 'require|length:3,100',
+                'modelField.theme|标题' => 'require|length:3,100',
                 'modelField.catid|栏目' => 'require|integer',
                 '__token__'           => 'require|token',
             ];
@@ -86,7 +86,7 @@ class Content extends MemberBase
             if ($category['type'] == 2) {
                 $_data['modelFieldExt'] = isset($_data['modelFieldExt']) ? $_data['modelFieldExt'] : [];
                 try {
-                    $id = $this->Cms_Model->addModelData($_data['modelField'], $_data['modelFieldExt'], $data['extra_data']);
+                    $id = $this->Cms_Model->addModelData($_data['modelField'], $_data['modelFieldExt']);
                 } catch (\Exception $ex) {
                     $this->error($ex->getMessage());
                 }
@@ -115,17 +115,7 @@ class Content extends MemberBase
             $catid = $this->request->param('catid/d', 0);
             $tree  = new \util\Tree();
             $str   = "<option value=@catidurl @selected @disabled>@spacer @catname</option>";
-            //用户投稿只显示站点1的栏目
-            $sites = 1;
-            $site = [];
-            foreach (explode(',', $sites) as $k => $v) {
-                $site[] = "FIND_IN_SET('" . $v . "', site_id)";
-            }
-            if ($site) {
-                $where = "  (" . implode(' OR ', $site) . ")";
-            }
-            //用户投稿只显示站点1的栏目 下方代码中增㘡where
-            $array = Db::name('Category')->where($where)->order('listorder ASC, id ASC')->column('*', 'id');
+            $array = Db::name('Category')->order('listorder ASC, id ASC')->column('*', 'id');
             foreach ($array as $k => $v) {
                 //$array[$k] = $v = Db::name('Category')->find($v['id']);
                 if ($v['id'] == $catid) {
@@ -151,11 +141,9 @@ class Content extends MemberBase
                 if ($category['type'] == 2) {
                     $modelid   = $category['modelid'];
                     $fieldList = $this->Cms_Model->getFieldList($modelid);
-                    $extraFieldList = $this->Cms_Model->getExtraField($modelid, 0);
                     $this->assign([
                         'catid'     => $catid,
                         'fieldList' => $fieldList,
-                        'extraFieldList' => $extraFieldList,
                     ]);
                 }
             }
@@ -176,7 +164,7 @@ class Content extends MemberBase
             $token = $this->request->param('__token__');
             // 验证数据
             $rule = [
-                'modelField.title|标题' => 'require|length:3,100',
+                'modelField.theme|标题' => 'require|length:3,100',
                 'modelField.catid|栏目' => 'require|integer',
                 '__token__'           => 'require|token',
             ];
@@ -184,7 +172,8 @@ class Content extends MemberBase
             if (true !== $result) {
                 $this->error($result, null, ['token' => $this->request->token()]);
             }
-            $id    = intval($data['modelField']['id']);
+            //$id    = intval($data['modelField']['id']);
+            $id = $data['did'];
             $catid = intval($data['modelField']['catid']);
             if (empty($id) || empty($catid)) {
                 $this->error("请指定栏目ID！");
@@ -247,13 +236,9 @@ class Content extends MemberBase
                 $this->error("该栏目不允许投稿！", url('publish', array('step' => 2)));
             }
             $fieldList = $this->Cms_Model->getFieldList($modelid, $info['content_id']);
-            $extraFieldList = $this->Cms_Model->getExtraField($modelid, 0);
-            $extraData = $this->Cms_Model->getExtraData(['catid' => $catid, 'did' => $id]);
             $this->assign([
                 'catid'     => $catid,
                 'fieldList' => $fieldList,
-                'extraFieldList' => $extraFieldList,
-                'extra_data' => $extraData,
             ]);
             return $this->fetch('/edit');
         }

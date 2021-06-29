@@ -21,12 +21,12 @@
 .layui-nav-tree .layui-this>a{color: #fff!important;background-color: #f22a35!important;}
 .layui-nav-tree .layui-nav-bar{width:5px;height:0;background-color:#f22a35;}
 .layui-form-item{position: relative;margin-bottom: 10px;display: flex;}
-.layui-form-mid{position: absolute!important;right:12px;bottom:0; margin-right: 0; }
+.layui-word-aux{position: absolute!important;right:12px;bottom:0; margin-right: 0; }
 
-.layui-form-mid .remark{ margin-right:30px; margin-bottom:-2px; text-align: right; display: none; border: 1px solid #20a53a; padding: 0 5px;background-color: #20a53a; border-radius:5px;}
-.layui-form-mid i{position:absolute;right:18px;bottom:9px; display:block!important; color:#999; cursor: pointer; font-size:16px; font-style: normal;}
-.layui-form-mid i:hover{color:#20a53a;}
-.layui-form-mid:hover .remark{display: block;color:#fff;}
+.layui-word-aux .remark{ margin-right:30px; margin-bottom:-2px; text-align: right; display: none; border: 1px solid #20a53a; padding: 0 5px;background-color: #20a53a; border-radius:5px;}
+.layui-word-aux i{position:absolute;right:18px;bottom:9px; display:block!important; color:#999; cursor: pointer; font-size:16px; font-style: normal;}
+.layui-word-aux i:hover{color:#20a53a;}
+.layui-word-aux:hover .remark{display: block;color:#fff;}
 
 .fly-user-main>.fly-panel {min-height: 615px;}
 .layui-nav-tree .layui-nav-item{border-bottom: 1px dashed #eaeaea;}
@@ -37,7 +37,7 @@
 .layui-form-pane .layui-form-text .layui-form-label{width: 110px;border-right: none;}
 .layui-form-pane .layui-form-text .layui-input-block{top: 0;}
 .layui-form-item label{width: 110px;background-color: #f2f2f2;height: 38px;line-height: 38px;padding: 0 10px;border: 1px solid #e6e6e6;border-right: none;box-sizing: border-box;}
-.layui-form-item .layui-form-field-label, .layui-form-item .layui-input-inline, .layui-form-item .layui-input-block{flex: 1;padding: 0!important;}
+.layui-form-item .layui-form-field-label, .layui-form-item .layui-input-inline, .layui-form-item .layui-input-block{flex: 1;padding: 0!important;max-width: 100%;margin-left: -1px}
 .layui-form-item .layui-input-inline{margin-right: 0;}
 .layui-table, .layui-table-view { margin: 0 auto;}
 .layui-form-item .captcha{border: 1px solid #e6e6e6;height: 36px;margin-left: -2px;}

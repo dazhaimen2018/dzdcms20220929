@@ -217,7 +217,7 @@ class Node extends Adminbase
             $category = $tree->getTree(0, $str);
             if ($catid) {
                 $cat_info   = Db::name('Category')->field('catname,modelid')->where('id', $catid)->find();
-                $data       = model('cms/cms')->getFieldListAll($cat_info['modelid']);
+                $data       = model('cms/cms')->getFieldList($cat_info['modelid']);
                 $node_data  = json_decode($this->Nodes_Model->where('id', $nid)->value('customize_config'), true);
                 $node_field = [];
                 if (is_array($node_data)) {
@@ -364,7 +364,7 @@ class Node extends Adminbase
                 }
             }
             try {
-                $cms_model->addModelDataAll($sql['modelField'], $sql['modelFieldExt']);
+                $cms_model->addModelData($sql['modelField'], $sql['modelFieldExt']);
             } catch (\Exception $ex) {
                 $this->error($ex->getMessage());
             }

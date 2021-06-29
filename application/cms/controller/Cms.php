@@ -178,7 +178,7 @@ class Cms extends Adminbase
 
                 Db::startTrans();
                 try {
-                    $insertId = $this->Cms_Model->addModelData($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
+                    $insertId = $this->Cms_Model->addModelDataAll($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
                     Db::commit();
                 } catch (\Exception $ex) {
                     Db::rollback();
@@ -209,7 +209,7 @@ class Cms extends Adminbase
             }
             if ($category['type'] == 2) {
                 $modelid = $category['modelid'];
-                $fieldList = $this->Cms_Model->getFieldList($modelid);
+                $fieldList = $this->Cms_Model->getFieldListAll($modelid);
                 $extraFieldList = $this->Cms_Model->getExtraField($modelid, 0);
                 $this->assign([
                     'catid'     => $catid,
@@ -286,7 +286,7 @@ class Cms extends Adminbase
             }
             if ($category['type'] == 2) {
                 try {
-                    $this->Cms_Model->editModelData($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
+                    $this->Cms_Model->editModelDataAll($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
                 } catch (\Exception $ex) {
                     $this->error($ex->getMessage());
                 }
@@ -316,7 +316,7 @@ class Cms extends Adminbase
             }
             if ($category['type'] == 2) {
                 $modelid   = $category['modelid'];
-                $fieldList = $this->Cms_Model->getFieldList($modelid, $id);
+                $fieldList = $this->Cms_Model->getFieldListAll($modelid, $id);
                 $extraFieldList = $this->Cms_Model->getExtraField($modelid, 0);
                 $this->assign([
                     'catid'     => $catid,
