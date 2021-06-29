@@ -73,7 +73,7 @@ CREATE TABLE `yzn_page` (
   `catid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目ID',
   `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
   `title` varchar(160) NOT NULL DEFAULT '' COMMENT '标题',
-  `image` varchar(160) NOT NULL DEFAULT '' COMMENT '单页图片',
+  `thumb` varchar(160) NOT NULL DEFAULT '' COMMENT '单页图片',
   `keywords` varchar(255) NOT NULL DEFAULT '' COMMENT '关键字',
   `description` varchar(255) NOT NULL DEFAULT '' COMMENT 'SEO描述',
   `content` text COMMENT '内容',

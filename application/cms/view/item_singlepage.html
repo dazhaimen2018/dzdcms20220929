@@ -25,6 +25,12 @@
         <textarea class="layui-textarea" name="extra_data[{$k}][description]" placeholder="{:lang('SEO Description',[],$s['mark'])}">{$info[$k-1]['description']}</textarea>
     </div>
 </div>
+<div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">缩略图</label>
+    <div class="layui-input-block  layui-upload">
+        {php}echo \util\Form::images('extra_data[1][thumb]','thumb',$info[$k-1]['thumb']){/php}
+    </div>
+</div>
 
 <div class="layui-form-item">
     <label class="layui-form-label">
