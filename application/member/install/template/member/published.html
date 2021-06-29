@@ -10,7 +10,7 @@
     </div>
 </div>
 <script type="text/html" id="barTool">
-    <a href='{:url("edit")}?id={{ d.id }}' class="layui-btn layui-btn-xs">编辑</a>
+    <a href='{:url("edit")}?id={{ d.id }}&did={{ d.content_id }}' class="layui-btn layui-btn-xs">编辑</a>
     <a href='{:url("del")}?id={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
 </script>
 <script type="text/html" id="status">
@@ -35,7 +35,7 @@ layui.use(['table'], function() {
         cols: [
             [
                 { field: 'id', width: 60, title: 'ID' },
-                { field: 'title', title: '标题'},
+                { field: 'theme', title: '主题'},
                 { field: 'catname',width: 120, title: '所属栏目'},
                 { field: 'create_time', width: 180, title: '发布时间' },
                 { field: 'url',width: 60,align:"center", title: 'URL',templet:'<div><a href="{{ d.url }}" target="_blank"><i class="iconfont icon-lianjie"></i></a></div>'},
