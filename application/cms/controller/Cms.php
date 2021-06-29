@@ -187,7 +187,6 @@ class Cms extends Adminbase
 
             } else if ($category['type'] == 1) {
                 $Page_Model = new Page_Model;
-
                 Db::startTrans();
                 try {
                     if (!$Page_Model->saveData($data)) {
@@ -223,9 +222,9 @@ class Cms extends Adminbase
                 $info = $Page_Model->selectAll($catid);
                 // 马博增加
                 $ret = [];
-
                 if($import==1){
                     foreach ($this->site as $k => $s) {
+
                         if ($info) {
                             foreach ($info as $e) {
                                 if ($e['site_id'] == $s['id']) {
@@ -234,9 +233,9 @@ class Cms extends Adminbase
                                     //只输出站点1的数据
                                     foreach ($info as $f) {
                                         if ($e['site_id']== 1) {
-                                            $ret[$k] = $f;
+                                            $ret[$k]            = $f;
                                             $ret[$k]['site_id'] = $s['id'];
-                                            $ret[$k]['id'] = '';
+                                            $ret[$k]['id']      = '';
                                         }
                                     }
                                 }
@@ -253,6 +252,7 @@ class Cms extends Adminbase
                                     $ret[$k] = $e;
                                 } else {
                                     $ret[$k]['site_id'] = $s['id'];
+
                                 }
                             }
                         } else {

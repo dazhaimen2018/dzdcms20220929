@@ -6,7 +6,7 @@
         {:getSiteName($k)}标题 <font color="red">*</font>
     </label>
     <div class="layui-input-block">
-        <input autocomplete="off" class="layui-input" name="extra_data[{$k}][title]" placeholder="{:lang('Category Title',[],$s['mark'])}" type="text" value="{$info[$k-1]['title']}" lay-verify="required"  lay-reqText="{:getSiteName($k)}标题不能为空">
+        <input autocomplete="off" class="layui-input" name="extra_data[{$k}][title]" placeholder="{:lang('Category Title',[],$s['mark'])}" type="text" value="{$info[$k-1]['title']|default=''}" lay-verify="required"  lay-reqText="{:getSiteName($k)}标题不能为空">
     </div>
 </div>
 <div class="layui-form-item">
@@ -14,7 +14,7 @@
         {:getSiteName($k)}关键词
     </label>
     <div class="layui-input-block">
-        <input autocomplete="off" class="layui-input" name="extra_data[{$k}][keywords]" placeholder="{:lang('SEO Keyword',[],$s['mark'])}" type="text" value="{$info[$k-1]['keywords']}">
+        <input autocomplete="off" class="layui-input" name="extra_data[{$k}][keywords]" placeholder="{:lang('SEO Keyword',[],$s['mark'])}" type="text" value="{$info[$k-1]['keywords']|default=''}">
     </div>
 </div>
 <div class="layui-form-item">
@@ -22,22 +22,29 @@
         {:getSiteName($k)}描述
     </label>
     <div class="layui-input-block">
-        <textarea class="layui-textarea" name="extra_data[{$k}][description]" placeholder="{:lang('SEO Description',[],$s['mark'])}">{$info[$k-1]['description']}</textarea>
+        <textarea class="layui-textarea" name="extra_data[{$k}][description]" placeholder="{:lang('SEO Description',[],$s['mark'])}">{$info[$k-1]['description']|default=''}</textarea>
     </div>
 </div>
+<!--
 <div class="layui-form-item layui-form-text">
     <label class="layui-form-label">缩略图</label>
     <div class="layui-input-block  layui-upload">
-        {php}echo \util\Form::images('extra_data[1][thumb]','thumb',$info[$k-1]['thumb']){/php}
+        {php}echo \util\Form::images('extra_data[$k][thumb]','thumb',$info[$k-1]['thumb'] ?? ''){/php}
     </div>
 </div>
-
+-->
+<div class="layui-form-item">
+    <label class="layui-form-label">创建时间</label>
+    <div class="layui-input-block">
+        <input type="text" name="extra_data[{$k}][inputtime]" class="layui-input datetime" value="{$info[$k-1]['inputtime']|default=date('Y-m-d H:i:s',time())}">
+    </div>
+</div>
 <div class="layui-form-item">
     <label class="layui-form-label">
         {:getSiteName($k)}内容 <font color="red">*</font>
     </label>
     <div class="layui-input-block border-none">
-        <script type="text/plain" class="js-ueditor" id="content{$k}" name="extra_data[{$k}][content]" lay-verify="required" lay-reqText="内容不能为空" >{$info[$k-1]['content']|raw}</script>
+        <script type="text/plain" class="js-ueditor" id="content{$k}" name="extra_data[{$k}][content]" lay-verify="required" lay-reqText="内容不能为空" >{$info[$k-1]['content']|default=''|raw}</script>
         <a class="layui-btn layui-btn-sm" id="contentgrabimg" style="margin-top: 4px;">图片本地化</a>
         <a class="layui-btn layui-btn-sm" id="contentfilterword" style="margin-top: 4px;">检测违禁词</a>
     </div>

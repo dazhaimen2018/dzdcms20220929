@@ -14,7 +14,7 @@
 
 namespace app\cms\model;
 
-use \think\Model;
+use think\Model;
 
 /**
  * 模型
@@ -22,7 +22,15 @@ use \think\Model;
 
 class Page extends Model
 {
-	protected $pk = 'catid';
+    protected $pk                 = 'catid';
+    protected $autoWriteTimestamp = true;
+    protected $createTime         = 'inputtime';
+    protected $updateTime         = 'updatetime';
+  
+    protected function setInputTimeAttr($value)
+    {
+        return $value && !is_numeric($value) ? strtotime($value) : $value;
+    }
 	/**
 	 * 根据栏目ID获取内容
 	 * @param type $catid 栏目ID
@@ -61,8 +69,8 @@ class Page extends Model
 			return false;
 		}
 		$catid = $data['catid'];
-		$info = self::get($catid);
-		if ($info) {
+        $row = self::get($catid);
+		if ($row) {
 			//更新
 			self::update($data, [], true);
 			return true;
@@ -80,15 +88,14 @@ class Page extends Model
 			$this->error = '内容不能为空！';
 			return false;
 		}
-		$catid = intval($data['modelField']['catid']);
 		if ($data['extra_data']) {
 			foreach ($data['extra_data'] as $e) {
 				if (!empty($e['title'])) {
 					if (!empty($e['id']) && $e['id']) {
-						// self::update($e, [], true);
+                        $e['inputtime']  = strtotime($e['inputtime']);
+                        $e['updatetime'] = time();
 						self::where(['id' => $e['id']])->update($e);
 					} else {
-						//$e['catid'] = $catid;
 						self::create($e);
 					}
 				}
