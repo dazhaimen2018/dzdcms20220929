@@ -118,6 +118,67 @@ class Cms extends Modelbase
         return $id;
     }
 
+    //添加模型内容-采集和投稿
+    public function addModelDataAll($data, $dataExt = [])
+    {
+        $catid = (int) $data['catid'];
+        if (isset($data['modelid'])) {
+            $modelid = $data['modelid'];
+            unset($data['modelid']);
+        } else {
+            $modelid = getCategory($catid, 'modelid');
+        }
+        //完整表名获取
+        $tablename = $this->getModelTableName($modelid);
+        if (!$this->table_exists($tablename)) {
+            throw new \Exception('数据表不存在！');
+        }
+        $this->getAfterText($data, $dataExt);
+
+        if (!defined('IN_ADMIN') || (defined('IN_ADMIN') && IN_ADMIN == false)) {
+            empty($data['uid']) ? \app\member\service\User::instance()->id : $data['uid'];
+            empty($data['username']) ? \app\member\service\User::instance()->username : $data['username'];
+            $data['sysadd'] = 0;
+        } else {
+            //添加用户名
+            $data['uid']      = \app\admin\service\User::instance()->id;
+            $data['username'] = \app\admin\service\User::instance()->username;
+            $data['sysadd']   = 1;
+        }
+        //处理数据
+        $dataAll              = $this->dealModelPostData($modelid, $data, $dataExt);
+        list($data, $dataExt) = $dataAll;
+        if (!isset($data['inputtime'])) {
+            $data['inputtime'] = request()->time();
+        }
+        if (!isset($data['updatetime'])) {
+            $data['updatetime'] = request()->time();
+        }
+        try {
+            //主表
+            $id = Db::name($tablename)->insertGetId($data);
+            //TAG标签处理
+            if (!empty($data['tags'])) {
+                $this->tagDispose($data['tags'], $id, $catid, $modelid);
+            }
+            //附表
+            if (!empty($dataExt)) {
+                $dataExt['did'] = $id;
+                Db::name($tablename . $this->ext_table)->insert($dataExt);
+            }
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+        //更新栏目统计数据
+        $this->updateCategoryItems($catid, 'add', 1);
+        //推送到熊掌号和百度站长
+        $cmsConfig = cache("Cms_Config");
+        if (isset($cmsConfig['web_site_baidupush']) && $cmsConfig['web_site_baidupush']) {
+            hook("baidupush", buildContentUrl($catid, $id, $data['url'], true, true));
+        }
+        return $id;
+    }
+
     //编辑模型内容 马博增加extraData
     public function editModelData($data, $dataExt = [], $extraData = [])
     {
@@ -269,8 +330,75 @@ class Cms extends Modelbase
     //查询解析模型数据用以构造from表单
     public function getFieldList($modelId, $id = null)
     {
-        $list = self::where('modelid', $modelId)->where('status', 1)->where('ifsystem', 1)->order('listorder asc,id asc')->column("name,title,remark,type,isadd,iscore,ifsystem,ifrequire,setting");
+        $list = self::where('modelid', $modelId)->where('status', 1)->where('ifsystem',1)->order('listorder asc,id asc')->column("name,title,remark,type,isadd,iscore,ifsystem,ifrequire,setting");
+        if (!empty($list)) {
+            //编辑信息时查询出已有信息
+            if ($id) {
+                $modelInfo = Db::name('Model')->where('id', $modelId)->field('tablename,type')->find();
+                $dataInfo  = Db::name($modelInfo['tablename'])->where('id', $id)->find();
+                //查询附表信息
+                if ($modelInfo['type'] == 2 && !empty($dataInfo)) {
+                    $dataInfoExt = Db::name($modelInfo['tablename'] . $this->ext_table)->where('did', $dataInfo['id'])->find();
+                }
+            }
+            foreach ($list as $key => &$value) {
+                //内部字段不显示
+                if ($value['iscore']) {
+                    unset($list[$key]);
+                }
+                //核心字段做标记
+                if ($value['ifsystem']) {
+                    $value['fieldArr'] = 'modelField';
+                    if (isset($dataInfo[$value['name']])) {
+                        $value['value'] = $dataInfo[$value['name']];
+                    }
+                } else {
+                    $value['fieldArr'] = 'modelFieldExt';
+                    if (isset($dataInfoExt[$value['name']])) {
+                        $value['value'] = $dataInfoExt[$value['name']];
+                    }
+                }
 
+                //扩展配置
+                $value['setting'] = unserialize($value['setting']);
+                $value['options'] = $value['setting']['options'];
+                //在新增时候添加默认值
+                if (!$id) {
+                    $value['value'] = $value['setting']['value'];
+                }
+                if ($value['type'] == 'custom') {
+                    if ($value['options'] != '') {
+                        $tpar             = explode(".", $value['options'], 2);
+                        $value['options'] = \think\Response::create('admin@custom/' . $tpar[0], 'view')->assign('vo', $value)->getContent();
+                        unset($tpar);
+                    }
+                } elseif ($value['options'] != '') {
+                    $value['options'] = parse_attr($value['options']);
+                }
+                /*if ('' != $value['options']) {
+                $value['options'] = parse_attr($value['options']);
+                }*/
+                if ($value['type'] == 'checkbox') {
+                    $value['value'] = empty($value['value']) ? [] : explode(',', $value['value']);
+                }
+                if ($value['type'] == 'datetime') {
+                    $value['value'] = empty($value['value']) ? date('Y-m-d H:i:s') : date('Y-m-d H:i:s', $value['value']);
+                }
+                if ($value['type'] == 'date') {
+                    $value['value'] = empty($value['value']) ? '' : date('Y-m-d', $value['value']);
+                }
+                if ($value['type'] == 'Ueditor' || $value['type'] == 'markdown') {
+                    $value['value'] = isset($value['value']) ? htmlspecialchars_decode($value['value']) : '';
+                }
+            }
+        }
+        return $list;
+    }
+
+    //采集和投稿用，所有字段
+    public function getFieldListAll($modelId, $id = null)
+    {
+        $list = self::where('modelid', $modelId)->where('status', 1)->order('listorder asc,id asc')->column("name,title,remark,type,isadd,iscore,ifsystem,ifrequire,setting");
         if (!empty($list)) {
             //编辑信息时查询出已有信息
             if ($id) {
