@@ -1,0 +1,5 @@
+INSERT INTO `yzn_collection_node` (`id`, `name`, `lastdate`, `sourcecharset`, `sourcetype`, `urlpage`, `url_contain`, `url_except`, `url_range`, `url_rule1`, `url_rule2`, `url_rule3`, `url_rule4`, `url_rule5`, `url_rule6`, `pagesize_start`, `pagesize_end`, `par_num`, `down_attachment`, `watermark`, `coll_order`, `customize_config`) VALUES
+(1, '多站点CMS资讯', 1624922421, 'utf-8', 2, 'http://www.dzdcms.com/news.html', '', 'lists', '.listAjax .item-box', 'a', 'href', '', 'h2', 'text', '', 1, 10, 1, 1, 0, 0, '[{\"title\":\"主题\",\"name\":\"theme\",\"selector\":\".title-article h1\",\"attr\":\"text\",\"value\":\"\",\"filter\":\"\"},{\"title\":\"标题\",\"name\":\"title\",\"selector\":\".title-article h1\",\"attr\":\"text\",\"value\":\"\",\"filter\":\"\"},{\"title\":\"内容\",\"name\":\"content\",\"selector\":\".layui-text\",\"attr\":\"html\",\"value\":\"\",\"filter\":\"\"}]');
+
+ALTER TABLE `yzn_collection_node`
+    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '链接id', AUTO_INCREMENT=2;

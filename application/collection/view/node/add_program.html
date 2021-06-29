@@ -8,8 +8,8 @@
                 <legend>新建发布方案</legend>
                 <div class="layui-field-box">
                     <div class="layui-form-item">
-                        <label>栏目列表</label>
-                        <div class="w300">
+                        <label class="layui-form-label">栏目列表</label>
+                        <div class="layui-input-block">
                             <select lay-filter="filter">
                                 <option>请选择</option>
                                 {$category|raw}
@@ -18,8 +18,8 @@
                     </div>
                     {if $catid}
                     <div class="layui-form-item">
-                        <label>方案名称</label>
-                        <div class="w300">
+                        <label class="layui-form-label">方案名称</label>
+                        <div class="layui-input-block">
                             <input type="text" name="title" placeholder="请输入" autocomplete="off" class="layui-input" value="{$catname}">
                         </div>
                     </div>
