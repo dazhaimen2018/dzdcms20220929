@@ -315,7 +315,7 @@ EOF;
                 'name' => 'id',
                 'title' => '自然ID',
                 'type' => 'hidden',
-                'isadd' => 1,
+                'isadd' => 0,
                 'ifsystem' => 0,
             ],
                 [
