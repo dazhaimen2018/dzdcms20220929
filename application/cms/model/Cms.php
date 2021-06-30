@@ -417,9 +417,7 @@ class Cms extends Modelbase
                 } elseif ($value['options'] != '') {
                     $value['options'] = parse_attr($value['options']);
                 }
-                /*if ('' != $value['options']) {
-                $value['options'] = parse_attr($value['options']);
-                }*/
+
                 if ($value['type'] == 'checkbox') {
                     $value['value'] = empty($value['value']) ? [] : explode(',', $value['value']);
                 }
@@ -448,7 +446,7 @@ class Cms extends Modelbase
                 $dataInfo  = Db::name($modelInfo['tablename'])->where('id', $id)->find();
                 //查询附表信息
                 if ($modelInfo['type'] == 2 && !empty($dataInfo)) {
-                    $dataInfoExt = Db::name($modelInfo['tablename'] . $this->ext_table)->where('did', $dataInfo['id'])->find();
+                    $dataInfoExt = Db::name($modelInfo['tablename'] . $this->ext_table)->where('did', $dataInfo['id'])->where('site_id', 1)->find();
                 }
             }
             foreach ($list as $key => &$value) {
@@ -485,9 +483,7 @@ class Cms extends Modelbase
                 } elseif ($value['options'] != '') {
                     $value['options'] = parse_attr($value['options']);
                 }
-                /*if ('' != $value['options']) {
-                $value['options'] = parse_attr($value['options']);
-                }*/
+
                 if ($value['type'] == 'checkbox') {
                     $value['value'] = empty($value['value']) ? [] : explode(',', $value['value']);
                 }

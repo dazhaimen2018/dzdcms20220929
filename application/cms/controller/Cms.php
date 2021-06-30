@@ -307,9 +307,9 @@ class Cms extends Adminbase
             $this->success('编辑成功！');
 
         } else {
-            $catid = $this->request->param('catid/d', 0);
-            $import = $this->request->param('import/d', 0);
-            $id    = $this->request->param('id/d', 0);
+            $catid    = $this->request->param('catid/d', 0);
+            $import   = $this->request->param('import/d', 0);
+            $id       = $this->request->param('id/d', 0);
             $category = getCategory($catid);
             if (empty($category)) {
                 $this->error('该栏目不存在！');
@@ -326,8 +326,9 @@ class Cms extends Adminbase
                 ]);
                 $extraData = $this->Cms_Model->getExtraData(['catid' => $catid, 'did' => $id]);
                 $ret = [];
-                if($import==1){
+                if($import){
                     foreach ($this->site as $k => $s) {
+
                         if ($extraData) {
                             foreach ($extraData as $e) {
                                 if ($e['site_id'] == $s['id']) {
