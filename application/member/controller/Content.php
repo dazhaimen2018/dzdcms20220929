@@ -159,6 +159,7 @@ class Content extends MemberBase
     public function edit()
     {
         $groupinfo = $this->_check_group_auth($this->auth->groupid);
+        $did = $this->request->param('did/d', 0);
         if ($this->request->isPost()) {
             $data  = $this->request->param();
             $token = $this->request->param('__token__');
@@ -172,8 +173,8 @@ class Content extends MemberBase
             if (true !== $result) {
                 $this->error($result, null, ['token' => $this->request->token()]);
             }
-            //$id    = intval($data['modelField']['id']);
-            $id = $data['did'];
+            $id    = intval($data['modelField']['id']);
+
             $catid = intval($data['modelField']['catid']);
             if (empty($id) || empty($catid)) {
                 $this->error("请指定栏目ID！");
@@ -182,6 +183,7 @@ class Content extends MemberBase
             if (empty($category)) {
                 $this->error('该栏目不存在！');
             }
+
             $catidPrv = Db::name('category_priv')->where(array("catid" => $catid, "roleid" => $this->auth->groupid, "is_admin" => 0, "action" => "add"))->find();
             if (empty($catidPrv)) {
                 $this->error("您没有该栏目投稿权限！");
@@ -195,6 +197,7 @@ class Content extends MemberBase
                     $_data['modelFieldExt'][$k] = $data['modelFieldExt'][$k];
                 }
             }
+
             //判断会员组投稿是否需要审核
             if ($groupinfo['allowpostverify']) {
                 $_data['modelField']['status'] = 1;
@@ -210,9 +213,11 @@ class Content extends MemberBase
                     $this->error($ex->getMessage());
                 }
             }
+
             if ($_data['modelField']['status'] == 1) {
                 Member_Content_Model::where(['content_id' => $id, 'catid' => $catid])->update(['status' => 1]);
                 $this->success('编辑成功，内容已通过审核！', url('published'));
+
             } else {
                 Member_Content_Model::where(['content_id' => $id, 'catid' => $catid])->update(['status' => 0]);
                 $this->success('编辑成功，等待管理员审核！', url('published'));
@@ -239,6 +244,7 @@ class Content extends MemberBase
             $this->assign([
                 'catid'     => $catid,
                 'fieldList' => $fieldList,
+                'did' => $did,
             ]);
             return $this->fetch('/edit');
         }

@@ -37,7 +37,7 @@
 .layui-form-pane .layui-form-text .layui-form-label{width: 110px;border-right: none;}
 .layui-form-pane .layui-form-text .layui-input-block{top: 0;}
 .layui-form-item label{width: 110px;background-color: #f2f2f2;height: 38px;line-height: 38px;padding: 0 10px;border: 1px solid #e6e6e6;border-right: none;box-sizing: border-box;}
-.layui-form-item .layui-form-field-label, .layui-form-item .layui-input-inline, .layui-form-item .layui-input-block{flex: 1;padding: 0!important;max-width: 100%;margin-left: -1px}
+.layui-form-item .layui-form-field-label, .layui-form-item .layui-input-inline, .layui-form-item .layui-input-block{flex: 1;padding: 0!important;max-width: 100%;margin-left: 0}
 .layui-form-item .layui-input-inline{margin-right: 0;}
 .layui-table, .layui-table-view { margin: 0 auto;}
 .layui-form-item .captcha{border: 1px solid #e6e6e6;height: 36px;margin-left: -2px;}

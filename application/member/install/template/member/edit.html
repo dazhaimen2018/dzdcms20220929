@@ -9,7 +9,7 @@
                 {:token()}
                 {include file="inputItem" /}
                 {if count($fieldList)}
-                <input type="hidden" name="modelField[id]" value="">
+                <input type="hidden" name="modelField[id]" value="{$did}">
                 <div class="layui-form-item">
                     <div class="layui-input-block">
                         <button class="layui-btn" lay-submit data-type="layui-form" data-refresh="true">立即提交</button>
