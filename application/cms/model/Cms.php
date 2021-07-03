@@ -60,7 +60,7 @@ class Cms extends Modelbase
         if (!$this->table_exists($tablename)) {
             throw new \Exception('数据表不存在！');
         }
-        $this->getAfterText($data, $dataExt);
+        $this->getAfterText($data, $extraData);
 
         if (!defined('IN_ADMIN') || (defined('IN_ADMIN') && IN_ADMIN == false)) {
             empty($data['uid']) ? \app\member\service\User::instance()->id : $data['uid'];
@@ -192,7 +192,7 @@ class Cms extends Modelbase
         if (!$this->table_exists($tablename)) {
             throw new \Exception('数据表不存在！');
         }
-        $this->getAfterText($data, $dataExt);
+        $this->getAfterText($data, $extraData);
         $dataAll              = $this->dealModelPostData($modelid, $data, $dataExt);
         list($data, $dataExt) = $dataAll;
 
@@ -747,18 +747,19 @@ class Cms extends Modelbase
     /**
      * 文本处理
      */
-    protected function getAfterText(&$data, &$dataExt)
+    protected function getAfterText(&$data, &$extraData)
     {
+        $siteId = getSiteId();
         //自动提取摘要，如果有设置自动提取，且description为空，且有内容字段才执行
-        if (isset($data['get_introduce']) && $data['description'] == '' && isset($dataExt['content'])) {
-            $content             = $dataExt['content'];
-            $data['description'] = str_cut(str_replace(array("\r\n", "\t", '&ldquo;', '&rdquo;', '&nbsp;'), '', strip_tags($content)), 200);
+        if (isset($data['get_introduce']) && $extraData[$siteId]['description'] == '' && isset($extraData[$siteId]['content'])) {
+            $content             = $extraData[$siteId]['content'];
+            $extraData[$siteId]['description'] = str_cut(str_replace(array("\r\n", "\t", '&ldquo;', '&rdquo;', '&nbsp;'), '', strip_tags($content)), 200);
         }
         //自动提取缩略图
-        if (isset($data['auto_thumb']) && empty($data['thumb']) && isset($dataExt['content'])) {
-            if (($path = \util\GetImgSrc::src($dataExt['content'])) !== null) {
-                $thumb_id                   = Db::name('attachment')->where('path', $path)->value('id');
-                $thumb_id && $data['thumb'] = $thumb_id;
+        if (isset($data['auto_thumb']) && empty($data['thumb']) && isset($extraData[$siteId]['content'])) {
+            if (($path = \util\GetImgSrc::src($extraData[$siteId]['content'])) !== null) {
+                $thumb_path                   = Db::name('attachment')->where('path', $path)->value('path');
+                $thumb_path && $data['thumb'] = $thumb_path;
             }
         }
         //关键词加链接
