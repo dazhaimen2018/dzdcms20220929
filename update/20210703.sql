@@ -1,0 +1,2 @@
+-- 在后台增加安全登录域名配置
+INSERT INTO `yzn_config` (`id`, `name`, `type`, `title`, `group`, `options`, `remark`, `create_time`, `update_time`, `status`, `value`, `listorder`) VALUES (NULL, 'admin_domain', 'text', '后台登录域名', 'system', '', '后台安全登录域名必须是授权顶级域名的二级域名如admin.dzdcms.com', '1625271425', '1625271425', '1', NULL, '100');
