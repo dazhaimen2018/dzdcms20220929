@@ -49,9 +49,8 @@
 .layui-tab-title .layui-this i{color: #009688;}
 .layui-header .layui-nav .layui-nav-item{height: 60px;line-height: 60px;}
 .layui-form-item{position: relative;margin-bottom: 10px;display: flex;}
-/*.layui-form .layui-form-item:last-child .layui-input-block{border: none!important;width: 100%;text-align: center}*/
 
-.layui-form-item label,.layui-form-item .layui-form-label{min-width:110px;padding:0 10px;height:38px;line-height:38px;border:1px solid #e6e6e6;border-radius:2px 0 0 2px;text-align:center;background-color:#FBFBFB;overflow:hidden;box-sizing:border-box;text-overflow:ellipsis;white-space:normal;}
+.layui-form-item label,.layui-form-item .layui-form-label{min-width:120px;padding:0 10px;height:38px;line-height:38px;border:1px solid #e6e6e6;border-radius:2px 0 0 2px;text-align:center;background-color:#FBFBFB;overflow:hidden;box-sizing:border-box;text-overflow:ellipsis;white-space:normal;}
 .layui-form-item .layui-form-field-label,.layui-form-item .layui-input-inline{flex:1;margin-left:-1px;margin-right: 0!important;}
 .layui-form-item .layui-input-block{margin-left: -1px;flex: 1;display: block;max-width: 100%;}
 .layui-form-item .layui-form-radio, .layui-form-item .layui-form-switch{margin:6px 0 0 10px}
@@ -122,6 +121,8 @@
 .layer-footer .layui-input-block, .layui-layer-footer, .layui-layer-footer .layui-input-block{border: none!important;max-width: 100% !important;text-align: center!important;margin-left: 0!important;}
 .layui-layer-footer, .layer-footer .layui-input-block {text-align: center !important;}
 .layui-layer-yzn .layui-layer-footer{text-align: center!important;}
+
+.page-form{margin-bottom: 30px}
 
 .layui-form-item .layui-form-radio, .layui-form-item .layui-form-switch, .layui-form-item .layui-form-checkbox{margin:5px 0 5px 10px}
 .layui-form-item .layui-form-radio {line-height: 24px;}
