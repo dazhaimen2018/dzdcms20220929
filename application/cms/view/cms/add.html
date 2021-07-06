@@ -6,7 +6,7 @@
         <form class="layui-form" method="post">
             <div class="layui-tab">
                 <ul class="layui-tab-title">
-                    <li class="layui-this">基本信息</li>
+
                     {volist name="site" id="s" key="i" }
                     {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
                     {if $i == getSiteInfo('id')}
@@ -16,15 +16,14 @@
                     {include file="item_site" /}
                     {/if}
                     {/volist}
+                    <li>基本信息</li>
                 </ul>
                 <div class="layui-tab-content">
-                    <div class="layui-tab-item layui-show">
-                        {include file="admin@inputItem" /}
-                    </div>
+
                     {volist name="site" id="s" key="k"}
                     {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
                     {if $k == getSiteInfo('id')}
-                    <div class="layui-tab-item">
+                    <div class="layui-tab-item layui-show">
                         <input type="hidden" name="extra_data[{$k}][site_id]" value="{$s.id}" />
                         {volist name="extraFieldList" id="vo"}
                         {include file="admin@inputItemExt" /}
@@ -32,7 +31,7 @@
                     </div>
                     {/if}
                     {else}
-                    <div class="layui-tab-item">
+                    <div class="layui-tab-item layui-show">
                         <input type="hidden" name="extra_data[{$k}][site_id]" value="{$s.id}" />
                         {volist name="extraFieldList" id="vo"}
                         {include file="admin@inputItemExt" /}
@@ -40,6 +39,9 @@
                     </div>
                     {/if}
                     {/volist}
+                    <div class="layui-tab-item">
+                        {include file="admin@inputItem" /}
+                    </div>
                 </div>
             </div>
             <input type="hidden" name="modelField[catid]" value="{$catid}">

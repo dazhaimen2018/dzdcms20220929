@@ -3,7 +3,7 @@
 <div class="layui-form-item">
     <label class="layui-form-label {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}layui-form-item-required{/if}">{$vo.title}</label>
     <div class="layui-input-block">
-        <div class="js-editormd" id="{$vo.name}">
+        <div class="js-editormd" id="{$vo.name}{$k}">
             <textarea style="display:none;" name="extra_data[{$k}][{$vo.name}]">{$value}</textarea>
         </div>
     </div>
