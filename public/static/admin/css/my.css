@@ -182,19 +182,6 @@
 
 /*editormd*/
 .editormd{border: none!important;}
-.editormd .editormd-menu>li{padding: 3px 1px!important;}
-.editormd .editormd-dialog .CodeMirror{width: 100% !important}
-.editormd .CodeMirror, .editormd-preview{width: 50% !important}
-.editormd .CodeMirror-sizer{  margin-left: 30px;  margin-bottom: -6px;  border-right-width: 24px;  min-height: 30px;  padding-right: 0px;  padding-bottom: 0px;  }
-.editormd .CodeMirror-sizer, .editormd-preview-container{margin-top: 37px;}
-.editormd-form input[type=text]{width: 200px!important;}
-.editormd-form label{padding: 0!important;text-align: center!important;height: 36px;line-height: 36px}
-.editormd-form .fa-btns label{min-width: 30px!important;}
-.editormd-form .fa-btns a{padding: 0 5px 0 0!important;}
-.editormd-form .fa-btns .fa{font-size: 1em!important;}
-.editormd-code-toolbar{display: flex}
-.editormd .editormd-dialog .CodeMirror-sizer{margin-top: 0px}
-.editormd-dialog-container select{float: right;flex: 1}
 
 .layui-tips{padding-left: 10px;color: red}
 
