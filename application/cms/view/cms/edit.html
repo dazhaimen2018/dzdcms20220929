@@ -10,10 +10,10 @@
                     <!--增加判断是否多站一起发布站点tab--->
                     {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
                     {if $i == getSiteInfo('id')}
-                    {include file="item_site" /}
+                    {include file="item_site_cms" /}
                     {/if}
                     {else}
-                    {include file="item_site" /}
+                    {include file="item_site_cms" /}
                     {/if}
                     {/volist}
                     <li>基本信息</li>

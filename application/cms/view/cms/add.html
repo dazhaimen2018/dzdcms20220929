@@ -10,10 +10,10 @@
                     {volist name="site" id="s" key="i" }
                     {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
                     {if $i == getSiteInfo('id')}
-                    {include file="item_site" /}
+                    {include file="item_site_cms" /}
                     {/if}
                     {else}
-                    {include file="item_site" /}
+                    {include file="item_site_cms" /}
                     {/if}
                     {/volist}
                     <li>基本信息</li>
@@ -23,7 +23,7 @@
                     {volist name="site" id="s" key="k"}
                     {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
                     {if $k == getSiteInfo('id')}
-                    <div class="layui-tab-item layui-show">
+                    <div class="layui-tab-item {if $k==getSiteInfo('id')}layui-show{/if}">
                         <input type="hidden" name="extra_data[{$k}][site_id]" value="{$s.id}" />
                         {volist name="extraFieldList" id="vo"}
                         {include file="admin@inputItemExt" /}
@@ -31,7 +31,7 @@
                     </div>
                     {/if}
                     {else}
-                    <div class="layui-tab-item layui-show">
+                    <div class="layui-tab-item {if $k==getSiteInfo('id')}layui-show{/if}">
                         <input type="hidden" name="extra_data[{$k}][site_id]" value="{$s.id}" />
                         {volist name="extraFieldList" id="vo"}
                         {include file="admin@inputItemExt" /}
