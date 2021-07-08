@@ -19,7 +19,6 @@ use app\cms\model\Page as Page_Model;
 use app\cms\model\Site;
 use app\common\controller\Adminbase;
 use think\Db;
-use think\facade\Cache;
 
 
 class Cms extends Adminbase
