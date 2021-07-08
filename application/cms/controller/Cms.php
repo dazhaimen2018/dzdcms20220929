@@ -19,6 +19,8 @@ use app\cms\model\Page as Page_Model;
 use app\cms\model\Site;
 use app\common\controller\Adminbase;
 use think\Db;
+use think\facade\Cache;
+
 
 class Cms extends Adminbase
 {
@@ -199,6 +201,8 @@ class Cms extends Adminbase
                     $this->error($e->getMessage());
                 }
             }
+            //增加清除缓存
+            $cache =  cleanUp();
             $this->success('操作成功！');
         } else {
             $catid = $this->request->param('catid/d', 0);
@@ -304,6 +308,8 @@ class Cms extends Adminbase
                     $this->error($e->getMessage());
                 }
             }
+            //增加清除缓存
+            $cache =  cleanUp();
             $this->success('编辑成功！');
 
         } else {
