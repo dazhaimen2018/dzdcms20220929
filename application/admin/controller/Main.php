@@ -61,11 +61,16 @@ class Main extends Adminbase
             $sys_info['gdinfo'] = "未知";
         }
         // 新增
-        if(empower()){
-            $sys_info['state'] = 1;
+        if(isModuleInstall('cms')){
+            if(empower()){
+                $sys_info['state'] = 1;
+            }else{
+                $sys_info['state'] = 0;
+            }
         }else{
-            $sys_info['state'] = 0;
-        };
+            $sys_info['state'] = -1;
+        }
+
         $sys_info['adminlog'] = Db::name('adminlog')->count();
         $sys_info['model'] = Db::name('model')->where('status', 1)->count();
         $sys_info['admin'] = Db::name('admin')->where('status', 1)->count();
