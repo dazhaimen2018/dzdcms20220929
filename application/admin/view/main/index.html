@@ -145,7 +145,7 @@
                         <div class="layui-card">
                             <div class="layui-card-header"><i class="fa fa-line-chart icon"></i>数据统计</div>
                             <div class="layui-card-body">
-                                <div id="echarts-records" style="width: 100%;min-height:298px"></div>
+                                <div id="echarts-records" style="width: 100%;min-height:328px"></div>
                             </div>
                         </div>
                     </div>
@@ -237,7 +237,10 @@
                                 <td>{$sys_info.memory_limit}</td>
                             </tr>
 
-
+                            <tr>
+                                <td>是否授权</td>
+                                <td>{if $sys_info['state']}恭喜您！您的系统已授权！{else}您的系统还没有授权！{/if}</td>
+                            </tr>
 
                             </tbody>
                         </table>
