@@ -65,6 +65,9 @@ body{padding-top:70px;color:#666;background:#f4f7f7;font-family:-apple-system,Bl
 
 .banner-show img{width: 100%}
 .banner{width:100%;float:left;height:695px!important;text-align:center;overflow:hidden;position:relative;}
+.banner .inner{padding: 15px;box-sizing: border-box}
+.banner .inner img{margin-top: 50px;max-width: 100%}
+
 .banner .swiper-container{}
 .banner .swiper-slide{width:100%;float:left;height:695px;}
 .banner #mainTheme{letter-spacing: -3px;padding-top: 160px;margin-bottom:20px;color:#fff;text-align:center;position:relative;display:inline-block;}
@@ -92,15 +95,18 @@ body{padding-top:70px;color:#666;background:#f4f7f7;font-family:-apple-system,Bl
 .insideBanner .desc{font-size: 16px;font-weight:bold;text-shadow:0px 1px 3px #000;padding: 10px}
 
 @media screen and (max-width:768px){
+    .banner{ }
     .inner{width: 100%}
     .banner #mainTheme h1 {font: italic bold 60px/100% Arial;padding-right: 0px;}
-    .banner .item2 h2 {font: normal 20px/200% arial,microsoft yahei;margin-top: 20px;}
+    .banner .item2 h2 {font: normal 20px/200% arial,microsoft yahei;margin-top:50px;}
     .banner #mainTheme{padding-top: 100px}
     .banner .item1 p{font: normal 20px/200% arial,microsoft yahei;}
     .banner .mainbtn a{display: inline-block}
 
     .insideBanner { min-height: 200px;max-height: 300px}
     .insideBanner img{height: 100%;width: auto}
+    .banner-show {height: 200px!important;}
+    .banner-show img{height: 100%;width: auto}
 }
 
 
