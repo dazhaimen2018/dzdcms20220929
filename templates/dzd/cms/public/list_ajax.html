@@ -8,7 +8,7 @@ $page=request()->param('page/d',1);
 $offset=($page-1)*5;
 $limit="$offset,5";
 {/php}
-{yzn module="cms" action="lists" catid="$catid" order="listorder ASC" limit="$limit" return="data"}
+{yzn module="cms" action="lists" catid="$catid" siteId="$site_id" cache="3600" order="listorder DESC,did DESC" limit="$limit" return="data"}
 {volist name="data" id="item"}
 {include file="public/list_item" /}
 {/volist}

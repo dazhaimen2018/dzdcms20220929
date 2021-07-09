@@ -1,5 +1,5 @@
 {include file="public/header" /}
-{include file="public/banner" /}
+{include file="public/banner_In" /}
 <div class="layui-container page">
     <div class="layui-row layui-col-space20">
         <div class="layui-col-sm3 layui-col-md2 layui-left">
@@ -29,12 +29,12 @@
                     </span>
                 </div>
             </div>
-            <div class="layui-row layui-col-space30 listAjax">
+            <div class="layui-row listAjax">
                 {volist name="list" id="item" empty="<div class='tc font20 l-h80'>暂时没有数据</div>"}
                 {include file="public/list_item" /}
                 {/volist}
             </div>
-            <div class="layui-row layui-col-space30">
+            <div class="layui-row ">
                 <div class="layui-box layui-laypage layui-laypage-default">
                     {$pages|raw}
                 </div>

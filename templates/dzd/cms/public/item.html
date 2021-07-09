@@ -1,11 +1,8 @@
-<div class="product-card" title="{$item.description}">
+<div class="project-list-item fadeInUp" data-wow-delay="{$i-0.5}s">
     <a href="{$item.url}">
-        <div class="product-cover">
-            <div class="product-cover-img" style="background-image: url('{$item.thumb}');"></div>
-        </div>
-        <div class="product-body">
-            <h3 class="product-title">{$item.title}</h3>
-            <p class="product-desc">{$item.description|str_cut=###,50}</p>
+        <img class="project-list-item-cover" src="{$item.thumb}">
+        <div class="project-list-item-body"><h2>{$item.title}</h2>
+            <div class="project-list-item-text layui-text">{$item.description}</div>
         </div>
     </a>
 </div>
