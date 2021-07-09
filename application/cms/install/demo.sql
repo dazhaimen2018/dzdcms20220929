@@ -341,10 +341,10 @@ INSERT INTO `yzn_photo_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords
 
 
 INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `status`, `inputtime`) VALUES
-(1, '中文站', 'zh-cn', 0, 'demo.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'dzd', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 0),
-(2, 'English', 'en-gb', 0, 'en.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'dzd', '', 'English', 'English', 'English', 0, '', NULL, 0, 2, 1, 0),
-(3, '北京站', 'zh-cn', 0, 'bj.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'dzd', '', '北京站', '北京站', '北京站', 0, '', NULL, 0, 3, 1, 0),
-(4, '上海站', 'zh-cn', 0, 'sh.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'dzd', '', '上海站', '上海站', '上海站', 0, '', NULL, 0, 4, 1, 0);
+(1, '中文站', 'zh-cn', 0, 'demo.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 0),
+(2, 'English', 'en-gb', 0, 'en.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '', 'English', 'English', 'English', 0, '', NULL, 0, 2, 1, 0),
+(3, '北京站', 'zh-cn', 0, 'bj.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '', '北京站', '北京站', '北京站', 0, '', NULL, 0, 3, 1, 0),
+(4, '上海站', 'zh-cn', 0, 'sh.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '', '上海站', '上海站', '上海站', 0, '', NULL, 0, 4, 1, 0);
 
 
 INSERT INTO `yzn_attachment` (`id`, `aid`, `uid`, `name`, `module`, `path`, `thumb`, `url`, `mime`, `ext`, `size`, `md5`, `sha1`, `driver`, `create_time`, `update_time`, `listorders`, `status`) VALUES
