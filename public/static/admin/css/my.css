@@ -18,10 +18,10 @@
 .layui-side .layui-nav{background-color: #ff3d0000; }
 .layui-bg-black{background-color: #ff3d00!important; }
 .showMenu .layui-header .logo{width: 60px;background-color: #009688!important;}
-.layui-layout-admin .layui-logo{    box-shadow: inset -1px -1px 0 0 #e93800;    background-color: #ff3d00!important;}
+.layui-layout-admin .layui-logo{box-shadow: inset -1px -1px 0 0 #e93800; background-color: #ffb800!important;}
 .layui-layout-admin .layui-side{box-shadow: inset -1px 0 0 0 #e93800;}
 .layui-header .logo img{display:inline-block;height:40px;vertical-align:middle;max-width: 180px;}
-.layui-header .logo h1{display:inline-block;color:#dadde2;font-weight:600;font-size:20px;font-family:Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;vertical-align:middle;background-image:-webkit-gradient(linear,37.219838% 34.532506%,36.425669% 93.178216%,from(#ffffff),to(#ffb800),color-stop(.37,#ffb800));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.layui-header .logo h1{display:inline-block;color:#dadde2;font-weight:600;font-size:20px;font-family:Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;vertical-align:middle;background-image:-webkit-gradient(linear,37.219838% 34.532506%,36.425669% 93.178216%,from(#ffffff),to(#ffb800),color-stop(.37,#ff3d00));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .layui-header .logo i{font-size: 0!important;color:#dadde2;font-weight:600; font-family:Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;vertical-align:middle;background-image:-webkit-gradient(linear,37.219838% 34.532506%,36.425669% 93.178216%,from(#ffffff),to(#ffb800),color-stop(.37,#ffb800));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
 .layui-form-field-label .city-picker-span{border-bottom: none!important;padding-left: 10px}
