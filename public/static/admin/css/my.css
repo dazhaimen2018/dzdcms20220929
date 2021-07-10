@@ -6,7 +6,7 @@
 .layui-layout-admin .layui-header {background-color: #fff !important;box-shadow: inset 0 -1px 0 0 #e5ecf0;}
 .layui-layout-admin .layui-header .layui-header-content > ul > .layui-nav-item.layui-this, .layui-tool i:hover {background-color: #ff3d00 !important;}
 .layui-layout-admin .layui-header .layui-nav .layui-nav-item a {color: #666;}
-.layui-layout-admin .layui-header .layui-menu-header-pc.layui-nav .layui-nav-item a:hover{color: #ff3d00 !important;}
+.layui-header .layui-menu-header-pc.layui-nav .layui-nav-item a:hover, .layui-header .layui-header-menu.layui-pc-show.layui-nav .layui-this a{color: #ff3d00 !important;}
 .layui-layout-admin .layui-header .layui-nav .layui-nav-item .layui-nav-child a {color: #676767!important;}
 .layui-layout-admin .layui-header .layui-header-content > ul > .layui-nav-item.layui-this{height: 59px!important;margin-top: -1px;}
 
@@ -18,14 +18,11 @@
 .layui-header .layui-tool i:hover {color: #fff}
 .layui-header-menu .layui-tab .layui-tab-title .layui-this {color: #333!important;background-color: #f2f2f2!important;}
 
-
-
-.layui-side{background-size:contain; /*background: url("../img/left.png")center center no-repeat;*/}
-.layui-side .layui-nav{background-color: #ff3d0000; }
-.layui-bg-black{background-color: #f9f9f9!important; }
-.showMenu .layui-header .logo{width: 60px;background-color: #009688!important;}
+.layui-layout-admin .layui-side{box-shadow: inset -1px 0 0 0 #e5ecf0;background-color: #f9f9f9!important; background-size:contain; /*background: url("../img/left.png")center center no-repeat;*/}
+.layui-layout-admin .layui-side .layui-nav{background-color: #ff3d0000; }
 .layui-layout-admin .layui-logo{box-shadow: inset -1px -1px 0 0 #e5ecf0; background-color: #f9f9f9!important;}
-.layui-layout-admin .layui-side{box-shadow: inset -1px 0 0 0 #e5ecf0;}
+
+
 .layui-header .logo img{display:inline-block;height:40px;vertical-align:middle;max-width: 180px;}
 .layui-header .logo h1{display:inline-block;color:#dadde2;font-weight:600;font-size:20px;font-family:Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;vertical-align:middle;background-image:-webkit-gradient(linear,37.219838% 34.532506%,36.425669% 93.178216%,from(#ffffff),to(#ff3d00),color-stop(.37,#ff3d00));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .layui-header .logo i{font-size: 0!important;color:#dadde2;font-weight:600; font-family:Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;vertical-align:middle;background-image:-webkit-gradient(linear,37.219838% 34.532506%,36.425669% 93.178216%,from(#ffffff),to(#ff3d00),color-stop(.37,#ff3d00));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
@@ -33,7 +30,8 @@
 .layui-nav-itemed>a, .layui-nav-tree .layui-nav-title a, .layui-nav-tree .layui-nav-title a:hover {color: #666!important;}
 .layui-nav-itemed>.layui-nav-child {background-color: #f9f9f9!important;}
 .layui-nav-tree .layui-nav-child a {color: #666;}
-.layui-form-field-label .city-picker-span{border-bottom: none!important;padding-left: 10px}
+.layui-nav-tree .layui-nav-item>a:hover{color: #fff!important;}
+
 
 
 .layui-tab#top_tabs_box{border-top:none!important; border-bottom: 1px solid #e6e6e6; box-shadow: 0 1px 4px rgba(0,21,41,0.08);}
@@ -53,9 +51,7 @@
 .form-search .layui-form-item{display: block;flex: none!important;float: left;clear: none;margin: 5px 5px 5px 0;}
 .form-search .layui-form-item .layui-input-inline{flex: auto;}
 /* form-search end */
-.layui-form-item .tagsinput input{width: 100%!important;}
 
-#B_history li.layui-this:after {background-color: #f2f2f2!important; }
 
 .layui-tab-title .layui-this i{color: #009688;}
 .layui-header .layui-nav .layui-nav-item{height: 60px;line-height: 60px;}
@@ -67,6 +63,7 @@
 .layui-form-item .layui-form-radio, .layui-form-item .layui-form-switch{margin:6px 0 0 10px}
 .layui-iconpicker .layui-anim{width: 280px}
 
+.layui-form-item .tagsinput input{width: 100%!important;}
 .layui-form-item .layui-text{padding: 0 10px!important;}
 .layui-form-item .layui-text img{max-width: 100%}
 
@@ -102,6 +99,7 @@
 .layui-table, .layui-table-view {margin: 0 0 0 -1px!important;}
 
 .layui-form-item .layui-form-field-label{padding: 0; line-height: 36px;}
+.layui-form-field-label .city-picker-span{border-bottom: none!important;padding-left: 10px}
 
 .layui-form-item .layui-inline{display: flex}
 .layui-form-item .layui-inline:last-child{margin-right: 0!important;}
