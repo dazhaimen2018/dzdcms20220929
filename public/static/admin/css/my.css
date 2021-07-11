@@ -29,6 +29,7 @@
 
 .layui-nav-itemed>a, .layui-nav-tree .layui-nav-title a, .layui-nav-tree .layui-nav-title a:hover {color: #666!important;}
 .layui-nav-itemed>.layui-nav-child {background-color: #f9f9f9!important;}
+.layui-nav-tree .layui-nav-child{right: 1px!important;left: -1px!important;}
 .layui-nav-tree .layui-nav-child a {color: #666;}
 .layui-nav-tree .layui-nav-item>a:hover{color: #fff!important;}
 
@@ -37,6 +38,7 @@
 .layui-tab#top_tabs_box{border-top:none!important; border-bottom: 1px solid #e6e6e6; box-shadow: 0 1px 4px rgba(0,21,41,0.08);}
 .layui-tab .tab-go-refresh, .layui-tab .tab-go-left, .layui-tab .tab-right{top: 0!important;}
 .layui-tab .tab-go-right, .layui-tab .tab-go-refresh, .layui-tab .tab-go-left, .layui-tab .tab-right .closeBox{border: none!important;}
+.layui-tab .layui-tab-title li.layui-this:after {background-color: #ff3d00;}
 
 .layui-layout-right .layui-nav-child {padding: 0!important;}
 
