@@ -40,9 +40,6 @@
 
 .layui-layout-right .layui-nav-child {padding: 0!important;}
 
-.layui-header .layui-nav .layui-nav-more {border-top-color: rgba(255, 255, 255, 0.7) !important; }
-.layui-header .layui-nav .layui-nav-mored, .layui-header .layui-nav-itemed > a .layui-nav-more {border-color: transparent transparent rgba(255, 255, 255, 0.7) !important; }
-
 .layui-card-body{padding: 5px!important;}
 
 /* form-search */
