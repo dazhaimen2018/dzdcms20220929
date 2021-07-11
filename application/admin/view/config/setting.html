@@ -1,8 +1,9 @@
 {extend name="index_layout"/}
 {block name="main"}
 <div class="layui-card">
+    <div class="layui-card-header">网站配置</div>
     <div class="layui-card-body">
-        <div class="layui-tab layui-tab-card">
+        <div class="layui-tab">
             <ul class="layui-tab-title">
                 {volist name="groupArray" id="vo"}
                 <li class="{if $key==$group}layui-this{/if}"><a href="{:url('admin/config/setting',['group'=>$key])}">{$vo}</a></li>

@@ -33,15 +33,14 @@
 .layui-nav-tree .layui-nav-child a {color: #666;}
 .layui-nav-tree .layui-nav-item>a:hover{color: #fff!important;}
 
-
-
 .layui-tab#top_tabs_box{border-top:none!important; border-bottom: 1px solid #e6e6e6; box-shadow: 0 1px 4px rgba(0,21,41,0.08);}
 .layui-tab .tab-go-refresh, .layui-tab .tab-go-left, .layui-tab .tab-right{top: 0!important;}
 .layui-tab .tab-go-right, .layui-tab .tab-go-refresh, .layui-tab .tab-go-left, .layui-tab .tab-right .closeBox{border: none!important;}
 .layui-tab .top_tab li.layui-this:after {background-color: #ff3d00;}
+.layui-tab .layui-tab-title .layui-this i{color: #009688;}
+.layui-tab .layui-tab-title .layui-this:after{border-top:2px solid #ff3d00}
 
 .layui-layout-right .layui-nav-child {padding: 0!important;}
-
 .layui-card-body{padding: 5px!important;}
 
 /* form-search */
@@ -51,8 +50,6 @@
 .form-search .layui-form-item .layui-input-inline{flex: auto;}
 /* form-search end */
 
-
-.layui-tab-title .layui-this i{color: #009688;}
 .layui-header .layui-nav .layui-nav-item{height: 60px;line-height: 60px;}
 .layui-form-item{position: relative;margin-bottom: 10px;display: flex;}
 
