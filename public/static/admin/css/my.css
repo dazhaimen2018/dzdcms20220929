@@ -185,6 +185,8 @@
 .pull-right {float: right;}
 .layuiadmin-card-status li{position:relative;padding:10px 0;border-bottom:1px solid #EEE;}
 
+.layui-mini .layui-layout-admin .layui-footer{left: 60px!important;}
+
 /*editormd*/
 .editormd{border: none!important;}
 .editormd-form input[type=text]{width: 200px!important;}
