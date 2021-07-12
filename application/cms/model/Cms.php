@@ -757,10 +757,7 @@ class Cms extends Modelbase
         }
         //自动提取缩略图
         if (isset($data['auto_thumb']) && empty($data['thumb']) && isset($extraData[$siteId]['content'])) {
-            if (($path = \util\GetImgSrc::src($extraData[$siteId]['content'])) !== null) {
-                $thumb_path                   = Db::name('attachment')->where('path', $path)->value('path');
-                $thumb_path && $data['thumb'] = $thumb_path;
-            }
+            $data['thumb'] = \util\GetImgSrc::src($extraData[$siteId]['content']);
         }
         //关键词加链接
         $autolinks = cache("Cms_Config")['autolinks'];
