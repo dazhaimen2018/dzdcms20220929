@@ -19,7 +19,7 @@
         <div class="layui-header">
         	<div class="layui-logo logo">
 	            <a href="#">
-	            	<i class="layui-icon layui-icon-component"></i>
+	            	<i>{if config('system_logo')}<img src="{:config('system_logo')}" alt="{:config('system_name')}">{/if}</i>
 	            	<h1>{:config('system_name')}</h1>
 	            </a>
         	</div>
