@@ -40,6 +40,7 @@ CREATE TABLE `yzn_category` (
   `items` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '文档数量',
   `setting` text COMMENT '相关配置信息',
   `listorder` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `target` tinyint(2) NOT NULL DEFAULT '0' COMMENT '新窗口打开',
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`),
   UNIQUE KEY `catdir` (`catdir`)

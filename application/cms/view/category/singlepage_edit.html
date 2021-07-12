@@ -101,6 +101,13 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
+                    <label class="layui-form-label">新窗口打开</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="target" value="1" title="是" {eq name="data.target" value="1" }checked{/eq}>
+                        <input type="radio" name="target" value="0" title="否" {eq name="data.target" value="0" }checked{/eq}>
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <label class="layui-form-label">显示排序</label>
                     <div class="layui-input-block">
                         <input type="text" name="listorder" autocomplete="off" placeholder="显示排序" class="layui-input" value="{$data['listorder']}">
