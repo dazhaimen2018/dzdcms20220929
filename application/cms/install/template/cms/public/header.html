@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css">
     <link rel="stylesheet" href="__SKIN__/dzd/cms/css/style.css"/>
     <link rel="stylesheet" href="__STATIC__/libs/awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="__SKIN__/dzd/cms/css/animate.min.css">
     <link rel="stylesheet" href="//at.alicdn.com/t/font_2377328_cb5nlydg0w7.css">
 </head>
 <body>
@@ -47,18 +46,13 @@
                     <a href="javascript:;">所有站点</a>
                     <dl class="layui-nav-child">
                         <!-- 域名相同使用于多语言站，点击切换 -->
-
                         {volist name="sameSite" id="vo"}
-                        <dd><a href="javascript:void(0);" onclick="setLang('{$vo.mark}')" title="切换到{$vo.name}"><img src= "/static/language/{$vo.mark}.png"> {$vo.name}</a></dd>
+                        <dd><a href="{$vo.http}://{$vo.domain}{$urls}" onclick="setLang('{$vo.mark}')" title="切换到{$vo.name}"><img src= "/static/language/{$vo.mark}.png"> {$vo.name}</a></dd>
                         {/volist}
-
                         <!-- 所有站 -->
-
                         {volist name="allSite" id="vo"}
                         <dd> <a {if $site_id==$vo.id}class="active"{/if} href="{$vo.http}://{$vo.domain}" title="跳转到{$vo.name}"><img src= "/static/language/{$vo.mark}.png"> {$vo.name}</a></dd>
                         {/volist}
-
-
                     </dl>
                 </li>
                 <!-- 搜索 -->

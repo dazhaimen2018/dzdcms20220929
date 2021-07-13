@@ -41,10 +41,11 @@ class Index extends Cmsbase
             $siteId = $site['id'];
         }
         $this->site_id = $siteId;
-
+        $urls = $_SERVER['REQUEST_URI'];
         $count = Site::where("domain='{$domain}'")->count();
         if ($count > 1) {
             $sameSite = Site::where("domain='{$domain}'")->select()->toArray();
+
             $allSite  = Site::where("domain!='{$domain}'")->select()->toArray();
         } else {
             $allSite  = Site::select()->toArray();
@@ -59,6 +60,7 @@ class Index extends Cmsbase
 
         $this->assign([
             'mark'     => $mark,
+            'urls'     => $urls,
             'sameSite' => $sameSite,
             'allSite'  => $allSite,
         ]);
