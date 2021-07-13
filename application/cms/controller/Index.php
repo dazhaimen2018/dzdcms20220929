@@ -29,11 +29,13 @@ class Index extends Cmsbase
         parent::initialize();
 
         $this->CmsModel = new CmsModel;
-        //$domain          = $_SERVER['HTTP_HOST'];
-        $domain          = 'demo.dzdcms.com'; //固定的默认域名
-        $site            = Site::where("domain='{$domain}'")->find();
-        $mark            = 'zh-cn';
-        $siteId          = 1;
+        $domain         = isset(cache("Cms_Config")['domain']) ? cache("Cms_Config")['domain'] : 1;
+        if (empty($domain)){
+            $domain     = $_SERVER['HTTP_HOST'];
+        }
+        $site           = Site::where("domain='{$domain}'")->find();
+        $mark           = 'zh-cn';
+        $siteId         = 1;
         if ($site) {
             $mark   = $site['mark'];
             $siteId = $site['id'];
