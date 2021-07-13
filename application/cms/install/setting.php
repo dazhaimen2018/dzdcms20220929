@@ -4,7 +4,7 @@
  * 内容管理系统，默认配置
  */
 return array(
-    'domain'             => ’wwww.dzdcms.com‘,
+    'domain'             => '',
     'web_site_status'    => 1,
     'web_site_recycle'   => 0,
     'web_site_guide'     => 0,
