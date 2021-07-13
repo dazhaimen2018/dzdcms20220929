@@ -153,7 +153,7 @@ INSERT INTO `yzn_category_data` (`id`, `catid`, `catname`, `description`, `setti
 (21, 11, '留言', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0),
 (22, 11, 'Message', 'Message Message', '{\"title\":\"Message\",\"keyword\":\"\",\"description\":\"\"}', 2, 0),
 (23, 11, 'doc', '', '{\"title\":\"1111\",\"keyword\":\"1111\",\"description\":\"1111\"}', 3, 0),
-(24, 12, '视频', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0),
+(24, 12, '文档', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0),
 (25, 9, '下载', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0);
 
 INSERT INTO `yzn_lang` (`id`, `name`, `type`, `title`, `group`, `options`, `remark`, `create_time`, `update_time`, `value`, `listorder`, `status`) VALUES
