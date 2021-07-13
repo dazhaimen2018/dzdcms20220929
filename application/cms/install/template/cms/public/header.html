@@ -47,17 +47,18 @@
                     <a href="javascript:;">所有站点</a>
                     <dl class="layui-nav-child">
                         <!-- 域名相同使用于多语言站，点击切换 -->
-                        {if $siteArray}
-                        {volist name="siteArray" id="vo"}
+
+                        {volist name="sameSite" id="vo"}
                         <dd><a href="javascript:void(0);" onclick="setLang('{$vo.mark}')" title="切换到{$vo.name}"><img src= "/static/language/{$vo.mark}.png"> {$vo.name}</a></dd>
                         {/volist}
-                        {/if}
+
                         <!-- 所有站 -->
-                        {get table="site"  status="1" return="data"}
-                        {volist name="data" id="vo"}
-                        <dd> <a {if $site_id==$vo.id}class="active"{/if} href="{if $vo.http==0}http://{else}https://{/if}{$vo.domain}/" title="跳转到{$vo.name}"><img src= "/static/language/{$vo.mark}.png"> {$vo.name}</a></dd>
+
+                        {volist name="allSite" id="vo"}
+                        <dd> <a {if $site_id==$vo.id}class="active"{/if} href="{$vo.http}://{$vo.domain}" title="跳转到{$vo.name}"><img src= "/static/language/{$vo.mark}.png"> {$vo.name}</a></dd>
                         {/volist}
-                        {/get}
+
+
                     </dl>
                 </li>
                 <!-- 搜索 -->

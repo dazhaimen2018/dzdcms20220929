@@ -12,6 +12,13 @@
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
                         <div class="layui-form-item">
+                            <label class="layui-form-label">站点域名</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="setting[domain]" placeholder="只有多个相同域名站点时有效，不带http://和/ 如 www.dzdcms.com" class="layui-input" value="{$setting['domain']}">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">只有多个相同域名站点时有效，不带http://和/ 如 www.dzdcms.com</div>
+                        </div>
+                        <div class="layui-form-item">
                             <label class="layui-form-label">站点开关</label>
                             <div class="layui-input-block">
                                 <input type="radio" name="setting[web_site_status]" value="1" title="开启" {if 1==$setting['web_site_status']}checked{/if}>

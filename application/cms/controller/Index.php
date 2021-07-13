@@ -29,7 +29,8 @@ class Index extends Cmsbase
         parent::initialize();
 
         $this->CmsModel = new CmsModel;
-        $domain          = $_SERVER['HTTP_HOST'];
+        //$domain          = $_SERVER['HTTP_HOST'];
+        $domain          = 'demo.dzdcms.com'; //固定的默认域名
         $site            = Site::where("domain='{$domain}'")->find();
         $mark            = 'zh-cn';
         $siteId          = 1;
@@ -37,13 +38,14 @@ class Index extends Cmsbase
             $mark   = $site['mark'];
             $siteId = $site['id'];
         }
-        $this->view->assign('mark', $mark);
         $this->site_id = $siteId;
 
         $count = Site::where("domain='{$domain}'")->count();
         if ($count > 1) {
-            $siteArray = Site::where("domain='{$domain}'")->select()->toArray();
-            $this->view->assign('siteArray', $siteArray);
+            $sameSite = Site::where("domain='{$domain}'")->select()->toArray();
+            $allSite  = Site::where("domain!='{$domain}'")->select()->toArray();
+        } else {
+            $allSite  = Site::select()->toArray();
         }
 
         if (isset($_COOKIE['lang']) && !empty($_COOKIE['lang'])) {
@@ -53,6 +55,11 @@ class Index extends Cmsbase
             }
         }
 
+        $this->assign([
+            'mark'     => $mark,
+            'sameSite' => $sameSite,
+            'allSite'  => $allSite,
+        ]);
     }
 
     /**

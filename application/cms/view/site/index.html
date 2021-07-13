@@ -23,11 +23,7 @@
 </script>
 
 <script type="text/html" id="url">
-    {{# if(d.http ==0){ }}
-    <div><a href="http://{{ d.domain }}" target="_blank"><i class="iconfont icon-lianjie"></i> http://{{ d.domain }}</a></div>
-    {{#  } else { }}
-    <div><a href="https://{{ d.domain }}" target="_blank"><i class="iconfont icon-lianjie"></i> https://{{ d.domain }}</a></div>
-    {{#  } }}
+    <div><a href="{{ d.http }}{{ d.domain }}" target="_blank"><i class="iconfont icon-lianjie"></i> {{ d.http }}://{{ d.domain }}</a></div>
 </script>
 
 <script type="text/html" id="statusTpl">

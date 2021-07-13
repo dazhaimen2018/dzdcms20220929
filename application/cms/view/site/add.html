@@ -40,8 +40,8 @@
 				<div class="layui-input-inline">
 					<select name="http" lay-verify="required">
 						<option value=""></option>
-						<option value="0" {if $data.http==0}selected{/if}>http://</option>
-						<option value="1" {if $data.http==1}selected{/if}>https://</option>
+						<option value="https" {if $data['http']='https'}selected{/if}>https://</option>
+						<option value="http" {if $data['http']='http'}selected{/if}>http://</option>
 					</select>
 				</div>
 				<div class="layui-input-inline">
@@ -95,7 +95,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">网站Logo</label>
 				<div class="layui-input-block layui-upload">
-				 {php}echo \util\Form::images('logo','',$data['logo']){/php}
+					{php}echo \util\Form::images('logo','',$data['logo']){/php}
 				</div>
 			</div>
 			<div class="layui-form-item">
