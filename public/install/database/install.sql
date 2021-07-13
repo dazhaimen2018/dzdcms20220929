@@ -195,7 +195,7 @@ INSERT INTO `yzn_config` (`id`, `name`, `type`, `title`, `group`, `options`, `re
 (13, 'upload_thumb_water_position', 'radio', '水印位置', 'upload', '1:左上角\r\n2:上居中\r\n3:右上角\r\n4:左居中\r\n5:居中\r\n6:右居中\r\n7:左下角\r\n8:下居中\r\n9:右下角', '只有开启水印功能才生效', 1552435257, 1552436082, 1, '9', 7),
 (14, 'upload_thumb_water_alpha', 'text', '水印透明度', 'upload', '', '请输入0~100之间的数字，数字越小，透明度越高', 1552435299, 1552436083, 1, '50', 8),
 (15, 'system_name', 'text', '系统名称', 'system', '', '', 1618874857, 1618874857, 1, 'DZDCMS', 100),
-(16, 'admin_domain', 'text', '后台登录域名', 'system', '', '后台安全登录域名必须是授权顶级域名的二级域名如admin.dzdcms.com', 1625271425, 1625271425, 1, '', 100);
+(16, 'admin_domain', 'text', '后台登录域名', 'system', '', '后台安全登录域名必须是授权顶级域名的二级域名如admin.dzdcms.com', 1625271425, 1625271425, 1, '', 100),
 (17, 'system_logo', 'image', '系统LOGO', 'system', '', '', 1614839822, 1614839893, 1, '1', 100);
 
 -- --------------------------------------------------------
@@ -411,7 +411,7 @@ CREATE TABLE `yzn_site` (
   `id` smallint UNSIGNED NOT NULL COMMENT '站点ID',
   `name` varchar(30) NOT NULL DEFAULT '' COMMENT '站点名称',
   `mark` varchar(30) NOT NULL DEFAULT '' COMMENT '站点标识',
-  `http` tinyint NOT NULL DEFAULT '0' COMMENT 'HTTP',
+  `http` varchar(30) NOT NULL DEFAULT '' COMMENT 'HTTP',
   `domain` varchar(100) NOT NULL DEFAULT '' COMMENT '站点域名',
   `logo` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点LOGO',
   `template` varchar(30) NOT NULL DEFAULT '' COMMENT '皮肤',
@@ -428,7 +428,7 @@ CREATE TABLE `yzn_site` (
 --
 
 INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `logo`, `template`, `title`, `keywords`, `description`, `listorder`, `status`, `inputtime`) VALUES
-(1, ' 中文', 'zh-cn', 0, 'demo.wxinw.com', 0, '', ' 中文', ' 中文', ' 中文', 1, 1, 0);
+(1, ' 中文', 'zh-cn', 'http', 'demo.wxinw.com', 0, '', ' 中文', ' 中文', ' 中文', 1, 1, 0);
 
 -- --------------------------------------------------------
 
