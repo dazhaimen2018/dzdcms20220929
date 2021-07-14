@@ -157,10 +157,26 @@ INSERT INTO `yzn_category_data` (`id`, `catid`, `catname`, `description`, `setti
 (25, 9, '下载', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0);
 
 INSERT INTO `yzn_lang` (`id`, `name`, `type`, `title`, `group`, `options`, `remark`, `create_time`, `update_time`, `value`, `listorder`, `status`) VALUES
-(1, 'siteName', 'text', '网站名称', '', '', '', 1615821490, 1615961078, NULL, 100, 1),
-(2, 'beian', 'text', '备案号', '', '', '', 1615821524, 1615961102, NULL, 100, 1),
-(3, 'copyright', 'text', '尾部版权', '', '', '', 1615821624, 1615961090, NULL, 100, 1),
-(4, 'home', 'text', '首页', '', '', '', 1615961008, 1615961178, NULL, 100, 1);
+(1, 'siteName', 'text', '网站名称', '', '', '', 1615821490, 1626223173, NULL, 100, 1),
+(2, 'beian', 'text', '备案号', '', '', '', 1615821524, 1626223157, NULL, 100, 1),
+(3, 'copyright', 'text', '尾部版权', '', '', '', 1615821624, 1626223143, NULL, 100, 1),
+(4, 'home', 'text', '首页', '', '', '', 1615961008, 1626223128, NULL, 100, 1),
+(5, 'allSites', 'text', '所有站点', '', '', '', 1626223287, 1626223287, NULL, 100, 1),
+(6, 'searchTxt', 'text', '请输入关键字', '', '', '', 1626223372, 1626223372, NULL, 100, 1),
+(7, 'register', 'text', '注册', '', '', '', 1626223433, 1626223433, NULL, 100, 1),
+(8, 'login', 'text', '登录', '', '', '', 1626223521, 1626223521, NULL, 100, 1),
+(9, 'links', 'text', '友情链接', '', '', '', 1626223836, 1626223836, NULL, 100, 1),
+(10, 'Name', 'text', '姓名', '', '', '', 1626224143, 1626224143, NULL, 100, 1),
+(11, 'enterName', 'text', '请输入姓名', '', '', '', 1626224194, 1626224194, NULL, 100, 1),
+(12, 'phone', 'text', '手机', '', '', '', 1626224624, 1626224624, NULL, 100, 1),
+(13, 'inputPhone', 'text', '请输入手机', '', '', '', 1626225176, 1626225176, NULL, 100, 1),
+(14, 'email', 'text', '邮箱', '', '', '', 1626225244, 1626225244, NULL, 100, 1),
+(15, 'inputEmail', 'text', '请输入邮箱', '', '', '', 1626225288, 1626225288, NULL, 100, 1),
+(16, 'messageContent', 'text', '留言内容', '', '', '', 1626225417, 1626225417, NULL, 100, 1),
+(17, 'enterMessage', 'text', '请输入留言内容', '', '', '', 1626225463, 1626225463, NULL, 100, 1),
+(18, 'captcha', 'text', '验证码', '', '', '', 1626225529, 1626225529, NULL, 100, 1),
+(19, 'submit', 'text', '立即提交', '', '', '', 1626225585, 1626225585, NULL, 100, 1),
+(20, 'reset', 'text', '重置', '', '', '', 1626225620, 1626225620, NULL, 100, 1);
 
 
 INSERT INTO `yzn_lang_data` (`id`, `lang_id`, `value`, `site_id`, `status`) VALUES
@@ -171,7 +187,79 @@ INSERT INTO `yzn_lang_data` (`id`, `lang_id`, `value`, `site_id`, `status`) VALU
 (5, 4, 'Home', 2, 0),
 (6, 1, 'DZDCMS', 2, 0),
 (7, 3, 'Copyright © 2006-2021 dzdcms.com All rights reserved.', 2, 0),
-(8, 2, '京ICP备12010025号-11', 2, 0);
+(8, 2, '京ICP备12010025号-11', 2, 0),
+(9, 4, '首页', 3, 0),
+(10, 4, '首页', 4, 0),
+(11, 3, 'Copyright © 2006-2021 dzdcms.com All rights reserved.', 3, 0),
+(12, 3, 'Copyright © 2006-2021 dzdcms.com All rights reserved.', 4, 0),
+(13, 2, '京ICP备12010025号-11', 3, 0),
+(14, 2, '京ICP备12010025号-11', 4, 0),
+(15, 1, '多站点CMS', 3, 0),
+(16, 1, '多站点CMS', 4, 0),
+(17, 5, '所有站点', 1, 0),
+(18, 5, 'All sites', 2, 0),
+(19, 5, '所有站点', 3, 0),
+(20, 5, '所有站点', 4, 0),
+(21, 6, '请输入关键字', 1, 0),
+(22, 6, 'Please input keywords', 2, 0),
+(23, 6, '请输入关键字', 3, 0),
+(24, 6, '请输入关键字', 4, 0),
+(25, 7, '注册', 1, 0),
+(26, 7, 'register', 2, 0),
+(27, 7, '注册', 3, 0),
+(28, 7, '注册', 4, 0),
+(29, 8, '登录', 1, 0),
+(30, 8, 'Login', 2, 0),
+(31, 8, '登录', 3, 0),
+(32, 8, '登录', 4, 0),
+(33, 9, '友情链接', 1, 0),
+(34, 9, 'Links', 2, 0),
+(35, 9, '友情链接', 3, 0),
+(36, 9, '友情链接', 4, 0),
+(37, 10, '姓名', 1, 0),
+(38, 10, 'Name', 2, 0),
+(39, 10, '姓名', 3, 0),
+(40, 10, '姓名', 4, 0),
+(41, 11, '请输入姓名', 1, 0),
+(42, 11, 'Please enter your name', 2, 0),
+(43, 11, '请输入姓名', 3, 0),
+(44, 11, '请输入姓名', 4, 0),
+(45, 12, '手机', 1, 0),
+(46, 12, 'phone', 2, 0),
+(47, 12, '手机', 3, 0),
+(48, 12, '手机', 4, 0),
+(49, 13, '请输入手机', 1, 0),
+(50, 13, 'Please input mobile phone', 2, 0),
+(51, 13, '请输入手机', 3, 0),
+(52, 13, '请输入手机', 4, 0),
+(53, 14, '邮箱', 1, 0),
+(54, 14, 'E-mail', 2, 0),
+(55, 14, '邮箱', 3, 0),
+(56, 14, '邮箱', 4, 0),
+(57, 15, '请输入邮箱', 1, 0),
+(58, 15, 'Please input email', 2, 0),
+(59, 15, '请输入邮箱', 3, 0),
+(60, 15, '请输入邮箱', 4, 0),
+(61, 16, '留言内容', 1, 0),
+(62, 16, 'Message content', 2, 0),
+(63, 16, '留言内容', 3, 0),
+(64, 16, '留言内容', 4, 0),
+(65, 17, '请输入留言内容', 1, 0),
+(66, 17, 'Please enter the message', 2, 0),
+(67, 17, '请输入留言内容', 3, 0),
+(68, 17, '请输入留言内容', 4, 0),
+(69, 18, '验证码', 1, 0),
+(70, 18, 'Captcha', 2, 0),
+(71, 18, '验证码', 3, 0),
+(72, 18, '验证码', 4, 0),
+(73, 19, '立即提交', 1, 0),
+(74, 19, 'Submit', 2, 0),
+(75, 19, '立即提交', 3, 0),
+(76, 19, '立即提交', 4, 0),
+(77, 20, '重置', 1, 0),
+(78, 20, 'Reset', 2, 0),
+(79, 20, '重置', 3, 0),
+(80, 20, '重置', 4, 0);
 
 
 INSERT INTO `yzn_model` (`id`, `module`, `name`, `tablename`, `description`, `setting`, `type`, `create_time`, `update_time`, `listorders`, `status`) VALUES
@@ -406,10 +494,10 @@ ALTER TABLE `yzn_category_data`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 ALTER TABLE `yzn_lang`
-    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_INCREMENT=5;
+    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_INCREMENT=21;
 
 ALTER TABLE `yzn_lang_data`
-    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 ALTER TABLE `yzn_model`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
