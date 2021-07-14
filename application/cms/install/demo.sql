@@ -127,7 +127,7 @@ INSERT INTO `yzn_category` (`id`, `catname`, `catdir`, `english`, `type`, `model
 (9, '下载', 'download', '', 2, 3, 0, '0', '9', '1,2,3,4', 0, '', '', '', 2, 'a:3:{s:17:\"category_template\";s:22:\"category_download.html\";s:13:\"list_template\";s:18:\"list_download.html\";s:13:\"show_template\";s:18:\"show_download.html\";}', 100, 0, 1),
 (10, '视频', 'video', '', 2, 4, 0, '0', '10', '1,2,3,4', 0, '', '', '', 2, 'a:3:{s:17:\"category_template\";s:19:\"category_video.html\";s:13:\"list_template\";s:15:\"list_video.html\";s:13:\"show_template\";s:15:\"show_video.html\";}', 100, 0, 1),
 (11, '留言', 'message', '', 1, 0, 0, '0', '11', '1,2,3,4', 0, '', '', '', 0, 'a:1:{s:13:\"page_template\";s:14:\"page_form.html\";}', 100, 0, 1),
-(12, '文档', 'doc', '', 1, 0, 0, '0', '11', '1,2,3,4', 0, '', '', 'https://doc.dzdcms.com/', 0, 'a:1:{s:13:\"page_template\";s:14:\"page_form.html\";}', 100, 0, 1);
+(12, '文档', 'doc', '', 1, 0, 0, '0', '12', '1,2,3,4', 0, '', '', 'https://doc.dzdcms.com/', 0, 'a:1:{s:13:\"page_template\";s:14:\"page_form.html\";}', 100, 1, 1);
 
 INSERT INTO `yzn_category_data` (`id`, `catid`, `catname`, `description`, `setting`, `site_id`, `status`) VALUES
 (1, 5, '行业新闻', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0),
@@ -154,7 +154,10 @@ INSERT INTO `yzn_category_data` (`id`, `catid`, `catname`, `description`, `setti
 (22, 11, 'Message', 'Message Message', '{\"title\":\"Message\",\"keyword\":\"\",\"description\":\"\"}', 2, 0),
 (23, 11, 'doc', '', '{\"title\":\"1111\",\"keyword\":\"1111\",\"description\":\"1111\"}', 3, 0),
 (24, 12, '文档', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0),
-(25, 9, '下载', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0);
+(25, 9, '下载', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0),
+(26, 9, 'down', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, 0),
+(27, 10, 'video', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, 0),
+(28, 12, 'doc', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, 0);
 
 INSERT INTO `yzn_lang` (`id`, `name`, `type`, `title`, `group`, `options`, `remark`, `create_time`, `update_time`, `value`, `listorder`, `status`) VALUES
 (1, 'siteName', 'text', '网站名称', '', '', '', 1615821490, 1626223173, NULL, 100, 1),
@@ -491,7 +494,7 @@ ALTER TABLE `yzn_category`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '栏目ID', AUTO_INCREMENT=13;
 
 ALTER TABLE `yzn_category_data`
-    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 ALTER TABLE `yzn_lang`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_INCREMENT=21;
