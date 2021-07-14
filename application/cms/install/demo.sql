@@ -115,19 +115,19 @@ INSERT INTO `yzn_download` (`id`, `catid`, `theme`, `url`, `thumb`, `flag`, `lis
 (1, 9, '多站点CMS官方模版下载', '', '/uploads/images/photo.png', '', 100, 1, 'admin', 1, 56, 1624587916, 1624699219, 1, '1', '0.00', 93),
 (2, 9, '文档模版', '', '/uploads/images/photo.png', '', 100, 1, 'admin', 1, 18, 1624588582, 1624699209, 1, '2', '99.00', 101);
 
-INSERT INTO `yzn_category` (`id`, `catname`, `catdir`, `type`, `modelid`, `parentid`, `arrparentid`, `arrchildid`, `sites`, `child`, `image`, `icon`, `url`, `items`, `setting`, `listorder`, `target`, `status`) VALUES
-(1, '资讯', 'news', 2, 1, 0, '0', '1,5,6', '1,2', 1, '0', '', '', 0, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 1, 0, 1),
-(2, '关于', 'about', 1, 0, 0, '0', '2,7,8', '1,2,3,4', 1, '', '', '', 0, 'a:1:{s:13:\"page_template\";s:9:\"page.html\";}', 1, 0, 1),
-(3, '案例', 'case', 2, 2, 0, '0', '3', '1,2', 0, '', '', '', 3, 'a:3:{s:17:\"category_template\";s:19:\"category_photo.html\";s:13:\"list_template\";s:15:\"list_photo.html\";s:13:\"show_template\";s:15:\"show_photo.html\";}', 100, 0, 1),
-(4, '优点', 'youdian', 2, 1, 0, '0', '4', '1,2', 0, '0', '', '', 6, 'a:3:{s:17:\"category_template\";s:19:\"category_photo.html\";s:13:\"list_template\";s:15:\"list_photo.html\";s:13:\"show_template\";s:15:\"show_photo.html\";}', 100, 0, 1),
-(5, '行业新闻', 'hangye', 2, 1, 1, '0,1', '5', '1,2', 0, '0', '', '', 2, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 100, 0, 1),
-(6, '公司动态', 'dongtai', 2, 1, 1, '0,1', '6', '1,2', 0, '0', '', '', 6, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 100, 0, 1),
-(7, '公司简介', 'jianjie', 1, 0, 2, '0,2', '7', '1,2', 0, '', '', '', 0, 'a:1:{s:13:\"page_template\";s:9:\"page.html\";}', 100, 0, 1),
-(8, '联系我们', 'lianxi', 1, 0, 2, '0,2', '8', '1,2', 0, '0', '', '', 0, 'a:4:{s:13:\"page_template\";s:9:\"page.html\";s:17:\"category_template\";s:0:\"\";s:13:\"list_template\";s:0:\"\";s:13:\"show_template\";s:0:\"\";}', 100, 0, 1),
-(9, '下载', 'download', 2, 3, 0, '0', '9', '1,2,3,4', 0, '', '', '', 2, 'a:3:{s:17:\"category_template\";s:22:\"category_download.html\";s:13:\"list_template\";s:18:\"list_download.html\";s:13:\"show_template\";s:18:\"show_download.html\";}', 100, 0, 1),
-(10, '视频', 'video', 2, 4, 0, '0', '10', '1,2,3,4', 0, '', '', '', 2, 'a:3:{s:17:\"category_template\";s:19:\"category_video.html\";s:13:\"list_template\";s:15:\"list_video.html\";s:13:\"show_template\";s:15:\"show_video.html\";}', 100, 0, 1),
-(11, '留言', 'message', 1, 0, 0, '0', '11', '1,2,3,4', 0, '', '', '', 0, 'a:1:{s:13:\"page_template\";s:14:\"page_form.html\";}', 100, 0, 1),
-(12, '文档', 'doc', 1, 0, 0, '0', '11', '1,2,3,4', 0, '', '', 'https://doc.dzdcms.com/', 0, 'a:1:{s:13:\"page_template\";s:14:\"page_form.html\";}', 100, 0, 1);
+INSERT INTO `yzn_category` (`id`, `catname`, `catdir`, `english`, `type`, `modelid`, `parentid`, `arrparentid`, `arrchildid`, `sites`, `child`, `image`, `icon`, `url`, `items`, `setting`, `listorder`, `target`, `status`) VALUES
+(1, '资讯', 'news', '', 2, 1, 0, '0', '1,5,6', '1,2', 1, '0', '', '', 0, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 1, 0, 1),
+(2, '关于', 'about', '', 1, 0, 0, '0', '2,7,8', '1,2,3,4', 1, '', '', '', 0, 'a:1:{s:13:\"page_template\";s:9:\"page.html\";}', 1, 0, 1),
+(3, '案例', 'case', '', 2, 2, 0, '0', '3', '1,2', 0, '', '', '', 3, 'a:3:{s:17:\"category_template\";s:19:\"category_photo.html\";s:13:\"list_template\";s:15:\"list_photo.html\";s:13:\"show_template\";s:15:\"show_photo.html\";}', 100, 0, 1),
+(4, '优点', 'youdian', '', 2, 1, 0, '0', '4', '1,2', 0, '0', '', '', 6, 'a:3:{s:17:\"category_template\";s:19:\"category_photo.html\";s:13:\"list_template\";s:15:\"list_photo.html\";s:13:\"show_template\";s:15:\"show_photo.html\";}', 100, 0, 1),
+(5, '行业新闻', 'hangye', '', 2, 1, 1, '0,1', '5', '1,2', 0, '0', '', '', 2, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 100, 0, 1),
+(6, '公司动态', 'dongtai', '', 2, 1, 1, '0,1', '6', '1,2', 0, '0', '', '', 6, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 100, 0, 1),
+(7, '公司简介', 'jianjie', '', 1, 0, 2, '0,2', '7', '1,2', 0, '', '', '', 0, 'a:1:{s:13:\"page_template\";s:9:\"page.html\";}', 100, 0, 1),
+(8, '联系我们', 'lianxi', '', 1, 0, 2, '0,2', '8', '1,2', 0, '0', '', '', 0, 'a:4:{s:13:\"page_template\";s:9:\"page.html\";s:17:\"category_template\";s:0:\"\";s:13:\"list_template\";s:0:\"\";s:13:\"show_template\";s:0:\"\";}', 100, 0, 1),
+(9, '下载', 'download', '', 2, 3, 0, '0', '9', '1,2,3,4', 0, '', '', '', 2, 'a:3:{s:17:\"category_template\";s:22:\"category_download.html\";s:13:\"list_template\";s:18:\"list_download.html\";s:13:\"show_template\";s:18:\"show_download.html\";}', 100, 0, 1),
+(10, '视频', 'video', '', 2, 4, 0, '0', '10', '1,2,3,4', 0, '', '', '', 2, 'a:3:{s:17:\"category_template\";s:19:\"category_video.html\";s:13:\"list_template\";s:15:\"list_video.html\";s:13:\"show_template\";s:15:\"show_video.html\";}', 100, 0, 1),
+(11, '留言', 'message', '', 1, 0, 0, '0', '11', '1,2,3,4', 0, '', '', '', 0, 'a:1:{s:13:\"page_template\";s:14:\"page_form.html\";}', 100, 0, 1),
+(12, '文档', 'doc', '', 1, 0, 0, '0', '11', '1,2,3,4', 0, '', '', 'https://doc.dzdcms.com/', 0, 'a:1:{s:13:\"page_template\";s:14:\"page_form.html\";}', 100, 0, 1);
 
 INSERT INTO `yzn_category_data` (`id`, `catid`, `catname`, `description`, `setting`, `site_id`, `status`) VALUES
 (1, 5, '行业新闻', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, 0),

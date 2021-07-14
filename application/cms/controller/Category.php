@@ -97,12 +97,12 @@ class Category extends Adminbase
             switch ($data['type']) {
                 //单页
                 case 1:
-                    $fields = ['parentid', 'catname', 'catdir', 'type', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'status', 'target'];
+                    $fields = ['parentid', 'catname', 'catdir', 'english', 'type', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'target', 'status'];
                     $scene  = 'page';
                     break;
                 //列表
                 case 2:
-                    $fields = ['parentid', 'catname', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'status', 'target'];
+                    $fields = ['parentid', 'catname', 'catdir', 'english', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'target', 'status'];
                     $scene  = 'list';
                     break;
                 default:
@@ -288,7 +288,7 @@ class Category extends Adminbase
             if (true !== $result) {
                 $this->error($result);
             }
-            $status = $this->modelClass->editCategory($data, ['parentid', 'catname', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'status', 'target']);
+            $status = $this->modelClass->editCategory($data, ['parentid', 'catname', 'catdir', 'english', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'target', 'status']);
             if ($status) {
                 //更新会员组权限
                 isset($data['priv_groupid']) && model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);

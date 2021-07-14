@@ -27,6 +27,7 @@ CREATE TABLE `yzn_category` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '栏目ID',
   `catname` varchar(30) NOT NULL DEFAULT '' COMMENT '栏目名称',
   `catdir` varchar(30) NOT NULL DEFAULT '' COMMENT '唯一标识',
+  `english` varchar(100) NOT NULL DEFAULT '' COMMENT '英文标题',
   `type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '类别',
   `modelid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '模型ID',
   `parentid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '父ID',
