@@ -43,7 +43,7 @@
 
                 <!--所有站点列表-->
                 <li class="layui-nav-item">
-                    <a href="javascript:;">所有站点</a>
+                    <a href="javascript:;">{:patch('allSites')}</a>
                     <dl class="layui-nav-child">
                         <!-- 相同域名使用于多语言站，点击切换 所有子站域名相同时 换成 href="javascript：void(0)" -->
                         {volist name="sameSite" id="vo"}
@@ -58,7 +58,7 @@
                 <!-- 搜索 -->
                 <li class="layui-nav-item">
                     <form name="formsearch" action="{:url('cms/index/search')}" class="layui-search">
-                        <input class="layui-input" type="text" name="keyword" value="请输入关键字" onfocus="if(this.value==defaultValue)this.value=''" onblur="if(this.value=='')this.value=defaultValue">
+                        <input class="layui-input" type="text" name="keyword" value="{:patch('searchTxt')}" onfocus="if(this.value==defaultValue)this.value=''" onblur="if(this.value=='')this.value=defaultValue">
                         <button type="submit" class="search-btn layui-btn"><i class="layui-icon layui-icon-search"></i></button>
                     </form>
                 </li>
@@ -76,10 +76,10 @@
                 </li>
                 {else}
                 <li class="layui-nav-item">
-                    <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">注册/登录</a>
+                    <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">{:patch('register')}/{:patch('login')}</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="{:url('member/index/login')}">登录</a></dd>
-                        <dd><a href="{:url('member/index/register')}">注册</a></dd>
+                        <dd><a href="{:url('member/index/login')}">{:patch('login')}</a></dd>
+                        <dd><a href="{:url('member/index/register')}">{:patch('register')}</a></dd>
                     </dl>
                 </li>
                 {/if}

@@ -1,7 +1,7 @@
 <div class="footer-bottom copyright hidden-xs">
     {if isModuleInstall('links')}
     <div class="links">
-        友情链接：
+        {:patch('links')}：
         <ul>
             {yzn module="links" action="lists" siteId="$site_id" cache="3600" order="listorder ASC" num="10"  return="data"}
             {volist name="data" id="vo"}

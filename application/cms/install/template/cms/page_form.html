@@ -18,45 +18,45 @@
                             <input type="hidden" name="id" value="5" />
                             <input type="hidden" name="modelField[site_id]" value="{$site_id}" />
                             <div class="layui-form-item">
-                                <label class="layui-form-label">姓名</label>
+                                <label class="layui-form-label">{:patch('Name')}</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="modelField[name]" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input" value="">
+                                    <input type="text" name="modelField[name]" required  lay-verify="required" placeholder="{:patch('enterName')}" lay-reqText={:patch('enterName')} autocomplete="off" class="layui-input" value="">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label layui-form-item-required">手机</label>
+                                <label class="layui-form-label layui-form-item-required">{:patch('phone')}</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="modelField[phone]" required  lay-verify="required|phone" placeholder="请输入手机" autocomplete="off" class="layui-input" value="">
+                                    <input type="text" name="modelField[phone]" required  lay-verify="required|phone" placeholder="{:patch('inputPhone')}" autocomplete="off" class="layui-input" value="">
                                 </div>
                             </div>
 
                             <div class="layui-form-item">
-                                <label class="layui-form-label layui-form-item-required">邮箱</label>
+                                <label class="layui-form-label layui-form-item-required">{:patch('email')}</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="modelField[email]" required  lay-verify="required|email" placeholder="请输入邮箱" autocomplete="off" class="layui-input" value="">
+                                    <input type="text" name="modelField[email]" required  lay-verify="required|email" placeholder="{:patch('inputEmail')}" autocomplete="off" class="layui-input" value="">
                                 </div>
                             </div>
 
                             <div class="layui-form-item layui-form-text">
-                                <label class="layui-form-label layui-form-item-required">留言内容</label>
+                                <label class="layui-form-label layui-form-item-required">{:patch('messageContent')}</label>
                                 <div class="layui-input-block">
-                                    <textarea placeholder="请输入留言内容" class="layui-textarea" name="modelField[content]"></textarea>
+                                    <textarea placeholder="{:patch('enterMessage')}" class="layui-textarea" name="modelField[content]"></textarea>
                                 </div>
                             </div>
 
                             <div class="layui-form-item">
-                                <label class="layui-form-label layui-form-item-required">验证码</label>
+                                <label class="layui-form-label layui-form-item-required">{:patch('captcha')}</label>
                                 <div class="layui-input-block verify-box">
-                                    <input type="text" name="captcha" lay-verify="required" placeholder="验证码" autocomplete="off" class="layui-input" style="width: 200px">
-                                    <img id="verify" src="{:captcha_src()}" alt="验证码" class="captcha">
+                                    <input type="text" name="captcha" lay-verify="required" placeholder="{:patch('captcha')}" autocomplete="off" class="layui-input" style="width: 200px">
+                                    <img id="verify" src="{:captcha_src()}" alt="{:patch('captcha')}" class="captcha">
                                 </div>
                             </div>
 
 
                             <div class="layui-form-item">
                                 <div class="layui-input-block">
-                                    <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-                                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                    <button class="layui-btn" lay-submit lay-filter="formDemo">{:patch('submit')}</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary">{:patch('reset')}</button>
                                 </div>
                             </div>
                         </form>

@@ -1,0 +1,42 @@
+<div id="banner">
+    <div class="swiper-container" id="bannerSwiper">
+        <div class="swiper-wrapper">
+            {yzn module="cms" action="lists" catid="1" flag="6" siteId="$site_id" cache="3600"  order="listorder ASC" num="3" return="data"}
+            {volist name="data" id="item" key=i"}
+             {if $i%2==1}
+            <div class="swiper-slide item1" style="background-image:url({$item.image});">
+                <div class="inner">
+                    <div id="mainTheme" ><h1>{$item.title}<span></span></h1></div>
+                    <p data-swiper-parallax="-1500">{$item.description}</p>
+                    <div class="subbtn" data-swiper-parallax="-3000">
+                        {volist name="$item['items']" id="vo" key="j"}
+                        <a class="button" href="{$vo|raw}" data-swiper-parallax="0"  data-swiper-parallax-duration="1000" target="_blank">{$key}</a></a>
+                        {/volist}
+                    </div>
+                    <div class="mainbtn"  data-swiper-parallax="-4500" data-swiper-parallax-opacity="0">
+                        <a  href="{:getCategory(6,'url')}"><i class="layui-icon layui-icon-website"></i> 查看演示</a>
+                        <a  href="{:getCategory(23,'url')}"><i class="layui-icon layui-icon-download-circle"></i> 下载更新</a>
+                    </div>
+                </div>
+            </div>
+            {else}
+            <div class="swiper-slide item2" style="background-image:url({$item.image});">
+                <div class="inner">
+                    <h2 data-swiper-parallax="-1500">{$item.title}</h2>
+                    <ul data-swiper-parallax="-3000">
+                        <li><img src="__DZD__/images/iphoneX.png"></li>
+                        <li><img src="__DZD__/images/iphone8.png"></li>
+                        <li><img src="__DZD__/images/ipad.png"></li>
+                        <li><img src="__DZD__/images/macbook.png"></li>
+                    </ul>
+                </div>
+            </div>
+            {/if}
+            {/volist}
+            {/yzn}
+        </div>
+        <a class="arrow-left"></a>
+        <a class="arrow-right"></a>
+        <div id="bannerpagination" class="pagination"></div>
+    </div>
+</div>
