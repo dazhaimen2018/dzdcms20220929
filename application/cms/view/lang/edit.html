@@ -6,7 +6,7 @@
         <form class="layui-form" method="post">
             <div class="layui-tab">
                 <ul class="layui-tab-title">
-                    <li class="layui-this">基本设置</li>
+                    <li class="layui-this"><i class="layui-icon layui-icon-set"></i> 基本设置</li>
                     {volist name="site" id="s" key="i" }
                     {if (isset(cache("Cms_Config")['category_mode']) && 2 == cache("Cms_Config")['category_mode'])}
                     {if $i == getSiteInfo('id')}

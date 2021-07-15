@@ -37,7 +37,8 @@
 .layui-tab .tab-go-refresh, .layui-tab .tab-go-left, .layui-tab .tab-right{top: 0!important;}
 .layui-tab .tab-go-right, .layui-tab .tab-go-refresh, .layui-tab .tab-go-left, .layui-tab .tab-right .closeBox{border: none!important;}
 .layui-tab .top_tab li.layui-this:after {background-color: #ff3d00;}
-.layui-tab .layui-tab-title .layui-this i{color: #009688;}
+.layui-tab .layui-tab-title i{font-size: 14px}
+.layui-tab .layui-tab-title .layui-this i{color: #ff3d00;}
 .layui-tab .layui-tab-title .layui-this:after{border-top:2px solid #20a53a}
 
 .layui-layout-right .layui-nav-child {padding: 0!important;}
