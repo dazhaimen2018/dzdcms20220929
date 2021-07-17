@@ -51,7 +51,11 @@
                         {/volist}
                         <!-- 不同域名站 -->
                         {volist name="allSite" id="vo"}
+                        {if $i==1 && $site_id==1}
+                        <dd> <a name="gb2big5" id="gb2big5"><img src= "/static/language/{$vo.mark}.png"> 繁体中文</a></dd>
+                        {else}
                         <dd> <a {if $site_id==$vo.id}class="active"{/if} href="{$vo.http}://{$vo.domain}" title="跳转到{$vo.name}"><img src= "/static/language/{$vo.mark}.png"> {$vo.name}</a></dd>
+                        {/if}
                         {/volist}
                     </dl>
                 </li>
