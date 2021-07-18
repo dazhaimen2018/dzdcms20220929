@@ -33,8 +33,26 @@ body{padding-top:70px;color:#666;background:#f4f7f7;font-family:-apple-system,Bl
 .layui-nav-img{margin-right:5px;vertical-align:middle}
 
 .header .layui-nav .layui-nav-more{right: -8px;}
+.header .nav-left{left:300px}
 
+.header-tools{ position: relative; display: inline-block;vertical-align: middle;}
+.header-search{display: inline-block;vertical-align: middle;height: 100%;width: 18px;-webkit-transition: all .2s;transition: all .2s;z-index: 20;}
+.header-search-inner{height: 100%;position: relative;display: -webkit-box;display: -ms-flexbox;display: flex;-webkit-box-align: center;-ms-flex-align: center;align-items: center;float: left;}
+.header-search-content{width: 0;overflow: hidden;position: absolute;top: 0;right: 20px;height: 100%;display: -webkit-box;display: -ms-flexbox;display: flex;-webkit-box-align: center;-ms-flex-align: center;align-items: center;-webkit-transition: all .2s;transition: all .2s;}
+.header-search-inner input{position: absolute;top: -10px;height: 40px;width: 100%;border: 1px solid #fff;outline: none;font-size: 14px;line-height: 20px;color: #252b3a;-webkit-transition: all .3s;transition: all .3s;z-index: 1;background-color: #FFFFFF !important;color: #333333 !important;}
+.header-search-inner input::-webkit-input-placeholder,
+.header-search-inner input::-moz-placeholder,
+.header-search-inner input:-ms-input-placeholder,
+.header-search-inner input:-moz-placeholder {color: #666666;}
+.header-search-inner .header-search-submit{position: absolute;padding:0;right: 0;top:2px;width: 18px;height: 18px;border: none;outline: none;background-color: transparent;color: #575d6c;line-height: 0;-webkit-transition: .2s;transition: .2s;z-index: 30;cursor: inherit;-webkit-transition: 2s;transition: 2s;}
+.header-search-inner .header-search-submit i{font-size: 20px;}
+.header-search .header-search-close{display: none;position: absolute;right: 50px;top: 50%;width: 18px;height: 18px;padding: 1px;margin-top: -9px;color: #575c6c;cursor: pointer;-webkit-transition: .2s;transition: .2s;}
+.header-search.active .header-search-inner input{border: 1px solid #dfe1e6;padding: 0 40px 0 8px;z-index: 10;box-shadow: 0 2px 5px 0 rgba(0,0,0,.2);right: -10px;}
+.header-search-icon{cursor: pointer;width: 18px;height: 18px;line-height: 18px;z-index: 30;-webkit-transition: .2s;transition: .2s;}
+.header-search-icon i{display: inline-block;height: 18px;width: 18px;background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iIzI1MkIzQSIgZmlsbC1ydWxlPSJub256ZXJvIj48cGF0aCBkPSJNOC44NzQgMTcuNzQ5QzMuOTgxIDE3Ljc0OSAwIDEzLjc2OCAwIDguODc0IDAgMy45ODEgMy45OCAwIDguODc0IDBzOC44NzUgMy45OCA4Ljg3NSA4Ljg3NGMwIDQuODk1LTMuOTgxIDguODc1LTguODc1IDguODc1em0wLTE2LjMxYy00LjEgMC03LjQzNiAzLjMzNi03LjQzNiA3LjQzNnMzLjMzNiA3LjQzNiA3LjQzNiA3LjQzNiA3LjQzNi0zLjMzNiA3LjQzNi03LjQzNi0zLjMzNS03LjQzNi03LjQzNi03LjQzNnoiLz48cGF0aCBkPSJNMTkuMTMzIDE5Ljg1MmEuNzE4LjcxOCAwIDAxLS41MS0uMjFsLTQuNDEzLTQuNDE0YS43Mi43MiAwIDAxMS4wMi0xLjAxN2w0LjQxMyA0LjQxNGEuNzIuNzIgMCAwMS0uNTEgMS4yMjd6Ii8+PC9nPjwvc3ZnPg==);background-size: 100% 100%;}
 
+.header-search.active .header-search-content{width:250px;right:20px;overflow:visible}
+.header-search.active .header-search-icon i{background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxkZWZzPjxwYXRoIGQ9Ik0xNi41NzUuNTM3YS42MjUuNjI1IDAgMDEuOTAzLjg2NWwtNy40NDUgNy43NjQgNy40NTcgNy43NzhjLjIxNS4yMjUuMjMuNTY4LjA0OS44MDhsLS4wNjguMDc2YS42MjUuNjI1IDAgMDEtLjg4My0uMDE4bC03LjQyMS03Ljc0LTcuNDIxIDcuNzRhLjYyNS42MjUgMCAwMS0uODA1LjA4MmwtLjA4LS4wNjRhLjYyNS42MjUgMCAwMS0uMDE4LS44ODRsNy40NTgtNy43NzhMLjg1NiAxLjQwMmEuNjI1LjYyNSAwIDAxLS4wNS0uODA4TC44NzUuNTE4YS42MjUuNjI1IDAgMDEuODg0LjAxOWw3LjQwOSA3LjcyNnoiIGlkPSJhIi8+PC9kZWZzPjx1c2UgZmlsbD0iIzI1MkIzQSIgZmlsbC1ydWxlPSJub256ZXJvIiB4bGluazpocmVmPSIjYSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLjgzMyAuODMzKSIvPjwvc3ZnPg==);background-size: cover;}
 
 @media screen and (max-width:768px){
     body {padding-top: 50px;background: #FFF;}

@@ -58,3 +58,11 @@ function closes(){
     v.pause();
     $('.videos').html();
 }
+
+// 搜索框
+jQuery(function () {
+    $(".header-search-icon").click(function (e) {
+        $(".header-search").toggleClass("active");
+        e.preventDefault();
+    });
+})

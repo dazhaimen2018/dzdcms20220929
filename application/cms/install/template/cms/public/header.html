@@ -19,7 +19,7 @@
         <a class="layui-logo" href="/"><img src="{:getSite('logo')}" alt="{:getSite('title')}"></a>
         <div class="ew-nav-group">
             <div class="nav-toggle"><i class="layui-icon layui-icon-more-vertical"></i></div>
-            <ul class="layui-nav" lay-filter="header-nav">
+            <ul class="layui-nav nav-left" lay-filter="header-nav">
                 <li class="layui-nav-item {if !isset($catid)}layui-this{/if}"><a href="{:url('cms/index/index')}" target="_self">{:patch('home')}</a></li>
                 {yzn module="cms" action="category" catid="0" siteId="$site_id" cache="3600"   order="listorder ASC" num="10" return="data"}
                 {volist name="data" id="vo"}
@@ -40,14 +40,32 @@
                 </li>
                 {/volist}
                 {/yzn}
-
+            </ul>
+            <ul class="layui-nav header-tools">
+                <li class="layui-nav-item header-search">
+                    <form class="header-search-inner"  action="{:url('cms/index/search')}">
+                        <div class="header-search-content">
+                            <input class="J-search-input" name="keyword"  type="text" placeholder="输入您想要搜索的关键词" autocomplete="off">
+                            <button type="submit" class="header-search-submit">
+                                <i class="layui-icon layui-icon-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="header-search-icon">
+                        <i></i>
+                    </div>
+                </li>
                 <!--所有站点列表-->
                 <li class="layui-nav-item">
-                    <a href="javascript:;">{:patch('allSites')}</a>
+                    <a href="javascript:;">{:getSite('title')}</a>
                     <dl class="layui-nav-child">
                         <!-- 相同域名使用于多语言站，点击切换 所有子站域名相同时 换成 href="javascript：void(0)" -->
                         {volist name="sameSite" id="vo"}
+                        {if $i==1 && $site_id==1}
+                        <dd> <a name="gb2big5" id="gb2big5"><img src= "/static/language/{$vo.mark}.png"> 繁体中文</a></dd>
+                        {else}
                         <dd><a href="{$vo.http}://{$vo.domain}{$urls}" onclick="setLang('{$vo.mark}')" title="切换到{$vo.name}"><img src= "/static/language/{$vo.mark}.png"> {$vo.name}</a></dd>
+                        {/if}
                         {/volist}
                         <!-- 不同域名站 -->
                         {volist name="allSite" id="vo"}
@@ -58,13 +76,6 @@
                         {/if}
                         {/volist}
                     </dl>
-                </li>
-                <!-- 搜索 -->
-                <li class="layui-nav-item">
-                    <form name="formsearch" action="{:url('cms/index/search')}" class="layui-search">
-                        <input class="layui-input" type="text" name="keyword" value="{:patch('searchTxt')}" onfocus="if(this.value==defaultValue)this.value=''" onblur="if(this.value=='')this.value=defaultValue">
-                        <button type="submit" class="search-btn layui-btn"><i class="layui-icon layui-icon-search"></i></button>
-                    </form>
                 </li>
                 <!-- 会员中心 注册登录 -->
                 {if $userinfo}
