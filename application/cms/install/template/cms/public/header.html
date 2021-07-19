@@ -19,7 +19,7 @@
         <a class="layui-logo" href="/"><img src="{:getSite('logo')}" alt="{:getSite('title')}"></a>
         <div class="ew-nav-group">
             <div class="nav-toggle"><i class="layui-icon layui-icon-more-vertical"></i></div>
-            <ul class="layui-nav nav-left" lay-filter="header-nav">
+            <ul class="layui-nav layui-layout-left" lay-filter="header-nav">
                 <li class="layui-nav-item {if !isset($catid)}layui-this{/if}"><a href="{:url('cms/index/index')}" target="_self">{:patch('home')}</a></li>
                 {yzn module="cms" action="category" catid="0" siteId="$site_id" cache="3600"   order="listorder ASC" num="10" return="data"}
                 {volist name="data" id="vo"}
@@ -35,13 +35,13 @@
                         {/yzn}
                     </dl>
                     {else}
-                    <a href="{$vo.url}">{$vo.catname}</a>
+                    <a href="{$vo.url}" {if $vo['target']}target="_blank"{/if}>{$vo.catname}</a>
                     {/if}
                 </li>
                 {/volist}
                 {/yzn}
             </ul>
-            <ul class="layui-nav header-tools">
+            <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item header-search">
                     <form class="header-search-inner"  action="{:url('cms/index/search')}">
                         <div class="header-search-content">
@@ -80,7 +80,7 @@
                 <!-- 会员中心 注册登录 -->
                 {if $userinfo}
                 <li class="layui-nav-item">
-                    <a href="{:url('member/index/index')}">会员中心<span class="layui-badge-dot"></span></a>
+                    <a href="javascript:;">会员中心<span class="layui-badge-dot"></span></a>
                 </li>
                 <li class="layui-nav-item">
                     <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">{$Think.session.user_auth.username}</a>
@@ -91,7 +91,7 @@
                 </li>
                 {else}
                 <li class="layui-nav-item">
-                    <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">{:patch('register')}/{:patch('login')}</a>
+                    <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">{:patch('register')}/{:patch('login')}</a>
                     <dl class="layui-nav-child">
                         <dd><a href="{:url('member/index/login')}">{:patch('login')}</a></dd>
                         <dd><a href="{:url('member/index/register')}">{:patch('register')}</a></dd>
