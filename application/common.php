@@ -723,6 +723,15 @@ function get_file_path($path)
     return $path ? $path : "";
 }
 
+//老站图片过度
+function thumbPath($path){
+    if(is_numeric($path)){
+        return get_file_path($path);
+    }else{
+        return $path;
+    }
+}
+
 /**
  * 对用户的密码进行加密
  * @param $password
