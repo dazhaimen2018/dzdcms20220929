@@ -77,7 +77,7 @@ body{padding-top:70px;color:#666;background:#f4f7f7;font-family:-apple-system,Bl
     .header .ew-nav-group:hover .nav-toggle > i{transform:rotate(-90deg)}
     .layui-card-header{padding: 0!important;}
     .layui-container {padding: 0 10px!important;}
-    .header .layui-layout-left{left: auto;top: 132px}
+    .header .layui-layout-left{left: auto;top: 130px}
     .header .header-search{display: none!important;}
 }
 .banner-show{height: 400px!important;overflow: hidden}
