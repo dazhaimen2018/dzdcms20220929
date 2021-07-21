@@ -25,7 +25,6 @@ class Help extends Validate
         'type|栏目类型'      => 'require|in:1,2,3',
         'catname|栏目标题'   => 'require',
         'catdir|唯一标识'    => 'require|alphaDash',
-        'image|栏目图片'     => 'number',
         'listorder|栏目排序' => 'require|number',
         'status|栏目状态'    => 'require|in:0,1',
         'url|链接地址'       => 'require',
@@ -37,8 +36,8 @@ class Help extends Validate
     ];
 
     protected $scene = [
-        'page' => ['parentid', 'type', 'catname', 'catdir', 'image', 'listorder', 'status'],
-        'list' => ['parentid', 'modelid', 'type', 'catname', 'catdir', 'image', 'listorder', 'status'],
-        'link' => ['parentid', 'type', 'catname', 'catdir', 'image', 'listorder', 'status', 'url'],
+        'page' => ['parentid', 'type', 'catname', 'catdir',  'listorder', 'status'],
+        'list' => ['parentid', 'modelid', 'type', 'catname', 'catdir',  'listorder', 'status'],
+        'link' => ['parentid', 'type', 'catname', 'catdir',  'listorder', 'status', 'url'],
     ];
 }

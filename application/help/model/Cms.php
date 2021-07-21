@@ -234,7 +234,7 @@ class Cms extends Modelbase
                 throw new \Exception("'" . $vo['title'] . "'" . (!empty($vo['errortips']) ? $vo['errortips'] : '正则校验失败') . "");
             }
             //数据格式验证
-            if (!empty(${$arr}[$name]) && in_array($vo['type'], ['image', 'number', 'file']) && !Validate::isNumber(${$arr}[$name])) {
+            if (!empty(${$arr}[$name]) && in_array($vo['type'], ['number']) && !Validate::isNumber(${$arr}[$name])) {
                 throw new \Exception("'" . $vo['title'] . "'格式错误~");
                 //安全过滤
             } else {
