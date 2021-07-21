@@ -197,6 +197,8 @@
 
 .layui-tips{padding-left: 10px;color: red}
 
+#left-sider .layui-card{min-height: calc(100vh - 2.5rem);}
+
 @media screen and (max-width: 720px){
 	.layui-header .logo{width: 150px;background-color: #009688!important;}
 	.layui-header .layui-nav{padding: 0 10px;}
