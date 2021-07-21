@@ -149,7 +149,7 @@ class Models extends Modelbase
                 `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '文档ID',
                 `catid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目ID',
                 `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
-                `thumb` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '缩略图',
+                `thumb` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '缩略图',
                 `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '摘要',
                 `listorder` smallint(5) unsigned NOT NULL DEFAULT '100' COMMENT '排序',
                 `uid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
