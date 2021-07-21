@@ -442,8 +442,7 @@ INSERT INTO `yzn_attachment` (`id`, `aid`, `uid`, `name`, `module`, `path`, `thu
 (1, 1, 0, 'logo.png', 'admin', '/uploads/images/logo.png', '', '', 'image/png', 'png', 16140, '693cf31fc1e433bf91cd178d658d4e36', '16f445461fd1218f6fdf258074c567f3cf4b490f', 'local', 1614839862, 1614839862, 100, 1),
 (2, 1, 0, 'banner.png', 'cms', '/uploads/images/banner.png', '', '', 'image/png', 'png', 1573089, '5545474fedb30a8651f02125c7893213', '7a94db83c3f77aa163734e71712421455bd81768', 'local', 1615821110, 1615821110, 100, 1),
 (3, 1, 0, 'photo', 'cms', '/uploads/images/photo.png', '', '', 'image/png', 'png', 7094, '80784dba0655f5653b38b80feabff97f', 'c64ff38bde00dcf35c89babbb6d2635bb0f80061', 'local', 1615844116, 1615844116, 100, 1),
-(4, 1, 0, 'favicon.ico', 'cms', '/favicon.ico', '', '', 'image/x-icon', 'ico', 1150, 'fabed83f1e2944e510b80aad828bbac7', 'c54edc4a91c093e10e14ca15288a8559d58c2f84', 'local', 1624409065, 1624409065, 100, 1),
-(5, 1, 0, 'dzdcms.zip', 'cms', '/uploads/images/dzdcms.zip', '', '', 'application/x-zip-compressed', 'zip', 667001, '1ffcc2a25db66af976223f751610acf2', 'f4b2d37a389c8ad5ff49306ba89a9dac15747fbd', 'local', 1624588098, 1624588098, 100, 1);
+(4, 1, 0, 'favicon.ico', 'cms', '/favicon.ico', '', '', 'image/x-icon', 'ico', 1150, 'fabed83f1e2944e510b80aad828bbac7', 'c54edc4a91c093e10e14ca15288a8559d58c2f84', 'local', 1624409065, 1624409065, 100, 1);
 
 CREATE TABLE `yzn_video` (
     `id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
@@ -488,7 +487,7 @@ INSERT INTO `yzn_video_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords
 
 
 ALTER TABLE `yzn_attachment`
-    MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+    MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 ALTER TABLE `yzn_category`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '栏目ID', AUTO_INCREMENT=13;
