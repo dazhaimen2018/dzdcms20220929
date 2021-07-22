@@ -186,6 +186,14 @@ layui.define(['layer','notice'], function(exports) {
                 if (option.prefix == true) {
                     //option.url = yzn.url(option.url);
                 }
+                if (type==='post') {
+                    var token = $('meta[name="csrf-token"]').attr('content');
+                    if (Object.prototype.toString.call(option.data) === '[object Array]') {
+                        option.data.push({name:'__token__',value:token});
+                    } else if(typeof option.data == "object") {
+                        option.data['__token__'] = token;
+                    }
+                }
                 var index = yzn.msg.loading('加载中');
                 $.ajax({
                     url: option.url,
@@ -291,6 +299,7 @@ layui.define(['layer','notice'], function(exports) {
             }
         },
     }
+
     //把提示修改为弹窗 马博加
     var font = document.getElementsByClassName("layui-word-aux")
     for (var i = 0; i < font.length; i++) {
