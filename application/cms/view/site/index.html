@@ -22,10 +22,6 @@
     {{#  } }}
 </script>
 
-<script type="text/html" id="url">
-    <div><a href="{{ d.http }}://{{ d.domain }}" target="_blank"><i class="iconfont icon-lianjie"></i> {{ d.http }}://{{ d.domain }}</a></div>
-</script>
-
 <script type="text/html" id="statusTpl">
     <input type="checkbox" name="status" value="{{d.id}}" data-href="{:url('multi')}?id={{d.id}}&param=status" lay-skin="switch" lay-text="开启|关闭" lay-filter="switchStatus" {{ d.status==1 ? 'checked' : '' }}>
 </script>
@@ -86,7 +82,7 @@
                 {field: 'mark', title: '站点标识', width: 120,align:"center" },
                 {field: 'template', title: '主题风格', width: 120,align:"center" },
                 {field: 'icon', title: '站点语言', width: 100,templet:"#icon",align:"center",search:false },
-                { field: 'domain', title: 'URL',templet:'#url'},
+                { field: 'url', title: 'URL'},
                 { field: 'logo', width: 100, title: 'LOGO', search: false, templet: yznTable.image, align:"center" },
                 { field: 'favicon', width: 100, title: '站点图标', search: false, templet: yznTable.image, align:"center"},
                 { field: 'status', width: 120, align: "center", title: '状态', templet: '#statusTpl', unresize: true,search:false },
