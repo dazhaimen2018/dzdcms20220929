@@ -316,6 +316,18 @@ layui.define(['layer','notice'], function(exports) {
     }).on('mouseleave', function(){
         layer.close(this.index);
     });
+    
+    //自己添加主题
+    $(function(){
+        var theme = $('#theme').val();
+        if (!theme){
+            $('#title').bind('input propertychange', function() {
+                var title = $('#title').val();
+                $('#theme').val(title);
+            });
+        }
+    });
+
 
     exports(MOD_NAME, yzn);
 });

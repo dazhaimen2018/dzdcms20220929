@@ -6,7 +6,7 @@
 <div class="layui-form-item">
 	<label class="layui-form-label" title="{:getSiteName($k)}{$vo.title}">{:getSiteName($k)}{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
 	<div class="layui-input-block">
-		<input type="text" name="extra_data[{$k}][{$vo.name}]" placeholder="请输入{$vo.title}" autocomplete="off" class="layui-input" value="{$value}">
+		<input type="text" id="{$vo.name}" name="extra_data[{$k}][{$vo.name}]" placeholder="请输入{$vo.title}" autocomplete="off" class="layui-input" value="{$value}">
 	</div>
 	{if $vo.remark}<div class="layui-form-mid layui-word-aux">{$vo.remark|raw}</div>{/if}
 </div>
