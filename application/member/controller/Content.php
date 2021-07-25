@@ -103,6 +103,8 @@ class Content extends MemberBase
                 ]);
             }
             if ($_data['modelField']['status'] == 1) {
+                //增加清除缓存
+                $cache =  cleanUp();
                 $this->success('操作成功，内容已通过审核！', url('published'));
             } else {
                 $this->success('操作成功，等待管理员审核！', url('published'));
@@ -115,7 +117,18 @@ class Content extends MemberBase
             $catid = $this->request->param('catid/d', 0);
             $tree  = new \util\Tree();
             $str   = "<option value=@catidurl @selected @disabled>@spacer @catname</option>";
-            $array = Db::name('Category')->order('listorder ASC, id ASC')->column('*', 'id');
+            //按当前站点适配栏目
+            $sites   = getSiteId();
+            if ($sites) {
+                $site  = [];
+                foreach (explode(',', $sites) as $k => $v) {
+                    $site[] = "FIND_IN_SET('" . $v . "', sites)";
+                }
+                if ($site) {
+                    $where = "  (" . implode(' OR ', $site) . ")";
+                }
+            }
+            $array = Db::name('Category')->where($where)->order('listorder ASC, id ASC')->column('*', 'id');
             foreach ($array as $k => $v) {
                 //$array[$k] = $v = Db::name('Category')->find($v['id']);
                 if ($v['id'] == $catid) {
@@ -144,6 +157,7 @@ class Content extends MemberBase
                     $this->assign([
                         'catid'     => $catid,
                         'fieldList' => $fieldList,
+                        'siteId'    => $sites,
                     ]);
                 }
             }
@@ -216,6 +230,8 @@ class Content extends MemberBase
 
             if ($_data['modelField']['status'] == 1) {
                 Member_Content_Model::where(['content_id' => $id, 'catid' => $catid])->update(['status' => 1]);
+                //增加清除缓存
+                $cache =  cleanUp();
                 $this->success('编辑成功，内容已通过审核！', url('published'));
 
             } else {

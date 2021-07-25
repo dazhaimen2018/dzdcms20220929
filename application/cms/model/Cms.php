@@ -438,6 +438,7 @@ class Cms extends Modelbase
     //采集和投稿用，所有字段 原
     public function getFieldList($modelId, $id = null)
     {
+        $site_id   = getSiteId();
         $list = self::where('modelid', $modelId)->where('status', 1)->order('listorder asc,id asc')->column("name,title,remark,type,isadd,iscore,ifsystem,ifrequire,setting");
         if (!empty($list)) {
             //编辑信息时查询出已有信息
@@ -446,7 +447,7 @@ class Cms extends Modelbase
                 $dataInfo  = Db::name($modelInfo['tablename'])->where('id', $id)->find();
                 //查询附表信息
                 if ($modelInfo['type'] == 2 && !empty($dataInfo)) {
-                    $dataInfoExt = Db::name($modelInfo['tablename'] . $this->ext_table)->where('did', $dataInfo['id'])->where('site_id', 1)->find();
+                    $dataInfoExt = Db::name($modelInfo['tablename'] . $this->ext_table)->where('did', $dataInfo['id'])->where('site_id', $site_id)->find();
                 }
             }
             foreach ($list as $key => &$value) {
