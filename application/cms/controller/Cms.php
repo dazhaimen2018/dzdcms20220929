@@ -135,15 +135,18 @@ class Cms extends Adminbase
                 ['catid', '=', $catid],
                 ['status', '<>', -1],
             ];
-            $total = Db::name($tableName)->where($where)->where($conditions)->count();
-            $list  = Db::name($tableName)->page($page, $limit)->where($where)->where($conditions)->order(['listorder', 'id' => 'desc'])->select();
-            $_list = [];
+            $total   = Db::name($tableName)->where($where)->where($conditions)->count();
+            $list    = Db::name($tableName)->page($page, $limit)->where($where)->where($conditions)->order(['listorder', 'id' => 'desc'])->select();
+            $siteId  = onSite();
+            $siteUrl = onSiteUrl();
+            $_list   = [];
             foreach ($list as $k => $v) {
                 $v['updatetime'] = date('Y-m-d H:i', $v['updatetime']);
-                $v['url']        = buildContentUrl($v['catid'], $v['id'], $v['url']);
+                $v['url']        = $siteUrl.buildContentUrl($v['catid'], $v['id'], $v['url']);
                 //马博 显示已添站点ID
                 $sites           = Db::name($tableName . '_data')->where('did', $v['id'])->field('site_id as id')->select();
                 $v['site']       = array_column($sites,'id');
+                $v['title']      = Db::name($tableName . '_data')->where('did', $v['id'])->where('site_id', $siteId )->value('title');
                 // end
                 $_list[]         = $v;
             }
