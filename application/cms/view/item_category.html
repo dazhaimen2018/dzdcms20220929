@@ -31,4 +31,11 @@
             <textarea class="layui-textarea" name="category_data[{$k}][setting][description]" placeholder="{:lang('Page description for search engine settings',[],$s['mark'])}">{$page_description}</textarea>
         </div>
     </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">栏目内容 </label>
+        <div class="layui-input-block border-none">
+            <script type="text/plain" class="js-ueditor" id="content{$k}" name="category_data[{$k}][content]" lay-verify="required" lay-reqText="内容不能为空" >{$category_data[$k-1]['content']|default=''|raw}</script>
+        </div>
+    </div>
 </div>
