@@ -404,35 +404,6 @@ CREATE TABLE `yzn_module` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `yzn_site`
---
-
-CREATE TABLE `yzn_site` (
-  `id` smallint UNSIGNED NOT NULL COMMENT '站点ID',
-  `name` varchar(30) NOT NULL DEFAULT '' COMMENT '站点名称',
-  `mark` varchar(30) NOT NULL DEFAULT '' COMMENT '站点标识',
-  `http` varchar(30) NOT NULL DEFAULT '' COMMENT 'HTTP',
-  `domain` varchar(100) NOT NULL DEFAULT '' COMMENT '站点域名',
-  `logo` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点LOGO',
-  `template` varchar(30) NOT NULL DEFAULT '' COMMENT '皮肤',
-  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '站点标题',
-  `keywords` varchar(100) NOT NULL DEFAULT '' COMMENT '站点关键词',
-  `description` mediumtext NOT NULL COMMENT '站点描述',
-  `listorder` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序',
-  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
-  `inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='站点表';
-
---
--- 转存表中的数据 `yzn_site`
---
-
-INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `logo`, `template`, `title`, `keywords`, `description`, `listorder`, `status`, `inputtime`) VALUES
-(1, ' 中文', 'zh-cn', 'http', 'demo.wxinw.com', 0, '', ' 中文', ' 中文', ' 中文', 1, 1, 0);
-
--- --------------------------------------------------------
-
---
 -- 表的结构 `yzn_sms`
 --
 
@@ -553,12 +524,6 @@ ALTER TABLE `yzn_module`
   ADD KEY `sign` (`sign`);
 
 --
--- 表的索引 `yzn_site`
---
-ALTER TABLE `yzn_site`
-  ADD PRIMARY KEY (`id`);
-
---
 -- 表的索引 `yzn_sms`
 --
 ALTER TABLE `yzn_sms`
@@ -641,12 +606,6 @@ ALTER TABLE `yzn_model`
 --
 ALTER TABLE `yzn_model_field`
   MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `yzn_site`
---
-ALTER TABLE `yzn_site`
-  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '站点ID', AUTO_INCREMENT=2;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_sms`
