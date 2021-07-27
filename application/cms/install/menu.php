@@ -164,7 +164,7 @@ return [
                         "route"  => "cms/category/index",
                         "type"   => 1,
                         "status" => 1,
-                        "name"   => "栏目列表",
+                        "name"   => "栏目管理",
                         "icon"   => "icon-other",
                         "child"  => [
                             [
