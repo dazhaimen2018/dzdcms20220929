@@ -22,6 +22,10 @@
     {{#  } }}
 </script>
 
+<script type="text/html" id="url">
+    <div><a href="{{ d.url }}" target="_blank"><i class="iconfont icon-lianjie"></i> {{ d.url }}</a></div>
+</script>
+
 <script type="text/html" id="statusTpl">
     <input type="checkbox" name="status" value="{{d.id}}" data-href="{:url('multi')}?id={{d.id}}&param=status" lay-skin="switch" lay-text="开启|关闭" lay-filter="switchStatus" {{ d.status==1 ? 'checked' : '' }}>
 </script>
@@ -78,15 +82,15 @@
             [
                 {field: 'id', title: 'ID', width: 80, fixed: true, sort: true,align:"center"},
                 { field: 'listorder', width: 70, title: '排序', edit: 'text',search:false },
-                {field: 'name', title: '站点名称', width: 300,align:"center"},
-                {field: 'mark', title: '站点标识', width: 120,align:"center" },
-                {field: 'template', title: '主题风格', width: 120,align:"center" },
+                {field: 'name', title: '站点名称'},
+                {field: 'mark', title: '站点标识', width: 100,align:"center" },
+                {field: 'template', title: '主题风格', width: 100,align:"center" },
                 {field: 'icon', title: '站点语言', width: 100,templet:"#icon",align:"center",search:false },
-                { field: 'url', title: 'URL'},
-                { field: 'logo', width: 100, title: 'LOGO', search: false, templet: yznTable.image, align:"center" },
+                { field: 'url', title: 'URL',width: 280, templet:'#url'},
+                { field: 'logo', width: 120, title: 'LOGO', search: false, templet: yznTable.image, align:"center" },
                 { field: 'favicon', width: 100, title: '站点图标', search: false, templet: yznTable.image, align:"center"},
-                { field: 'status', width: 120, align: "center", title: '状态', templet: '#statusTpl', unresize: true,search:false },
-                {fixed: 'right', title:'操作',width:250, toolbar: '#barTool',align:"center"},
+                { field: 'status', width: 100, align: "center", title: '状态', templet: '#statusTpl', unresize: true,search:false },
+                {fixed: 'right', title:'操作',width:220, toolbar: '#barTool',align:"center"},
             ]
         ],
     });
