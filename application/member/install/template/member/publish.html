@@ -43,5 +43,16 @@ layui.use(['form','yznForm'], function() {
         location.href = data.value
     });
 });
+
+//自己添加主题
+$(function(){
+    var theme = $('#theme').val();
+    if (!theme){
+        $('#title').bind('input propertychange', function() {
+            var title = $('#title').val();
+            $('#theme').val(title);
+        });
+    }
+});
 </script>
 {template file="member/footer.html"/}

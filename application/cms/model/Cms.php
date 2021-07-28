@@ -753,7 +753,7 @@ class Cms extends Modelbase
         $siteId = getSiteId();
         //自动提取摘要，如果有设置自动提取，且description为空，且有内容字段才执行
         if (isset($data['get_introduce']) && $extraData[$siteId]['description'] == '' && isset($extraData[$siteId]['content'])) {
-            $content             = $extraData[$siteId]['content'];
+            $content                           = $extraData[$siteId]['content'];
             $extraData[$siteId]['description'] = str_cut(str_replace(array("\r\n", "\t", '&ldquo;', '&rdquo;', '&nbsp;'), '', strip_tags($content)), 200);
         }
         //自动提取缩略图
