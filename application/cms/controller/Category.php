@@ -97,12 +97,12 @@ class Category extends Adminbase
             switch ($data['type']) {
                 //单页
                 case 1:
-                    $fields = ['parentid', 'catname', 'catdir', 'english', 'type', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'target', 'content', 'status'];
+                    $fields = ['parentid', 'catname', 'catdir', 'english', 'type', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'target', 'detail', 'status'];
                     $scene  = 'page';
                     break;
                 //列表
                 case 2:
-                    $fields = ['parentid', 'catname', 'catdir', 'english', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'target', 'content', 'status'];
+                    $fields = ['parentid', 'catname', 'catdir', 'english', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'target', 'detail', 'status'];
                     $scene  = 'list';
                     break;
                 default:
@@ -232,12 +232,12 @@ class Category extends Adminbase
                     if (!empty($d['cd_id'])) {
                         $id    = intval($d['cd_id']);
                         $model = CategoryData::where(['id' => $id]);
-                        $model->update(['catname' => trim($d['catname']), 'description' => trim($d['description']), 'content' => trim($d['content']), 'status' => trim($d['status']), 'setting' => json_encode($d['setting'])]);
+                        $model->update(['catname' => trim($d['catname']), 'description' => trim($d['description']), 'detail' => trim($d['detail']), 'status' => trim($d['status']), 'setting' => json_encode($d['setting'])]);
                     } else {
                         $model              = new CategoryData();
                         $model->catname     = trim($d['catname']);
                         $model->description = trim($d['description']);
-                        $model->content     = trim($d['content']);
+                        $model->detail      = trim($d['detail']);
                         $model->status      = trim($d['status']);
                         $model->setting     = json_encode($d['setting']);
                         $model->site_id     = $d['site_id'];
@@ -290,7 +290,7 @@ class Category extends Adminbase
             if (true !== $result) {
                 $this->error($result);
             }
-            $status = $this->modelClass->editCategory($data, ['parentid', 'catname', 'catdir', 'english', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'target', 'content', 'status']);
+            $status = $this->modelClass->editCategory($data, ['parentid', 'catname', 'catdir', 'english', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'target', 'detail', 'status']);
             if ($status) {
                 //更新会员组权限
                 isset($data['priv_groupid']) && model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);

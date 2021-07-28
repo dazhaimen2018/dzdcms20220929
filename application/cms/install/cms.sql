@@ -57,7 +57,7 @@ CREATE TABLE `yzn_category_data` (
   `description` mediumtext NOT NULL COMMENT '栏目描述',
   `setting` text COMMENT '相关配置信息',
   `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
-  `content` mediumtext NOT NULL COMMENT '栏目介绍',
+  `detail` mediumtext NOT NULL COMMENT '栏目介绍',
   `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '是否导航显示',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='栏目附表';

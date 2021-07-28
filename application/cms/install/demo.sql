@@ -129,7 +129,7 @@ INSERT INTO `yzn_category` (`id`, `catname`, `catdir`, `english`, `type`, `model
 (11, '留言', 'message', '', 1, 0, 0, '0', '11', '1,2,3,4', 0, '', '', '', 0, 'a:1:{s:13:\"page_template\";s:14:\"page_form.html\";}', 100, 0, 1),
 (12, '文档', 'doc', '', 1, 0, 0, '0', '12', '1,2,3,4', 0, '', '', 'https://doc.dzdcms.com/', 0, 'a:1:{s:13:\"page_template\";s:14:\"page_form.html\";}', 100, 1, 1);
 
-INSERT INTO `yzn_category_data` (`id`, `catid`, `catname`, `description`, `setting`, `site_id`, `content`, `status`) VALUES
+INSERT INTO `yzn_category_data` (`id`, `catid`, `catname`, `description`, `setting`, `site_id`, `detail`, `status`) VALUES
 (1, 5, '行业新闻', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, '', 0),
 (2, 4, '系统优点', 'dzdcms优势不限如下所列，本系统作者从事网站建设快20年！', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, NULL, 0),
 (3, 1, '资讯', '下面列举了使用dzdcms多站点内容管理系统的部分资讯！', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, '', 0),
