@@ -160,7 +160,8 @@ class Models extends Modelbase
 				`inputtime` int(10) unsigned NOT NULL DEFAULT '0'  COMMENT '创建时间',
 				`updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
                 `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
-				PRIMARY KEY (`id`)
+				PRIMARY KEY (`id`),
+                KEY `status` (`catid`,`status`)
                 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='{$data['name']}模型表';
 EOF;
 

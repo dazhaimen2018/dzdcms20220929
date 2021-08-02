@@ -22,7 +22,8 @@ CREATE TABLE `yzn_news` (
     `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
     `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '标题图标',
     `image` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '大图Banner',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    KEY `status` (`catid`,`status`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='资讯模型模型表';
 
 DROP TABLE IF EXISTS `yzn_news_data`;
@@ -55,7 +56,8 @@ CREATE TABLE `yzn_photo` (
     `updatetime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
     `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
     `images` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '图组',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    KEY `status` (`catid`,`status`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='图片模型模型表';
 
 
@@ -90,7 +92,8 @@ CREATE TABLE `yzn_download` (
     `type` char(10) COLLATE utf8_unicode_ci NOT NULL COMMENT '类别',
     `price` decimal(10,2) UNSIGNED NOT NULL COMMENT '价格',
     `times` int NOT NULL COMMENT '下载次数',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    KEY `status` (`catid`,`status`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='下载模型模型表';
 
 CREATE TABLE `yzn_download_data` (

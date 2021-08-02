@@ -45,7 +45,8 @@ CREATE TABLE `yzn_category` (
   `target` tinyint(2) NOT NULL DEFAULT '0' COMMENT '新窗口打开',
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `catdir` (`catdir`)
+  UNIQUE KEY `catdir` (`catdir`),
+  KEY `parentid` (`parentid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='栏目表';
 
 
