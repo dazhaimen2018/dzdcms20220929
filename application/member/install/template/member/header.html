@@ -14,17 +14,16 @@
     <script src="__STATIC__/libs/layui/layui.js"></script>
     <script src="__STATIC__/libs/jquery/jquery.min.js"></script>
     <script type="text/javascript">
-    //全局变量
-    var GV = {
-        'site':{$site|raw|json_encode},
-        'image_upload_url': '{$image_upload_url ? $image_upload_url : url("attachment/upload/upload", ["dir" => "images", "module" => request()->module()])}',
-        'file_upload_url': '{$file_upload_url ? $file_upload_url : url("attachment/upload/upload", ["dir" => "files", "module" => request()->module()])}',
-        'jcrop_upload_url': '{$jcrop_upload_url ? $jcrop_upload_url : url("attachment/Attachments/cropper")}',
-        'ueditor_upload_url': '{$ueditor_upload_url ? $ueditor_upload_url : url("attachment/upload/upload", ["dir" => "images","from"=>"ueditor", "module" => request()->module()])}',
-        'ueditor_grabimg_url': '{$ueditor_upload_url ? $ueditor_upload_url : url("attachment/Attachments/geturlfile")}',
-        'profile_upload_url': '{$profile_upload_url ? $profile_upload_url : url("member/index/profile")}',
-        'image_select_url': '{$image_select_url ? $image_select_url : url("attachment/Attachments/select")}'
-    };
+        //全局变量
+        var GV = {
+                'site':{$site|raw|json_encode},
+            'image_upload_url': '{$image_upload_url ? $image_upload_url : url("attachment/upload/upload", ["dir" => "images", "module" => request()->module()])}',
+            'file_upload_url': '{$file_upload_url ? $file_upload_url : url("attachment/upload/upload", ["dir" => "files", "module" => request()->module()])}',
+            'ueditor_upload_url': '{$ueditor_upload_url ? $ueditor_upload_url : url("attachment/upload/upload", ["dir" => "images","from"=>"ueditor", "module" => request()->module()])}',
+            'ueditor_grabimg_url': '{$ueditor_upload_url ? $ueditor_upload_url : url("attachment/Attachments/geturlfile")}',
+            'profile_upload_url': '{$profile_upload_url ? $profile_upload_url : url("member/index/profile")}',
+            'image_select_url': '{$image_select_url ? $image_select_url : url("attachment/Attachments/select")}'
+        };
     </script>
 </head>
 
