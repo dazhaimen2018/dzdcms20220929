@@ -61,7 +61,7 @@ class Cms extends Adminbase
             }
         }
 
-        $categorys = Db::name('Category')->where($where)->order(array('listorder', 'id' => 'ASC'))->select();
+        $categorys = Db::name('Category')->where($where)->order('listorder DESC, id DESC')->select();
 
         foreach ($categorys as $rs) {
             //剔除无子栏目外部链接
@@ -133,10 +133,10 @@ class Cms extends Adminbase
 
             $conditions = [
                 ['catid', '=', $catid],
-                ['status', '<>', -1],
+                ['status', 'in', [0, 1]],
             ];
             $total   = Db::name($tableName)->where($where)->where($conditions)->count();
-            $list    = Db::name($tableName)->page($page, $limit)->where($where)->where($conditions)->order(['listorder', 'id' => 'desc'])->select();
+            $list    = Db::name($tableName)->page($page, $limit)->where($where)->where($conditions)->order('listorder DESC, id DESC')->select();
             $siteId  = onSite();
             $siteUrl = onSiteUrl();
             $_list   = [];
@@ -158,7 +158,7 @@ class Cms extends Adminbase
         $tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
         $tree->nbsp = '&nbsp;&nbsp;&nbsp;';
         $categorys  = array();
-        $result     = Db::name('category')->order(array('listorder', 'id' => 'ASC'))->select();
+        $result     = Db::name('category')->order('listorder DESC, id DESC')->select();
         foreach ($result as $k => $v) {
             if ($v['type'] != 2) {
                 $v['disabled'] = 'disabled';
@@ -631,7 +631,7 @@ class Cms extends Adminbase
                 ['status', '=', -1],
             ];
             $total = Db::name($tableName)->where($where)->where($conditions)->count();
-            $_list = Db::name($tableName)->where($where)->page($page, $limit)->where($conditions)->order(['listorder', 'id' => 'desc'])->select();
+            $_list = Db::name($tableName)->where($where)->page($page, $limit)->where($conditions)->order('listorder DESC, id DESC')->select();
 
             $result = array("code" => 0, "count" => $total, "data" => $_list);
             return json($result);

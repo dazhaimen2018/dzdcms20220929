@@ -341,7 +341,8 @@ class Index extends Cmsbase
             $where = '(' . $where . ') ';
 
             $where .= " AND status='1' $sql_time";
-            $list = $this->CmsModel->getList($modelid, $where, false, '*', $siteId, "listorder desc", 10, 1, false, ['query' => ['keyword' => $keyword, 'modelid' => $modelid]]);
+            // 可能did有问题，测试后排查
+            $list = $this->CmsModel->getList($modelid, $where, false, '*', $siteId, "listorder DESC,did DESC", 10, 1, false, ['query' => ['keyword' => $keyword, 'modelid' => $modelid]]);
         } else {
             foreach ($modellist as $key => $vo) {
                 $searchField = Db::name('model_field')->where('modelid', $key)->where('ifsearch', 1)->column('name');
@@ -358,7 +359,7 @@ class Index extends Cmsbase
                 $where .= $extTable . ".`title` like '%$keyword%'";
                 $where = '(' . $where . ') ';
                 $where .= " AND status='1' $sql_time";
-                $list = $this->CmsModel->getList($key, $where, false, '*',$siteId, 'listorder desc', 10, 1, false, ['query' => ['keyword' => $keyword, 'modelid' => $modelid]]);
+                $list = $this->CmsModel->getList($key, $where, false, '*',$siteId, 'listorder DESC,did DESC', 10, 1, false, ['query' => ['keyword' => $keyword, 'modelid' => $modelid]]);
                 if ($list->isEmpty()) {
                     continue;
                 } else {
@@ -416,14 +417,9 @@ class Index extends Cmsbase
         if (!empty($tagdir)) {
             $where['tagdir'] = $tagdir;
         }
-//        if ($tag && is_numeric($tag)) {
-//            $where['id'] = $tag;
-//        } else {
-//            $where['tag'] = $tag;
-//        }
         //如果条件为空，则显示标签首页
         if (empty($where)) {
-            $data = Db::name('Tags')->where('site_id',$siteId)->order(['hits' => 'DESC'])->limit(100)->select();
+            $data = Db::name('Tags')->where('site_id',$siteId)->order(['listorder' => 'DESC', 'hits' => 'DESC'])->limit(100)->select();
             $this->assign("SEO", seo('', '标签'));
             $this->assign('list', $data);
             return $this->fetch('/tags_list');

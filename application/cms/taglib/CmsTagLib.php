@@ -58,7 +58,7 @@ class CmsTagLib
     {
         $url_mode = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
         $where    = isset($data['where']) ? $data['where'] : "status=1";
-        $order    = isset($data['order']) ? $data['order'] : 'listorder,id desc';
+        $order    = isset($data['order']) ? $data['order'] : 'listorder DESC,id DESC';
         $siteId = getSiteId();
         //每页显示总数
         //$num = isset($data['num']) ? (int) $data['num'] : 10;

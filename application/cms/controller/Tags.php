@@ -33,12 +33,12 @@ class Tags extends Adminbase
     {
         if ($this->request->isAjax()) {
             list($page, $limit, $where) = $this->buildTableParames();
-            $_list = $this->modelClass->where($where)->order(['listorder', 'id' => 'desc'])->page($page, $limit)->select();
+            $_list                      = $this->modelClass->where($where)->order(['listorder' => 'desc', 'id' => 'desc'])->page($page, $limit)->select();
             foreach ($_list as $k => &$v) {
                 $v['url'] = url('cms/index/tags', ['tagdir' => $v['tagdir']]); //url连接tag修改为拼音tagdir
             }
             unset($v);
-            $total = $this->modelClass->where($where)->count();
+            $total  = $this->modelClass->where($where)->count();
             $result = array("code" => 0, "count" => $total, "data" => $_list);
             return json($result);
         }
@@ -94,15 +94,15 @@ class Tags extends Adminbase
     public function create()
     {
         if ($this->request->isPOST() || $this->request->param('modelid/d')) {
-            $_GET['modelid']=$modelid = $this->request->param('modelid/d', 0);
-            $lun = $this->request->param('lun/d', 0); //第几轮 0=>1
-            $_GET['zlun'] = $zlun = $this->request->param('zlun/d', 0); //总轮数
-            $_GET['mo'] = $this->request->param('mo/d',null); //是否全部模型
+            $_GET['modelid'] = $modelid = $this->request->param('modelid/d', 0);
+            $lun             = $this->request->param('lun/d', 0); //第几轮 0=>1
+            $_GET['zlun']    = $zlun = $this->request->param('zlun/d', 0); //总轮数
+            $_GET['mo']      = $this->request->param('mo/d',null); //是否全部模型
             if ($lun > (int) $_GET['zlun'] - 1) {
                 $lun = (int) $_GET['zlun'] - 1;
             }
-            $lun = $lun < 0 ? 0 : $lun;
-            $mlun = 100;
+            $lun      = $lun < 0 ? 0 : $lun;
+            $mlun     = 100;
             $firstRow = $mlun * ($lun < 0 ? 0 : $lun);
             if (0 !== (int) $this->request->param('delete/d')) {
                 //清空
@@ -123,7 +123,7 @@ class Tags extends Adminbase
                 $this->error("该模型不存在！");
             }
             $tableName = $models_v['tablename'];
-            $count = Db::name($tableName)->count();
+            $count     = Db::name($tableName)->count();
             if ($count == 0) {
                 //结束
                 if (isset($_GET['mo'])) {
