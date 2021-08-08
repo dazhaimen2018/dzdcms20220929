@@ -682,6 +682,17 @@ function format_bytes($size, $delimiter = '')
 }
 
 /**
+ * 根据路劲获取文件大小
+ * @param mixed $path 变量
+ * @return string
+ */
+function getFileSize($path) {
+    $fileSize = model('attachment/Attachment')->where('path',$path)->value('size');
+    $size     = format_bytes($fileSize);
+    return $size;
+}
+
+/**
  * 根据PHP各种类型变量生成唯一标识号
  * @param mixed $mix 变量
  * @return string
