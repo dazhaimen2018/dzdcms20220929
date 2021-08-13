@@ -214,7 +214,7 @@ class Category extends Adminbase
                     $model              = new CategoryData();
                     $model->catname     = trim($d['catname']);
                     $model->description = trim($d['description']);
-                    $model->content     = trim($d['content']);
+                    $model->detail      = trim($d['detail']);
                     $model->status      = trim($d['status']);
                     $model->setting     = json_encode($d['setting']);
                     $model->site_id     = $d['site_id'];
