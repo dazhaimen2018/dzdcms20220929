@@ -103,6 +103,10 @@
 .layui-form-item .layui-inline:last-child{margin-right: 0!important;}
 .layui-form-item .layui-inline .layui-input-inline{flex: 1!important;width: auto!important;}
 
+/*高级下拉*/
+.layui-form-item .layui-input-block .sp_container_combo{border:none!important;box-shadow:none!important;}
+.layui-form-item .layui-input-block .city-picker-span{width: 100%!important;border:none!important;padding: 0 10px;box-sizing: border-box;}
+
 /*上传图片布局*/
 .layui-form-item .thumbnail{margin-top: 10px!important;margin-left: 10px!important; }
 .layui-form-item .layui-upload{    border: none!important;}
