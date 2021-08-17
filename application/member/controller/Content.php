@@ -31,16 +31,21 @@ class Content extends MemberBase
     {
         $groupinfo = $this->_check_group_auth($this->auth->groupid);
         //没有认证用户不得投稿
-//        if (empty($this->auth->ischeck_email) && empty($this->auth->ischeck_mobile)) {
-//            $this->error("投稿必须激活邮箱或手机！");
-//        }
+        if (empty($this->auth->ischeck_email) && empty($this->auth->ischeck_mobile)) {
+            $this->error("投稿必须激活邮箱或手机！");
+        }
         //判断每日投稿数
         $allowpostnum = Member_Content_Model::where('uid', $this->auth->id)->whereTime('create_time', 'd')->count();
         if ($groupinfo['allowpostnum'] > 0 && $allowpostnum >= $groupinfo['allowpostnum']) {
             $this->error("今日投稿数量已达上限！");
         }
         if ($this->request->isPost()) {
-            $data  = $this->request->param();
+            $data = $this->request->param();
+            //默认编辑器不过滤
+            $content = $this->request->param('modelFieldExt.content', '', 'trim');
+            if (isset($data['modelFieldExt']['content']) && $data['modelFieldExt']['content'] && $content) {
+                $data['modelFieldExt']['content'] = $content;
+            }
             $token = $this->request->param('__token__');
             // 验证数据
             $rule = [
@@ -175,7 +180,12 @@ class Content extends MemberBase
         $groupinfo = $this->_check_group_auth($this->auth->groupid);
         $did = $this->request->param('did/d', 0);
         if ($this->request->isPost()) {
-            $data  = $this->request->param();
+            $data = $this->request->param();
+            //默认编辑器不过滤
+            $content = $this->request->param('modelFieldExt.content', '', 'trim');
+            if (isset($data['modelFieldExt']['content']) && $data['modelFieldExt']['content'] && $content) {
+                $data['modelFieldExt']['content'] = $content;
+            }
             $token = $this->request->param('__token__');
             // 验证数据
             $rule = [

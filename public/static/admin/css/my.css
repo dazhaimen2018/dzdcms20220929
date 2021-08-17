@@ -106,6 +106,7 @@
 /*高级下拉*/
 .layui-form-item .layui-input-block .sp_container_combo{border:none!important;box-shadow:none!important;}
 .layui-form-item .layui-input-block .city-picker-span{width: 100%!important;border:none!important;padding: 0 10px;box-sizing: border-box;}
+.layui-form-item .layui-input-block .city-picker-dropdown{width: 100%!important;}
 
 /*上传图片布局*/
 .layui-form-item .thumbnail{margin-top: 10px!important;margin-left: 10px!important; }
