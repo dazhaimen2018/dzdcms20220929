@@ -12,11 +12,10 @@ layui.define(['layer','notice'], function(exports) {
         },
         open: function(title, url, width, height,options, isResize) {
             isResize = isResize === undefined ? true : isResize;
-
             options = $.extend({
                 title: title,
                 type: 2,
-                area: [width, height],
+                area: [$(window).width() > width ? width+'px' : '95%', $(window).height() > height ? height+'px' : '95%'],
                 content: url+ (url.indexOf("?") > -1 ? "&" : "?") + "dialog=1",
                 maxmin: true,
                 moveOut: true,
@@ -318,7 +317,6 @@ layui.define(['layer','notice'], function(exports) {
         }
     }
     yzn.init();
-
     //把提示修改为弹窗 马博加
     var font = document.getElementsByClassName("layui-word-aux")
     for (var i = 0; i < font.length; i++) {
@@ -348,6 +346,5 @@ layui.define(['layer','notice'], function(exports) {
         }
     });
     //马博加 end
-
     exports(MOD_NAME, yzn);
 });

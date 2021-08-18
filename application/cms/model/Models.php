@@ -150,7 +150,7 @@ class Models extends Modelbase
 				`catid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目ID',
 				`theme` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',				
 				`url` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',				
-				`thumb` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '缩略图',
+				`thumb` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '缩略图',
 				`flag` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',	               
 				`listorder` smallint(5) unsigned NOT NULL DEFAULT '100' COMMENT '排序',
 				`uid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
