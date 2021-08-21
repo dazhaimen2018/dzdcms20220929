@@ -16,7 +16,7 @@
     {{# } else { }}
     <a href='javascript:;' class="layui-btn layui-btn-xs copy" data-clipboard-text="{literal}{:patch('{{d.name}}')}{/literal}">代码调用</a>
     {{# } }}
-    <a data-open='{:url("edit")}?id={{ d.id }}' data-title="编辑碎片" class="layui-btn layui-btn-xs">编辑</a>
+    <a data-open='{:url("edit")}?id={{ d.id }}' data-width="900" data-height="600" data-title="编辑碎片" class="layui-btn layui-btn-xs">编辑</a>
     <a href='{:url("del")}?ids={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
 </script>
 <script type="text/html" id="switchTpl">
@@ -50,6 +50,7 @@ layui.use(['yznTable','clipboard'], function() {
             method: 'open',
             class: 'layui-btn layui-btn-normal layui-btn-sm',
             icon: 'iconfont icon-add',
+            extend: 'data-width="900" data-height="600"',
         }], [{
             text: "更新碎片缓存",
             url: "{:url('lang_cache')}",
