@@ -7,7 +7,7 @@
     </div>
 </div>
 <script type="text/html" id="barTool">
-    <a data-open='{:url("edit")}?id={{ d.id }}' class="layui-btn layui-btn-xs" title="编辑">编辑</a>
+    <a data-open='{:url("edit")}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs" title="编辑">编辑</a>
     <a href='{:url("del")}?ids={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
 </script>
 {/block}
@@ -26,7 +26,15 @@ layui.use('yznTable', function() {
         init: init,
         id: 'currentTable',
         elem: '#currentTable',
-        toolbar: ['refresh', 'add', 'delete'],
+        toolbar: ['refresh',
+            [{
+                text: '添加',
+                url: init.add_url,
+                method: 'open',
+                class: 'layui-btn layui-btn-normal layui-btn-sm',
+                icon: 'iconfont icon-add',
+                extend: 'data-width="900" data-height="600"',
+            }], 'delete'],
         url: '{:url("index")}',
         cols: [
             [
@@ -40,7 +48,7 @@ layui.use('yznTable', function() {
                 { field: 'amount', width: 120, title: '金钱总数' },
                 { field: 'point', width: 120, title: '积分总数' },
                 { field: 'login', width: 100, title: '登录次数' },
-                { fixed: 'right', width: 120, title: '操作', templet: '#barTool' }
+                { fixed: 'right', width: 120, title: '操作', templet: '#barTool', align: "center" }
             ]
         ],
         page: {}
