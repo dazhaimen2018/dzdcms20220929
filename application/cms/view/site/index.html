@@ -31,10 +31,10 @@
 </script>
 <script type="text/html" id="barTool">
     {{# if(d.sites !=1){ }}
-    <a data-open="{{d.add_url}}" data-width="900px" data-height="600px" class="layui-btn layui-btn-xs layui-btn-normal" title="添加子栏目">添加子站点</a>
+    <a data-open="{{d.add_url}}" data-width="900" data-height="600" class="layui-btn layui-btn-xs layui-btn-normal" title="添加子栏目">添加子站点</a>
     {{#  } }}
     {{#  if(d.sites !=1 || d.id == 1){ }}
-    <a data-open='{:url("edit")}?id={{ d.id }}' data-width="900px" data-height="600px" class="layui-btn layui-btn-xs" title="编辑">编辑</a>
+    <a data-open='{:url("edit")}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs" title="编辑">编辑</a>
     {{#  } else { }}
     <a data-width="900px" data-height="600px" class="layui-btn layui-btn-xs layui-btn-disabled" title="编辑">编辑</a>
     {{#  } }}
@@ -64,7 +64,7 @@
                     method: 'open',
                     class: 'layui-btn layui-btn-sm layui-btn-normal',
                     icon: 'iconfont icon-add',
-                    extend: 'data-width="900px" data-height="600px"',
+                    extend: 'data-width="900" data-height="600"',
                 }
             ], 'delete', [
                 {
