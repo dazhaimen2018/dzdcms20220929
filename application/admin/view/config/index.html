@@ -23,7 +23,7 @@
     {{# } else { }}
     <a href='javascript:;' class="layui-btn layui-btn-xs copy" data-clipboard-text="{literal}{:config('{{d.name}}')}{/literal}">代码调用</a>
     {{# } }}
-    <a data-open='{:url("edit")}?id={{ d.id }}' title="编辑" class="layui-btn layui-btn-xs">编辑</a>
+    <a data-open='{:url("edit")}?id={{ d.id }}' data-width="900" data-height="600" title="编辑" class="layui-btn layui-btn-xs">编辑</a>
     <a href='{:url("del")}?ids={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
 </script>
 <script type="text/html" id="switchTpl">
@@ -48,7 +48,16 @@ layui.use(['yznTable','clipboard'], function() {
         init: init,
         id:'currentTable',
         elem: '#currentTable',
-        toolbar: ['refresh','add'],
+        toolbar: ['refresh',
+            [{
+                text: '添加',
+                url: "{:url('add')}",
+                method: 'open',
+                class: 'layui-btn layui-btn-sm layui-btn-normal',
+                icon: 'iconfont icon-add',
+                extend: 'data-width="900" data-height="600"',
+            }]
+        ],
         url: '{:url("index",["group"=>$group])}',
         search:false,
         cols: [
@@ -57,9 +66,9 @@ layui.use(['yznTable','clipboard'], function() {
                 { field: 'name',align: "left", title: '名称' },
                 { field: 'title',align: "left", title: '标题' },
                 { field: 'ftitle', width: 150, title: '类型' },
-                { field: 'update_time', width: 200, title: '更新时间'},
-                { field: 'status', title: '状态', width: 100, templet: '#switchTpl', unresize: true },
-                { fixed: 'right', width: 200, title: '操作', toolbar: '#barTool' }
+                { field: 'update_time', width: 200, title: '更新时间', align:"center"},
+                { field: 'status', title: '状态', width: 100, templet: '#switchTpl', unresize: true, align:"center" },
+                { fixed: 'right', width: 200, title: '操作', toolbar: '#barTool', align:"center"}
             ]
         ],
     });
