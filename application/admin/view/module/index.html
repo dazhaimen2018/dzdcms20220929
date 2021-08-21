@@ -8,7 +8,7 @@
 </div>
 <script type="text/html" id="titleTpl">
 {{#  if(d.create_time == "" || d.create_time == null || d.create_time == undefined){ }}
-    <a class="layui-btn layui-btn-xs" data-open="{:url('install')}?module={{ d.module }}" data-table="currentTable" title="【{{d.name}}】安装">安装</a>
+    <a class="layui-btn layui-btn-xs" data-open="{:url('install')}?module={{ d.module }}" data-width="900" data-height="600" data-table="currentTable" title="【{{d.name}}】安装">安装</a>
 {{#  } else { }}
     {{#  if(d.iscore == 0){ }}
     <a class="layui-btn layui-btn-xs layui-btn-danger" data-open="{:url('uninstall')}?module={{ d.module }}" data-table="currentTable" data-width="400" data-height="250" title="【{{d.name}}】卸载">卸载</a>
