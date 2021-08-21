@@ -8,7 +8,7 @@
 </div>
 <script type="text/html" id="barTool">
 	<a href='{:url("field/index")}?id={{ d.id }}' class="layui-btn layui-btn-xs layui-btn-normal">字段管理</a>
-    <a data-open='{:url("edit")}?id={{ d.id }}' class="layui-btn layui-btn-xs" title="编辑">编辑</a>
+    <a data-open='{:url("edit")}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs" title="编辑">编辑</a>
     <a href='{:url("del")}?id={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
 </script>
 <script type="text/html" id="statusTpl">
@@ -29,7 +29,16 @@ layui.use('yznTable', function() {
         init: init,
         id: 'currentTable',
         elem: '#currentTable',
-        toolbar: ['refresh', 'add'],
+        toolbar: ['refresh',
+            [{
+            text: '添加',
+            url: "{:url('add')}",
+            method: 'open',
+            class: 'layui-btn layui-btn-sm layui-btn-normal',
+            icon: 'iconfont icon-add',
+            extend: 'data-width="900" data-height="600"',
+        }
+        ]],
         url: '{:url("index")}',
         search:false,
         cols: [
@@ -39,10 +48,10 @@ layui.use('yznTable', function() {
                 { field: 'module', width: 150, title: '所属模块' },
                 { field: 'tablename', width:150,title: '数据表' },
                 { field: 'description', align: "left", title: '描述' },
-                { field: 'type', width:120,title: '类型',templet: '<div>{{#  if(d.type==1){ }} 独立表 {{#  } else { }} 主附表 {{#  } }} </div>' },
-                { field: 'create_time',width:180, title: '创建时间' },
-                { field: 'status', width: 100, title: '状态', templet: '#statusTpl', unresize: true },
-                { fixed: 'right', title: '操作', width: 200, templet: '#barTool' }
+                { field: 'type', width:120,title: '类型',templet: '<div>{{#  if(d.type==1){ }} 独立表 {{#  } else { }} 主附表 {{#  } }} </div>', align: "center" },
+                { field: 'create_time',width:180, title: '创建时间', align: "center" },
+                { field: 'status', width: 100, title: '状态', templet: '#statusTpl', unresize: true, align: "center"},
+                { fixed: 'right', title: '操作', width: 200, templet: '#barTool', align: "center" }
             ]
         ]
     });
