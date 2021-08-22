@@ -20,7 +20,7 @@
 </script>
 <script type="text/html" id="barTool">
     {{#  if(!d.iffixed){ }}
-    <a data-open='{:url("edit")}?fieldid={{ d.id }}' class="layui-btn layui-btn-xs" title="编辑">编辑</a>
+    <a data-open='{:url("edit")}?fieldid={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs" title="编辑">编辑</a>
     <a href='{:url("del")}?id={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
     {{#  } }}
 </script>
@@ -43,7 +43,16 @@ layui.use('yznTable', function() {
             toolbar: ['refresh',
                 [{
                     html: '<a class="layui-btn layui-btn-sm" type="button" href="{:url("models/index")}"><i class="iconfont icon-undo"></i>&nbsp;返回模型</a>'
-                }],'add'
+                }],
+                [{
+                    text: '增加',
+                    url: "{:url('add',['modelid'=>$modelid])}",
+                    method: 'open',
+                    class: 'layui-btn layui-btn-sm layui-btn-normal',
+                    icon: 'iconfont icon-add',
+                    extend: 'data-width="900" data-height="600"',
+                }
+                ]
         ],
         url: '{:url("index",["id"=>$modelid])}',
         cols: [
@@ -54,12 +63,12 @@ layui.use('yznTable', function() {
                 { field: 'title',align: "left", title: '标题' },
                 { field: 'type', width: 120, title: '字段类型' },
                 { field: 'ifsystem', width: 60, align: "center", title: '主表', templet: '<div>{{#  if(d.ifsystem){ }} 是 {{#  } }} </div>' },
-                { field: 'create_time', width: 180, title: '创建时间' , search: 'range'},
+                { field: 'create_time', width: 180, title: '创建时间' , search: 'range', align:"center"},
                 { field: 'ifsearch', width: 90, align: "center", title: '搜索', templet: '#ifsearchTpl', unresize: true, selectList: { 0: '否', 1: '是' } },
                 { field: 'ifrequire', width: 90, align: "center", title: '必填', templet: '#ifrequireTpl', unresize: true, selectList: { 0: '否', 1: '是' } },
                 { field: 'isadd', width: 100, align: "center", title: '投稿显示', templet: '#isaddTpl', unresize: true , selectList: { 0: '隐藏', 1: '显示' }},
                 { field: 'status', width: 100, align: "center", title: '状态', templet: '#switchTpl', unresize: true, selectList: { 0: '禁用', 1: '启用' }},
-                { fixed: 'right', width: 130, title: '操作', templet: '#barTool' }
+                { fixed: 'right', width: 130, title: '操作', templet: '#barTool', align:"center" }
             ]
         ],
         page: {}
