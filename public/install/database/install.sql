@@ -188,7 +188,7 @@ INSERT INTO `yzn_config` (`id`, `name`, `type`, `title`, `group`, `options`, `re
 (6, 'upload_image_size', 'text', '图片上传大小限制', 'upload', '', '0为不限制大小，单位：kb', 1540457656, 1552436075, 1, '0', 2),
 (7, 'upload_image_ext', 'text', '允许上传图片后缀', 'upload', '', '多个后缀用逗号隔开，不填写则不限制类型', 1540457657, 1552436074, 1, 'gif,jpg,jpeg,bmp,png,ico', 1),
 (8, 'upload_file_size', 'text', '文件上传大小限制', 'upload', '', '0为不限制大小，单位：kb', 1540457658, 1552436078, 1, '0', 3),
-(9, 'upload_file_ext', 'text', '允许上传文件后缀', 'upload', '', '多个后缀用逗号隔开，不填写则不限制类型', 1540457659, 1552436080, 1, 'doc,docx,xls,xlsx,ppt,pptx,pdf,wps,txt,rar,zip,gz,bz2,7z', 4),
+(9, 'upload_file_ext', 'text', '允许上传文件后缀', 'upload', '', '多个后缀用逗号隔开，不填写则不限制类型', 1540457659, 1552436080, 1, 'doc,docx,xls,xlsx,ppt,pptx,pdf,wps,txt,rar,zip,gz,bz2,7z,mp4', 4),
 (10, 'upload_driver', 'radio', '上传驱动', 'upload', 'local:本地', '图片或文件上传驱动', 1541752781, 1552436085, 1, 'local', 9),
 (11, 'upload_thumb_water', 'switch', '添加水印', 'upload', '', '', 1552435063, 1552436080, 1, '0', 5),
 (12, 'upload_thumb_water_pic', 'image', '水印图片', 'upload', '', '只有开启水印功能才生效', 1552435183, 1552436081, 1, '', 6),
@@ -196,7 +196,7 @@ INSERT INTO `yzn_config` (`id`, `name`, `type`, `title`, `group`, `options`, `re
 (14, 'upload_thumb_water_alpha', 'text', '水印透明度', 'upload', '', '请输入0~100之间的数字，数字越小，透明度越高', 1552435299, 1552436083, 1, '50', 8),
 (15, 'system_name', 'text', '系统名称', 'system', '', '', 1618874857, 1618874857, 1, 'DZDCMS', 100),
 (16, 'admin_domain', 'text', '后台登录域名', 'system', '', '后台安全登录域名必须是授权顶级域名的二级域名如admin.dzdcms.com', 1625271425, 1625271425, 1, '', 100),
-(17, 'system_logo', 'image', '系统LOGO', 'system', '', '', 1614839822, 1614839893, 1, '1', 100);
+(17, 'system_logo', 'image', '系统LOGO', 'system', '', '', 1614839822, 1614839893, 1, '/favicon.ico', 100);
 
 -- --------------------------------------------------------
 
