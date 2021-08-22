@@ -15,7 +15,7 @@ layui.define(['layer','notice'], function(exports) {
             options = $.extend({
                 title: title,
                 type: 2,
-                area: [$(window).width() > width ? width+'px' : '95%', $(window).height() > height ? height+'px' : '95%'],
+                area: [$(window).width() > width ? width+'px' : '100%', $(window).height() > height ? height+'px' : '100%'],
                 content: url+ (url.indexOf("?") > -1 ? "&" : "?") + "dialog=1",
                 maxmin: true,
                 moveOut: true,
