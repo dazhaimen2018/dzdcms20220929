@@ -1,16 +1,12 @@
 <?php
 // +----------------------------------------------------------------------
-// | Yzncms [ 御宅男工作室 ]
+// | dzdcms [ 多站点CMS ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2018 http://yzncms.com All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
-// | Author: 御宅男 <530765310@qq.com>
-// +----------------------------------------------------------------------
-
-// +----------------------------------------------------------------------
-// | cms管理
+// | Author: Dzdcms <8355763@qq.com>
 // +----------------------------------------------------------------------
 namespace app\cms\controller;
 
@@ -40,11 +36,10 @@ class Api extends Adminbase
         $param = $this->request->param('param/s', 0);
         $value = $this->request->param('value/s', 0);
         if ($value){
-            $_list = db($table)->where($param,$value)->order('listorder DESC, id DESC')->select();
-            $total  = db($table)->where($param,$value)->count();
+            $list  = db($table)->where($param,$value)->order('listorder DESC, id DESC')->select();
+            $total = db($table)->where($param,$value)->count();
         }
-
-        $result = array("code" => 0, "count" => $total, "data" => $_list);
+        $result = array("code" => 0, "count" => $total, "data" => $list);
         return json($result);
     }
 
