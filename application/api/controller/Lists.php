@@ -1,20 +1,14 @@
 <?php
 // +----------------------------------------------------------------------
-// | dzdcms [ 多站点CMS ]
+// | dzdcms [ 多站点CMS高级下拉框URL ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2018 http://yzncms.com All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
-// | Author: Dzdcms <8355763@qq.com>
-// +----------------------------------------------------------------------
-namespace app\cms\controller;
+namespace app\api\controller;
 
 use app\common\controller\Adminbase;
 use think\Db;
 
 
-class Api extends Adminbase
+class Lists extends Adminbase
 {
     protected function initialize()
     {
@@ -23,7 +17,7 @@ class Api extends Adminbase
     }
 
     //高级下拉菜单url
-    //url格式：url:/cms/api/index/table/category/param/parentid/value/1
+    //url格式：url:/api/lists/index/table/category/param/parentid/value/1
     //field:catname
     //key:id
     //pagination:true
@@ -31,7 +25,7 @@ class Api extends Adminbase
     //multiple:false
     //max:10
     //order:id
-    public function  index(){
+    public function index(){
         $table = $this->request->param('table/s', 0);
         $param = $this->request->param('param/s', 0);
         $value = $this->request->param('value/s', 0);
