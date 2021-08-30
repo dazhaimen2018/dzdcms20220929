@@ -1,7 +1,7 @@
 <div class="product-card" title="{$item.description}">
     <a href="{$item.url}">
         <div class="product-cover">
-            <div class="product-cover-img" style="background-image: url('{$item.thumb}');"></div>
+            <div class="product-cover-img" style="background-image: url('{$item.thumb|default='/uploads/images/photo.png'}');"></div>
         </div>
         <div class="product-body">
             <p class="attr">

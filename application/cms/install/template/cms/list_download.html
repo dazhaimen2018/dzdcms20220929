@@ -12,6 +12,11 @@
                     {include file="public/item_screen" /}
                     <!--S 筛选列表 end -->
                 </div>
+                {if $detail}
+                <blockquote class="layui-elem-quote">
+                    {$detail|raw}
+                </blockquote>
+                {/if}
                 <!--S 筛选条件 -->
                 {php}$where=structure_filters_sql($modelid);{/php}
                 <div class="layui-row layui-col-space30">

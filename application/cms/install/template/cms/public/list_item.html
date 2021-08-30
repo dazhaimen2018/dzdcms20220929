@@ -2,7 +2,7 @@
     {if $item['thumb']}
     <div class="list-pic">
         <a href="{$item.url}" title="{$item.title}" alt="{$item.title}">
-            <img src="{$item.thumb}" alt="{$item.title}" class="img-full">
+            <img src="{$item.thumb|default='/uploads/images/photo.png'}" alt="{$item.title}" class="img-full">
         </a>
     </div>
     {/if}
@@ -15,6 +15,11 @@
             <span><i class="layui-icon layui-icon-cols"></i> <a href="{:getCategory($item['catid'],'url')} ">{:getCategory($item['catid'],'catname')} </a></span>
             <span><i class="layui-icon layui-icon-date"></i> {$item.updatetime|date="Y-m-d"}</span>
             <span><i class="layui-icon layui-icon-read"></i> {$item.hits}浏览</span>
+            <span class="tag-list layui-right"> <i class="layui-icon layui-icon-note"></i>
+                {volist name=":explode(',',$item['tags'])" id="vo"}
+                <a class="tag" href="{:url('cms/index/tags',['tagdir'=>getTagDir($vo)])}">{$vo}</a>
+                {/volist}
+            </span>
         </div>
     </div>
 </div>

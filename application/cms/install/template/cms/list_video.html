@@ -8,6 +8,11 @@
             <!--筛选-->
             {include file="public/item_screen" /}
         </div>
+        {if $detail}
+        <blockquote class="layui-elem-quote">
+            {$detail|raw}
+        </blockquote>
+        {/if}
     </div>
     {php}$where=structure_filters_sql($modelid);{/php}
     <div class="layui-container merit">

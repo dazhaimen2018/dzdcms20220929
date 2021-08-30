@@ -14,7 +14,11 @@
                 </div>
                 {/volist}
             </div>
-
+            {if $detail}
+            <blockquote class="layui-elem-quote">
+                {$detail|raw}
+            </blockquote>
+            {/if}
         </div>
     </div>
     {php}$where=structure_filters_sql($modelid);{/php}

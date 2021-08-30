@@ -1,6 +1,6 @@
-<div class="product-card" vpath="{$item.thumb}"  title="{$item.description}">
+<div class="product-card" vpath="{$item.thumb|default='/uploads/images/photo.png'}"  title="{$item.description}">
         <div class="product-cover videolist" ipath="{$item.video}">
-            <div class="product-cover-img" style="background-image: url('{$item.thumb}');"></div>
+            <div class="product-cover-img" style="background-image: url('{$item.thumb|default='/uploads/images/photo.png'}');"></div>
             <i class="videoed layui-icon layui-icon-play"></i>
         </div>
         <div class="product-body">
