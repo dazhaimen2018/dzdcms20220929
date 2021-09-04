@@ -21,14 +21,14 @@
             <div class="nav-toggle"><i class="layui-icon layui-icon-more-vertical"></i></div>
             <ul class="layui-nav layui-layout-left" lay-filter="header-nav">
                 <li class="layui-nav-item {if !isset($catid)}layui-this{/if}"><a href="{:url('cms/index/index')}" target="_self">{:patch('home')}</a></li>
-                {yzn module="cms" action="category" catid="0" siteId="$site_id" cache="3600"   order="listorder ASC" num="10" return="data"}
+                {yzn module="cms" action="category" catid="0" siteId="$siteId" cache="3600" order="listorder ASC" num="10" return="data"}
                 {volist name="data" id="vo"}
                 <li class="layui-nav-item {if isset($catid) && in_array($catid,explode(',',$vo['arrchildid']))}layui-this{/if}">
                     {if $vo['child']}
                     <a href="javascript:;">{$vo.catname}</a>
                     <dl class="layui-nav-child">
                         <!-- 二级菜单 -->
-                        {yzn module="cms" action="category" catid="$vo['id']" siteId="$site_id" cache="3600" order="listorder ASC" num="10" return="data"}
+                        {yzn module="cms" action="category" catid="$vo['id']" siteId="$siteId" cache="3600" order="listorder ASC" num="10" return="data"}
                         {foreach $data as $key=>$vo }
                         <dd><a href="{$vo.url}">{$vo.catname}</a></dd>
                         {/foreach}

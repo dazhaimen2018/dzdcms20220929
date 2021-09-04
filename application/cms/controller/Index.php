@@ -41,6 +41,14 @@ class Index extends Cmsbase
             $siteId = $site['id'];
         }
         $this->site_id = $siteId;
+        if (getSite('alone')!=1){
+            $siteName = getSite('name');
+            $siteId   = 1;
+        }else{
+            $siteName = '';
+            $siteId   = getSite('id');
+        }
+
         $urls = $_SERVER['REQUEST_URI'];
         $count = Site::where("domain='{$domain}'")->count();
         if ($count > 1) {
@@ -63,6 +71,8 @@ class Index extends Cmsbase
             'urls'     => $urls,
             'sameSite' => $sameSite,
             'allSite'  => $allSite,
+            'siteName' => $siteName,
+            'siteId'   => $siteId,
         ]);
     }
 

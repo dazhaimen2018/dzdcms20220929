@@ -25,13 +25,18 @@
 <script type="text/html" id="url">
     <div><a href="{{ d.url }}" target="_blank"><i class="iconfont icon-lianjie"></i> {{ d.url }}</a></div>
 </script>
-
+<script type="text/html" id="aloneTpl">
+    {{# if(d.alone ==0){ }}否
+    {{#  } else { }}
+    是
+    {{#  } }}
+</script>
 <script type="text/html" id="statusTpl">
     <input type="checkbox" name="status" value="{{d.id}}" data-href="{:url('multi')}?id={{d.id}}&param=status" lay-skin="switch" lay-text="开启|关闭" lay-filter="switchStatus" {{ d.status==1 ? 'checked' : '' }}>
 </script>
 <script type="text/html" id="barTool">
     {{# if(d.sites !=1){ }}
-    <a data-open="{{d.add_url}}" data-width="900" data-height="600" class="layui-btn layui-btn-xs layui-btn-normal" title="添加子栏目">添加子站点</a>
+    <a data-open="{{d.add_url}}" data-width="900" data-height="600" class="layui-btn layui-btn-xs layui-btn-normal" title="添加子栏目">添加</a>
     {{#  } }}
     {{#  if(d.sites !=1 || d.id == 1){ }}
     <a data-open='{:url("edit")}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs" title="编辑">编辑</a>
@@ -83,14 +88,15 @@
                 {field: 'id', title: 'ID', width: 80, fixed: true, sort: true,align:"center"},
                 { field: 'listorder', width: 70, title: '排序', edit: 'text',search:false },
                 {field: 'name', title: '站点名称'},
-                {field: 'mark', title: '站点标识', width: 100,align:"center" },
-                {field: 'template', title: '主题风格', width: 100,align:"center" },
-                {field: 'icon', title: '站点语言', width: 100,templet:"#icon",align:"center",search:false },
+                { field: 'alone', width: 90, align: "center", title: '真实数据', templet: '#aloneTpl', unresize: true,search:false },
+                {field: 'mark', title: '标识', width: 90,align:"center" },
+                {field: 'template', title: '主题', width: 90,align:"center" },
+                {field: 'icon', title: '语言', width: 90,templet:"#icon",align:"center",search:false },
                 { field: 'url', title: 'URL',width: 280, templet:'#url'},
-                { field: 'logo', width: 120, title: 'LOGO', search: false, templet: yznTable.image, align:"center" },
-                { field: 'favicon', width: 100, title: '站点图标', search: false, templet: yznTable.image, align:"center"},
+                { field: 'logo', width: 110, title: 'LOGO', search: false, templet: yznTable.image, align:"center" },
+                { field: 'favicon', width: 90, title: '图标', search: false, templet: yznTable.image, align:"center"},
                 { field: 'status', width: 100, align: "center", title: '状态', templet: '#statusTpl', unresize: true,search:false },
-                {fixed: 'right', title:'操作',width:220, toolbar: '#barTool',align:"center"},
+                {fixed: 'right', title:'操作',width:150, toolbar: '#barTool',align:"center"},
             ]
         ],
     });

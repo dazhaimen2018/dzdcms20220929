@@ -21,7 +21,12 @@ function getCategory($cat, $fields = '', $newCache = false)
         return false;
     }
     //马博
-    $siteId = getSiteId();
+    if (getSite('alone')==1){
+        $siteId = getSiteId();
+    }else{
+        $siteId = 1;
+    }
+    //$siteId = getSiteId();
     $field = is_numeric($cat) ? 'id' : 'catdir';
     $key = 'getCategory_' . $siteId . '_' . $cat;
     //马博 end
