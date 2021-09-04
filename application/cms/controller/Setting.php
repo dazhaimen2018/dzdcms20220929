@@ -34,7 +34,7 @@ class Setting extends Adminbase
             }
         } else {
             $setting = Module_Model::where('module', 'cms')->value("setting");
-            $siteArray = Site::select()->toArray();
+            $siteArray = Site::where(['alone' => 1])->select()->toArray();
             $this->assign('siteArray', $siteArray);
             $this->assign("setting", unserialize($setting));
             return $this->fetch();

@@ -30,7 +30,7 @@ class Cms extends Adminbase
         $this->cmsConfig = cache("Cms_Config");
         $this->assign("cmsConfig", $this->cmsConfig);
         // 20200805 马博
-        $site = Site::select()->toArray();
+        $site = Site::where(['alone' => 1])->select()->toArray();
         $this->site = $site;
         $this->view->assign('site', $site);
         // 20200805 马博 end
@@ -152,6 +152,7 @@ class Cms extends Adminbase
             }
             $result = array("code" => 0, "count" => $total, "data" => $_list);
             return json($result);
+
         }
         /*移动栏目 复制栏目*/
         $tree       = new \util\Tree();

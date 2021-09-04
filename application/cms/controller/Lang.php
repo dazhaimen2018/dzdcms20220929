@@ -30,7 +30,7 @@ class Lang extends Adminbase
         $this->modelClass = new LangMode;
 		//允许使用的字段列表
 		$this->banfie = array("text", "checkbox", "textarea", "radio", "number", "datetime", "image", "images", "array", "switch", "select", "Ueditor", "file", "files", 'color', 'tags', 'markdown');
-		$site = Site::select()->toArray();
+        $site = Site::where(['alone' => 1])->select()->toArray();
 
 		$this->view->assign('site', $site);
 	}

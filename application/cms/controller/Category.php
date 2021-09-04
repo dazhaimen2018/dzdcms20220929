@@ -335,7 +335,7 @@ class Category extends Adminbase
                 $categorydata = '';
             }
             // 20200805 马博
-            $site = Site::select()->toArray();
+            $site = Site::where(['alone' => 1])->select()->toArray();
             $this->site = $site;
             $categoryData = CategoryData::where(['catid' => $catid])->select()->toArray();
             $ret = [];
