@@ -18,7 +18,7 @@ CREATE TABLE `yzn_site` (
   `arrchildid` mediumtext COMMENT '所有子站点ID',
   `child` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否存在子站点，1存在',
   `listorder` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
-  `alone` tinyint(2) NOT NULL DEFAULT '1' COMMENT '独立数据',
+  `alone` tinyint(2) NOT NULL DEFAULT '1' COMMENT '真实数据',
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
   `inputtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   PRIMARY KEY (`id`)
