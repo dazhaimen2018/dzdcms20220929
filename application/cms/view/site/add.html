@@ -7,7 +7,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">站点名称</label>
 				<div class="layui-input-block">
-					<input type="text" name="name" autocomplete="off" placeholder="" class="layui-input" value="{$data.name}">
+					<input type="text" name="name" lay-verify="required" lay-reqtext="站点名称不能为空" autocomplete="off" placeholder="" class="layui-input" value="{$data.name}">
 				</div>
 			</div>
 
@@ -45,7 +45,7 @@
 					</select>
 				</div>
 				<div class="layui-input-inline">
-					<input type="text" name="domain" autocomplete="off" placeholder="en.dzdcms.com" class="layui-input" value="{$data.domain}">
+					<input type="text" name="domain" lay-verify="required" lay-reqtext="站点域名不能为空" autocomplete="off" placeholder="en.dzdcms.com" class="layui-input" value="{$data.domain}">
 				</div>
 				<div class="layui-form-mid layui-word-aux">
 					域名只支持二级域名或顶级域名，不可有子目录
@@ -107,7 +107,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">主题风格</label>
 				<div class="layui-input-block">
-					<select name="template">
+					<select name="template" lay-verify="required" lay-reqtext="请选择站点主题风格！">
 						<option value="">请选择主题风格</option>
 						{volist name="templates" id="vo"}
 						<option value="{$vo.name}" {eq name="vo.name" value="$data.template" }selected{/eq}>{$vo.name}</option>
@@ -121,6 +121,14 @@
 				<div class="layui-input-block">
 					<input type="number" name="listorder" autocomplete="off" placeholder="排序" class="layui-input" value="{$data.listorder}">
 				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">独立数据</label>
+				<div class="layui-input-block">
+					<input type="radio" name="alone" value="1" {eq name="data.alone" value="1" }checked{/eq} title="是" lay-filter="alone">
+					<input type="radio" name="alone" value="0" {eq name="data.alone" value="0" }checked{/eq} title="否" lay-filter="alone">
+				</div>
+				<div class="layui-form-mid layui-word-aux">选否时：主要实用于城市分站、自动调用主站数据并在相应位置自动添加区域名称（站点名称）！</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">状态</label>

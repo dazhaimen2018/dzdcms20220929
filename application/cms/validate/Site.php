@@ -21,5 +21,7 @@ class Site extends Validate
 	//定义验证规则
 	protected $rule = [
 		'name|站点名称' => 'require|max:30|unique:model',
+        'domain|站点域名' => 'require',
+        'template|主题风格' => 'require',
 	];
 }
