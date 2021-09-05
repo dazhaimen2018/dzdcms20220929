@@ -30,7 +30,6 @@ function getCategory($cat, $fields = '', $newCache = false)
     $field = is_numeric($cat) ? 'id' : 'catdir';
     $key = 'getCategory_' . $siteId . '_' . $cat;
     //马博 end
-
     //强制刷新缓存
     if ($newCache) {
         Cache::rm($key, null);

@@ -521,14 +521,19 @@ class Cms extends Modelbase
         $dataShare = cache("Cms_Config")['data_share']; //数据共享
         $tableName = $this->getModelTableName($modeId);
         $result = [];
-        $siteId = getSiteId();
+        if (getSite('alone')==1){
+            $siteId = getSiteId();
+        }else{
+            $siteId = 1;
+        }
+        //$siteId = getSiteId();
         if (isset($tableName) && !empty($tableName)) {
             if (2 == getModel($modeId, 'type') && $moreifo) {
                 $extTable = $tableName . $this->ext_table;
                 //马博增加
-                if($dataShare){
-                    $siteId = 1;
-                }
+//                if($dataShare){
+//                    $siteId = 1;
+//                }
                 $where .= " and " . $extTable . '.site_id=' . $siteId;
                 if ($page) {
                     $result = Db::view($tableName, $field)
@@ -547,9 +552,9 @@ class Cms extends Modelbase
             } else {
                 $extTable = $tableName . $this->ext_table;
                 //数据共享时，or查询当前站和主站数据并排除重复数据 待完善
-                if($dataShare){
-                    $siteId = 1;
-                }
+//                if($dataShare){
+//                    $siteId = 1;
+//                }
                 $where .= " and " . $extTable . '.site_id=' . $siteId;
                 if ($page) {
                     $result = Db::view($tableName, '*')
@@ -605,8 +610,12 @@ class Cms extends Modelbase
     {
         $url_mode  = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
         $tableName = $this->getModelTableName($modeId);
-
-        $site_id   = getSiteId();
+        if (getSite('alone')==1){
+            $site_id = getSiteId();
+        }else{
+            $site_id = 1;
+        }
+        //$site_id   = getSiteId();
         if (2 == getModel($modeId, 'type') && $moreifo) {
             $where    = $tableName . '.' . $where;
             $extTable = $tableName . $this->ext_table;

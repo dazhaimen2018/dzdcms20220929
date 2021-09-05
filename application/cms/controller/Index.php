@@ -43,10 +43,8 @@ class Index extends Cmsbase
         $this->site_id = $siteId;
         if (getSite('alone')!=1){
             $siteName = getSite('name');
-            $siteId   = 1;
         }else{
             $siteName = '';
-            $siteId   = getSite('id');
         }
 
         $urls = $_SERVER['REQUEST_URI'];

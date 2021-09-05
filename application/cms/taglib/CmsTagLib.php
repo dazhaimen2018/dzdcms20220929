@@ -138,11 +138,16 @@ class CmsTagLib
             }
             $modelid = intval($data['modelid']);
         }
-        if ($siteId) {
-            //当前栏目信息
-            $catInfo = getCategory($catid);
-            $siteId = $catInfo['site_id'];
+        if (getSite('alone')==1){
+            $siteId = getSiteId();
+        }else{
+            $siteId = 1;
         }
+//        if ($siteId) {
+//            //当前栏目信息
+//            $catInfo = getCategory($catid);
+//            $siteId = $catInfo['site_id'];
+//        }
         $result = model('cms/Cms')->getList($modelid, $this->where($data), $moreifo, $siteId, $data['field'], $data['order'], $data['limit'], $data['page'], $data['simple']);
         return $result;
     }
