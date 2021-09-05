@@ -5,13 +5,13 @@
     <div class="layui-panel">
         <ul class="layui-menu">
             {if getCategory($top_parentid,'child')}
-            {yzn module="cms" action="category" catid="$top_parentid" siteId="$site_id" cache="3600" order="listorder ASC" num="30" return="data"}
+            {yzn module="cms" action="category" catid="$top_parentid" siteId="$siteId" cache="3600" order="listorder ASC" num="30" return="data"}
             {volist name="data" id="vo"}
             {if $vo['child']}
             <li class="layui-menu-item-group {if isset($catid) && in_array($catid,explode(',',$vo['arrchildid']))}layui-menu-item-down{else}layui-menu-item-up{/if}">
                 <div class="layui-menu-body-title">{$vo.catname} <i class="layui-icon {if isset($catid) && in_array($catid,explode(',',$vo['arrchildid']))}layui-icon-up{else}layui-icon-down{/if}"></i></div>
                 <ul>
-                    {yzn module="cms" action="category" catid="$vo['id']" cache="3600" order="listorder ASC" num="10" return="data"}
+                    {yzn module="cms" action="category" catid="$vo['id']" siteId="$siteId" cache="3600" order="listorder ASC" num="10" return="data"}
                     {foreach $data as $key=>$vo }
                     <li  {if isset($catid) && in_array($catid,explode(',',$vo['arrchildid']))}class="layui-menu-item-checked"{/if}><a href="{$vo.url}" title="{$vo.catname}">{$vo.catname}</a></li>
                     {/foreach}
