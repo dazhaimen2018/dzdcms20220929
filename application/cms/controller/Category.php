@@ -189,7 +189,7 @@ class Category extends Adminbase
             } else {
                 $categorydata = '';
             }
-            $site = Site::select()->toArray();
+            $site = Site::where(['alone' => 1])->select()->toArray();
             $this->assign([
                 'site'             => $site,
                 'category'         => $categorydata,
