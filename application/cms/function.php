@@ -332,18 +332,18 @@ function getSiteName($id)
     if (!$id) {
         return '所有站';
     }
-
     if ($id !== 'false') {
-        $site = db('site')->find($id);
-        if ($site) {
-            return $site['name'];
-        } else {
-            return false;
-        }
+        return false;
+        //感觉没有显示站名的必要
+//        $site = db('site')->find($id);
+//        if ($site) {
+//            return $site['name'];
+//        } else {
+//            return false;
+//        }
     } else {
         return '所有站';
     }
-
 }
 
 //当前碎片信息
@@ -388,20 +388,6 @@ function getSiteInfo($field)
         return false;
     }
 }
-function onSite(){
-    if (valid()){
-        $userInfo = Session::get('admin');
-        $adminId = $userInfo['site_id'];
-        if($adminId){
-            $siteId =   $adminId;
-        } else{
-            $siteId = cache("Cms_Config")['site'];
-        }
-    }else{
-        $siteId  = 1;
-    }
-    return $siteId;
-}
 
 //当前站URL
 function onSiteUrl(){
@@ -410,7 +396,7 @@ function onSiteUrl(){
     return $siteUrl;
 }
 
-//前端站点信息，只有站点标题中有用，可优化删除
+//前端站点信息，后台用 和 getSiteInfo重复待优化
 function getSite($field)
 {
     if (!$field) {
@@ -430,43 +416,18 @@ function getSite($field)
     }
 }
 
-//前端获取站点风格
-function siteTheme()
-{
-    $siteId = getSiteId();
-    $theme = db('site')->where('id',$siteId)->value('template');
-    return  $theme ;
-}
+////前端获取站点风格
+//function siteTheme()
+//{
+//    $siteId = getSiteId();
+//    $theme = db('site')->where('id',$siteId)->value('template');
+//    return  $theme ;
+//}
 
 // 立即清除缓存
 function  cleanUp(){
     $cache =  \util\File::del_dir(ROOT_PATH . 'runtime' . DIRECTORY_SEPARATOR . 'cache');
     Cache::clear();
-}
-
-function valid(){
-    $domain = $_SERVER['HTTP_HOST'];
-    if(empower()){
-        return true;
-    } elseif($domain == '127.0.0.1' || $domain == 'localhost') {
-        return true;
-    }else{
-        return false;
-    }
-}
-
-function empower(){
-    $adminDomain = adminDomain();
-    $domain = $_SERVER['HTTP_HOST'];
-    if($adminDomain){
-        if(strpos($domain,$adminDomain) !== false){
-            return true;
-        }else{
-            return false;
-        }
-    }else{
-        return false;
-    }
 }
 
 /*文章发布多少时间前*/

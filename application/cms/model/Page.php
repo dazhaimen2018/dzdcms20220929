@@ -38,7 +38,11 @@ class Page extends Model
 	 */
 	public function getPage($catid, $cache = false, $siteId = 0)
 	{
-        $siteId = getSiteId();
+        if (getSite('alone')==1){
+            $siteId = getSiteId();
+        }else{
+            $siteId = 1;
+        }
 		if (empty($catid)) {
 			return false;
 		}

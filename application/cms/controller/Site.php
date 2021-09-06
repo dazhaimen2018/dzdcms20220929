@@ -40,7 +40,7 @@ class Site extends Adminbase
             $sites  = array();
             $result     = Db::name('site')->order(array('listorder', 'id' => 'ASC'))->select();
             foreach ($result as $k => $v) {
-                $v['name'] = '<a data-width="900px" data-height="600px" data-open="' . url('edit', ['id' => $v['id']]) . '"">' . $v['name'] . '</a>';
+                $v['name'] = '<a data-width="900" data-height="600" data-open="' . url('edit', ['id' => $v['id']]) . '"">' . $v['name'] . '</a>';
                 $v['add_url'] = url("Site/add", array("parentid" => $v['id']));
                 if (!valid()){
                     $v['sites']  = 1;
@@ -112,25 +112,7 @@ class Site extends Adminbase
             }
         }
 	}
-	/*
-    * 语言静态包保存
-    */
-	public function lang_save()
-	{
-		$data = [
-		    'm_title' => 1,
-		];
-		$code = "return [
-		    'title' => '" . $data['m_title'] . "',
-                        ]";
-		$code = "<?php\n " . $code . ";";
-		try {
-			file_put_contents(APP_PATH . "/lang/zh_cn.php", $code);
-			return $this->success('成功');
-		} catch (\Exception $e) {
-			echo $this->error('失败');
-		}
-	}
+
 	/**
 	 * 站点编辑
 	 */

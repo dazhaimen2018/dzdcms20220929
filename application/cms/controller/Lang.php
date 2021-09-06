@@ -226,4 +226,24 @@ class Lang extends Adminbase
 	public function lang_cache() {
         $this->success("碎片缓存更新成功！");
     }
+
+    /*
+* 语言静态包保存
+*/
+    public function lang_save()
+    {
+        $data = [
+            'm_title' => 1,
+        ];
+        $code = "return [
+		    'title' => '" . $data['m_title'] . "',
+                        ]";
+        $code = "<?php\n " . $code . ";";
+        try {
+            file_put_contents(APP_PATH . "/lang/zh_cn.php", $code);
+            return $this->success('成功');
+        } catch (\Exception $e) {
+            echo $this->error('失败');
+        }
+    }
 }
