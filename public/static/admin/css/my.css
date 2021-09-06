@@ -84,7 +84,6 @@
 
 .layui-form-pane .layui-form-item[pane] .layui-input-inline{height: 36px;line-height: 36px;}
 .layui-form-pane .layui-form-radio, .layui-form-pane .layui-form-switch{margin: 0 10px;}
-.layui-textarea{min-height: 38px!important;height: 78px;}
 .webuploader-pick{ padding: 0 10px!important; height: 38px; line-height: 38px;  border-radius: 0!important; background-color: #5fb878!important; -webkit-border-radius: 0px!important; -moz-border-radius: 0px!important; -ms-border-radius: 0px!important; -o-border-radius: 0px!important; }
 .layui-iconpicker-item{height: 36px!important;}
 .layui-col-space10{margin: 0 5px;}
@@ -139,8 +138,8 @@
 .layui-form-item .layui-form-radio, .layui-form-item .layui-form-switch, .layui-form-item .layui-form-checkbox{margin:5px 0 5px 10px}
 .layui-form-item .layui-form-radio {line-height: 24px;}
 .layadmin-text p {	margin: 8px 0;	text-indent: 2em;}
-.layui-input, .layui-select, .layui-textarea {height: 36px;border-width: 0;}
-.layui-textarea{height: 78px;}
+.layui-input, .layui-select{height: 36px;border-width: 0;}
+.layui-textarea {border-width: 0;}
 
 /* 编辑器 */
 .edui-default .edui-editor, .edui-default .edui-editor-iframeholder{width: 100%!important;}
