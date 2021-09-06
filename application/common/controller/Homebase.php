@@ -39,12 +39,10 @@ class Homebase extends Base
         $this->assign('site', $site);
     }
 
-
     protected function fetch($template = '', $vars = [], $config = [], $renderContent = false)
     {
-        $siteTheme    = siteTheme();
+        $siteTheme    = getSite('template');
         $Theme        = empty($siteTheme) ? 'default' : $siteTheme;
-        //$Theme      = empty(Config::get('theme')) ? 'default' : Config::get('theme');
         $viewPath     = TEMPLATE_PATH . $Theme . DIRECTORY_SEPARATOR . $this->request->module() . DIRECTORY_SEPARATOR;
         $templateFile = $viewPath . trim($template, '/') . '.' . Config::get('template.view_suffix');
         if ('default' !== $Theme && !is_file($templateFile)) {
