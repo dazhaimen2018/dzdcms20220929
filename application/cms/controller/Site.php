@@ -62,8 +62,7 @@ class Site extends Adminbase
 	 */
 	public function add()
 	{
-
-
+        $parentid = $this->request->param('parentid/d', 0);
         if ($this->request->isPost()) {
             $data = $this->request->post();
             try {
@@ -82,13 +81,6 @@ class Site extends Adminbase
             }
         } else {
             if (valid()){
-                $parentid = $this->request->param('parentid/d', 0);
-                if (!empty($parentid)) {
-                    $Ca = getSiteName($parentid);
-                    if (empty($Ca)) {
-                        $this->error("父栏目不存在！");
-                    }
-                }
                 //站点列表 可以用缓存的方式
                 $array = Db::name('site')->order('listorder ASC, id ASC')->column('*', 'id');
                 if (!empty($array) && is_array($array)) {
