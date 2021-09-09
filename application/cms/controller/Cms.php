@@ -64,8 +64,18 @@ class Cms extends Adminbase
                 $where = "  (" . implode(' OR ', $site) . ")";
             }
         }
-
-        $categorys = Db::name('Category')->where($where)->order('listorder DESC, id DESC')->select();
+        // 获取当前管理所属站点
+        $sites = $this->auth->site_id;
+        if($sites){
+            $site  = [];
+            foreach (explode(',', $sites) as $k => $v) {
+                $site[] = "FIND_IN_SET('" . $v . "', sites)";
+            }
+            if ($site) {
+                $whereSite = "  (" . implode(' OR ', $site) . ")";
+            }
+        }
+        $categorys = Db::name('Category')->where($where)->where($whereSite)->order('listorder DESC, id DESC')->select();
 
         foreach ($categorys as $rs) {
             //剔除无子栏目外部链接
