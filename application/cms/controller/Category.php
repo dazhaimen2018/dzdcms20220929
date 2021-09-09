@@ -54,6 +54,8 @@ class Category extends Adminbase
         }
         $site  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray();
         $this->view->assign('site', $site);
+
+
     }
 
     //栏目列表
@@ -195,7 +197,21 @@ class Category extends Adminbase
                 }
             }
             //栏目列表 可以用缓存的方式
-            $array = Db::name('Category')->order('listorder DESC, id DESC')->column('*', 'id');
+
+            // 获取当前管理所属站点
+            $sites = $this->auth->site_id;
+            if($sites){
+                $site  = [];
+                foreach (explode(',', $sites) as $k => $v) {
+                    $site[] = "FIND_IN_SET('" . $v . "', sites)";
+                }
+                if ($site) {
+                    $whereSite = "  (" . implode(' OR ', $site) . ")";
+                }
+            }
+
+
+            $array = Db::name('Category')->where($whereSite)->order('listorder DESC, id DESC')->column('*', 'id');
             if (!empty($array) && is_array($array)) {
                 $tree       = new \util\Tree();
                 $tree->icon = array('&nbsp;&nbsp;│ ', '&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;└─ ');
@@ -339,7 +355,18 @@ class Category extends Adminbase
                 }
             }
             //栏目列表 可以用缓存的方式
-            $array = Db::name('Category')->order('listorder DESC, id DESC')->column('*', 'id');
+            // 获取当前管理所属站点
+            $sites = $this->auth->site_id;
+            if($sites){
+                $site  = [];
+                foreach (explode(',', $sites) as $k => $v) {
+                    $site[] = "FIND_IN_SET('" . $v . "', sites)";
+                }
+                if ($site) {
+                    $whereSite = "  (" . implode(' OR ', $site) . ")";
+                }
+            }
+            $array = Db::name('Category')->where($whereSite)->order('listorder DESC, id DESC')->column('*', 'id');
             if (!empty($array) && is_array($array)) {
                 $tree       = new \util\Tree();
                 $tree->icon = array('&nbsp;&nbsp;│ ', '&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;└─ ');
