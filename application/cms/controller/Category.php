@@ -33,7 +33,6 @@ class Category extends Adminbase
         'cms/category/count_items',
         'cms/category/public_cache',
     ];
-
     protected function initialize()
     {
         parent::initialize();
@@ -48,6 +47,13 @@ class Category extends Adminbase
         $this->showTemplate = str_replace($this->themePath . DS, '', glob($this->themePath . DS . 'show*'));
         //取得单页模板
         $this->pageTemplate = str_replace($this->themePath . DS, '', glob($this->themePath . DS . 'page*'));
+        // 获取当前管理所属站点
+        $sites = $this->auth->site_id;
+        if ($sites) {
+            $whereSite = " id = $sites";
+        }
+        $site  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray();
+        $this->view->assign('site', $site);
     }
 
     //栏目列表
@@ -61,7 +67,18 @@ class Category extends Adminbase
             $tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
             $tree->nbsp = '&nbsp;&nbsp;&nbsp;';
             $categorys  = array();
-            $result     = Db::name('category')->where($where)->order('listorder DESC, id DESC')->select();
+            // 获取当前管理所属站点
+            $sites = $this->auth->site_id;
+            if($sites){
+                $site  = [];
+                foreach (explode(',', $sites) as $k => $v) {
+                    $site[] = "FIND_IN_SET('" . $v . "', sites)";
+                }
+                if ($site) {
+                    $whereSite = "  (" . implode(' OR ', $site) . ")";
+                }
+            }
+            $result     = Db::name('category')->where($where)->where($whereSite)->order('listorder DESC, id DESC')->select();
             foreach ($result as $k => $v) {
                 if (isset($models[$v['modelid']]['name'])) {
                     $v['modelname'] = $models[$v['modelid']]['name'];
@@ -189,9 +206,8 @@ class Category extends Adminbase
             } else {
                 $categorydata = '';
             }
-            $site = Site::where(['alone' => 1])->select()->toArray();
+
             $this->assign([
-                'site'             => $site,
                 'category'         => $categorydata,
                 'models'           => $models,
                 'tp_category'      => $this->categoryTemplate,
@@ -354,7 +370,6 @@ class Category extends Adminbase
             }
             $this->assign([
                 'category_data' => $ret,
-                'site'        => $site,
                 'data'        => $data,
                 'setting'     => $setting,
                 'category'    => $categorydata,
