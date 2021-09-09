@@ -14,10 +14,10 @@
 // +----------------------------------------------------------------------
 namespace addons\synclogin\Controller;
 
-use addons\synclogin\ThinkSDK\Oauth;
+use addons\synclogin\library\Oauth;
+use addons\synclogin\library\Service;
+use addons\synclogin\model\SyncLogin as SyncLoginModel;
 use app\member\controller\MemberBase;
-use app\member\model\Member as Member_Model;
-use think\Db;
 use think\facade\Cookie;
 use think\facade\Hook;
 
@@ -62,6 +62,7 @@ class Index extends MemberBase
         $this->type         = $session['TYPE'];
         $this->openid       = $session['OPENID'];
         $this->access_token = $session['ACCESS_TOKEN'];
+        $this->openname     = $session['OPENNAME'];
     }
 
     //登陆地址
@@ -91,22 +92,19 @@ class Index extends MemberBase
         }
         $sns = Oauth::getInstance($type);
         // 获取TOKEN
-        $token  = $sns->getAccessToken($code);
-        $openid = !empty($token['unionid']) ? $token['unionid'] : $token['openid'];
+        $token = $sns->getAccessToken($code);
+        // 获取第三方获取信息
+        $userinfo = $sns->getUserInfo();
+        $openid   = !empty($token['unionid']) ? $token['unionid'] : $token['openid'];
         if (empty($token)) {
             $this->error('参数错误');
         }
-        $session = array('TOKEN' => $token, 'TYPE' => $type, 'OPENID' => $openid, 'ACCESS_TOKEN' => $token['access_token']);
+        $session = array('TOKEN' => $token, 'TYPE' => $type, 'OPENID' => $openid, 'ACCESS_TOKEN' => $token['access_token'], 'OPENNAME' => $userinfo['nickname']);
         session('SYNCLOGIN', $session);
         $this->getSession(); // 重新获取session
         //获取当前第三方登录用户信息
         if (is_array($token)) {
-            $check = $this->checkIsSync(array('type_uid' => $openid, 'type' => $type));
-
-            //是否完全登录状态
-            /*if ($is_login && $check) {
-            $this->loginWithoutpwd($is_login);
-            }*/
+            $check = Service::isBindThird($type, $openid);
             if ($is_login) {
                 $this->dealIsLogin($this->auth->id);
             } else {
@@ -114,7 +112,11 @@ class Index extends MemberBase
                 if ($addon_config['bind'] && !$check) {
                     $this->redirect(url('addons/synclogin/bind'));
                 } else {
-                    $this->prepare();
+                    //$this->prepare();
+                    $loginret = Service::connect($type, $userinfo);
+                    if ($loginret) {
+                        $this->success('登陆成功！', url('member/index/index'));
+                    }
                 }
             }
         } else {
@@ -144,12 +146,12 @@ class Index extends MemberBase
         if (!$this->auth->isLogin()) {
             $this->error('请登录！');
         }
-
-        $res = Db::name('sync_login')->where(array('uid' => $this->auth->id, 'type' => $aType))->delete();
-        if ($res) {
-            $this->success('取消绑定成功', url('member/index/profile'));
+        $third = SyncLoginModel::where('uid', $this->auth->id)->where('type', $aType)->find();
+        if (!$third) {
+            $this->error("未找到指定的账号绑定信息");
         }
-        $this->error('取消绑定失败');
+        $third->delete();
+        $this->success('取消绑定成功', url('member/index/profile'));
     }
 
     //绑定新账号
@@ -185,86 +187,18 @@ class Index extends MemberBase
         }
     }
 
-    //跳过绑定或自动新增账号
-    public function prepare()
-    {
-        $openid       = $this->openid;
-        $type         = $this->type;
-        $token        = $this->token;
-        $access_token = $this->access_token;
-        $map          = array('type_uid' => $openid, 'type' => $type);
-
-        $user_info = \addons\synclogin\ThinkSDK\GetInfo::getInstance($type, $token);
-        if ($uid = Db::name('sync_login')->field('uid')->where($map)->value('uid')) {
-            $user = Member_Model::where('id', $uid)->find();
-            if (!$user) {
-                Db::name('sync_login')->where($map)->delete();
-                $uid = $this->addData($user_info);
-            } else {
-                $syncdata['oauth_token']        = $access_token;
-                $syncdata['oauth_token_secret'] = $openid;
-                Db::name('sync_login')->where($map)->update($syncdata);
-            }
-        } else {
-            $uid = $this->addData($user_info);
-        }
-        $this->loginWithoutpwd($uid);
-    }
-
-    //新增账号
-    private function addData($user_info)
-    {
-        // 先随机一个用户名,随后再变更为u+数字id
-        $username = genRandomString(10);
-        $password = genRandomString(6);
-        $domain   = request()->host();
-        $uid      = $this->auth->userRegister($username, $password, $username . '@' . $domain);
-        if ($uid > 0) {
-            $fields = ['username' => 'u' . $uid, 'email' => 'u' . $uid . '@' . $domain];
-            if (isset($$user_info['nickname'])) {
-                $fields['nickname'] = $$user_info['nickname'];
-            }
-            if (isset($$user_info['avatar'])) {
-                $fields['avatar'] = htmlspecialchars(strip_tags($user_info['avatar']));
-            }
-            // 记录数据到sync_login表中
-            $this->addSyncLoginData($uid);
-            return $uid;
-        } else {
-            $this->error($this->auth->getError() ?: '新增账号失败，请重试！');
-        }
-    }
-
     /**
-     * loginWithoutpwd  使用uid直接登陆，不使用帐号密码
-     */
-    private function loginWithoutpwd($uid)
-    {
-        if (0 < $uid) {
-            if ($this->auth->direct($uid)) {
-                //登陆用户
-                $this->success('登陆成功！', url('member/index/index'));
-            } else {
-                $this->error('登录失败！');
-            }
-        }
-    }
-
-    /**
-     * addSyncLoginData  增加sync_login表中数据
+     * 增加sync_login表中数据
      */
     private function addSyncLoginData($uid)
     {
-        $data['uid']                = $uid;
-        $data['type_uid']           = $this->openid;
-        $data['oauth_token']        = $this->access_token;
-        $data['oauth_token_secret'] = $this->openid;
-        $data['type']               = $this->type;
-
-        if (!Db::name('sync_login')->where($data)->count()) {
-            Db::name('sync_login')->insert($data);
-        }
-        return true;
+        $data['uid']          = $uid;
+        $data['openid']       = $this->openid;
+        $data['access_token'] = $this->access_token;
+        $data['type']         = $this->type;
+        $data['openname']     = $this->openname;
+        $data['login_time']   = time();
+        return SyncLoginModel::create($data);
     }
 
     protected function dealIsLogin($uid = 0)
@@ -272,20 +206,10 @@ class Index extends MemberBase
         $session = session('SYNCLOGIN');
         $openid  = $session['OPENID'];
         $type    = $session['TYPE'];
-        if ($this->checkIsSync(array('type_uid' => $openid, 'type' => $type))) {
+        if (Service::isBindThird($type, $openid)) {
             $this->error('该帐号已经被绑定！');
         }
         $this->addSyncLoginData($uid);
         $this->success('绑定成功！', url('member/index/profile'));
     }
-
-    private function checkIsSync($map = array())
-    {
-        if (Db::name('sync_login')->where($map)->count()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 }
