@@ -67,7 +67,7 @@ class Main extends Adminbase
             }else{
                 $sys_info['state'] = 0;
             }
-            $sys_info['site'] = Db::name('site')->where('status', 1)->count();
+            $sys_info['sites'] = Db::name('site')->where('status', 1)->count();
         }else{
             $sys_info['state'] = -1;
             $sys_info['site']  = 0;
