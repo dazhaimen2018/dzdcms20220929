@@ -112,7 +112,8 @@
 .layui-form-item .layui-upload{    border: none!important;}
 .layui-form-item .layui-upload input{border: 1px solid #e6e6e6;height: 38px;line-height: 38px}
 
-.layadmin-text p {	margin: 5px 0;	text-indent: 2em;}
+.layadmin-text p {	margin: 8px 0;	text-indent: 2em;}
+.layadmin-text p a{text-indent: 0!important;}
 .layuiadmin-badge{top:50%;margin-top:-9px;color:#01AAED;}
 .layuiadmin-badge,.layuiadmin-btn-group,.layuiadmin-span-color{position:absolute;right:15px;}
 .layuiadmin-card-list p.layuiadmin-big-font{font-size:36px;color:#666;line-height:36px;padding:5px 0 10px;overflow:hidden;text-overflow:ellipsis;word-break:break-all;white-space:nowrap;}
@@ -137,7 +138,6 @@
 
 .layui-form-item .layui-form-radio, .layui-form-item .layui-form-switch, .layui-form-item .layui-form-checkbox{margin:5px 0 5px 10px}
 .layui-form-item .layui-form-radio {line-height: 24px;}
-.layadmin-text p {	margin: 8px 0;	text-indent: 2em;}
 .layui-input, .layui-select{height: 36px;border-width: 0;}
 .layui-textarea {border-width: 0;}
 
