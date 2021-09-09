@@ -58,6 +58,8 @@
                             </div>
                             <div class="layui-form-mid layui-word-aux">全站模式发布和修改时，所有站同时必须编辑；单站模式一次只能管理一个站！</div>
                         </div>
+
+                        {if !$userInfo.site_id}
                         <div class="layui-form-item">
                             <label class="layui-form-label" title="单站模式时必须要选一个">切换站点 <font color="red">*</font></label>
                             <div class="layui-input-block">
@@ -67,6 +69,7 @@
                             </div>
                             <div class="layui-form-mid layui-word-aux">1、只有发布模式选了单站时才有效；2、多人同时作业时，只能针对同一个站；3、只针对管理所有站的管理员有效！</div>
                         </div>
+                        {/if}
                         {/if}
                         <div class="layui-form-item">
                             <label class="layui-form-label">缓存时间</label>
