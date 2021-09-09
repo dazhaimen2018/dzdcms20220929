@@ -53,7 +53,7 @@ class Manager extends Adminbase
             }
             //$groupdata = $result;
         }
-        $site = Site::select()->toArray();
+        $site = Site::where(['alone' => 1])->select()->toArray();
         $this->assign('site', $site);
         $this->assign('groupdata', $groupdata);
     }
