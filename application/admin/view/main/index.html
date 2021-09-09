@@ -11,7 +11,9 @@
                     </div>
                     <div class="layui-card-body layui-text layadmin-text">
                         <p id="nowTime"></p>
-                        <p>上次登录时间：<?php if($userInfo['last_login_time'] > 0) { echo $userInfo['last_login_time'];} else { echo '--';}?></p>
+                        <p><i class="iconfont icon-user-shared-2-line"></i> 管理角色：{$sys_info['group']}</p>
+                        <p><i class="layui-icon layui-icon-website"></i> 管理站点：{$sys_info['site']}</p>
+                        <p><i class="layui-icon layui-icon-date"></i> 登录时间：<?php if($userInfo['last_login_time'] > 0) { echo $userInfo['last_login_time'];} else { echo '--';}?></p>
                     </div>
                 </div>
                 {notempty name="default_pass"}
@@ -204,7 +206,7 @@
                             <tbody>
 
                             <tr>
-                                <td>当前版本</td>
+                                <td>系统版本</td>
                                 <td class="version">{:config('web_site_name')} v{$Think.config.version.yzncms_version}</td>
                             </tr>
                             <tr>
