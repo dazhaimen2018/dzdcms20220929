@@ -18,4 +18,3 @@ return [
     "yzncms_release" => 20210910, //产品更新日期
     "yzncms_version" => "2.1.3", //产品版本号
 ];
-
