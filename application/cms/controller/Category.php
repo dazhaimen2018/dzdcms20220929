@@ -47,6 +47,7 @@ class Category extends Adminbase
         $this->showTemplate = str_replace($this->themePath . DS, '', glob($this->themePath . DS . 'show*'));
         //取得单页模板
         $this->pageTemplate = str_replace($this->themePath . DS, '', glob($this->themePath . DS . 'page*'));
+
         // 获取当前管理所属站点
         $sites = $this->auth->site_id;
         if ($sites) {
@@ -54,8 +55,6 @@ class Category extends Adminbase
         }
         $site  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray();
         $this->view->assign('site', $site);
-
-
     }
 
     //栏目列表
@@ -209,7 +208,6 @@ class Category extends Adminbase
                     $whereSite = "  (" . implode(' OR ', $site) . ")";
                 }
             }
-
 
             $array = Db::name('Category')->where($whereSite)->order('listorder DESC, id DESC')->column('*', 'id');
             if (!empty($array) && is_array($array)) {
@@ -378,8 +376,15 @@ class Category extends Adminbase
                 $categorydata = '';
             }
             // 20200805 马博
-            $site = Site::where(['alone' => 1])->select()->toArray();
-            $this->site = $site;
+            $siteArray = Site::where(['alone' => 1])->select()->toArray();
+
+            // 获取当前管理所属站点
+            $sites = $this->auth->site_id;
+            if ($sites) {
+                $whereSite = " id = $sites";
+            }
+            $siteArray  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray();
+            $this->site  = $siteArray;
             $categoryData = CategoryData::where(['catid' => $catid])->select()->toArray();
             $ret = [];
             foreach ($this->site as $k => $s) {
@@ -398,9 +403,11 @@ class Category extends Adminbase
             $this->assign([
                 'category_data' => $ret,
                 'data'        => $data,
+                'sites'       => $siteArray,
                 'setting'     => $setting,
                 'category'    => $categorydata,
                 'models'      => $models,
+                'isall'       => $sites,
                 'tp_category' => $this->categoryTemplate,
                 'tp_list'     => $this->listTemplate,
                 'tp_show'     => $this->showTemplate,

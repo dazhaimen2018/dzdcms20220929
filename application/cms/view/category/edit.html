@@ -20,15 +20,17 @@
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <div class="layui-form-item">
+
+                <div class="layui-form-item"  {if $isall}style="display: none"{/if}>
                     <label class="layui-form-label">所属站点</label>
                     <div class="layui-input-block">
-                        {volist name="site" id="vo"}
-                        <input type="checkbox" name="sites[]" value="{$vo.id}" lay-skin="primary" title="{$vo.name}" {if $data && in_array($vo.id,$data.sites)}checked{/if}>
+                        {volist name="sites" id="vo"}
+                        <input type="checkbox" name="sites[]" value="{$vo.id}" lay-skin="primary"  title="{$vo.name}" {if $data && in_array($vo.id,$data.sites)}checked{/if}>
                         {/volist}
                     </div>
                     <div class="layui-form-mid layui-word-aux">只有选了某些站，在管理内容时才显示</div>
                 </div>
+
                 <div class="layui-form-item">
                     <label class="layui-form-label">上级菜单</label>
                     <div class="layui-input-block">
