@@ -152,8 +152,14 @@ class Lang extends Adminbase
 
 			$lang_data = LangData::where(['lang_id'=>$id])->select()->toArray();
             // 马博增加
-            $site = Site::select()->toArray();
-            $this->site = $site;
+            //$site = Site::select()->toArray();
+            // 获取当前管理所属站点
+            $sites = $this->auth->site_id;
+            if ($sites) {
+                $whereSite = " id = $sites";
+            }
+            $siteArray  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray();
+            $this->site = $siteArray;
             $ret = [];
             foreach ($this->site as $k => $s) {
                 if ($lang_data) {

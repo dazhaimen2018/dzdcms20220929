@@ -383,8 +383,8 @@ class Category extends Adminbase
             if ($sites) {
                 $whereSite = " id = $sites";
             }
-            $siteArray  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray();
-            $this->site  = $siteArray;
+            $siteArrays  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray();
+            $this->site  = $siteArrays;
             $categoryData = CategoryData::where(['catid' => $catid])->select()->toArray();
             $ret = [];
             foreach ($this->site as $k => $s) {
