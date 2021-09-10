@@ -20,6 +20,7 @@ class Category extends Validate
 {
     //定义验证规则
     protected $rule = [
+        'sites|所属站点'   => 'require',
         'parentid|上级栏目'  => 'require|number',
         'modelid|所属模型'   => 'require|number',
         'type|栏目类型'      => 'require|in:1,2,3',
@@ -36,8 +37,8 @@ class Category extends Validate
     ];
 
     protected $scene = [
-        'page' => ['parentid', 'type', 'catname', 'catdir', 'image', 'listorder', 'status'],
-        'list' => ['parentid', 'modelid', 'type', 'catname', 'catdir', 'image', 'listorder', 'status'],
-        'link' => ['parentid', 'type', 'catname', 'catdir', 'image', 'listorder', 'status', 'url'],
+        'page' => ['sites', 'parentid', 'type', 'catname', 'catdir', 'image', 'listorder', 'status'],
+        'list' => ['sites', 'parentid', 'modelid', 'type', 'catname', 'catdir', 'image', 'listorder', 'status'],
+        'link' => ['sites', 'parentid', 'type', 'catname', 'catdir', 'image', 'listorder', 'status', 'url'],
     ];
 }
