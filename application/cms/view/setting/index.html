@@ -50,15 +50,6 @@
                             <div class="layui-form-mid layui-word-aux">模型附表中如果增加了很多图片、多图，单选或多选或多编辑器字段的多站模式不正常，请选单站</div>
                         </div>
                         {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
-                        <div class="layui-form-item">
-                            <label class="layui-form-label" title="栏目和碎片发布和修改模式">栏目模式</label>
-                            <div class="layui-input-block">
-                                <input type="radio" name="setting[category_mode]" value="1" title="多站" {if 1==$setting['category_mode']}checked{/if}>
-                                <input type="radio" name="setting[category_mode]" value="2" title="单站" {if 2==$setting['category_mode']}checked{/if}>
-                            </div>
-                            <div class="layui-form-mid layui-word-aux">全站模式发布和修改时，所有站同时必须编辑；单站模式一次只能管理一个站！</div>
-                        </div>
-
                         {if !$userInfo.site_id}
                         <div class="layui-form-item">
                             <label class="layui-form-label" title="单站模式时必须要选一个">切换站点 <font color="red">*</font></label>

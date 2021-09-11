@@ -36,6 +36,9 @@ class Cms extends Adminbase
         }else{
            if(isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode']) {
                $sites     = cache("Cms_Config")['site'];
+               if(!$sites){
+                   $this->error('请在CMS配置-切换站点中选一个站！','cms/setting/index');
+               }
                $whereSite = " id = $sites";
            }
         }
