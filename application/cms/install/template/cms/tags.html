@@ -1,0 +1,40 @@
+{include file="public/header" /}
+{include file="public/banner_In" /}
+<div class="layui-main">
+    <div class="shoplist-filter">
+        <div class="layui-container layui-botton-20">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    <span class="layui-breadcrumb layui-hide-xs" style="visibility: visible;">
+                        <a href="{$siteurl}">首页</a> <a href="{:url('cms/index/tags')}">标签</a> <a>{$tag}</a>
+                    </span>
+                </div>
+                {if $top_parentid!=$catid}
+                {yzn module="cms" action="category" catid="$top_parentid" siteId="$site_id" cache="3600" order="listorder ASC" num="10" return="data"}
+                <div class="layui-card-body">
+                    <div class="store-cat-item"><span><i class="layui-icon layui-icon-app"></i>分类：</span>
+                        <ul>
+                            {volist name="data" id="vo"}
+                            <li {if $vo['id']==$catid}class="active"{/if}><a href="{$vo.url}">{$vo.catname}</a></li>
+                            {/volist}
+                        </ul>
+                    </div>
+                </div>
+                {/yzn}
+                {/if}
+            </div>
+        </div>
+        <div class="layui-container" style="padding-bottom: 85px;">
+            <div class="layui-row layui-col-space30">
+                {yzn module="cms" action="tags" tag="$tag" siteId="$site_id" order="listorder ASC" num="10"  return="data"}
+                {volist name="data" id="item"}
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg4">
+                    {include file="public/item" /}
+                </div>
+                {/volist}
+                {/yzn}
+            </div>
+        </div>
+    </div>
+</div>
+{include file="public/footer" /}

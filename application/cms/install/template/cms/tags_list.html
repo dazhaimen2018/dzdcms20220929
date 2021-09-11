@@ -1,0 +1,26 @@
+{include file="public/header" /}
+{include file="public/banner_In" /}
+<div class="layui-main">
+    <div class="shoplist-filter">
+        <div class="layui-container layui-botton-20">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    <span class="layui-breadcrumb layui-hide-xs" style="visibility: visible;">
+                        <a href="{$siteurl}">首页</a> <a href="{:url('cms/index/tags')}">标签列表</a> <a>tags</a>
+                    </span>
+                </div>
+                <div class="layui-card-body">
+                    <div class="store-cat-item"><span><i class="layui-icon layui-icon-app"></i>tags：</span>
+                        <ul>
+                            {volist name="list" id="vo"}
+                            <li><a href="{:url('cms/index/tags',['tagdir'=>$vo['tagdir']])}" title="{$vo.usetimes}个话题">{$vo.tag}({$vo.usetimes})</a></li>
+                            {/volist}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{include file="public/footer" /}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>{if !isset($catid)}{:getSite('title')}{else}{$SEO['title']}{/if}{if getSite('brand')} -【{:getSite('brand')}】{/if}</title>
+    <meta name="keywords" content="{$SEO['keyword']}" />
+    <meta name="description" content="{$SEO['description']}" />
+    <link href="{:getSite('favicon')}" rel="icon">
+    <link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="__SKIN__/dzd/cms/css/style.css"/>
+    <link rel="stylesheet" href="__STATIC__/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2377328_cb5nlydg0w7.css">
+</head>
+<body>
+<div class="header">
+    <div class="layui-container">
+        <a class="layui-logo" href="/"><img src="{:getSite('logo')}" alt="{:getSite('title')}"></a>
+        <div class="ew-nav-group">
+            <div class="nav-toggle"><i class="layui-icon layui-icon-more-vertical"></i></div>
+            <ul class="layui-nav layui-layout-left" lay-filter="header-nav">
+                <li class="layui-nav-item {if !isset($catid)}layui-this{/if}"><a href="{:url('cms/index/index')}" target="_self">{:patch('home')}</a></li>
+                {yzn module="cms" action="category" catid="0" siteId="$siteId" cache="3600" order="listorder ASC" num="10" return="data"}
+                {volist name="data" id="vo"}
+                <li class="layui-nav-item {if isset($catid) && in_array($catid,explode(',',$vo['arrchildid']))}layui-this{/if}">
+                    {if $vo['child']}
+                    <a href="javascript:;">{$vo.catname}</a>
+                    <dl class="layui-nav-child">
+                        <!-- 二级菜单 -->
+                        {yzn module="cms" action="category" catid="$vo['id']" siteId="$siteId" cache="3600" order="listorder ASC" num="10" return="data"}
+                        {foreach $data as $key=>$vo }
+                        <dd><a href="{$vo.url}">{$vo.catname}</a></dd>
+                        {/foreach}
+                        {/yzn}
+                    </dl>
+                    {else}
+                    <a href="{$vo.url}" {if $vo['target']}target="_blank"{/if}>{$vo.catname}</a>
+                    {/if}
+                </li>
+                {/volist}
+                {/yzn}
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item header-search">
+                    <form class="header-search-inner"  action="{:url('cms/index/search')}">
+                        <div class="header-search-content">
+                            <input class="J-search-input" name="keyword"  type="text" placeholder="输入您想要搜索的关键词" autocomplete="off">
+                            <button type="submit" class="header-search-submit">
+                                <i class="layui-icon layui-icon-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="header-search-icon">
+                        <i></i>
+                    </div>
+                </li>
+                <!--所有站点列表-->
+                <li class="layui-nav-item">
+                    <a href="javascript:;">{:getSite('name')}</a>
+                    <dl class="layui-nav-child">
+                        <!-- 相同域名使用于多语言站，点击切换 所有子站域名相同时 换成 href="javascript：void(0)" -->
+                        {volist name="sameSite" id="vo"}
+                        {if $i==1 && $site_id==1}
+                        <dd> <a name="gb2big5" id="gb2big5"><img src= "/static/language/{$vo.mark}.png"> 繁体中文</a></dd>
+                        {else}
+                        <dd><a href="{$vo.http}://{$vo.domain}{$urls}" onclick="setLang('{$vo.mark}')" title="切换到{$vo.name}"><img src= "/static/language/{$vo.mark}.png"> {$vo.name}</a></dd>
+                        {/if}
+                        {/volist}
+                        <!-- 不同域名站 -->
+                        {volist name="allSite" id="vo"}
+                        {if $i==1 && $site_id==1}
+                        <dd> <a name="gb2big5" id="gb2big5"><img src= "/static/language/{$vo.mark}.png"> 繁体中文</a></dd>
+                        {else}
+                        <dd> <a {if $site_id==$vo.id}class="active"{/if} href="{$vo.http}://{$vo.domain}" title="跳转到{$vo.name}"><img src= "/static/language/{$vo.mark}.png"> {$vo.name}</a></dd>
+                        {/if}
+                        {/volist}
+                    </dl>
+                </li>
+                <!-- 会员中心 注册登录 -->
+                {if $userinfo}
+                <li class="layui-nav-item">
+                    <a href="javascript:;">会员中心<span class="layui-badge-dot"></span></a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">{$Think.session.user_auth.username}</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{:url('member/index/index')}">会员：{$Think.session.user_auth.username}</a></dd>
+                        <dd><a href="{:url('member/index/logout')}">退出</a></dd>
+                    </dl>
+                </li>
+                {else}
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">{:patch('register')}/{:patch('login')}</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{:url('member/index/login')}">{:patch('login')}</a></dd>
+                        <dd><a href="{:url('member/index/register')}">{:patch('register')}</a></dd>
+                    </dl>
+                </li>
+                {/if}
+            </ul>
+
+        </div>
+    </div>
+</div>

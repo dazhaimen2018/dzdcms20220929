@@ -1,0 +1,109 @@
+{include file="public/header" /}
+{include file="public/banner_In" /}
+<div class="layui-container">
+    <div class="layui-row layui-col-space20">
+        {include file="public/left" /}
+        <div class="layui-col-sm9 layui-col-md10">
+            {include file="public/location" /}
+            <div class="layui-card fly-extend-doc layui-show body-height-page">
+                <div class="layui-card-header"><h3 class="layui-inline layui-this">{$title}</h3></div>
+
+                <div class="layui-card-body detail-body layui-text">
+                    <blockquote class="layui-elem-quote layui-text">
+                        {$content|raw}
+                    </blockquote>
+                    <div class="content">
+                        <form class="layui-form" id="layuiForm">
+                            {:token()}
+                            <input type="hidden" name="id" value="5" />
+                            <input type="hidden" name="modelField[site_id]" value="{$site_id}" />
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">{:patch('Name')}</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="modelField[name]" required  lay-verify="required" placeholder="{:patch('enterName')}" lay-reqText={:patch('enterName')} autocomplete="off" class="layui-input" value="">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label layui-form-item-required">{:patch('phone')}</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="modelField[phone]" required  lay-verify="required|phone" placeholder="{:patch('inputPhone')}" autocomplete="off" class="layui-input" value="">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label layui-form-item-required">{:patch('email')}</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="modelField[email]" required  lay-verify="required|email" placeholder="{:patch('inputEmail')}" autocomplete="off" class="layui-input" value="">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label layui-form-item-required">{:patch('messageContent')}</label>
+                                <div class="layui-input-block">
+                                    <textarea placeholder="{:patch('enterMessage')}" class="layui-textarea" name="modelField[content]"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label layui-form-item-required">{:patch('captcha')}</label>
+                                <div class="layui-input-block verify-box">
+                                    <input type="text" name="captcha" lay-verify="required" placeholder="{:patch('captcha')}" autocomplete="off" class="layui-input" style="width: 200px">
+                                    <img id="verify" src="{:captcha_src()}" alt="{:patch('captcha')}" class="captcha">
+                                </div>
+                            </div>
+
+
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit lay-filter="formDemo">{:patch('submit')}</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary">{:patch('reset')}</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="public/footer" /}
+
+<script>
+    //Demo
+    layui.use('form', function(){
+        var form = layui.form;
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            $.ajax({
+                url:'/formguide/index/post.html',
+                type:'post',
+                data:data.field,
+                dataType: 'json',
+                success:function(data){
+                    if(data.code==1){
+                        layer.msg(data.msg,{icon: 1});
+                        $("#layuiForm")[0].reset();
+                        layui.form.render();
+                    }
+                    else{
+                        layer.msg(data.msg,{icon: 2});
+                        return false;
+                    }
+                },
+                error:function(e){
+                    layer.msg(data.msg,{icon: 2});
+                    return false;
+                },
+            });
+            return false;
+        });
+    });
+
+    //刷新验证码
+    $("#verify").click(function() {
+        var verifyimg = $("#verify").attr("src");
+        $("#verify").attr("src", verifyimg.replace(/\?.*$/, '') + '?' + Math.random());
+    });
+</script>
