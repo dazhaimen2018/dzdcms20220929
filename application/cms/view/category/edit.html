@@ -5,14 +5,8 @@
         <ul class="layui-tab-title">
             <li class="layui-this"><i class="layui-icon layui-icon-set"></i> 基本设置</li>
             <li id="modeTab"><i class="layui-icon layui-icon-template"></i> 模板设置</li>
-            {volist name="site" id="s" key="i" }
-            {if (isset(cache("Cms_Config")['category_mode']) && 2 == cache("Cms_Config")['category_mode'])}
-            {if $i == getSiteInfo('id')}
-            {include file="item_site" /}
-            {/if}
-            {else}
-            {include file="item_site" /}
-            {/if}
+            {volist name="sites" id="site"}
+            <li> {if $site.mark} <img src="/static/language/{$site.mark}.png" title="{$site.name}">{/if} {$site.name}</li>
             {/volist}
             {if condition="isModuleInstall('member')"}
             <li><i class="layui-icon layui-icon-auz"></i> 权限设置</li>
@@ -184,13 +178,7 @@
             $siteId = $s['site_id'];
             $cdId = $s['id'];
             ?>
-            {if (isset(cache("Cms_Config")['category_mode']) && 2 == cache("Cms_Config")['category_mode'])}
-            {if $k == getSiteInfo('id')}
             {include file="item_category" /}
-            {/if}
-            {else}
-            {include file="item_category" /}
-            {/if}
             {/volist}
             <!-- 多语言设置 end-->
             <div class="layui-tab-item">

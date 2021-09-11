@@ -48,13 +48,26 @@ class Category extends Adminbase
         //取得单页模板
         $this->pageTemplate = str_replace($this->themePath . DS, '', glob($this->themePath . DS . 'page*'));
 
-        // 获取当前管理所属站点
-        $sites = $this->auth->site_id;
-        if ($sites) {
-            $whereSite = " id = $sites";
+        // 20200805 马博所有站点
+        $siteAdmin = $this->auth->site_id;
+        if ($siteAdmin) {
+            $whereSite = " id = $siteAdmin";
+        }else{
+            if(isset(cache("Cms_Config")['category_mode']) && 2 == cache("Cms_Config")['category_mode']) {
+                $siteAdmin = cache("Cms_Config")['site'];
+                $whereSite = " id = $siteAdmin";
+            }
         }
-        $site  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray();
-        $this->view->assign('site', $site);
+        $sites = Site::where(['alone' => 1])->select()->toArray(); //所有真实数据的站
+        $site  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray(); // 当前站点
+        $this->site = $site;
+        $this->assign([
+            'site'  => $sites,
+            'sites' => $site,
+            'isall' => $siteAdmin,
+        ]);
+        // 20200805 马博 end
+
     }
 
     //栏目列表
@@ -379,12 +392,12 @@ class Category extends Adminbase
             $siteArray = Site::where(['alone' => 1])->select()->toArray();
 
             // 获取当前管理所属站点
-            $sites = $this->auth->site_id;
-            if ($sites) {
-                $whereSite = " id = $sites";
-            }
-            $siteArrays  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray();
-            $this->site  = $siteArrays;
+//            $sites = $this->auth->site_id;
+//            if ($sites) {
+//                $whereSite = " id = $sites";
+//            }
+//            $siteArrays  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray();
+//            $this->site  = $siteArrays;
             $categoryData = CategoryData::where(['catid' => $catid])->select()->toArray();
             $ret = [];
             foreach ($this->site as $k => $s) {
@@ -403,11 +416,9 @@ class Category extends Adminbase
             $this->assign([
                 'category_data' => $ret,
                 'data'        => $data,
-                'sites'       => $siteArray,
                 'setting'     => $setting,
                 'category'    => $categorydata,
                 'models'      => $models,
-                'isall'       => $sites,
                 'tp_category' => $this->categoryTemplate,
                 'tp_list'     => $this->listTemplate,
                 'tp_show'     => $this->showTemplate,
