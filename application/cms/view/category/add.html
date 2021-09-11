@@ -14,7 +14,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">所属站点</label>
                     <div class="layui-input-block">
-                        {volist name="site" id="vo" empty="<div class='layui-tips'>请先建站点</div>"}
+                        {volist name="sites" id="vo" empty="<div class='layui-tips'>请先建站点</div>"}
                         <input type="checkbox" name="sites[]" value="{$vo.id}" lay-skin="primary" title="{$vo.name}" {if $data && in_array($vo.id,$data.name)}checked{/if}>
                         {/volist}
                     </div>

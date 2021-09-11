@@ -5,7 +5,7 @@
         <ul class="layui-tab-title">
             <li class="layui-this"><i class="layui-icon layui-icon-set"></i> 基本设置</li>
             <li id="modeTab"><i class="layui-icon layui-icon-template"></i> 模板设置</li>
-            {volist name="sites" id="site"}
+            {volist name="site" id="site"}
             <li> {if $site.mark} <img src="/static/language/{$site.mark}.png" title="{$site.name}">{/if} {$site.name}</li>
             {/volist}
             {if condition="isModuleInstall('member')"}

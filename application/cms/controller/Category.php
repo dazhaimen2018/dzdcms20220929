@@ -54,16 +54,16 @@ class Category extends Adminbase
             $whereSite = " id = $siteAdmin";
         }else{
             if(isset(cache("Cms_Config")['category_mode']) && 2 == cache("Cms_Config")['category_mode']) {
-                $siteAdmin = cache("Cms_Config")['site'];
-                $whereSite = " id = $siteAdmin";
+                $site = cache("Cms_Config")['site'];
+                $whereSite = " id = $site";
             }
         }
         $sites = Site::where(['alone' => 1])->select()->toArray(); //所有真实数据的站
         $site  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray(); // 当前站点
         $this->site = $site;
         $this->assign([
-            'site'  => $sites,
-            'sites' => $site,
+            'site'  => $site,
+            'sites' => $sites,
             'isall' => $siteAdmin,
         ]);
         // 20200805 马博 end
