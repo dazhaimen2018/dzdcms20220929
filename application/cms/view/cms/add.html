@@ -6,39 +6,22 @@
         <form class="layui-form" method="post">
             <div class="layui-tab">
                 <ul class="layui-tab-title">
-
-                    {volist name="site" id="s" key="i" }
-                    {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
-                    {if $i == getSiteInfo('id')}
-                    {include file="item_site_cms" /}
-                    {/if}
-                    {else}
-                    {include file="item_site_cms" /}
-                    {/if}
+                    {volist name="sites" id="site" key="i" }
+                    <li {if $i==1}class="layui-this"{/if}> {if $site.mark} <img src="/static/language/{$site.mark}.png" title="{$site.name}">{/if} {$site.name}</li>
                     {/volist}
                     <li><i class="layui-icon layui-icon-set"></i> 基本信息</li>
                 </ul>
                 <div class="layui-tab-content">
-
-                    {volist name="site" id="s" key="k"}
-                    {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
-                    {if $k == getSiteInfo('id')}
-                    <div class="layui-tab-item {if $k==getSiteInfo('id')}layui-show{/if}">
-                        <input type="hidden" name="extra_data[{$k}][site_id]" value="{$s.id}" />
+                    {volist name="sites" id="site" key="i" }
+                    <div class="layui-tab-item {if $i==1}layui-show{/if}">
+                        <input type="hidden" name="extra_data[{$k}][site_id]" value="{$site.id}" />
                         {volist name="extraFieldList" id="vo"}
                         {include file="admin@inputItemExt" /}
                         {/volist}
                     </div>
-                    {/if}
-                    {else}
-                    <div class="layui-tab-item {if $k==1}layui-show{/if}">
-                        <input type="hidden" name="extra_data[{$k}][site_id]" value="{$s.id}" />
-                        {volist name="extraFieldList" id="vo"}
-                        {include file="admin@inputItemExt" /}
-                        {/volist}
-                    </div>
-                    {/if}
                     {/volist}
+
+                    <!--基本信息-->
                     <div class="layui-tab-item">
                         {include file="admin@inputItem" /}
                     </div>

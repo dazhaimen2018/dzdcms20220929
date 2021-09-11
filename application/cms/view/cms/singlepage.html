@@ -6,31 +6,66 @@
         <form class="layui-form page-form" method="post">
             <div class="layui-tab">
                 <ul class="layui-tab-title">
-                    {volist name="site" id="s" key="i" }
-                    <!--判断是否单站发布-->
-                    {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
-                    {if $i == getSiteInfo('id')}
-                    <li class="layui-this"> {if $s.mark} <img src="/static/language/{$s.mark}.png" title="{$s.name}">{/if} {$s.name}</li>
-                    {/if}
-                    {else}
-                    <li {if $i==1}class="layui-this"{/if}> {if $s.mark} <img src="/static/language/{$s.mark}.png" title="{$s.name}">{/if} {$s.name}</li>
-                    {/if}
+                    {volist name="sites" id="site" key="i" }
+                    <li {if $i==1}class="layui-this"{/if}> {if $site.mark} <img src="/static/language/{$site.mark}.png" title="{$site.name}">{/if} {$site.name}</li>
                     {/volist}
                 </ul>
                 <div class="layui-tab-content">
-                    {volist name="site" id="s" key="k"}
-                    <!--判断是否单站发布-->
-                    {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
-                    {if $k == getSiteInfo('id')}
-                    <div class="layui-tab-item layui-show layui-this">
-                        {include file="item_singlepage" /}
-                    </div>
-                    {/if}
-                    {else}
+                    {volist name="sites" id="s" key="k" }
                     <div class="layui-tab-item {if $k==1}layui-show layui-this{/if}">
-                        {include file="item_singlepage" /}
+                        <input type="hidden" name="extra_data[{$k}][site_id]" value="{$s.id}"/>
+                        <input type="hidden" name="extra_data[{$k}][id]" value="{$info[$k-1]['id']}"/>
+                        <input type="hidden" name="extra_data[{$k}][catid]" value="{$catid}"/>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">
+                                {:getSiteName($k)}标题 <font color="red">*</font>
+                            </label>
+                            <div class="layui-input-block">
+                                <input autocomplete="off" class="layui-input" name="extra_data[{$k}][title]" placeholder="{:lang('Category Title',[],$s['mark'])}" type="text" value="{$info[$k-1]['title']|default=''}" lay-verify="required"  lay-reqText="{:getSiteName($k)}标题不能为空">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" title="{:lang('SEO Keyword',[],$s['mark'])}">
+                                {:getSiteName($k)}关键词
+                            </label>
+                            <div class="layui-input-block">
+                                <input autocomplete="off" class="layui-input" name="extra_data[{$k}][keywords]" placeholder="{:lang('SEO Keyword',[],$s['mark'])}" type="text" value="{$info[$k-1]['keywords']|default=''}">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" title="{:lang('SEO Description',[],$s['mark'])}">
+                                {:getSiteName($k)}描述
+                            </label>
+                            <div class="layui-input-block">
+                                <textarea class="layui-textarea" name="extra_data[{$k}][description]" placeholder="{:lang('SEO Description',[],$s['mark'])}">{$info[$k-1]['description']|default=''}</textarea>
+                            </div>
+                        </div>
+                        {php} $name="extra_data[$k][thumb]"; {/php}
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">缩略图</label>
+                            <div class="layui-input-block layui-upload">
+                                {php}echo \util\Form::images($name,'thumb',$info[$k-1]['thumb'] ?? ''){/php}
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">创建时间</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="extra_data[{$k}][inputtime]" class="layui-input datetime" value="{$info[$k-1]['inputtime']|default=date('Y-m-d H:i:s',time())}">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">
+                                {:getSiteName($k)}内容 <font color="red">*</font>
+                            </label>
+                            <div class="layui-input-block border-none">
+                                <script type="text/plain" class="js-ueditor" id="content{$k}" name="extra_data[{$k}][content]" lay-verify="required" lay-reqText="内容不能为空" >{$info[$k-1]['content']|default=''|raw}</script>
+                                <a class="layui-btn layui-btn-sm" id="content{$k}grabimg" style="margin-top: 4px;">图片本地化</a>
+                                <a class="layui-btn layui-btn-sm" id="content{$k}filterword" style="margin-top: 4px;">检测违禁词</a>
+                            </div>
+                        </div>
+
                     </div>
-                    {/if}
                     {/volist}
                 </div>
             </div>

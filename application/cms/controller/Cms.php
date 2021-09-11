@@ -29,14 +29,19 @@ class Cms extends Adminbase
         $this->Cms_Model = new Cms_Model;
         $this->cmsConfig = cache("Cms_Config");
         $this->assign("cmsConfig", $this->cmsConfig);
-        // 20200805 马博
+        // 20200805 马博所有站点
         $sites = $this->auth->site_id;
         if ($sites) {
             $whereSite = " id = $sites";
+        }else{
+           if(isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode']) {
+               $sites     = cache("Cms_Config")['site'];
+               $whereSite = " id = $sites";
+           }
         }
-        $site  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray();
-        $this->site = $site;
-        $this->view->assign('site', $site);
+        $sites  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray();
+        $this->site = $sites;
+        $this->view->assign('sites', $sites);
         // 20200805 马博 end
     }
 

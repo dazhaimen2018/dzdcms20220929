@@ -6,29 +6,26 @@
         <form class="layui-form" method="post">
             <div class="layui-tab">
                 <ul class="layui-tab-title">
-                    {volist name="site" id="s" key="i" }
-                    <!--增加判断是否多站一起发布站点tab--->
-                    {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
-                    {if $i == getSiteInfo('id')}
-                    {include file="item_site_cms" /}
-                    {/if}
-                    {else}
-                    {include file="item_site_cms" /}
-                    {/if}
+                    {volist name="sites" id="site" key="i" }
+                    <li {if $i==1}class="layui-this"{/if}> {if $site.mark} <img src="/static/language/{$site.mark}.png" title="{$site.name}">{/if} {$site.name}</li>
                     {/volist}
                     <li><i class="layui-icon layui-icon-set"></i> 基本信息</li>
                 </ul>
                 <div class="layui-tab-content">
-
                     {volist name="extra_data" id="s" key="k"}
-                    <!--增加判断是否多站一起发布--->
-                    {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
-                    {if $k == getSiteInfo('id')}
-                    {include file="item_ext" /}
-                    {/if}
-                    {else}
-                    {include file="item_ext" /}
-                    {/if}
+                    <div class="layui-tab-item layui-show">
+                        <input type="hidden" name="extra_data[{$k}][site_id]" value="{$s.site_id}" />
+                        <input type="hidden" name="extra_data[{$k}][id]" value="{$s.id}" />
+                        {volist name="extraFieldList" id="vo"}
+                        <?php
+                        $value = '';
+                        if(!empty($s[$vo['name']])){
+                         $value= $s[$vo['name']];
+                         }
+                        ?>
+                        {include file="admin@inputItemExt" /}
+                        {/volist}
+                    </div>
                     {/volist}
                     <div class="layui-tab-item">
                         {include file="admin@inputItem" /}
