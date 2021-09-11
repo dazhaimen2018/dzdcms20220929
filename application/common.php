@@ -1106,3 +1106,15 @@ function check_cors_request()
         }
     }
 }
+
+/**
+ * 当前站主页URL
+ */
+function homePage(){
+    if(isModuleInstall('cms')){
+        $url = onSiteUrl();
+    } else{
+        $url = 'http://'.$_SERVER['HTTP_HOST'];
+    }
+    return $url;
+}
