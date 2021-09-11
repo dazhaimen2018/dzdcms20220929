@@ -47,13 +47,6 @@
                                 {php}echo \util\Form::images($name,'thumb',$info[$k-1]['thumb'] ?? ''){/php}
                             </div>
                         </div>
-
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">创建时间</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="extra_data[{$k}][inputtime]" class="layui-input datetime" value="{$info[$k-1]['inputtime']|default=date('Y-m-d H:i:s',time())}">
-                            </div>
-                        </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">
                                 {:getSiteName($k)}内容 <font color="red">*</font>
@@ -64,7 +57,12 @@
                                 <a class="layui-btn layui-btn-sm" id="content{$k}filterword" style="margin-top: 4px;">检测违禁词</a>
                             </div>
                         </div>
-
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">创建时间</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="extra_data[{$k}][inputtime]" class="layui-input datetime" value="{$info[$k-1]['inputtime']|default=date('Y-m-d H:i:s',time())}">
+                            </div>
+                        </div>
                     </div>
                     {/volist}
                 </div>

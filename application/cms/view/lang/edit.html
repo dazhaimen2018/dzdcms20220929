@@ -7,14 +7,8 @@
             <div class="layui-tab">
                 <ul class="layui-tab-title">
                     <li class="layui-this"><i class="layui-icon layui-icon-set"></i> 基本设置</li>
-                    {volist name="site" id="s" key="i" }
-                    {if (isset(cache("Cms_Config")['category_mode']) && 2 == cache("Cms_Config")['category_mode'])}
-                    {if $i == getSiteInfo('id')}
-                    {include file="item_site" /}
-                    {/if}
-                    {else}
-                    {include file="item_site" /}
-                    {/if}
+                    {volist name="sites" id="site" key="i" }
+                    <li> {if $site.mark} <img src="/static/language/{$site.mark}.png" title="{$site.name}">{/if} {$site.name}</li>
                     {/volist}
                 </ul>
                 <div class="layui-tab-content">
@@ -50,8 +44,6 @@
                         </div>
                     </div>
                     {volist name="lang_data" id="s" key="k" }
-                    {if (isset(cache("Cms_Config")['category_mode']) && 2 == cache("Cms_Config")['category_mode'])}
-                    {if $k == getSiteInfo('id')}
                     <div class="layui-tab-item">
                         <input type="hidden" name="lang_data[{$k}][site_id]" value="{$s['site_id']}" />
                         <input type="hidden" name="lang_data[{$k}][lang_id]" value="{$s['lang_id']}" />
@@ -63,20 +55,6 @@
                             </div>
                         </div>
                     </div>
-                    {/if}
-                    {else}
-                    <div class="layui-tab-item">
-                        <input type="hidden" name="lang_data[{$k}][site_id]" value="{$s['site_id']}" />
-                        <input type="hidden" name="lang_data[{$k}][lang_id]" value="{$s['lang_id']}" />
-                        <input type="hidden" name="lang_data[{$k}][id]" value="{$s['id']}" />
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">{:getSiteName($k)}数据</label>
-                            <div class="layui-input-block">
-                                <textarea lay-verify="required" lay-reqText="{:getSiteName($k)}数据不能为空" name="lang_data[{$k}][value]" placeholder="{:lang('Setting Value',[],$s['mark'])}" class="layui-textarea">{$s['value']}</textarea>
-                            </div>
-                        </div>
-                    </div>
-                    {/if}
                     {/volist}
 
                 </div>

@@ -30,13 +30,21 @@ class Lang extends Adminbase
         $this->modelClass = new LangMode;
 		//允许使用的字段列表
 		$this->banfie = array("text", "checkbox", "textarea", "radio", "number", "datetime", "image", "images", "array", "switch", "select", "Ueditor", "file", "files", 'color', 'tags', 'markdown');
-		// 获取当前管理所属站点
+
+        // 20200805 马博所有站点
         $sites = $this->auth->site_id;
         if ($sites) {
             $whereSite = " id = $sites";
+        }else{
+            if(isset(cache("Cms_Config")['category_mode']) && 2 == cache("Cms_Config")['category_mode']) {
+                $sites     = cache("Cms_Config")['site'];
+                $whereSite = " id = $sites";
+            }
         }
-        $site  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray();
-		$this->view->assign('site', $site);
+        $sites  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray();
+        $this->site = $sites;
+        $this->view->assign('sites', $sites);
+        // 20200805 马博 end
 	}
 
 	//配置首页
@@ -56,10 +64,7 @@ class Lang extends Adminbase
             return json($result);
         }
         return $this->fetch();
-
 	}
-
-
 
 	//新增配置
 	public function add()
@@ -149,17 +154,7 @@ class Lang extends Adminbase
 			}
 			$fieldType = Db::name('field_type')->where('name', 'in', $this->banfie)->order('listorder')->column('name,title,ifoption,ifstring');
 			$info = Lang_Model::get($id);
-
 			$lang_data = LangData::where(['lang_id'=>$id])->select()->toArray();
-            // 马博增加
-            //$site = Site::select()->toArray();
-            // 获取当前管理所属站点
-            $sites = $this->auth->site_id;
-            if ($sites) {
-                $whereSite = " id = $sites";
-            }
-            $siteArray  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray();
-            $this->site = $siteArray;
             $ret = [];
             foreach ($this->site as $k => $s) {
                 if ($lang_data) {
@@ -176,7 +171,6 @@ class Lang extends Adminbase
                     $ret[$k]['lang_id'] = $id;
                 }
             }
-            //halt($ret);
             // 马博增加 end
 			$this->assign([
 				'groupArray' => lang('lang_group'),
