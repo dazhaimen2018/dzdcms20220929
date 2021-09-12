@@ -30,19 +30,24 @@ class Cms extends Adminbase
         $this->cmsConfig = cache("Cms_Config");
         $this->assign("cmsConfig", $this->cmsConfig);
         // 20200805 马博所有站点
-        $sites = $this->auth->site_id;
+        $sites    = $this->auth->site_id;
         if ($sites) {
             $whereSite = " id = $sites";
         }else{
-           if(isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode']) {
-               $sites     = cache("Cms_Config")['site'];
-               if(!$sites){
-                   $this->error('请在CMS配置-切换站点中选一个站！','cms/setting/index');
-               }
-               $whereSite = " id = $sites";
-           }
+            if(isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode']) {
+                $sites     = cache("Cms_Config")['site'];
+                if(!$sites){ //不满条件
+                    $this->error('请在CMS配置-切换站点中选一个站！','cms/setting/index');
+                }
+                $whereSite = " id = $sites";
+            }
         }
-        $sites  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray();
+        $catid    = $this->request->param('catid/d', 0);
+        $catSites = getCategory($catid,'sites'); //当前栏目所属站点
+        if($catSites){
+            $whereIn  = " id in($catSites)";
+        }
+        $sites  = Site::where(['alone' => 1])->where($whereIn)->where($whereSite)->select()->toArray();
         $this->site = $sites;
         $this->view->assign('sites', $sites);
         // 20200805 马博 end
