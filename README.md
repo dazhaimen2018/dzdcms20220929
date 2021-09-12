@@ -9,14 +9,15 @@
 # 演示地址和相关连接
 - 前台：http://www.dzdcms.com/
 - 后台：http://demo.dzdcms.com/admin/
-- 账号：demo  密码：123456
+- 所有站管理员账号：demo  密码：123456
+- 英文站独立管理员：english  密码：123456
 - 文档：https://doc.dzdcms.com/
 - YznCMS：https://gitee.com/ken678/YZNCMS
 - 本地安装教程 https://doc.dzdcms.com/downs.html
 
 # 每日更新说明
 - 每日更新可用git pull拉取最新程序
-- 当天拉取的文件中，如果update下面有sql文件，可在phpmyadmin中打开SQL窗口，复制所需要的语句执行一下即可！
+- 当天拉取的文件中，如果update下面有sql文件，可在phpmyadmin中导入完成数据库的升级！
 - 数据库更新教程：https://doc.dzdcms.com/ask/84.html
 
 [![YznCMS](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://gitee.com/ken678/YZNCMS/)
