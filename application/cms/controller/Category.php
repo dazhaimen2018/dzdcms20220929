@@ -101,6 +101,7 @@ class Category extends Adminbase
                 }
             }
             $siteId  = onSite();
+            $siteUrl = onSiteUrl();
             $result  = Db::name('category')->where($where)->where($whereSite)->order('listorder DESC, id DESC')->select();
             foreach ($result as $k => $v) {
                 if (isset($models[$v['modelid']]['name'])) {
@@ -114,14 +115,15 @@ class Category extends Adminbase
                 } else {
                     $v['onCatname']  = '单站模式显示';
                 }
-
-
                 if ($v['type'] == 1) {
                     $v['add_url'] = url("Category/singlepage", array("parentid" => $v['id']));
                 } elseif ($v['type'] == 2) {
                     $v['add_url'] = url("Category/add", array("parentid" => $v['id']));
                 }
-                $v['url']            = buildCatUrl($v['id'], $v['url']);
+                if (!$v['url']){
+                    $v['url']    = $siteUrl.buildCatUrl($v['id'], $v['url']);
+                }
+
                 $categorys[$v['id']] = $v;
 
             }
