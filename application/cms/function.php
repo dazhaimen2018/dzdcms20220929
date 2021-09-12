@@ -389,13 +389,6 @@ function getSiteInfo($field)
     }
 }
 
-//当前站URL
-function onSiteUrl(){
-    $siteId  = onSite();
-    $siteUrl = db('site')->where('id',$siteId)->value('url');
-    return $siteUrl;
-}
-
 //前端站点信息，后台用 和 getSiteInfo重复待优化
 function getSite($field)
 {

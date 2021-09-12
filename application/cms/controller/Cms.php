@@ -34,13 +34,13 @@ class Cms extends Adminbase
         if ($sites) {
             $whereSite = " id = $sites";
         }else{
-            if(isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode']) {
-                $sites     = cache("Cms_Config")['site'];
-                if(!$sites){ //不满条件
-                    $this->error('请在CMS配置-切换站点中选一个站！','cms/setting/index');
-                }
-                $whereSite = " id = $sites";
-            }
+           if(isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode']) {
+               $sites     = cache("Cms_Config")['site'];
+               if(!$sites){ //不满条件
+                   $this->error('请在CMS配置-切换站点中选一个站！','cms/setting/index');
+               }
+               $whereSite = " id = $sites";
+           }
         }
         $catid    = $this->request->param('catid/d', 0);
         $catSites = getCategory($catid,'sites'); //当前栏目所属站点
