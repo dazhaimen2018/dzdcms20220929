@@ -100,7 +100,8 @@ class Category extends Adminbase
                     $whereSite = "  (" . implode(' OR ', $site) . ")";
                 }
             }
-            $result     = Db::name('category')->where($where)->where($whereSite)->order('listorder DESC, id DESC')->select();
+            $siteId  = onSite();
+            $result  = Db::name('category')->where($where)->where($whereSite)->order('listorder DESC, id DESC')->select();
             foreach ($result as $k => $v) {
                 if (isset($models[$v['modelid']]['name'])) {
                     $v['modelname'] = $models[$v['modelid']]['name'];
@@ -108,6 +109,13 @@ class Category extends Adminbase
                     $v['modelname'] = '/';
                 }
                 $v['catname'] = '<a data-width="900" data-height="600" data-open="' . url('edit', ['id' => $v['id']]) . '"">' . $v['catname'] . '</a>';
+                if($siteId){
+                    $v['onCatname']  = Db::name('category_data')->where('catid', $v['id'])->where('site_id', $siteId )->value('catname');
+                } else {
+                    $v['onCatname']  = '单站模式才显示当前栏目标题！';
+                }
+
+
                 if ($v['type'] == 1) {
                     $v['add_url'] = url("Category/singlepage", array("parentid" => $v['id']));
                 } elseif ($v['type'] == 2) {
@@ -115,6 +123,7 @@ class Category extends Adminbase
                 }
                 $v['url']            = buildCatUrl($v['id'], $v['url']);
                 $categorys[$v['id']] = $v;
+
             }
             $tree->init($categorys);
             $_list  = $tree->getTreeList($tree->getTreeArray(0), 'catname');
