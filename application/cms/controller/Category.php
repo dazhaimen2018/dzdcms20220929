@@ -62,7 +62,12 @@ class Category extends Adminbase
             }
         }
         $sites = Site::where(['alone' => 1])->select()->toArray(); //所有真实数据的站
-        $site  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray(); // 当前站点
+        $catid = $this->request->param('id/d', 0);
+        $catSites = getCategory($catid,'sites'); //当前栏目所属站点
+        if($catSites){
+            $whereIn  = " id in($catSites)";
+        }
+        $site  = Site::where(['alone' => 1])->where($whereIn)->where($whereSite)->select()->toArray(); // 当前站点
         $this->site = $site;
         $this->assign([
             'site'  => $site,
