@@ -112,7 +112,7 @@ class Category extends Adminbase
                 if($siteId){
                     $v['onCatname']  = Db::name('category_data')->where('catid', $v['id'])->where('site_id', $siteId )->value('catname');
                 } else {
-                    $v['onCatname']  = '单站模式才显示当前栏目标题！';
+                    $v['onCatname']  = '单站模式显示';
                 }
 
 
