@@ -83,11 +83,11 @@ class CmsTagLib
                 $where .= " AND (" . implode(' OR ', $site) . ")";
             }
         }
-        $categorys = Category_Model::where($where)->limit($data['limit'])->order($data['order'])->select();
+        $categorys = Category_Model::where($where)->limit($data['limit'])->order($data['order'])->cache(60)->select();
 
         if (!empty($categorys)) {
             foreach ($categorys as &$vo) {
-                $category_data = CategoryData::where(['catid' => $vo['id'], 'site_id' => $siteId])->find();
+                $category_data = CategoryData::where(['catid' => $vo['id'], 'site_id' => $siteId])->cache(60)->find();
                 if ($category_data) {
                     $vo['catname'] = $category_data['catname'];
                     $vo['status']  = $category_data['status'];
@@ -163,7 +163,7 @@ class CmsTagLib
         }
         if (isset($data['tagid'])) {
             if (strpos($data['tagid'], ',') !== false) {
-                $r = Db::name('Tags')->where('id', 'in', $data['tagid'])->value('tagid,tag');
+                $r = Db::name('Tags')->where('id', 'in', $data['tagid'])->cache(60)->value('tagid,tag');
                 array_push($where, "tag in(" . $r . ")");
             } else {
                 $r = Db::name('Tags')->where(['id' => (int) $data['tagid']])->find();
@@ -189,7 +189,7 @@ class CmsTagLib
             $data['limit'] = 0 == (int) $data['num'] ? 10 : (int) $data['num'];
         }
         $where_str .= " and site_id=" . getSiteId();
-        $res = Db::name('TagsContent')->where($where_str)->limit($data['limit'])->select();
+        $res = Db::name('TagsContent')->where($where_str)->limit($data['limit'])->cache(60)->select();
         //读取文章信息
         foreach ($res as $k => $v) {
             $p = model('cms/Cms')->getParentData(['id' => $v['contentid'], 'catid' => $v['catid']]);

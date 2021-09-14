@@ -15,21 +15,22 @@
 use think\facade\Cache;
 use think\facade\Request;
 
+/**
+ * 获取栏目相关信息
+ * @param type $catid 栏目id或者栏目标识
+ * @param type $field 返回的字段，默认返回全部，数组
+ * @param type $newCache 是否强制刷新
+ * @return boolean
+ */
 function getCategory($cat, $fields = '', $newCache = false)
 {
+    $url_mode = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
     if (empty($cat)) {
         return false;
     }
-    //马博
-    if (getSite('alone')==1){
-        $siteId = getSiteId();
-    }else{
-        $siteId = 1;
-    }
-    //$siteId = getSiteId();
-    $field = is_numeric($cat) ? 'id' : 'catdir';
-    $key = 'getCategory_' . $siteId . '_' . $cat;
-    //马博 end
+    $siteId = getSiteId();
+    $field  = is_numeric($cat) ? 'id' : 'catdir';
+    $key    = 'getCategory_' . $siteId . '_' . $cat;
     //强制刷新缓存
     if ($newCache) {
         Cache::rm($key, null);
@@ -40,13 +41,13 @@ function getCategory($cat, $fields = '', $newCache = false)
     }
     if (empty($cache)) {
         //读取数据
-        $cache = db('category')->where($field, $cat)->find();
+        $cache = db('category')->where($field, $cat)->cache(60)->find();
         if (empty($cache)) {
             Cache::set($key, 'false', 60);
             return false;
         } else {
             //马博
-            $category_data = db('category_data')->where(['catid' => $cache['id'], 'site_id' => $siteId])->find();
+            $category_data = db('category_data')->where(['catid' => $cache['id'], 'site_id' => $siteId])->cache(60)->find();
             if ($category_data) {
                 $cache['catname']     = $category_data['catname'];
                 $cache['description'] = $category_data['description'];
@@ -54,11 +55,13 @@ function getCategory($cat, $fields = '', $newCache = false)
             }
             //马博 end
             //扩展配置
+            $field            = 1 == $url_mode ? 'id' : 'catdir';
             $cache['setting'] = unserialize($cache['setting']);
             $cache['url']     = buildCatUrl($cache[$field], $cache['url']);
             Cache::set($key, $cache, 3600);
         }
     }
+
     if ($fields) {
         //支持var.property，不过只支持一维数组
         if (false !== strpos($fields, '.')) {
@@ -257,7 +260,7 @@ function seo($catid = '', $title = '', $description = '', $keyword = '')
     $siteId = getSiteId();
     if (!empty($catid)) {
         $cat           = getCategory($catid);
-        $category_data = db('category_data')->where(['catid' => $catid, 'site_id' => $siteId])->find();
+        $category_data = db('category_data')->where(['catid' => $catid, 'site_id' => $siteId])->cache(60)->find();
         $setting       = json_decode($category_data['setting'], true);
         if ($setting['title']) {
             $title = $setting['title'];
@@ -270,7 +273,7 @@ function seo($catid = '', $title = '', $description = '', $keyword = '')
         }
     }
 
-    $site = db('site')->where('id', $siteId)->find();
+    $site = db('site')->where('id', $siteId)->cache(60)->find();
     if (!$title && $site) {
         $title = $site['title'];
     }
@@ -334,13 +337,6 @@ function getSiteName($id)
     }
     if ($id !== 'false') {
         return false;
-        //感觉没有显示站名的必要
-//        $site = db('site')->find($id);
-//        if ($site) {
-//            return $site['name'];
-//        } else {
-//            return false;
-//        }
     } else {
         return '所有站';
     }
@@ -353,7 +349,7 @@ function patch($langName, $newCache = false)
         return false;
     }
     $siteId = getSiteId();
-    $key = 'getLang_' . $langName . '_' . $siteId;
+    $key    = 'getLang_' . $langName . '_' . $siteId;
     //强制刷新缓存
     if ($newCache) {
         Cache::rm($key, null);
@@ -363,9 +359,9 @@ function patch($langName, $newCache = false)
         return false;
     }
     if (empty($cache)) {
-        $lang = db('lang')->where(['name' => $langName])->find();
-        $langId = $lang['id'];
-        $lang_data = db('lang_data')->where(['lang_id' => $langId, 'site_id' => $siteId])->find();
+        $lang       = db('lang')->where(['name' => $langName])->cache(60)->find();
+        $langId     = $lang['id'];
+        $lang_data  = db('lang_data')->where(['lang_id' => $langId, 'site_id' => $siteId])->cache(60)->find();
         $lang_value = $lang_data['value'];
         Cache::set($key, $lang_value, 3600);
     } else {
@@ -381,7 +377,7 @@ function getSiteInfo($field)
         return false;
     }
     $siteId = onSite();
-    $site = db('site')->where(['id' => $siteId])->find();
+    $site   = db('site')->where(['id' => $siteId])->cache(60)->find();
     if ($site) {
         return $site[$field];
     } else {
@@ -397,9 +393,9 @@ function getSite($field)
     }
     $siteId = getSiteId();
     $key    = $siteId . '_site';
-    $site = Cache::get($key);
+    $site   = Cache::get($key);
     if ($site !== 'false') {
-        $site = db('site')->find($siteId);
+        $site = db('site')->cache(60)->find($siteId);
         Cache::set($key, $site);
     }
     if ($site) {
@@ -409,13 +405,6 @@ function getSite($field)
     }
 }
 
-////前端获取站点风格
-//function siteTheme()
-//{
-//    $siteId = getSiteId();
-//    $theme = db('site')->where('id',$siteId)->value('template');
-//    return  $theme ;
-//}
 
 // 立即清除缓存
 function  cleanUp(){
@@ -427,11 +416,11 @@ function  cleanUp(){
 function timeRule($time)
 {
     $startdate = date('Y-m-d H:i:s',$time);//时间戳转日期（要是日期的话可以不用转）
-    $enddate = date('Y-m-d H:i:s');//当前日期
-    $date = floor((strtotime($enddate) - strtotime($startdate)) / 86400);
-    $hour = floor((strtotime($enddate) - strtotime($startdate)) % 86400 / 3600);
-    $minute = floor((strtotime($enddate) - strtotime($startdate)) % 86400 % 3600 / 60);
-    $second = floor((strtotime($enddate) - strtotime($startdate)) % 86400 % 60);
+    $enddate   = date('Y-m-d H:i:s');//当前日期
+    $date      = floor((strtotime($enddate) - strtotime($startdate)) / 86400);
+    $hour      = floor((strtotime($enddate) - strtotime($startdate)) % 86400 / 3600);
+    $minute    = floor((strtotime($enddate) - strtotime($startdate)) % 86400 % 3600 / 60);
+    $second    = floor((strtotime($enddate) - strtotime($startdate)) % 86400 % 60);
     if ($date > 90)
     {
         return $startdate;
@@ -458,6 +447,3 @@ function timeRule($time)
         return '刚刚';
     }
 }
-
-
-

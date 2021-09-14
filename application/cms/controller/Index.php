@@ -33,7 +33,7 @@ class Index extends Cmsbase
         if (empty($domain)){
             $domain     = $_SERVER['HTTP_HOST'];
         }
-        $site           = Site::where("domain='{$domain}'")->find();
+        $site           = Site::where("domain='{$domain}'")->cache(60)->find();
         $mark           = 'zh-cn';
         $siteId         = 1;
         if ($site) {
@@ -50,18 +50,18 @@ class Index extends Cmsbase
         }
 
         $urls = $_SERVER['REQUEST_URI'];
-        $count = Site::where("domain='{$domain}'")->count();
+        $count = Site::where("domain='{$domain}'")->cache(60)->count();
         if ($count > 1) {
-            $sameSite = Site::where("domain='{$domain}'")->select()->toArray();
+            $sameSite = Site::where("domain='{$domain}'")->select()->cache(60)->toArray();
 
-            $allSite  = Site::where("domain!='{$domain}'")->select()->toArray();
+            $allSite  = Site::where("domain!='{$domain}'")->select()->cache(60)->toArray();
         } else {
             $allSite  = Site::select()->toArray();
         }
 
         if (isset($_COOKIE['lang']) && !empty($_COOKIE['lang'])) {
             $lang   = trim($_COOKIE['lang']);
-            if (Site::where("mark='{$lang}'")->find()) {
+            if (Site::where("mark='{$lang}'")->cache(60)->find()) {
                 setLang($lang);
             }
         }
@@ -277,7 +277,7 @@ class Index extends Cmsbase
         $keyword = str_replace('%', '', $keyword); //过滤'%'，用户全文搜索
         //搜索入库
         if ($keyword) {
-            $log = SearchLog::where('keywords' ,$keyword)->find();
+            $log = SearchLog::where('keywords' ,$keyword)->cache(60)->find();
             if ($log) {
                 $log->setInc("nums");
             } else {
@@ -327,7 +327,7 @@ class Index extends Cmsbase
         //加入搜索历史
         cookie("shistory", $shistory);
         //$modellist = cache('Model');
-        $modellist = Db::name('Model')->where('status', 1)->where('module','cms')->select();
+        $modellist = Db::name('Model')->where('status', 1)->where('module','cms')->cache(60)->select();
         if (!$modellist) {
             return $this->error('没有可搜索模型~');
         }
@@ -335,7 +335,7 @@ class Index extends Cmsbase
             if (!array_key_exists($modelid, $modellist)) {
                 $this->error('模型错误~');
             }
-            $searchField = Db::name('model_field')->where('modelid', $modelid)->where('ifsystem', 1)->where('ifsearch', 1)->column('name');
+            $searchField = Db::name('model_field')->where('modelid', $modelid)->where('ifsystem', 1)->where('ifsearch', 1)->cache(60)->column('name');
             if (empty($searchField)) {
                 $this->error('没有设置搜索字段~');
             }
@@ -355,7 +355,7 @@ class Index extends Cmsbase
             $list = $this->CmsModel->getList($modelid, $where, false, '*', $siteId, "listorder DESC,did DESC", 10, 1, false, ['query' => ['keyword' => $keyword, 'modelid' => $modelid]]);
         } else {
             foreach ($modellist as $key => $vo) {
-                $searchField = Db::name('model_field')->where('modelid', $key)->where('ifsearch', 1)->column('name');
+                $searchField = Db::name('model_field')->where('modelid', $key)->where('ifsearch', 1)->cache(60)->column('name');
                 if (empty($searchField)) {
                     continue;
                 }
@@ -429,7 +429,7 @@ class Index extends Cmsbase
         }
         //如果条件为空，则显示标签首页
         if (empty($where)) {
-            $data = Db::name('Tags')->where('site_id',$siteId)->order(['listorder' => 'DESC', 'hits' => 'DESC'])->limit(100)->select();
+            $data = Db::name('Tags')->where('site_id',$siteId)->order(['listorder' => 'DESC', 'hits' => 'DESC'])->limit(100)->cache(60)->select();
             $this->assign("SEO", seo('', '标签'));
             $this->assign('list', $data);
             return $this->fetch('/tags_list');
