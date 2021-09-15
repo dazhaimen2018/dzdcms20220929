@@ -27,6 +27,7 @@ class Models extends Modelbase
 
     protected $name               = 'model';
     protected $ext_table          = '_data';
+    protected $sub_table          = '_sub_data';
     protected $autoWriteTimestamp = true;
 
     /**
@@ -77,7 +78,7 @@ class Models extends Modelbase
         //是否更改表名
         if ($info['tablename'] != $data['tablename'] && !empty($data['tablename'])) {
             //检查新表名是否存在
-            if ($this->table_exists($data['tablename']) || $this->table_exists($data['tablename'] . '_data')) {
+            if ($this->table_exists($data['tablename']) || $this->table_exists($data['tablename'] . '_data') || $this->table_exists($data['tablename'] . '_sub_data')) {
                 throw new \Exception('该表名已经存在！');
             }
             if (false !== $this->allowField(true)->save($data, array("modelid" => $modelid))) {
@@ -88,6 +89,10 @@ class Models extends Modelbase
                 //修改副表
                 if ($info['type'] == 2) {
                     Db::execute("RENAME TABLE  `{$dbPrefix}{$info['tablename']}_data` TO  `{$dbPrefix}{$data['tablename']}_data` ;");
+                }
+                //修改副表子表
+                if ($info['type'] == 3) {
+                    Db::execute("RENAME TABLE  `{$dbPrefix}{$info['tablename']}_sub_data` TO  `{$dbPrefix}{$data['tablename']}_sub_data` ;");
                 }
                 //更新缓存
                 cache("Model", null);
@@ -129,6 +134,11 @@ class Models extends Modelbase
         if ((int) $modeldata['type'] == 2) {
             //删除副表
             $table_name .= $this->ext_table;
+            Db::execute("DROP TABLE IF EXISTS `{$table_name}`");
+        }
+        if ((int) $modeldata['type'] == 3) {
+            //删除副表子表
+            $table_name .= $this->sub_table;
             Db::execute("DROP TABLE IF EXISTS `{$table_name}`");
         }
         return true;
@@ -178,6 +188,37 @@ EOF;
 				`keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO关键词',
 				`description` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
 				`content` mediumtext COLLATE utf8_unicode_ci COMMENT '内容',
+				PRIMARY KEY (`id`)
+                ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='{$data['name']}模型表';
+EOF;
+            $res = Db::execute($sql);
+        }
+        if ($data['type'] == 3) {
+            // 新建附属表
+            $sql = <<<EOF
+                CREATE TABLE `{$table}{$this->ext_table}` (
+               `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '自然ID',
+				`did` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '文档ID',
+				`site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
+				`title` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
+				`tags` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Tags标签',
+				`keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO关键词',
+				`description` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
+				`content` mediumtext COLLATE utf8_unicode_ci COMMENT '内容',
+				PRIMARY KEY (`id`)
+                ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='{$data['name']}模型表';
+EOF;
+            $res = Db::execute($sql);
+            // 新建附属表
+            $sql = <<<EOF
+                CREATE TABLE `{$table}{$this->sub_table}` (
+               `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '自然ID',
+				`pid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '主表ID',
+				`sid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '附表ID',
+				`site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
+				`subtitle` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '章节标题',
+				`price` decimal(10,2) unsigned NOT NULL DEFAULT '0' COMMENT '价格' ,
+				`details` mediumtext COLLATE utf8_unicode_ci COMMENT '章节内容',
 				PRIMARY KEY (`id`)
                 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='{$data['name']}模型表';
 EOF;
@@ -385,6 +426,155 @@ EOF;
                     'ifsystem' => 0,
                     'iffixed' => 0,
                     'ifrequire' => 1,
+                    'setting' => "a:3:{s:6:\"define\";s:13:\"text NOT NULL\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}",
+                    'isadd' => 1,
+                ]);
+
+        };
+        if ($type == 3) {
+            array_push($data,[
+                'name' => 'id',
+                'title' => '自然ID',
+                'type' => 'hidden',
+                'isadd' => 0,
+                'ifsystem' => 0,
+            ],
+                [
+                    'name' => 'did',
+                    'title' => '附表文档id',
+                    'type' => 'hidden',
+                    'iscore' => 1,
+                    'ifsystem' => 0,
+                ],
+                [
+                    'name' => 'site_id',
+                    'title' => '站点ID',
+                    'type' => 'hidden',
+                    'isadd' => 1,
+                    'ifsystem' => 0,
+                ],
+                [
+                    'name' => 'title',
+                    'title' => '标题',
+                    'type' => 'text',
+                    'listorder' => 1,
+                    'ifsearch' => 1,
+                    'ifrequire' => 1,
+                    'ifsystem' => 0,
+                    'setting' => "a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT ''\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}",
+                    'isadd' => 1,
+                ],
+                [
+                    'name' => 'tags',
+                    'title' => 'Tags标签',
+                    'type' => 'tags',
+                    'listorder' => 10,
+                    'iffixed' => 0,
+                    'ifsystem' => 0,
+                    'remark' => '关键词用回车确认',
+                    'setting' => "a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT ''\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}",
+                    'isadd' => 1,
+                ],
+                [
+                    'name' => 'keywords',
+                    'title' => 'SEO关键词',
+                    'type' => 'tags',
+                    'listorder' => 11,
+                    'ifsystem' => 0,
+                    'iffixed' => 0,
+                    'remark' => '关键词用回车确认',
+                    'setting' => "a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT ''\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}",
+                    'isadd' => 1,
+                ],
+                [
+                    'name' => 'description',
+                    'title' => 'SEO摘要',
+                    'type' => 'textarea',
+                    'listorder' => 12,
+                    'ifsystem' => 0,
+                    'iffixed' => 0,
+                    'remark' => '如不填写，则自动截取附表中编辑器的200字符',
+                    'setting' => "a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT ''\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}",
+                    'isadd' => 1,
+                ],
+                [
+                    'name' => 'content',
+                    'title' => '内容',
+                    'type' => 'Ueditor',
+                    'listorder' => 13,
+                    'ifsystem' => 0,
+                    'iffixed' => 0,
+                    'ifrequire' => 1,
+                    'setting' => "a:3:{s:6:\"define\";s:13:\"text NOT NULL\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}",
+                    'isadd' => 1,
+                ],
+                [
+                'name' => 'id',
+                'title' => '子表自然ID',
+                'type' => 'hidden',
+                'isadd' => 0,
+                'ifsystem' => 2,
+                'listorder' => 301,
+            ],
+                [
+                    'name' => 'pid',
+                    'title' => '主表id',
+                    'type' => 'hidden',
+                    'iscore' => 1,
+                    'ifsystem' => 2,
+                    'listorder' => 302,
+                ],
+                [
+                    'name' => 'sid',
+                    'title' => '附表id',
+                    'type' => 'hidden',
+                    'iscore' => 1,
+                    'ifsystem' => 2,
+                    'listorder' => 303,
+                ],
+
+                [
+                    'name' => 'site_id',
+                    'title' => '站点ID',
+                    'type' => 'hidden',
+                    'isadd' => 1,
+                    'ifsystem' => 2,
+                    'listorder' => 304,
+                ],
+                [
+                    'name' => 'subtitle',
+                    'title' => '章节标题',
+                    'type' => 'text',
+                    'listorder' => 305,
+                    'ifrequire' => 1,
+                    'ifsystem' => 2,
+                    'setting' => "a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT ''\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}",
+                    'isadd' => 1,
+                ],
+                [
+                    'name' => 'price',
+                    'title' => '价格',
+                    'type' => 'hidden',
+                    'iscore' => 1,
+                    'ifsystem' => 2,
+                    'listorder' => 306,
+                ],
+                [
+                    'name'    => 'status',
+                    'title'   => '状态',
+                    'type'    => 'radio',
+                    'listorder'   => 307,
+                    'ifsystem' => 2,
+                    'setting' => "a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:18:\"0:禁用\r\n1:启用\";s:5:\"value\";s:1:\"1\";}",
+                ],
+
+                [
+                    'name' => 'details',
+                    'title' => '章节内容',
+                    'type' => 'Ueditor',
+                    'listorder' => 308,
+                    'ifrequire' => 1,
+                    'ifsystem' => 2,
                     'setting' => "a:3:{s:6:\"define\";s:13:\"text NOT NULL\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}",
                     'isadd' => 1,
                 ]);

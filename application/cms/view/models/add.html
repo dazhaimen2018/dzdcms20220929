@@ -19,9 +19,10 @@
     <div class="layui-form-item">
         <label class="layui-form-label">模型类型</label>
         <div class="layui-input-inline">
-            <input type="radio" name="type" value="2" title="主附表" checked>
+            <input type="radio" name="type" value="2" title="一对一" checked lay-filter="filter">
+            <input type="radio" name="type" value="3" title="一对多" lay-filter="filter">
         </div>
-        <div class="layui-form-mid layui-word-aux">多站点只支持主附表类型，也能提高数据库操作效率</div>
+        <div class="layui-form-mid layui-word-aux">一对多，主要用于内容还有子内容、如小说、连续剧等需要分章节的需求</div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">描述</label>
@@ -65,6 +66,18 @@
         </div>
         <div class="layui-form-mid layui-word-aux">新增模板以show_xx.html形式</div>
     </div>
+    <div class="layui-form-item web_list" id="last_add" style="display:none">
+        <label class="layui-form-label">子内容模板</label>
+        <div class="layui-input-block">
+            <select name="setting[last_template]">
+                <option value="show.html" selected>默认内容页:last.html</option>
+                {volist name="tp_last" id="vo"}
+                <option value="{$vo}">{$vo}</option>
+                {/volist}
+            </select>
+        </div>
+        <div class="layui-form-mid layui-word-aux">新增模板以last_xx.html形式</div>
+    </div>
     <div class="layui-form-item">
         <label class="layui-form-label">状态</label>
         <div class="layui-input-inline">
@@ -86,6 +99,17 @@
         var yznForm = layui.yznForm;
         var form = layui.form;
         yznForm.listen();
+        form.on('radio(filter)', function(data){
+            if(3==data.value){
+                //批量
+                $('#last_add').show();
+
+            }
+            if(2==data.value){
+                $('#last_add').hide();
+            }
+        });
+
     });
 </script>
 {/block}

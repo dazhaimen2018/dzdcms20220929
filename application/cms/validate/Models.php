@@ -22,6 +22,6 @@ class Models extends Validate
     protected $rule = [
         'name|模型名称' => 'require|chs|max:30|unique:model',
         'tablename|表键名' => 'require|lower|max:20|unique:model|alpha',
-        'type|模型类型' => 'in:1,2',
+        'type|模型类型' => 'in:1,2,3',
     ];
 }

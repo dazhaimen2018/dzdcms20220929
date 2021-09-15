@@ -92,12 +92,12 @@
             <input type="text" name="setting[value]" lay-verify="value" autocomplete="off" placeholder="默认插入字段的值" class="layui-input">
         </div>
     </div>
-    {if $modelType==2}
+    {if $modelType==2 || $modelType==3}
     <div class="layui-form-item">
-        <label class="layui-form-label">主表字段</label>
+        <label class="layui-form-label">所在库表</label>
         <div class="layui-input-inline">
-            <input type="radio" name="ifsystem" value="1" title="是" checked>
-            <input type="radio" name="ifsystem" value="0" title="否">
+            <input type="radio" name="ifsystem" value="1" title="主表" checked>
+            <input type="radio" name="ifsystem" value="0" title="附表">
         </div>
     </div>
     {else}
