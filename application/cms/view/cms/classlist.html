@@ -9,6 +9,9 @@
 <script type="text/html" id="barTool">
     <a class="layui-btn layui-btn-xs" data-open='{:url("edit",["catid"=>$catid])}?id={{ d.id }}' data-title="编辑内容" data-full="true">编辑</a>
     <a href='{:url("del",["catid"=>$catid])}?ids={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
+    {{# if(d.modelType==3){ }}
+    <a class="layui-btn layui-btn-normal layui-btn-xs" data-open='{:url("sub",["catid"=>$catid])}?id={{ d.id }}' data-title="章节内容" data-full="true">内容</a>
+    {{#  } }}
 </script>
 <script type="text/html" id="theme">
     {{# if(d.flag.indexOf("1")!==-1){ }}
@@ -123,7 +126,7 @@
                 { field: 'username', width: 80, title: '发布人', templet: '#username' },
                 { field: 'url', width: 60, align: "center", title: 'URL', templet: yznTable.url, search: false },
                 { field: 'status', width: 100, align: "center", title: '状态', templet: '#statusTpl', unresize: true, selectList: { 0: '待审核', 1: '通过' } },
-                { fixed: 'right', width: 120, title: '操作', toolbar: '#barTool', align: "center" }
+                { fixed: 'right', width: 180, title: '操作', toolbar: '#barTool', align: "center" }
             ]
         ],
             page: {}

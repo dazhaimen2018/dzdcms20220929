@@ -138,7 +138,8 @@ class Cms extends Adminbase
             $this->error('该栏目不存在！');
         }
         //栏目所属模型
-        $modelid = $catInfo['modelid'];
+        $modelid   = $catInfo['modelid'];
+        $modelType = db('model')->where('id',$modelid)->cache(60)->value('type');
         if ($this->request->isAjax()) {
             // 20200805 马博
             $limit = $this->request->param('limit/d', 10);
@@ -178,7 +179,7 @@ class Cms extends Adminbase
                 } else {
                     $v['title']  = '发布模式为“单站”模式时才显示标题！';
                 }
-
+                $v['modelType'] = $modelType;
                 // end
                 $_list[]         = $v;
             }
