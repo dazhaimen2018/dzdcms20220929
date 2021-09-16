@@ -268,6 +268,21 @@ class Index extends Cmsbase
         //关键词
         $keyword = $this->request->param('keyword/s', '', 'trim,safe_replace,strip_tags,htmlspecialchars');
         $keyword = str_replace('%', '', $keyword); //过滤'%'，用户全文搜索
+        //搜索入库
+        if ($keyword) {
+            $log = SearchLog::where('keywords' ,$keyword)->cache(60)->find();
+            if ($log) {
+                $log->setInc("nums");
+            } else {
+                SearchLog::create([
+                    'keywords' => $keyword,
+                    'site_id'  => $siteId,
+                    'nums'    => 1,
+                    'ip'      => $this->request->ip()
+                ]);
+            }
+        }
+
         //时间范围
         $time = $this->request->param('time/s', '');
 
