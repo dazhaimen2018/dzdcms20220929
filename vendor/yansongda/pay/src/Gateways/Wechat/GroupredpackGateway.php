@@ -17,17 +17,20 @@ class GroupRedpackGateway extends Gateway
      * @author yansongda <me@yansongda.cn>
      *
      * @param string $endpoint
+     * @param array  $payload
      *
      * @throws GatewayException
      * @throws InvalidArgumentException
      * @throws InvalidSignException
+     *
+     * @return Collection
      */
     public function pay($endpoint, array $payload): Collection
     {
         $payload['wxappid'] = $payload['appid'];
         $payload['amt_type'] = 'ALL_RAND';
 
-        if (Wechat::MODE_SERVICE === $this->mode) {
+        if ($this->mode === Wechat::MODE_SERVICE) {
             $payload['msgappid'] = $payload['appid'];
         }
 
@@ -36,7 +39,7 @@ class GroupRedpackGateway extends Gateway
 
         $payload['sign'] = Support::generateSign($payload);
 
-        Events::dispatch(new Events\PayStarted('Wechat', 'Group Redpack', $endpoint, $payload));
+        Events::dispatch(Events::PAY_STARTED, new Events\PayStarted('Wechat', 'Group Redpack', $endpoint, $payload));
 
         return Support::requestApi(
             'mmpaymkttransfers/sendgroupredpack',
@@ -46,25 +49,11 @@ class GroupRedpackGateway extends Gateway
     }
 
     /**
-     * Find.
-     *
-     * @author yansongda <me@yansongda.cn>
-     *
-     * @param $billno
-     */
-    public function find($billno): array
-    {
-        return [
-            'endpoint' => 'mmpaymkttransfers/gethbinfo',
-            'order' => ['mch_billno' => $billno, 'bill_type' => 'MCHT'],
-            'cert' => true,
-        ];
-    }
-
-    /**
      * Get trade type config.
      *
      * @author yansongda <me@yansongda.cn>
+     *
+     * @return string
      */
     protected function getTradeType(): string
     {
