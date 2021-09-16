@@ -33,14 +33,9 @@ class Index extends Cmsbase
         if (empty($domain)){
             $domain     = $_SERVER['HTTP_HOST'];
         }
-        $site           = Site::where("domain='{$domain}'")->cache(60)->find();
-        $mark           = 'zh-cn';
-        $siteId         = 1;
-        if ($site) {
-            $mark   = $site['mark'];
-            $siteId = $site['id'];
-        }
-        $this->site_id = $siteId;
+
+        $siteId         = getSiteId();
+        $this->site_id  = $siteId;
         if (getSite('alone')!=1){
             $siteName = getSite('name');
             $siteId   = 1;
@@ -52,11 +47,10 @@ class Index extends Cmsbase
         $urls = $_SERVER['REQUEST_URI'];
         $count = Site::where("domain='{$domain}'")->cache(60)->count();
         if ($count > 1) {
-            $sameSite = Site::where("domain='{$domain}'")->select()->cache(60)->toArray();
-
-            $allSite  = Site::where("domain!='{$domain}'")->select()->cache(60)->toArray();
+            $sameSite = Site::where("domain='{$domain}'")->cache(60)->select()->toArray();
+            $allSite  = Site::where("domain!='{$domain}'")->cache(60)->select()->toArray();
         } else {
-            $allSite  = Site::select()->toArray();
+            $allSite  = Site::cache(60)->select()->toArray();
         }
 
         if (isset($_COOKIE['lang']) && !empty($_COOKIE['lang'])) {
@@ -67,7 +61,6 @@ class Index extends Cmsbase
         }
 
         $this->assign([
-            'mark'     => $mark,
             'urls'     => $urls,
             'sameSite' => $sameSite,
             'allSite'  => $allSite,
@@ -192,7 +185,7 @@ class Index extends Cmsbase
         $modelid = $category['modelid'];
         $modelInfo = cache('Model')[$modelid];
         if (empty($modelInfo)) {
-            throw new \think\Exception('栏目不存在!', 404);
+            $this->error('模型不存在！');
         }
         //更新点击量
         Db::name($modelInfo['tablename'])->where('id', $id)->setInc('hits');
@@ -275,22 +268,9 @@ class Index extends Cmsbase
         //关键词
         $keyword = $this->request->param('keyword/s', '', 'trim,safe_replace,strip_tags,htmlspecialchars');
         $keyword = str_replace('%', '', $keyword); //过滤'%'，用户全文搜索
-        //搜索入库
-        if ($keyword) {
-            $log = SearchLog::where('keywords' ,$keyword)->cache(60)->find();
-            if ($log) {
-                $log->setInc("nums");
-            } else {
-                SearchLog::create([
-                    'keywords' => $keyword,
-                    'site_id'  => $siteId,
-                    'nums'    => 1,
-                    'ip'      => $this->request->ip()
-                ]);
-            }
-        }
         //时间范围
         $time = $this->request->param('time/s', '');
+
         $result = $this->validate([
             'keyword' => $keyword,
         ], [
@@ -303,19 +283,19 @@ class Index extends Cmsbase
         //按时间搜索
         if ($time == 'day') {
             $search_time = time() - 86400;
-            $sql_time = ' AND inputtime > ' . $search_time;
+            $sql_time    = ' AND inputtime > ' . $search_time;
         } elseif ($time == 'week') {
             $search_time = time() - 604800;
-            $sql_time = ' AND inputtime > ' . $search_time;
+            $sql_time    = ' AND inputtime > ' . $search_time;
         } elseif ($time == 'month') {
             $search_time = time() - 2592000;
-            $sql_time = ' AND inputtime > ' . $search_time;
+            $sql_time    = ' AND inputtime > ' . $search_time;
         } elseif ($time == 'year') {
             $search_time = time() - 31536000;
-            $sql_time = ' AND inputtime > ' . $search_time;
+            $sql_time    = ' AND inputtime > ' . $search_time;
         } else {
             $search_time = 0;
-            $sql_time = '';
+            $sql_time    = '';
         }
         //搜索历史记录
         $shistory = cookie("shistory");
@@ -326,16 +306,17 @@ class Index extends Cmsbase
         $shistory = array_slice(array_unique($shistory), 0, 10);
         //加入搜索历史
         cookie("shistory", $shistory);
-        //$modellist = cache('Model');
+
         $modellist = Db::name('Model')->where('status', 1)->where('module','cms')->cache(60)->select();
         if (!$modellist) {
             return $this->error('没有可搜索模型~');
         }
+
         if ($modelid) {
             if (!array_key_exists($modelid, $modellist)) {
                 $this->error('模型错误~');
             }
-            $searchField = Db::name('model_field')->where('modelid', $modelid)->where('ifsystem', 1)->where('ifsearch', 1)->cache(60)->column('name');
+            $searchField = Db::name('model_field')->where('modelid', $modelid)->where('ifsystem', 1)->where('ifsearch', 1)->column('name');
             if (empty($searchField)) {
                 $this->error('没有设置搜索字段~');
             }
@@ -343,19 +324,12 @@ class Index extends Cmsbase
             foreach ($searchField as $vo) {
                 $where .= "$vo like '%$keyword%' or ";
             }
-
-
-            $tableName = $this->CmsModel->getModelTableName($modeId);
-            $extTable = $tableName .  $this->CmsModel->ext_table;
-            $where .= $extTable . ".`title` like '%$keyword%'";
-            $where = '(' . $where . ') ';
-
+            $where = '(' . substr($where, 0, -4) . ') ';
             $where .= " AND status='1' $sql_time";
-            // 可能did有问题，测试后排查
             $list = $this->CmsModel->getList($modelid, $where, false, '*', $siteId, "listorder DESC,did DESC", 10, 1, false, ['query' => ['keyword' => $keyword, 'modelid' => $modelid]]);
         } else {
             foreach ($modellist as $key => $vo) {
-                $searchField = Db::name('model_field')->where('modelid', $key)->where('ifsearch', 1)->cache(60)->column('name');
+                $searchField = Db::name('model_field')->where('modelid', $key)->where('ifsystem', 1)->where('ifsearch', 1)->column('name');
                 if (empty($searchField)) {
                     continue;
                 }
@@ -363,11 +337,7 @@ class Index extends Cmsbase
                 foreach ($searchField as $v) {
                     $where .= "$v like '%$keyword%' or ";
                 }
-
-                $tableName = $this->CmsModel->getModelTableName($key);
-                $extTable = $tableName .  $this->CmsModel->ext_table;
-                $where .= $extTable . ".`title` like '%$keyword%'";
-                $where = '(' . $where . ') ';
+                $where = '(' . substr($where, 0, -4) . ') ';
                 $where .= " AND status='1' $sql_time";
                 $list = $this->CmsModel->getList($key, $where, false, '*',$siteId, 'listorder DESC,did DESC', 10, 1, false, ['query' => ['keyword' => $keyword, 'modelid' => $modelid]]);
                 if ($list->isEmpty()) {
@@ -377,43 +347,26 @@ class Index extends Cmsbase
                 }
             }
         }
-        if ($list) {
-            $count = $list->total();
-        } else {
-            $count = 0;
-        }
+        $count = $list->total();
         debug('end');
-        if ($list) {
-            $this->assign([
-                'time'        => $time,
-                'modelid'     => $modelid,
-                'keyword'     => $keyword,
-                'shistory'    => $shistory,
-                'SEO'         => $seo,
-                'list'        => $list,
-                'count'       => $count,
-                'modellist'   => $modellist,
-                'search_time' => debug('begin', 'end', 6), //运行时间
-                'pages'       => $list->render(),
-            ]);
-        } else {
-            $this->assign([
-                'time'        => $time,
-                'modelid'     => $modelid,
-                'keyword'     => $keyword,
-                'shistory'    => $shistory,
-                'SEO'         => $seo,
-                'list'        => $list,
-                'count'       => $count,
-                'modellist'   => $modellist,
-                'search_time' => debug('begin', 'end', 6), //运行时间
-            ]);
-        }
+        $this->assign([
+            'time'        => $time,
+            'modelid'     => $modelid,
+            'keyword'     => $keyword,
+            'shistory'    => $shistory,
+            'SEO'         => $seo,
+            'list'        => $list,
+            'count'       => $count,
+            'modellist'   => $modellist,
+            'search_time' => debug('begin', 'end', 6), //运行时间
+            'pages'       => $list->render(),
+        ]);
         if (!empty($keyword)) {
             return $this->fetch('/search_result');
         } else {
             return $this->fetch('/search');
         }
+
     }
 
     // tags

@@ -219,7 +219,9 @@ EOF;
 				`subtitle` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '章节标题',
 				`price` decimal(10,2) unsigned NOT NULL DEFAULT '0' COMMENT '价格' ,
 				`details` mediumtext COLLATE utf8_unicode_ci COMMENT '章节内容',
-				PRIMARY KEY (`id`)
+				`status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
+				PRIMARY KEY (`id`),
+                KEY `status` (`sid`,`status`)
                 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='{$data['name']}模型表';
 EOF;
             $res = Db::execute($sql);
@@ -567,7 +569,6 @@ EOF;
                     'ifsystem' => 2,
                     'setting' => "a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:18:\"0:禁用\r\n1:启用\";s:5:\"value\";s:1:\"1\";}",
                 ],
-
                 [
                     'name' => 'details',
                     'title' => '章节内容',
