@@ -67,22 +67,22 @@ class Main extends Adminbase
             }else{
                 $sys_info['state'] = 0;
             }
-            $sys_info['sites'] = Db::name('site')->where('status', 1)->count();
+            $sys_info['sites'] = Db::name('site')->where('status', 1)->cache(60)->count();
         }else{
             $sys_info['state'] = -1;
             $sys_info['site']  = 0;
         }
         $role_id  = $this->auth->roleid;
         $site     = $this->auth->site_id;
-        $sys_info['group'] = Db::name('auth_group')->where('id', $role_id)->value('title');
+        $sys_info['group'] = Db::name('auth_group')->where('id', $role_id)->cache(60)->value('title');
         if ($site){
-            $sys_info['site'] = Db::name('site')->where('id', $site)->value('name');
+            $sys_info['site'] = Db::name('site')->where('id', $site)->cache(60)->value('name');
         }else{
             $sys_info['site'] = '所有站';
         }
         $sys_info['adminlog'] = Db::name('adminlog')->count();
-        $sys_info['model'] = Db::name('model')->where('status', 1)->count();
-        $sys_info['admin'] = Db::name('admin')->where('status', 1)->count();
+        $sys_info['model'] = Db::name('model')->where('status', 1)->cache(60)->count();
+        $sys_info['admin'] = Db::name('admin')->where('status', 1)->cache(60)->count();
 
         return $sys_info;
     }
