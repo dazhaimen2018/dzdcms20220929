@@ -46,6 +46,12 @@ return [
                                 "name"   => "信息列表",
                             ],
                             [
+                                "route"  => "help/cms/read",
+                                "type"   => 1,
+                                "status" => 0,
+                                "name"   => "查看",
+                            ],
+                            [
                                 "route"  => "help/cms/add",
                                 "type"   => 1,
                                 "status" => 0,
