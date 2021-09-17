@@ -183,7 +183,7 @@ return [
                     [
                         "route"  => "cms/sub/index",
                         "type"   => 1,
-                        "status" => 1,
+                        "status" => 0,
                         "name"   => "章节内容",
                         "icon"   => "icon-draft-line",
                         "child"  => [
@@ -272,50 +272,51 @@ return [
                         "status" => 1,
                         "name"   => "栏目管理",
                         "icon"   => "icon-other",
-                        "child"  => [
+                        "child"  =>
                             [
-                                "route"  => "cms/category/add",
-                                "type"   => 1,
-                                "status" => 0,
-                                "name"   => "添加栏目",
+                                [
+                                    "route"  => "cms/category/add",
+                                    "type"   => 1,
+                                    "status" => 0,
+                                    "name"   => "添加栏目",
+                                ],
+                                [
+                                    "route"  => "cms/category/singlepage",
+                                    "type"   => 1,
+                                    "status" => 0,
+                                    "name"   => "添加单页",
+                                ],
+                                [
+                                    "route"  => "cms/category/cat_priv",
+                                    "type"   => 1,
+                                    "status" => 0,
+                                    "name"   => "栏目授权",
+                                ],
+                                [
+                                    "route"  => "cms/category/edit",
+                                    "type"   => 1,
+                                    "status" => 0,
+                                    "name"   => "编辑栏目",
+                                ],
+                                [
+                                    "route"  => "cms/category/del",
+                                    "type"   => 1,
+                                    "status" => 0,
+                                    "name"   => "删除栏目",
+                                ],
+                                [
+                                    "route"  => "cms/category/multi",
+                                    "type"   => 1,
+                                    "status" => 0,
+                                    "name"   => "批量更新",
+                                ],
+                                [
+                                    "route"  => "cms/category/public_tpl_file_list",
+                                    "type"   => 1,
+                                    "status" => 0,
+                                    "name"   => "栏目模板",
+                                ],
                             ],
-                            [
-                                "route"  => "cms/category/singlepage",
-                                "type"   => 1,
-                                "status" => 0,
-                                "name"   => "添加单页",
-                            ],
-                            [
-                                "route"  => "cms/category/cat_priv",
-                                "type"   => 1,
-                                "status" => 0,
-                                "name"   => "栏目授权",
-                            ],
-                            [
-                                "route"  => "cms/category/edit",
-                                "type"   => 1,
-                                "status" => 0,
-                                "name"   => "编辑栏目",
-                            ],
-                            [
-                                "route"  => "cms/category/del",
-                                "type"   => 1,
-                                "status" => 0,
-                                "name"   => "删除栏目",
-                            ],
-                            [
-                                "route"  => "cms/category/multi",
-                                "type"   => 1,
-                                "status" => 0,
-                                "name"   => "批量更新",
-                            ],
-                            [
-                                "route"  => "cms/category/public_tpl_file_list",
-                                "type"   => 1,
-                                "status" => 0,
-                                "name"   => "栏目模板",
-                            ],
-                        ],
                     ],
                     [
                         "route"  => "cms/models/index",
