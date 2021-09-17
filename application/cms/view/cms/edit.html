@@ -4,30 +4,42 @@
 <div class="layui-card">
     <div class="layui-card-body layui-form-pane">
         <form class="layui-form" method="post">
-            <div class="layui-tab">
-                <ul class="layui-tab-title">
-                    {volist name="sites" id="site" key="i" }
-                    <li {if $i==1}class="layui-this"{/if}> {if $site.mark} <img src="/static/language/{$site.mark}.png" title="{$site.name}">{/if} {$site.name}</li>
-                    {/volist}
-                    <li><i class="layui-icon layui-icon-set"></i> 基本信息</li>
-                </ul>
-                <div class="layui-tab-content">
-                    {volist name="extra_data" id="s" key="k"}
-                    <div class="layui-tab-item layui-show">
-                        <input type="hidden" name="extra_data[{$k}][site_id]" value="{$s.site_id}" />
-                        <input type="hidden" name="extra_data[{$k}][id]" value="{$s.id}" />
-                        {volist name="extraFieldList" id="vo"}
-                        <?php
+
+            <div class="layui-col-md8">
+                <div class="layui-card">
+                    <div class="layui-tab">
+                        <ul class="layui-tab-title">
+                            {volist name="sites" id="site" key="i" }
+                            <li {if $i==1}class="layui-this"{/if}> {if $site.mark} <img src="/static/language/{$site.mark}.png" title="{$site.name}">{/if} {$site.name}</li>
+                            {/volist}
+
+                        </ul>
+                        <div class="layui-tab-content">
+
+                            {volist name="extra_data" id="s" key="k"}
+                            <div class="layui-tab-item {if $k==1}layui-show{/if}">
+                                <input type="hidden" name="extra_data[{$k}][site_id]" value="{$s.site_id}" />
+                                <input type="hidden" name="extra_data[{$k}][id]" value="{$s.id}" />
+                                {volist name="extraFieldList" id="vo"}
+                                <?php
                         $value = '';
                         if(!empty($s[$vo['name']])){
                          $value= $s[$vo['name']];
                          }
                         ?>
-                        {include file="admin@inputItemExt" /}
-                        {/volist}
+                                {include file="admin@inputItemExt" /}
+                                {/volist}
+                            </div>
+                            {/volist}
+                        </div>
                     </div>
-                    {/volist}
-                    <div class="layui-tab-item">
+                </div>
+            </div>
+
+            <div class="layui-col-md4">
+                <div class="layui-card">
+                    <div class="layui-card-header"><i class="layui-icon layui-icon-form layui-red"></i> 基本信息</div>
+                    <div class="layui-card-body layui-row layui-col-space10">
                         {include file="admin@inputItem" /}
                     </div>
                 </div>

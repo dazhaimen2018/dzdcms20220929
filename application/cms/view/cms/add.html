@@ -4,29 +4,38 @@
 <div class="layui-card">
     <div class="layui-card-body layui-form-pane">
         <form class="layui-form" method="post">
-            <div class="layui-tab">
-                <ul class="layui-tab-title">
-                    {volist name="sites" id="site" key="i" }
-                    <li {if $i==1}class="layui-this"{/if}> {if $site.mark} <img src="/static/language/{$site.mark}.png" title="{$site.name}">{/if} {$site.name}</li>
-                    {/volist}
-                    <li><i class="layui-icon layui-icon-set"></i> 基本信息</li>
-                </ul>
-                <div class="layui-tab-content">
-                    {volist name="sites" id="site" key="k" }
-                    <div class="layui-tab-item {if $k==1}layui-show{/if}">
-                        <input type="hidden" name="extra_data[{$k}][site_id]" value="{$site.id}" />
-                        {volist name="extraFieldList" id="vo"}
-                        {include file="admin@inputItemExt" /}
-                        {/volist}
-                    </div>
-                    {/volist}
+            <div class="layui-col-md8">
+                <div class="layui-card">
+                    <div class="layui-tab">
+                        <ul class="layui-tab-title">
+                            {volist name="sites" id="site" key="i" }
+                            <li {if $i==1}class="layui-this"{/if}> {if $site.mark} <img src="/static/language/{$site.mark}.png" title="{$site.name}">{/if} {$site.name}</li>
+                            {/volist}
 
-                    <!--基本信息-->
-                    <div class="layui-tab-item">
+                        </ul>
+                        <div class="layui-tab-content">
+                            {volist name="sites" id="site" key="k" }
+                            <div class="layui-tab-item {if $k==1}layui-show{/if}">
+                                <input type="hidden" name="extra_data[{$k}][site_id]" value="{$site.id}" />
+                                {volist name="extraFieldList" id="vo"}
+                                {include file="admin@inputItemExt" /}
+                                {/volist}
+                            </div>
+                            {/volist}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-md4">
+                <div class="layui-card">
+                    <div class="layui-card-header"><i class="layui-icon layui-icon-form layui-red"></i> 基本信息</div>
+                    <div class="layui-card-body layui-row layui-col-space10">
                         {include file="admin@inputItem" /}
                     </div>
                 </div>
             </div>
+
             <input type="hidden" name="modelField[catid]" value="{$catid}">
             {if count($fieldList)}
             <div class="layui-form-item layer-footer">

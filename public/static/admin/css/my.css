@@ -27,6 +27,7 @@
 .layui-header .logo h1{display:inline-block;color:#dadde2;font-weight:600;font-size:20px;font-family:Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;vertical-align:middle;background-image:-webkit-gradient(linear,37.219838% 34.532506%,36.425669% 93.178216%,from(#ffb800),to(#ff3d00),color-stop(.37,#ff3d00));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .layui-header .logo i{font-size: 0!important;color:#dadde2;font-weight:600; font-family:Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;vertical-align:middle;background-image:-webkit-gradient(linear,37.219838% 34.532506%,36.425669% 93.178216%,from(#ffb800),to(#ff3d00),color-stop(.37,#ff3d00));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
+
 .layui-nav-itemed>a, .layui-nav-tree .layui-nav-title a, .layui-nav-tree .layui-nav-title a:hover {color: #666!important;}
 .layui-nav-itemed>.layui-nav-child {background-color: #f9f9f9!important;}
 .layui-nav-tree .layui-nav-child{right: 1px!important;left: -1px!important;}
@@ -41,6 +42,7 @@
 .layui-tab .layui-tab-title .layui-this i{color: #ff3d00;}
 .layui-tab .layui-tab-title .layui-this:after{border-top:2px solid #20a53a}
 
+.layui-card-header {height: 40px;line-height: 40px;}
 .layui-layout-right .layui-nav-child {padding: 0!important;}
 .layui-card-body{padding: 5px!important;}
 
@@ -54,7 +56,7 @@
 .layui-header .layui-nav .layui-nav-item{height: 60px;line-height: 60px;}
 .layui-form-item{position: relative;margin-bottom: 10px;display: flex;}
 
-.layui-form-item label,.layui-form-item .layui-form-label{min-width:120px;padding:0 10px;height:38px;line-height:38px;border:1px solid #e6e6e6;border-radius:2px 0 0 2px;text-align:center;background-color:#FBFBFB;overflow:hidden;box-sizing:border-box;text-overflow:ellipsis;white-space:normal;}
+.layui-form-item label,.layui-form-item .layui-form-label{min-width:110px;padding:0 10px;height:38px;line-height:38px;border:1px solid #e6e6e6;border-radius:2px 0 0 2px;text-align:center;background-color:#FBFBFB;overflow:hidden;box-sizing:border-box;text-overflow:ellipsis;white-space:normal;}
 .layui-form-item .layui-form-field-label,.layui-form-item .layui-input-inline{flex:1;margin-left:-1px;margin-right: 0!important;}
 .layui-form-item .layui-input-block{margin-left: -1px;flex: 1;display: block;max-width: 100%;position: relative;}
 .layui-form-item .layui-input-block .btn-repeat{position: absolute;top: 4px;right: 4px;}
@@ -109,8 +111,10 @@
 
 /*上传图片布局*/
 .layui-form-item .thumbnail{margin-top: 10px!important;margin-left: 10px!important; }
-.layui-form-item .layui-upload{    border: none!important;}
+.layui-form-item .layui-upload{border: none!important;display: flex;flex-wrap: wrap;}
+.layui-form-item .layui-upload .layui-col-xs4{width: auto!important;flex: 1}
 .layui-form-item .layui-upload input{border: 1px solid #e6e6e6;height: 38px;line-height: 38px}
+.plupload-preview{width: 100% !important;flex-grow: 4;}
 
 .layadmin-text p {	margin: 8px 0;	text-indent: 2em;}
 .layadmin-text p a{text-indent: 0!important;}
