@@ -27,7 +27,6 @@
 .layui-header .logo h1{display:inline-block;color:#dadde2;font-weight:600;font-size:20px;font-family:Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;vertical-align:middle;background-image:-webkit-gradient(linear,37.219838% 34.532506%,36.425669% 93.178216%,from(#ffb800),to(#ff3d00),color-stop(.37,#ff3d00));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .layui-header .logo i{font-size: 0!important;color:#dadde2;font-weight:600; font-family:Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;vertical-align:middle;background-image:-webkit-gradient(linear,37.219838% 34.532506%,36.425669% 93.178216%,from(#ffb800),to(#ff3d00),color-stop(.37,#ff3d00));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
-
 .layui-nav-itemed>a, .layui-nav-tree .layui-nav-title a, .layui-nav-tree .layui-nav-title a:hover {color: #666!important;}
 .layui-nav-itemed>.layui-nav-child {background-color: #f9f9f9!important;}
 .layui-nav-tree .layui-nav-child{right: 1px!important;left: -1px!important;}
@@ -157,9 +156,12 @@
 .sp_results .sp_over{background-color: #20a53a !important;}
 
 /*弹出层*/
-.layui-layer-yzn.layui-layer-iframe {border-top: 1px solid #eee;}
-.layui-layer-yzn .layui-layer-title {background: #f2f2f2 !important;color: #333!important;}
+.layui-layer-yzn .layui-layer-iframe {border-top: 1px solid #eee;}
+.layui-layer-yzn .layui-layer-title {background: #f2f2f2 !important;color: #333!important;height: 40px;line-height: 40px}
+.layui-layer-yzn .layui-layer-title ~ .layui-layer-setwin{height: 40px;line-height: 40px}
+.layui-layer-yzn .layui-layer-title ~ .layui-layer-setwin > a {height: 40px;line-height: 40px;}
 .layui-layer-yzn .layui-layer-setwin > a:after{color: #666!important;}
+
 
 /*插件安装*/
 .install-text{height: 34px;line-height: 34px;padding-left: 10px}
