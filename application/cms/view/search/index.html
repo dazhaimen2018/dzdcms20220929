@@ -28,7 +28,7 @@
             elem: '#currentTable',
             toolbar: ['refresh','delete'],
             url: '{:url("index")}',
-            search:false,
+            search:true,
             cols: [
                 [
                     { type: 'checkbox', fixed: 'left' },
@@ -40,7 +40,8 @@
                     { field: 'create_time', width: 160, align:'center', title: '创建时间', search: 'range' },
                     { fixed: 'right', align:'center', width: 130, title: '操作', toolbar: '#barTool' }
                 ]
-            ]
+            ],
+            page: {}
         });
     });
 </script>
