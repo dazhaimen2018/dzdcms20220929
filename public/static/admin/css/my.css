@@ -1,7 +1,7 @@
 /* 自己定义 */
 .fr {float: right;}
 .layui-form-item.layui-required:after{content:"*";color:red;position: absolute;top:5px;left:15px;}
-
+.childrenBody {padding: 10px;}
 /*默认头部*/
 .layui-layout-admin .layui-header {background-color: #fff !important;box-shadow: inset 0 -1px 0 0 #e5ecf0;}
 .layui-layout-admin .layui-header .layui-header-content > ul > .layui-nav-item.layui-this, .layui-tool i:hover {background-color: #ff3d00 !important;}
@@ -43,7 +43,7 @@
 
 .layui-card-header {height: 40px;line-height: 40px;}
 .layui-layout-right .layui-nav-child {padding: 0!important;}
-.layui-card-body{padding: 5px!important;}
+.layui-card-body{padding: 5px 5px 6px 5px!important;}
 
 /* form-search */
 .table-search-fieldset{border: none;padding: 0;}
@@ -208,11 +208,27 @@
 
 .layui-tips{padding-left: 10px;color: red}
 
+
+.collapse {position: absolute; left: 0; top: calc(40vh - 68px); width: 15px; height: 68px; z-index: 3; }
+.collapse-bg {width: 0; height: 50px; position: absolute; top: 0; left: 0; border-bottom: 9px solid transparent; border-right: none; border-left: 15px solid #009688; border-top: 9px solid transparent; -o-transition: all 0.1s ease,0.1s ease; -ms-transition: all 0.1s ease,0.1s ease; -moz-transition: all 0.1s ease,0.1s ease; -webkit-transition: all 0.1s ease,0.1s ease; }
+.collapse:hover .navbar-collapse{left: 3px;}
+.collapse:hover .collapse-bg{border-bottom: 9px solid transparent; border-left: 20px solid #009688; border-top: 9px solid transparent; }
+.navbar-collapse {width: 15px; left: 0; height: 68px; position: relative; text-align: center; cursor: pointer; }
+.navbar-collapse>span {color: #fff; font-size: 14px; line-height: 68px; vertical-align: text-top; }
+#left-sider{-webkit-transition: width .2s ease;transition: width .2s ease;}
 #left-sider .layui-card{min-height: calc(100vh - 2.5rem);}
+#right-box{padding-left:1px;}
+#left-sider.hidden{width: 0;padding: 0;    overflow: hidden;}
+
 
 @media screen and (max-width: 720px){
 	.layui-header .logo{width: 150px;background-color: #009688!important;}
 	.layui-header .layui-nav{padding: 0 10px;}
 	.layui-header .layui-nav .layui-nav-item a{padding: 0 15px;}
 	.thumbnail{padding-left: 0!important;margin-left: 0!important;}
+}
+@media screen and (min-width: 992px){
+	.layui-flex{display: flex}
+	.layui-flex .layui-col-md2 {width: 200px;}
+	.layui-flex .layui-col-md10 {flex: 1;}
 }
