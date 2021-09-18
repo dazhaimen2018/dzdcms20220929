@@ -29,29 +29,8 @@ class Index extends Cmsbase
         parent::initialize();
 
         $this->CmsModel = new CmsModel;
-        $domain         = isset(cache("Cms_Config")['domain']) ? cache("Cms_Config")['domain'] : 1;
-        if (empty($domain)){
-            $domain     = $_SERVER['HTTP_HOST'];
-        }
-
-        $siteId         = getSiteId();
-        $this->site_id  = $siteId;
-        if (getSite('alone')!=1){
-            $siteName = getSite('name');
-            $siteId   = 1;
-        }else{
-            $siteName = '';
-            $siteId   = getSite('id');
-        }
-
-        $urls = $_SERVER['REQUEST_URI'];
-        $count = Site::where("domain='{$domain}'")->cache(60)->count();
-        if ($count > 1) {
-            $sameSite = Site::where("domain='{$domain}'")->cache(60)->select()->toArray();
-            $allSite  = Site::where("domain!='{$domain}'")->cache(60)->select()->toArray();
-        } else {
-            $allSite  = Site::cache(60)->select()->toArray();
-        }
+        $siteId = getSiteId();
+        $this->site_id = $siteId;
 
         if (isset($_COOKIE['lang']) && !empty($_COOKIE['lang'])) {
             $lang   = trim($_COOKIE['lang']);
@@ -60,13 +39,6 @@ class Index extends Cmsbase
             }
         }
 
-        $this->assign([
-            'urls'     => $urls,
-            'sameSite' => $sameSite,
-            'allSite'  => $allSite,
-            'siteName' => $siteName,
-            'siteId'   => $siteId,
-        ]);
     }
 
     /**
@@ -273,6 +245,8 @@ class Index extends Cmsbase
             $log = SearchLog::where('keywords' ,$keyword)->cache(60)->find();
             if ($log) {
                 $log->setInc("nums");
+                $updateTime = request()->time();
+                SearchLog::where('keywords' ,$keyword)->update(['update_time' => $updateTime]);
             } else {
                 SearchLog::create([
                     'keywords' => $keyword,
