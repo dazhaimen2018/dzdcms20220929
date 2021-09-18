@@ -14,6 +14,7 @@
 // +----------------------------------------------------------------------
 namespace app\common\controller;
 
+use app\cms\model\Site;
 use app\common\controller\Base;
 use think\facade\Config;
 
@@ -26,6 +27,24 @@ class Homebase extends Base
         $this->request->filter('trim,strip_tags,htmlspecialchars');
         parent::initialize();
         $config = \think\facade\config::get('app.');
+        $domain         = isset(cache("Cms_Config")['domain']) ? cache("Cms_Config")['domain'] : 1;
+        if (empty($domain)){
+            $domain     = $_SERVER['HTTP_HOST'];
+        }
+        $count = Site::where("domain='{$domain}'")->cache(60)->count();
+        if ($count > 1) {
+            $sameSite = Site::where("domain='{$domain}'")->select()->cache(60)->toArray();
+            $allSite  = Site::where("domain!='{$domain}'")->select()->cache(60)->toArray();
+        } else {
+            $allSite  = Site::select()->toArray();
+        }
+        if (getSite('alone')!=1){
+            $siteName = getSite('name');
+            $siteId   = 1;
+        }else{
+            $siteName = '';
+            $siteId   = getSite('id');
+        }
         $site   = [
             'upload_thumb_water'     => $config['upload_thumb_water'],
             'upload_thumb_water_pic' => $config['upload_thumb_water_pic'],
@@ -36,7 +55,13 @@ class Homebase extends Base
             'chunking'               => $config['chunking'],
             'chunksize'              => $config['chunksize'],
         ];
-        $this->assign('site', $site);
+        $this->assign([
+            'site'     => $site,
+            'sameSite' => $sameSite,
+            'allSite'  => $allSite,
+            'siteName' => $siteName,
+            'siteId'   => $siteId,
+        ]);
     }
 
     protected function fetch($template = '', $vars = [], $config = [], $renderContent = false)
