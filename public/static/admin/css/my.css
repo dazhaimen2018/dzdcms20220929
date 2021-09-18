@@ -22,6 +22,8 @@
 .layui-layout-admin .layui-side .layui-nav{background-color: #ff3d0000; }
 .layui-layout-admin .layui-logo{box-shadow: inset -1px -1px 0 0 #e5ecf0; background-color: #f9f9f9!important;}
 
+.layui-layout-admin .layui-body{bottom: 25px!important;}
+.layui-mini .layui-layout-admin .layui-footer{left: 60px!important;}
 
 .layui-header .logo img{display:inline-block;height:40px;vertical-align:middle;max-width: 180px;}
 .layui-header .logo h1{display:inline-block;color:#dadde2;font-weight:600;font-size:20px;font-family:Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;vertical-align:middle;background-image:-webkit-gradient(linear,37.219838% 34.532506%,36.425669% 93.178216%,from(#ffb800),to(#ff3d00),color-stop(.37,#ff3d00));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
@@ -55,7 +57,7 @@
 .layui-header .layui-nav .layui-nav-item{height: 60px;line-height: 60px;}
 .layui-form-item{position: relative;margin-bottom: 10px;display: flex;}
 
-.layui-form-item label,.layui-form-item .layui-form-label{min-width:110px;padding:0 10px;height:38px;line-height:38px;border:1px solid #e6e6e6;border-radius:2px 0 0 2px;text-align:center;background-color:#FBFBFB;overflow:hidden;box-sizing:border-box;text-overflow:ellipsis;white-space:normal;}
+.layui-form-item label,.layui-form-item .layui-form-label{min-width:110px;padding:0 8px;height:38px;line-height:38px;border:1px solid #e6e6e6;border-radius:2px 0 0 2px;text-align:center;background-color:#FBFBFB;overflow:hidden;box-sizing:border-box;text-overflow:ellipsis;white-space:normal;}
 .layui-form-item .layui-form-field-label,.layui-form-item .layui-input-inline{flex:1;margin-left:-1px;margin-right: 0!important;}
 .layui-form-item .layui-input-block{margin-left: -1px;flex: 1;display: block;max-width: 100%;position: relative;}
 .layui-form-item .layui-input-block .btn-repeat{position: absolute;top: 4px;right: 4px;}
@@ -113,7 +115,7 @@
 .layui-form-item .layui-upload{border: none!important;display: flex;flex-wrap: wrap;}
 .layui-form-item .layui-upload .layui-col-xs4{width: auto!important;flex: 1}
 .layui-form-item .layui-upload input{border: 1px solid #e6e6e6;height: 38px;line-height: 38px}
-.plupload-preview{width: 100% !important;flex-grow: 4;}
+.layui-form-item .plupload-preview{width: 100% !important;flex-grow: 4;}
 
 .layadmin-text p {	margin: 8px 0;	text-indent: 2em;}
 .layadmin-text p a{text-indent: 0!important;}
@@ -123,12 +125,12 @@
 .layuiadmin-card-link a{display:inline-block;width:24.5%;color:#666;font-size:14px;margin-bottom:12px;}
 .layui-form-item .layui-form-field-label, .layui-form-item .layui-input-inline, .layui-form-item .layui-input-block, .layui-col-md4 textarea{padding: 0;border: 1px solid #e6e6e6;box-sizing: unset;}
 
-
 .layui-form-item .border-none, .layui-iconpicker-item, div.tagsinput{border: none!important;}
 .layui-form-item .layui-form-field-label:hover, .layui-form-item .layui-input-inline:hover, .layui-form-item .layui-input-block:hover{border-color: #ccc;}
 .layui-col-md4 textarea{padding: 10px;box-sizing: border-box;}
 .layui-form-item .layui-form-select{flex: 1}
 .layui-form-item .layui-form-select .layui-edge{right: 28px}
+.layui-form-item .layui-form-select dl{padding: 0 0!important;}
 
 /* 浮动提交 */
 
@@ -147,9 +149,6 @@
 /* 编辑器 */
 .edui-default .edui-editor, .edui-default .edui-editor-iframeholder{width: 100%!important;}
 
-.layui-layout-admin .layui-body{bottom: 31px;}
-.layui-form-select dl{padding: 0 0!important;}
-
 .sp_input {border: none!important;box-shadow:none!important;}
 .sp_results li{height: 36px!important;line-height: 36px!important;padding: 0 10px!important;}
 .sp_pagination{height: 36px!important;line-height: 36px!important;}
@@ -161,7 +160,6 @@
 .layui-layer-yzn .layui-layer-title ~ .layui-layer-setwin{height: 40px;line-height: 40px}
 .layui-layer-yzn .layui-layer-title ~ .layui-layer-setwin > a {height: 40px;line-height: 40px;}
 .layui-layer-yzn .layui-layer-setwin > a:after{color: #666!important;}
-
 
 /*插件安装*/
 .install-text{height: 34px;line-height: 34px;padding-left: 10px}
@@ -197,8 +195,6 @@
 .pull-right {float: right;}
 .layuiadmin-card-status li{position:relative;padding:10px 0;border-bottom:1px solid #EEE;}
 
-.layui-mini .layui-layout-admin .layui-footer{left: 60px!important;}
-
 /*editormd*/
 .editormd{border: none!important;}
 .editormd-form input[type=text]{width: 200px!important;height: 38px;line-height: 38px}
@@ -207,7 +203,6 @@
 .editormd-form label{padding: 0!important;text-align: center!important;}
 
 .layui-tips{padding-left: 10px;color: red}
-
 
 .collapse {position: absolute; left: 0; top: calc(40vh - 68px); width: 15px; height: 68px; z-index: 3; }
 .collapse-bg {width: 0; height: 50px; position: absolute; top: 0; left: 0; border-bottom: 9px solid transparent; border-right: none; border-left: 15px solid #009688; border-top: 9px solid transparent; -o-transition: all 0.1s ease,0.1s ease; -ms-transition: all 0.1s ease,0.1s ease; -moz-transition: all 0.1s ease,0.1s ease; -webkit-transition: all 0.1s ease,0.1s ease; }
@@ -219,7 +214,6 @@
 #left-sider .layui-card{min-height: calc(100vh - 2.5rem);}
 #right-box{padding-left:1px;}
 #left-sider.hidden{width: 0;padding: 0;    overflow: hidden;}
-
 
 @media screen and (max-width: 720px){
 	.layui-header .logo{width: 150px;background-color: #009688!important;}
