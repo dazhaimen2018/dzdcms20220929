@@ -130,7 +130,7 @@
 .layui-col-md4 textarea{padding: 10px;box-sizing: border-box;}
 .layui-form-item .layui-form-select{flex: 1}
 .layui-form-item .layui-form-select .layui-edge{right: 28px}
-.layui-form-item .layui-form-select dl{padding: 0 0!important;top:36px;}
+.layui-form-item .layui-form-select dl{padding: 0 0!important;}
 
 /* 浮动提交 */
 .layer-footer .layui-input-block, .layui-layer-footer, .layui-layer-footer .layui-input-block{border: none!important;max-width: 100% !important;text-align: center!important;margin-left: 0!important;}
