@@ -145,6 +145,8 @@
 .layui-textarea {border-width: 0;}
 
 /* 编辑器 */
+.layui-show .layui-field-title {margin: 10px 0 10px;}
+.layui-show .layui-elem-field legend {font-size: 14px;}
 .edui-default .edui-editor, .edui-default .edui-editor-iframeholder{width: 100%!important;}
 
 .sp_input {border: none!important;box-shadow:none!important;}
