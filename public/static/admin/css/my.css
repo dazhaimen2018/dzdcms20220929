@@ -134,6 +134,8 @@
 
 /* 浮动提交 */
 .layer-footer .layui-input-block, .layui-layer-footer, .layui-layer-footer .layui-input-block{border: none!important;max-width: 100% !important;text-align: center!important;margin-left: 0!important;}
+.layui-layer-footer, .layer-footer .layui-input-block {text-align: center !important;}
+.layui-layer-yzn .layui-layer-footer{text-align: center!important;}
 
 .page-form{margin-bottom: 30px}
 
