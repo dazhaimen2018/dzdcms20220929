@@ -14,7 +14,7 @@
 // +----------------------------------------------------------------------
 namespace app\cms\controller;
 
-use app\cms\model\Sub as SubModel;
+use app\cms\model\Sub as CubModel;
 use app\cms\model\Page as Page_Model;
 use app\cms\model\Site;
 use app\common\controller\Adminbase;
@@ -26,38 +26,55 @@ class Sub extends Adminbase
     protected function initialize()
     {
         parent::initialize();
-        $this->SubModel = new SubModel;
+        $this->CubModel = new CubModel;
         $this->cmsConfig = cache("Cms_Config");
         $this->assign("cmsConfig", $this->cmsConfig);
         // 20200805 马博所有站点
+        $catid    = $this->request->param('catid/d', 0);
+        $did      = $this->request->param('did/d', 0);
+
+
         $sites    = $this->auth->site_id;
         if ($sites) {
             $whereSite = " id = $sites";
         }else{
-           if(isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode']) {
-               $sites     = cache("Cms_Config")['site'];
-               if(!$sites){ //不满条件
-                   $this->error('请在CMS配置-切换站点中选一个站！','cms/setting/index');
-               }
-               $whereSite = " id = $sites";
-           }
+            if(isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode']) {
+                $sites     = cache("Cms_Config")['site'];
+                if(!$sites){ //不满条件
+                    $this->error('请在CMS配置-切换站点中选一个站！','cms/setting/index');
+                }
+                $whereSite = " id = $sites";
+            }
         }
-        $catid    = $this->request->param('catid/d', 0);
-        $catSites = getCategory($catid,'sites'); //当前栏目所属站点
-        if($catSites){
-            $whereIn  = " id in($catSites)";
+
+        //$catSites = getCategory($catid,'sites'); //当前栏目所属站点
+        // 找已发布的站点
+        if($did){
+            $modelid   = getCategory($catid, 'modelid');
+            $tablename = $this->CubModel->getModelTableName($modelid);
+            $sites     = Db::name($tablename . '_data')->where('did', $did)->field('site_id as id')->select();
+            $sites     = array_column($sites,'id');
+            $catSites  = join(',',$sites);
+            $whereIn   = " id in($catSites)";
         }
+
         $sites  = Site::where(['alone' => 1])->where($whereIn)->where($whereSite)->select()->toArray();
-        $this->site = $sites;
-        $this->view->assign('sites', $sites);
+        if(!$sites){
+            $this->error('当前站没有发布内容，无法发布章节内容！');
+        }else{
+            $this->site = $sites;
+            $this->view->assign('sites', $sites);
+        }
+
         // 20200805 马博 end
     }
 
 
-    //栏目信息列表
+    //栏目信息列表 $did 为什么出不来值
     public function index()
     {
         $catid = $this->request->param('catid/d', 0);
+        $did = $this->request->param('did/d', 0);
         //当前栏目信息
         $catInfo = getCategory($catid);
         if (empty($catInfo)) {
@@ -65,28 +82,25 @@ class Sub extends Adminbase
         }
         //栏目所属模型
         $modelid   = $catInfo['modelid'];
-        $modelType = db('model')->where('id',$modelid)->cache(60)->value('type');
+
         if ($this->request->isAjax()) {
-            // 20200805 马博
             $limit = $this->request->param('limit/d', 10);
-            $page = $this->request->param('page/d', 1);
-            // 20200805 马博 end
+            $page  = $this->request->param('page/d', 1);
             //检查模型是否被禁用
             if (!getModel($modelid, 'status')) {
                 $this->error('模型被禁用！');
             }
             $modelCache = cache("Model");
-            $tableName  = $modelCache[$modelid]['tablename'];
-
+            $tableName  = $modelCache[$modelid]['tablename'].'_sub_data';
             $this->modelClass = Db::name($tableName);
             //如果发送的来源是Selectpage，则转发到Selectpage
             if ($this->request->request('keyField')) {
                 return $this->selectpage();
             }
             list($page, $limit, $where) = $this->buildTableParames();
-
             $conditions = [
                 ['catid', '=', $catid],
+                ['did', '=', $did],
                 ['status', 'in', [0, 1]],
             ];
             $total   = Db::name($tableName)->where($where)->where($conditions)->count();
@@ -98,15 +112,8 @@ class Sub extends Adminbase
                 $v['updatetime'] = date('Y-m-d H:i', $v['updatetime']);
                 $v['url']        = $siteUrl.buildContentUrl($v['catid'], $v['id'], $v['url']);
                 //马博 显示已添站点ID
-                $sites           = Db::name($tableName . '_data')->where('did', $v['id'])->field('site_id as id')->select();
+                $sites           = Db::name($tableName)->where('did', $v['id'])->field('site_id as id')->select();
                 $v['site']       = array_column($sites,'id');
-                if($siteId){
-                    $v['title']  = Db::name($tableName . '_data')->where('did', $v['id'])->where('site_id', $siteId )->value('title');
-                } else {
-                    $v['title']  = '发布模式为“单站”模式时才显示标题！';
-                }
-                $v['modelType'] = $modelType;
-                // end
                 $_list[]         = $v;
             }
             $result = array("code" => 0, "count" => $total, "data" => $_list);
@@ -139,16 +146,18 @@ class Sub extends Adminbase
         $this->assign([
             'string' => $string,
             'catid'  => $catid,
-            'site'   => $siteData,
+            'did'    => $did,
         ]);
         return $this->fetch();
     }
+
 
 
     //添加信息
 
     public function add()
     {
+        $did = $this->request->param('did/d', 0);
         if ($this->request->isPost()) {
             $data = $this->request->post();
             $catid = intval($data['modelField']['catid']);
@@ -164,7 +173,7 @@ class Sub extends Adminbase
 
                 Db::startTrans();
                 try {
-                    $insertId = $this->SubModel->addModelDataAll($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
+                    $insertId = $this->CubModel->addModelDataAll($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
                     Db::commit();
                 } catch (\Exception $ex) {
                     Db::rollback();
@@ -184,12 +193,13 @@ class Sub extends Adminbase
             }
             if ($category['type'] == 2) {
                 $modelid = $category['modelid'];
-                $fieldList = $this->SubModel->getFieldListAll($modelid);
-                $subFieldList = $this->SubModel->getExtraField($modelid, 2);
+                $fieldList = $this->CubModel->getFieldListAll($modelid);
+                $extraFieldList = $this->CubModel->getExtraField($modelid, 2);
                 $this->assign([
                     'catid'     => $catid,
                     'fieldList' => $fieldList,
-                    'subFieldList' => $subFieldList,
+                    'extraFieldList' => $extraFieldList,
+                    'did' => $did,
                 ]);
                 return $this->fetch();
             }
@@ -200,25 +210,26 @@ class Sub extends Adminbase
     //编辑信息
     public function edit()
     {
+        $did = $this->request->param('did/d', 0);
         if ($this->request->isPost()) {
             $data                  = $this->request->post();
             $data['modelFieldExt'] = isset($data['modelFieldExt']) ? $data['modelFieldExt'] : [];
             $data['modelField']['id'] = intval($_GET['id']);
-            $catid = intval($data['modelField']['catid']);
+            $catid    = $this->request->param('catid/d', 0);
+            $data['modelField']['catid'] = $catid;
             $category = getCategory($catid);
-
             if (empty($category)) {
-                $this->error('该栏目不存在！');
+                $this->error('该栏目不存在!!');
             }
             if ($category['type'] == 2) {
                 try {
-                    $this->SubModel->editModelDataAll($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
+                    $this->CubModel->editModelDataAll($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
                 } catch (\Exception $ex) {
                     $this->error($ex->getMessage());
                 }
             }
             //增加清除缓存
-            $cache =  cleanUp();
+            //$cache =  cleanUp();
             $this->success('编辑成功！');
 
         } else {
@@ -231,27 +242,27 @@ class Sub extends Adminbase
             }
             if ($category['type'] == 2) {
                 $modelid   = $category['modelid'];
-                $fieldList = $this->SubModel->getFieldListAll($modelid, $id);
-                $subFieldList = $this->SubModel->getExtraField($modelid, 2);
+
+                $extraFieldList = $this->CubModel->getExtraField($modelid, 2);
                 $this->assign([
                     'catid'     => $catid,
                     'id'        => $id,
-                    'fieldList' => $fieldList,
-                    'subFieldList' => $subFieldList,
+                    'extraFieldList' => $extraFieldList,
+                    'did' => $did,
                 ]);
-                $subData = $this->SubModel->getsubData(['catid' => $catid, 'did' => $id]);
+                $extraData = $this->CubModel->getExtraData(['catid' => $catid, 'id' => $id]);
                 $ret = [];
                 if($import){
                     foreach ($this->site as $k => $s) {
 
-                        if ($subData) {
-                            foreach ($subData as $e) {
+                        if ($extraData) {
+                            foreach ($extraData as $e) {
                                 if ($e['site_id'] == $s['id']) {
                                     $ret[$k] = $e;
                                     $ret[$k]['id'] = $e['id'];
                                 } else {
                                     //只输出站点1的数据
-                                    foreach ($subData as $f) {
+                                    foreach ($extraData as $f) {
                                         if ($e['site_id']== 1) {
                                             $ret[$k] = $f;
                                             $ret[$k]['site_id'] = $s['id'];
@@ -266,8 +277,8 @@ class Sub extends Adminbase
                     }
                 }else{
                     foreach ($this->site as $k => $s) {
-                        if ($subData) {
-                            foreach ($subData as $e) {
+                        if ($extraData) {
+                            foreach ($extraData as $e) {
                                 if ($e['site_id'] == $s['id']) {
                                     $ret[$k] = $e;
                                 } else {
@@ -300,7 +311,7 @@ class Sub extends Adminbase
         $modelid   = getCategory($catid, 'modelid');
         try {
             foreach ($ids as $id) {
-                $this->SubModel->deleteModelData($modelid, $id, $this->cmsConfig['web_site_recycle']);
+                $this->CubModel->deleteModelData($modelid, $id, $this->cmsConfig['web_site_recycle']);
             }
         } catch (\Exception $ex) {
             $this->error($ex->getMessage());
@@ -309,7 +320,44 @@ class Sub extends Adminbase
         $this->success('删除成功！');
     }
 
-
+    //移动文章
+    public function remove()
+    {
+        $this->check_priv('remove');
+        if ($this->request->isPost()) {
+            $catid = $this->request->param('catid/d', 0);
+            if (!$catid) {
+                $this->error("请指定栏目！");
+            }
+            //需要移动的信息ID集合
+            $ids = $this->request->param('ids/s');
+            //目标栏目
+            $tocatid = $this->request->param('tocatid/d', 0);
+            if ($ids) {
+                if ($tocatid == $catid) {
+                    $this->error('目标栏目和当前栏目是同一个栏目！');
+                }
+                $modelid = getCategory($tocatid, 'modelid');
+                if (!$modelid) {
+                    $this->error('该模型不存在！');
+                }
+                $ids       = array_filter(explode('|', $ids), 'intval');
+                $tableName = Db::name('model')->where('id', $modelid)->where('status', 1)->value('tablename');
+                if (!$tableName) {
+                    $this->error('模型被冻结不可操作~');
+                }
+                if (Db::name(ucwords($tableName))->where('id', 'in', $ids)->update(['catid' => $tocatid])) {
+                    Db::name('Category')->where('id', $catid)->setDec('items', count($ids));
+                    Db::name('Category')->where('id', $tocatid)->setInc('items', count($ids));
+                    $this->success('移动成功~');
+                } else {
+                    $this->error('移动失败~');
+                }
+            } else {
+                $this->error('请选择需要移动的信息！');
+            }
+        }
+    }
 
     protected function getAdminPostData($date = '')
     {

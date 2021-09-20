@@ -15,7 +15,7 @@
                     <div class="layui-tab-item layui-show">
                         <input type="hidden" name="extra_data[{$k}][site_id]" value="{$s.site_id}" />
                         <input type="hidden" name="extra_data[{$k}][id]" value="{$s.id}" />
-                        {volist name="subFieldList" id="vo"}
+                        {volist name="extraFieldList" id="vo"}
                         <?php
                         $value = '';
                         if(!empty($s[$vo['name']])){
@@ -29,7 +29,7 @@
 
                 </div>
             </div>
-            {if count($fieldList)}
+
             <div class="layui-form-item layer-footer">
                 <div class="layui-input-block">
                     {if (isset(cache("Cms_Config")['data_import']) && 1 == cache("Cms_Config")['data_import'] && 1 != cache("Cms_Config")['site'])}
@@ -39,7 +39,7 @@
                     <button type="reset" class="layui-btn layui-btn-primary iconfont icon-trash"> 重置</button>
                 </div>
             </div>
-            {/if}
+
         </form>
     </div>
 </div>

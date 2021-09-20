@@ -60,31 +60,30 @@ class Sub extends Modelbase
         if (!$this->table_exists($tablename)) {
             throw new \Exception('数据表不存在！');
         }
-        $this->getAfterText($data, $extraData);
+        //$this->getAfterText($data, $extraData);
 
-//        if (!defined('IN_ADMIN') || (defined('IN_ADMIN') && IN_ADMIN == false)) {
-//            empty($data['uid']) ? \app\member\service\User::instance()->id : $data['uid'];
-//            empty($data['username']) ? \app\member\service\User::instance()->username : $data['username'];
-//            $data['sysadd'] = 0;
-//        } else {
-//            //添加用户名
-//            $data['uid']      = \app\admin\service\User::instance()->id;
-//            $data['username'] = \app\admin\service\User::instance()->username;
-//            $data['sysadd']   = 1;
-//        }
+        if (!defined('IN_ADMIN') || (defined('IN_ADMIN') && IN_ADMIN == false)) {
+            empty($data['uid']) ? \app\member\service\User::instance()->id : $data['uid'];
+            empty($data['username']) ? \app\member\service\User::instance()->username : $data['username'];
+        } else {
+            //添加用户名
+            $data['uid']      = \app\admin\service\User::instance()->id;
+            $data['username'] = \app\admin\service\User::instance()->username;
+        }
         //处理数据
         $dataAll              = $this->dealModelPostData($modelid, $data, $dataExt);
         list($data, $dataExt) = $dataAll;
-//        if (!isset($data['inputtime'])) {
-//            $data['inputtime'] = request()->time();
-//        }
+        if (!isset($data['inputtime'])) {
+            $data['inputtime'] = request()->time();
+        }
         if (!isset($data['updatetime'])) {
             $data['updatetime'] = request()->time();
         }
+
         try {
-            //只更新主表updatetime
+            //主表 不存主表，主要更新主表 章节数量即可
             //$id = Db::name($tablename)->insertGetId($data);
-            //Db::name($tablename)->where('id', $id)->update($data);
+
             // 以下下马博增加
             if ($extraData) {
                 $extra_data = [];
@@ -96,29 +95,94 @@ class Sub extends Modelbase
                     }
                 }
                 foreach ($extra_data as $e) {
-                    $e['sid'] = $id;
+                    $e['sid']        = $e['did'] ;
+                    $e['catid']      = $data['catid'] ;
+                    $e['uid']        = $data['uid'] ;
+                    $e['username']   = $data['username'] ;
+                    $e['inputtime']  = request()->time();
+                    $e['updatetime'] = request()->time();
                     $extraId = Db::name($tablename . $this->sub_table)->insert($e);
-                    if ($e['tags']) {
-                        $this->tagDispose($e['tags'], $id, $catid, $modelid, $e['site_id']);
-                    } else {
-                        $this->tagDispose([], $extraId, $catid, $modelid, $e['site_id']);
-                    }
+//                    if ($e['tags']) {
+//                        $this->tagDispose($e['tags'], $id, $catid, $modelid, $e['site_id']);
+//                    } else {
+//                        $this->tagDispose([], $extraId, $catid, $modelid, $e['site_id']);
+//                    }
                 }
             }
+
             // 以下下马博增加 end
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+
+//        //更新栏目统计数据
+//        $this->updateCategoryItems($catid, 'add', 1);
+//        //推送到熊掌号和百度站长
+//        $cmsConfig = cache("Cms_Config");
+//        if (isset($cmsConfig['web_site_baidupush']) && $cmsConfig['web_site_baidupush']) {
+//            hook("baidupush", buildContentUrl($catid, $id, $data['url'], true, true));
+//        }
+        return $id;
+    }
+
+    //添加模型内容-原-采集和投稿
+    public function addModelData($data, $dataExt = [])
+    {
+        $catid = (int) $data['catid'];
+        if (isset($data['modelid'])) {
+            $modelid = $data['modelid'];
+            unset($data['modelid']);
+        } else {
+            $modelid = getCategory($catid, 'modelid');
+        }
+        //完整表名获取
+        $tablename = $this->getModelTableName($modelid);
+        if (!$this->table_exists($tablename)) {
+            throw new \Exception('数据表不存在！');
+        }
+        $this->getAfterText($data, $dataExt);
+
+        if (!defined('IN_ADMIN') || (defined('IN_ADMIN') && IN_ADMIN == false)) {
+            empty($data['uid']) ? \app\member\service\User::instance()->id : $data['uid'];
+            empty($data['username']) ? \app\member\service\User::instance()->username : $data['username'];
+        } else {
+            //添加用户名
+            $data['uid']      = \app\admin\service\User::instance()->id;
+            $data['username'] = \app\admin\service\User::instance()->username;
+        }
+        //处理数据
+        $dataAll              = $this->dealModelPostData($modelid, $data, $dataExt);
+        list($data, $dataExt) = $dataAll;
+        if (!isset($data['inputtime'])) {
+            $data['inputtime'] = request()->time();
+        }
+        if (!isset($data['updatetime'])) {
+            $data['updatetime'] = request()->time();
+        }
+        try {
+            //主表
+            $id = Db::name($tablename)->insertGetId($data);
+            //TAG标签处理
+            if (!empty($data['tags'])) {
+                $this->tagDispose($data['tags'], $id, $catid, $modelid);
+            }
+            //附表
+            if (!empty($dataExt)) {
+                $dataExt['did'] = $id;
+                Db::name($tablename . $this->sub_table)->insert($dataExt);
+            }
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
         //更新栏目统计数据
         //$this->updateCategoryItems($catid, 'add', 1);
         //推送到熊掌号和百度站长
-        $cmsConfig = cache("Cms_Config");
-        if (isset($cmsConfig['web_site_baidupush']) && $cmsConfig['web_site_baidupush']) {
-            hook("baidupush", buildContentUrl($catid, $id, $data['url'], true, true));
-        }
+        //$cmsConfig = cache("Cms_Config");
+//        if (isset($cmsConfig['web_site_baidupush']) && $cmsConfig['web_site_baidupush']) {
+//            hook("baidupush", buildContentUrl($catid, $id, $data['url'], true, true));
+//        }
         return $id;
     }
-
 
     //编辑模型内容 马博增加extraData
     public function editModelDataAll($data, $dataExt = [], $extraData = [])
@@ -128,10 +192,11 @@ class Sub extends Modelbase
         unset($data['catid']);
         unset($data['id']);
         $modelid = getCategory($catid, 'modelid');
+
         //完整表名获取
         $tablename = $this->getModelTableName($modelid);
         if (!$this->table_exists($tablename)) {
-            throw new \Exception('数据表不存在！');
+            throw new \Exception('数据表不存在！?');
         }
         $this->getAfterText($data, $extraData);
         $dataAll              = $this->dealModelPostData($modelid, $data, $dataExt);
@@ -140,8 +205,16 @@ class Sub extends Modelbase
         if (!isset($data['updatetime'])) {
             $data['updatetime'] = request()->time();
         }
-        //主表
-        Db::name($tablename)->where('id', $id)->update($data);
+        if (!defined('IN_ADMIN') || (defined('IN_ADMIN') && IN_ADMIN == false)) {
+            empty($data['uid']) ? \app\member\service\User::instance()->id : $data['uid'];
+            empty($data['username']) ? \app\member\service\User::instance()->username : $data['username'];
+        } else {
+            //添加用户名
+            $data['uid']      = \app\admin\service\User::instance()->id;
+            $data['username'] = \app\admin\service\User::instance()->username;
+        }
+        //主表 更新更新时间即可
+        //Db::name($tablename)->where('id', $id)->update($data);
         // 以下下马博增加
         if ($extraData) {
             $extra_data = [];
@@ -154,10 +227,19 @@ class Sub extends Modelbase
             }
             foreach ($extra_data as $e) {
                 if ($e['id']) {
+//                    $e['did'] = $id;
+//                    $e['sid'] = $id;
+                    $e['updatetime'] = request()->time();
                     Db::name($tablename . $this->sub_table)->where('id', $e['id'])->update($e);
                     $extraId = $e['id'];
                 } else {
+                    $e['did'] = $id;
                     $e['sid'] = $id;
+                    $e['catid']      = $catid;
+                    $e['uid']        = $data['uid'] ;
+                    $e['username']   = $data['username'] ;
+                    $e['inputtime']  = request()->time();
+                    $e['updatetime'] = request()->time();
                     $extraId = Db::name($tablename . $this->sub_table)->insert($e);
                 }
 
@@ -204,10 +286,10 @@ class Sub extends Modelbase
         //附表
         if (!empty($dataExt)) {
             //查询是否存在ID 不存在则新增
-            if (Db::name($tablename . $this->sub_table)->where('sid', $id)->find()) {
-                Db::name($tablename . $this->sub_table)->where('sid', $id)->update($dataExt);
+            if (Db::name($tablename . $this->sub_table)->where('did', $id)->find()) {
+                Db::name($tablename . $this->sub_table)->where('did', $id)->update($dataExt);
             } else {
-                $dataExt['sid'] = $id;
+                $dataExt['did'] = $id;
                 Db::name($tablename . $this->sub_table)->insert($dataExt);
             };
         }
@@ -234,7 +316,7 @@ class Sub extends Modelbase
         } else {
             Db::name($modelInfo['tablename'])->where('id', $id)->delete();
             if (2 == $modelInfo['type']) {
-                Db::name($modelInfo['tablename'] . $this->sub_table)->where('sid', $id)->delete();
+                Db::name($modelInfo['tablename'] . $this->sub_table)->where('did', $id)->delete();
             }
             //更新栏目统计
             $this->updateCategoryItems($data['catid'], 'delete');
@@ -247,7 +329,7 @@ class Sub extends Modelbase
     protected function dealModelPostData($modeId, $data, $dataExt = [], $ignoreField = [])
     {
         //字段类型
-        $query = self::where('modelid', $modeId)->where('status', 1)->where('ifsystem', 1);
+        $query = self::where('modelid', $modeId)->where('status', 1)->where('ifsystem', 2);
         if ([] != $ignoreField) {
             $query = $query->where('name', 'not in', $ignoreField);
         }
@@ -295,11 +377,11 @@ class Sub extends Modelbase
 //            if ($vo['ifrequire'] && ${$arr}[$name] == '') {
 //                throw new \Exception("'" . $vo['title'] . "'必须填写~");
 //            }
-            //正则校验
+//            //正则校验
 //            if (isset(${$arr}[$name]) && ${$arr}[$name] && $vo['pattern'] && !Validate::regex(${$arr}[$name], $vo['pattern'])) {
 //                throw new \Exception("'" . $vo['title'] . "'" . (!empty($vo['errortips']) ? $vo['errortips'] : '正则校验失败') . "");
 //            }
-            //数据格式验证
+//            //数据格式验证
 //            if (!empty(${$arr}[$name]) && in_array($vo['type'], ['number']) && !Validate::isNumber(${$arr}[$name])) {
 //                throw new \Exception("'" . $vo['title'] . "'格式错误~");
 //                //安全过滤
@@ -321,7 +403,7 @@ class Sub extends Modelbase
                 $dataInfo  = Db::name($modelInfo['tablename'])->where('id', $id)->find();
                 //查询附表信息
                 if ($modelInfo['type'] == 2 && !empty($dataInfo)) {
-                    $dataInfoExt = Db::name($modelInfo['tablename'] . $this->sub_table)->where('sid', $dataInfo['id'])->find();
+                    $dataInfoExt = Db::name($modelInfo['tablename'] . $this->sub_table)->where('did', $dataInfo['id'])->find();
                 }
             }
             foreach ($list as $key => &$value) {
@@ -388,7 +470,7 @@ class Sub extends Modelbase
                 $dataInfo  = Db::name($modelInfo['tablename'])->where('id', $id)->find();
                 //查询附表信息
                 if ($modelInfo['type'] == 2 && !empty($dataInfo)) {
-                    $dataInfoExt = Db::name($modelInfo['tablename'] . $this->sub_table)->where('sid', $dataInfo['id'])->where('site_id', $site_id)->find();
+                    $dataInfoExt = Db::name($modelInfo['tablename'] . $this->sub_table)->where('did', $dataInfo['id'])->where('site_id', $site_id)->find();
                 }
             }
             foreach ($list as $key => &$value) {
@@ -479,14 +561,14 @@ class Sub extends Modelbase
                 if ($page) {
                     $result = Db::view($tableName, $field)
                         ->where($where)
-                        ->view($extTable, '*', $tableName . '.id=' . $extTable . '.sid', 'LEFT')
+                        ->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')
                         ->order($order)
                         ->paginate($limit, $simple, $config);
                 } else {
                     $result = Db::view($tableName, $field)
                         ->where($where)
                         ->limit($limit)
-                        ->view($extTable, '*', $tableName . '.id=' . $extTable . '.sid', 'LEFT')
+                        ->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')
                         ->order($order)
                         ->select();
                 }
@@ -500,7 +582,7 @@ class Sub extends Modelbase
                 if ($page) {
                     $result = Db::view($tableName, '*')
                         ->where($where)
-                        ->view($extTable, '*', $tableName . '.id=' . $extTable . '.sid', 'LEFT')
+                        ->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')
                         ->order($order)
                         ->field('`' . $tableName . "`.id as id")
                         ->paginate($limit, $simple, $config);
@@ -508,7 +590,7 @@ class Sub extends Modelbase
                     $result = Db::view($tableName, '*')
                         ->where($where)
                         ->limit($limit)
-                        ->view($extTable, '*', $tableName . '.id=' . $extTable . '.sid', 'LEFT')
+                        ->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')
                         ->order($order)
                         ->field('`' . $tableName . "`.id as id")
                         ->select();
@@ -519,8 +601,8 @@ class Sub extends Modelbase
         // 马博增加
         if (!empty($result)) {
             foreach ($result as &$r) {
-                if ($r['sid']) {
-                    $r['id'] = $r['sid'];
+                if ($r['did']) {
+                    $r['id'] = $r['did'];
                 }
             }
         }
@@ -564,14 +646,14 @@ class Sub extends Modelbase
             $dataShare = cache("Cms_Config")['data_share']; //数据共享
             if($dataShare){
                 $whereExt =  $extTable . ".site_id=" . $site_id;
-                $dataInfo = Db::view($tableName, '*')->where($where)->where($whereExt)->cache($cache)->view($extTable, '*', $tableName . '.id=' . $extTable . '.sid', 'LEFT')->field('`' . $tableName . "`.id as id")->find();
+                $dataInfo = Db::view($tableName, '*')->where($where)->where($whereExt)->cache($cache)->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')->field('`' . $tableName . "`.id as id")->find();
                 if(is_null($dataInfo)){
                     $site_id   = 1;
                 }
             }
             //增加数据共享功能 end
             $where .= " and " . $extTable . ".site_id=" . $site_id;
-            $dataInfo = Db::view($tableName, '*')->where($where)->cache($cache)->view($extTable, '*', $tableName . '.id=' . $extTable . '.sid', 'LEFT')->field('`' . $tableName . "`.id as id")->find();
+            $dataInfo = Db::view($tableName, '*')->where($where)->cache($cache)->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')->field('`' . $tableName . "`.id as id")->find();
         } else {
             $where    = $tableName . '.' . $where;
             $extTable = $tableName . $this->sub_table;
@@ -580,7 +662,7 @@ class Sub extends Modelbase
             }
 
             if($type=="pre"){
-                $dataInfos = Db::view($tableName, '*')->where($where)->cache($cache)->view($extTable, 'sid,title', $tableName . '.id=' . $extTable . '.sid', 'LEFT')->field('`' . $tableName . "`.id as id")->order($order)->select();
+                $dataInfos = Db::view($tableName, '*')->where($where)->cache($cache)->view($extTable, 'did,title', $tableName . '.id=' . $extTable . '.did', 'LEFT')->field('`' . $tableName . "`.id as id")->order($order)->select();
                 $ids = array();
                 foreach ($dataInfos as $dataInfo) {
                     $ids[] = $dataInfo['id'];
@@ -588,7 +670,7 @@ class Sub extends Modelbase
                 array_multisort($ids, SORT_DESC, $dataInfos);
                 $dataInfo = $dataInfos[0];
             }else{
-                $dataInfo = Db::view($tableName, '*')->where($where)->cache($cache)->view($extTable, '*', $tableName . '.id=' . $extTable . '.sid', 'LEFT')->field('`' . $tableName . "`.id as id")->find();
+                $dataInfo = Db::view($tableName, '*')->where($where)->cache($cache)->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')->field('`' . $tableName . "`.id as id")->find();
             }
         }
         if (!empty($dataInfo)) {
@@ -771,11 +853,11 @@ class Sub extends Modelbase
     public function getExtraData($data)
     {
         $catid = (int) $data['catid'];
-        $sid = intval($data['sid']);
+        $id    = intval($data['id']);
         $modelid = getCategory($catid, 'modelid');
         //完整表名获取
         $tablename = $this->getModelTableName($modelid);
-        return Db::name($tablename . $this->sub_table)->where('sid', $sid)->select();
+        return Db::name($tablename . $this->sub_table)->where('id', $id)->select();
     }
 
     public function getExtraField($modeId, $ifsystem)
