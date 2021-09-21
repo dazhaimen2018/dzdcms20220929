@@ -97,14 +97,15 @@ class Sub extends Modelbase
 
                 foreach ($extra_data as $e) {
                     $e['did']        = $data['did'];
-                    $e['pid']        = $data['did'];
                     $e['sid']        = Db::name($tablename . '_data')->where('did', $e['did'])->where('site_id', $e['site_id'])->value('id');
                     $e['catid']      = $data['catid'] ;
                     $e['uid']        = $data['uid'] ;
                     $e['username']   = $data['username'] ;
                     $e['inputtime']  = request()->time();
                     $e['updatetime'] = request()->time();
-                    $extraId = Db::name($tablename . $this->sub_table)->insert($e);
+                    $extraId = Db::name($tablename . $this->sub_table)->insertGetId($e);
+                    //更新当前数据的pid为id
+                    Db::name($tablename . $this->sub_table)->where('id', $extraId)->update(['pid' => $extraId]);
 //                    if ($e['tags']) {
 //                        $this->tagDispose($e['tags'], $id, $catid, $modelid, $e['site_id']);
 //                    } else {
@@ -237,13 +238,15 @@ class Sub extends Modelbase
                 } else {
                     $e['did']        = $did;
                     $e['pid']        = $id;
-                    $e['sid']        = Db::name($tablename . '_data')->where('did', $e['id'])->where('site_id', $e['site_id'])->value('id');
+                    $e['sid']        = Db::name($tablename . '_data')->where('did', $did)->where('site_id', $e['site_id'])->value('id');
                     $e['catid']      = $catid;
                     $e['uid']        = $data['uid'] ;
                     $e['username']   = $data['username'] ;
                     $e['inputtime']  = request()->time();
                     $e['updatetime'] = request()->time();
                     $extraId = Db::name($tablename . $this->sub_table)->insert($e);
+                    //更新当前数据的pid为id
+                    //Db::name($tablename . $this->sub_table)->where('id', $extraId)->update(['pid' => $extraId]);
                 }
 
                 if ($e['tags']) {

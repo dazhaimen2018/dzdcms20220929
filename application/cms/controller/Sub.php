@@ -77,6 +77,8 @@ class Sub extends Adminbase
         }
         //栏目所属模型
         $modelid   = $catInfo['modelid'];
+        $catSites = $catInfo['sites']; //当前栏目所属站点
+        $firstSite = substr($catSites,0,strpos($catSites, ','));
 
         if ($this->request->isAjax()) {
             $limit = $this->request->param('limit/d', 10);
@@ -96,6 +98,7 @@ class Sub extends Adminbase
             $conditions = [
                 ['catid', '=', $catid],
                 ['did', '=', $did],
+                ['site_id', '=', $firstSite],
                 ['status', 'in', [0, 1]],
             ];
             $total   = Db::name($tableName)->where($where)->where($conditions)->count();
@@ -107,7 +110,7 @@ class Sub extends Adminbase
                 $v['updatetime'] = date('Y-m-d H:i', $v['updatetime']);
                 $v['url']        = $siteUrl.buildContentUrl($v['catid'], $v['id'], $v['url']);
                 //马博 显示已添站点ID
-                $sites           = Db::name($tableName)->where('did', $v['id'])->field('site_id as id')->select();
+                $sites           = Db::name($tableName)->where('pid', $v['id'])->field('site_id as id')->select();
                 $v['site']       = array_column($sites,'id');
                 $_list[]         = $v;
             }
@@ -206,14 +209,16 @@ class Sub extends Adminbase
     //编辑信息
     public function edit()
     {
-        $did = $this->request->param('did/d', 0);
         if ($this->request->isPost()) {
             $data                        = $this->request->post();
             $data['modelFieldExt']       = isset($data['modelFieldExt']) ? $data['modelFieldExt'] : [];
             $data['modelField']['id']    = intval($_GET['id']);
             $catid                       = $this->request->param('catid/d', 0);
+            $did                         = $this->request->param('did/d', 0);
+            $id                          = $this->request->param('id/d', 0);
             $data['modelField']['catid'] = $catid;
-            $data['modelField']['id']    = $did;
+            $data['modelField']['id']    = $id;
+            $data['modelField']['did']    = $did;
             $category                    = getCategory($catid);
             if (empty($category)) {
                 $this->error('该栏目不存在!!');
@@ -249,17 +254,42 @@ class Sub extends Adminbase
                 ]);
                 $extraData = $this->CubModel->getExtraData(['catid' => $catid, 'pid' => $pid]);
                 $ret = [];
-                foreach ($this->site as $k => $s) {
-                    if ($extraData) {
-                        foreach ($extraData as $e) {
-                            if ($e['site_id'] == $s['id']) {
-                                $ret[$k] = $e;
-                            } else {
-                                $ret[$k]['site_id'] = $s['id'];
+
+                if($import){
+                    foreach ($this->site as $k => $s) {
+                        if ($extraData) {
+                            foreach ($extraData as $e) {
+                                if ($e['site_id'] == $s['id']) {
+                                    $ret[$k] = $e;
+                                    $ret[$k]['id'] = $e['id'];
+                                } else {
+                                    //只输出站点1的数据
+                                    foreach ($extraData as $f) {
+                                        if ($e['site_id']== 1) {
+                                            $ret[$k] = $f;
+                                            $ret[$k]['site_id'] = $s['id'];
+                                            $ret[$k]['id'] = '';
+                                        }
+                                    }
+                                }
                             }
+                        } else {
+                            $ret[$k]['site_id'] = $s['id'];
                         }
-                    } else {
-                        $ret[$k]['site_id'] = $s['id'];
+                    }
+                }else{
+                    foreach ($this->site as $k => $s) {
+                        if ($extraData) {
+                            foreach ($extraData as $e) {
+                                if ($e['site_id'] == $s['id']) {
+                                    $ret[$k] = $e;
+                                } else {
+                                    $ret[$k]['site_id'] = $s['id'];
+                                }
+                            }
+                        } else {
+                            $ret[$k]['site_id'] = $s['id'];
+                        }
                     }
                 }
                 $this->view->assign('extra_data', $ret);
