@@ -48,7 +48,7 @@ class Sub extends Modelbase
     //添加模型内容  马博增加 extraData
     public function addModelDataAll($data, $dataExt = [], $extraData = [])
     {
-        $catid = (int) $data['catid'];
+        $catid     = (int) $data['catid'];
         if (isset($data['modelid'])) {
             $modelid = $data['modelid'];
             unset($data['modelid']);
@@ -79,7 +79,9 @@ class Sub extends Modelbase
         if (!isset($data['updatetime'])) {
             $data['updatetime'] = request()->time();
         }
-
+        //获取栏目所属站点的第一个站ID
+        $catSites  = getCategory($catid, 'sites');; //当前栏目所属站点
+        $firstSite = substr($catSites,0,strpos($catSites, ','));
         try {
             //主表 不存主表，主要更新主表 章节数量即可
             //$id = Db::name($tablename)->insertGetId($data);
@@ -104,8 +106,13 @@ class Sub extends Modelbase
                     $e['inputtime']  = request()->time();
                     $e['updatetime'] = request()->time();
                     $extraId = Db::name($tablename . $this->sub_table)->insertGetId($e);
-                    //更新当前数据的pid为id
-                    Db::name($tablename . $this->sub_table)->where('id', $extraId)->update(['pid' => $extraId]);
+                    if($e['site_id'] == $firstSite){
+                        $extraPid = $extraId;
+                    }
+                    Db::name($tablename . $this->sub_table)->where('id', $extraId)->update(['pid' => $extraPid]);
+
+                    //更新当前数据的pid为id 更新主站的pid为id,其他站的pid也为主站的id
+
 //                    if ($e['tags']) {
 //                        $this->tagDispose($e['tags'], $id, $catid, $modelid, $e['site_id']);
 //                    } else {

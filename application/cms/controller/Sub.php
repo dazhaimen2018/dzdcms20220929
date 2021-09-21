@@ -77,9 +77,15 @@ class Sub extends Adminbase
         }
         //栏目所属模型
         $modelid   = $catInfo['modelid'];
-        $catSites = $catInfo['sites']; //当前栏目所属站点
+        $catSites  = $catInfo['sites']; //当前栏目所属站点
+        $siteId    = onSite();
+        // 显示当前站的数据，不太完美，带升级
+//        if($siteId) {
+//            $firstSite =  $siteId;
+//        } else {
+//            $firstSite = substr($catSites,0,strpos($catSites, ','));
+//        }
         $firstSite = substr($catSites,0,strpos($catSites, ','));
-
         if ($this->request->isAjax()) {
             $limit = $this->request->param('limit/d', 10);
             $page  = $this->request->param('page/d', 1);
@@ -96,20 +102,18 @@ class Sub extends Adminbase
             }
             list($page, $limit, $where) = $this->buildTableParames();
             $conditions = [
-                ['catid', '=', $catid],
-                ['did', '=', $did],
+                ['catid',   '=', $catid],
+                ['did',     '=', $did],
                 ['site_id', '=', $firstSite],
-                ['status', 'in', [0, 1]],
+                ['status',  'in', [0, 1]],
             ];
             $total   = Db::name($tableName)->where($where)->where($conditions)->count();
             $list    = Db::name($tableName)->page($page, $limit)->where($where)->where($conditions)->order('listorder DESC, id DESC')->select();
-            $siteId  = onSite();
-            $siteUrl = onSiteUrl();
             $_list   = [];
             foreach ($list as $k => $v) {
+                $siteUrl         = onSiteUrl();
                 $v['updatetime'] = date('Y-m-d H:i', $v['updatetime']);
                 $v['url']        = $siteUrl.buildContentUrl($v['catid'], $v['id'], $v['url']);
-                //马博 显示已添站点ID
                 $sites           = Db::name($tableName)->where('pid', $v['id'])->field('site_id as id')->select();
                 $v['site']       = array_column($sites,'id');
                 $_list[]         = $v;
@@ -189,6 +193,14 @@ class Sub extends Adminbase
             $category = getCategory($catid);
             if (empty($category)) {
                 $this->error('该栏目不存在！');
+            }
+            $catSites  = $category['sites']; //当前栏目所属站点
+            $firstSite = substr($catSites,0,strpos($catSites, ','));
+            //发布模式为单站时，如果当前站点不是默认站点时，不能新增！
+            if(isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode']) {
+                if($firstSite != onSite()) {
+                    $this->error('只能默认站新增数据，当前站通过编辑完成数据！');
+                }
             }
             if ($category['type'] == 2) {
                 $modelid = $category['modelid'];
