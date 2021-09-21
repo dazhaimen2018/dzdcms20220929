@@ -41,6 +41,7 @@
                                 <input type="radio" name="setting[site_url_mode]" value="2" title="标识" {if 2==$setting['site_url_mode']}checked{/if}>
                             </div>
                         </div>
+                        {if !$userInfo.site_id}
                         <div class="layui-form-item">
                             <label class="layui-form-label" title="文章和单页发布和修改模式">发布模式</label>
                             <div class="layui-input-block">
@@ -50,7 +51,6 @@
                             <div class="layui-form-mid layui-word-aux">模型附表中如果增加了很多图片、多图，单选或多选或多编辑器字段的多站模式不正常，请选单站</div>
                         </div>
                         {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
-                        {if !$userInfo.site_id}
                         <div class="layui-form-item">
                             <label class="layui-form-label" title="单站模式时必须要选一个">切换站点 <font color="red">*</font></label>
                             <div class="layui-input-block">

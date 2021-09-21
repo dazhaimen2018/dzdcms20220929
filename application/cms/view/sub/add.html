@@ -14,7 +14,6 @@
                     {volist name="sites" id="site" key="k" }
                     <div class="layui-tab-item {if $k==1}layui-show{/if}">
                         <input type="hidden" name="extra_data[{$k}][site_id]" value="{$site.id}" />
-                        <input type="hidden" name="extra_data[{$k}][did]" value="{$did}" />
                         {volist name="extraFieldList" id="vo"}
                         {include file="admin@inputItemExt" /}
                         {/volist}

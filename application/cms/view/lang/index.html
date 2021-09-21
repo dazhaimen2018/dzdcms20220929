@@ -1,7 +1,7 @@
 {extend name="admin@index_layout"/}
 {block name="main"}
 <div class="layui-card">
-    <div class="layui-card-header">碎片列表</div>
+    <div class="layui-card-header">碎片列表 | {:onSiteName()}</div>
     <div class="layui-card-body">
         <blockquote class="layui-elem-quote">添加、修改和删除碎片全部完成后，请点击【更新碎片缓存】！</blockquote>
         <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>

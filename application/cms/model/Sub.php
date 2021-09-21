@@ -94,8 +94,11 @@ class Sub extends Modelbase
                         }
                     }
                 }
+
                 foreach ($extra_data as $e) {
-                    $e['sid']        = $e['did'] ;
+                    $e['did']        = $data['did'];
+                    $e['pid']        = $data['did'];
+                    $e['sid']        = Db::name($tablename . '_data')->where('did', $e['did'])->where('site_id', $e['site_id'])->value('id');
                     $e['catid']      = $data['catid'] ;
                     $e['uid']        = $data['uid'] ;
                     $e['username']   = $data['username'] ;
@@ -189,6 +192,7 @@ class Sub extends Modelbase
     {
         $catid = (int) $data['catid'];
         $id    = (int) $data['id'];
+        $did   = (int) $data['did'];
         unset($data['catid']);
         unset($data['id']);
         $modelid = getCategory($catid, 'modelid');
@@ -227,14 +231,13 @@ class Sub extends Modelbase
             }
             foreach ($extra_data as $e) {
                 if ($e['id']) {
-//                    $e['did'] = $id;
-//                    $e['sid'] = $id;
                     $e['updatetime'] = request()->time();
                     Db::name($tablename . $this->sub_table)->where('id', $e['id'])->update($e);
                     $extraId = $e['id'];
                 } else {
-                    $e['did'] = $id;
-                    $e['sid'] = $id;
+                    $e['did']        = $did;
+                    $e['pid']        = $id;
+                    $e['sid']        = Db::name($tablename . '_data')->where('did', $e['id'])->where('site_id', $e['site_id'])->value('id');
                     $e['catid']      = $catid;
                     $e['uid']        = $data['uid'] ;
                     $e['username']   = $data['username'] ;
@@ -853,11 +856,11 @@ class Sub extends Modelbase
     public function getExtraData($data)
     {
         $catid = (int) $data['catid'];
-        $id    = intval($data['id']);
+        $pid    = intval($data['pid']);
         $modelid = getCategory($catid, 'modelid');
         //完整表名获取
         $tablename = $this->getModelTableName($modelid);
-        return Db::name($tablename . $this->sub_table)->where('id', $id)->select();
+        return Db::name($tablename . $this->sub_table)->where('pid', $pid)->select();
     }
 
     public function getExtraField($modeId, $ifsystem)

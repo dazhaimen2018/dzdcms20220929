@@ -30,9 +30,9 @@ class Cms extends Adminbase
         $this->cmsConfig = cache("Cms_Config");
         $this->assign("cmsConfig", $this->cmsConfig);
         // 20200805 马博所有站点
-        $sites    = $this->auth->site_id;
-        if ($sites) {
-            $whereSite = " id = $sites";
+        $siteIds    = $this->auth->site_id;
+        if ($siteIds) {
+            $whereSite = " id = $siteIds";
         }else{
            if(isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode']) {
                $sites     = cache("Cms_Config")['site'];

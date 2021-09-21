@@ -21,7 +21,6 @@
             {else}
             <li {if isset($catid) && in_array($catid,explode(',',$vo['arrchildid']))}class="layui-menu-item-checked"{/if}><div class="layui-menu-body-title"><a href="{$vo.url}">{$vo.catname}</a></div></li>
             {/if}
-            <li class="layui-menu-item-divider"></li>
             {/volist}
             {/yzn}
             {else}

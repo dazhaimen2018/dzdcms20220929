@@ -1,0 +1,127 @@
+{include file="public/header" /}
+{include file="public/banner_In" /}
+<div class="layui-main">
+    <div class="layui-container layui-col-space15">
+        <div class="layui-col-md9">
+            <div class="layui-card case-intro layui-col-md12">
+                {include file="public/location" /}
+                <div class="layui-card-body layui-row">
+                    <div class="layui-col-md5 layui-thumb">
+                        <img src="{$thumb}" class="img-responsive">
+                    </div>
+                    <div class="layui-col-md7">
+                        <div class="title-article">
+                            <h1>{$siteName}{$title}</h1>
+                            <div class="title-msg">
+                                <span><i class="layui-icon layui-icon-username"></i> {$username}</span>
+                                <span><i class="layui-icon layui-icon-time"></i> {$inputtime|date='Y-m-d H:i'} </span>
+                                <span><i class="layui-icon layui-icon-read"></i> {$hits}浏览</span>
+                                {if isModuleInstall('baidu_record')}
+                                <span><i class="iconfont icon-baidu"></i> {:hook('baidu_record')}</span>
+                                {/if}
+                            </div>
+                        </div>
+                        <div class="layui-card-body">
+                            <div class="layui-text">
+                                <ul>
+                                    <li>作者：{$username}</li>
+                                    <li>更新时间：{$updatetime|date='Y-m-d H:i'}</li>
+                                    <li>是否截稿：连载中</li>
+                                </ul>
+                            </div>
+
+                            <div class="layui-card">
+                                <div class="layui-card-header">简介</div>
+                                <div class="layui-card-body layui-text layadmin-version">
+                                    {$content|raw}
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="layui-btn-container layui-btn-center">
+                            <a href="{$website}" class="layui-btn" target="_blank"><i class="layui-icon layui-icon-website"></i> 查看演示</a>
+                            <a href="{:config('web_site_qq')}" target="_blank"  type="button" class="layui-btn layui-btn-warm"><i class="layui-icon layui-icon-login-qq"></i> 我要建站</a>
+                        </div>
+                        {if $lang}
+                        <div class="intro-txt">
+                            {volist name="lang" id="vo"}
+                            <span class="layui-badge"><img src="/static/language/{$key}.png" title="{$vo}"></span>
+                            {/volist}
+                        </div>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-header">章节目录</div>
+                    <div class="layui-card-body layui-text layadmin-version">
+                        <ul class="chapter_list">
+                            <li><a href="">第一章 我才是你的新娘</a></li>
+                            <li><a href="">第二章 带我走</a><i class="iconfont icon-money" title="需付费阅读"></i></li>
+                            <li><a href="">第三章 我有没有女人味？</a><i class="iconfont icon-money" title="需付费阅读"></i></li>
+                            <li><a href="">第四章 是你主动的</a><i class="iconfont icon-money" title="需付费阅读"></i></li>
+                            <li><a href="">第五章 孩子是她的骄傲</a><i class="iconfont icon-money" title="需付费阅读"></i></li>
+                            <li><a href="">第六章 我要是男的，我一定娶你！</a><i class="iconfont icon-money" title="需付费阅读"></i></li>
+                            <li><a href="">第七章 孩子爸爸是谁？</a><i class="iconfont icon-money" title="需付费阅读"></i></li>
+                            <li><a href="">第八章 只有脑子没有行动力的花瓶？</a><i class="iconfont icon-money" title="需付费阅读"></i></li>
+                            <li><a href="">第九章 光明正大进来的</a><i class="iconfont icon-money" title="需付费阅读"></i></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-card case-content layui-col-md12">
+                <div class="layui-card-body detail-body layui-text">
+                    {include file="public/page_text" /}
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">小说分类</div>
+                <div class="layui-card-body layui-text layadmin-version">
+                    <div class="layui-btn-container">
+                        {yzn module="cms" action="category" catid="$top_parentid" siteId="$siteId" cache="3600" order="listorder ASC" num="30" return="data"}
+                        {volist name="data" id="vo"}
+                        <a href="{$vo.url}" class="layui-btn layui-btn-primary">{$vo.catname}</a>
+                        {/volist}
+                        {/yzn}
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-card">
+                <div class="layui-card-header">人气榜Top</div>
+                <div class="layui-card-body layui-text layadmin-version">
+                    <ul class="layui-timeline">
+                        {yzn module="cms" action="lists" catid="$catid"  siteId="$site_id" cache="3600" order="hits DESC" num="10" page="$page" return="data"}
+                        {volist name="data" id="item"}
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis"></i>
+                            <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">Top{$i}</h3>
+                                <p><a href="{$item.url}">{$item.title}</a></p>
+                                <p>{$item.description}</p>
+                            </div>
+                        </li>
+                        {/volist}
+                        {/yzn}
+
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis"></i>
+                            <div class="layui-timeline-content layui-text">
+                                <div class="layui-timeline-title"><a href="{:getCategory($catid,'url')}">更多</a></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+{include file="public/footer" /}

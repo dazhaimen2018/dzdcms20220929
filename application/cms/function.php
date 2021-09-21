@@ -412,6 +412,21 @@ function  cleanUp(){
     Cache::clear();
 }
 
+function onSiteName(){
+    $userInfo = Session::get('admin');
+    $siteIds = $userInfo['site_id'];
+    if(isset(cache("Cms_Config")['publish_mode']) && 1 == cache("Cms_Config")['publish_mode']) {
+        if($siteIds){
+            $siteName = getSiteInfo('name');
+        }else{
+            $siteName = '所有站';
+        }
+    }else{
+        $siteName = getSiteInfo('name');
+    }
+   return $siteName;
+}
+
 /*文章发布多少时间前*/
 function timeRule($time)
 {
