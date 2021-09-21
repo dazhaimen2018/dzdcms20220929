@@ -27,6 +27,7 @@ class Category extends Adminbase
     private $categoryTemplate;
     private $listTemplate;
     private $showTemplate;
+    private $lastTemplate;
     private $pageTemplate;
 
     protected $noNeedRight = [
@@ -45,6 +46,8 @@ class Category extends Adminbase
         $this->listTemplate = str_replace($this->themePath . DS, '', glob($this->themePath . DS . 'list*'));
         //取得内容页模板列表
         $this->showTemplate = str_replace($this->themePath . DS, '', glob($this->themePath . DS . 'show*'));
+        //取得子内容页模板列表
+        $this->lastTemplate = str_replace($this->themePath . DS, '', glob($this->themePath . DS . 'last*'));
         //取得单页模板
         $this->pageTemplate = str_replace($this->themePath . DS, '', glob($this->themePath . DS . 'page*'));
 
@@ -259,6 +262,7 @@ class Category extends Adminbase
                 'tp_category'      => $this->categoryTemplate,
                 'tp_list'          => $this->listTemplate,
                 'tp_show'          => $this->showTemplate,
+                'tp_last'          => $this->lastTemplate,
                 'tp_page'          => $this->pageTemplate,
                 'parentid_modelid' => isset($Ca['modelid']) ? $Ca['modelid'] : 0,
             ]);
@@ -367,6 +371,8 @@ class Category extends Adminbase
 
         } else {
             $catid = $this->request->param('id/d', 0);
+            $modelid = getCategory($catid, 'modelid');
+            $modelType = Db::name('Model')->where('id', $modelid)->value('type');
             if (empty($catid)) {
                 $this->error('请选择需要修改的栏目！');
             }
@@ -410,13 +416,6 @@ class Category extends Adminbase
             // 20200805 马博
             $siteArray = Site::where(['alone' => 1])->select()->toArray();
 
-            // 获取当前管理所属站点
-//            $sites = $this->auth->site_id;
-//            if ($sites) {
-//                $whereSite = " id = $sites";
-//            }
-//            $siteArrays  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray();
-//            $this->site  = $siteArrays;
             $categoryData = CategoryData::where(['catid' => $catid])->select()->toArray();
             $ret = [];
             foreach ($this->site as $k => $s) {
@@ -438,9 +437,11 @@ class Category extends Adminbase
                 'setting'     => $setting,
                 'category'    => $categorydata,
                 'models'      => $models,
+                'modelType'   => $modelType,
                 'tp_category' => $this->categoryTemplate,
                 'tp_list'     => $this->listTemplate,
                 'tp_show'     => $this->showTemplate,
+                'tp_last'     => $this->lastTemplate,
                 'tp_page'     => $this->pageTemplate,
                 'privs'       => model("cms/CategoryPriv")->where('catid', $catid)->select(),
             ]);
@@ -680,7 +681,7 @@ class Category extends Adminbase
         $id   = $this->request->param('id/d');
         $data = Db::name('Model')->where('id', $id)->find();
         if ($data) {
-            $json = ['code' => 0, 'data' => unserialize($data['setting'])];
+            $json = ['code' => 0, 'data' => unserialize($data['setting']),'type'=>$data['type']];
             return json($json);
         }
     }

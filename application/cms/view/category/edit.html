@@ -159,6 +159,20 @@
                     </div>
                     <div class="layui-form-mid layui-word-aux">新增模板以show_xx.{:config('template.view_suffix')}形式</div>
                 </div>
+                {if $modelType==3}
+                <div class="layui-form-item">
+                    <label class="layui-form-label">子内容页模板</label>
+                    <div class="layui-input-block">
+                        <select name="setting[last_template]">
+                            <option value="last.{:config('template.view_suffix')}" selected>默认子内容页:show.{:config('template.view_suffix')}</option>
+                            {volist name="tp_last" id="vo"}
+                            <option value="{$vo}" {eq name="setting['last_template']" value="$vo" }selected{/eq}>{$vo} </option>
+                            {/volist}
+                        </select>
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">新增模板以last_xx.{:config('template.view_suffix')}形式</div>
+                </div>
+                {/if}
                 <div class="layui-form-item">
                     <label class="layui-form-label">应用到子栏目</label>
                     <div class="layui-input-block">

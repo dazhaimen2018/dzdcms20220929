@@ -178,6 +178,18 @@
                     </div>
                     <div class="layui-form-mid layui-word-aux">新增模板以show_xx.html形式</div>
                 </div>
+                <div class="layui-form-item"  id="last_add" style="display:none">
+                    <label class="layui-form-label">子内容页模板</label>
+                    <div class="layui-input-block">
+                        <select name="setting[last_template]">
+                            <option value="last.html" selected>默认子内容页:last.html</option>
+                            {volist name="tp_last" id="vo"}
+                            <option value="{$vo}">{$vo}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">新增模板以last_xx.html形式</div>
+                </div>
             </div>
             <!-- 多语言设置 -->
 
@@ -255,7 +267,15 @@
                             "setting[category_template]": res.data.category_template,
                             "setting[list_template]": res.data.list_template,
                             "setting[show_template]": res.data.show_template,
+                            "setting[last_template]": res.data.last_template,
                         })
+                    }
+                    // 子内容模板是否可见
+                    if(res.type==3){
+                        $('#last_add').show();
+                    }
+                    if(res.type==2){
+                        $('#last_add').hide();
                     }
                 });
             }
@@ -268,6 +288,7 @@
                     "setting[category_template]": res.data.category_template,
                     "setting[list_template]": res.data.list_template,
                     "setting[show_template]": res.data.show_template,
+                    "setting[last_template]": res.data.last_template,
                 })
             }
         });
