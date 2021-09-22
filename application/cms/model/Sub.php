@@ -875,8 +875,67 @@ class Sub extends Modelbase
 
     public function getExtraField($modeId, $ifsystem)
     {
-        $model = db('model_field')->where("modelid=" . $modeId . " and ifsystem=" . $ifsystem)->order('listorder asc,id asc')->select();
-        return $model;
+        $list = db('model_field')->where("modelid=" . $modeId . " and ifsystem=" . $ifsystem)->order('listorder asc,id asc')->select();
+        if (!empty($list)) {
+            //编辑信息时查询出已有信息
+            if ($id) {
+                $modelInfo = Db::name('Model')->where('id', $modeId)->field('tablename,type')->find();
+                $dataInfo  = Db::name($modelInfo['tablename'])->where('id', $id)->find();
+                //查询附表信息
+                if ($modelInfo['type'] == 3 && !empty($dataInfo)) {
+                    $dataInfoExt = Db::name($modelInfo['tablename'] . $this->ext_table)->where('did', $dataInfo['id'])->find();
+                }
+            }
+            foreach ($list as $key => &$value) {
+                //内部字段不显示
+                if ($value['iscore']) {
+                    unset($list[$key]);
+                }
+                //核心字段做标记
+                if ($value['ifsystem']) {
+                    $value['fieldArr'] = 'modelField';
+                    if (isset($dataInfo[$value['name']])) {
+                        $value['value'] = $dataInfo[$value['name']];
+                    }
+                } else {
+                    $value['fieldArr'] = 'modelFieldExt';
+                    if (isset($dataInfoExt[$value['name']])) {
+                        $value['value'] = $dataInfoExt[$value['name']];
+                    }
+                }
+
+                //扩展配置
+                $value['setting'] = unserialize($value['setting']);
+                $value['options'] = $value['setting']['options'];
+                //在新增时候添加默认值
+                if (!$id) {
+                    $value['value'] = $value['setting']['value'];
+                }
+                if ($value['type'] == 'custom') {
+                    if ($value['options'] != '') {
+                        $tpar             = explode(".", $value['options'], 2);
+                        $value['options'] = \think\Response::create('admin@custom/' . $tpar[0], 'view')->assign('vo', $value)->getContent();
+                        unset($tpar);
+                    }
+                } elseif ($value['options'] != '') {
+                    $value['options'] = parse_attr($value['options']);
+                }
+
+                if ($value['type'] == 'checkbox') {
+                    $value['value'] = empty($value['value']) ? [] : explode(',', $value['value']);
+                }
+                if ($value['type'] == 'datetime') {
+                    $value['value'] = empty($value['value']) ? date('Y-m-d H:i:s') : date('Y-m-d H:i:s', $value['value']);
+                }
+                if ($value['type'] == 'date') {
+                    $value['value'] = empty($value['value']) ? '' : date('Y-m-d', $value['value']);
+                }
+                if ($value['type'] == 'Ueditor' || $value['type'] == 'markdown') {
+                    $value['value'] = isset($value['value']) ? htmlspecialchars_decode($value['value']) : '';
+                }
+            }
+        }
+        return $list;
     }
 
     public function getParentData($data)
