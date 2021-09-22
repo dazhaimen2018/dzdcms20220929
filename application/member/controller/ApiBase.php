@@ -10,15 +10,15 @@
 // +----------------------------------------------------------------------
 
 // +----------------------------------------------------------------------
-// | 前台会员管理
+// | 前台会员api管理
 // +----------------------------------------------------------------------
 namespace app\member\controller;
 
-use app\common\controller\Homebase;
+use app\common\controller\Api;
 use app\member\service\User;
 use think\Loader;
 
-class MemberBase extends HomeBase
+class ApiBase extends Api
 {
     //会员模型相关配置
     protected $memberConfig = array();
@@ -58,7 +58,7 @@ class MemberBase extends HomeBase
             $this->auth->init($token);
             //检测是否登录
             if (!$this->auth->isLogin()) {
-                $this->error('请登录后再操作', 'member/index/login');
+                $this->error('请登录后再操作', null, 401);
             }
             // 判断是否需要验证权限
             /*if (!$this->auth->match($this->noNeedRight)) {
@@ -70,8 +70,5 @@ class MemberBase extends HomeBase
                 $this->auth->init($token);
             }
         }
-        $this->assign('userinfo', $this->auth->getUser());
-        $this->assign("Member_group", $this->memberGroup);
-        $this->assign("Member_config", $this->memberConfig);
     }
 }
