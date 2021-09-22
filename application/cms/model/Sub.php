@@ -882,7 +882,7 @@ class Sub extends Modelbase
                 $modelInfo = Db::name('Model')->where('id', $modeId)->field('tablename,type')->find();
                 $dataInfo  = Db::name($modelInfo['tablename'])->where('id', $id)->find();
                 //查询附表信息
-                if ($modelInfo['type'] == 3 && !empty($dataInfo)) {
+                if ($modelInfo['type'] == 2 && !empty($dataInfo)) {
                     $dataInfoExt = Db::name($modelInfo['tablename'] . $this->ext_table)->where('did', $dataInfo['id'])->find();
                 }
             }

@@ -601,7 +601,6 @@ EOF;
                     'name' => 'price',
                     'title' => '价格',
                     'type' => 'number',
-                    'iscore' => 1,
                     'ifsystem' => 2,
                     'listorder' => 310,
                     'setting'   => "a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}",
@@ -667,7 +666,6 @@ EOF;
                     'listorder' => 315,
                     'iscore'    => 1,
                     'setting'   => "a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}",
-                    'iscore'    => 1,
                 ],
                 [
                     'name'      => 'hits',
@@ -675,7 +673,6 @@ EOF;
                     'type'      => 'number',
                     'ifsystem' => 2,
                     'listorder' => 316,
-                    'iscore'    => 1,
                     'setting'   => "a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}",
                 ],
                 [
