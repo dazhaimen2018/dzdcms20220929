@@ -153,7 +153,7 @@ class CmsTagLib
     public function chapters($data)
     {
         $catid = isset($data['catid']) ? trim($data['catid']) : '';
-        $data['where'] = isset($data['where']) ? $data['where'] . " AND `state`=1" : "`state`=1";
+        $data['where'] = isset($data['where']) ? $data['where'] . " AND `status`=1" : "`status`=1";
         if (!isset($data['limit'])) {
             $data['limit'] = 0 == (int) $data['num'] ? 10 : (int) $data['num'];
         }

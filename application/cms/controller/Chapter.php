@@ -14,7 +14,7 @@
 // +----------------------------------------------------------------------
 namespace app\cms\controller;
 
-use app\cms\model\Sub as CubModel;
+use app\cms\model\Chapter as ChapterModel;
 use app\cms\model\Page as Page_Model;
 use app\cms\model\Site;
 use app\common\controller\Adminbase;
@@ -26,7 +26,7 @@ class Chapter extends Adminbase
     protected function initialize()
     {
         parent::initialize();
-        $this->CubModel = new CubModel;
+        $this->ChapterModel = new ChapterModel;
         $this->cmsConfig = cache("Cms_Config");
         $this->assign("cmsConfig", $this->cmsConfig);
         // 20200805 马博所有站点
@@ -47,7 +47,7 @@ class Chapter extends Adminbase
         // 找已发布的站点
         if($did){
             $modelid   = getCategory($catid, 'modelid');
-            $tablename = $this->CubModel->getModelTableName($modelid);
+            $tablename = $this->ChapterModel->getModelTableName($modelid);
             $sites     = Db::name($tablename . '_data')->where('did', $did)->field('site_id as id')->select();
             $sites     = array_column($sites,'id');
             $catSites  = join(',',$sites);
@@ -100,7 +100,7 @@ class Chapter extends Adminbase
                 ['catid',   '=', $catid],
                 ['did',     '=', $did],
                 ['site_id', '=', $firstSite],
-                ['state',  'in', [0, 1]],
+                ['status',  'in', [0, 1]],
             ];
             $total   = Db::name($tableName)->where($where)->where($conditions)->count();
             $list    = Db::name($tableName)->page($page, $limit)->where($where)->where($conditions)->order('listorder DESC, id DESC')->select();
@@ -171,7 +171,7 @@ class Chapter extends Adminbase
 
                 Db::startTrans();
                 try {
-                    $insertId = $this->CubModel->addModelDataAll($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
+                    $insertId = $this->ChapterModel->addModelDataAll($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
                     Db::commit();
                 } catch (\Exception $ex) {
                     Db::rollback();
@@ -199,8 +199,8 @@ class Chapter extends Adminbase
             }
             if ($category['type'] == 2) {
                 $modelid = $category['modelid'];
-                $fieldList = $this->CubModel->getFieldListAll($modelid);
-                $extraFieldList = $this->CubModel->getExtraField($modelid, 2);
+                $fieldList = $this->ChapterModel->getFieldListAll($modelid);
+                $extraFieldList = $this->ChapterModel->getExtraField($modelid, 2);
                 $this->assign([
                     'catid'     => $catid,
                     'fieldList' => $fieldList,
@@ -232,7 +232,7 @@ class Chapter extends Adminbase
             }
             if ($category['type'] == 2) {
                 try {
-                    $this->CubModel->editModelDataAll($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
+                    $this->ChapterModel->editModelDataAll($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
                 } catch (\Exception $ex) {
                     $this->error($ex->getMessage());
                 }
@@ -252,14 +252,14 @@ class Chapter extends Adminbase
             if ($category['type'] == 2) {
                 $modelid   = $category['modelid'];
 
-                $extraFieldList = $this->CubModel->getExtraField($modelid, 2);
+                $extraFieldList = $this->ChapterModel->getExtraField($modelid, 2);
                 $this->assign([
                     'catid'     => $catid,
                     'id'        => $pid,
                     'extraFieldList' => $extraFieldList,
                     'did' => $did,
                 ]);
-                $extraData = $this->CubModel->getExtraData(['catid' => $catid, 'pid' => $pid]);
+                $extraData = $this->ChapterModel->getExtraData(['catid' => $catid, 'pid' => $pid]);
                 $ret = [];
 
                 if($import){
@@ -320,7 +320,7 @@ class Chapter extends Adminbase
         $modelid   = getCategory($catid, 'modelid');
         try {
             foreach ($ids as $id) {
-                $this->CubModel->deleteModelData($modelid, $id, $this->cmsConfig['web_site_recycle']);
+                $this->ChapterModel->deleteModelData($modelid, $id, $this->cmsConfig['web_site_recycle']);
             }
         } catch (\Exception $ex) {
             $this->error($ex->getMessage());

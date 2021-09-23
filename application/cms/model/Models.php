@@ -233,7 +233,7 @@ EOF;
 				`inputtime` int(10) unsigned NOT NULL DEFAULT '0'  COMMENT '创建时间',
 				`updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
 				`listorder` smallint(5) unsigned NOT NULL DEFAULT '100' COMMENT '排序',
-				`state` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
+				`status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
 				PRIMARY KEY (`id`),
                 KEY `state` (`did`,`state`)
                 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='{$data['name']}模型表';
@@ -701,7 +701,7 @@ EOF;
                     'setting' => "a:3:{s:6:\"define\";s:40:\"tinyint(3) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:3:\"100\";}",
                 ],
                 [
-                    'name'    => 'state',
+                    'name'    => 'status',
                     'title'   => '状态',
                     'type'    => 'radio',
                     'listorder'   => 317,
