@@ -551,7 +551,7 @@ class Chapter extends Modelbase
      * @param  array     $config   配置参数
      */
 
-    public function getChapterList($modeId, $where, $moreifo, $siteId = 1, $field = '*', $order = '', $limit = 10, $page = null, $simple = false, $config = [])
+    public function getChapterList($modeId, $where, $moreifo, $siteId = 1, $did, $field = '*', $order = '', $limit = 10, $page = null, $simple = false, $config = [])
     {
         $url_mode  = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
        // $dataShare = cache("Cms_Config")['data_share']; //数据共享
@@ -586,6 +586,7 @@ class Chapter extends Modelbase
                 if ($page) {
                     $result = Db::view($extTable, '*')
                         ->where($where)
+                        ->where('did',$did)
                         //->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')
                         ->order($order)
                        // ->field('`' . $tableName . "`.id as id")
@@ -593,6 +594,7 @@ class Chapter extends Modelbase
                 } else {
                     $result = Db::view($extTable, '*')
                         ->where($where)
+                        ->where('did',$did)
                         ->limit($limit)
                         //->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')
                         ->order($order)

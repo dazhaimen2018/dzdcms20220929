@@ -189,7 +189,7 @@ class CmsTagLib
         }else{
             $siteId = 1;
         }
-        $result = model('cms/Chapter')->getChapterList($modelid, $this->where($data), $moreifo, $siteId, $data['field'], $data['order'], $data['limit'], $data['page'], $data['simple']);
+        $result = model('cms/Chapter')->getChapterList($modelid, $this->where($data), $moreifo, $siteId, $did, $data['field'], $data['order'], $data['limit'], $data['page'], $data['simple']);
         return $result;
     }
 
