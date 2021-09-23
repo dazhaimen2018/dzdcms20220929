@@ -312,6 +312,13 @@ function buildContentUrl($cat, $id, $url = '', $suffix = true, $domain = false)
     return empty($url) ? url('cms/index/shows', [$field => $cat, 'id' => $id], $suffix, $domain) : ((strpos($url, '://') !== false) ? $url : url($url));
 }
 
+//创建内容链接
+function buildChapterUrl($cat, $id, $url = '', $suffix = true, $domain = false)
+{
+    $field = is_numeric($cat) ? 'catid' : 'catdir';
+    return empty($url) ? url('cms/index/chapter', [$field => $cat, 'id' => $id], $suffix, $domain) : ((strpos($url, '://') !== false) ? $url : url($url));
+}
+
 //获得Tag的URL
 function getTagDir($tag)
 {

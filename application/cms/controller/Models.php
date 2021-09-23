@@ -33,12 +33,12 @@ class Models extends Adminbase
         $this->tp_list = str_replace($this->filepath . DS, '', glob($this->filepath . DS . 'list*'));
         //取得内容页模板列表
         $this->tp_show = str_replace($this->filepath . DS, '', glob($this->filepath . DS . 'show*'));
-        //取得子内容页模板列表
-        $this->tp_last = str_replace($this->filepath . DS, '', glob($this->filepath . DS . 'last*'));
+        //取得章节页模板列表
+        $this->tp_chapter = str_replace($this->filepath . DS, '', glob($this->filepath . DS . 'chapter*'));
         $this->assign("tp_category", $this->tp_category);
         $this->assign("tp_list", $this->tp_list);
         $this->assign("tp_show", $this->tp_show);
-        $this->assign("tp_last", $this->tp_last);
+        $this->assign("tp_chapter", $this->tp_chapter);
     }
 
     //模型列表

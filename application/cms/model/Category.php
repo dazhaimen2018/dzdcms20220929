@@ -82,7 +82,7 @@ class Category extends Model
                     $setting['category_template'] = $data['setting']['category_template'] ?? '';
                     $setting['list_template']     = $data['setting']['list_template'] ?? '';
                     $setting['show_template']     = $data['setting']['show_template'] ?? '';
-                    $setting['last_template']     = $data['setting']['last_template'] ?? '';
+                    $setting['chapter_template']     = $data['setting']['chapter_template'] ?? '';
                     $setting['page_template']     = $data['setting']['page_template'] ?? '';
                     $rs                           = self::where('id', $val->getAttr('id'))->update(['setting' => serialize($setting)]);
                 }

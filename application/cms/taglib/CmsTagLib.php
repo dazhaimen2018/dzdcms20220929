@@ -143,12 +143,52 @@ class CmsTagLib
         }else{
             $siteId = 1;
         }
-//        if ($siteId) {
-//            //当前栏目信息
-//            $catInfo = getCategory($catid);
-//            $siteId = $catInfo['site_id'];
-//        }
         $result = model('cms/Cms')->getList($modelid, $this->where($data), $moreifo, $siteId, $data['field'], $data['order'], $data['limit'], $data['page'], $data['simple']);
+        return $result;
+    }
+
+    /**
+     * 章节列表标签
+     */
+    public function chapters($data)
+    {
+        $catid = isset($data['catid']) ? trim($data['catid']) : '';
+        $data['where'] = isset($data['where']) ? $data['where'] . " AND `state`=1" : "`state`=1";
+        if (!isset($data['limit'])) {
+            $data['limit'] = 0 == (int) $data['num'] ? 10 : (int) $data['num'];
+        }
+        if (empty($data['order'])) {
+            $data['order'] = array('updatetime' => 'DESC', 'id' => 'DESC');
+        }
+        if (isset($data['flag'])) {
+            $flag = [];
+            foreach (explode(',', $data['flag']) as $k => $v) {
+                $flag[] = "FIND_IN_SET('" . $v . "', flag)";
+            }
+            if ($flag) {
+                $data['where'] .= " AND (" . implode(' OR ', $flag) . ")";
+            }
+        }
+        $data['field']  = isset($data['field']) ? $data['field'] : '*';
+        $data['simple'] = isset($data['simple']) ? (is_numeric($data['simple']) ? (int) $data['simple'] : (bool) $data['simple']) : false;
+        $moreifo        = isset($data['moreinfo']) ? $data['moreinfo'] : 0;
+        //如果设置了catid，则根据catid判断modelid,传入的modelid失效
+        if ($catid) {
+            //当前栏目信息
+            $catInfo = getCategory($catid);
+            $modelid = $catInfo ? $catInfo['modelid'] : 0;
+        } else {
+            if (!isset($data['modelid'])) {
+                return false;
+            }
+            $modelid = intval($data['modelid']);
+        }
+        if (getSite('alone')==1){
+            $siteId = getSiteId();
+        }else{
+            $siteId = 1;
+        }
+        $result = model('cms/Chapter')->getChapterList($modelid, $this->where($data), $moreifo, $siteId, $data['field'], $data['order'], $data['limit'], $data['page'], $data['simple']);
         return $result;
     }
 

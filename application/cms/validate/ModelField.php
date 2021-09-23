@@ -24,7 +24,7 @@ class ModelField extends Validate
         'title|字段标题'          => 'require|chsDash',
         'type|字段类型'           => 'require|alphaDash',
         'setting.define|字段定义' => 'require',
-        'ifsystem|主表字段'       => 'in:0,1',
+        'ifsystem|主表字段'       => 'in:0,1,2',
         'ifrequire|是否必填格'     => 'in:0,1',
         'ifsearch|是否显示搜索'     => 'in:0,1',
         'status|字段状态'         => 'in:0,1',

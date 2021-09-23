@@ -27,7 +27,7 @@ class Category extends Adminbase
     private $categoryTemplate;
     private $listTemplate;
     private $showTemplate;
-    private $lastTemplate;
+    private $chapterTemplate;
     private $pageTemplate;
 
     protected $noNeedRight = [
@@ -47,7 +47,7 @@ class Category extends Adminbase
         //取得内容页模板列表
         $this->showTemplate = str_replace($this->themePath . DS, '', glob($this->themePath . DS . 'show*'));
         //取得子内容页模板列表
-        $this->lastTemplate = str_replace($this->themePath . DS, '', glob($this->themePath . DS . 'last*'));
+        $this->chapterTemplate = str_replace($this->themePath . DS, '', glob($this->themePath . DS . 'chapter*'));
         //取得单页模板
         $this->pageTemplate = str_replace($this->themePath . DS, '', glob($this->themePath . DS . 'page*'));
 
@@ -262,7 +262,7 @@ class Category extends Adminbase
                 'tp_category'      => $this->categoryTemplate,
                 'tp_list'          => $this->listTemplate,
                 'tp_show'          => $this->showTemplate,
-                'tp_last'          => $this->lastTemplate,
+                'tp_chapter'       => $this->chapterTemplate,
                 'tp_page'          => $this->pageTemplate,
                 'parentid_modelid' => isset($Ca['modelid']) ? $Ca['modelid'] : 0,
             ]);
@@ -441,7 +441,7 @@ class Category extends Adminbase
                 'tp_category' => $this->categoryTemplate,
                 'tp_list'     => $this->listTemplate,
                 'tp_show'     => $this->showTemplate,
-                'tp_last'     => $this->lastTemplate,
+                'tp_chapter'  => $this->chapterTemplate,
                 'tp_page'     => $this->pageTemplate,
                 'privs'       => model("cms/CategoryPriv")->where('catid', $catid)->select(),
             ]);

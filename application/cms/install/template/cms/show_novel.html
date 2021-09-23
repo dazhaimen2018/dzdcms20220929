@@ -33,7 +33,12 @@
                             <div class="layui-card">
                                 <div class="layui-card-header">简介</div>
                                 <div class="layui-card-body layui-text layadmin-version">
-                                    {$content|raw}
+                                    <div class="intro_txt">
+                                        {$content|raw}
+                                        <a class="icon_hide" href="javascript:void(0)" onclick=""><i></i>收起</a>
+                                        <a class="icon_show" href="javascript:void(0)" onclick=""><i></i>展开</a>
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -58,15 +63,11 @@
                     <div class="layui-card-header">章节目录</div>
                     <div class="layui-card-body layui-text layadmin-version">
                         <ul class="chapter_list">
-                            <li><a href="">第一章 我才是你的新娘</a></li>
-                            <li><a href="">第二章 带我走</a><i class="iconfont icon-money" title="需付费阅读"></i></li>
-                            <li><a href="">第三章 我有没有女人味？</a><i class="iconfont icon-money" title="需付费阅读"></i></li>
-                            <li><a href="">第四章 是你主动的</a><i class="iconfont icon-money" title="需付费阅读"></i></li>
-                            <li><a href="">第五章 孩子是她的骄傲</a><i class="iconfont icon-money" title="需付费阅读"></i></li>
-                            <li><a href="">第六章 我要是男的，我一定娶你！</a><i class="iconfont icon-money" title="需付费阅读"></i></li>
-                            <li><a href="">第七章 孩子爸爸是谁？</a><i class="iconfont icon-money" title="需付费阅读"></i></li>
-                            <li><a href="">第八章 只有脑子没有行动力的花瓶？</a><i class="iconfont icon-money" title="需付费阅读"></i></li>
-                            <li><a href="">第九章 光明正大进来的</a><i class="iconfont icon-money" title="需付费阅读"></i></li>
+                            {yzn module="cms" action="chapters" catid="$catid"  siteId="$site_id" cache="3600" order="id ASC" num="100" return="data"}
+                            {volist name="data" id="item"}
+                            <li><a href="{$item.url}">{$item.chapter}</a></li>
+                            {/volist}
+                            {/yzn}
                         </ul>
                     </div>
                 </div>
@@ -124,4 +125,5 @@
 
     </div>
 </div>
+
 {include file="public/footer" /}

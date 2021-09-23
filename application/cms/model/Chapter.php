@@ -22,7 +22,7 @@ use think\Model;
 /**
  * 模型
  */
-class Sub extends Modelbase
+class Chapter extends Modelbase
 {
     protected $autoWriteTimestamp = true;
     protected $insert             = ['status' => 1];
@@ -551,10 +551,10 @@ class Sub extends Modelbase
      * @param  array     $config   配置参数
      */
 
-    public function getList($modeId, $where, $moreifo, $siteId = 1, $field = '*', $order = '', $limit = 10, $page = null, $simple = false, $config = [])
+    public function getChapterList($modeId, $where, $moreifo, $siteId = 1, $field = '*', $order = '', $limit = 10, $page = null, $simple = false, $config = [])
     {
         $url_mode  = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
-        $dataShare = cache("Cms_Config")['data_share']; //数据共享
+       // $dataShare = cache("Cms_Config")['data_share']; //数据共享
         $tableName = $this->getModelTableName($modeId);
         $result = [];
         if (getSite('alone')==1){
@@ -562,50 +562,41 @@ class Sub extends Modelbase
         }else{
             $siteId = 1;
         }
-        //$siteId = getSiteId();
         if (isset($tableName) && !empty($tableName)) {
-            if (2 == getModel($modeId, 'type') && $moreifo) {
+            if (3 == getModel($modeId, 'type') && $moreifo) {
                 $extTable = $tableName . $this->sub_table;
-                //马博增加
-//                if($dataShare){
-//                    $siteId = 1;
-//                }
                 $where .= " and " . $extTable . '.site_id=' . $siteId;
                 if ($page) {
                     $result = Db::view($tableName, $field)
                         ->where($where)
-                        ->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')
+                        ->view($extTable, '*', $tableName . '.id=' . $extTable . '.id', 'LEFT')
                         ->order($order)
                         ->paginate($limit, $simple, $config);
                 } else {
                     $result = Db::view($tableName, $field)
                         ->where($where)
                         ->limit($limit)
-                        ->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')
+                        ->view($extTable, '*', $tableName . '.id=' . $extTable . '.id', 'LEFT')
                         ->order($order)
                         ->select();
                 }
             } else {
                 $extTable = $tableName . $this->sub_table;
-                //数据共享时，or查询当前站和主站数据并排除重复数据 待完善
-//                if($dataShare){
-//                    $siteId = 1;
-//                }
                 $where .= " and " . $extTable . '.site_id=' . $siteId;
                 if ($page) {
-                    $result = Db::view($tableName, '*')
+                    $result = Db::view($extTable, '*')
                         ->where($where)
-                        ->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')
+                        //->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')
                         ->order($order)
-                        ->field('`' . $tableName . "`.id as id")
+                       // ->field('`' . $tableName . "`.id as id")
                         ->paginate($limit, $simple, $config);
                 } else {
-                    $result = Db::view($tableName, '*')
+                    $result = Db::view($extTable, '*')
                         ->where($where)
                         ->limit($limit)
-                        ->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')
+                        //->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')
                         ->order($order)
-                        ->field('`' . $tableName . "`.id as id")
+                        //->field('`' . $tableName . "`.id as id")
                         ->select();
                 }
             }
@@ -627,74 +618,11 @@ class Sub extends Modelbase
             foreach ($result as $key => $vo) {
                 $vo           = $this->dealModelShowData($ModelField[$modeId], $vo);
                 $cat          = $url_mode == 1 ? $vo['catid'] : (isset($Category[$vo['catid']]) ? $Category[$vo['catid']]['catdir'] : getCategory($vo['catid'], 'catdir'));
-                $vo['url']    = buildContentUrl($cat, $vo['id'], $vo['url']);
+                $vo['url']    = buildChapterUrl($cat, $vo['id'], $vo['url']);
                 $result[$key] = $vo;
             }
         }
         return $result;
-    }
-
-    /**
-     * 详情页
-     * @param  [type]  $modeId  [模型ID]
-     * @param  [type]  $where   [查询条件]
-     * @param  boolean $moreifo [是否含附表]
-     * @param  string  $field   []
-     * @param  string  $order   []
-     */
-    public function getContent($modeId, $where, $moreifo = false, $field = '*', $order = '', $cache = false, $site_id = 0,$type="next")
-    {
-        $url_mode  = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
-        $tableName = $this->getModelTableName($modeId);
-        if (getSite('alone')==1){
-            $site_id = getSiteId();
-        }else{
-            $site_id = 1;
-        }
-        //$site_id   = getSiteId();
-        if (2 == getModel($modeId, 'type') && $moreifo) {
-            $where    = $tableName . '.' . $where;
-            $extTable = $tableName . $this->sub_table;
-            //增加数据共享功能 如果按当前站点查不到数据就调用站1的数据
-            $dataShare = cache("Cms_Config")['data_share']; //数据共享
-            if($dataShare){
-                $whereExt =  $extTable . ".site_id=" . $site_id;
-                $dataInfo = Db::view($tableName, '*')->where($where)->where($whereExt)->cache($cache)->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')->field('`' . $tableName . "`.id as id")->find();
-                if(is_null($dataInfo)){
-                    $site_id   = 1;
-                }
-            }
-            //增加数据共享功能 end
-            $where .= " and " . $extTable . ".site_id=" . $site_id;
-            $dataInfo = Db::view($tableName, '*')->where($where)->cache($cache)->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')->field('`' . $tableName . "`.id as id")->find();
-        } else {
-            $where    = $tableName . '.' . $where;
-            $extTable = $tableName . $this->sub_table;
-            if ($site_id != 0) {
-                $where .= " and " . $extTable . ".site_id=" . $site_id;
-            }
-
-            if($type=="pre"){
-                $dataInfos = Db::view($tableName, '*')->where($where)->cache($cache)->view($extTable, 'did,title', $tableName . '.id=' . $extTable . '.did', 'LEFT')->field('`' . $tableName . "`.id as id")->order($order)->select();
-                $ids = array();
-                foreach ($dataInfos as $dataInfo) {
-                    $ids[] = $dataInfo['id'];
-                }
-                array_multisort($ids, SORT_DESC, $dataInfos);
-                $dataInfo = $dataInfos[0];
-            }else{
-                $dataInfo = Db::view($tableName, '*')->where($where)->cache($cache)->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')->field('`' . $tableName . "`.id as id")->find();
-            }
-        }
-        if (!empty($dataInfo)) {
-            $ModelField      = cache('ModelField');
-            $Category        = cache('Category');
-            $dataInfo        = $this->dealModelShowData($ModelField[$modeId], $dataInfo);
-            $cat             = $url_mode == 1 ? $dataInfo['catid'] : (isset($Category[$dataInfo['catid']]) ? $Category[$dataInfo['catid']]['catdir'] : getCategory($dataInfo['catid'], 'catdir'));
-            $dataInfo['url'] = buildContentUrl($cat, $dataInfo['id'], $dataInfo['url']);
-        }
-        return $dataInfo;
-
     }
 
 

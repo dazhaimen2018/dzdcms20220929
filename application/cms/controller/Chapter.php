@@ -21,7 +21,7 @@ use app\common\controller\Adminbase;
 use think\Db;
 
 
-class Sub extends Adminbase
+class Chapter extends Adminbase
 {
     protected function initialize()
     {
@@ -80,11 +80,6 @@ class Sub extends Adminbase
         $catSites  = $catInfo['sites']; //当前栏目所属站点
         $siteId    = onSite();
         // 显示当前站的数据，不太完美，带升级
-//        if($siteId) {
-//            $firstSite =  $siteId;
-//        } else {
-//            $firstSite = substr($catSites,0,strpos($catSites, ','));
-//        }
         $firstSite = substr($catSites,0,strpos($catSites, ','));
         if ($this->request->isAjax()) {
             $limit = $this->request->param('limit/d', 10);
@@ -105,7 +100,7 @@ class Sub extends Adminbase
                 ['catid',   '=', $catid],
                 ['did',     '=', $did],
                 ['site_id', '=', $firstSite],
-                ['status',  'in', [0, 1]],
+                ['state',  'in', [0, 1]],
             ];
             $total   = Db::name($tableName)->where($where)->where($conditions)->count();
             $list    = Db::name($tableName)->page($page, $limit)->where($where)->where($conditions)->order('listorder DESC, id DESC')->select();
@@ -113,7 +108,7 @@ class Sub extends Adminbase
             foreach ($list as $k => $v) {
                 $siteUrl         = onSiteUrl();
                 $v['updatetime'] = date('Y-m-d H:i', $v['updatetime']);
-                $v['url']        = $siteUrl.buildContentUrl($v['catid'], $v['id'], $v['url']);
+                $v['url']        = $siteUrl.buildChapterUrl($v['catid'], $v['id'], $v['url']);
                 $sites           = Db::name($tableName)->where('pid', $v['id'])->field('site_id as id')->select();
                 $v['site']       = array_column($sites,'id');
                 $_list[]         = $v;

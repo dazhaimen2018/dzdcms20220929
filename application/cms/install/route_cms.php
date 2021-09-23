@@ -22,6 +22,7 @@ Route::group('/', function () {
     Route::rule('index', 'cms/index/index');
     Route::rule('lists/:catid/[:condition]', 'cms/index/lists')->pattern(['catid' => '\d+', 'condition' => '[0-9_&=a-zA-Z]+']);
     Route::rule('shows/:catid/:id', 'cms/index/shows')->pattern(['catid' => '\d+', 'id' => '\d+']);
+    Route::rule('chapter/:catid/:id', 'cms/index/chapter')->pattern(['catid' => '\d+', 'id' => '\d+']);
     Route::rule('search', 'cms/index/search');
     Route::rule('tag/[:tagdir]', 'cms/index/tags');
     if (isset(cache("Cms_Config")['site_url_mode']) && 2 == cache("Cms_Config")['site_url_mode']) {

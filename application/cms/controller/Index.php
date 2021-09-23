@@ -230,6 +230,104 @@ class Index extends Cmsbase
         return $this->fetch('/' . $template);
     }
 
+    // 子内容页
+    public function chapter()
+    {
+        //ID
+        $id  = $this->request->param('id/d', 0);
+        $cat = $this->request->param('catid/d', 0);
+        if (empty($cat)) {
+            $cat = $this->request->param('catdir/s', '');
+        }
+        $page = $this->request->param('page/d', 1);
+        $page = max(1, $page);
+
+        //获取栏目数据
+        $category = getCategory($cat);
+        if (empty($category)) {
+            $this->error('栏目不存在！');
+        }
+        $catid = $category['id'];
+        //模型ID
+        $modelid = $category['modelid'];
+        $modelInfo = cache('Model')[$modelid];
+        if (empty($modelInfo)) {
+            $this->error('模型不存在！');
+        }
+        //更新点击量 子表
+       // Db::name($modelInfo['tablename'])->where('id', $id)->setInc('hits');
+        Db::name($modelInfo['tablename'].'_sub_data')->where('id', $id)->setInc('views');
+        //内容所有字段
+        $ifcache = $this->cmsConfig['site_cache_time'] ? $this->cmsConfig['site_cache_time'] : false;
+        $info = $this->CmsModel->getChapterContent($modelid, "id={$id}", true, '*', '', $ifcache, $this->site_id);
+        if (!$info || ($info['status'] !== 1 && !\app\admin\service\User::instance()->isLogin())) {
+            throw new \think\Exception('内容不存在或未审核!', 404);
+        }
+        //更新点击量 主表
+        Db::name($modelInfo['tablename'])->where('id', $info['did'])->setInc('hits');
+        //内容分页
+        $paginator = strpos($info['details'], '[page]');
+        if ($paginator !== false) {
+            $contents = array_filter(explode('[page]', $info['details']));
+            $total    = count($contents);
+            $pages    = \app\cms\paginator\Page::make([], 1, $page, $total, false, ['path' => $this->request->baseUrl()]);
+            //判断[page]出现的位置是否在第一位
+            if ($paginator < 7) {
+                $info['details'] = $contents[$page];
+            } else {
+                $info['details'] = $contents[$page - 1];
+            }
+            $this->assign("pages", $pages);
+        } else {
+            $this->assign("pages", '');
+        }
+        //栏目扩展配置信息
+        $setting = $category['setting'];
+        //章节页模板
+        $template = $setting['chapter_template'] ? $setting['chapter_template'] : 'chapter';
+        //去除模板文件后缀
+        $newstempid = explode(".", $template);
+        $template = $newstempid[0];
+        unset($newstempid);
+        //阅读收费
+        $readpoint     = isset($info['readpoint']) ? (int) $info['readpoint'] : 0; //金额
+        $allow_visitor = 1;
+        if ($readpoint > 0) {
+            $paytype = isset($info['paytype']) && $info['paytype'] ? $info['paytype'] : 0;
+            //检查是否支付过
+            $allow_visitor = self::_check_payment($catid . '_' . $id, $paytype);
+            if (!$allow_visitor) {
+                //$http_referer = urlencode(\think\facade\Request::url(true));
+                $allow_visitor = sys_auth($catid . '_' . $id . '|' . $readpoint . '|' . $paytype);
+            } else {
+                $allow_visitor = 1;
+            }
+        }
+        //SEO
+        $keywords = $info['keywords'] ? $info['keywords'] : $setting['meta_keywords'];
+        $title = $info['chapter'] ? $info['chapter'] : $setting['meta_title'];
+        $description = $info['description'] ? $info['description'] : $setting['meta_description'];
+        $seo = seo($catid, $title, $description, $keywords);
+        //获取顶级栏目ID
+        $arrparentid = explode(',', $category['arrparentid']);
+        $top_parentid = isset($arrparentid[1]) ? $arrparentid[1] : $catid;
+        $this->view->assign($info);
+        $this->view->assign([
+            'category'      => $category,
+            'readpoint'     => $readpoint,
+            'allow_visitor' => $allow_visitor,
+            'top_parentid'  => $top_parentid,
+            'arrparentid'   => $arrparentid,
+            'SEO'           => $seo,
+            'catid'         => $catid,
+            'page'          => $page,
+            'modelid'       => $modelid,
+            'title' => $title,
+            'parentid' => $id,
+        ]);
+        return $this->fetch('/' . $template);
+    }
+
     // 搜索
     public function search()
     {
