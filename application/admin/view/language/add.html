@@ -2,53 +2,65 @@
 {block name="main"}
 <form class="layui-form" method="post">
     <div class="layui-form-item">
-        <label class="layui-form-label">用户名</label>
+        <label class="layui-form-label">语言名称</label>
         <div class="layui-input-block">
-            <input type="text" name="username" lay-verify="required" autocomplete="off" placeholder="用户名" class="layui-input">
+            <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="语言名称" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">密码</label>
-        <div class="layui-input-block">
-            <input type="password" name="password" lay-verify="required" autocomplete="off" placeholder="密码" class="layui-input">
+        <label class="layui-form-label">语言标识</label>
+        <div class="layui-input-inline">
+            <input autocomplete="off" class="layui-input" id="mark" name="mark" placeholder="语言标识" type="text" value="{$data.mark}"></input>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">确认密码</label>
-        <div class="layui-input-block">
-            <input type="password" name="password_confirm" lay-verify="required" autocomplete="off" placeholder="确认密码" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">E-mail</label>
-        <div class="layui-input-block">
-            <input type="text" name="email" lay-verify="required|email" autocomplete="off" placeholder="E-mail" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">真实姓名</label>
-        <div class="layui-input-block">
-            <input type="text" name="nickname" autocomplete="off" placeholder="真实姓名" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">所属角色</label>
-        <div class="layui-input-block">
-            {php}echo \util\Form::select($groupdata,'','name="roleid" lay-filter="roleid" lay-verify="required"');{/php}
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">所属站点</label>
-        <div class="layui-input-block">
-            <select name="site_id" lay-filter="filter">
-                <option>请选择站点</option>
-                <option value="0">所有站</option>
-                {volist name="site" id="vo"}
-                <option value="{$vo.id}" {if condition=" $site_id eq $vo['id'] "}selected{/if}>{$vo.name}</option>
-                {/volist}
+        <div class="layui-input-inline">
+            <select lay-filter="fasttype">
+                <option data-mark="zh-cn">常用语言标识</option>
+                <option data-mark="zh-cn">简体中文</option>
+                <option data-mark="en-gb">英语</option>
+                <option data-mark="ja-jp">日语</option>
+                <option data-mark="fr-fr">法语</option>
+                <option data-mark="de-de">德语</option>
+                <option data-mark="ru-ru">俄语</option>
+                <option data-mark="ko-kr">韩文</option>
+                <option data-mark="fi-fi">芬兰语</option>
+                <option data-mark="da-dk">丹麦语</option>
+                <option data-mark="cs-cz">捷克语</option>
+                <option data-mark="pl-pl">波兰语</option>
+                <option data-mark="sv-se">瑞典语</option>
+                <option data-mark="nl-nl">荷兰语</option>
+                <option data-mark="el-gr">希腊语</option>
+                <option data-mark="no-no">挪威语</option>
+                <option data-mark="pt-pt">葡萄牙语</option>
+                <option data-mark="es-es">西班牙语</option>
+                <option data-mark="it-it">意大利语</option>
+                <option data-mark="he-il">希伯来语</option>
+                <option data-mark="hu-hu">匈牙利语</option>
+                <option data-mark="tr-tr">土耳其语</option>
+                <option data-mark="ot-la">其他语言</option>
             </select>
         </div>
-        <div class="layui-form-mid layui-word-aux">只有选了某些站，才能管理哪个站的内容</div>
+        <div class="layui-form-mid layui-word-aux">
+            多语言选相应的语言就行，如果站群，选相应的语言就行
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">语言图标</label>
+        <div class="layui-input-block layui-upload">
+            {php}echo \util\Form::images('logo','',$data['logo']){/php}
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序</label>
+        <div class="layui-input-block">
+            <input type="number" name="listorder" autocomplete="off" placeholder="排序" class="layui-input" value="{$data.listorder}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-inline">
+            <input type="radio" name="status" value="1" title="正常" checked>
+            <input type="radio" name="status" value="0" title="禁止">
+        </div>
     </div>
     <div class="layui-form-item layer-footer">
         <div class="layui-input-block">
@@ -60,9 +72,14 @@
 {/block}
 {block name="script"}
 <script type="text/javascript">
-layui.use('yznForm', function() {
-    var yznForm = layui.yznForm;
-    yznForm.listen();
-});
+    layui.use(['form','yznForm'], function() {
+        var yznForm = layui.yznForm;
+        var form = layui.form;
+        yznForm.listen();
+
+        form.on('select(fasttype)', function(data) {
+            $('#mark').val($(data.elem).find("option:selected").attr("data-mark"));
+        });
+    });
 </script>
 {/block}
