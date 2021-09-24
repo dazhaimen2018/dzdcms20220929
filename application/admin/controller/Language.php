@@ -25,4 +25,17 @@ class Language extends Adminbase
         $this->modelClass = new LanguageModel;
     }
 
+    public function index()
+    {
+        if ($this->request->isAjax()) {
+            list($page, $limit, $where) = $this->buildTableParames();
+            $_list                      = $this->modelClass->where($where)->where('status', 1)->page($page, $limit)->select();
+            $total                      = $this->modelClass->where($where)->where('status', 1)->count();
+            $result                     = array("code" => 0, "count" => $total, "data" => $_list);
+            return json($result);
+        }
+        return $this->fetch();
+    }
+
+
 }
