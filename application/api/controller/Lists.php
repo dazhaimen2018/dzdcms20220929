@@ -16,25 +16,16 @@ class Lists extends Adminbase
 
     }
 
-    //高级下拉菜单url
-    //url格式：url:/api/lists/index/table/category/param/parentid/value/1
-    //field:catname
-    //key:id
-    //pagination:true
-    //page_size:20
-    //multiple:false
-    //max:10
-    //order:id
-    public function index(){
-        $table = $this->request->param('table/s', 0);
-        $param = $this->request->param('param/s', 0);
-        $value = $this->request->param('value/s', 0);
-        if ($value){
-            $list  = db($table)->where($param,$value)->order('listorder DESC, id DESC')->select();
-            $total = db($table)->where($param,$value)->count();
+    //高级下拉菜单url 选点站栏目
+
+    public function category(){
+        $catid = $this->request->param('catid/d', 0);
+        $this->modelClass = Db::name('category');
+        //如果发送的来源是Selectpage，则转发到Selectpage
+        if ($this->request->request('keyField')) {
+            return $this->selectpage();
         }
-        $result = array("code" => 0, "count" => $total, "data" => $list);
-        return json($result);
+
     }
 
 }
