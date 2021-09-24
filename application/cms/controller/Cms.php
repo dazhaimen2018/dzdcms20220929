@@ -307,6 +307,9 @@ class Cms extends Adminbase
             if (empty($category)) {
                 $this->error('该栏目不存在！');
             }
+            if(isset(cache("Cms_Config")['offside']) && 1 == cache("Cms_Config")['offside']) {
+                $view = 'add_tab';
+            }
             if ($category['type'] == 2) {
                 $modelid = $category['modelid'];
                 $fieldList = $this->Cms_Model->getFieldListAll($modelid);
@@ -316,7 +319,7 @@ class Cms extends Adminbase
                     'fieldList' => $fieldList,
                     'extraFieldList' => $extraFieldList,
                 ]);
-                return $this->fetch();
+                return $this->fetch($view);
             } else if ($category['type'] == 1) {
                 $Page_Model = new Page_Model;
                 $info = $Page_Model->selectAll($catid);
@@ -380,9 +383,11 @@ class Cms extends Adminbase
             $data['modelField']['id'] = intval($_GET['id']);
             $catid = intval($data['modelField']['catid']);
             $category = getCategory($catid);
-
             if (empty($category)) {
                 $this->error('该栏目不存在！');
+            }
+            if(isset(cache("Cms_Config")['offside']) && 1 == cache("Cms_Config")['offside']) {
+                $view = 'edit_tab';
             }
             if ($category['type'] == 2) {
                 try {
@@ -467,7 +472,7 @@ class Cms extends Adminbase
                     }
                 }
                 $this->view->assign('extra_data', $ret);
-                return $this->fetch();
+                return $this->fetch($view);
             } else {
                 return $this->fetch('singlepage');
             }

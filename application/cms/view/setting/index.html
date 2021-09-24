@@ -52,7 +52,7 @@
                         </div>
                         {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
                         <div class="layui-form-item">
-                            <label class="layui-form-label" title="单站模式时必须要选一个">切换站点 <font color="red">*</font></label>
+                            <label class="layui-form-label layui-red" title="单站模式时必须要选一个">切换站点</label>
                             <div class="layui-input-block">
                                 {volist name="siteArray" id="vo"}
                                 <input type="radio" name="setting[site]" value="{$vo.id}" title="{$vo.name}" {if $vo['id']==$setting['site']}checked{/if}>
@@ -62,6 +62,16 @@
                         </div>
                         {/if}
                         {/if}
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" title="内容发布和编辑页面基本信息所在位置">发布布局</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="setting[offside]" value="1" title="左侧" {if 1==$setting['offside']}checked{/if}>
+                                <input type="radio" name="setting[offside]" value="0" title="右侧" {if 0==$setting['offside']}checked{/if}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">内容添加和编辑页面基本信息所在位置,显示屏大建议选右边</div>
+                        </div>
+
                         <div class="layui-form-item">
                             <label class="layui-form-label">缓存时间</label>
                             <div class="layui-input-block">

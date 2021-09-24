@@ -1,0 +1,95 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+<link rel="stylesheet" href="__STATIC__/admin/css/cms.css">
+<div class="layui-card">
+    <div class="layui-card-body layui-form-pane">
+        <form class="layui-form" method="post">
+            <div class="layui-tab">
+                <ul class="layui-tab-title">
+                    {volist name="sites" id="site" key="i" }
+                    <li {if $i==1}class="layui-this"{/if}> {if $site.mark} <img src="/static/language/{$site.mark}.png" title="{$site.name}">{/if} {$site.name}</li>
+                    {/volist}
+                    <li><i class="layui-icon layui-icon-set"></i> 基本信息</li>
+                </ul>
+                <div class="layui-tab-content">
+                    {volist name="extra_data" id="s" key="k"}
+                    <div class="layui-tab-item layui-show">
+                        <input type="hidden" name="extra_data[{$k}][site_id]" value="{$s.site_id}" />
+                        <input type="hidden" name="extra_data[{$k}][id]" value="{$s.id}" />
+                        {volist name="extraFieldList" id="vo"}
+                        <?php
+                        $value = '';
+                        if(!empty($s[$vo['name']])){
+                         $value= $s[$vo['name']];
+                         }
+                        ?>
+                        {include file="admin@inputItemExt" /}
+                        {/volist}
+                    </div>
+                    {/volist}
+                    <div class="layui-tab-item">
+                        {include file="admin@inputItem" /}
+                    </div>
+                </div>
+            </div>
+            {if count($fieldList)}
+            <div class="layui-form-item layer-footer">
+                <div class="layui-input-block">
+                    {if (isset(cache("Cms_Config")['data_import']) && 1 == cache("Cms_Config")['data_import'] && 1 != cache("Cms_Config")['site'])}
+                    <button class="layui-btn layui-btn-danger btn-import iconfont icon-dibu" type="button" title="一键同步主站数据，然后修改再提交！">数据同步</button>
+                    {/if}
+                    <button class="layui-btn iconfont icon-send" lay-submit> 立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary iconfont icon-trash"> 重置</button>
+                </div>
+            </div>
+            {/if}
+        </form>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+    layui.use(['form', 'layer','yznForm'], function() {
+        var form = layui.form,
+            yznForm = layui.yznForm;
+
+        {notempty name='cmsConfig.web_site_getwords'}
+        GV.ueditor_getwords_url="{:url('addons/getwords/getkeywords',['isadmin'=>1])}";
+        $(".content_attr").append('<a class="layui-btn layui-btn-sm" id="getwords" style="margin-top: 4px;">提取关键词</a> ');
+        {/notempty}
+            $(".content_attr").append("<input type='checkbox' name='modelField[get_introduce]' title='是否截取到内容摘要' checked> <input type='checkbox' name='modelField[auto_thumb]' title='是否提取到缩略图' checked>");
+            form.render();
+
+            var input =$("input[name='modelField[title]']");
+            input.after("<button type='button' class='layui-btn layui-btn-sm btn-repeat'>重复检测</button>");
+            $('.btn-repeat').on('click', function(e) {
+                $.get("{:url('check_title')}", {'catid':{$catid},'id':{$id},'data':input.val()}, function(res) {
+                    if(res.code==1){
+                        layer.msg(res.msg,{icon: 1});
+                    }else{
+                        layer.msg(res.msg,{icon: 0});
+                    }
+                })
+            });
+
+            yznForm.listen('');
+            //同步数据
+
+            $('.btn-import').on('click', function(e) {
+                layer.msg("同步成功！",{icon: 1});
+                $(window).scrollTop(0);
+                location.href = '{:url("edit",["catid"=>$catid])}?id={$id}&dialog=1&import=1';
+            });
+
+            form.on('select(fasttype)', function(data) {
+                $('#link').val($(data.elem).find("option:selected").attr("data-url"));
+            });
+
+            //关联栏目 顶级栏目parentid根据情况修改,workid为当前字段名
+            $(".workid").data("params", function (obj) {
+                return {custom: {parentid: 1}};
+            });
+        })
+</script>
+{/block}
+
