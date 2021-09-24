@@ -434,6 +434,14 @@ function onSiteName(){
    return $siteName;
 }
 
+/**
+ * 根据内容ID和栏目ID获得内容url
+ */
+function showsUrl($id,$catid){
+    $url = '';
+    return buildContentUrl($catid, $id, $url);
+}
+
 /*文章发布多少时间前*/
 function timeRule($time)
 {
