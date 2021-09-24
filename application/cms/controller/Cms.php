@@ -386,9 +386,6 @@ class Cms extends Adminbase
             if (empty($category)) {
                 $this->error('该栏目不存在！');
             }
-            if(isset(cache("Cms_Config")['offside']) && 1 == cache("Cms_Config")['offside']) {
-                $view = 'edit_tab';
-            }
             if ($category['type'] == 2) {
                 try {
                     $this->Cms_Model->editModelDataAll($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
@@ -420,6 +417,9 @@ class Cms extends Adminbase
             $category = getCategory($catid);
             if (empty($category)) {
                 $this->error('该栏目不存在！');
+            }
+            if(isset(cache("Cms_Config")['offside']) && 1 == cache("Cms_Config")['offside']) {
+                $view = 'edit_tab';
             }
             if ($category['type'] == 2) {
                 $modelid   = $category['modelid'];
