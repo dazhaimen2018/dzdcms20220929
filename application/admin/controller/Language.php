@@ -85,33 +85,6 @@ class Language extends Adminbase
         }
     }
 
-    public function deluu()
-    {
-        $id = $this->request->param('id/d');
-        if (empty($id)) {
-            $this->error('请指定需要删除的用户ID！');
-        }
-        if ($id == 1) {
-            $this->error('禁止对默认语言执行该操作！');
-        }
-        $ids = array_intersect($this->childrenAdminIds, array_filter(explode(',', $id)));
-
-        $adminList = $this->modelClass->where('id', 'in', $ids)->select();
-        if ($adminList) {
-            $deleteIds = [];
-            foreach ($adminList as $k => $v) {
-                $deleteIds[] = $v->id;
-            }
-            $deleteIds = array_values(array_diff($deleteIds, [$this->auth->id]));
-            if ($deleteIds) {
-                $this->modelClass->destroy($deleteIds);
-                $this->success("删除成功！");
-            }
-        }
-        $this->error('没有权限删除！');
-    }
-
-
     public function del()
     {
         //字段ID
