@@ -31,9 +31,9 @@ class Content extends MemberBase
     {
         $groupinfo = $this->_check_group_auth($this->auth->groupid);
         //没有认证用户不得投稿
-        if (empty($this->auth->ischeck_email) && empty($this->auth->ischeck_mobile)) {
-            $this->error("投稿必须激活邮箱或手机！");
-        }
+//        if (empty($this->auth->ischeck_email) && empty($this->auth->ischeck_mobile)) {
+//            $this->error("投稿必须激活邮箱或手机！");
+//        }
         //判断每日投稿数
         $allowpostnum = Member_Content_Model::where('uid', $this->auth->id)->whereTime('create_time', 'd')->count();
         if ($groupinfo['allowpostnum'] > 0 && $allowpostnum >= $groupinfo['allowpostnum']) {
@@ -133,7 +133,15 @@ class Content extends MemberBase
                     $where = "  (" . implode(' OR ', $site) . ")";
                 }
             }
-            $array = Db::name('Category')->where($where)->order('listorder ASC, id ASC')->column('*', 'id');
+
+            // 获得能投稿的栏目ID
+            $catidArr = Db::name('category_priv')->where(array( "roleid" => $this->auth->groupid, "is_admin" => 0, "action" => "add"))->cache(60)->select();
+            $catids   = array_column($catidArr,'catid');
+            $catids   = implode(",", $catids);
+            if ($catids){
+                $whereIn  = " id in($catids)";
+            }
+            $array = Db::name('Category')->where($where)->where($whereIn)->where('status',1)->order('listorder ASC, id ASC')->cache(60)->column('*', 'id');
             foreach ($array as $k => $v) {
                 //$array[$k] = $v = Db::name('Category')->find($v['id']);
                 if ($v['id'] == $catid) {
