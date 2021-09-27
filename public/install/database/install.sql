@@ -234,27 +234,28 @@ CREATE TABLE `yzn_field_type` (
 --
 
 INSERT INTO `yzn_field_type` (`name`, `title`, `listorder`, `default_define`, `ifoption`, `ifstring`) VALUES
-('text', '输入框', 1, 'varchar(255) NOT NULL', 0, 1),
-('checkbox', '复选框', 2, 'varchar(32) NOT NULL', 1, 0),
-('textarea', '多行文本', 3, 'varchar(255) NOT NULL', 0, 1),
-('radio', '单选按钮', 4, 'char(10) NOT NULL', 1, 0),
-('switch', '开关', 5, 'tinyint(2) UNSIGNED NOT NULL', 0, 0),
-('array', '数组', 6, 'varchar(512) NOT NULL', 0, 0),
-('select', '下拉框', 7, 'char(10) NOT NULL', 1, 0),
-('selects', '下拉框(多选)', 8, 'varchar(32) NOT NULL', 1, 0),
-('selectpage', '高级下拉框', 9, 'varchar(32) NOT NULL', 1, 0),
-('image', '单张图', 10, 'varchar(255) NOT NULL', 0, 0),
-('images', '多张图', 11, 'text NOT NULL', 0, 0),
-('tags', '标签', 12, 'varchar(255) NOT NULL', 0, 1),
-('number', '数字', 13, 'int(10) UNSIGNED NOT NULL', 0, 0),
-('datetime', '日期和时间', 14, 'int(10) UNSIGNED NOT NULL', 0, 0),
-('Ueditor', '百度编辑器', 15, 'mediumtext NOT NULL', 0, 1),
-('markdown', 'markdown编辑器', 16, 'mediumtext NOT NULL', 0, 1),
-('files', '多文件', 17, 'text NOT NULL', 0, 0),
-('file', '单文件', 18, 'varchar(255) NOT NULL', 0, 0),
-('color', '颜色值', 19, 'varchar(7) NOT NULL', 0, 0),
-('city', '城市地区', 20, 'varchar(255) NOT NULL', 0, 0),
-('custom', '自定义', 21, 'text NOT NULL', 1, 0);
+  ('text', '输入框', 1, 'varchar(255) NOT NULL', 0, 1),
+  ('checkbox', '复选框', 2, 'varchar(32) NOT NULL', 1, 0),
+  ('textarea', '多行文本', 3, 'varchar(255) NOT NULL', 0, 1),
+  ('password', '密码', 4, 'varchar(255) NOT NULL', 0, 1),
+  ('radio', '单选按钮', 5, 'char(10) NOT NULL', 1, 0),
+  ('switch', '开关', 6, 'tinyint(2) UNSIGNED NOT NULL', 0, 0),
+  ('array', '数组', 7, 'varchar(512) NOT NULL', 0, 0),
+  ('select', '下拉框', 8, 'char(10) NOT NULL', 1, 0),
+  ('selects', '下拉框(多选)', 9, 'varchar(32) NOT NULL', 1, 0),
+  ('selectpage', '高级下拉框', 10, 'varchar(32) NOT NULL', 1, 0),
+  ('image', '单张图', 11, 'varchar(255) NOT NULL', 0, 0),
+  ('images', '多张图', 12, 'text NOT NULL', 0, 0),
+  ('tags', '标签', 13, 'varchar(255) NOT NULL', 0, 1),
+  ('number', '数字', 14, 'int(10) UNSIGNED NOT NULL', 0, 0),
+  ('datetime', '日期和时间', 15, 'int(10) UNSIGNED NOT NULL', 0, 0),
+  ('Ueditor', '百度编辑器', 16, 'mediumtext NOT NULL', 0, 1),
+  ('markdown', 'markdown编辑器', 17, 'mediumtext NOT NULL', 0, 1),
+  ('files', '多文件', 18, 'text NOT NULL', 0, 0),
+  ('file', '单文件', 19, 'varchar(255) NOT NULL', 0, 0),
+  ('color', '颜色值', 20, 'varchar(7) NOT NULL', 0, 0),
+  ('city', '城市地区', 21, 'varchar(255) NOT NULL', 0, 0),
+  ('custom', '自定义', 22, 'text NOT NULL', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -467,6 +468,72 @@ CREATE TABLE `yzn_terms` (
   `setting` mediumtext COMMENT '相关配置信息'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='分类表';
 
+
+--
+-- 表的结构 `yzn_language`
+--
+
+CREATE TABLE `yzn_language` (
+`id` smallint UNSIGNED NOT NULL COMMENT '站点ID',
+`name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '语言名称',
+`mark` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '语言标识',
+`logo` varchar(255) NOT NULL DEFAULT '' COMMENT '站点LOGO',
+`listorder` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序',
+`status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
+`common` tinyint NOT NULL DEFAULT '0' COMMENT '最常见的'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='站点表';
+
+--
+-- 转存表中的数据 `yzn_language`
+--
+
+
+INSERT INTO `yzn_language` (`id`, `name`, `mark`, `logo`, `listorder`, `status`, `common`) VALUES
+   (1, '中文', 'zh-CHS', '', 1, 1, 1),
+   (2, '英语', 'en', '', 2, 1, 1),
+   (3, '日语', 'ja', '', 3, 1, 1),
+   (4, '韩语', 'ko', '', 4, 1, 1),
+   (5, '法语', 'fr', '', 5, 1, 1),
+   (6, '西班牙语', 'es', '', 6, 1, 1),
+   (7, '葡萄牙语', 'pt', '', 7, 1, 1),
+   (8, '意大利语', 'it', '', 8, 1, 1),
+   (9, '俄语', 'ru', '', 9, 1, 1),
+   (10, '越南语', 'vi', '', 10, 1, 1),
+   (11, '德语', 'de', '', 11, 1, 1),
+   (12, '阿拉伯语', 'ar', '', 0, 1, 1),
+   (13, '印度尼西亚语', 'id', '', 0, 1, 1),
+   (14, '希腊语', 'el', '', 0, 1, 0),
+   (15, '荷兰语', 'nl', '', 0, 1, 0),
+   (16, '波兰语', 'pl', '', 0, 1, 0),
+   (17, '保加利亚语', 'bg', '', 0, 1, 0),
+   (18, '爱沙尼亚语', 'et', '', 0, 1, 0),
+   (19, '丹麦语', 'da', '', 0, 1, 0),
+   (20, '芬兰语', 'fi', '', 0, 1, 0),
+   (21, '捷克语', 'cs', '', 0, 1, 0),
+   (22, '罗马尼亚语', 'ro', '', 0, 1, 0),
+   (23, '斯洛文尼亚语', 'sl', '', 0, 1, 0),
+   (24, '瑞典语', 'sv', '', 0, 1, 0),
+   (25, '匈牙利语', 'hu', '', 0, 1, 0),
+   (26, '土耳其语', 'tr', '', 0, 1, 0),
+   (27, '乌克兰语', 'uk', '', 0, 1, 0),
+   (28, '马来语', 'ms', '', 0, 1, 0),
+   (29, '挪威语', 'no', '', 0, 1, 0),
+   (30, '马耳他语', 'mt', '', 0, 1, 0),
+   (31, '塞尔维亚语', 'sr-Cyrl', '', 0, 1, 0),
+   (32, '斯洛伐克语', 'sk', '', 0, 1, 0),
+   (33, '爱尔兰语', 'ga', '', 0, 1, 0),
+   (34, '哈萨克语', 'kk', '', 0, 1, 0),
+   (35, '老挝语', 'lo', '', 0, 1, 0),
+   (36, '蒙古语', 'mn', '', 0, 1, 0),
+   (37, '缅甸语', 'my', '', 0, 1, 0),
+   (38, '尼泊尔语', 'ne', '', 0, 1, 0),
+   (39, '泰语', 'th', '', 0, 1, 0),
+   (40, '印地语', 'hi', '', 0, 1, 0);
+
+-- --------------------------------------------------------
+
+
+
 --
 -- 转储表的索引
 --
@@ -580,6 +647,12 @@ ALTER TABLE `yzn_terms`
   ADD KEY `module` (`module`);
 
 --
+-- 表的索引 `yzn_language`
+--
+ALTER TABLE `yzn_language`
+    ADD PRIMARY KEY (`id`);
+
+--
 -- 在导出的表使用AUTO_INCREMENT
 --
 
@@ -667,6 +740,13 @@ ALTER TABLE `yzn_sms`
 ALTER TABLE `yzn_terms`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '分类ID';
 COMMIT;
+
+--
+-- 使用表AUTO_INCREMENT `yzn_language`
+--
+ALTER TABLE `yzn_language`
+    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '站点ID', AUTO_INCREMENT=41;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
