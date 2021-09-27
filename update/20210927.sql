@@ -3,6 +3,8 @@ INSERT INTO `yzn_field_type` (`name`, `title`, `listorder`, `default_define`, `i
 
 -- 所有老站必须升级
 ALTER TABLE `yzn_site` ADD `source` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '源站点' AFTER `alone`, ADD `translate` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '自动翻译' AFTER `source`;
+
+INSERT INTO `yzn_menu` (`id`, `title`, `icon`, `parentid`, `app`, `controller`, `action`, `parameter`, `status`, `tip`, `is_dev`, `listorder`) VALUES (NULL, '语言管理', 'icon-palette-line', '10', 'admin', 'language', 'index', '', '1', '', '0', '0');
 --
 -- 表的结构 `yzn_language`
 --

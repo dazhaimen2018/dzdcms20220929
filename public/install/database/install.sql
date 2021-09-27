@@ -333,7 +333,12 @@ INSERT INTO `yzn_menu` (`id`, `title`, `icon`, `parentid`, `app`, `controller`, 
 (56, '插件安装', '', 39, 'addons', 'addons', 'install', '', 1, '', 0, 0),
 (57, '插件卸载', '', 39, 'addons', 'addons', 'uninstall', '', 1, '', 0, 0),
 (58, '插件状态', '', 39, 'addons', 'addons', 'state', '', 1, '', 0, 0),
-(59, '本地安装', '', 39, 'addons', 'addons', 'local', '', 1, '', 0, 0);
+(59, '本地安装', '', 39, 'addons', 'addons', 'local', '', 1, '', 0, 0),
+(60, '语言管理', 'icon-palette-line', 10, 'admin', 'language', 'index', '', 1, '', 0, 0),
+(61, '新增语言', '', 60, 'admin', 'language', 'add', '', 1, '', 0, 0),
+(62, '编辑语言', '', 60, 'admin', 'language', 'edit', '', 1, '', 0, 0),
+(63, '删除语言', '', 60, 'admin', 'language', 'del', '', 1, '', 0, 0),
+(64, '批量语言', '', 60, 'admin', 'language', 'multi', '', 1, '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -708,7 +713,7 @@ ALTER TABLE `yzn_ems`
 -- 使用表AUTO_INCREMENT `yzn_menu`
 --
 ALTER TABLE `yzn_menu`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '菜单ID', AUTO_INCREMENT=60;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '菜单ID', AUTO_INCREMENT=65;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_model`
