@@ -710,17 +710,6 @@ function to_guid_string($mix)
 }
 
 /**
- * 根据附件id获取文件名
- * @param string $id 附件id
- * @return string
- */
-function get_file_name($id = '')
-{
-    $name = model('attachment/Attachment')->getFileName($id);
-    return $name ? $name : '没有找到文件';
-}
-
-/**
  * 获取附件路径
  * @param string $value
  * @return string
