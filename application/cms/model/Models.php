@@ -173,6 +173,7 @@ class Models extends Modelbase
                 `dislikes` mediumint(8) UNSIGNED DEFAULT 0 COMMENT '点踩数' ,
 				`inputtime` int(10) unsigned NOT NULL DEFAULT '0'  COMMENT '创建时间',
 				`updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+				`pushtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '推送时间',
                 `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
                 `comment` tinyint(2) NOT NULL DEFAULT '0' COMMENT '允许评论',
 				PRIMARY KEY (`id`),
@@ -232,10 +233,11 @@ EOF;
                 `views` mediumint(8) UNSIGNED DEFAULT 0 COMMENT '浏览数量' ,
 				`inputtime` int(10) unsigned NOT NULL DEFAULT '0'  COMMENT '创建时间',
 				`updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+				`pushtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '推送时间',
 				`listorder` smallint(5) unsigned NOT NULL DEFAULT '100' COMMENT '排序',
 				`status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
 				PRIMARY KEY (`id`),
-                KEY `state` (`did`,`state`)
+                KEY `status` (`did`,`status`)
                 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='{$data['name']}模型表';
 EOF;
             $res = Db::execute($sql);
@@ -399,10 +401,18 @@ EOF;
                 'iscore'    => 1,
             ],
             [
+                'name'      => 'pushtime',
+                'title'     => '推送时间',
+                'type'      => 'datetime',
+                'listorder' => 15,
+                'setting'   => "a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}",
+                'iscore'    => 1,
+            ],
+            [
                 'name'    => 'comment',
                 'title'   => '允许评论',
                 'type'    => 'radio',
-                'listorder' => 15,
+                'listorder' => 16,
                 'setting' => "a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:18:\"0:禁止\r\n1:允许\";s:5:\"value\";s:1:\"1\";}",
             ],
 
@@ -677,11 +687,21 @@ EOF;
                     'setting'   => "a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}",
                 ],
                 [
+                    'name'      => 'pushtime',
+                    'title'     => '推送时间',
+                    'type' => 'hidden',
+                    'isadd' => 1,
+                    'ifsystem' => 2,
+                    'listorder' => 314,
+                    'iscore'    => 1,
+                    'setting'   => "a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}",
+                ],
+                [
                     'name' => 'price',
                     'title' => '付费阅读',
                     'type' => 'number',
                     'ifsystem' => 2,
-                    'listorder' => 314,
+                    'listorder' => 315,
                     'setting'   => "a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}",
                 ],
                 [
@@ -689,14 +709,14 @@ EOF;
                     'title'     => '浏览数量',
                     'type'      => 'number',
                     'ifsystem' => 2,
-                    'listorder' => 315,
+                    'listorder' => 316,
                     'setting'   => "a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}",
                 ],
                 [
                 'name'    => 'listorder',
                     'title'   => '排序',
                     'type'    => 'number',
-                    'listorder'   => 316,
+                    'listorder'   => 317,
                     'ifsystem' => 2,
                     'setting' => "a:3:{s:6:\"define\";s:40:\"tinyint(3) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:3:\"100\";}",
                 ],
@@ -704,7 +724,7 @@ EOF;
                     'name'    => 'status',
                     'title'   => '状态',
                     'type'    => 'radio',
-                    'listorder'   => 317,
+                    'listorder'   => 318,
                     'ifsystem' => 2,
                     'setting' => "a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:18:\"0:禁用\r\n1:启用\";s:5:\"value\";s:1:\"1\";}",
                 ]);
