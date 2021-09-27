@@ -42,10 +42,12 @@
 .layui-tab .layui-tab-title i{font-size: 14px}
 .layui-tab .layui-tab-title .layui-this i{color: #ff3d00;}
 .layui-tab .layui-tab-title .layui-this:after{border-top:2px solid #20a53a}
+.layui-tab .layui-tab-title img{width: 16px}
 
 .layui-card-header {height: 40px;line-height: 40px;}
 .layui-layout-right .layui-nav-child {padding: 0!important;}
 .layui-card-body{padding: 5px 5px 6px 5px!important;}
+.layui-table-body table .site-icon{height: 20px}
 
 /* form-search */
 .table-search-fieldset{border: none;padding: 0;}
@@ -65,7 +67,7 @@
 .layui-iconpicker .layui-anim{width: 280px}
 
 .layui-form-item .tagsinput input{width: 100%!important;}
-.layui-form-item .layui-text{padding: 0 10px!important;}
+.layui-form-item .layui-text{padding: 0 10px!important;line-height: 36px;}
 .layui-form-item .layui-text img{max-width: 100%}
 
 .fieldlist dd {border: 1px solid #e6e6e6;margin:0 0 10px 0!important;display: flex}
@@ -213,7 +215,7 @@
 #left-sider{-webkit-transition: width .2s ease;transition: width .2s ease;}
 #left-sider .layui-card{min-height: calc(100vh - 2.5rem);}
 #right-box{padding-left:1px;}
-#left-sider.hidden{width: 0;padding: 0;    overflow: hidden;}
+#left-sider.hidden{width: 0!important;padding: 0;overflow: hidden;}
 
 @media screen and (max-width: 720px){
 	.layui-header .logo{width: 150px;background-color: #009688!important;}
