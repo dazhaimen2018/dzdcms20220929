@@ -1,0 +1,46 @@
+<div class="layui-form-item">
+    <label class="layui-form-label">语言名称</label>
+    <div class="layui-input-block">
+        <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="语言名称" class="layui-input" value="{$data.name}">
+    </div>
+</div>
+
+<div class="layui-form-item">
+    <label class="layui-form-label">语言标识</label>
+    <div class="layui-input-block">
+        <input type="text" name="mark" lay-verify="required" autocomplete="off" placeholder="语言标识" class="layui-input" value="{$data.mark}">
+    </div>
+</div>
+
+<div class="layui-form-item">
+    <label class="layui-form-label">语言图标</label>
+    <div class="layui-input-block layui-upload">
+        {php}echo \util\Form::images('logo','',$data['logo']){/php}
+    </div>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label">排序</label>
+    <div class="layui-input-block">
+        <input type="number" name="listorder" autocomplete="off" placeholder="排序" class="layui-input" value="{$data.listorder|default="0"}">
+    </div>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label">常用语言</label>
+    <div class="layui-input-inline">
+        <input type="radio" name="status" value="1" title="正常" {if !$data['status']}checked{/if} {eq name="data.status" value="1" }checked{/eq}>
+        <input type="radio" name="status" value="0" title="禁止" {eq name="data.status" value="0" }checked{/eq}>
+    </div>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label">状态</label>
+    <div class="layui-input-inline">
+        <input type="radio" name="status" value="1" title="正常" {if !$data['status']}checked{/if} {eq name="data.status" value="1" }checked{/eq}>
+        <input type="radio" name="status" value="0" title="禁止" {eq name="data.status" value="0" }checked{/eq}>
+    </div>
+</div>
+<div class="layui-form-item layer-footer">
+    <div class="layui-input-block">
+        <button class="layui-btn" lay-submit="">立即提交</button>
+        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+{extend name="index_layout"/}
+{block name="main"}
+<form class="layui-form" method="post">
+    {include file="admin@/language/item" /}
+</form>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+    layui.use(['form','yznForm'], function() {
+        var yznForm = layui.yznForm;
+        var form = layui.form;
+        yznForm.listen();
+
+        form.on('select(fasttype)', function(data) {
+            $('#mark').val($(data.elem).find("option:selected").attr("data-mark"));
+        });
+    });
+</script>
+{/block}
