@@ -13,18 +13,28 @@
 // +----------------------------------------------------------------------
 namespace app\cms\controller;
 
+use addons\translator\Translator;
+use app\admin\model\Language;
 use app\common\controller\Adminbase;
 use app\cms\model\Site as SiteModel;
 use think\Db;
 
 class Site extends Adminbase
 {
+    protected $noNeedRight = [
+        'cms/site/translator',
+    ];
 	protected $modelClass = null;
 	//初始化
 	protected function initialize()
 	{
 		parent::initialize();
 		$this->modelClass = new SiteModel;
+
+        $languages = Language::where(['status' => 1])->select()->toArray();
+        $this->assign([
+            'languages'  => $languages,
+            ]);
 	}
 	/**
 	 * 站点列表
@@ -104,6 +114,32 @@ class Site extends Adminbase
             }
         }
 	}
+
+	public function translator(){
+        if ($this->request->isPost()) {
+	        $mark = $this->request->param('mark/s');
+	        if (!$mark){
+	            $this->error('语言标识不能为空');
+            }
+	        $check = db::name('language')->where('mark',$mark)->find();
+	        if (!$check){
+	            $this->error('未支持该语种的导入');
+            }
+	        //获取主站信息
+	        $info = Db::name('site')->field('title,keywords,description')->where('id',1)->find();
+            //新站点数据
+            $new_site = $info;
+            $Translator = new Translator();
+            $new_value = $Translator->text_translator($info['title'],$mark);
+            if (!$new_value){
+                $this->error('翻译失败，请检查翻译插件配置');
+            }
+            $new_site['title'] = $new_value;
+            $new_site['keywords'] = $info['keywords'];
+            $new_site['description'] = $info['description'];
+            $this->success('导入成功','',$new_site);
+        }
+    }
 
 	/**
 	 * 站点编辑

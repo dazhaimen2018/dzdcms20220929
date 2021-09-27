@@ -31,6 +31,12 @@
     是
     {{#  } }}
 </script>
+<script type="text/html" id="sourceTpl">
+    {{# if(d.source ==0){ }}否
+    {{#  } else { }}
+    是
+    {{#  } }}
+</script>
 <script type="text/html" id="statusTpl">
     <input type="checkbox" name="status" value="{{d.id}}" data-href="{:url('multi')}?id={{d.id}}&param=status" lay-skin="switch" lay-text="开启|关闭" lay-filter="switchStatus" {{ d.status==1 ? 'checked' : '' }}>
 </script>
@@ -88,6 +94,7 @@
                 {field: 'id', title: 'ID', width: 80, fixed: true, sort: true,align:"center"},
                 { field: 'listorder', width: 70, title: '排序', edit: 'text',search:false },
                 {field: 'name', title: '站点名称'},
+                { field: 'source', width: 90, align: "center", title: '默认站点', templet: '#sourceTpl', unresize: true,search:false },
                 { field: 'alone', width: 90, align: "center", title: '独立数据', templet: '#aloneTpl', unresize: true,search:false },
                 {field: 'mark', title: '标识', width: 90,align:"center" },
                 {field: 'template', title: '主题', width: 90,align:"center" },

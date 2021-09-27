@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="__STATIC__/admin/css/cms.css">
 <div class="layui-card">
 	<div class="layui-card-body layui-form-pane">
-		<form class="layui-form form-horizontal" action="" method="post">
+		<form class="layui-form form-horizontal" action="" method="post" lay-filter="example">
 			<div class="layui-form-item">
 				<label class="layui-form-label">站点名称</label>
 				<div class="layui-input-block">
@@ -19,15 +19,9 @@
 				<div class="layui-input-inline">
 					<select lay-filter="fasttype">
 						<option data-mark="zh-cn">常用语言标识</option>
-						<option data-mark="zh-cn">简体中文</option>
-						<option data-mark="en-gb">English</option>
-						<option data-mark="ja-jp">Japanese</option>
-						<option data-mark="ar-ar">اللغة العربية</option>
-						<option data-mark="fr-fr">French</option>
-						<option data-mark="de-de">Deutsch</option>
-						<option data-mark="es-es">Espanol</option>
-						<option data-mark="ru-ru">Russia</option>
-						<option data-mark="ot-la">其他语言</option>
+						{volist name="languages" id="vo"}
+						<option data-mark="{$vo.mark}"  {eq name="vo.mark" value="$data.mark" }selected{/eq}>{$vo.name}</option>
+						{/volist}
 					</select>
 				</div>
 				<div class="layui-form-mid layui-word-aux">
@@ -117,30 +111,31 @@
 				<div class="layui-form-mid layui-word-aux">模版请先上传到template下面并包含info.ini文件</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">排序</label>
-				<div class="layui-input-block">
-					<input type="number" name="listorder" autocomplete="off" placeholder="排序" class="layui-input" value="{$data.listorder}">
-				</div>
-			</div>
-			<div class="layui-form-item">
 				<label class="layui-form-label">独立数据</label>
 				<div class="layui-input-block">
-					<input type="radio" name="alone" value="1" {eq name="data.alone" value="1" }checked{/eq} title="是" lay-filter="alone">
-					<input type="radio" name="alone" value="0" {eq name="data.alone" value="0" }checked{/eq} title="否" lay-filter="alone">
+					<input type="radio" name="alone" value="1" {if !$data['alone']}checked{/if} {eq name="data.alone" value="1" }checked{/eq} title="是">
+					<input type="radio" name="alone" value="0" {eq name="data.alone" value="0" }checked{/eq} title="否">
 				</div>
 				<div class="layui-form-mid layui-word-aux">选否时：主要实用于城市分站、自动调用主站数据并在相应位置自动添加区域名称（站点名称）！</div>
 			</div>
 			<div class="layui-form-item">
+				<label class="layui-form-label">排序</label>
+				<div class="layui-input-block">
+					<input type="number" name="listorder" autocomplete="off" placeholder="排序" class="layui-input" value="{$data.listorder|default='0'}">
+				</div>
+			</div>
+			<div class="layui-form-item">
 				<label class="layui-form-label">状态</label>
 				<div class="layui-input-block">
-					<input type="radio" name="status" value="1" {eq name="data.status" value="1" }checked{/eq} title="开启" lay-filter="status">
-					<input type="radio" name="status" value="0" {eq name="data.status" value="0" }checked{/eq} title="关闭" lay-filter="status">
+					<input type="radio" name="status" value="1" {if !$data['status']}checked{/if} {eq name="data.status" value="1" }checked{/eq} title="开启">
+					<input type="radio" name="status" value="0" {eq name="data.status" value="0" }checked{/eq} title="关闭">
 				</div>
 			</div>
 
 			<input name="id" type="hidden" value="{$data.id}">
 			<div class="layui-form-item layer-footer">
 				<div class="layui-input-block">
+					<button class="layui-btn layui-btn-danger btn-import iconfont icon-dibu site-translator" type="button" title="一键导入主站数据！">导入</button>
 					<button class="layui-btn" lay-submit>立即提交</button>
 					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 				</div>
@@ -159,6 +154,28 @@
 		form.on('select(fasttype)', function(data) {
 			$('#mark').val($(data.elem).find("option:selected").attr("data-mark"));
 		});
+
+		$('.site-translator').click(function(){
+			// var mark =
+			$.ajax({
+				type: "POST",
+				url: "{:url('translator')}",
+				data: {mark:$("#mark").val()},
+				dataType: "json",
+				success: function(data){
+					if (data.code){
+						//表单赋值
+						form.val('example', {
+							"title": data.data.title
+							,"keywords": data.data.keywords
+							,"description": data.data.description
+						});
+					}else{
+						layer.msg(data.msg);
+					}
+				}
+			})
+		})
 	});
 </script>
 {/block}
