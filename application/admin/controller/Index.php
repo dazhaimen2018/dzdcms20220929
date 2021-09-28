@@ -41,8 +41,8 @@ class Index extends Adminbase
     public function index()
     {
         // 20200620 马博
-        $siteArray = Site::where("status=1")->select()->toArray();
-        $this->assign('siteArray', $siteArray);
+        $sites = Site::where(['alone' => 1,'status'=>1])->select()->toArray();
+        $this->assign('sites', $sites);
         // 20200620 end 马博
         $this->assign("SUBMENU_CONFIG", json_encode(model("admin/Menu")->getMenuList()));
         return $this->fetch();
