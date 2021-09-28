@@ -176,7 +176,7 @@ class Models extends Modelbase
 				`pushtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '推送时间',
                 `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '前台显示',
                 `comment` tinyint(2) NOT NULL DEFAULT '0' COMMENT '允许评论',
-                `member` tinyint(2) NOT NULL DEFAULT '0' COMMENT '访问权限',
+                `groupids` tinyint(2) NOT NULL DEFAULT '0' COMMENT '访问权限',
 				PRIMARY KEY (`id`),
                 KEY `status` (`catid`,`status`)
                 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='{$data['name']}模型表';
@@ -415,11 +415,11 @@ EOF;
                 'setting' => "a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:18:\"0:禁止\r\n1:允许\";s:5:\"value\";s:1:\"1\";}",
             ],
             [
-                'name'    => 'member',
+                'name'    => 'groupids',
                 'title'   => '访问权限',
                 'type'    => 'selectpage',
                 'listorder' => 21,
-                'setting' => "a:4:{s:6:\"define\";s:20:\"varchar(32) NOT NULL\";s:7:\"options\";s:111:\"url:/api/lists/memberGroup\r\nfield:name\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:false\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:1:\"0\";}",
+                'setting' => "a:4:{s:6:\"define\";s:20:\"varchar(32) NOT NULL\";s:7:\"options\";s:111:\"url:/api/lists/memberGroup\r\nfield:name\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:1:\"0\";}",
             ],
 
         ];
