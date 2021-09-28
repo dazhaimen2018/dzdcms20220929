@@ -44,6 +44,14 @@
 
 		        <ul class="layui-nav layui-layout-right">
 		            <li class="layui-nav-item"><a href="{:homePage()}" target="_blank"><i class="iconfont icon-homepage" title="站点首页"></i></a></li>
+                    <li class="layui-nav-item"><a href="javascript:;"><img src="__STATIC__/language/{if getSiteInfo('mark')}{:getSiteInfo('mark')}{else}site{/if}.png" class="layui-nav-img userAvatar" width="35" height="35">{:onSiteName()}【切换】</a>
+                        <dl class="layui-nav-child" id="change">
+                            <dd><a href="javascript:;" data-type="0"><img class="site-icon" src= "/static/language/site.png">  所有站点</a></dd>
+                            {volist name="sites" id="vo"}
+                            <dd  {if getSiteInfo('id')==$vo['id']}class="layui-this"{/if}><a href="javascript:;" data-type="{$vo.id}"><img class="site-icon" src= "/static/language/{$vo.mark}.png"> {$vo.name}</a></dd>
+                            {/volist}
+                        </dl>
+                    </li>
                     <li class="layui-nav-item layui-hide-xs"><a href="javascript:;" data-check-screen="full"><i class="layui-icon layui-icon-screen-full" title="全屏"></i></a></li>
 		            <li class="layui-nav-item"><a href="javascript:;"><i class="iconfont icon-trash" title="清空缓存"></i></a>
 		                <dl class="layui-nav-child" id="deletecache">
@@ -671,6 +679,30 @@
                 },
                 error: function() {
                     layer.msg('清除缓存失败');
+                }
+            });
+        });
+        //切换站点
+        $(document).on('click', "dl#change dd a", function() {
+            $.ajax({
+                url: '{:url("cms/setting/change")}',
+                dataType: 'json',
+                data: { type: $(this).data("type") },
+                cache: false,
+                success: function(res) {
+                    if (res.code == 1) {
+                        var index = layer.msg('切换站点中，请稍候', { icon: 16, time: false, shade: 0.8 });
+                        setTimeout(function() {
+                            layer.close(index);
+                            layer.msg("切换站点成功！");
+                            setTimeout('window.location.reload()',1000);
+                        }, 1000);
+                    }else{
+                        layer.msg('切换站点失败');
+                    }
+                },
+                error: function() {
+                    layer.msg('切换站点失败');
                 }
             });
         });

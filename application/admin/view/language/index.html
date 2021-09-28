@@ -20,6 +20,13 @@
             <script type="text/html" id="switchTpl">
                 <input type="checkbox" name="status" data-href="{:url('multi')}?id={{d.id}}&param=status" value="{{d.id}}" lay-skin="switch" lay-text="显示|隐藏" lay-filter="switchStatus" {{ d.status==1 ? 'checked' : '' }}>
             </script>
+            <script type="text/html" id="commonTpl">
+                {{# if(d.common==1){ }}
+               是
+                {{#  } else { }}
+               否
+                {{#  } }}
+            </script>
         </div>
     </div>
 </div>
@@ -54,7 +61,7 @@ layui.use('yznTable', function() {
                 { field: 'name', width: 120, title: '语言名称'},
                 { field: 'mark', title: '语言标识'},
                 { field: 'logo', width: 150, title: '语言图标', align: "center", search: false, templet: yznTable.image},
-                { field: 'status', align: 'center', width: 120, title: '常用语言', templet: '#switchTpl', unresize: true },
+                { field: 'common', align: 'center', width: 120, title: '常用语言', templet: '#commonTpl', unresize: true },
                 { field: 'status', align: 'center', width: 120, title: '状态', templet: '#switchTpl', unresize: true },
                 { fixed: 'right', width: 160, title: '操作', toolbar: '#barTool', align: "center" }
             ]

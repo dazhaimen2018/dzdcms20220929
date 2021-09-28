@@ -41,4 +41,24 @@ class Setting extends Adminbase
         }
     }
 
+    public function change(){
+        $site = $this->request->request("type");
+        $data['setting'] = Module_Model::where('module', 'cms')->value("setting");
+        $setting = unserialize($data['setting']);
+        if ($site){
+            $setting['site'] = $site;
+            $setting['publish_mode'] = 2;
+        } else {
+            $setting['site'] = 0;
+            $setting['publish_mode'] = 1;
+        }
+        $data['setting'] = serialize($setting);
+        if (Module_Model::update($data, ['module' => 'cms'])) {
+            cache('Cms_Config', null);
+            $this->success("切换成功！");
+        } else {
+            $this->success("切换失败！");
+        }
+    }
+
 }
