@@ -1,9 +1,9 @@
 <div class="layui-form-item">
     <label class="layui-form-label">支付数量</label>
     <div class="layui-input-inline" title="支付数量">
-        <input type="text" class="layui-input input-min-width" name="modelField[readpoint]" placeholder="支付数量" value="{$data.readpoint|default='0'}">
-        <input type="radio" name="modelField[paytype]" value="1" title="积分" {if !$data['paytype']}checked{/if} {eq name="data.paytype" value="1" }checked{/eq}>
-        <input type="radio" name="modelField[paytype]" value="0" title="金额" {eq name="data.paytype" value="0" }checked{/eq}>
+        <input type="text" class="layui-input input-min-width" name="modelField[readpoint]" placeholder="支付数量" value="{$fieldList['readpoint']['value']|default='0'}">
+        <input type="radio" name="modelField[paytype]" value="1" title="积分" {if !$fieldList['paytype']['value']}checked{/if} {if $fieldList['paytype']['value']==1}checked{/if}>
+        <input type="radio" name="modelField[paytype]" value="0" title="金额" {if $fieldList['paytype']['value']==0}checked{/if}>
     </div>
 </div>
 
@@ -11,13 +11,13 @@
     <div class="layui-inline layui-col-md6">
         <label class="layui-form-label">点赞数</label>
         <div class="layui-input-inline" title="点赞数">
-            <input type="text" class="layui-input" name="modelField[likes]" placeholder="点赞数" value="{$data.likes|default='0'}">
+            <input type="text" class="layui-input" name="modelField[likes]" placeholder="点赞数" value="{$fieldList['likes']['value']|default='0'}">
         </div>
     </div>
     <div class="layui-inline layui-col-md6">
         <label class="layui-form-label">点踩数</label>
         <div class="layui-input-inline" title="点踩数">
-            <input type="text" class="layui-input" name="modelField[dislikes]" placeholder="点踩数" value="{$data.dislikes|default='0'}">
+            <input type="text" class="layui-input" name="modelField[dislikes]" placeholder="点踩数" value="{$fieldList['dislikes']['value']|default='0'}">
         </div>
     </div>
 </div>
@@ -26,13 +26,13 @@
     <div class="layui-inline layui-col-md6">
         <label class="layui-form-label">点击量</label>
         <div class="layui-input-inline" title="点击量">
-            <input type="text" class="layui-input" name="modelField[hits]" placeholder="点击量" value="{$data['hits']|default='0'}">
+            <input type="text" class="layui-input" name="modelField[hits]" placeholder="点击量" value="{$fieldList['hits']['value']|default='0'}">
         </div>
     </div>
     <div class="layui-inline layui-col-md6">
         <label class="layui-form-label">排序</label>
         <div class="layui-input-inline" title="排序">
-            <input type="text" class="layui-input" name="modelField[listorder]" placeholder="排序" value="{$data['listorder']|default='100'}">
+            <input type="text" class="layui-input" name="modelField[listorder]" placeholder="排序" value="{$fieldList['listorder']['value']|default='0'}">
         </div>
     </div>
 </div>
