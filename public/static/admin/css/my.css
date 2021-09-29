@@ -106,6 +106,7 @@
 .layui-form-item .layui-inline{display: flex}
 .layui-form-item .layui-inline:last-child{margin-right: 0!important;}
 .layui-form-item .layui-inline .layui-input-inline{flex: 1!important;width: auto!important;}
+.layui-form-item .input-min-width{width: 120px;float: left}
 
 /*高级下拉*/
 .layui-form-item .layui-input-block .sp_container_combo{border:none!important;box-shadow:none!important;}
