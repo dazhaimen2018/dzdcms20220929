@@ -65,6 +65,9 @@
     layui.use(['form', 'layer','yznForm'], function() {
         var form = layui.form,
             yznForm = layui.yznForm;
+        $(document).on("fa.event.appendfieldlist", ".btn-append", function (e, obj) {
+            yznForm.events.faselect(obj);
+        });
 
         {notempty name='cmsConfig.web_site_getwords'}
         GV.ueditor_getwords_url="{:url('addons/getwords/getkeywords',['isadmin'=>1])}";

@@ -27,9 +27,12 @@
 {/block}
 {block name="script"}
 <script type="text/javascript">
-layui.use('yznForm', function() {
-    var yznForm = layui.yznForm;
-    yznForm.listen();
-});
+    layui.use('yznForm', function() {
+        var yznForm = layui.yznForm;
+        $(document).on("fa.event.appendfieldlist", ".btn-append", function (e, obj) {
+            yznForm.events.faselect(obj);
+        });
+        yznForm.listen();
+    });
 </script>
 {/block}
