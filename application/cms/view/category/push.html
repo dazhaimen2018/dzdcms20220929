@@ -1,0 +1,69 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+<link rel="stylesheet" href="__STATIC__/admin/css/cms.css">
+<div class="layui-card">
+    <div class="layui-card-body layui-form-pane">
+        <form class="layui-form" method="post">
+            <div class="layui-col-md8">
+                <div class="layui-card">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">源语言</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="from" value="auto" title="中文站" checked>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">所有站点</label>
+                        <div class="layui-input-block">
+                            {volist name="sites" id="vo" empty="<div class='layui-tips'>请先建站点</div>"}
+                            <input type="checkbox" name="sites[]" value="{$vo.id}:{$vo.mark}" lay-skin="primary" title="{$vo.name}{if $check_site && in_array($vo.id,$check_site)}[已推]{/if}" {if $check_site && in_array($vo.id,$check_site)}checked{/if}>
+                            {/volist}
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">重新推送</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="status" value="1" title="是">
+                            <input type="radio" name="status" value="0" title="否" checked>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">修改时间</label>
+                        <div class="layui-input-block layui-text">
+                            2021-09-26
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">推送时间</label>
+                        <div class="layui-input-block layui-text">
+                            2021-09-26
+                        </div>
+                    </div>
+
+                </div>
+                {include file="cms@item_push" /}
+            </div>
+
+
+            <div class="layui-form-item layer-footer">
+                <div class="layui-input-block">
+                    <button class="layui-btn iconfont icon-send" lay-submit>推送并翻译</button>
+                    <button type="reset" class="layui-btn layui-btn-primary iconfont icon-trash"> 重置</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+    layui.use(['form','yznForm'], function() {
+        var yznForm = layui.yznForm;
+        var form = layui.form;
+        yznForm.listen();
+
+    });
+</script>
+{/block}
+

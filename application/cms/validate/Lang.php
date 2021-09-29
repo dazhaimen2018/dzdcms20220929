@@ -25,4 +25,7 @@ class Lang extends Validate
 		'name|碎片名称' => 'require|regex:^[a-zA-Z]\w{0,39}$|unique:lang',
 		'listorder|排序' => 'number',
 	];
+    protected $scene = [
+        'push' => ['from', 'sites', 'status'],
+    ];
 }

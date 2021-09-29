@@ -434,11 +434,11 @@ INSERT INTO `yzn_photo_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords
 (3, 3, 1, '官网模版', '', '', '官网模版官网模版官网模版官网模版官网模版官网模版', '<p>官网模版官网模版官网模版官网模版官网模版官网模版官网模版</p>');
 
 
-INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `alone`, `status`, `inputtime`) VALUES
-(1, '中文', 'zh-cn', 'http', 'demo.dzdcms.com', 'http://demo.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 1, 0),
-(2, 'English', 'en-gb', 'http', 'endemo.dzdcms.com', 'http://endemo.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '', 'English', 'English', 'English', 0, '', NULL, 0, 2, 1, 1, 0),
-(3, '北京', 'zh-cn', 'http', 'bj.dzdcms.com', 'http://bj.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '', '北京站', '北京站', '北京站', 0, '', NULL, 0, 3, 0, 1, 0),
-(4, '上海', 'zh-cn', 'http', 'sh.dzdcms.com', 'http://sh.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '', '上海站', '上海站', '上海站', 0, '', NULL, 0, 4, 0, 1, 0);
+INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `alone`, `source`, `translate`, `status`, `inputtime`) VALUES
+(1, '中文', 'zh-CHS', 'http', 'top.dzdcms.com', 'http://top.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 0, 1, 1, 0),
+(2, 'English', 'en', 'http', 'endemo.dzdcms.com', 'http://endemo.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '', 'English', 'English', 'English', 0, '', NULL, 0, 2, 1, 0, 1, 1, 0),
+(3, '北京', 'zh-CHS', 'http', 'bj.dzdcms.com', 'http://bj.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '', '北京站', '北京站', '北京站', 0, '', NULL, 0, 3, 0, 0, 1, 1, 0),
+(4, '上海', 'zh-CHS', 'http', 'sh.dzdcms.com', 'http://sh.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '', '上海站', '上海站', '上海站', 0, '', NULL, 0, 4, 0, 0, 1, 1, 0);
 
 
 INSERT INTO `yzn_attachment` (`id`, `aid`, `uid`, `name`, `module`, `path`, `thumb`, `url`, `mime`, `ext`, `size`, `md5`, `sha1`, `driver`, `create_time`, `update_time`, `listorders`, `status`) VALUES

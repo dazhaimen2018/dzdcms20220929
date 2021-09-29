@@ -123,7 +123,7 @@ class Site extends Adminbase
             }
 	        $check = db::name('language')->where('mark',$mark)->find();
 	        if (!$check){
-	            $this->error('未支持该语种的导入');
+	            $this->error('未支持该语种的翻译');
             }
 	        //获取主站信息
 	        $info = Db::name('site')->field('title,keywords,description')->where('id',1)->find();
@@ -135,9 +135,9 @@ class Site extends Adminbase
                 $this->error('翻译失败，请检查翻译插件配置');
             }
             $new_site['title'] = $new_value;
-            $new_site['keywords'] = $info['keywords'];
-            $new_site['description'] = $info['description'];
-            $this->success('导入成功','',$new_site);
+            $new_site['keywords'] = $Translator->text_translator($info['keywords'],$mark);
+            $new_site['description'] = $Translator->text_translator($info['description'],$mark);
+            $this->success('翻译成功','',$new_site);
         }
     }
 

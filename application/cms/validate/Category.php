@@ -40,5 +40,6 @@ class Category extends Validate
         'page' => ['sites', 'parentid', 'type', 'catname', 'catdir', 'image', 'listorder', 'status'],
         'list' => ['sites', 'parentid', 'modelid', 'type', 'catname', 'catdir', 'image', 'listorder', 'status'],
         'link' => ['sites', 'parentid', 'type', 'catname', 'catdir', 'image', 'listorder', 'status', 'url'],
+        'push' => ['from', 'sites', 'status'],
     ];
 }

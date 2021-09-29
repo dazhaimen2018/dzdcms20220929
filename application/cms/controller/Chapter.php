@@ -15,6 +15,7 @@
 namespace app\cms\controller;
 
 use addons\translator\Translator;
+use app\cms\model\Chapter as ChapterModel;
 use app\cms\model\Cms as Cms_Model;
 use app\cms\model\Page as Page_Model;
 use app\cms\model\Site;
@@ -22,117 +23,56 @@ use app\common\controller\Adminbase;
 use think\Db;
 
 
-class Cms extends Adminbase
+class Chapter extends Adminbase
 {
     protected function initialize()
     {
         parent::initialize();
         $this->Cms_Model = new Cms_Model;
+        $this->ChapterModel = new ChapterModel;
         $this->cmsConfig = cache("Cms_Config");
         $this->assign("cmsConfig", $this->cmsConfig);
         // 20200805 马博所有站点
-        $siteIds    = $this->auth->site_id;
-        if ($siteIds) {
-            $whereSite = " id = $siteIds";
-        }else{
-           if(isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode']) {
-               $sites     = cache("Cms_Config")['site'];
-               if(!$sites){ //不满条件
-                   $this->error('请在CMS配置-切换站点中选一个站！','cms/setting/index');
-               }
-               $whereSite = " id = $sites";
-           }
-        }
         $catid    = $this->request->param('catid/d', 0);
-        $catSites = getCategory($catid,'sites'); //当前栏目所属站点
-        if($catSites){
-            $whereIn  = " id in($catSites)";
+        $did      = $this->request->param('did/d', 0);
+        $sites    = $this->auth->site_id;
+        if ($sites) {
+            $whereSite = " id = $sites";
+        }else{
+            if(isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode']) {
+                $sites     = cache("Cms_Config")['site'];
+                if(!$sites){ //不满条件
+                    $this->error('请在CMS配置-切换站点中选一个站！','cms/setting/index');
+                }
+                $whereSite = " id = $sites";
+            }
+        }
+        // 找已发布的站点
+        if($did){
+            $modelid   = getCategory($catid, 'modelid');
+            $tablename = $this->ChapterModel->getModelTableName($modelid);
+            $sites     = Db::name($tablename . '_data')->where('did', $did)->field('site_id as id')->select();
+            $sites     = array_column($sites,'id');
+            $catSites  = join(',',$sites);
+            $whereIn   = " id in($catSites)";
         }
         $sites  = Site::where(['alone' => 1])->where($whereIn)->where($whereSite)->select()->toArray();
-        $this->site = $sites;
-        $this->view->assign('sites', $sites);
+        if(!$sites){
+            $this->error('当前站没有发布内容，无法发布章节内容！');
+        }else{
+            $this->site = $sites;
+            $this->view->assign('sites', $sites);
+        }
+
         // 20200805 马博 end
     }
 
+
+    //栏目信息列表 $did 为什么出不来值
     public function index()
     {
-        $isAdministrator = $this->auth->isAdministrator();
-        $json            = $priv_catids            = [];
-        if (0 !== (int) $this->cmsConfig['site_category_auth']) {
-            //栏目权限 超级管理员例外
-            if ($isAdministrator !== true) {
-                $role_id     = $this->auth->roleid;
-                $priv_result = Db::name('CategoryPriv')->where(['roleid' => $role_id, 'action' => 'init'])->select();
-                foreach ($priv_result as $_v) {
-                    $priv_catids[] = $_v['catid'];
-                }
-            }
-        }
-        if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode']) {
-            $sites = onSite();
-            $site  = [];
-            foreach (explode(',', $sites) as $k => $v) {
-                $site[] = "FIND_IN_SET('" . $v . "', sites)";
-            }
-            if ($site) {
-                $where = "  (" . implode(' OR ', $site) . ")";
-            }
-        }
-        // 获取当前管理所属站点
-        $sites = $this->auth->site_id;
-        if($sites){
-            $site  = [];
-            foreach (explode(',', $sites) as $k => $v) {
-                $site[] = "FIND_IN_SET('" . $v . "', sites)";
-            }
-            if ($site) {
-                $whereSite = "  (" . implode(' OR ', $site) . ")";
-            }
-        }
-        $categorys = Db::name('Category')->where($where)->where($whereSite)->order('listorder DESC, id DESC')->select();
-
-        foreach ($categorys as $rs) {
-            //剔除无子栏目外部链接
-            if ($rs['type'] == 3 && $rs['child'] == 0) {
-                continue;
-            }
-            if (0 !== (int) $this->cmsConfig['site_category_auth']) {
-                //只显示有init权限的，超级管理员除外
-                if ($isAdministrator !== true && !in_array($rs['id'], $priv_catids)) {
-                    $arrchildid      = explode(',', $rs['arrchildid']);
-                    $array_intersect = array_intersect($priv_catids, $arrchildid);
-                    if (empty($array_intersect)) {
-                        continue;
-                    }
-                }
-            }
-            $data = array(
-                'id'       => $rs['id'],
-                'parentid' => $rs['parentid'],
-                'catname'  => $rs['catname'],
-                'type'     => $rs['type'],
-            );
-            //终极栏目
-            if ($rs['child'] !== 0) {
-                $data['isParent'] = true;
-            }
-            $data['target'] = 'right';
-            $data['url']    = url('cms/cms/classlist', array('catid' => $rs['id']));
-            //单页
-            if ($rs['type'] == 1) {
-                $data['target'] = 'right';
-                $data['url']    = url('cms/cms/add', array('catid' => $rs['id']));
-            }
-            $json[] = $data;
-        }
-        $this->assign('json', json_encode($json));
-        return $this->fetch();
-    }
-
-    //栏目信息列表
-    public function classlist()
-    {
         $catid = $this->request->param('catid/d', 0);
+        $did = $this->request->param('did/d', 0);
         //当前栏目信息
         $catInfo = getCategory($catid);
         if (empty($catInfo)) {
@@ -140,48 +80,40 @@ class Cms extends Adminbase
         }
         //栏目所属模型
         $modelid   = $catInfo['modelid'];
-        $modelType = db('model')->where('id',$modelid)->cache(60)->value('type');
+        $catSites  = $catInfo['sites']; //当前栏目所属站点
+        $siteId    = onSite();
+        // 显示当前站的数据，不太完美，带升级
+        $firstSite = substr($catSites,0,strpos($catSites, ','));
         if ($this->request->isAjax()) {
-            // 20200805 马博
             $limit = $this->request->param('limit/d', 10);
-            $page = $this->request->param('page/d', 1);
-            // 20200805 马博 end
+            $page  = $this->request->param('page/d', 1);
             //检查模型是否被禁用
             if (!getModel($modelid, 'status')) {
                 $this->error('模型被禁用！');
             }
             $modelCache = cache("Model");
-            $tableName  = $modelCache[$modelid]['tablename'];
-
+            $tableName  = $modelCache[$modelid]['tablename'].'_sub_data';
             $this->modelClass = Db::name($tableName);
             //如果发送的来源是Selectpage，则转发到Selectpage
             if ($this->request->request('keyField')) {
                 return $this->selectpage();
             }
             list($page, $limit, $where) = $this->buildTableParames();
-
             $conditions = [
-                ['catid', '=', $catid],
-                ['status', 'in', [0, 1]],
+                ['catid',   '=', $catid],
+                ['did',     '=', $did],
+                ['site_id', '=', $firstSite],
+                ['status',  'in', [0, 1]],
             ];
             $total   = Db::name($tableName)->where($where)->where($conditions)->count();
             $list    = Db::name($tableName)->page($page, $limit)->where($where)->where($conditions)->order('listorder DESC, id DESC')->select();
-            $siteId  = onSite();
-            $siteUrl = onSiteUrl();
             $_list   = [];
             foreach ($list as $k => $v) {
+                $siteUrl         = onSiteUrl();
                 $v['updatetime'] = date('Y-m-d H:i', $v['updatetime']);
-                $v['url']        = $siteUrl.buildContentUrl($v['catid'], $v['id'], $v['url']);
-                //马博 显示已添站点ID
-                $sites           = Db::name($tableName . '_data')->where('did', $v['id'])->field('site_id as id')->select();
+                $v['url']        = $siteUrl.buildChapterUrl($v['catid'], $v['id'], $v['url']);
+                $sites           = Db::name($tableName)->where('pid', $v['id'])->field('site_id as id')->select();
                 $v['site']       = array_column($sites,'id');
-                if($siteId){
-                    $v['title']  = Db::name($tableName . '_data')->where('did', $v['id'])->where('site_id', $siteId )->value('title');
-                } else {
-                    $v['title']  = '发布模式为“单站”模式时才显示标题！';
-                }
-                $v['modelType'] = $modelType;
-                // end
                 $_list[]         = $v;
             }
             $result = array("code" => 0, "count" => $total, "data" => $_list);
@@ -214,9 +146,279 @@ class Cms extends Adminbase
         $this->assign([
             'string' => $string,
             'catid'  => $catid,
-            'site'   => $siteData,
+            'did'    => $did,
         ]);
         return $this->fetch();
+    }
+
+
+
+    //添加信息
+
+    public function add()
+    {
+        $did = $this->request->param('did/d', 0);
+        if ($this->request->isPost()) {
+            $data = $this->request->post();
+            $catid = intval($data['modelField']['catid']);
+            $data['modelField']['did'] = $did;
+            if (empty($catid)) {
+                $this->error("请指定栏目ID！");
+            }
+            $category = getCategory($catid);
+            if (empty($category)) {
+                $this->error('该栏目不存在！');
+            }
+            if ($category['type'] == 2) {
+                $data['modelFieldExt'] = isset($data['modelFieldExt']) ? $data['modelFieldExt'] : [];
+
+                Db::startTrans();
+                try {
+                    $insertId = $this->ChapterModel->addModelDataAll($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
+                    Db::commit();
+                } catch (\Exception $ex) {
+                    Db::rollback();
+                    $this->error($ex->getMessage());
+                }
+
+            }
+            //增加清除缓存
+            //$cache =  cleanUp();
+            $this->success('操作成功！');
+        } else {
+            $catid = $this->request->param('catid/d', 0);
+            $import = $this->request->param('import/d', 0);
+            $category = getCategory($catid);
+            if (empty($category)) {
+                $this->error('该栏目不存在！');
+            }
+            $catSites  = $category['sites']; //当前栏目所属站点
+            $firstSite = substr($catSites,0,strpos($catSites, ','));
+            //发布模式为单站时，如果当前站点不是默认站点时，不能新增！
+            if(isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode']) {
+                if($firstSite != onSite()) {
+                    $this->error('只能默认站新增数据，当前站通过编辑完成数据！');
+                }
+            }
+            if ($category['type'] == 2) {
+                $modelid = $category['modelid'];
+                $fieldList = $this->ChapterModel->getFieldListAll($modelid);
+                $extraFieldList = $this->ChapterModel->getExtraField($modelid, 2);
+                $this->assign([
+                    'catid'     => $catid,
+                    'fieldList' => $fieldList,
+                    'extraFieldList' => $extraFieldList,
+                    'did' => $did,
+                ]);
+                return $this->fetch();
+            }
+        }
+    }
+
+
+    //编辑信息
+    public function edit()
+    {
+        if ($this->request->isPost()) {
+            $data                        = $this->request->post();
+            $data['modelFieldExt']       = isset($data['modelFieldExt']) ? $data['modelFieldExt'] : [];
+            $data['modelField']['id']    = intval($_GET['id']);
+            $catid                       = $this->request->param('catid/d', 0);
+            $did                         = $this->request->param('did/d', 0);
+            $id                          = $this->request->param('id/d', 0);
+            $data['modelField']['catid'] = $catid;
+            $data['modelField']['id']    = $id;
+            $data['modelField']['did']    = $did;
+            $category                    = getCategory($catid);
+            if (empty($category)) {
+                $this->error('该栏目不存在!!');
+            }
+            if ($category['type'] == 2) {
+                try {
+                    $this->ChapterModel->editModelDataAll($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
+                } catch (\Exception $ex) {
+                    $this->error($ex->getMessage());
+                }
+            }
+            //增加清除缓存
+            //$cache =  cleanUp();
+            $this->success('编辑成功！');
+
+        } else {
+            $catid    = $this->request->param('catid/d', 0);
+            $import   = $this->request->param('import/d', 0);
+            $pid       = $this->request->param('id/d', 0);
+            $category = getCategory($catid);
+            if (empty($category)) {
+                $this->error('该栏目不存在！');
+            }
+            if ($category['type'] == 2) {
+                $modelid   = $category['modelid'];
+
+                $extraFieldList = $this->ChapterModel->getExtraField($modelid, 2);
+                $this->assign([
+                    'catid'     => $catid,
+                    'id'        => $pid,
+                    'extraFieldList' => $extraFieldList,
+                    'did' => $did,
+                ]);
+                $extraData = $this->ChapterModel->getExtraData(['catid' => $catid, 'pid' => $pid]);
+                $ret = [];
+
+                if($import){
+                    foreach ($this->site as $k => $s) {
+                        if ($extraData) {
+                            foreach ($extraData as $e) {
+                                if ($e['site_id'] == $s['id']) {
+                                    $ret[$k] = $e;
+                                    $ret[$k]['id'] = $e['id'];
+                                } else {
+                                    //只输出站点1的数据
+                                    foreach ($extraData as $f) {
+                                        if ($e['site_id']== 1) {
+                                            $ret[$k] = $f;
+                                            $ret[$k]['site_id'] = $s['id'];
+                                            $ret[$k]['id'] = '';
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $ret[$k]['site_id'] = $s['id'];
+                        }
+                    }
+                }else{
+                    foreach ($this->site as $k => $s) {
+                        if ($extraData) {
+                            foreach ($extraData as $e) {
+                                if ($e['site_id'] == $s['id']) {
+                                    $ret[$k] = $e;
+                                } else {
+                                    $ret[$k]['site_id'] = $s['id'];
+                                }
+                            }
+                        } else {
+                            $ret[$k]['site_id'] = $s['id'];
+                        }
+                    }
+                }
+                $this->view->assign('extra_data', $ret);
+                return $this->fetch();
+            }
+        }
+    }
+
+    //编辑信息
+    public function push()
+    {
+        if ($this->request->isPost()) {
+            $catid    = $this->request->param('catid/d', 0);
+            $import   = $this->request->param('import/d', 0);
+            $id       = $this->request->param('id/d', 0);
+            $data     = $this->request->post();
+            $category = getCategory($catid);
+            if (empty($category)) {
+                $this->error('该栏目不存在！');
+            }
+            $cms_table = $this->Cms_Model->getModelTableName($category['modelid']);
+            if (empty($cms_table)) {
+                $this->error('未找到栏目对应的模型信息！');
+            }
+            $info = Db::name($cms_table.'_sub_data')->where(['pid' => $id])->find();
+            if ($category['type'] == 2) {
+                try {
+                    if (!$data['sites']){
+                        $this->error('至少选择一个推送站点');
+                    }
+                    $Translator = new Translator();
+                    foreach ($data['sites'] as $key => $value){
+                        $site_arr = explode(':',$value);
+                        $save = $info;
+                        unset($save['id']);
+                        $save['views'] = 0;
+                        $save['site_id'] = $site_arr[0];
+                        $new_value = $Translator->text_translator($info['chapter'],$site_arr[1]);
+                        if (!$new_value){
+                            $this->error('翻译失败，请检查翻译插件配置');
+                        }
+                        $save['chapter'] = $new_value;
+                        $save['details']  = $Translator->text_translator($info['details'],$site_arr[1]);
+                        if (Db::name($cms_table.'_sub_data')->where(['pid'=>$id,'site_id'=>$site_arr[0]])->count()>0){
+                            if ($data['status']){
+                                Db::name($cms_table.'_sub_data')->where(['pid'=>$id,'site_id'=>$site_arr[0]])->update($save);
+                            }
+                        }else{
+                            Db::name($cms_table.'_sub_data')->insert($save);
+                        }
+                    }
+                } catch (\Exception $ex) {
+                    $this->error($ex->getMessage());
+                }
+            }
+            //增加清除缓存
+            $this->success('推送成功！');
+
+        } else {
+            $catid    = $this->request->param('catid/d', 0);
+            $import   = $this->request->param('import/d', 0);
+            $pid       = $this->request->param('id/d', 0);
+            $category = getCategory($catid);
+            if (empty($category)) {
+                $this->error('该栏目不存在！');
+            }
+            if ($category['type'] == 2) {
+                $extraData = $this->ChapterModel->getExtraData(['catid' => $catid, 'pid' => $pid]);
+                //20210926 增加已推送站点识别
+                $check_site = [];
+                if($import){
+                    foreach ($this->site as $k => $s) {
+                        if ($extraData) {
+                            foreach ($extraData as $e) {
+                                if ($e['site_id'] == $s['id']) {
+                                    $check_site[] = $e['site_id'];
+                                }
+                            }
+                        }
+                    }
+                }else{
+                    foreach ($this->site as $k => $s) {
+                        if ($extraData) {
+                            foreach ($extraData as $e) {
+                                if ($e['site_id'] == $s['id']) {
+                                    $check_site[] = $e['site_id'];
+                                }
+                            }
+                        }
+                    }
+                }
+                $this->view->assign(['check_site'=>$check_site]);
+            }
+            return $this->fetch();
+        }
+    }
+
+    //删除
+    public function del()
+    {
+        $this->check_priv('delete');
+        $catid = $this->request->param('catid/d', 0);
+        $ids   = $this->request->param('ids/a', null);
+        if (empty($ids) || !$catid) {
+            $this->error('参数错误！');
+        }
+        if (!is_array($ids)) {
+            $ids = array(0 => $ids);
+        }
+        $modelid   = getCategory($catid, 'modelid');
+        try {
+            foreach ($ids as $id) {
+                $this->ChapterModel->deleteModelData($modelid, $id, $this->cmsConfig['web_site_recycle']);
+            }
+        } catch (\Exception $ex) {
+            $this->error($ex->getMessage());
+        }
+
+        $this->success('删除成功！');
     }
 
     //移动文章
@@ -255,397 +457,6 @@ class Cms extends Adminbase
             } else {
                 $this->error('请选择需要移动的信息！');
             }
-        }
-    }
-
-    //添加信息
-
-    public function add()
-    {
-        if ($this->request->isPost()) {
-            $data = $this->request->post();
-            $catid = intval($data['modelField']['catid']);
-            if (empty($catid)) {
-                $this->error("请指定栏目ID！");
-            }
-            $category = getCategory($catid);
-            if (empty($category)) {
-                $this->error('该栏目不存在！');
-            }
-            if ($category['type'] == 2) {
-                $data['modelFieldExt'] = isset($data['modelFieldExt']) ? $data['modelFieldExt'] : [];
-
-                Db::startTrans();
-                try {
-                    $insertId = $this->Cms_Model->addModelDataAll($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
-                    Db::commit();
-                } catch (\Exception $ex) {
-                    Db::rollback();
-                    $this->error($ex->getMessage());
-                }
-
-            } else if ($category['type'] == 1) {
-                $Page_Model = new Page_Model;
-                Db::startTrans();
-                try {
-                    if (!$Page_Model->saveData($data)) {
-                        $error = $Page_Model->getError();
-                        $this->error($error ? $error : '操作失败！');
-                    }
-                    Db::commit();
-                } catch (Exception $e) {
-                    Db::rollback();
-                    $this->error($e->getMessage());
-                }
-            }
-            //增加清除缓存
-            $cache =  cleanUp();
-            $this->success('操作成功！');
-        } else {
-            $catid = $this->request->param('catid/d', 0);
-            $import = $this->request->param('import/d', 0);
-            $category = getCategory($catid);
-            if (empty($category)) {
-                $this->error('该栏目不存在！');
-            }
-            if(isset(cache("Cms_Config")['offside']) && 1 == cache("Cms_Config")['offside']) {
-                $view = 'add_tab';
-            }
-            if ($category['type'] == 2) {
-                $modelid = $category['modelid'];
-                $fieldList = $this->Cms_Model->getFieldListAll($modelid);
-                $extraFieldList = $this->Cms_Model->getExtraField($modelid, 0);
-                $this->assign([
-                    'catid'     => $catid,
-                    'fieldList' => $fieldList,
-                    'extraFieldList' => $extraFieldList,
-                ]);
-                return $this->fetch($view);
-            } else if ($category['type'] == 1) {
-                $Page_Model = new Page_Model;
-                $info = $Page_Model->selectAll($catid);
-                // 马博增加
-                $ret = [];
-                if($import==1){
-                    foreach ($this->site as $k => $s) {
-
-                        if ($info) {
-                            foreach ($info as $e) {
-                                if ($e['site_id'] == $s['id']) {
-                                    $ret[$k] = $e;
-                                } else {
-                                    //只输出站点1的数据
-                                    foreach ($info as $f) {
-                                        if ($e['site_id']== 1) {
-                                            $ret[$k]            = $f;
-                                            $ret[$k]['site_id'] = $s['id'];
-                                            $ret[$k]['id']      = '';
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            $ret[$k]['site_id'] = $s['id'];
-                        }
-                    }
-                }else{
-                    foreach ($this->site as $k => $s) {
-                        if ($info) {
-                            foreach ($info as $e) {
-                                if ($e['site_id'] == $s['id']) {
-                                    $ret[$k] = $e;
-                                } else {
-                                    $ret[$k]['site_id'] = $s['id'];
-
-                                }
-                            }
-                        } else {
-                            $ret[$k]['site_id'] = $s['id'];
-                        }
-                    }
-                }
-                $this->assign([
-                    'info'  => $ret,
-                    'catid' => $catid,
-                ]);
-                // 马博增加 end
-                return $this->fetch('singlepage');
-            }
-        }
-    }
-
-
-    //编辑信息
-    public function edit()
-    {
-        if ($this->request->isPost()) {
-            $data                  = $this->request->post();
-            $data['modelFieldExt'] = isset($data['modelFieldExt']) ? $data['modelFieldExt'] : [];
-            $data['modelField']['id'] = intval($_GET['id']);
-            $catid = intval($data['modelField']['catid']);
-            $category = getCategory($catid);
-            if (empty($category)) {
-                $this->error('该栏目不存在！');
-            }
-            if ($category['type'] == 2) {
-                try {
-                    $this->Cms_Model->editModelDataAll($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
-                } catch (\Exception $ex) {
-                    $this->error($ex->getMessage());
-                }
-            } else if ($category['type'] == 1) {
-                $Page_Model = new Page_Model;
-                Db::startTrans();
-                try {
-                    if (!$Page_Model->saveData($data)) {
-                        $error = $Page_Model->getError();
-                        $this->error($error ? $error : '操作失败！');
-                    }
-                    Db::commit();
-                } catch (Exception $e) {
-                    Db::rollback();
-                    $this->error($e->getMessage());
-                }
-            }
-            //增加清除缓存
-            $cache =  cleanUp();
-            $this->success('编辑成功！');
-
-        } else {
-            $catid    = $this->request->param('catid/d', 0);
-            $import   = $this->request->param('import/d', 0);
-            $id       = $this->request->param('id/d', 0);
-            $category = getCategory($catid);
-            if (empty($category)) {
-                $this->error('该栏目不存在！');
-            }
-            if(isset(cache("Cms_Config")['offside']) && 1 == cache("Cms_Config")['offside']) {
-                $view = 'edit_tab';
-            }
-            if ($category['type'] == 2) {
-                $modelid   = $category['modelid'];
-                $fieldList = $this->Cms_Model->getFieldListAll($modelid, $id);
-                $extraFieldList = $this->Cms_Model->getExtraField($modelid, 0);
-                $this->assign([
-                    'catid'     => $catid,
-                    'id'        => $id,
-                    'fieldList' => $fieldList,
-                    'extraFieldList' => $extraFieldList,
-                ]);
-                $extraData = $this->Cms_Model->getExtraData(['catid' => $catid, 'did' => $id]);
-                $ret = [];
-                if($import){
-                    foreach ($this->site as $k => $s) {
-
-                        if ($extraData) {
-                            foreach ($extraData as $e) {
-                                if ($e['site_id'] == $s['id']) {
-                                    $ret[$k] = $e;
-                                    $ret[$k]['id'] = $e['id'];
-                                } else {
-                                    //只输出站点1的数据
-                                    foreach ($extraData as $f) {
-                                        if ($e['site_id']== 1) {
-                                            $ret[$k] = $f;
-                                            $ret[$k]['site_id'] = $s['id'];
-                                            $ret[$k]['id'] = '';
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            $ret[$k]['site_id'] = $s['id'];
-                        }
-                    }
-                }else{
-                    foreach ($this->site as $k => $s) {
-                        if ($extraData) {
-                            foreach ($extraData as $e) {
-                                if ($e['site_id'] == $s['id']) {
-                                    $ret[$k] = $e;
-                                } else {
-                                    $ret[$k]['site_id'] = $s['id'];
-                                }
-                            }
-                        } else {
-                            $ret[$k]['site_id'] = $s['id'];
-                        }
-                    }
-                }
-                $this->view->assign('extra_data', $ret);
-                return $this->fetch($view);
-            } else {
-                return $this->fetch('singlepage');
-            }
-        }
-    }
-
-    //推送并翻译
-    public function push()
-    {
-        if ($this->request->isPost()) {
-            $catid    = $this->request->param('catid/d', 0);
-            $import   = $this->request->param('import/d', 0);
-            $id       = $this->request->param('id/d', 0);
-            $data     = $this->request->post();
-            $category = getCategory($catid);
-            if (empty($category)) {
-                $this->error('该栏目不存在！');
-            }
-            $cms_table = $this->Cms_Model->getModelTableName($category['modelid']);
-            if (empty($cms_table)) {
-                $this->error('未找到栏目对应的模型信息！');
-            }
-            $info = Db::name($cms_table.'_data')->where(['did' => $id])->find();
-            if ($category['type'] == 2) {
-                if (!$data['sites']){
-                    $this->error('至少选择一个推送站点');
-                }
-                $Translator = new Translator();
-                foreach ($data['sites'] as $key => $value){
-                    $site_arr = explode(':',$value);
-                    $save = array();
-                    $save['did'] = $id;
-                    $new_value = $Translator->text_translator($info['title'],$site_arr[1]);
-                    if (!$new_value){
-                        $this->error('翻译失败，请检查翻译插件配置');
-                    }
-                    $save['title'] = $new_value;
-                    $save['site_id'] = $site_arr[0];
-                    $save['tags']  = $Translator->text_translator($info['tags'],$site_arr[1]);
-                    $save['keywords']  = $Translator->text_translator($info['keywords'],$site_arr[1]);
-                    $save['description']  = $Translator->text_translator($info['description'],$site_arr[1]);
-                    $save['content']  = $Translator->text_translator($info['content'],$site_arr[1]);
-                    if (Db::name($cms_table.'_data')->where(['did'=>$id,'site_id'=>$site_arr[0]])->count()>0){
-                        if ($data['status']){
-                            Db::name($cms_table.'_data')->where(['did'=>$id,'site_id'=>$site_arr[0]])->update($save);
-                        }
-                    }else{
-                        Db::name($cms_table.'_data')->insert($save);
-                    }
-                }
-            }
-            //增加清除缓存
-            $cache =  cleanUp();
-            $this->success('推送成功！');
-
-        } else {
-            $catid    = $this->request->param('catid/d', 0);
-            $import   = $this->request->param('import/d', 0);
-            $id       = $this->request->param('id/d', 0);
-            $category = getCategory($catid);
-            if (empty($category)) {
-                $this->error('该栏目不存在！');
-            }
-            if ($category['type'] == 2) {
-                $extraData = $this->Cms_Model->getExtraData(['catid' => $catid, 'did' => $id]);
-                //20210926 增加已推送站点识别
-                $check_site = [];
-                if($import){
-                    foreach ($this->site as $k => $s) {
-
-                        if ($extraData) {
-                            foreach ($extraData as $e) {
-                                if ($e['site_id'] == $s['id']) {
-                                    $check_site[] = $e['site_id'];
-                                }
-                            }
-                        }
-                    }
-                }else{
-                    foreach ($this->site as $k => $s) {
-                        if ($extraData) {
-                            foreach ($extraData as $e) {
-                                if ($e['site_id'] == $s['id']) {
-                                    $check_site[] = $e['site_id'];
-                                }
-                            }
-                        }
-                    }
-                }
-
-                $this->view->assign(['check_site'=>$check_site]);
-                return $this->fetch();
-            } else {
-                return $this->fetch();
-            }
-        }
-    }
-
-
-
-
-    //删除
-    public function del()
-    {
-        $this->check_priv('delete');
-        $catid = $this->request->param('catid/d', 0);
-        $ids   = $this->request->param('ids/a', null);
-        if (empty($ids) || !$catid) {
-            $this->error('参数错误！');
-        }
-        if (!is_array($ids)) {
-            $ids = array(0 => $ids);
-        }
-        $modelid   = getCategory($catid, 'modelid');
-        try {
-            foreach ($ids as $id) {
-                $this->Cms_Model->deleteModelData($modelid, $id, $this->cmsConfig['web_site_recycle']);
-            }
-        } catch (\Exception $ex) {
-            $this->error($ex->getMessage());
-        }
-
-        $this->success('删除成功！');
-    }
-
-    //清空回收站
-    public function destroy()
-    {
-        $catid = $this->request->param('catid/d', 0);
-        $ids   = $this->request->param('ids/a', null);
-        if (empty($ids) || !$catid) {
-            $this->error('参数错误！');
-        }
-        if (!is_array($ids)) {
-            $ids = array(0 => $ids);
-        }
-        try {
-            foreach ($ids as $id) {
-                $this->Cms_Model->deleteModelData($modelid, $id);
-            }
-        } catch (\Exception $ex) {
-            $this->error($ex->getMessage());
-        }
-
-        $this->success('销毁成功！');
-    }
-
-    //面板
-    public function panl()
-    {
-        if ($this->request->isPost()) {
-            $date                         = $this->request->post('date');
-            list($xAxisData, $seriesData) = $this->getAdminPostData($date);
-            $this->success('', '', ['xAxisData' => $xAxisData, 'seriesData' => $seriesData]);
-        } else {
-            $info['category'] = Db::name('Category')->count();
-            $info['model']    = Db::name('Model')->where(['module' => 'cms'])->count();
-            $info['tags']     = Db::name('Tags')->count();
-            $info['doc']      = 0;
-            $modellist        = cache('Model');
-            foreach ($modellist as $model) {
-                if ($model['module'] !== 'cms') {
-                    continue;
-                }
-                $tmp = Db::name($model['tablename'])->count();
-                $info['doc'] += $tmp;
-            }
-            list($xAxisData, $seriesData) = $this->getAdminPostData();
-            $this->assign('xAxisData', $xAxisData);
-            $this->assign('seriesData', $seriesData);
-            $this->assign('info', $info);
-            return $this->fetch();
         }
     }
 
@@ -745,58 +556,6 @@ class Cms extends Adminbase
         }
     }
 
-    //回收站
-    public function recycle()
-    {
-        $catid = $this->request->param('catid/d', 0);
-        //当前栏目信息
-        $catInfo = getCategory($catid);
-        if (empty($catInfo)) {
-            $this->error('该栏目不存在！');
-        }
-        //栏目所属模型
-        $modelid = $catInfo['modelid'];
-        if ($this->request->isAjax()) {
-            $modelCache                 = cache("Model");
-            $tableName                  = $modelCache[$modelid]['tablename'];
-            $this->modelClass           = Db::name($tableName);
-            list($page, $limit, $where) = $this->buildTableParames();
-            $conditions                 = [
-                ['catid', '=', $catid],
-                ['status', '=', -1],
-            ];
-            $total = Db::name($tableName)->where($where)->where($conditions)->count();
-            $_list = Db::name($tableName)->where($where)->page($page, $limit)->where($conditions)->order('listorder DESC, id DESC')->select();
-
-            $result = array("code" => 0, "count" => $total, "data" => $_list);
-            return json($result);
-        }
-        $this->assign('catid', $catid);
-        return $this->fetch();
-    }
-
-    //还原回收站
-    public function restore()
-    {
-        $catid = $this->request->param('catid/d', 0);
-        //当前栏目信息
-        $catInfo = getCategory($catid);
-        if (empty($catInfo)) {
-            $this->error('该栏目不存在！');
-        }
-        //栏目所属模型
-        $modelid   = $catInfo['modelid'];
-        $ids       = $this->request->param('ids');
-        $modelInfo = cache('Model');
-        $modelInfo = $modelInfo[$modelid];
-        if ($ids) {
-            if (!is_array($ids)) {
-                $ids = array(0 => $ids);
-            }
-            Db::name($modelInfo['tablename'])->where('id', 'in', $ids)->setField('status', 1);
-        }
-        $this->success('还原成功！');
-    }
 
     //状态
     public function setstate()

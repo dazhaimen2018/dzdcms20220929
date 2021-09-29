@@ -14,6 +14,7 @@
 // +----------------------------------------------------------------------
 namespace app\cms\controller;
 
+use addons\translator\Translator;
 use app\cms\model\Category as CategoryModel;
 use app\common\controller\Adminbase;
 use app\cms\model\CategoryData;
@@ -461,7 +462,104 @@ class Category extends Adminbase
 
     }
 
+//推送并翻译
+    public function push()
+    {
+        if ($this->request->isPost()) {
+            $catid = $this->request->param('id/d', 0);
+            if (empty($catid)) {
+                $this->error('请选择需要推送的栏目！');
+            }
+            $info = Db::name('category')->where(['id' => $catid])->find();
+            $info2 = Db::name('category_data')->where(['catid' => $catid])->find();
+            $setting = json_decode($info2['setting'],true);
+            $data = $this->request->post();
+            $result = $this->validate($data, 'Category.push');
+            if (true !== $result) {
+                $this->error($result);
+            }
+            if (!$data['sites']){
+                $this->error('至少选择一个推送站点');
+            }
+            $Translator = new Translator();
+            $CategoryDataModel = new CategoryData();
+            foreach ($data['sites'] as $key => $value){
+                $site_arr = explode(':',$value);
+                $save = array();
+                $save['catid'] = $catid;
+                $new_catname = $Translator->text_translator($info['catname'],$site_arr[1]);
+                if (!$new_catname){
+                    $this->error('翻译失败，请检查翻译插件配置');
+                }
+                $save['catname'] = $new_catname;
+                if (isset($save['description'])){
+                    $save['description'] = $Translator->text_translator($info2['description'],$site_arr[1]);
+                }else{
+                    $save['description'] = '';
+                }
+                $new_setting = [];
+                if (isset($setting['title'])){
+                    $new_setting['title'] = $Translator->text_translator($setting['title'],$site_arr[1]);
+                }else{
+                    $new_setting['title'] = '';
+                }
+                if (isset($setting['keyword'])){
+                    $new_setting['keyword'] = $Translator->text_translator($setting['keyword'],$site_arr[1]);
+                }else{
+                    $new_setting['keyword'] = '';
+                }
+                if (isset($setting['description'])){
+                    $new_setting['description'] = $Translator->text_translator($setting['description'],$site_arr[1]);
+                }else{
+                    $new_setting['description'] = '';
+                }
+                $save['setting'] = json_encode($new_setting);
+                $save['site_id'] = $site_arr[0];
+                $save['detail']  = 0;
+                $save['status']  = 0;
+                if ($CategoryDataModel->where(['catid'=>$catid,'site_id'=>$site_arr[0]])->count()>0){
+                    if ($data['status']){
+                        $CategoryDataModel->where(['catid'=>$catid,'site_id'=>$site_arr[0]])->update($save);
+                    }
+                }else{
+                    $CategoryDataModel->insert($save);
+                }
+            }
+            $this->success("推送成功！", url("Category/index"));
+        } else {
+            $catid = $this->request->param('id/d', 0);
+            $modelid = getCategory($catid, 'modelid');
+            $modelType = Db::name('Model')->where('id', $modelid)->value('type');
+            if (empty($catid)) {
+                $this->error('请选择需要推送的栏目！');
+            }
+            $data    = Db::name('category')->where(['id' => $catid])->find();
+            //马博添加
+            $data['sites'] = explode(',', $data['sites']);
+            //马博添加 end
+            $sites = Site::where('id','in',$data['sites'])->where('status',1)->select()->toArray();
 
+            $categoryData = CategoryData::where(['catid' => $catid])->select()->toArray();
+
+            //20210926 增加已推送站点识别
+            $check_site = [];
+            foreach ($sites as $k => $s) {
+                if ($categoryData) {
+                    foreach ($categoryData as $e) {
+                        if ($e['site_id'] == $s['id']) {
+                            $check_site[] = $e['site_id'];
+                        }
+                    }
+                }
+            }
+            $this->assign([
+                'sites' => $sites,
+                'check_site'=>$check_site,
+            ]);
+            return $this->fetch();
+        }
+
+    }
 
     //删除栏目
     public function del()

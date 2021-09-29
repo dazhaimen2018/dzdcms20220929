@@ -14,12 +14,14 @@
 // +----------------------------------------------------------------------
 namespace app\cms\controller;
 
+use addons\translator\Translator;
 use app\cms\model\Lang as Lang_Model;
 use app\common\controller\Adminbase;
 use think\Db;
 use app\cms\model\Site;
 use app\cms\model\LangData;
 use app\cms\model\Lang as LangMode;
+use think\facade\Env;
 
 class Lang extends Adminbase
 {
@@ -186,6 +188,83 @@ class Lang extends Adminbase
 		}
 	}
 
+    //编辑配置
+    public function push()
+    {
+        if ($this->request->isPost()) {
+            $id = $this->request->param('id/d');
+            $info = Lang_Model::get($id);
+            if (!$info){$this->error('未找到指定的碎片信息');}
+            $data = $this->request->post();
+            $result = $this->validate($data, 'lang.push');
+            if (true !== $result) {
+                $this->error($result);
+            }
+            if (!$data['sites']){
+                $this->error('至少选择一个推送站点');
+            }
+            $Translator = new Translator();
+            foreach ($data['sites'] as $key => $value){
+                $site_arr = explode(':',$value);
+                $save = array();
+                $save['lang_id'] = $id;
+                $new_value = $Translator->text_translator($info['title'],$site_arr[1]);
+                if (!$new_value){
+                    $this->error('翻译失败，请检查翻译插件配置');
+                }
+                $save['value'] = $new_value;
+                $save['site_id'] = $site_arr[0];
+                $save['status']  = 0;
+                if (LangData::where(['lang_id'=>$id,'site_id'=>$site_arr[0]])->count()>0){
+                    if ($data['status']){
+                        LangData::where(['lang_id'=>$id,'site_id'=>$site_arr[0]])->update($save);
+                    }
+                }else{
+                    LangData::create($save);
+                }
+            }
+            cache('lang', null); //清空缓存配置
+            $this->success('碎片推送成功~', url('index'));
+        } else {
+            $id = $this->request->param('id/d');
+            if (!is_numeric($id) || $id < 0) {
+                return '参数错误';
+            }
+            $fieldType = Db::name('field_type')->where('name', 'in', $this->banfie)->order('listorder')->column('name,title,ifoption,ifstring');
+            $info = Lang_Model::get($id);
+            $lang_data = LangData::where(['lang_id'=>$id])->select()->toArray();
+            $ret = [];
+            //20210926 增加已推送站点识别
+            $check_site = [];
+            foreach ($this->site as $k => $s) {
+                if ($lang_data) {
+                    foreach ($lang_data as $e) {
+                        if ($e['site_id'] == $s['id']) {
+                            $check_site[] = $e['site_id'];
+                            $ret[$k] = $e;
+                        } else {
+                            $ret[$k]['site_id'] = $s['id'];
+                            $ret[$k]['lang_id'] = $id;
+                        }
+                    }
+                } else {
+                    $ret[$k]['site_id'] = $s['id'];
+                    $ret[$k]['lang_id'] = $id;
+                }
+            }
+            // 马博增加 end
+            $this->assign([
+                'groupArray' => lang('lang_group'),
+                'fieldType' => $fieldType,
+                'info' => $info,
+                'lang_data'=>$ret,
+                'lang_id'=>$id,
+                'check_site'=>$check_site,
+            ]);
+            return $this->fetch();
+        }
+    }
+
 	//删除配置
 	public function del()
 	{
@@ -231,6 +310,30 @@ class Lang extends Adminbase
 
     //更新碎片缓存
 	public function lang_cache() {
+	    $filepath = Env::get('module_path').'lang'.DIRECTORY_SEPARATOR;
+        if (!is_dir($filepath)){
+            mkdir($filepath,0777,true);
+        }
+	    foreach ($this->site as $key => $value){
+            $filename = $value['mark'].'.php';
+	        $config = Db::name('lang_data')->alias('ld')
+                ->join('lang l','l.id=ld.lang_id')
+                ->where('ld.site_id',$value['id'])
+                ->column('ld.value','l.name');
+            $data = <<<EOT
+<?php
+return [ \r\n
+EOT;
+            foreach ($config as $ca => $cv){
+                $data .= <<<EOT
+    '{$ca}' => '{$cv}',\r\n
+EOT;
+            }
+            $data .= <<<EOT
+];
+EOT;
+            file_put_contents($filepath.$filename, $data,LOCK_EX);
+        }
         $this->success("碎片缓存更新成功！");
     }
 

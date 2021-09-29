@@ -10,6 +10,7 @@
     </div>
 </div>
 <script type="text/html" id="barTool">
+    <a data-open='{:url("push")}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs layui-btn-warm" title="推送并翻译">推送</a>
     <a data-open="{{d.add_url}}" data-width="900" data-height="600" class="layui-btn layui-btn-xs layui-btn-normal" title="添加子栏目">添加</a>
     <a data-open='{:url("edit")}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs" title="编辑">编辑</a>
     <a href='{:url("del")}?ids={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
@@ -78,13 +79,13 @@
                     { field: 'sites', width: 100, title: '所属站点', align: "center" },
                     { field: 'catname',align: "left", title: '栏目名称' },
                     { field: 'onCatname', width: 120, title: '本站名称' },
-                    { field: 'items', width: 80, title: '数据量',search:false, align: "center" },
+                    { field: 'items', width: 80, title: '数据量',search:false, align: "center" ,hide: true},
                     { field: 'catdir', width: 120, title: '唯一标识' },
-                    { field: 'type', width: 90, title: '栏目类型', templet: '<div>{{#  if(d.type==1){ }} 单页 {{#  } else if(d.type==2){  }} 列表 {{#  }  else { }} 未知 {{#  } }}</div>', align: "center" },
+                    { field: 'type', width: 90, title: '栏目类型', templet: '<div>{{#  if(d.type==1){ }} 单页 {{#  } else if(d.type==2){  }} 列表 {{#  }  else { }} 未知 {{#  } }}</div>', align: "center",hide: true },
                     { field: 'modelname', width: 100, title: '所属模型', align: "center" },
                     { field: 'url', width: 60, align: "center", title: 'URL', templet: table.url,search:false },
                     { field: 'status', width: 100, align: "center", title: '状态', templet: '#statusTpl', unresize: true,search:false },
-                    { fixed: 'right', width: 150, title: '操作', toolbar: '#barTool', align: "center" }
+                    { fixed: 'right', width: 220, title: '操作', toolbar: '#barTool', align: "center" }
                 ]
             ],
         });
