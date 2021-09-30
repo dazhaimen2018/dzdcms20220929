@@ -8,7 +8,9 @@
     </div>
 </div>
 <script type="text/html" id="barTool">
+    {{# if(d.level){ }}
     <a data-open='{:url("push")}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs layui-btn-warm" title="推送并翻译">推送</a>
+    {{# } }}
     {{# if(d.type=='radio' || d.type=='select'){ }}
     <a href='javascript:;' class="layui-btn layui-btn-xs copy" data-clipboard-text="{literal}键：{:config('{{d.name}}')['key']} 值：{:config('{{d.name}}')['value']}{/literal}">调用</a>
     {{# } else if(d.type=='checkbox' || d.type=='array' || d.type=='images' || d.type=='files'){ }}

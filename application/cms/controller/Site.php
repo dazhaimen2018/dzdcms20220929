@@ -30,10 +30,12 @@ class Site extends Adminbase
 	{
 		parent::initialize();
 		$this->modelClass = new SiteModel;
-
         $languages = Language::where(['status' => 1])->select()->toArray();
+        $agents    = agents();
+        $level     = $agents['level'];
         $this->assign([
-            'languages'  => $languages,
+            'languages' => $languages,
+            'level'     => $level,
             ]);
 	}
 	/**

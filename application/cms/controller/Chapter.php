@@ -316,47 +316,69 @@ class Chapter extends Adminbase
             $import   = $this->request->param('import/d', 0);
             $id       = $this->request->param('id/d', 0);
             $data     = $this->request->post();
+            foreach ($data as $dk => $dv){
+                if (strstr( $dk , 'site' ) !== false ){
+                    $data['sites'][] = $dv;
+                }
+            }
             $category = getCategory($catid);
             if (empty($category)) {
-                $this->error('该栏目不存在！');
+                return json(['status'=>0,'info'=>'该栏目不存在！']);
             }
             $cms_table = $this->Cms_Model->getModelTableName($category['modelid']);
             if (empty($cms_table)) {
-                $this->error('未找到栏目对应的模型信息！');
+                return json(['status'=>0,'info'=>'未找到栏目对应的模型信息！']);
             }
             $info = Db::name($cms_table.'_sub_data')->where(['pid' => $id])->find();
             if ($category['type'] == 2) {
                 try {
                     if (!$data['sites']){
-                        $this->error('至少选择一个推送站点');
+                        return json(['status'=>0,'info'=>'至少选择一个推送站点']);
                     }
                     $Translator = new Translator();
                     foreach ($data['sites'] as $key => $value){
                         $site_arr = explode(':',$value);
+                        $site_name = Db::name('site')->where('id',$site_arr[0])->value('name');
                         $save = $info;
                         unset($save['id']);
                         $save['views'] = 0;
                         $save['site_id'] = $site_arr[0];
                         $new_value = $Translator->text_translator($info['chapter'],$site_arr[1]);
                         if (!$new_value){
-                            $this->error('翻译失败，请检查翻译插件配置');
+                            echo json_encode(['status'=>-1,'jindu'=>round(($key+1)/count($data['sites'])*100),'info'=>'推送并翻译【'.$site_name.'站】：<span style="color:darkred;">失败,请检查翻译插件配置</span>']);
+                            echo str_pad("", 1024*80);
+                            ob_flush();
+                            flush();
+                            sleep(1);
+                            continue;
                         }
                         $save['chapter'] = $new_value;
                         $save['details']  = $Translator->text_translator($info['details'],$site_arr[1]);
                         if (Db::name($cms_table.'_sub_data')->where(['pid'=>$id,'site_id'=>$site_arr[0]])->count()>0){
                             if ($data['status']){
-                                Db::name($cms_table.'_sub_data')->where(['pid'=>$id,'site_id'=>$site_arr[0]])->update($save);
+                                $result = Db::name($cms_table.'_sub_data')->where(['pid'=>$id,'site_id'=>$site_arr[0]])->update($save);
+                            }else{
+                                $result = true;
                             }
                         }else{
-                            Db::name($cms_table.'_sub_data')->insert($save);
+                            $result = Db::name($cms_table.'_sub_data')->insert($save);
                         }
+                        if ($result !== false){
+                            echo json_encode(['status'=>-1,'jindu'=>round(($key+1)/count($data['sites'])*100),'info'=>'推送并翻译【'.$site_name.'站】：<span style="color:green;">成功</span>']);
+                        }else{
+                            echo json_encode(['status'=>-1,'jindu'=>round(($key+1)/count($data['sites'])*100),'info'=>'推送并翻译【'.$site_name.'站】：<span style="color:darkred;">失败</span>']);
+                        }
+                        echo str_pad("", 1024*80);
+                        ob_flush();
+                        flush();
+                        sleep(1);
                     }
                 } catch (\Exception $ex) {
                     $this->error($ex->getMessage());
                 }
             }
             //增加清除缓存
-            $this->success('推送成功！');
+            return json(['status'=>1,'info'=>'推送成功！']);
 
         } else {
             $catid    = $this->request->param('catid/d', 0);
@@ -391,7 +413,7 @@ class Chapter extends Adminbase
                         }
                     }
                 }
-                $this->view->assign(['check_site'=>$check_site]);
+                $this->view->assign(['id'=>$pid,'catid'=>$catid,'check_site'=>$check_site]);
             }
             return $this->fetch();
         }

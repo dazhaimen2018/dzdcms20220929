@@ -57,12 +57,14 @@ class Lang extends Adminbase
 	{
         if ($this->request->isAjax()) {
             list($page, $limit, $where) = $this->buildTableParames();
-            $list = $this->modelClass->where($where)->order(["listorder" => "ASC", "id" => "DESC"])->page($page, $limit)->select();
-            $_list = [];
+            $list   = $this->modelClass->where($where)->order(["listorder" => "ASC", "id" => "DESC"])->page($page, $limit)->select();
+            $_list  = [];
+            $agents = agents();
             foreach ($list as $k => $v) {
-                $sites     = Db::name('lang_data')->where('lang_id', $v['id'])->field('site_id as id')->select();
-                $v['site'] = array_column($sites,'id');
-                $_list[]   = $v;
+                $sites      = Db::name('lang_data')->where('lang_id', $v['id'])->field('site_id as id')->select();
+                $v['site']  = array_column($sites,'id');
+                $v['level'] = $agents['level'];
+                $_list[]    = $v;
             }
             $total = $this->modelClass->where($where)->count();
             $result = array("code" => 0, "count" => $total, "data" => $_list);
@@ -194,37 +196,59 @@ class Lang extends Adminbase
         if ($this->request->isPost()) {
             $id = $this->request->param('id/d');
             $info = Lang_Model::get($id);
-            if (!$info){$this->error('未找到指定的碎片信息');}
+            if (!$info){return json(['status'=>0,'info'=>'未找到指定的碎片信息']);}
             $data = $this->request->post();
+            foreach ($data as $dk => $dv){
+                if (strstr( $dk , 'site' ) !== false ){
+                    $data['sites'][] = $dv;
+                }
+            }
             $result = $this->validate($data, 'lang.push');
             if (true !== $result) {
-                $this->error($result);
+                return json(['status'=>0,'info'=>$result]);
             }
             if (!$data['sites']){
-                $this->error('至少选择一个推送站点');
+                return json(['status'=>0,'info'=>'至少选择一个推送站点']);
             }
             $Translator = new Translator();
             foreach ($data['sites'] as $key => $value){
                 $site_arr = explode(':',$value);
+                $site_name = Db::name('site')->where('id',$site_arr[0])->value('name');
                 $save = array();
                 $save['lang_id'] = $id;
                 $new_value = $Translator->text_translator($info['title'],$site_arr[1]);
                 if (!$new_value){
-                    $this->error('翻译失败，请检查翻译插件配置');
+                    echo json_encode(['status'=>-1,'jindu'=>round(($key+1)/count($data['sites'])*100),'info'=>'推送并翻译【'.$site_name.'站】：<span style="color:darkred;">失败,请检查翻译插件配置</span>']);
+                    echo str_pad("", 1024*80);
+                    ob_flush();
+                    flush();
+                    sleep(1);
+                    continue;
                 }
                 $save['value'] = $new_value;
                 $save['site_id'] = $site_arr[0];
                 $save['status']  = 0;
                 if (LangData::where(['lang_id'=>$id,'site_id'=>$site_arr[0]])->count()>0){
                     if ($data['status']){
-                        LangData::where(['lang_id'=>$id,'site_id'=>$site_arr[0]])->update($save);
+                        $result = LangData::where(['lang_id'=>$id,'site_id'=>$site_arr[0]])->update($save);
+                    }else{
+                        $result = true;
                     }
                 }else{
-                    LangData::create($save);
+                    $result = LangData::create($save);
                 }
+                if ($result !== false){
+                    echo json_encode(['status'=>-1,'jindu'=>round(($key+1)/count($data['sites'])*100),'info'=>'推送并翻译【'.$site_name.'站】：<span style="color:green;">成功</span>']);
+                }else{
+                    echo json_encode(['status'=>-1,'jindu'=>round(($key+1)/count($data['sites'])*100),'info'=>'推送并翻译【'.$site_name.'站】：<span style="color:darkred;">失败</span>']);
+                }
+                echo str_pad("", 1024*80);
+                ob_flush();
+                flush();
+                sleep(1);
             }
             cache('lang', null); //清空缓存配置
-            $this->success('碎片推送成功~', url('index'));
+            return json(['status'=>1,'info'=>'推送成功']);
         } else {
             $id = $this->request->param('id/d');
             if (!is_numeric($id) || $id < 0) {

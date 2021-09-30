@@ -106,6 +106,7 @@ class Category extends Adminbase
             }
             $siteId  = onSite();
             $siteUrl = onSiteUrl();
+            $agents  = agents();
             $result  = Db::name('category')->where($where)->where($whereSite)->order('listorder DESC, id DESC')->select();
             foreach ($result as $k => $v) {
                 if (isset($models[$v['modelid']]['name'])) {
@@ -127,9 +128,8 @@ class Category extends Adminbase
                 if (!$v['url']){
                     $v['url']    = $siteUrl.buildCatUrl($v['id'], $v['url']);
                 }
-
+                $v['level']          = $agents['level'];
                 $categorys[$v['id']] = $v;
-
             }
             $tree->init($categorys);
             $_list  = $tree->getTreeList($tree->getTreeArray(0), 'catname');
@@ -468,28 +468,52 @@ class Category extends Adminbase
         if ($this->request->isPost()) {
             $catid = $this->request->param('id/d', 0);
             if (empty($catid)) {
-                $this->error('请选择需要推送的栏目！');
+                return json(['status'=>0,'info'=>'请选择需要推送的栏目！']);
             }
             $info = Db::name('category')->where(['id' => $catid])->find();
             $info2 = Db::name('category_data')->where(['catid' => $catid])->find();
             $setting = json_decode($info2['setting'],true);
             $data = $this->request->post();
-            $result = $this->validate($data, 'Category.push');
-            if (true !== $result) {
-                $this->error($result);
+            $page_info = [];//单页数据
+            $data['sites'] = [];
+            $data['psites'] = [];
+            foreach ($data as $dk => $dv){
+                if (strstr( $dk , 'sites_cat' ) !== false ){
+                    $data['sites'][] = $dv;
+                }
             }
-            if (!$data['sites']){
-                $this->error('至少选择一个推送站点');
+            if ($info['type'] == 1){
+                $page_info = Db::name('page')->where(['catid' => $catid])->find();
+                foreach ($data as $dk => $dv){
+                    if (strstr( $dk , 'page_sites' ) !== false ){
+                        $data['psites'][] = $dv;
+                    }
+                }
+            }
+//            $result = $this->validate($data, 'Category.push');
+//            if (true !== $result) {
+//                return json(['status'=>0,'info'=>$result]);
+//            }
+            if (!$data['sites'] && !$data['psites']){
+                return json(['status'=>0,'info'=>'至少选择一个推送站点']);
             }
             $Translator = new Translator();
             $CategoryDataModel = new CategoryData();
+            //步数计算
+            $trans_count = count($data['sites'])+count($data['psites']);
             foreach ($data['sites'] as $key => $value){
                 $site_arr = explode(':',$value);
+                $site_name = Db::name('site')->where('id',$site_arr[0])->value('name');
                 $save = array();
                 $save['catid'] = $catid;
                 $new_catname = $Translator->text_translator($info['catname'],$site_arr[1]);
                 if (!$new_catname){
-                    $this->error('翻译失败，请检查翻译插件配置');
+                    echo json_encode(['status'=>-1,'jindu'=>round(($key+1)/$trans_count*100),'info'=>'推送并翻译【'.$site_name.'站】：<span style="color:darkred;">失败,请检查翻译插件配置</span>']);
+                    echo str_pad("", 1024*80);
+                    ob_flush();
+                    flush();
+                    sleep(1);
+                    continue;
                 }
                 $save['catname'] = $new_catname;
                 if (isset($save['description'])){
@@ -519,13 +543,83 @@ class Category extends Adminbase
                 $save['status']  = 0;
                 if ($CategoryDataModel->where(['catid'=>$catid,'site_id'=>$site_arr[0]])->count()>0){
                     if ($data['status']){
-                        $CategoryDataModel->where(['catid'=>$catid,'site_id'=>$site_arr[0]])->update($save);
+                        $result = $CategoryDataModel->where(['catid'=>$catid,'site_id'=>$site_arr[0]])->update($save);
+                    }else{
+                        $result = true;
                     }
                 }else{
-                    $CategoryDataModel->insert($save);
+                    $result = $CategoryDataModel->insert($save);
+                }
+                if ($result !== false){
+                    echo json_encode(['status'=>-1,'jindu'=>round(($key+1)/$trans_count*100),'info'=>'推送并翻译【'.$site_name.'站】：<span style="color:green;">成功</span>']);
+                }else{
+                    echo json_encode(['status'=>-1,'jindu'=>round(($key+1)/$trans_count*100),'info'=>'推送并翻译【'.$site_name.'站】：<span style="color:darkred;">失败</span>']);
+                }
+                echo str_pad("", 1024*80);
+                ob_flush();
+                flush();
+                sleep(1);
+            }
+            //单页内容推送
+            if ($info['type'] == 1){
+                foreach ($data['psites'] as $key => $value){
+                    $site_arr = explode(':',$value);
+                    $site_name = Db::name('site')->where('id',$site_arr[0])->value('name');
+                    $save = array();
+                    $save['catid'] = $catid;
+                    $title = $Translator->text_translator($page_info['title'],$site_arr[1]);
+                    if (!$title){
+                        echo json_encode(['status'=>-1,'jindu'=>round(($key+1+count($data['sites']))/$trans_count*100),'info'=>'单页推送并翻译【'.$site_name.'站】：<span style="color:darkred;">失败,请检查翻译插件配置</span>']);
+                        echo str_pad("", 1024*80);
+                        ob_flush();
+                        flush();
+                        sleep(1);
+                        continue;
+                    }
+                    $save['title'] = $title;
+                    if (isset($page_info['keywords'])){
+                        $save['keywords'] = $Translator->text_translator($page_info['keywords'],$site_arr[1]);
+                    }else{
+                        $save['keywords'] = '';
+                    }
+                    if (isset($page_info['description'])){
+                        $save['description'] = $Translator->text_translator($page_info['description'],$site_arr[1]);
+                    }else{
+                        $save['description'] = '';
+                    }
+                    if (isset($page_info['content'])){
+                        $save_content = $Translator->text_translator($page_info['content'],$site_arr[1]);
+                        $save_content = htmlTagReplace($save_content);
+                        $save['content'] = $save_content;
+                    }else{
+                        $save['content'] = '';
+                    }
+                    $save['site_id'] = $site_arr[0];
+                    $save['thumb']  = $page_info['thumb'];
+                    $save['inputtime']  = $page_info['inputtime'];
+                    $save['updatetime']  = $page_info['updatetime'];
+                    if (Db::name('page')->where(['catid'=>$catid,'site_id'=>$site_arr[0]])->count()>0){
+                        if ($data['status']){
+                            $result = Db::name('page')->where(['catid'=>$catid,'site_id'=>$site_arr[0]])->update($save);
+                        }else{
+                            $result = true;
+                        }
+                    }else{
+                        $result = Db::name('page')->insert($save);
+                    }
+                    if ($result !== false){
+                        echo json_encode(['status'=>-1,'jindu'=>round(($key+1+count($data['sites']))/$trans_count*100),'info'=>'单页推送并翻译【'.$site_name.'站】：<span style="color:green;">成功</span>']);
+                    }else{
+                        echo json_encode(['status'=>-1,'jindu'=>round(($key+1+count($data['sites']))/$trans_count*100),'info'=>'单页推送并翻译【'.$site_name.'站】：<span style="color:darkred;">失败</span>']);
+                    }
+                    echo str_pad("", 1024*80);
+                    ob_flush();
+                    flush();
+                    sleep(1);
                 }
             }
-            $this->success("推送成功！", url("Category/index"));
+
+            return json(['status'=>1,'info'=>'推送成功']);
         } else {
             $catid = $this->request->param('id/d', 0);
             $modelid = getCategory($catid, 'modelid');
@@ -543,6 +637,7 @@ class Category extends Adminbase
 
             //20210926 增加已推送站点识别
             $check_site = [];
+            $check_page_site = [];
             foreach ($sites as $k => $s) {
                 if ($categoryData) {
                     foreach ($categoryData as $e) {
@@ -552,9 +647,16 @@ class Category extends Adminbase
                     }
                 }
             }
+            if ($data['type'] == 1){
+                #单页栏目，显示内容推送
+                $check_page_site = Db::name('page')->where('catid',$catid)->column('site_id');
+            }
             $this->assign([
+                'catid' => $catid,
                 'sites' => $sites,
                 'check_site'=>$check_site,
+                'check_page_site'=>$check_page_site,
+                'type'  => $data['type']?$data['type']:2,
             ]);
             return $this->fetch();
         }

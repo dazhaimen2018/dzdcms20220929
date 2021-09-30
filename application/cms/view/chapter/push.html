@@ -47,7 +47,9 @@
 
             <div class="layui-form-item layer-footer">
                 <div class="layui-input-block">
-                    <button class="layui-btn iconfont icon-send" lay-submit>推送并翻译</button>
+                    <input type="hidden" name="id" value="{$id}">
+                    <input type="hidden" name="catid" value="{$catid}">
+                    <button type="submit" class="layui-btn iconfont icon-send" lay-submit lay-filter="sub">推送并翻译</button>
                     <button type="reset" class="layui-btn layui-btn-primary iconfont icon-trash"> 重置</button>
                 </div>
             </div>
@@ -58,11 +60,64 @@
 {/block}
 {block name="script"}
 <script type="text/javascript">
-    layui.use(['form','yznForm'], function() {
+    layui.use(['form','yznForm','yzn','element'], function() {
         var yznForm = layui.yznForm;
         var form = layui.form;
-        yznForm.listen();
-
+        var element = layui.element;
+        var yzn = layui.yzn;
+        form.on('submit(sub)', function(data){
+            var xhr = new XMLHttpRequest();
+            if(!window.XMLHttpRequest){
+                try {
+                    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch(e) {}
+            }
+            layer.open({
+                type: 1,
+                title: false,
+                closeBtn: 0,
+                shadeClose: true,
+                content: '<div style="width:400px;height:50px;padding:10px;line-height:25px;text-align:center;" id="trans"><div class="layui-progress" lay-filter="trans" lay-showPercent="yes"><div class="layui-progress-bar" lay-percent="0%"></div></div><p class="layui-progress-remark">准备就绪,开始执行</p></div>',
+            });
+            var oldSize=0;
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState> 2 && xhr.readyState< 4){
+                    var tmpText = xhr.responseText.substring(oldSize);
+                    oldSize = xhr.responseText.length;
+                    if(tmpText.length > 0 ){
+                        try {
+                            tmpText = JSON.parse(tmpText);
+                            if (tmpText.status==-1){
+                                element.progress('trans', tmpText.jindu + '%');
+                                $("#trans").find(".layui-progress-remark").html(tmpText.info);
+                            }
+                        } catch(e) {}
+                    }
+                }
+                if(xhr.readyState == 4){
+                    try {
+                        var tmpText = xhr.responseText;
+                        tmpText = JSON.parse(tmpText);
+                        if (tmpText.status==0){
+                            layer.closeAll();
+                            yzn.msg.error(tmpText.info);
+                            return false;
+                        }
+                    } catch(e) {}
+                    // 请求执行完毕
+                    layer.closeAll();
+                    yzn.msg.success('执行完成', function() {
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        parent.location.reload();//刷新父页面，注意一定要在关闭当前iframe层之前执行刷新
+                        parent.layer.close(index); //再执行关闭
+                    });
+                }
+            }
+            xhr.open("POST","{:url('push')}",true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(JSON.stringify(data.field));
+            return false;
+        })
     });
 </script>
 {/block}

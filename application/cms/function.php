@@ -477,3 +477,13 @@ function timeRule($time)
         return '刚刚';
     }
 }
+
+function htmlTagReplace($save_content){
+    $patterns = array();
+    $patterns[0] = '/<\s+p\s+>/';
+    $patterns[1] = '/<\/\s+p\s+>/';
+    $replacements = array();
+    $replacements[0] = '<p>';
+    $replacements[1] = '</p>';
+    return preg_replace($patterns,$replacements,$save_content);
+}

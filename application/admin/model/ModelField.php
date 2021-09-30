@@ -31,6 +31,7 @@ class ModelField extends Model
         foreach ($modelList as $info) {
             $data = Db::name("ModelField")->where(array("modelid" => $info['id'], "status" => 1))->order("listorder ASC")->select();
             $fieldList = array();
+
 //            if (!empty($data) && is_array($data)) {
 //                foreach ($data as $rs) {
 //                    //扩展配置

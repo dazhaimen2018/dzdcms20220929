@@ -35,10 +35,15 @@ class Models extends Adminbase
         $this->tp_show = str_replace($this->filepath . DS, '', glob($this->filepath . DS . 'show*'));
         //取得章节页模板列表
         $this->tp_chapter = str_replace($this->filepath . DS, '', glob($this->filepath . DS . 'chapter*'));
-        $this->assign("tp_category", $this->tp_category);
-        $this->assign("tp_list", $this->tp_list);
-        $this->assign("tp_show", $this->tp_show);
-        $this->assign("tp_chapter", $this->tp_chapter);
+        $agents = agents();
+        $level  = $agents['level'];
+        $this->assign([
+            'tp_category' => $this->tp_category,
+            'tp_list'     => $this->tp_list,
+            'tp_show'     => $this->tp_show,
+            'tp_chapter'  => $this->tp_chapter,
+            'level'       => $level,
+        ]);
     }
 
     //模型列表

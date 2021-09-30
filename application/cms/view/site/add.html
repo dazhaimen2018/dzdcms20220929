@@ -135,7 +135,9 @@
 			<input name="id" type="hidden" value="{$data.id}">
 			<div class="layui-form-item layer-footer">
 				<div class="layui-input-block">
+					{if $level}
 					<button class="layui-btn layui-btn-danger btn-import iconfont icon-dibu site-translator" type="button" title="一键翻译主站数据！">翻译</button>
+					{/if}
 					<button class="layui-btn" lay-submit>立即提交</button>
 					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 				</div>

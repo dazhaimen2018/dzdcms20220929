@@ -168,6 +168,7 @@ class Cms extends Adminbase
             $list    = Db::name($tableName)->page($page, $limit)->where($where)->where($conditions)->order('listorder DESC, id DESC')->select();
             $siteId  = onSite();
             $siteUrl = onSiteUrl();
+            $agents  = agents();
             $_list   = [];
             foreach ($list as $k => $v) {
                 $v['updatetime'] = date('Y-m-d H:i', $v['updatetime']);
@@ -181,6 +182,7 @@ class Cms extends Adminbase
                     $v['title']  = '发布模式为“单站”模式时才显示标题！';
                 }
                 $v['modelType'] = $modelType;
+                $v['level']     = $agents['level'];
                 // end
                 $_list[]         = $v;
             }
@@ -488,27 +490,38 @@ class Cms extends Adminbase
             $import   = $this->request->param('import/d', 0);
             $id       = $this->request->param('id/d', 0);
             $data     = $this->request->post();
+            foreach ($data as $dk => $dv){
+                if (strstr( $dk , 'site' ) !== false ){
+                    $data['sites'][] = $dv;
+                }
+            }
             $category = getCategory($catid);
             if (empty($category)) {
-                $this->error('该栏目不存在！');
+                return json(['status'=>0,'info'=>'该栏目不存在!']);
             }
             $cms_table = $this->Cms_Model->getModelTableName($category['modelid']);
             if (empty($cms_table)) {
-                $this->error('未找到栏目对应的模型信息！');
+                return json(['status'=>0,'info'=>'未找到栏目对应的模型信息！']);
             }
             $info = Db::name($cms_table.'_data')->where(['did' => $id])->find();
             if ($category['type'] == 2) {
                 if (!$data['sites']){
-                    $this->error('至少选择一个推送站点');
+                    return json(['status'=>0,'info'=>'至少选择一个推送站点']);
                 }
                 $Translator = new Translator();
                 foreach ($data['sites'] as $key => $value){
                     $site_arr = explode(':',$value);
+                    $site_name = Db::name('site')->where('id',$site_arr[0])->value('name');
                     $save = array();
                     $save['did'] = $id;
                     $new_value = $Translator->text_translator($info['title'],$site_arr[1]);
                     if (!$new_value){
-                        $this->error('翻译失败，请检查翻译插件配置');
+                        echo json_encode(['status'=>-1,'jindu'=>round(($key+1)/count($data['sites'])*100),'info'=>'推送并翻译【'.$site_name.'站】：<span style="color:darkred;">失败,请检查翻译插件配置</span>']);
+                        echo str_pad("", 1024*80);
+                        ob_flush();
+                        flush();
+                        sleep(1);
+                        continue;
                     }
                     $save['title'] = $new_value;
                     $save['site_id'] = $site_arr[0];
@@ -518,16 +531,27 @@ class Cms extends Adminbase
                     $save['content']  = $Translator->text_translator($info['content'],$site_arr[1]);
                     if (Db::name($cms_table.'_data')->where(['did'=>$id,'site_id'=>$site_arr[0]])->count()>0){
                         if ($data['status']){
-                            Db::name($cms_table.'_data')->where(['did'=>$id,'site_id'=>$site_arr[0]])->update($save);
+                            $result = Db::name($cms_table.'_data')->where(['did'=>$id,'site_id'=>$site_arr[0]])->update($save);
+                        }else{
+                            $result = true;
                         }
                     }else{
-                        Db::name($cms_table.'_data')->insert($save);
+                        $result = Db::name($cms_table.'_data')->insert($save);
                     }
+                    if ($result !== false){
+                        echo json_encode(['status'=>-1,'jindu'=>round(($key+1)/count($data['sites'])*100),'info'=>'推送并翻译【'.$site_name.'站】：<span style="color:green;">成功</span>']);
+                    }else{
+                        echo json_encode(['status'=>-1,'jindu'=>round(($key+1)/count($data['sites'])*100),'info'=>'推送并翻译【'.$site_name.'站】：<span style="color:darkred;">失败</span>']);
+                    }
+                    echo str_pad("", 1024*80);
+                    ob_flush();
+                    flush();
+                    sleep(1);
                 }
             }
             //增加清除缓存
             $cache =  cleanUp();
-            $this->success('推送成功！');
+            return json(['status'=>1,'info'=>'推送成功！']);
 
         } else {
             $catid    = $this->request->param('catid/d', 0);
@@ -564,7 +588,7 @@ class Cms extends Adminbase
                     }
                 }
 
-                $this->view->assign(['check_site'=>$check_site]);
+                $this->view->assign(['catid'=>$catid,'id'=>$id,'check_site'=>$check_site]);
                 return $this->fetch();
             } else {
                 return $this->fetch();
