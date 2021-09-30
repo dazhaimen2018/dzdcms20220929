@@ -15,6 +15,7 @@ return array(
     'publish_mode'       => 2,
     'category_mode'      => 2,
     'site_url_mode'      => 1,
+    'site_cat_url'       => 0,
     'site_category_auth' => 0,
     'data_import'        => 0,
     'offside'            => 0,

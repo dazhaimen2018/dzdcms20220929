@@ -301,8 +301,15 @@ function seo($catid = '', $title = '', $description = '', $keyword = '')
  */
 function buildCatUrl($cat, $url = '', $suffix = true, $domain = false)
 {
+    if(isset(cache("Cms_Config")['site_cat_url']) && 1 == cache("Cms_Config")['site_cat_url']) {
+        $suffix = false;
+        $slash  = '/';
+    }else{
+        $suffix = true;
+        $slash  = '';
+    }
     $field = is_numeric($cat) ? 'catid' : 'catdir';
-    return empty($url) ? url('cms/index/lists', [$field => $cat], $suffix, $domain) : ((strpos($url, '://') !== false) ? $url : url($url));
+    return empty($url) ? url('cms/index/lists', [$field => $cat], $suffix, $domain).$slash : ((strpos($url, '://') !== false) ? $url : url($url));
 }
 
 //创建内容链接

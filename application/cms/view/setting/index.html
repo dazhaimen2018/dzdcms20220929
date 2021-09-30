@@ -41,6 +41,13 @@
                                 <input type="radio" name="setting[site_url_mode]" value="2" title="标识" {if 2==$setting['site_url_mode']}checked{/if}>
                             </div>
                         </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" title="前端栏目网址模式">列表模式</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="setting[site_cat_url]" value="1" title="/id(catdir)/" {if 1==$setting['site_cat_url']}checked{/if}>
+                                <input type="radio" name="setting[site_cat_url]" value="0" title="/id(catdir).html" {if 0==$setting['site_cat_url']}checked{/if}>
+                            </div>
+                        </div>
                         {if !$userInfo.site_id}
                         <div class="layui-form-item">
                             <label class="layui-form-label" title="文章和单页发布和修改模式">发布模式</label>
