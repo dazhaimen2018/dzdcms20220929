@@ -336,7 +336,7 @@ EOF;
             [
                 'name'    => 'listorder',
                 'title'   => '排序',
-                'type'    => 'dzd',
+                'type'    => 'number',
                 'setting' => "a:3:{s:6:\"define\";s:40:\"tinyint(3) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:3:\"100\";}",
             ],
             [
@@ -360,31 +360,31 @@ EOF;
             [
                 'name'    => 'paytype',
                 'title'   => '支付类型',
-                'type'    => 'dzd',
+                'type'    => 'radio',
                 'setting' => "a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:18:\"0:积分\r\n1:金额\";s:5:\"value\";s:1:\"1\";}",
             ],
             [
                 'name'    => 'readpoint',
                 'title'   => '支付数量',
-                'type'    => 'dzd',
+                'type'    => 'number',
                 'setting'   => "a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}",
             ],
             [
                 'name'      => 'hits',
                 'title'     => '点击量',
-                'type'      => 'dzd',
+                'type'      => 'number',
                 'setting'   => "a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}",
             ],
             [
                 'name'      => 'likes',
                 'title'     => '点赞数',
-                'type'      => 'dzd',
+                'type'      => 'number',
                 'setting'   => "a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}",
             ],
             [
                 'name'      => 'dislikes',
                 'title'     => '点踩数',
-                'type'      => 'dzd',
+                'type'      => 'number',
                 'setting'   => "a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}",
             ],
 
