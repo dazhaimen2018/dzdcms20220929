@@ -17,19 +17,24 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">碎片标题</label>
                             <div class="layui-input-block">
-                                <input type="text" name="title" lay-verify="required" lay-reqText="{:getSiteName($k)}碎片标题不能为空" value="{$info.title}" placeholder="字段中文标题" class="layui-input">
+                                <input type="text" name="title" lay-verify="required" lay-reqText="碎片标题不能为空" value="{$info.title}" placeholder="字段中文标题" class="layui-input">
                             </div>
                             <div class="layui-form-mid layui-word-aux">一般由中文组成，仅用于显示</div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">碎片名称</label>
                             <div class="layui-input-block">
-                                <input type="text" name="name" lay-verify="required" lay-reqText="{:getSiteName($k)}碎片名称不能为空" value="{$info.name}"  placeholder="字段英文名称" class="layui-input">
+                                <input type="text" name="name" lay-verify="required" lay-reqText="碎片名称不能为空" value="{$info.name}"  placeholder="字段英文名称" class="layui-input">
                             </div>
                             <div class="layui-form-mid layui-word-aux">由英文字母开头和下划线组成，如 <code>web_site_title</code></div>
                         </div>
-
-
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">默认值</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="value" lay-verify="required" lay-reqText="碎片默认值不能为空" value="{$info.value}" placeholder="碎片默认值不能为空" class="layui-input">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">其他语言站不输入时显示默认值</div>
+                        </div>
                         <div class="layui-form-item layui-form-text">
                             <label class="layui-form-label">碎片备注</label>
                             <div class="layui-input-block">
@@ -49,9 +54,9 @@
                         <input type="hidden" name="lang_data[{$k}][lang_id]" value="{$s['lang_id']}" />
                         <input type="hidden" name="lang_data[{$k}][id]" value="{$s['id']}" />
                         <div class="layui-form-item">
-                            <label class="layui-form-label">{:getSiteName($k)}数据</label>
+                            <label class="layui-form-label">数据</label>
                             <div class="layui-input-block">
-                                <textarea lay-verify="required" lay-reqText="{:getSiteName($k)}数据不能为空" name="lang_data[{$k}][value]" placeholder="{:lang('Setting Value',[],$s['mark'])}" class="layui-textarea">{$s['value']}</textarea>
+                                <textarea lay-verify="required" lay-reqText="数据不能为空" name="lang_data[{$k}][value]" placeholder="请输入数据" class="layui-textarea">{$s['value']}</textarea>
                             </div>
                         </div>
                     </div>
