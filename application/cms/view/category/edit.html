@@ -159,8 +159,7 @@
                     </div>
                     <div class="layui-form-mid layui-word-aux">新增模板以show_xx.{:config('template.view_suffix')}形式</div>
                 </div>
-                {if $modelType==3}
-                <div class="layui-form-item">
+                <div class="layui-form-item"  {if $modelType!=3}style="display:none"{/if}>
                     <label class="layui-form-label">章节页模板</label>
                     <div class="layui-input-block">
                         <select name="setting[chapter_template]">
@@ -172,7 +171,6 @@
                     </div>
                     <div class="layui-form-mid layui-word-aux">新增模板以chapter_xx.{:config('template.view_suffix')}形式</div>
                 </div>
-                {/if}
                 <div class="layui-form-item">
                     <label class="layui-form-label">应用到子栏目</label>
                     <div class="layui-input-block">
