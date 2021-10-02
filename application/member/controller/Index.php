@@ -17,6 +17,7 @@ namespace app\member\controller;
 use app\common\library\Ems;
 use app\common\library\Sms;
 use app\member\model\Member as Member_Model;
+use think\Db;
 use think\facade\Cookie;
 use think\facade\Hook;
 use think\facade\Validate;
@@ -98,6 +99,8 @@ class Index extends MemberBase
             $userInfo = $this->auth->loginLocal($account, $password);
             if ($userInfo) {
                 $this->success('登录成功！', $forward ? $forward : url('index'));
+                //更新登录次数
+                Db::name('member')->where('id', $userInfo['id'])->setInc('login');
             } else {
                 //登陆失败
                 $this->error($this->auth->getError() ?: '账号或者密码错误！', null, ['token' => $this->request->token()]);
