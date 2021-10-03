@@ -25,11 +25,11 @@
     <div class="site-banner">
         <div class="layui-header header header-index" autumn>
             <div class="layui-main">
-                <a class="logo" style="font-size: 1.9em;line-height: 1em;" href="/">{:patch('siteName')}</a>
+                <a class="logo" style="font-size: 1.9em;line-height: 1em;" href="/">{$lang['siteName']}</a>
                 <div class="layui-form component" lay-filter="LAY-site-header-component"></div>
                 <ul class="layui-nav">
                     <li class="layui-nav-item ">
-                        <a href="/index.html" site-event="contactInfo" target="_blank">首页</a>
+                        <a href="{:url('cms/index/index')}" site-event="contactInfo" target="_blank">首页</a>
                     </li>
                     <li class="layui-nav-item layui-hide-xs">
                         <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=8NMeXg6IoW70ySyfd2_JYknJCmlnLYJ0&jump_from=webapi">QQ群712780220</a>
@@ -101,11 +101,11 @@
 </section>
 <section>
     <div class="layui-footer footer footer-index">
-        <p> {:patch('copyright')}</p>
+        <p> {$lang['copyright']}</p>
         <p>
             <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=8NMeXg6IoW70ySyfd2_JYknJCmlnLYJ0&jump_from=webapi">QQ群712780220</a>
             <a href="https://gitee.com/vipbuy/dzdcms" target="_blank" rel="nofollow">码云</a>
-            <a href="https://beian.miit.gov.cn" target="_blank">{:patch('beian')}</a>
+            <a href="https://beian.miit.gov.cn" target="_blank">{$lang['beian']}</a>
         </p>
 
     </div>

@@ -249,7 +249,7 @@ class CmsTagLib
     public function pre($data)
     {
         //当没有内容时的提示语
-        $msg = !empty($data['msg']) ? $data['msg'] : '已经没有了';
+        $msg = !empty($data['msg']) ? $data['msg'] : patch('NoData');
         //是否新窗口打开
         $target    = !empty($data['target']) ? ' target=_blank ' : '';
         $tableName = model('cms/Cms')->getModelTableName(getCategory($data['catid'], 'modelid'));
@@ -270,7 +270,7 @@ class CmsTagLib
     public function next($data)
     {
         //当没有内容时的提示语
-        $msg = !empty($data['msg']) ? $data['msg'] : '已经没有了';
+        $msg = !empty($data['msg']) ? $data['msg'] : patch('NoData');
         //是否新窗口打开
         $target    = !empty($data['target']) ? ' target=_blank ' : '';
         $tableName = model('cms/Cms')->getModelTableName(getCategory($data['catid'], 'modelid'));

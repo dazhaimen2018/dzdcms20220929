@@ -23,7 +23,8 @@ class Lang extends Validate
 		'type|碎片类型' => 'require|alpha',
 		'title|碎片标题' => 'require|chsAlphaNum',
 		'name|碎片名称' => 'require|regex:^[a-zA-Z]\w{0,39}$|unique:lang',
-		'value|默认值' => 'require',
+		'value|碎片默认值' => 'require',
+		'group|碎片分类' => 'require',
 		'listorder|排序' => 'number',
 	];
     protected $scene = [

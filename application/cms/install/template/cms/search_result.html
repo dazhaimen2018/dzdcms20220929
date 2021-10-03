@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="layui-row listAjax">
-                {volist name="list" id="item" empty="<div class='tc font20 l-h80'>暂时没有数据</div>"}
+                {volist name="list" id="item" empty="<div class='tc font20 l-h80'>$noData</div>"}
                 {include file="public/list_item" /}
                 {/volist}
             </div>

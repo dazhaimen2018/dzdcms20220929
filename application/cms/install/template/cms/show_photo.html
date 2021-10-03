@@ -24,7 +24,7 @@
                         <div class="title-msg">
                             <span><i class="layui-icon layui-icon-username"></i> {$username}</span>
                             <span><i class="layui-icon layui-icon-time"></i> {$inputtime|date='Y-m-d H:i'} </span>
-                            <span><i class="layui-icon layui-icon-read"></i> {$hits}浏览</span>
+                            <span><i class="layui-icon layui-icon-read"></i> {$hits} {$lang['Views']}</span>
                             {if isModuleInstall('baidu_record')}
                             <span><i class="iconfont icon-baidu"></i> {:hook('baidu_record')}</span>
                             {/if}

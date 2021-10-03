@@ -32,15 +32,15 @@ class ModelField extends Model
             $data = Db::name("ModelField")->where(array("modelid" => $info['id'], "status" => 1))->order("listorder ASC")->select();
             $fieldList = array();
 
-//            if (!empty($data) && is_array($data)) {
-//                foreach ($data as $rs) {
-//                    //扩展配置
-//                    if (!empty($rs['setting'])) {
-//                        $rs = array_merge($rs, unserialize($rs['setting']));
-//                    }
-//                    $fieldList[$rs['name']] = $rs;
-//                }
-//            }
+            if (!empty($data) && is_array($data)) {
+                foreach ($data as $rs) {
+                    //扩展配置
+                    if (!empty($rs['setting'])) {
+                        $rs = array_merge($rs, unserialize($rs['setting']));
+                    }
+                    $fieldList[$rs['name']] = $rs;
+                }
+            }
             $cache[$info['id']] = $fieldList;
         }
         cache('ModelField', $cache);

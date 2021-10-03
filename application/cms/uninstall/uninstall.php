@@ -29,6 +29,7 @@ class Uninstall extends UninstallBase
 		'tags_content',
 		'lang',
 		'lang_data',
+		'lang_group',
 		'search_log',
 	);
 	protected $ext_table = '_data';

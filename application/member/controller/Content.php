@@ -31,9 +31,9 @@ class Content extends MemberBase
     {
         $groupinfo = $this->_check_group_auth($this->auth->groupid);
         //没有认证用户不得投稿
-//        if (empty($this->auth->ischeck_email) && empty($this->auth->ischeck_mobile)) {
-//            $this->error("投稿必须激活邮箱或手机！");
-//        }
+        if (empty($this->auth->ischeck_email) && empty($this->auth->ischeck_mobile)) {
+            $this->error(patch('publishCondition'));
+        }
         //判断每日投稿数
         $allowpostnum = Member_Content_Model::where('uid', $this->auth->id)->whereTime('create_time', 'd')->count();
         if ($groupinfo['allowpostnum'] > 0 && $allowpostnum >= $groupinfo['allowpostnum']) {
@@ -110,9 +110,9 @@ class Content extends MemberBase
             if ($_data['modelField']['status'] == 1) {
                 //增加清除缓存
                 $cache =  cleanUp();
-                $this->success('操作成功，内容已通过审核！', url('published'));
+                $this->success(patch('PublishedReviewed'), url('published'));
             } else {
-                $this->success('操作成功，等待管理员审核！', url('published'));
+                $this->success(patch('PublishedNeedReview'), url('published'));
             }
         } else {
             $step = $this->request->param('step/d', 1);

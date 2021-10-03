@@ -79,7 +79,7 @@ class Index extends Cmsbase
         //获取栏目数据
         $category = getCategory($cat);
         if (empty($category)) {
-            $this->error('栏目不存在！');
+            $this->error(patch('PageNot')); //栏目不存在
         }
         $catid = $category['id'];
         //模型ID
@@ -150,14 +150,14 @@ class Index extends Cmsbase
         //获取栏目数据
         $category = getCategory($cat);
         if (empty($category)) {
-            $this->error('栏目不存在！');
+            $this->error(patch('PageNot')); //栏目不存在
         }
         $catid = $category['id'];
         //模型ID
         $modelid = $category['modelid'];
         $modelInfo = cache('Model')[$modelid];
         if (empty($modelInfo)) {
-            $this->error('模型不存在！');
+            $this->error(patch('PageNot')); //模型不存在
         }
         //更新点击量
         Db::name($modelInfo['tablename'])->where('id', $id)->setInc('hits');
@@ -165,7 +165,7 @@ class Index extends Cmsbase
         $ifcache = $this->cmsConfig['site_cache_time'] ? $this->cmsConfig['site_cache_time'] : false;
         $info = $this->CmsModel->getContent($modelid, "id={$id}", true, '*', '', $ifcache, $this->site_id);
         if (!$info || ($info['status'] !== 1 && !\app\admin\service\User::instance()->isLogin())) {
-            throw new \think\Exception('内容不存在或未审核!', 404);
+            throw new \think\Exception(patch('PageError'), 404);
         }
         //内容分页
         $paginator = strpos($info['content'], '[page]');
@@ -245,14 +245,14 @@ class Index extends Cmsbase
         //获取栏目数据
         $category = getCategory($cat);
         if (empty($category)) {
-            $this->error('栏目不存在！');
+            $this->error(patch('PageNot')); //栏目不存在
         }
         $catid = $category['id'];
         //模型ID
         $modelid = $category['modelid'];
         $modelInfo = cache('Model')[$modelid];
         if (empty($modelInfo)) {
-            $this->error('模型不存在！');
+            $this->error(patch('PageNot')); //模型不存在
         }
         //更新点击量 子表
        // Db::name($modelInfo['tablename'])->where('id', $id)->setInc('hits');
@@ -261,7 +261,7 @@ class Index extends Cmsbase
         $ifcache = $this->cmsConfig['site_cache_time'] ? $this->cmsConfig['site_cache_time'] : false;
         $info = $this->CmsModel->getChapterContent($modelid, "id={$id}", true, '*', '', $ifcache, $this->site_id);
         if (!$info || ($info['status'] !== 1 && !\app\admin\service\User::instance()->isLogin())) {
-            throw new \think\Exception('内容不存在或未审核!', 404);
+            throw new \think\Exception(patch('PageError'), 404);
         }
         //更新点击量 主表
         Db::name($modelInfo['tablename'])->where('id', $info['did'])->setInc('hits');
@@ -332,7 +332,8 @@ class Index extends Cmsbase
     public function search()
     {
         $siteId = getSiteId();
-        $seo = seo('', '搜索结果');
+        $seo    = seo('', '搜索结果');
+        $noData = patch('NoSearchData');
         //模型
         $modelid = $this->request->param('modelid/d', 0);
         //关键词
@@ -401,11 +402,11 @@ class Index extends Cmsbase
 
         if ($modelid) {
             if (!array_key_exists($modelid, $modellist)) {
-                $this->error('模型错误~');
+                $this->error(patch('PageNot')); //模型错误
             }
             $searchField = Db::name('model_field')->where('modelid', $modelid)->where('ifsystem', 1)->where('ifsearch', 1)->column('name');
             if (empty($searchField)) {
-                $this->error('没有设置搜索字段~');
+                $this->error(patch('PageNot')); //没有设置搜索字段
             }
             $where = '';
             foreach ($searchField as $vo) {
@@ -447,6 +448,7 @@ class Index extends Cmsbase
             'modellist'   => $modellist,
             'search_time' => debug('begin', 'end', 6), //运行时间
             'pages'       => $list->render(),
+            'noData'      => $noData,
         ]);
         if (!empty($keyword)) {
             return $this->fetch('/search_result');
@@ -478,7 +480,7 @@ class Index extends Cmsbase
         //根据条件获取tag信息
         $info = Db::name('Tags')->where($where)->find();
         if (empty($info)) {
-            $this->error('抱歉，沒有找到您需要的内容！');
+            $this->error(patch('NoSearchData')); //抱歉，沒有找到您需要的内容！
         }
         //访问数+1
         Db::name('Tags')->where($where)->setInc("hits");
@@ -518,7 +520,7 @@ class Index extends Cmsbase
             } catch (\Exception $ex) {
                 $this->error($ex->getMessage(), url('pay/index/pay'));
             }
-            $this->success("恭喜你！支付成功!");
+            $this->success(patch('PaymentSuccessful')); //恭喜你！支付成功!
         } else {
             $this->error('请先在后台安装支付模块！');
         }
@@ -533,14 +535,14 @@ class Index extends Cmsbase
             //获取栏目数据
             $category = getCategory($cat);
             if (empty($category)) {
-                $this->error('栏目不存在！');
+                $this->error(patch('PageNot')); //栏目不存在
             }
             $catid = $category['id'];
             //模型ID
             $modelid = $category['modelid'];
             $modelInfo = cache('Model')[$modelid];
             if (empty($modelInfo)) {
-                throw new \think\Exception('栏目不存在!', 404);
+                throw new \think\Exception(patch('PageNot'), 404); //栏目不存在
             }
             //更新点击量
             Db::name($modelInfo['tablename'])->where('id', $id)->setInc('times');

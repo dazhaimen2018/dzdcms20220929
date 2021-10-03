@@ -1,0 +1,185 @@
+{include file="public/header" /}
+<link rel="stylesheet" href="/skin/novel/css/reset.css">
+<link rel="stylesheet" href="/skin/novel/css/common.css">
+<link rel="stylesheet" href="/skin/novel/css/font_2206924_90xcuah1v9.css">
+<link rel="stylesheet" href="/skin/novel/css/novel.css">
+
+<body class="theme1">
+
+<div class="chapter-wrap">
+    <div class="chapter-base-info">
+        <h1>{$chapter}</h1>
+        <div class="meta">
+            <span>作者：{$username}</span>
+            <span>更新时间：{:timeRule($inputtime)}</span>
+        </div>
+    </div>
+    <div id="read-content" class="font-yahei" style="font-size:14px;">
+       {$details|raw}
+        <div class="paywall-box" data-type="all" data-rate="90"></div>
+    </div>
+</div>
+
+<div class="read-tool">
+    <ul class="tool-item">
+        <li id="chapter">
+            <div class="txt"><em class="iconfont icon-more"></em>章节</div>
+            <div class="pop">
+                <a href="javascript:;" class="close-pop iconfont icon-close"></a>
+                <ul class="chapter-items">
+                    {yzn module="cms" action="chapters" catid="$catid" did="$did" siteId="$site_id" cache="3600" order="id ASC" num="100" return="data"}
+                    {volist name="data" id="item"}
+                    <li><a href="{$item.url}">{$item.chapter}</a></li>
+                    {/volist}
+                    {/yzn}
+                </ul>
+            </div>
+        </li>
+        <li id="setting">
+            <div class="txt"><em class="iconfont icon-set"></em>设置</div>
+            <div class="pop">
+                <a href="javascript:;" class="close-pop iconfont icon-close"></a>
+                <div class="read-set">
+                    <dl>
+                        <dt>主题颜色</dt>
+                        <dd class="theme">
+                            <i class="theme1 hover"></i>
+                            <i class="theme2"></i>
+                            <i class="theme3"></i>
+                            <i class="theme4"></i>
+                            <i class="theme5"></i>
+                            <i class="theme6"></i>
+                            <i class="theme7"></i>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>正文字体</dt>
+                        <dd class="font">
+                            <span class="font-yahei hover">雅黑</span>
+                            <span class="font-simsun">宋体</span>
+                            <span class="font-kaiti">楷体</span>
+                            <span class="font-heiti">楷体</span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>字体大小</dt>
+                        <dd>
+                            <span class="size iconfont icon-font_sub"></span>
+                            <span class="size number">14</span>
+                            <span class="size iconfont icon-font_plus"></span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>页面宽度</dt>
+                        <dd>
+                            <span id="pw640" class="pw">640</span>
+                            <span id="pw800" class="pw">800</span>
+                            <span id="pw960" class="pw hover">960</span>
+                            <span id="pw1280" class="pw">1280</span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>&nbsp;</dt>
+                        <dd>
+                            <span class="btn save">保存设置</span>
+                            <span class="btn default">恢复默认</span>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </li>
+        <li><a href="{:showsUrl($did,$catid)}"><em class="iconfont icon-book"></em>书页</a></li>
+    </ul>
+</div>
+
+{include file="public/footer" /}
+<script src="/skin/novel/js/qrcode.min.js"></script>
+<script>
+    (function ($) {
+        $('.theme>i').on('click', function() {
+            var t = $(this);
+            if(t.hasClass('hover')) {
+                return;
+            } else {
+                $('body').attr('class', t.attr('class'))
+                t.addClass('hover').siblings('i').removeClass('hover');
+            }
+        });
+
+        $('.font>span').on('click', function() {
+            var t = $(this);
+            if(t.hasClass('hover')) {
+                return;
+            } else {
+                $('#read-content').prop('class', t.attr('class'))
+                t.addClass('hover').siblings('span').removeClass('hover');
+            }
+        });
+
+        $('.icon-font_sub,.icon-font_plus').on('click', function(){
+            var t = $(this), num = t.siblings('.number'), val = parseInt(num.text());
+            if (t.hasClass('icon-font_sub')) {
+                if (val <= 14) {
+                    val = 14;
+                } else {
+                    val -= 2;
+                }
+            } else {
+                if (val >= 48) {
+                    val = 48;
+                } else {
+                    val += 2;
+                }
+            }
+
+            num.text(val);
+            $('#read-content').css({'font-size' : val + 'px'});
+        });
+
+        $('.pw').on('click', function() {
+            var width = parseInt($(this).text());
+            $('.chapter-wrap').css({width: width+'px'})
+            $('.read-tool').css({'margin-left': -(width/2 + 82)+'px'});
+            $(this).addClass('hover').siblings('span').removeClass('hover');
+        });
+
+        $('.btn.save').on('click', function() {
+            var theme = $('body').attr('class'),
+                font = $('#read-content').attr('class'),
+                width = $('.chapter-wrap').width(),
+                size = $('#read-content').css('font-size');
+            localStorage.setItem('chapter_read_setting', theme+'|'+font+'|'+width+'|'+parseInt(size));
+            $('#setting .pop').hide();
+        });
+
+        $('.btn.default').on('click', function() {
+            $('#setting .pop').hide();
+            $('.theme1').click();
+            $('.font span').eq(0).click();
+            $('.pw').eq(2).click();
+            $('#read-content').css({'font-size' : '14px'});
+            $('.size.number').text(14);
+        });
+
+        $('#setting .txt,#chapter .txt').on('click', function() {
+            $('#setting .pop,#chapter .pop').hide();
+            var t = $(this);
+            t.siblings('.pop').show();
+        });
+
+        $('.close-pop').on('click', function() {
+            $(this).parent('.pop').hide()
+        })
+        var defSetting = localStorage.getItem('chapter_read_setting');
+        if (defSetting) {
+            var sp = defSetting.split('|');
+            $('.'+sp[0]).click();
+            $('.'+sp[1]).click();
+            $('#pw'+sp[2]).click();
+            $('.size.number').text(parseInt(sp[3]));
+            $('#read-content').css({'font-size' : parseInt(sp[3])+'px'});
+        }
+    })($);
+</script>
+</body>
+</html>

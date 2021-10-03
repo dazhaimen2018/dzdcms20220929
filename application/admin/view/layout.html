@@ -45,11 +45,11 @@
 		        <ul class="layui-nav layui-layout-right">
 		            <li class="layui-nav-item"><a href="{:homePage()}" target="_blank"><i class="iconfont icon-homepage" title="站点首页"></i></a></li>
                     {if isModuleInstall('cms')}
-                    <li class="layui-nav-item"><a href="javascript:;"><img src="__STATIC__/language/{if getSiteInfo('mark')}{:getSiteInfo('mark')}{else}site{/if}.png" class="layui-nav-img userAvatar" width="35" height="35">{:onSiteName()}【切换】</a>
+                    <li class="layui-nav-item"><a href="javascript:;"><img src="__STATIC__/lang/image/{if getSiteInfo('mark')}{:getSiteInfo('mark')}{else}site{/if}.png" class="layui-nav-img userAvatar" width="35" height="35">{:onSiteName()}【切换】</a>
                         <dl class="layui-nav-child" id="change">
-                            <dd><a href="javascript:;" data-type="0"><img class="site-icon" src= "/static/language/site.png">  所有站点</a></dd>
+                            <dd><a href="javascript:;" data-type="0"><img class="site-icon" src= "/static/lang/image/site.png">  所有站点</a></dd>
                             {volist name="sites" id="vo"}
-                            <dd  {if getSiteInfo('id')==$vo['id']}class="layui-this"{/if}><a href="javascript:;" data-type="{$vo.id}"><img class="site-icon" src= "/static/language/{$vo.mark}.png"> {$vo.name}</a></dd>
+                            <dd  {if getSiteInfo('id')==$vo['id']}class="layui-this"{/if}><a href="javascript:;" data-type="{$vo.id}"><img class="site-icon" src= "/static/lang/image/{$vo.mark}.png"> {$vo.name}</a></dd>
                             {/volist}
                         </dl>
                     </li>

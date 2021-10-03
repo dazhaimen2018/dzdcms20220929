@@ -16,6 +16,7 @@ namespace app\common\controller;
 
 use app\cms\model\Site;
 use app\common\controller\Base;
+use think\Db;
 use think\facade\Config;
 
 class Homebase extends Base
@@ -27,7 +28,7 @@ class Homebase extends Base
         $this->request->filter('trim,strip_tags,htmlspecialchars');
         parent::initialize();
         $config = \think\facade\config::get('app.');
-        $domain         = isset(cache("Cms_Config")['domain']) ? cache("Cms_Config")['domain'] : 1;
+        $domain = isset(cache("Cms_Config")['domain']) ? cache("Cms_Config")['domain'] : 1;
         if (empty($domain)){
             $domain     = $_SERVER['HTTP_HOST'];
         }
@@ -45,6 +46,20 @@ class Homebase extends Base
             $siteName = '';
             $siteId   = getSite('id');
         }
+
+        $lang = Db::name('lang_data')->alias('ld')
+            ->join('lang l','l.id=ld.lang_id')
+            ->where('l.group',1)
+            ->where('ld.site_id',$siteId)
+            ->cache(60)
+            ->column('ld.value','l.name');
+
+        $userLang = Db::name('lang_data')->alias('ld')
+            ->join('lang l','l.id=ld.lang_id')
+            ->where('l.group',2)
+            ->where('ld.site_id',$siteId)
+            ->cache(60)
+            ->column('ld.value','l.name');
         $site   = [
             'upload_thumb_water'     => $config['upload_thumb_water'],
             'upload_thumb_water_pic' => $config['upload_thumb_water_pic'],
@@ -61,6 +76,8 @@ class Homebase extends Base
             'allSite'  => $allSite,
             'siteName' => $siteName,
             'siteId'   => $siteId,
+            'lang'     => $lang,
+            'userLang' => $userLang,
         ]);
     }
 

@@ -50,14 +50,19 @@ class Lang extends Adminbase
         $this->site = $sites;
         $this->view->assign('sites', $sites);
         // 20200805 马博 end
+        $langGroups = Db::name('langGroup')->select();
+        $this->view->assign('langGroups', $langGroups);
 	}
 
 	//配置首页
-	public function index()
+	public function index($group = 1)
 	{
         if ($this->request->isAjax()) {
             list($page, $limit, $where) = $this->buildTableParames();
-            $list   = $this->modelClass->where($where)->order(["listorder" => "ASC", "id" => "DESC"])->page($page, $limit)->select();
+            $list   = $this->modelClass->where($where)
+                ->where('group', $group)
+                ->order(["listorder" => "ASC", "id" => "DESC"])
+                ->page($page, $limit)->select();
             $_list  = [];
             $agents = agents();
             foreach ($list as $k => $v) {
@@ -66,10 +71,11 @@ class Lang extends Adminbase
                 $v['level'] = $agents['level'];
                 $_list[]    = $v;
             }
-            $total = $this->modelClass->where($where)->count();
+            $total = $this->modelClass->where($where)->where('group', $group)->count();
             $result = array("code" => 0, "count" => $total, "data" => $_list);
             return json($result);
         }
+        $this->assign('group', $group);
         return $this->fetch();
 	}
 
@@ -92,9 +98,11 @@ class Lang extends Adminbase
 				}
 		} else {
 			$fieldType = Db::name('field_type')->where('name', 'in', $this->banfie)->order('listorder')->column('name,title,ifoption,ifstring');
+            $group = $this->request->param('group/d');
 			$this->assign([
 				'groupArray' => lang('lang_group'),
 				'fieldType' => $fieldType,
+				'group' => $group,
 			]);
 			return $this->fetch('add');
 		}
@@ -334,12 +342,13 @@ class Lang extends Adminbase
 
     //更新碎片缓存
 	public function lang_cache() {
-	    $filepath = Env::get('module_path').'lang'.DIRECTORY_SEPARATOR;
+        $filepath = Env::get('module_path').'lang'.DIRECTORY_SEPARATOR;
+	    //$filepath = ROOT_PATH .'public/static/lang/js'.DIRECTORY_SEPARATOR;
         if (!is_dir($filepath)){
             mkdir($filepath,0777,true);
         }
 	    foreach ($this->site as $key => $value){
-            $filename = $value['mark'].'.php';
+            $filename = $value['mark'].'.js';
 	        $config = Db::name('lang_data')->alias('ld')
                 ->join('lang l','l.id=ld.lang_id')
                 ->where('ld.site_id',$value['id'])

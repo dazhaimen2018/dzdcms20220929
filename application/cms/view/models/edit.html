@@ -57,18 +57,20 @@
         </div>
         <div class="layui-form-mid layui-word-aux">新增模板以show_xx.html形式</div>
     </div>
+
     <div class="layui-form-item web_list" {if $data['type']!= 3} style="display:none"{/if}>
-    <label class="layui-form-label">章节模板</label>
-    <div class="layui-input-block">
-        <select name="setting[chapter_template]">
-            <option value="chapter.html" selected>默认章节页:chapter.html</option>
-            {volist name="tp_chapter" id="vo"}
-            <option value="{$vo}" {eq name="data['setting']['chapter_template']" value="$vo" }selected{/eq}>{$vo}</option>
-            {/volist}
-        </select>
+        <label class="layui-form-label">章节模板</label>
+        <div class="layui-input-block">
+            <select name="setting[chapter_template]">
+                <option value="chapter.html" selected>默认章节页:chapter.html</option>
+                {volist name="tp_chapter" id="vo"}
+                <option value="{$vo}" {eq name="data['setting']['chapter_template']" value="$vo" }selected{/eq}>{$vo}</option>
+                {/volist}
+            </select>
+        </div>
+        <div class="layui-form-mid layui-word-aux">新增模板以chapter_xx.html形式</div>
     </div>
-    <div class="layui-form-mid layui-word-aux">新增模板以chapter_xx.html形式</div>
-    </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label">状态</label>
         <div class="layui-input-inline">

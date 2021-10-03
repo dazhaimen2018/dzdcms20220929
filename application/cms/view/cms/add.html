@@ -9,7 +9,7 @@
                     <div class="layui-tab">
                         <ul class="layui-tab-title">
                             {volist name="sites" id="site" key="i" }
-                            <li {if $i==1}class="layui-this"{/if}> {if $site.mark} <img src="/static/language/{$site.mark}.png" title="{$site.name}">{/if} {$site.name}</li>
+                            <li {if $i==1}class="layui-this"{/if}> {if $site.mark} <img src="/static/lang/image/{$site.mark}.png" title="{$site.name}">{/if} {$site.name}</li>
                             {/volist}
 
                         </ul>

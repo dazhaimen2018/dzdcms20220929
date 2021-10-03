@@ -180,23 +180,24 @@ CREATE TABLE `yzn_config` (
 --
 
 INSERT INTO `yzn_config` (`id`, `name`, `type`, `title`, `group`, `options`, `remark`, `create_time`, `update_time`, `status`, `value`, `listorder`) VALUES
-(1, 'web_site_icp', 'text', '备案信息', 'base', '', '', 1551244923, 1551244971, 1, '', 1),
-(2, 'web_site_statistics', 'textarea', '站点代码', 'base', '', '', 1551244957, 1551244957, 1, '', 100),
-(3, 'config_group', 'array', '配置分组', 'system', '', '', 1494408414, 1494408414, 1, '{\"base\":\"基础\",\"system\":\"系统\",\"upload\":\"上传\",\"develop\":\"开发\"}', 0),
-(4, 'theme', 'text', '主题风格', 'system', '', '', 1541752781, 1541756888, 1, 'default', 1),
-(5, 'admin_forbid_ip', 'textarea', '后台禁止访问IP', 'system', '', '匹配IP段用\"*\"占位，如192.168.*.*，多个IP地址请用英文逗号\",\"分割', 1551244957, 1551244957, 1, '', 2),
-(6, 'upload_image_size', 'text', '图片上传大小限制', 'upload', '', '0为不限制大小，单位：kb', 1540457656, 1552436075, 1, '0', 2),
-(7, 'upload_image_ext', 'text', '允许上传图片后缀', 'upload', '', '多个后缀用逗号隔开，不填写则不限制类型', 1540457657, 1552436074, 1, 'gif,jpg,jpeg,bmp,png,ico', 1),
-(8, 'upload_file_size', 'text', '文件上传大小限制', 'upload', '', '0为不限制大小，单位：kb', 1540457658, 1552436078, 1, '0', 3),
-(9, 'upload_file_ext', 'text', '允许上传文件后缀', 'upload', '', '多个后缀用逗号隔开，不填写则不限制类型', 1540457659, 1552436080, 1, 'doc,docx,xls,xlsx,ppt,pptx,pdf,wps,txt,rar,zip,gz,bz2,7z,mp4', 4),
-(10, 'upload_driver', 'radio', '上传驱动', 'upload', 'local:本地', '图片或文件上传驱动', 1541752781, 1552436085, 1, 'local', 9),
-(11, 'upload_thumb_water', 'switch', '添加水印', 'upload', '', '', 1552435063, 1552436080, 1, '0', 5),
-(12, 'upload_thumb_water_pic', 'image', '水印图片', 'upload', '', '只有开启水印功能才生效', 1552435183, 1552436081, 1, '', 6),
-(13, 'upload_thumb_water_position', 'radio', '水印位置', 'upload', '1:左上角\r\n2:上居中\r\n3:右上角\r\n4:左居中\r\n5:居中\r\n6:右居中\r\n7:左下角\r\n8:下居中\r\n9:右下角', '只有开启水印功能才生效', 1552435257, 1552436082, 1, '9', 7),
-(14, 'upload_thumb_water_alpha', 'text', '水印透明度', 'upload', '', '请输入0~100之间的数字，数字越小，透明度越高', 1552435299, 1552436083, 1, '50', 8),
-(15, 'system_name', 'text', '系统名称', 'system', '', '', 1618874857, 1618874857, 1, 'DZDCMS', 100),
-(16, 'admin_domain', 'text', '后台登录域名', 'system', '', '后台安全登录域名必须是授权顶级域名的二级域名如admin.dzdcms.com', 1625271425, 1625271425, 1, '', 100),
-(17, 'system_logo', 'image', '系统LOGO', 'system', '', '', 1614839822, 1614839893, 1, '/favicon.ico', 100);
+ (1, 'web_site_icp', 'text', '备案信息', 'base', '', '', 1551244923, 1551244971, 1, '', 1),
+ (2, 'web_site_statistics', 'textarea', '站点代码', 'base', '', '', 1551244957, 1551244957, 1, '', 100),
+ (3, 'config_group', 'array', '配置分组', 'system', '', '', 1494408414, 1494408414, 1, '{\"base\":\"基础\",\"system\":\"系统\",\"upload\":\"上传\",\"develop\":\"开发\"}', 0),
+ (4, 'theme', 'text', '主题风格', 'system', '', '', 1541752781, 1541756888, 1, 'default', 1),
+ (5, 'admin_forbid_ip', 'textarea', '后台禁止访问IP', 'system', '', '匹配IP段用\"*\"占位，如192.168.*.*，多个IP地址请用英文逗号\",\"分割', 1551244957, 1551244957, 1, '', 2),
+ (6, 'upload_image_size', 'text', '图片上传大小限制', 'upload', '', '0为不限制大小，单位：kb', 1540457656, 1552436075, 1, '0', 2),
+ (7, 'upload_image_ext', 'text', '允许上传图片后缀', 'upload', '', '多个后缀用逗号隔开，不填写则不限制类型', 1540457657, 1552436074, 1, 'gif,jpg,jpeg,bmp,png,ico', 1),
+ (8, 'upload_file_size', 'text', '文件上传大小限制', 'upload', '', '0为不限制大小，单位：kb', 1540457658, 1552436078, 1, '0', 3),
+ (9, 'upload_file_ext', 'text', '允许上传文件后缀', 'upload', '', '多个后缀用逗号隔开，不填写则不限制类型', 1540457659, 1552436080, 1, 'doc,docx,xls,xlsx,ppt,pptx,pdf,wps,txt,rar,zip,gz,bz2,7z,mp4', 4),
+ (10, 'upload_driver', 'radio', '上传驱动', 'upload', 'local:本地', '图片或文件上传驱动', 1541752781, 1552436085, 1, 'local', 9),
+ (11, 'upload_thumb_water', 'switch', '添加水印', 'upload', '', '', 1552435063, 1552436080, 1, '0', 5),
+ (12, 'upload_thumb_water_pic', 'image', '水印图片', 'upload', '', '只有开启水印功能才生效', 1552435183, 1552436081, 1, '', 6),
+ (13, 'upload_thumb_water_position', 'radio', '水印位置', 'upload', '1:左上角\r\n2:上居中\r\n3:右上角\r\n4:左居中\r\n5:居中\r\n6:右居中\r\n7:左下角\r\n8:下居中\r\n9:右下角', '只有开启水印功能才生效', 1552435257, 1552436082, 1, '9', 7),
+ (14, 'upload_thumb_water_alpha', 'text', '水印透明度', 'upload', '', '请输入0~100之间的数字，数字越小，透明度越高', 1552435299, 1552436083, 1, '50', 8),
+ (15, 'system_name', 'text', '系统名称', 'system', '', '', 1618874857, 1618874857, 1, 'DZDCMS', 100),
+ (16, 'admin_domain', 'text', '后台登录域名', 'system', '', '后台安全登录域名必须是授权顶级域名的二级域名如admin.dzdcms.com', 1625271425, 1625271425, 1, '', 100),
+ (17, 'system_logo', 'image', '系统LOGO', 'system', '', '', 1614839822, 1614839893, 1, '/favicon.ico', 100),
+ (18, 'width', 'text', '栏目列表宽度', 'system', '', '内容发布页面左侧栏目列表宽度', 1633175388, 1633175388, 1, '180px', 100);
 
 -- --------------------------------------------------------
 
@@ -432,9 +433,9 @@ CREATE TABLE `yzn_site` (
 `arrchildid` mediumtext COMMENT '所有子站点ID',
 `child` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否存在子站点，1存在',
 `listorder` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序',
-`alone` tinyint NOT NULL DEFAULT '1' COMMENT '真实数据',
-`source` tinyint(1) NOT NULL DEFAULT '0' COMMENT '源站点',
-`translate` tinyint(1) NOT NULL DEFAULT '1' COMMENT '自动翻译',
+`alone` tinyint NOT NULL DEFAULT '1' COMMENT '独立数据',
+`translate` tinyint NOT NULL DEFAULT '0' COMMENT '自动翻译',
+`source` tinyint NOT NULL DEFAULT '0' COMMENT '默认站点',
 `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
 `inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='站点表';
@@ -704,7 +705,7 @@ ALTER TABLE `yzn_cache`
 -- 使用表AUTO_INCREMENT `yzn_config`
 --
 ALTER TABLE `yzn_config`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_INCREMENT=18;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_INCREMENT=19;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_ems`

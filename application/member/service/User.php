@@ -106,11 +106,11 @@ class User
         if ($user_id > 0) {
             $user = Member_Model::get($user_id);
             if (!$user) {
-                $this->setError('账户不存在');
+                $this->setError(patch('UserNo')); //账户不存在
                 return false;
             }
             if ($user['status'] !== 1) {
-                $this->setError('账户已经被锁定');
+                $this->setError(patch('AccountLocked')); //账户已经被锁定
                 return false;
             }
             $this->_user    = $user;
@@ -121,7 +121,7 @@ class User
             Hook::listen("user_init_successed", $this->_user);
             return true;
         } else {
-            $this->setError('你当前还未登录');
+            $this->setError(patch('NotLoggedin')); //你当前还未登录
             return false;
         }
     }
@@ -185,16 +185,16 @@ class User
         $field = Validate::is($account, 'email') ? 'email' : (Validate::regex($account, '/^1\d{10}$/') ? 'mobile' : 'username');
         $user  = Member_Model::get([$field => $account]);
         if (!$user) {
-            $this->setError('账户不正确');
+            $this->setError(patch('AccountError')); //账户不正确
             return false;
         }
 
         if ($user->status !== 1) {
-            $this->setError('账户已经被锁定');
+            $this->setError(patch('AccountLocked')); //账户已经被锁定
             return false;
         }
         if ($user->password != encrypt_password($password, $user->encrypt)) {
-            $this->setError('密码不正确');
+            $this->setError(patch('PasswordError'));//密码不正确
             return false;
         }
 
@@ -411,7 +411,7 @@ class User
     public function logout()
     {
         if (!$this->_logined) {
-            $this->setError('你当前还未登录');
+            $this->setError(patch('NotLoggedin')); //你当前还未登录
             return false;
         }
         //设置登录标识

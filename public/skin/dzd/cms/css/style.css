@@ -29,7 +29,7 @@ li {list-style: none!important;}
 .header .layui-nav > .layui-nav-item.nav-btn-login > a{padding:0 15px;height:30px;line-height:30px;border-radius:35px;display:inline-block;vertical-align:middle;background-color:rgba(0,0,0,.08)}
 .header .layui-nav > .layui-nav-item.nav-btn-login > a:hover{color:#666;background-color:rgba(0,0,0,.15)}
 .header .layui-nav > .layui-nav-item.nav-btn-login > a:after{display:none}
-
+.header .site-icon img{height: 20px}
 .header .layui-nav .layui-search{display: flex}
 .header .layui-nav .layui-search .search-btn{margin-left: -30px;background-color: #fe7300;padding: 0 9px!important;}
 .header .nav-toggle{display:none}
@@ -208,6 +208,10 @@ li {list-style: none!important;}
 .chapter_list li a{float:left;overflow: hidden;text-overflow:ellipsis;white-space:nowrap;max-width:90%;}
 .chapter_list li i{float:left;font-size:14px;margin-left:5px;color:#f00;}
 
+.icon_show, .icon_hide { display:inline-block; color:#2972cc; height: 24px; padding:0 2px 0 10px; text-indent: 0; text-align: center; font-size: 12px; position: absolute; right: 0; bottom: 0; background: #fff }
+.icon_show i, .icon_hide i { display:inline-block; width:12px; height:12px; background:url(../images/icon_dt.png) no-repeat 0 2px; margin-right: 4px; *vertical-align:middle }
+.icon_hide i { background-position:-12px 2px }
+.icon_hide { display: none }
 
 @media screen and (max-width: 768px){
     .title-article{padding: 0!important;}

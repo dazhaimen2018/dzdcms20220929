@@ -18,7 +18,7 @@
             <select name="row[type]" lay-filter="fieldType" lay-verify="required">
                 <option value=""></option>
                 {volist name="fieldType" id="vo"}
-                <option value="{$vo.name}" {eq name="vo.name" value="text"}selected{/eq}>{$vo.title}[{$vo.name}]</option>
+                <option value="{$vo.name}" {if $groupType=$vo['name']}selected{/if}>{$vo.title}[{$vo.name}]</option>
                 {/volist}
             </select>
         </div>

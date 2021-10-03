@@ -15,6 +15,8 @@
 
 namespace app\formguide\controller;
 
+use app\common\library\Ems;
+use app\common\library\Sms;
 use app\formguide\model\Formguide as Formguide_Model;
 use app\member\controller\MemberBase;
 use think\Db;
@@ -79,7 +81,7 @@ class Index extends MemberBase
         $token = $this->request->post('__token__');
         //验证Token
         if (!Validate::make()->check(['__token__' => $token], ['__token__' => 'require|token'])) {
-            $this->error('令牌错误！', null, ['__token__' => $this->request->token()]);
+            $this->error('请彻底刷新或重新打开本页面再操作！！', null, ['__token__' => $this->request->token()]);
         }
         //验证权限
         $this->competence();
@@ -91,6 +93,35 @@ class Index extends MemberBase
             }
         }
         $data = $this->request->post();
+        if($data['mobile']){
+            $data['modelField']['mobile']= $data['mobile'];
+        }
+        if($data['email']){
+            $data['modelField']['email']= $data['email'];
+        }
+
+        // 手机和邮箱验证
+        if ($this->setting['mobileVerify']) {
+            $captcha = $this->request->param('captcha_mobile');
+            if (!$captcha) {
+                $this->error('参数不得为空！');
+            }
+            $result = Sms::check($data['mobile'], $captcha, 'formguide');
+            if (!$result) {
+                $this->error('手机验证码错误！');
+            }
+        }
+        if ($this->setting['emailVerify']) {
+            $captcha = $this->request->param('captcha_email');
+            if (!$captcha) {
+                $this->error('参数不得为空！');
+            }
+            $result = Ems::check($data['email'], $captcha, 'formguide');
+            if (!$result) {
+                $this->error('邮箱验证码错误！');
+            }
+        }
+
         //开启验证码
         if ($this->setting['isverify']) {
             // 验证码
@@ -99,19 +130,26 @@ class Index extends MemberBase
             }
         }
         try {
-            $this->Formguide_Model->addFormguideData($this->formid, $data['modelField']);
+            $messageId = $this->Formguide_Model->addFormguideData($this->formid, $data['modelField']);
         } catch (\Exception $ex) {
             $this->error($ex->getMessage());
         }
         if ($this->setting['interval']) {
             cookie('formguide_' . $this->formid, 1, $this->setting['interval']);
         }
+        //获得邮件内容
+        $formid    = $this->formid;
+        $fieldList = $this->Formguide_Model->getFieldInfo($formid, $messageId);
+
         //发送邮件
         if ($this->setting['mails']) {
             //$ems['email'] = explode(",", $this->setting['mails']);
             $ems['email'] = $this->setting['mails'];
             $ems['title'] = "[" . $this->modelInfo['name'] . "]表单消息提醒！";
-            $ems['msg']   = "刚刚有人在[" . $this->modelInfo['name'] . "]中提交了新的信息，请进入后台查看！";
+            foreach($fieldList as $k=>$v){
+                $ems['msg'] .= $fieldList[$k]['title'].' :'.$fieldList[$k]['value'].'<br />';
+            }
+            //$ems['msg']   = "刚刚有人在[" . $this->modelInfo['name'] . "]中提交了新的信息，请进入后台查看！";
             $result       = hook('ems_notice', $ems, true, true);
         }
         //跳转地址

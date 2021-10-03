@@ -27,6 +27,12 @@
                否
                 {{#  } }}
             </script>
+            <script type="text/html" id="icon">
+                {{# if(d.mark ==0){ }}无
+                {{#  } else { }}
+                <div><img class="site-icon" src="/static/lang/image/{{d.mark}}.png" alt=""></div>
+                {{#  } }}
+            </script>
         </div>
     </div>
 </div>
@@ -60,7 +66,7 @@ layui.use('yznTable', function() {
                 { field: 'id', width: 80, title: 'ID'},
                 { field: 'name', width: 120, title: '语言名称'},
                 { field: 'mark', title: '语言标识'},
-                { field: 'logo', width: 150, title: '语言图标', align: "center", search: false, templet: yznTable.image},
+                { field: 'logo', width: 150, title: '语言图标', align: "center", search: false, templet: '#icon'},
                 { field: 'common', align: 'center', width: 120, title: '常用语言', templet: '#commonTpl', unresize: true },
                 { field: 'status', align: 'center', width: 120, title: '状态', templet: '#switchTpl', unresize: true },
                 { fixed: 'right', width: 160, title: '操作', toolbar: '#barTool', align: "center" }

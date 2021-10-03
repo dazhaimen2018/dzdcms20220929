@@ -8,12 +8,25 @@
                 <ul class="layui-tab-title">
                     <li class="layui-this"><i class="layui-icon layui-icon-set"></i> 基本设置</li>
                     {volist name="sites" id="site" key="i" }
-                    <li> {if $site.mark} <img src="/static/language/{$site.mark}.png" title="{$site.name}">{/if} {$site.name}</li>
+                    <li> {if $site.mark} <img src="/static/lang/image/{$site.mark}.png" title="{$site.name}">{/if} {$site.name}</li>
                     {/volist}
                 </ul>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
                         <input type="hidden" name="type" value="text" />
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">碎片分类</label>
+                            <div class="layui-input-block">
+                                <select name="group">
+                                    <option value="">==分类选择==</option>
+                                    {volist name="langGroups" id="vo"}
+                                    <option {if $vo['id']=$group}selected{/if} value="{$vo.id}">{$vo.name}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="layui-form-item">
                             <label class="layui-form-label">碎片标题</label>
                             <div class="layui-input-block">

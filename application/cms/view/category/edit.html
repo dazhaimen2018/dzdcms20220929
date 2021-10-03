@@ -6,7 +6,7 @@
             <li class="layui-this"><i class="layui-icon layui-icon-set"></i> 基本设置</li>
             <li id="modeTab"><i class="layui-icon layui-icon-template"></i> 模板设置</li>
             {volist name="site" id="site"}
-            <li> {if $site.mark} <img src="/static/language/{$site.mark}.png" title="{$site.name}">{/if} {$site.name}</li>
+            <li> {if $site.mark} <img src="/static/lang/image/{$site.mark}.png" title="{$site.name}">{/if} {$site.name}</li>
             {/volist}
             {if condition="isModuleInstall('member')"}
             <li><i class="layui-icon layui-icon-auz"></i> 权限设置</li>
@@ -159,6 +159,7 @@
                     </div>
                     <div class="layui-form-mid layui-word-aux">新增模板以show_xx.{:config('template.view_suffix')}形式</div>
                 </div>
+
                 <div class="layui-form-item"  {if $modelType!=3}style="display:none"{/if}>
                     <label class="layui-form-label">章节页模板</label>
                     <div class="layui-input-block">
@@ -171,6 +172,7 @@
                     </div>
                     <div class="layui-form-mid layui-word-aux">新增模板以chapter_xx.{:config('template.view_suffix')}形式</div>
                 </div>
+
                 <div class="layui-form-item">
                     <label class="layui-form-label">应用到子栏目</label>
                     <div class="layui-input-block">

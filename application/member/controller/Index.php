@@ -66,7 +66,7 @@ class Index extends MemberBase
     {
         $forward = $this->request->request('forward', '', 'trim');
         if (!empty($this->auth->id)) {
-            $this->success("您已经是登陆状态！", $forward ? $forward : url("index"));
+            $this->success(patch('loggedIn'), $forward ? $forward : url("index")); //您已经是登陆状态
         }
         if ($this->request->isPost()) {
             //登录验证
@@ -87,10 +87,10 @@ class Index extends MemberBase
             ];
             //验证码
             if (empty($verify) && $this->memberConfig['openverification']) {
-                $this->error('验证码错误！');
+                $this->error(patch('VerificationError')); //验证码错误
             }
             if ($this->memberConfig['openverification'] && !captcha_check($verify)) {
-                $this->error('验证码错误！');
+                $this->error(patch('VerificationError'));
             }
             $result = $this->validate($data, $rule);
             if (true !== $result) {
@@ -98,12 +98,12 @@ class Index extends MemberBase
             }
             $userInfo = $this->auth->loginLocal($account, $password);
             if ($userInfo) {
-                $this->success('登录成功！', $forward ? $forward : url('index'));
+                $this->success(patch('LoginSucceeded'), $forward ? $forward : url('index')); //登录成功
                 //更新登录次数
                 Db::name('member')->where('id', $userInfo['id'])->setInc('login');
             } else {
                 //登陆失败
-                $this->error($this->auth->getError() ?: '账号或者密码错误！', null, ['token' => $this->request->token()]);
+                $this->error($this->auth->getError() ?: patch('WrongAccount'), null, ['token' => $this->request->token()]); //账号或者密码错误
             }
         } else {
             //判断来源
@@ -121,11 +121,11 @@ class Index extends MemberBase
     public function register()
     {
         if (empty($this->memberConfig['allowregister'])) {
-            $this->error("系统不允许新会员注册！");
+            $this->error(patch('notRegister')); //系统不允许新会员注册
         }
         $forward = $this->request->request('url', '', 'trim');
         if ($this->auth->id) {
-            $this->success("您已经是登陆状态，无需注册！", $forward ? $forward : url("index"));
+            $this->success(patch('noRegistration'), $forward ? $forward : url("index")); //您已经是登陆状态，无需注册！
         }
         if ($this->request->isPost()) {
             $extend             = [];
@@ -133,7 +133,7 @@ class Index extends MemberBase
             $extend['nickname'] = isset($data['nickname']) ? $data['nickname'] : "";
             //验证码
             if (!captcha_check($data['verify'])) {
-                $this->error('验证码输入错误！');
+                $this->error(patch('VerificationError'));
                 return false;
             }
             $rule = [
@@ -160,21 +160,21 @@ class Index extends MemberBase
             if ($this->memberConfig['register_mobile_verify']) {
                 $result = Sms::check($data['mobile'], $data['captcha_mobile'], 'register');
                 if (!$result) {
-                    $this->error('手机验证码错误！');
+                    $this->error(patch('VerificationError')); // 手机验证码错误
                 }
                 $extend['ischeck_mobile'] = 1;
             }
             if ($this->memberConfig['register_email_verify']) {
                 $result = Ems::check($data['email'], $data['captcha_email'], 'register');
                 if (!$result) {
-                    $this->error('邮箱验证码错误！');
+                    $this->error(patch('VerificationError')); // 邮箱验证码错误
                 }
                 $extend['ischeck_email'] = 1;
             }
             if ($this->auth->userRegister($data['username'], $data['password'], $data['email'], $data['mobile'], $extend)) {
-                $this->success('会员注册成功！', $forward ? $forward : url('index'));
+                $this->success(patch('regSucceeded'), $forward ? $forward : url('index')); //会员注册成功！
             } else {
-                $this->error($this->auth->getError() ?: '帐号注册失败！', null, ['token' => $this->request->token()]);
+                $this->error($this->auth->getError() ?: patch('regFailed'), null, ['token' => $this->request->token()]); //帐号注册失败！
             }
         } else {
             //判断来源
@@ -205,13 +205,13 @@ class Index extends MemberBase
             }
             $userinfo = Member_Model::get($this->auth->id);
             if (empty($userinfo)) {
-                $this->error('该会员不存在！');
+                $this->error(patch('MemberNo') );//该会员不存在
             }
             if (!empty($data)) {
                 //暂时只允许昵称，头像修改
                 $this->Member_Model->allowField(['nickname', 'avatar'])->save($data, ["id" => $this->auth->id]);
             }
-            $this->success("基本信息修改成功！");
+            $this->success(patch('EditSucceed')); //基本信息修改成功
         } else {
             return $this->fetch('/profile');
         }
@@ -245,7 +245,7 @@ class Index extends MemberBase
             if (!$res) {
                 $this->error($this->auth->getError());
             }
-            $this->success('修改成功！');
+            $this->success(patch('EditSucceed')); //修改成功
             //注销当前登陆
             $this->logout();
         }
@@ -260,17 +260,17 @@ class Index extends MemberBase
             $email   = $this->request->post('email');
             $captcha = $this->request->param('captcha');
             if (!$email || !$captcha) {
-                $this->error('参数不得为空！');
+                $this->error(patch('ParameterEmpty')); //参数不得为空！
             }
             if (!Validate::is($email, "email")) {
-                $this->error('邮箱格式不正确！');
+                $this->error(patch('EmailError')); //邮箱格式不正确
             }
             if ($this->Member_Model->where('email', $email)->where('id', '<>', $this->auth->id)->find()) {
-                $this->error('邮箱已占用');
+                $this->error(patch('EmailExist')); //邮箱已占用
             }
             $result = Ems::check($email, $captcha, 'changeemail');
             if (!$result) {
-                $this->error('验证码错误！');
+                $this->error(patch('VerificationError'));
             }
             //只修改邮箱
             $this->Member_Model->allowField(['ischeck_email', 'email'])->save(['email' => $email, 'ischeck_email' => 1], ['id' => 1]);
@@ -291,17 +291,17 @@ class Index extends MemberBase
             $mobile  = $this->request->param('mobile');
             $captcha = $this->request->param('captcha');
             if (!$mobile || !$captcha) {
-                $this->error('参数不得为空！');
+                $this->error(patch('ParameterEmpty')); //参数不得为空
             }
             if (!Validate::isMobile($mobile)) {
-                $this->error('手机号格式不正确！');
+                $this->error(patch('PhoneError')); //手机号格式不正确
             }
             if ($this->Member_Model->where('mobile', $mobile)->where('id', '<>', $this->auth->id)->find()) {
-                $this->error('手机号已占用');
+                $this->error(patch('PhoneExist')); //手机号已占用
             }
             $result = Sms::check($mobile, $captcha, 'changemobile');
             if (!$result) {
-                $this->error('验证码错误！');
+                $this->error(patch('VerificationError'));
             }
             //只修改手机号
             $this->Member_Model->allowField(['ischeck_mobile', 'mobile'])->save(['mobile' => $mobile, 'ischeck_mobile' => 1], ['id' => 1]);
@@ -320,16 +320,16 @@ class Index extends MemberBase
         if ($this->request->isPost()) {
             $captcha = $this->request->param('captcha');
             if (!$captcha) {
-                $this->error('参数不得为空！');
+                $this->error(patch('ParameterEmpty'));
             }
             $result = Ems::check($this->auth->email, $captcha, 'actemail');
             if (!$result) {
-                $this->error('验证码错误！');
+                $this->error(patch('VerificationError'));
             }
             //只修改邮箱
             $this->Member_Model->save(['ischeck_email' => 1], ['id' => $this->auth->id]);
             Ems::flush($this->auth->email, 'actemail');
-            $this->success('激活成功！');
+            $this->success(patch('ActivationSucceeded')); //激活成功
         } else {
             return $this->fetch('/actemail');
         }
@@ -343,16 +343,16 @@ class Index extends MemberBase
         if ($this->request->isPost()) {
             $captcha = $this->request->param('captcha');
             if (!$captcha) {
-                $this->error('参数不得为空！');
+                $this->error(patch('ParameterEmpty'));
             }
             $result = Sms::check($this->auth->mobile, $captcha, 'actmobile');
             if (!$result) {
-                $this->error('验证码错误！');
+                $this->error(patch('VerificationError'));
             }
             //只修改手机号
             $this->Member_Model->save(['ischeck_mobile' => 1], ['id' => $this->auth->id]);
             Sms::flush($this->auth->mobile, 'actmobile');
-            $this->success('激活成功！');
+            $this->success(patch('ActivationSucceeded'));
         } else {
             return $this->fetch('/actmobile');
         }
@@ -399,29 +399,29 @@ class Index extends MemberBase
             if ($type == 'mobile') {
                 $user = $this->Member_Model->where('mobile', $mobile)->find();
                 if (!$user) {
-                    $this->error('用户不存在！', null, ['token' => $this->request->token()]);
+                    $this->error(patch('UserNo'), null, ['token' => $this->request->token()]); //用户不存在
                 }
                 $result = Sms::check($mobile, $captcha, 'resetpwd');
                 if (!$result) {
-                    $this->error('验证码错误！', null, ['token' => $this->request->token()]);
+                    $this->error(patch('VerificationError'), null, ['token' => $this->request->token()]);
                 }
             } elseif ($type == 'email') {
                 $user = $this->Member_Model->where('email', $email)->find();
                 if (!$user) {
-                    $this->error('用户不存在！', null, ['token' => $this->request->token()]);
+                    $this->error(patch('UserNo'), null, ['token' => $this->request->token()]);
                 }
                 $result = Ems::check($email, $captcha, 'resetpwd');
                 if (!$result) {
-                    $this->error('验证码错误！', null, ['token' => $this->request->token()]);
+                    $this->error(patch('VerificationError'), null, ['token' => $this->request->token()]);
                 }
             } else {
-                $this->error('类型错误！', null, ['token' => $this->request->token()]);
+                $this->error(patch('ParameterEmpty'), null, ['token' => $this->request->token()]); //类型错误
             }
             $res = $this->auth->changepwd($newpassword, '', true);
             if (!$res) {
                 $this->error($this->auth->getError());
             }
-            $this->success('重置成功！');
+            $this->success(patch('ResetSucceed')); //重置成功
 
         } else {
             return $this->fetch('/forget');
@@ -433,17 +433,17 @@ class Index extends MemberBase
     public function upgrade()
     {
         if (empty($this->memberGroup[$this->auth->groupid]['allowupgrade'])) {
-            $this->error('此会员组不允许升级！');
+            $this->error(patch('UserGroupNoUp')); //此会员组不允许升级
         }
         if ($this->request->isPost()) {
             $groupid = $this->request->param("groupid/d", 0);
             if (empty($groupid) || in_array($groupid, [8, 1, 7])) {
-                $this->error('会员组类型错误！');
+                $this->error(patch('GroupError')); //会员组类型错误
             }
             $upgrade_type = $this->request->param("upgrade_type/d", 0);
             $upgrade_date = $this->request->param("upgrade_date/d", 1);
             if (0 >= intval($upgrade_date)) {
-                $this->error('购买时限必须大于0！');
+                $this->error(patch('TimeLimitError')); //购买时限必须大于0
             }
             //消费类型，包年、包月、包日，价格
             $typearr = array($this->memberGroup[$groupid]['price_y'], $this->memberGroup[$groupid]['price_m'], $this->memberGroup[$groupid]['price_d']);
@@ -459,10 +459,10 @@ class Index extends MemberBase
                 $this->Member_Model->where('id', $this->auth->id)->update(['groupid' => $groupid, 'overduedate' => $overduedate, 'vip' => 1]);
                 //消费记录
                 $Spend_Model = new \app\pay\model\Spend;
-                $Spend_Model->_spend(1, $cost, $this->auth->id, $this->auth->username, '升级用户组');
-                $this->success('购买成功！');
+                $Spend_Model->_spend(1, $cost, $this->auth->id, $this->auth->username, patch('UpUserGroup')); //升级用户组
+                $this->success(patch('BuySucceed')); //购买成功
             } else {
-                $this->error('余额不足，请先充值！');
+                $this->error(patch('InsufficientBalance')); //余额不足，请先充值
             }
 
         } else {
@@ -483,7 +483,7 @@ class Index extends MemberBase
     public function logout()
     {
         $this->auth->logout();
-        $this->success('注销成功！', url("index/login"));
+        $this->success(patch('LogoutSucceed'), url("index/login")); //注销成功
     }
 
 }
