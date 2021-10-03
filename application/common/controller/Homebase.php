@@ -32,12 +32,12 @@ class Homebase extends Base
         if (empty($domain)){
             $domain     = $_SERVER['HTTP_HOST'];
         }
-        $count = Site::where("domain='{$domain}'")->cache(60)->count();
+        $count = Site::where("domain='{$domain}'")->where('status',1)->cache(60)->count();
         if ($count > 1) {
-            $sameSite = Site::where("domain='{$domain}'")->select()->cache(60)->toArray();
-            $allSite  = Site::where("domain!='{$domain}'")->select()->cache(60)->toArray();
+            $sameSite = Site::where("domain='{$domain}'")->where('status',1)->select()->cache(60)->toArray();
+            $allSite  = Site::where("domain!='{$domain}'")->where('status',1)->select()->cache(60)->toArray();
         } else {
-            $allSite  = Site::select()->toArray();
+            $allSite  = Site::where('status',1)->select()->toArray();
         }
         if (getSite('alone')!=1){
             $siteName = getSite('name');
