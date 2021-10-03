@@ -13,19 +13,19 @@
 <body>
     <form class="layui-form" action="{:url('actmobile')}" method="post" style="padding:20px;">
         <div class="layui-form-item">
-            <label class="layui-form-label">手机号</label>
+            <label class="layui-form-label">{$userLang['phone']}</label>
             <div class="layui-input-inline">
-                <input type="text" name="mobile" id="mobile" required="" lay-verify="required|phone" autocomplete="off" value="{$userinfo.mobile}" class="layui-input" placeholder="新手机号">
+                <input type="text" name="mobile" id="mobile" required="" lay-verify="required|phone" autocomplete="off" value="{$userinfo.mobile}" class="layui-input" placeholder="{$userLang['phone']}">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">验证码</label>
+            <label class="layui-form-label">{$userLang['captcha']}</label>
             <div class="layui-input-inline">
                 <input type="text" name="captcha" required="" lay-verify="required" autocomplete="off" value="" class="layui-input"> </div>
-            <button class="layui-btn btn-captcha layui-btn-primary layui-border-green" type="button" data-event="actmobile" data-type="mobile" data-url="{:url('api/sms/send')}">获取验证码</button>
+            <button class="layui-btn btn-captcha layui-btn-primary layui-border-green" type="button" data-event="actmobile" data-type="mobile" data-url="{:url('api/sms/send')}">{$userLang['GetVerificationCode']}</button>
         </div>
         <div class="layui-form-item">
-            <button class="layui-btn" lay-submit data-type="layui-form" data-pop="true" data-refresh="true">确认修改</button>
+            <button class="layui-btn" lay-submit data-type="layui-form" data-pop="true" data-refresh="true">{$userLang['Confirm']}</button>
         </div>
     </form>
     <style type="text/css">

@@ -1,17 +1,18 @@
-{template file="member/header.html"/}
+{extend name="public/layout"/}
+{block name="main"}
 <div class="layui-tab layui-tab-brief">
     <ul class="layui-tab-title">
-        <li class="layui-this">在线投稿</li>
+        <li class="layui-this">{$userLang['publish']}</li>
     </ul>
     <div class="layui-tab-content" style="padding: 20px 0;">
         <div class="layui-tab-item layui-show">
             <form class="layui-form" method="post">
                 {:token()}
                 <div class="layui-form-item">
-                    <label class="layui-form-label">栏目分类</label>
+                    <label class="layui-form-label">{$userLang['publish']}</label>
                     <div class="layui-input-block">
                         <select lay-filter="filter">
-                            <option value="{:url('publish','step=2')}">请选择发布栏目</option>
+                            <option value="{:url('publish','step=2')}">{$userLang['SelectCategory']}</option>
                             {$categoryselect|raw}
                         </select>
                     </div>
@@ -24,7 +25,7 @@
 
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit data-type="layui-form" data-refresh="true">立即提交</button>
+                        <button class="layui-btn" lay-submit data-type="layui-form" data-refresh="true">{$userLang['submit']}</button>
                     </div>
                 </div>
                 {/if}
@@ -32,7 +33,8 @@
         </div>
     </div>
 </div>
-{template file="member/layui.html"/}
+{/block}
+{block name="js"}
 <script>
 layui.use(['form','yznForm'], function() {
     var form = layui.form,
@@ -55,4 +57,4 @@ $(function(){
     }
 });
 </script>
-{template file="member/footer.html"/}
+{/block}

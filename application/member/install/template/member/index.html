@@ -1,61 +1,77 @@
-{include file="header" /}
-<div class="fly-msg" style="margin-bottom: 20px;"> Hi，{$userinfo.username}，你已是我们的正式会员。 </div>
-<div class="layui-row layui-col-space20">
+{extend name="public/layout"/}
+{block name="main"}
+<div class="layui-row layui-col-space10">
     <div class="layui-col-md12">
-        <div class="fly-home fly-panel">
-            <img src="{$userinfo.avatar}" alt="{$userinfo.username}">
-            {if $userinfo.vip}
-            <i class="iconfont icon-vip1" title="VIP会员"></i>
-            {/if}
-            <h1> {$userinfo.username}({$userinfo.email})</h1>
-            <p class="fly-home-info">
-                <i class="iconfont icon-time"></i><span>{$userinfo.reg_time} 加入</span>
-            </p>
-            <p class="fly-home-sign">（这个人懒得留下签名）</p>
-        </div>
-    </div>
-    <div class="layui-row layui-col-space20 layui-card-box">
-        <div class="layui-col-sm6 layui-col-md3">
-            <div class="layui-card">
-                <div class="layui-card-header">
-                    账户余额
-                </div>
-                <div class="layui-card-body">
-                    <p class="amount">{$userinfo.amount}</p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md3">
-            <div class="layui-card">
-                <div class="layui-card-header">
-                    积分点数
-                </div>
-                <div class="layui-card-body">
-                    <p class="point">{$userinfo.point}</p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md3">
-            <div class="layui-card">
-                <div class="layui-card-header">
-                    用户组
-                </div>
-                <div class="layui-card-body">
-                    <p class="groupname">{$userinfo.groupname}</p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md3">
-            <div class="layui-card">
-                <div class="layui-card-header">
-                    上次登录时间
-                </div>
-                <div class="layui-card-body">
-                    <p class="time">{$userinfo.last_login_time}</p>
-                </div>
-            </div>
+        <div class="fly-panel">
+
         </div>
     </div>
 </div>
-{include file="layui" /}
-{include file="footer" /}
+
+<div class="fly-msg" style="margin-bottom: 20px;"> Hi，{$userinfo.username}，{$userLang['YouFullMember']}！ </div>
+<div class="layui-row layui-col-space20">
+    <div class="layui-col-md12">
+        <div class="fly-panel fly-panel-border">
+            <div class="fly-panel-title"> {$userLang['MemberInfo']} </div>
+            <div class="fly-panel-main layui-text">
+                <div class="layui-col-md4 fly-home" style="text-align: center">
+                   <img src="{$userinfo.avatar}" alt="{$userinfo.username}">
+                </div>
+                <div class="layui-col-md8 fly-home">
+                    <p>{$userinfo.username}({$userinfo.email})</p>
+                    <p>{$userLang['RegistrationTime']}：<span>{$userinfo.reg_time}</span></p>
+                    <p>{$userLang['LastLoginTime']}：{$userinfo.last_login_time}</p>
+                   <!-- <p class="fly-home-sign">（这个人懒得留下签名）</p>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    {if $userinfo['status']==1}
+    <div class="layui-col-md12" style="margin-top: -20px;">
+        <div class="layui-row layui-col-space20 layui-card-box">
+            <div class="layui-col-sm6 layui-col-md3">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        {$userLang['AccountBalance']}
+                    </div>
+                    <div class="layui-card-body">
+                        <p class="amount">{$userinfo.amount}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-sm6 layui-col-md3">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        {$userLang['point']}
+                    </div>
+                    <div class="layui-card-body">
+                        <p class="point">{$userinfo.point}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-sm6 layui-col-md3">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        {$userLang['UserGroup']}
+                    </div>
+                    <div class="layui-card-body">
+                        <p class="groupname">{$userinfo.groupname}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-sm6 layui-col-md3">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        {$userLang['LoginTimes']}
+                    </div>
+                    <div class="layui-card-body">
+                        <p class="time">{$userinfo.login}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {/if}
+</div>
+{/block}
+
