@@ -376,7 +376,11 @@ function patch($langName, $newCache = false)
         $lang       = db('lang')->where(['name' => $langName])->cache(60)->find();
         $langId     = $lang['id'];
         $lang_data  = db('lang_data')->where(['lang_id' => $langId, 'site_id' => $siteId])->cache(60)->find();
-        $lang_value = $lang_data['value'];
+        if($lang_data){
+            $lang_value = $lang_data['value'];
+        }else{
+            $lang_value = $lang['value'];
+        }
         Cache::set($key, $lang_value, 3600);
     } else {
         $lang_value = Cache::get($key);
