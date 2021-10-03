@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "514f1f93b19f899f2a2970313e760784",
+    "content-hash": "69c934eee0482643da26b8dfb8d95d27",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -359,6 +359,50 @@
                 "source": "https://github.com/guzzle/psr7/tree/1.8.2"
             },
             "time": "2021-04-26T09:17:50+00:00"
+        },
+        {
+            "name": "jonasyeah/translator",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jonasrepo/translator.git",
+                "reference": "c1933ddc8954d973363b5c5f8cc63d86e23e1c89"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jonasrepo/translator/zipball/c1933ddc8954d973363b5c5f8cc63d86e23e1c89",
+                "reference": "c1933ddc8954d973363b5c5f8cc63d86e23e1c89",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3",
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jonas\\Translator\\": "src/"
+                },
+                "files": [
+                    "src/Support/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "jonas",
+                    "email": "783324793@qq.com"
+                }
+            ],
+            "description": "php translator for baidu, youdao",
+            "support": {
+                "issues": "https://github.com/jonasrepo/translator/issues",
+                "source": "https://github.com/jonasrepo/translator/tree/v1.0.1"
+            },
+            "time": "2019-07-12T08:48:39+00:00"
         },
         {
             "name": "khanamiryan/qrcode-detector-decoder",
@@ -2525,5 +2569,5 @@
         "php": ">=5.6.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
