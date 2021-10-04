@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css">
     <link rel="stylesheet" href="__SKIN__/dzd/cms/css/style.css"/>
     <link rel="stylesheet" href="__STATIC__/libs/awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_2377328_cb5nlydg0w7.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2728718_lkop0njk98.css">
 </head>
 <body>
 <div class="header">
@@ -80,15 +80,15 @@
                 <!-- 会员中心 注册登录 -->
                 {if $userinfo}
                 <li class="layui-nav-item">
-                    <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">{$Think.session.user_auth.username}</a>
+                    <a href=""><img src="{$userinfo.avatar}" class="layui-nav-img">{$userinfo.username}</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="{:url('member/index/index')}">{$userinfo.username}</a></dd>
+                        <dd><a href="{:url('member/index/index')}">{$userLang['member']}</a></dd>
                         <dd><a href="{:url('member/index/logout')}">{$userLang['Logout']}</a></dd>
                     </dl>
                 </li>
                 {else}
                 <li class="layui-nav-item">
-                    <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">{$userLang['register']}/{$userLang['login']}</a>
+                    <a href="javascript:;"><i class="layui-nav-img iconfont icon-user "></i>{$userLang['register']}/{$userLang['login']}</a>
                     <dl class="layui-nav-child">
                         <dd><a href="{:url('member/index/login')}">{$userLang['login']}</a></dd>
                         <dd><a href="{:url('member/index/register')}">{$userLang['register']}</a></dd>

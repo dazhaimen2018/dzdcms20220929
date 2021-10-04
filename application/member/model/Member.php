@@ -25,6 +25,7 @@ class Member extends Model
     // 追加属性
     protected $append = [
         'groupname',
+        'grouplang',
     ];
 
     protected function setRegIpAttr()
@@ -53,6 +54,12 @@ class Member extends Model
         return isset($group[$data['groupid']]['name']) ? $group[$data['groupid']]['name'] : '';
     }
 
+    public function getGroupLangAttr($value, $data)
+    {
+        $group = cache("Member_Group");
+        return isset($group[$data['groupid']]['lang']) ? $group[$data['groupid']]['lang'] : '';
+    }
+
     /**
      * 获取头像
      * @param $value
@@ -64,7 +71,7 @@ class Member extends Model
         if (!$value) {
             $value = config('public_url') . 'static/modules/member/img/avatar.png';
             //启用首字母头像，请使用
-            //$value = letter_avatar($data['nickname']);
+            $value = letter_avatar($data['nickname']);
         }
         return $value;
     }

@@ -41,12 +41,12 @@
             <!-- 登入后的状态 -->
             <li class="layui-nav-item">
                 <a class="fly-nav-avatar" href="javascript:;">
+                    <img src="{$userinfo.avatar}">
                     <cite class="layui-hide-xs">{$userinfo.username}</cite>
                     {if $userinfo.vip}
                     <i class="iconfont icon-vip1 layui-hide-xs" title="VIP会员"></i>
                     {/if}
-                    <i class="layui-badge fly-badge-vip layui-hide-xs">{$userinfo.groupname}</i>
-                    <img src="{$userinfo.avatar}">
+                    <!-- <i class="layui-badge fly-badge-vip layui-hide-xs">{$userinfo.groupname}</i>-->
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="{:url('member/index/index')}"><i class="layui-icon">&#xe612;</i>{$userLang['MemberCenter']}</a></dd>

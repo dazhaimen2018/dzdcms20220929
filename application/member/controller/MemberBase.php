@@ -70,6 +70,7 @@ class MemberBase extends HomeBase
                 $this->auth->init($token);
             }
         }
+        $this->assign('userlang', '111');
         $this->assign('userinfo', $this->auth->getUser());
         $this->assign("Member_group", $this->memberGroup);
         $this->assign("Member_config", $this->memberConfig);
