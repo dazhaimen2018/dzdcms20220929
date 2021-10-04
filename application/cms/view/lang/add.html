@@ -21,7 +21,7 @@
                                 <select name="group">
                                     <option value="">==分类选择==</option>
                                     {volist name="langGroups" id="vo"}
-                                    <option {if $vo['id']==$group}selected{/if} value="{$vo.id}">{$vo.name}</option>
+                                    <option {if $group==$vo['id']}selected{/if} value="{$vo.id}">{$vo.name}</option>
                                     {/volist}
                                 </select>
                             </div>

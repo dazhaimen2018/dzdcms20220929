@@ -2,7 +2,6 @@
 {block name="main"}
 <div class="layui-card">
     <div class="layui-card-header">碎片列表 | {:onSiteName()}</div>
-
     <div class="layui-card-body">
         <div class="layui-tab">
             <ul class="layui-tab-title">
@@ -22,10 +21,10 @@
     <a data-open='{:url("push")}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs layui-btn-warm" title="推送并翻译">推送</a>
     {{# } }}
     {{# if(d.group==1){ }}
-    <a href='javascript:;' class="layui-btn layui-btn-normal layui-btn-xs copy" data-clipboard-text="{literal}{$lang['{{d.name}}']}{/literal}">调用</a>
+    <a href='javascript:;' class="layui-btn layui-btn-normal layui-btn-xs copy" data-clipboard-text="{literal}{:lang('{{d.name}}')}{/literal}">调用</a>
     {{# } }}
     {{# if(d.group==2){ }}
-    <a href='javascript:;' class="layui-btn layui-btn-xs layui-btn-normal copy" data-clipboard-text="{literal}{$userLang['{{d.name}}']}{/literal}">调用</a>
+    <a href='javascript:;' class="layui-btn layui-btn-xs layui-btn-normal copy" data-clipboard-text="{literal}{:lang('{{d.name}}')}{/literal}">调用</a>
     {{# } }}
     {{# if(d.group==3){ }}
     <a href='javascript:;' class="layui-btn layui-btn-xs layui-btn-normal copy" data-clipboard-text="{literal}patch('{{d.name}}'){/literal}">调用</a>

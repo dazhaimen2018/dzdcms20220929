@@ -54,7 +54,7 @@ class Lang extends Adminbase
         $this->view->assign('langGroups', $langGroups);
 	}
 
-	//配置首页
+	//碎片首页
 	public function index($group = 1)
 	{
         if ($this->request->isAjax()) {
@@ -82,6 +82,7 @@ class Lang extends Adminbase
 	//新增配置
 	public function add()
 	{
+        $group = $this->request->param('group/d');
 		if ($this->request->isPost()) {
 			$data = $this->request->post();
 			$data['status'] = isset($data['status']) ? intval($data['status']) : 1;
@@ -98,11 +99,10 @@ class Lang extends Adminbase
 				}
 		} else {
 			$fieldType = Db::name('field_type')->where('name', 'in', $this->banfie)->order('listorder')->column('name,title,ifoption,ifstring');
-            $group = $this->request->param('group/d');
 			$this->assign([
 				'groupArray' => lang('lang_group'),
-				'fieldType' => $fieldType,
-				'group' => $group,
+				'fieldType'  => $fieldType,
+				'group'      => $group,
 			]);
 			return $this->fetch('add');
 		}
@@ -341,25 +341,26 @@ class Lang extends Adminbase
 	}
 
     //更新碎片缓存
-	public function lang_cache() {
+    public function lang_cache() {
         $filepath = Env::get('module_path').'lang'.DIRECTORY_SEPARATOR;
-	    //$filepath = ROOT_PATH .'public/static/lang/js'.DIRECTORY_SEPARATOR;
         if (!is_dir($filepath)){
             mkdir($filepath,0777,true);
         }
-	    foreach ($this->site as $key => $value){
-            $filename = $value['mark'].'.js';
-	        $config = Db::name('lang_data')->alias('ld')
-                ->join('lang l','l.id=ld.lang_id')
-                ->where('ld.site_id',$value['id'])
-                ->column('ld.value','l.name');
+        //加默认值
+        foreach ($this->site as $key => $value){
+            $filename = $value['mark'].'.php';
+            $config = Db::name('lang')->alias('l')
+                ->join('lang_data ld','ld.lang_id=l.id and ld.site_id='.$value['id'],'LEFT')
+                ->where('l.status',1)
+                ->column('ld.value as v1,l.value as v2','l.name');
             $data = <<<EOT
 <?php
 return [ \r\n
 EOT;
             foreach ($config as $ca => $cv){
+                $cvv = $cv['v1']?$cv['v1']:$cv['v2'];
                 $data .= <<<EOT
-    '{$ca}' => '{$cv}',\r\n
+    '{$ca}' => '{$cvv}',\r\n
 EOT;
             }
             $data .= <<<EOT

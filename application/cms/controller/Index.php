@@ -34,7 +34,8 @@ class Index extends Cmsbase
 
         if (isset($_COOKIE['lang']) && !empty($_COOKIE['lang'])) {
             $lang   = trim($_COOKIE['lang']);
-            if (Site::where("mark='{$lang}'")->cache(60)->find()) {
+            cookie('var',$lang);
+            if (Site::where("mark='{$lang}'")->find()) {
                 setLang($lang);
             }
         }
