@@ -391,8 +391,8 @@ INSERT INTO `yzn_lang_data` (`id`, `lang_id`, `value`, `site_id`, `status`) VALU
 (206, 83, 'New Email', 2, 0),
 (207, 84, '免责声明', 1, 0),
 (208, 84, 'disclaimer', 2, 0),
-(209, 85, '会员', 1, 0),
-(210, 85, 'member', 2, 0),
+(209, 85, '会员中心', 1, 0),
+(210, 85, 'Member Center', 2, 0),
 (211, 86, '内容不存在或未审核！', 1, 0),
 (212, 86, 'The content does not exist or is not approved', 2, 0),
 (213, 87, '恭喜你！支付成功！', 1, 0),
@@ -454,7 +454,21 @@ INSERT INTO `yzn_lang_data` (`id`, `lang_id`, `value`, `site_id`, `status`) VALU
 (269, 115, '账户不正确', 1, 0),
 (270, 115, 'Account error', 2, 0),
 (271, 116, '密码不正确', 1, 0),
-(272, 116, 'Password error', 2, 0);
+(272, 116, 'Password error', 2, 0),
+(273, 117, '禁止访问', 1, 0),
+(274, 118, '新手上路', 1, 0),
+(275, 119, '初级会员', 1, 0),
+(276, 120, '中级会员', 1, 0),
+(277, 121, '高级会员', 1, 0),
+(278, 122, '认证会员', 1, 0),
+(279, 123, '游客', 1, 0),
+(280, 118, 'Novice', 2, 0),
+(281, 117, 'Prohibited', 2, 0),
+(282, 119, 'Junior Member', 2, 0),
+(283, 120, 'Intermediate Member', 2, 0),
+(284, 121, 'Senior Member', 2, 0),
+(285, 122, 'Certified Member', 2, 0),
+(286, 123, 'Visitor', 2, 0);
 
 
 INSERT INTO `yzn_model` (`id`, `module`, `name`, `tablename`, `description`, `setting`, `type`, `create_time`, `update_time`, `listorders`, `status`) VALUES
@@ -648,8 +662,8 @@ INSERT INTO `yzn_photo_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords
 
 
 INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `alone`, `translate`, `source`, `status`, `inputtime`) VALUES
-(1, '中文站', 'zh-CHS', 'http', 'v3.dzdcms.com', 'http://v3.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 0, 0, 1, 0),
-(2, 'English', 'en', 'http', 'env3.dzdcms.com', 'http://env3.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', 'dzdcms', 'Multi-site CMS demonstration station', 'Multi-site CMS, multi-site official website, multi-site official website,DzdCMS template, multi-site template, module plug-in, open source,PHP CMS,PHP', 'Multi-site CMS official website is a set of simple, robust, flexible, open source multi-site content management system, is the domestic open source CMS station group system, the number of program installation has been very high, many foreign trade websites, group websites, city stations are using multi-site CMS or based on CMS core development', 0, '', NULL, 0, 2, 1, 0, 0, 1, 0),
+(1, '中文站', 'zh-CHS', 'http', 'demo.dzdcms.com', 'http://demo.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 0, 0, 1, 0),
+(2, 'English', 'en', 'http', 'endemo.dzdcms.com', 'http://endemo.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', 'dzdcms', 'Multi-site CMS demonstration station', 'Multi-site CMS, multi-site official website, multi-site official website,DzdCMS template, multi-site template, module plug-in, open source,PHP CMS,PHP', 'Multi-site CMS official website is a set of simple, robust, flexible, open source multi-site content management system, is the domestic open source CMS station group system, the number of program installation has been very high, many foreign trade websites, group websites, city stations are using multi-site CMS or based on CMS core development', 0, '', NULL, 0, 2, 1, 0, 0, 1, 0),
 (3, '北京', 'zh-CHS', 'http', 'bj.dzdcms.com', 'http://bj.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 3, 0, 0, 0, 1, 0),
 (4, '上海', 'zh-CHS', 'http', 'sh.dzdcms.com', 'http://sh.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 4, 0, 0, 0, 1, 0);
 
@@ -719,7 +733,7 @@ ALTER TABLE `yzn_category_data`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 ALTER TABLE `yzn_lang_data`
-    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=273;
+    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=287;
 
 ALTER TABLE `yzn_model`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
