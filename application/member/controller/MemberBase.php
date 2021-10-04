@@ -49,7 +49,7 @@ class MemberBase extends HomeBase
         $actionname         = strtolower($this->request->action());
         $this->memberConfig = cache("Member_Config");
         $this->memberGroup  = cache("Member_Group");
-
+        $siteId             = getSiteId();
         $this->auth = User::instance();
         $token      = $this->request->server('HTTP_TOKEN', $this->request->request('token', \think\facade\Cookie::get('token')));
         $path       = str_replace('.', '/', $controllername) . '/' . $actionname;
@@ -74,5 +74,6 @@ class MemberBase extends HomeBase
         $this->assign('userinfo', $this->auth->getUser());
         $this->assign("Member_group", $this->memberGroup);
         $this->assign("Member_config", $this->memberConfig);
+        $this->view->assign('siteId', $siteId);
     }
 }
