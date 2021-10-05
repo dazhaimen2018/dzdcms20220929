@@ -28,38 +28,19 @@ class Homebase extends Base
         $this->request->filter('trim,strip_tags,htmlspecialchars');
         parent::initialize();
         $config = \think\facade\config::get('app.');
-        $domain = isset(cache("Cms_Config")['domain']) ? cache("Cms_Config")['domain'] : 1;
-        if (empty($domain)){
+        // $domain         = isset(cache("Cms_Config")['domain']) ? cache("Cms_Config")['domain'] : 1;
+        // if (empty($domain)){
             $domain     = $_SERVER['HTTP_HOST'];
-        }
-        $count = Site::where("domain='{$domain}'")->where('status',1)->cache(60)->count();
-        if ($count > 1) {
-            $sameSite = Site::where("domain='{$domain}'")->where('status',1)->select()->cache(60)->toArray();
-            $allSite  = Site::where("domain!='{$domain}'")->where('status',1)->select()->cache(60)->toArray();
-        } else {
-            $allSite  = Site::where('status',1)->select()->toArray();
-        }
+        // }
+
+        $allSite  = cache('Site')?cache('Site'):Site::where('status',1)->column('*','id');
         if (getSite('alone')!=1){
-            $siteName = getSite('name');
             $siteId   = 1;
         }else{
-            $siteName = '';
             $siteId   = getSite('id');
         }
+        $siteName = $allSite[$siteId]['name'];
 
-        $lang = Db::name('lang_data')->alias('ld')
-            ->join('lang l','l.id=ld.lang_id')
-            ->where('l.group',1)
-            ->where('ld.site_id',$siteId)
-            ->cache(60)
-            ->column('ld.value','l.name');
-
-        $userLang = Db::name('lang_data')->alias('ld')
-            ->join('lang l','l.id=ld.lang_id')
-            ->where('l.group',2)
-            ->where('ld.site_id',$siteId)
-            ->cache(60)
-            ->column('ld.value','l.name');
         $site   = [
             'upload_thumb_water'     => $config['upload_thumb_water'],
             'upload_thumb_water_pic' => $config['upload_thumb_water_pic'],
@@ -72,12 +53,10 @@ class Homebase extends Base
         ];
         $this->assign([
             'site'     => $site,
-            'sameSite' => $sameSite,
+            'domain'   => $domain,
             'allSite'  => $allSite,
             'siteName' => $siteName,
             'siteId'   => $siteId,
-            'lang'     => $lang,
-            'userLang' => $userLang,
         ]);
     }
 

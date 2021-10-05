@@ -203,7 +203,8 @@ class Lang extends Adminbase
     {
         if ($this->request->isPost()) {
             $id = $this->request->param('id/d');
-            $info = Lang_Model::get($id);
+            $lang_info = Lang_Model::get($id);
+            $info = LangData::where('lang_id',$id)->where('site_id',1)->find();
             if (!$info){return json(['status'=>0,'info'=>'未找到指定的碎片信息']);}
             $data = $this->request->post();
             foreach ($data as $dk => $dv){
@@ -224,7 +225,8 @@ class Lang extends Adminbase
                 $site_name = Db::name('site')->where('id',$site_arr[0])->value('name');
                 $save = array();
                 $save['lang_id'] = $id;
-                $new_value = $Translator->text_translator($info['title'],$site_arr[1]);
+                $title = $info['value']?$info['value']:$lang_info['value'];
+                $new_value = $Translator->text_translator($title,$site_arr[1]);
                 if (!$new_value){
                     echo json_encode(['status'=>-1,'jindu'=>round(($key+1)/count($data['sites'])*100),'info'=>'推送并翻译【'.$site_name.'站】：<span style="color:darkred;">失败,请检查翻译插件配置</span>']);
                     echo str_pad("", 1024*80);
@@ -250,7 +252,7 @@ class Lang extends Adminbase
                 }else{
                     echo json_encode(['status'=>-1,'jindu'=>round(($key+1)/count($data['sites'])*100),'info'=>'推送并翻译【'.$site_name.'站】：<span style="color:darkred;">失败</span>']);
                 }
-                echo str_pad("", 1024*80);
+                echo str_pad("", 1024*100);
                 ob_flush();
                 flush();
                 sleep(1);
@@ -348,7 +350,7 @@ class Lang extends Adminbase
         }
         //加默认值
         foreach ($this->site as $key => $value){
-            $filename = $value['mark'].'.php';
+            $filename = $value['mark'].'_'.$value['id'].'.php';
             $config = Db::name('lang')->alias('l')
                 ->join('lang_data ld','ld.lang_id=l.id and ld.site_id='.$value['id'],'LEFT')
                 ->where('l.status',1)

@@ -409,12 +409,12 @@ function getSite($field)
     if (!$field) {
         return false;
     }
-    $siteId  = getSiteId();
-    $siteAll = Cache::get('Site');
-    if ($siteAll !== 'false') {
-        $site = db('site')->find($siteId);
-    }else{
-        $site = $siteAll[$siteId];
+    $siteId = getSiteId();
+    $key    = $siteId . '_site';
+    $site   = Cache::get($key);
+    if ($site !== 'false') {
+        $site = db('site')->cache(60)->find($siteId);
+        Cache::set($key, $site);
     }
     if ($site) {
         return $site[$field];

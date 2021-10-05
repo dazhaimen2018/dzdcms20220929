@@ -1,7 +1,7 @@
 <div class="footer-bottom copyright hidden-xs">
     {if isModuleInstall('links')}
     <div class="links">
-        {$lang['links']}：
+        {:lang('links')}：
         <ul>
             {yzn module="links" action="lists" siteId="$site_id" cache="3600" order="listorder ASC" num="10"  return="data"}
             {volist name="data" id="vo"}
@@ -11,7 +11,7 @@
         </ul>
     </div>
     {/if}
-    {$lang['copyright']} | <a href="https://beian.miit.gov.cn" target="_blank">{$lang['beian']}</a>
+    {:lang('copyright')} | <a href="https://beian.miit.gov.cn" target="_blank">{:lang('beian')}</a>
 </div>
 {:hook('page_footer')}
 <script src="__SKIN__/dzd/cms/js/jquery.min.js"></script>

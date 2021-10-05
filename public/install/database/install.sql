@@ -446,7 +446,7 @@ CREATE TABLE `yzn_site` (
 
 
 INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `alone`, `source`, `translate`, `status`, `inputtime`) VALUES
- (1, '中文', 'zh-CHS', 'http', 'top.dzdcms.com', 'http://top.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 0, 1, 1, 0);
+ (1, '中文', 'zh-cn', 'http', 'top.dzdcms.com', 'http://top.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 0, 1, 1, 0);
 -- --------------------------------------------------------
 
 --
@@ -498,7 +498,7 @@ CREATE TABLE `yzn_language` (
 
 
 INSERT INTO `yzn_language` (`id`, `name`, `mark`, `logo`, `listorder`, `status`, `common`) VALUES
-   (1, '中文', 'zh-CHS', '', 1, 1, 1),
+   (1, '中文', 'zh-cn', '', 1, 1, 1),
    (2, '英语', 'en', '', 2, 1, 1),
    (3, '日语', 'ja', '', 3, 1, 1),
    (4, '韩语', 'ko', '', 4, 1, 1),
@@ -527,17 +527,15 @@ INSERT INTO `yzn_language` (`id`, `name`, `mark`, `logo`, `listorder`, `status`,
    (27, '乌克兰语', 'uk', '', 0, 1, 0),
    (28, '马来语', 'ms', '', 0, 1, 0),
    (29, '挪威语', 'no', '', 0, 1, 0),
-   (30, '马耳他语', 'mt', '', 0, 1, 0),
-   (31, '塞尔维亚语', 'sr-Cyrl', '', 0, 1, 0),
+   (30, '尼泊尔语', 'ne', '', 0, 1, 0),
+   (31, '印地语', 'hi', '', 0, 1, 0),
    (32, '斯洛伐克语', 'sk', '', 0, 1, 0),
    (33, '爱尔兰语', 'ga', '', 0, 1, 0),
    (34, '哈萨克语', 'kk', '', 0, 1, 0),
    (35, '老挝语', 'lo', '', 0, 1, 0),
    (36, '蒙古语', 'mn', '', 0, 1, 0),
    (37, '缅甸语', 'my', '', 0, 1, 0),
-   (38, '尼泊尔语', 'ne', '', 0, 1, 0),
-   (39, '泰语', 'th', '', 0, 1, 0),
-   (40, '印地语', 'hi', '', 0, 1, 0);
+   (38, '泰语', 'th', '', 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -754,7 +752,7 @@ COMMIT;
 -- 使用表AUTO_INCREMENT `yzn_language`
 --
 ALTER TABLE `yzn_language`
-    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '站点ID', AUTO_INCREMENT=41;
+    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '站点ID', AUTO_INCREMENT=39;
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

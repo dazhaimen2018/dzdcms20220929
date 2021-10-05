@@ -27,19 +27,23 @@ class Index extends Cmsbase
     protected function initialize()
     {
         parent::initialize();
-
         $this->CmsModel = new CmsModel;
         $siteId = getSiteId();
         $this->site_id = $siteId;
 
         if (isset($_COOKIE['lang']) && !empty($_COOKIE['lang'])) {
             $lang   = trim($_COOKIE['lang']);
-            cookie('var',$lang);
-            if (Site::where("mark='{$lang}'")->find()) {
+            if (Site::where("mark='{$lang}'")->cache(60)->find()) {
                 setLang($lang);
             }
         }
-
+        $allSite  = cache('Site')?cache('Site'):Site::where('status',1)->column('*','id');
+        //语言设定
+        $mark = $allSite[getSiteId()]['mark'];
+        if ($mark && ($mark.'_'.getSiteId() != cookie('var'))){
+            cookie('var',$mark.'_'.getSiteId());
+            header('Location:'.$_SERVER['REQUEST_URI']);exit;
+        }
     }
 
     /**

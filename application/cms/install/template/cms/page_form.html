@@ -18,15 +18,15 @@
                             <input type="hidden" name="id" value="5" />
                             <input type="hidden" name="modelField[site_id]" value="{$site_id}" />
                             <div class="layui-form-item">
-                                <label class="layui-form-label">{$lang['Name']}</label>
+                                <label class="layui-form-label">{:lang('Name')}</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="modelField[name]" required  lay-verify="required" placeholder="{$lang['enterName']}" lay-reqText="{$lang['enterName']}" autocomplete="off" class="layui-input" value="">
+                                    <input type="text" name="modelField[name]" required  lay-verify="required" placeholder="{:lang('enterName')}" lay-reqText="{:lang('enterName')}" autocomplete="off" class="layui-input" value="">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label layui-form-item-required">{$lang['phone']}</label>
+                                <label class="layui-form-label layui-form-item-required">{:lang('phone')}</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="mobile" required  lay-verify="required|phone" placeholder="{$lang['inputPhone']}" autocomplete="off" class="layui-input" value="">
+                                    <input type="text" name="mobile" required  lay-verify="required|phone" placeholder="{:lang('inputPhone')}" autocomplete="off" class="layui-input" value="">
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -37,9 +37,9 @@
                             </div>
 
                             <div class="layui-form-item">
-                                <label class="layui-form-label layui-form-item-required">{$lang['email']}</label>
+                                <label class="layui-form-label layui-form-item-required">{:lang('email')}</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="email" required  lay-verify="required|email" placeholder="{$lang['inputEmail']}" autocomplete="off" class="layui-input" value="">
+                                    <input type="text" name="email" required  lay-verify="required|email" placeholder="{:lang('inputEmail')}" autocomplete="off" class="layui-input" value="">
                                 </div>
                             </div>
 
@@ -51,25 +51,25 @@
                             </div>
 
                             <div class="layui-form-item layui-form-text">
-                                <label class="layui-form-label layui-form-item-required">{$lang['messageContent']}</label>
+                                <label class="layui-form-label layui-form-item-required">{:lang('messageContent')}</label>
                                 <div class="layui-input-block">
-                                    <textarea placeholder="{$lang['enterMessage']}" class="layui-textarea" name="modelField[content]"></textarea>
+                                    <textarea placeholder="{:lang('enterMessage')}" class="layui-textarea" name="modelField[content]"></textarea>
                                 </div>
                             </div>
 
                             <div class="layui-form-item">
-                                <label class="layui-form-label layui-form-item-required">{$lang['captcha']}</label>
+                                <label class="layui-form-label layui-form-item-required">{:lang('captcha')}</label>
                                 <div class="layui-input-block verify-box">
-                                    <input type="text" name="captcha" lay-verify="required" placeholder="{$lang['captcha']}" autocomplete="off" class="layui-input" style="width: 200px">
-                                    <img id="verify" src="{:captcha_src()}" alt="{$lang['captcha']}" class="captcha">
+                                    <input type="text" name="captcha" lay-verify="required" placeholder="{:lang('captcha')}" autocomplete="off" class="layui-input" style="width: 200px">
+                                    <img id="verify" src="{:captcha_src()}" alt="{:lang('captcha')}" class="captcha">
                                 </div>
                             </div>
 
 
                             <div class="layui-form-item">
                                 <div class="layui-input-block">
-                                    <button class="layui-btn" lay-submit lay-filter="formDemo">{$lang['submit']}</button>
-                                    <button type="reset" class="layui-btn layui-btn-primary">{$lang['reset']}</button>
+                                    <button class="layui-btn" lay-submit lay-filter="formDemo">{:lang('submit')}</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary">{:lang('reset')}</button>
                                 </div>
                             </div>
                         </form>
@@ -84,7 +84,7 @@
 {include file="public/footer" /}
 <script src="__STATIC__/libs/layui/layui.js"></script>
 <script src="__STATIC__/libs/jquery/jquery.min.js"></script>
-{include file="../member/layui" /}
+{include file="../member/public/layui" /}
 <script type="text/javascript">
     layui.use(['form', 'layer','yznForm'], function() {
         var form = layui.form,

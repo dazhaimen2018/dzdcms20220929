@@ -18,6 +18,7 @@ use app\admin\model\Language;
 use app\common\controller\Adminbase;
 use app\cms\model\Site as SiteModel;
 use think\Db;
+use think\facade\Cache;
 
 class Site extends Adminbase
 {
@@ -86,7 +87,7 @@ class Site extends Adminbase
             $data['url'] = $data['http'].'://'.$data['domain'];
             if ($row = SiteModel::create($data)) {
                 //更新缓存
-                // $row->SiteModel_cache();
+                Cache::set('Site',null);
                 return $this->success('站点添加成功~', url('index'));
             } else {
                 $this->error("添加失败！");
@@ -158,7 +159,7 @@ class Site extends Adminbase
             $data['url'] = $data['http'].'://'.$data['domain'];
 			if ($row = SiteModel::update($data)) {
 				//更新缓存
-				// $row->SiteModel_cache();
+                Cache::set('Site',null);
                 return $this->success('站点修改成功~', url('index'));
 			} else {
 				$this->error("修改失败！");
@@ -203,8 +204,10 @@ class Site extends Adminbase
         $this->error('站点只能修改或关闭，不能删除！');
     }
 
-    //更新碎片缓存
+    //更新站点缓存
     public function site_cache() {
+        $sites = SiteModel::where('status',1)->column('*','id');
+        Cache::set('Site',$sites);
         $this->success("站点缓存更新成功！");
     }
 }
