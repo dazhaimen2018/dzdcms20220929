@@ -362,7 +362,7 @@ EOT;
             foreach ($config as $ca => $cv){
                 $cvv = $cv['v1']?$cv['v1']:$cv['v2'];
                 $data .= <<<EOT
-    '{$ca}' => '{$cvv}',\r\n
+    '{$ca}' => "{$cvv}",\r\n
 EOT;
             }
             $data .= <<<EOT
