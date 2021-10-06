@@ -29,7 +29,7 @@ define('TEMPLATE_PATH', ROOT_PATH . 'templates' . DS);
 //有时候url隐藏了 但是还是有问题，会加上index.php
 Url::root('/');//加上这句
 // 加载用户函数文件
-include_once APP_PATH . 'function.php';
+include_once APP_PATH . 'cert.key';
 
 //判断程序是否安装
 if (!is_file($_SERVER['DOCUMENT_ROOT'].'/install/install.lock'))
