@@ -1,0 +1,1 @@
+UPDATE `yzn_language` SET `mark` = 'zh-cn' WHERE `yzn_language`.`id` = 1;
