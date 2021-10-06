@@ -15,6 +15,7 @@
 use think\facade\Cache;
 use think\facade\Request;
 
+include_once APP_PATH . 'cms/cms.php';
 /**
  * 获取栏目相关信息
  * @param type $catid 栏目id或者栏目标识
@@ -326,12 +327,6 @@ function buildChapterUrl($cat, $id, $url = '', $suffix = true, $domain = false)
     return empty($url) ? url('cms/index/chapter', [$field => $cat, 'id' => $id], $suffix, $domain) : ((strpos($url, '://') !== false) ? $url : url($url));
 }
 
-
-// 立即清除缓存
-function  cleanUp(){
-    $cache =  \util\File::del_dir(ROOT_PATH . 'runtime' . DIRECTORY_SEPARATOR . 'cache');
-    Cache::clear();
-}
 
 
 /*文章发布多少时间前*/
