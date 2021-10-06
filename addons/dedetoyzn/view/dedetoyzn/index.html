@@ -3,7 +3,10 @@
 <div class="layui-card">
     <div class="layui-card-header">数据转换</div>
     <div class="layui-card-body">
-        <blockquote class="layui-elem-quote">本插件不会对dedecms进行任何数据修改，但是会清空yzncms的cms模块和附件的数据，请先对yzncms系统进行备份！！！</blockquote>
+        <blockquote class="layui-elem-quote">
+            本插件不会对dedecms进行任何数据修改，但是会清空yzncms的cms模块和附件的数据，请先对yzncms系统进行备份！！！<br>
+            插件详细使用教程：<a href="https://www.kancloud.cn/ken678/yzncms/2483133" target="_blank">https://www.kancloud.cn/ken678/yzncms/2483133</a>
+        </blockquote>
         <form class="layui-form" method="post">
             <div class="layui-form-item">
                 <label class="layui-form-label">服务器地址</label>
@@ -73,7 +76,7 @@ layui.use(['form', 'yzn', 'layer'], function() {
                     start_change(0);
                 } else {
                     $('.layui-btn').attr('disabled', false).removeClass("layui-btn-disabled").html('开始转换');
-                    layer.msg(res.msg, { icon: 2 });
+                    layer.alert(res.msg, { icon: 2 });
                 }
             },
             error: function(xhr, textstatus, thrown) {
@@ -96,12 +99,12 @@ function start_change(page) {
                     $('#change_html').append('<p>'+res.msg+'</p>');
                 } else if (res.data.code == 2) {
                     $('.layui-btn').attr('disabled', false).removeClass("layui-btn-disabled").html('开始转换');
-                    layer.msg(res.msg, { icon: 1 });
+                    layer.alert(res.msg, { icon: 1 });
                 } else {
 
                 }
             } else {
-                layer.msg(res.msg, { icon: 2 });
+                layer.alert(res.msg, { icon: 2 });
                 $('.layui-btn').attr('disabled', false).removeClass("layui-btn-disabled").html('重新转换');
             }
         },
