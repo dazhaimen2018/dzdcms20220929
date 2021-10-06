@@ -253,7 +253,7 @@
             </td>
         </tr>
         <tr>
-            <td>SG11</td>
+            <td>sg11</td>
             <td>支持</td>
             <td>
                 <?php if(extension_loaded('SourceGuardian')): ?>
@@ -377,7 +377,7 @@
         // 判断是否通过
         $('.next').on('click',function(){
             // 判断检测是否达标
-            if($('.yes').length != 17){
+            if($('.yes').length != 18){
                 layer.msg('您的配置或权限未满足要求');
             }else{
                 location.href = $(this).attr('url-href');
