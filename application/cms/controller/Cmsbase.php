@@ -26,7 +26,7 @@ class Cmsbase extends MemberBase
     {
         parent::initialize();
         $siteurl         = url('cms/index/index', '', true, false);
-        $siteId          = getSiteId();
+        $siteId          = getSiteId(); // 前台用的
         $this->cmsConfig = cache("Cms_Config");
         $this->assign("cms_config", $this->cmsConfig);
         $this->assign("siteurl", $siteurl);

@@ -106,7 +106,6 @@ class Category extends Adminbase
             }
             $siteId  = onSite();
             $siteUrl = onSiteUrl();
-            $agents  = agents();
             $result  = Db::name('category')->where($where)->where($whereSite)->order('listorder DESC, id DESC')->select();
             foreach ($result as $k => $v) {
                 if (isset($models[$v['modelid']]['name'])) {
@@ -128,7 +127,6 @@ class Category extends Adminbase
                 if (!$v['url']){
                     $v['url']    = $siteUrl.buildCatUrl($v['id'], $v['url']);
                 }
-                $v['level']          = $agents['level'];
                 $categorys[$v['id']] = $v;
             }
             $tree->init($categorys);
@@ -470,12 +468,12 @@ class Category extends Adminbase
             if (empty($catid)) {
                 return json(['status'=>0,'info'=>'请选择需要推送的栏目！']);
             }
-            $info = Db::name('category')->where(['id' => $catid])->find();
-            $info2 = Db::name('category_data')->where(['catid' => $catid])->find();
-            $setting = json_decode($info2['setting'],true);
-            $data = $this->request->post();
-            $page_info = [];//单页数据
-            $data['sites'] = [];
+            $info           = Db::name('category')->where(['id' => $catid])->find();
+            $info2          = Db::name('category_data')->where(['catid' => $catid])->find();
+            $setting        = json_decode($info2['setting'],true);
+            $data           = $this->request->post();
+            $page_info      = [];//单页数据
+            $data['sites']  = [];
             $data['psites'] = [];
             foreach ($data as $dk => $dv){
                 if (strstr( $dk , 'sites_cat' ) !== false ){

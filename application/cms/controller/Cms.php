@@ -69,9 +69,9 @@ class Cms extends Adminbase
             }
         }
         if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode']) {
-            $sites = onSite();
+            $sitId = onSite();
             $site  = [];
-            foreach (explode(',', $sites) as $k => $v) {
+            foreach (explode(',', $sitId) as $k => $v) {
                 $site[] = "FIND_IN_SET('" . $v . "', sites)";
             }
             if ($site) {
@@ -168,7 +168,6 @@ class Cms extends Adminbase
             $list    = Db::name($tableName)->page($page, $limit)->where($where)->where($conditions)->order('listorder DESC, id DESC')->select();
             $siteId  = onSite();
             $siteUrl = onSiteUrl();
-            $agents  = agents();
             $_list   = [];
             foreach ($list as $k => $v) {
                 $v['updatetime'] = date('Y-m-d H:i', $v['updatetime']);
@@ -182,7 +181,6 @@ class Cms extends Adminbase
                     $v['title']  = '发布模式为“单站”模式时才显示标题！';
                 }
                 $v['modelType'] = $modelType;
-                $v['level']     = $agents['level'];
                 // end
                 $_list[]         = $v;
             }
