@@ -13,18 +13,18 @@
 <body>
     <form class="layui-form" action="{:url('changeemail')}" method="post" style="padding: 20px;">
         <div class="layui-form-item">
-            <label class="layui-form-label">{$userLang['NewEmail']}</label>
+            <label class="layui-form-label">{:lang('NewEmail')}</label>
             <div class="layui-input-inline">
                 <input type="text" name="email" required="" lay-verify="required|email" id="email" autocomplete="off" value="" class="layui-input" placeholder="新邮箱"></div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">{$userLang['captcha']}</label>
+            <label class="layui-form-label">{:lang('captcha')}</label>
             <div class="layui-input-inline">
                 <input type="text" name="captcha" required="" lay-verify="required" autocomplete="off" value="" class="layui-input"> </div>
-            <button class="layui-btn btn-captcha" type="button" data-event="changeemail" data-type="email" data-url="{:url('api/ems/send')}">{$userLang['GetVerificationCode']}</button>
+            <button class="layui-btn btn-captcha" type="button" data-event="changeemail" data-type="email" data-url="{:url('api/ems/send')}">{:lang('GetVerificationCode')}</button>
         </div>
         <div class="layui-form-item">
-            <button class="layui-btn" lay-submit data-type="layui-form" data-pop="true" data-refresh="true">{$userLang['Confirm']}</button>
+            <button class="layui-btn" lay-submit data-type="layui-form" data-pop="true" data-refresh="true">{:lang('Confirm')}</button>
         </div>
     </form>
     <style type="text/css">

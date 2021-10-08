@@ -8,19 +8,19 @@
     </div>
 </div>
 
-<div class="fly-msg" style="margin-bottom: 20px;"> Hi，{$userinfo.username}，{$userLang['YouFullMember']}！ </div>
+<div class="fly-msg" style="margin-bottom: 20px;"> Hi，{$userinfo.username}，{:lang('YouFullMember')}！ </div>
 <div class="layui-row layui-col-space20">
     <div class="layui-col-md12">
         <div class="fly-panel fly-panel-border">
-            <div class="fly-panel-title"> {$userLang['MemberInfo']} </div>
+            <div class="fly-panel-title"> {:lang('MemberInfo')} </div>
             <div class="fly-panel-main layui-text">
                 <div class="layui-col-md4 fly-home" style="text-align: center">
                    <img src="{$userinfo.avatar}" alt="{$userinfo.username}">
                 </div>
                 <div class="layui-col-md8 fly-home">
                     <p>{$userinfo.username}({$userinfo.email})</p>
-                    <p>{$userLang['RegistrationTime']}：<span>{$userinfo.reg_time}</span></p>
-                    <p>{$userLang['LastLoginTime']}：{$userinfo.last_login_time}</p>
+                    <p>{:lang('RegistrationTime')}：<span>{$userinfo.reg_time}</span></p>
+                    <p>{:lang('LastLoginTime')}：{$userinfo.last_login_time}</p>
                    <!-- <p class="fly-home-sign">（这个人懒得留下签名）</p>-->
                 </div>
             </div>
@@ -32,7 +32,7 @@
             <div class="layui-col-sm6 layui-col-md3">
                 <div class="layui-card">
                     <div class="layui-card-header">
-                        {$userLang['AccountBalance']}
+                        {:lang('AccountBalance')}
                     </div>
                     <div class="layui-card-body">
                         <p class="amount">{$userinfo.amount}</p>
@@ -42,7 +42,7 @@
             <div class="layui-col-sm6 layui-col-md3">
                 <div class="layui-card">
                     <div class="layui-card-header">
-                        {$userLang['point']}
+                        {:lang('point')}
                     </div>
                     <div class="layui-card-body">
                         <p class="point">{$userinfo.point}</p>
@@ -52,17 +52,17 @@
             <div class="layui-col-sm6 layui-col-md3">
                 <div class="layui-card">
                     <div class="layui-card-header">
-                        {$userLang['UserGroup']}
+                        {:lang('UserGroup')}
                     </div>
                     <div class="layui-card-body">
-                        <p class="groupname"> {$userLang[$userinfo.grouplang]}</p>
+                        <p class="groupname"> {:lang($userinfo.grouplang)}</p>
                     </div>
                 </div>
             </div>
             <div class="layui-col-sm6 layui-col-md3">
                 <div class="layui-card">
                     <div class="layui-card-header">
-                        {$userLang['LoginTimes']}
+                        {:lang('LoginTimes')}
                     </div>
                     <div class="layui-card-body">
                         <p class="time">{$userinfo.login}</p>

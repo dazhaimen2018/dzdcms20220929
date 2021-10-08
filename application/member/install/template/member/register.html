@@ -1,88 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="{:getSite('mark')}">
 <head>
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>{$userLang['Registered']}</title>
+    <title>{:lang('Registered')}</title>
     <link rel="stylesheet" type="text/css" href="__STATIC__/libs/layui/css/layui.css" />
     <link rel="stylesheet" type="text/css" href="__STATIC__/modules/member/css/style.css" />
     <link rel="stylesheet" href="/skin/dzd/member/css/my.css">
     <script src="__STATIC__/libs/layui/layui.js"></script>
     <script src="__STATIC__/libs/jquery/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="__SKIN__/dzd/cms/js/dzd.js"></script>
 </head>
 
 <body>
     <div id="mydiv">
         <div class="login-main">
-            <div class="layui-elip">{$userLang['Registered']}</div>
+            <div class="layui-elip">{:lang('Registered')}</div>
             <form class="layui-form" action="{:url('register')}">
                 {:token()}
                 {:hook('register_input')}
                 <div class="layui-form-item">
                     <div class="layui-input-inline input-item">
-                        <input type="text" name="mobile" lay-verify="phone|required" autocomplete="off" placeholder="{$userLang['phone']}" class="layui-input">
+                        <input type="text" name="mobile" lay-verify="phone|required" autocomplete="off" placeholder="{:lang('phone')}" class="layui-input">
                     </div>
                 </div>
                 {eq name="Member_config.register_mobile_verify" value="1"}
                 <div class="layui-form-item">
                     <div class="layui-input-inline" style="width: 60%;">
-                        <input type="text" name="captcha_mobile" required="" lay-verify="required" autocomplete="off" value="" class="layui-input" placeholder="{$userLang['PhoneVerificationCode']}"> </div>
-                    <button class="layui-btn btn-captcha layui-btn-primary layui-border-green" type="button" data-event="register" data-type="mobile" data-url="{:url('api/sms/send')}">{$userLang['GetVerificationCode']}</button>
+                        <input type="text" name="captcha_mobile" required="" lay-verify="required" autocomplete="off" value="" class="layui-input" placeholder="{:lang('PhoneVerificationCode')}"> </div>
+                    <button class="layui-btn btn-captcha layui-btn-primary layui-border-green" type="button" data-event="register" data-type="mobile" data-url="{:url('api/sms/send')}">{:lang('GetVerificationCode')}</button>
                 </div>
                 {/eq}
                 <div class="layui-form-item">
                     <div class="layui-input-inline input-item">
-                        <input type="text" name="username" lay-verify="required" autocomplete="off" placeholder="{$userLang['Account']}" class="layui-input">
+                        <input type="text" name="username" lay-verify="required" autocomplete="off" placeholder="{:lang('Account')}" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-inline input-item">
-                        <input type="text" name="email" lay-verify="email|required" autocomplete="off" placeholder="{$userLang['email']}" class="layui-input">
+                        <input type="text" name="email" lay-verify="email|required" autocomplete="off" placeholder="{:lang('email')}" class="layui-input">
                     </div>
                 </div>
                 {eq name="Member_config.register_email_verify" value="1"}
                 <div class="layui-form-item">
                     <div class="layui-input-inline" style="width: 60%;">
-                        <input type="text" name="captcha_email" required="" lay-verify="required" autocomplete="off" value="" class="layui-input" placeholder="{$userLang['EmailVerificationCode']}"> </div>
-                    <button class="layui-btn btn-captcha layui-btn-primary layui-border-green" type="button" data-event="register" data-type="email" data-url="{:url('api/ems/send')}">{$userLang['GetVerificationCode']}</button>
+                        <input type="text" name="captcha_email" required="" lay-verify="required" autocomplete="off" value="" class="layui-input" placeholder="{:lang('EmailVerificationCode')}"> </div>
+                    <button class="layui-btn btn-captcha layui-btn-primary layui-border-green" type="button" data-event="register" data-type="email" data-url="{:url('api/ems/send')}">{:lang('GetVerificationCode')}</button>
                 </div>
                 {/eq}
                 <div class="layui-form-item">
                     <div class="layui-input-inline input-item">
-                        <input type="password" name="password" lay-verify="required" autocomplete="off" placeholder="{$userLang['Password']}" class="layui-input">
+                        <input type="password" name="password" lay-verify="required" autocomplete="off" placeholder="{:lang('Password')}" class="layui-input">
                     </div>
                 </div>
                 {eq name="Member_config.password_confirm" value="1"}
                 <div class="layui-form-item">
                     <div class="layui-input-inline input-item">
-                        <input type="password" name="password_confirm" lay-verify="required" autocomplete="off" placeholder="{$userLang['ConfirmPassword']}" class="layui-input">
+                        <input type="password" name="password_confirm" lay-verify="required" autocomplete="off" placeholder="{:lang('ConfirmPassword')}" class="layui-input">
                     </div>
                 </div>
                 {/eq}
                 {eq name="Member_config.remove_nickname" value="0"}
                 <div class="layui-form-item">
                     <div class="layui-input-inline input-item">
-                        <input type="text" name="nickname" lay-verify="required" autocomplete="off" placeholder="{$userLang['nickname']}" class="layui-input">
+                        <input type="text" name="nickname" lay-verify="required" autocomplete="off" placeholder="{:lang('nickname')}" class="layui-input">
                     </div>
                 </div>
                 {/eq}
                 <div class="layui-form-item">
                     <div class="layui-input-inline input-item verify-box">
-                        <input type="text" name="verify" lay-verify="required" placeholder="{$userLang['captcha']}" autocomplete="off" class="layui-input">
+                        <input type="text" name="verify" lay-verify="required" placeholder="{:lang('captcha')}" autocomplete="off" class="layui-input">
                         <img id="verify" src="{:captcha_src()}" alt="验证码" class="captcha">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-inline login-btn">
-                        <button class="layui-btn" lay-submit>{$userLang['register']}</button>
+                        <button class="layui-btn" lay-submit>{:lang('register')}</button>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-trans layui-form-item layadmin-user-login-other">
-                        {$userLang['HaveAccount']}！<a href="{:url('login')}" class="layadmin-user-jump-change layadmin-link">{$userLang['login']}</a>
+                        {:lang('HaveAccount')}！<a href="{:url('login')}" class="layadmin-user-jump-change layadmin-link">{:lang('login')}</a>
                     </div>
                 </div>
             </form>

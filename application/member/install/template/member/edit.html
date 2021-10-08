@@ -2,7 +2,7 @@
 {block name="main"}
 <div class="layui-tab layui-tab-brief">
     <ul class="layui-tab-title">
-        <li class="layui-this">{$userLang['EditManuscript']}</li>
+        <li class="layui-this">{:lang('EditManuscript')}</li>
     </ul>
     <div class="layui-tab-content" style="padding: 20px 0;">
         <div class="layui-tab-item layui-show">
@@ -13,7 +13,7 @@
                 <input type="hidden" name="modelField[id]" value="{$did}">
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit data-type="layui-form" data-refresh="true">{$userLang['submit']}</button>
+                        <button class="layui-btn" lay-submit data-type="layui-form" data-refresh="true">{:lang('submit')}</button>
                     </div>
                 </div>
                 {/if}

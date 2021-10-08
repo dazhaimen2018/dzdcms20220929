@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>{$userLang['MemberCenter']}</title>
+    <title>{:lang('MemberCenter')}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="/skin/dzd/member/css/my.css">
     <script src="__STATIC__/libs/layui/layui.js"></script>
     <script src="__STATIC__/libs/jquery/jquery.min.js"></script>
-    <script src="__STATIC__/lang/js/{:getSite('mark')}.js"></script>
+    <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="__SKIN__/dzd/cms/js/dzd.js"></script>
     <script type="text/javascript">
         //全局变量
         var GV = {
@@ -34,7 +35,7 @@
         </a>
         <ul class="layui-nav fly-nav layui-hide-xs">
             <li class="layui-nav-item layui-this">
-                <a href="{:url('/')}"><i class="iconfont icon-homepage"></i>{$userLang['home']}</a>
+                <a href="{:url('/')}"><i class="iconfont icon-homepage"></i>{:lang('home')}</a>
             </li>
         </ul>
         <ul class="layui-nav fly-nav-user">
@@ -49,10 +50,10 @@
                     <!-- <i class="layui-badge fly-badge-vip layui-hide-xs">{$userinfo.groupname}</i>-->
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="{:url('member/index/index')}"><i class="layui-icon">&#xe612;</i>{$userLang['MemberCenter']}</a></dd>
-                    <dd><a href="{:url('member/index/profile')}"><i class="layui-icon">&#xe620;</i>{$userLang['BasicSettings']}</a></dd>
+                    <dd><a href="{:url('member/index/index')}"><i class="layui-icon">&#xe612;</i>{:lang('MemberCenter')}</a></dd>
+                    <dd><a href="{:url('member/index/profile')}"><i class="layui-icon">&#xe620;</i>{:lang('BasicSettings')}</a></dd>
                     <hr style="margin: 5px 0;">
-                    <dd><a href="{:url('member/index/logout')}" style="text-align: center;">{$userLang['Logout']}</a></dd>
+                    <dd><a href="{:url('member/index/logout')}" style="text-align: center;">{:lang('Logout')}</a></dd>
                 </dl>
             </li>
         </ul>
@@ -61,13 +62,13 @@
 <div class="layui-container fly-marginTop fly-user-main">
     <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
         <li class="layui-nav-item {if $Request.action=='index' && $Request.controller=='Index' }layui-this{/if}">
-            <a href="{:url('member/index/index')}"><i class="iconfont icon-user-line"></i>&nbsp;{$userLang['MemberCenter']}</a>
+            <a href="{:url('member/index/index')}"><i class="iconfont icon-user-line"></i>&nbsp;{:lang('MemberCenter')}</a>
         </li>
         <li class="layui-nav-item {eq name='Request.action' value='profile' }layui-this{/eq}">
-            <a href="{:url('member/index/profile')}"><i class="iconfont icon-setup"></i>&nbsp;{$userLang['BasicSettings']}</a>
+            <a href="{:url('member/index/profile')}"><i class="iconfont icon-setup"></i>&nbsp;{:lang('BasicSettings')}</a>
         </li>
         <li class="layui-nav-item {eq name='Request.action' value='upgrade' }layui-this{/eq}">
-            <a href="{:url('member/index/upgrade')}"><i class="iconfont icon-vip-line"></i>&nbsp;{$userLang['SelfUpgrade']}</a>
+            <a href="{:url('member/index/upgrade')}"><i class="iconfont icon-vip-line"></i>&nbsp;{:lang('SelfUpgrade')}</a>
         </li>
         {:hook('user_sidenav_after')}
     </ul>
@@ -84,7 +85,7 @@
     </div>
 </div>
 <div class="fly-footer">
-    <p>{$userLang['copyright']}</p>
+    <p>{:lang('copyright')}</p>
 </div>
 {include file="public/layui" /}
 {block name="js"}{/block}

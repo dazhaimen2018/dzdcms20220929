@@ -13,18 +13,18 @@
 <body>
     <form class="layui-form" action="{:url('changemobile')}" method="post" style="padding:20px;">
         <div class="layui-form-item">
-            <label class="layui-form-label">{$userLang['NewMobile']}</label>
+            <label class="layui-form-label">{:lang('NewMobile')}</label>
             <div class="layui-input-inline">
-                <input type="text" name="mobile" id="mobile" required="" lay-verify="required|phone" autocomplete="off" value="" class="layui-input" placeholder="{$userLang['NewMobile']}"></div>
+                <input type="text" name="mobile" id="mobile" required="" lay-verify="required|phone" autocomplete="off" value="" class="layui-input" placeholder="{:lang('NewMobile')}"></div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">{$userLang['captcha']}</label>
+            <label class="layui-form-label">{:lang('captcha')}</label>
             <div class="layui-input-inline">
                 <input type="text" name="captcha" required="" lay-verify="required" autocomplete="off" value="" class="layui-input"> </div>
-            <button class="layui-btn btn-captcha" type="button" data-event="changemobile" data-type="mobile" data-url="{:url('api/sms/send')}">{$userLang['GetVerificationCode']}</button>
+            <button class="layui-btn btn-captcha" type="button" data-event="changemobile" data-type="mobile" data-url="{:url('api/sms/send')}">{:lang('GetVerificationCode')}</button>
         </div>
         <div class="layui-form-item">
-            <button class="layui-btn" lay-submit data-type="layui-form" data-pop="true" data-refresh="true">{$userLang['Confirm']}</button>
+            <button class="layui-btn" lay-submit data-type="layui-form" data-pop="true" data-refresh="true">{:lang('Confirm')}</button>
         </div>
     </form>
     <style type="text/css">

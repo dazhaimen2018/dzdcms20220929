@@ -2,63 +2,63 @@
 {block name="main"}
 <div class="layui-tab layui-tab-brief" lay-filter="user">
     <ul class="layui-tab-title" id="LAY_mine">
-        <li class="layui-this" lay-id="info">{$userLang['Logout']}</li>
-        <li lay-id="avatar">{$userLang['Avatar']}</li>
-        <li lay-id="pass">{$userLang['Password']}</li>
+        <li class="layui-this" lay-id="info">{:lang('Logout')}</li>
+        <li lay-id="avatar">{:lang('Avatar')}</li>
+        <li lay-id="pass">{:lang('Password')}</li>
     </ul>
     <div class="layui-tab-content" style="padding: 20px 0;">
         <div class="layui-form layui-form-pane layui-tab-item layui-show">
             <form class="layui-form" method="post">
-                <div class="layui-form-item"> <label class="layui-form-label">{$userLang['userName']}</label>
+                <div class="layui-form-item"> <label class="layui-form-label">{:lang('userName')}</label>
                     <div class="layui-input-inline">
                         <input type="text" name="username" required="" lay-verify="required" autocomplete="off" value="{$userinfo.username}" class="layui-input" disabled style="cursor: not-allowed !important;">
                     </div>
                 </div>
-                <div class="layui-form-item"> <label class="layui-form-label">{$userLang['nickname']}</label>
+                <div class="layui-form-item"> <label class="layui-form-label">{:lang('nickname')}</label>
                     <div class="layui-input-inline">
                         <input type="text" name="nickname" required="" lay-verify="required" autocomplete="off" value="{$userinfo.nickname}" class="layui-input">
                     </div>
                 </div>
-                <div class="layui-form-item"> <label class="layui-form-label">{$userLang['phone']}</label>
+                <div class="layui-form-item"> <label class="layui-form-label">{:lang('phone')}</label>
                     <div class="layui-input-inline"> <input type="text" name="mobile" required="" lay-verify="phone" autocomplete="off" value="{$userinfo.mobile}" class="layui-input" disabled style="cursor: not-allowed !important;"></div>
                     {eq name="userinfo.ischeck_mobile" value="1"}
-                    <button class="layui-btn layui-iframe" type="button" href="{:url('changemobile')}" lay-data="{width:'440px',height:'250px',title:'{$userLang['PhoneEdit']}'}">{$userLang['Edit']}</button>
+                    <button class="layui-btn layui-iframe" type="button" href="{:url('changemobile')}" lay-data="{width:'440px',height:'250px',title:'{:lang('PhoneEdit')}'}">{:lang('Edit')}</button>
                     {else/}
-                    <button class="layui-btn layui-iframe layui-btn-danger" type="button" href="{:url('actmobile')}" lay-data="{width:'440px',height:'250px',title:'{$userLang['ActivatePhone']}'}">{$userLang['Activation']}</button>
+                    <button class="layui-btn layui-iframe layui-btn-danger" type="button" href="{:url('actmobile')}" lay-data="{width:'440px',height:'250px',title:'{:lang('ActivatePhone')}'}">{:lang('Activation')}</button>
                     {/eq}
                 </div>
                 <div class="layui-form-item"> <label class="layui-form-label">邮箱</label>
                     <div class="layui-input-inline"> <input type="text" name="email" required="" lay-verify="email" autocomplete="off" value="{$userinfo.email}" class="layui-input" disabled style="cursor: not-allowed !important;"> </div>
                     {eq name="userinfo.ischeck_email" value="1"}
-                    <button class="layui-btn layui-iframe" type="button" href="{:url('changeemail')}" lay-data="{width:'440px',height:'250px',title:'{$userLang['EmailEdit']}'}">{$userLang['Edit']}</button>
+                    <button class="layui-btn layui-iframe" type="button" href="{:url('changeemail')}" lay-data="{width:'440px',height:'250px',title:'{:lang('EmailEdit')}'}">{:lang('Edit')}</button>
                     {else/}
-                    <button class="layui-btn layui-iframe layui-btn-danger" type="button" href="{:url('actemail')}" lay-data="{width:'440px',height:'250px',title:'{$userLang['ActivateMailbox']}'}">{$userLang['Activation']}</button>
+                    <button class="layui-btn layui-iframe layui-btn-danger" type="button" href="{:url('actemail')}" lay-data="{width:'440px',height:'250px',title:'{:lang('ActivateMailbox')}'}">{:lang('Activation')}</button>
                     {/eq}
                 </div>
                 {:hook("user_config")}
-                <div class="layui-form-item"> <button class="layui-btn" lay-submit="{:url('member/index/profile')}" data-refresh="false">{$userLang['Confirm']}</button> </div>
+                <div class="layui-form-item"> <button class="layui-btn" lay-submit="{:url('member/index/profile')}" data-refresh="false">{:lang('Confirm')}</button> </div>
             </form>
         </div>
         <div class="layui-form layui-form-pane layui-tab-item">
             <div class="layui-form-item">
                 <div class="avatar-add">
-                    <p>{$userLang['AvatarUploadRules']}</p> <button type="button" class="layui-btn upload-img"> <i class="layui-icon"></i>{$userLang['UploadAvatar']} </button><input class="layui-upload-file" type="file" accept="undefined" name="file">
+                    <p>{:lang('AvatarUploadRules')}</p> <button type="button" class="layui-btn upload-img"> <i class="layui-icon"></i>{:lang('UploadAvatar')} </button><input class="layui-upload-file" type="file" accept="undefined" name="file">
                     <img src="{$userinfo.avatar}" class="avatar-img"> <span class="loading"></span>
                 </div>
             </div>
         </div>
         <div class="layui-form-pane layui-tab-item">
             <form class="layui-form" method="post">
-                <div class="layui-form-item"> <label class="layui-form-label">{$userLang['OldPassword']}</label>
+                <div class="layui-form-item"> <label class="layui-form-label">{:lang('OldPassword')}</label>
                     <div class="layui-input-inline"> <input type="password" name="oldpassword" required="" lay-verify="required" autocomplete="off" class="layui-input"> </div>
                 </div>
-                <div class="layui-form-item"> <label class="layui-form-label">{$userLang['NewPassword']}</label>
+                <div class="layui-form-item"> <label class="layui-form-label">{:lang('NewPassword')}</label>
                     <div class="layui-input-inline"> <input type="password" name="newpassword" required="" lay-verify="required" autocomplete="off" class="layui-input"> </div>
                 </div>
-                <div class="layui-form-item"> <label class="layui-form-label">{$userLang['ConfirmPassword']}</label>
+                <div class="layui-form-item"> <label class="layui-form-label">{:lang('ConfirmPassword')}</label>
                     <div class="layui-input-inline"> <input type="password" name="renewpassword" required="" lay-verify="required" autocomplete="off" class="layui-input"> </div>
                 </div>
-                <div class="layui-form-item"> <button class="layui-btn" lay-submit="{:url('member/index/changepwd')}" data-refresh="false">{$userLang['Confirm']}</button> </div>
+                <div class="layui-form-item"> <button class="layui-btn" lay-submit="{:url('member/index/changepwd')}" data-refresh="false">{:lang('Confirm')}</button> </div>
             </form>
         </div>
     </div>
