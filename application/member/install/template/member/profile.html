@@ -27,7 +27,7 @@
                     <button class="layui-btn layui-iframe layui-btn-danger" type="button" href="{:url('actmobile')}" lay-data="{width:'440px',height:'250px',title:'{:lang('ActivatePhone')}'}">{:lang('Activation')}</button>
                     {/eq}
                 </div>
-                <div class="layui-form-item"> <label class="layui-form-label">邮箱</label>
+                <div class="layui-form-item"> <label class="layui-form-label">{:lang('email')}</label>
                     <div class="layui-input-inline"> <input type="text" name="email" required="" lay-verify="email" autocomplete="off" value="{$userinfo.email}" class="layui-input" disabled style="cursor: not-allowed !important;"> </div>
                     {eq name="userinfo.ischeck_email" value="1"}
                     <button class="layui-btn layui-iframe" type="button" href="{:url('changeemail')}" lay-data="{width:'440px',height:'250px',title:'{:lang('EmailEdit')}'}">{:lang('Edit')}</button>

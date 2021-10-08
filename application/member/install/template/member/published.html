@@ -36,12 +36,12 @@ layui.use(['table'], function() {
         cols: [
             [
                 { field: 'id', width: 60, title: 'ID' },
-                { field: 'theme', title: '主题'},
-                { field: 'catname',width: 120, title: '所属栏目'},
-                { field: 'create_time', width: 180, title: '发布时间' },
+                { field: 'theme', title: "{:lang('theme')}"},
+                { field: 'catname',width: 120, title: "{:lang('catname')}"},
+                { field: 'create_time', width: 180, title: "{:lang('inputTime')}" },
                 { field: 'url',width: 60,align:"center", title: 'URL',templet:'<div><a href="{{ d.url }}" target="_blank"><i class="iconfont icon-lianjie"></i></a></div>'},
-                { field: 'status', width: 80, title: '状态',align: "center", templet: '#status' },
-                { fixed: 'right', width: 120, title: '操作', toolbar: '#barTool' }
+                { field: 'status', width: 80, title: "{:lang('status')}",align: "center", templet: '#status' },
+                { fixed: 'right', width: 120, title: "{:lang('operation')}", toolbar: '#barTool' }
             ]
         ],
         page: {}
