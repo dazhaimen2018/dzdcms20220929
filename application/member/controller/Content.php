@@ -143,7 +143,8 @@ class Content extends MemberBase
             }
             $array = Db::name('Category')->where($where)->where($whereIn)->where('status',1)->order('listorder ASC, id ASC')->cache(60)->column('*', 'id');
             foreach ($array as $k => $v) {
-                //$array[$k] = $v = Db::name('Category')->find($v['id']);
+                //获得当前站点栏目名称
+                $array[$k]['catname'] =  Db::name('Category_data')->where('catid',$v['id'])->where('site_id',$sites)->cache(60)->value('catname');
                 if ($v['id'] == $catid) {
                     $array[$k]['selected'] = "selected";
                 }
