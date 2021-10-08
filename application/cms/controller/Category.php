@@ -111,13 +111,15 @@ class Category extends Adminbase
                 if (isset($models[$v['modelid']]['name'])) {
                     $v['modelname'] = $models[$v['modelid']]['name'];
                 } else {
-                    $v['modelname'] = '/';
+                    $v['modelname'] = '单页';
                 }
                 $v['catname'] = '<a data-width="900" data-height="600" data-open="' . url('edit', ['id' => $v['id']]) . '"">' . $v['catname'] . '</a>';
-                if($siteId){
+                $onCatname = '';
+                if($siteId){ //显示当前名称
                     $v['onCatname']  = Db::name('category_data')->where('catid', $v['id'])->where('site_id', $siteId )->value('catname');
-                } else {
-                    $v['onCatname']  = '单站模式显示';
+                } else { //显示已推送站点
+                    $sites           = Db::name('category_data')->where('catid', $v['id'])->field('site_id as id')->select();
+                    $v['onCatname']       = array_column($sites,'id');
                 }
                 if ($v['type'] == 1) {
                     $v['add_url'] = url("Category/singlepage", array("parentid" => $v['id']));

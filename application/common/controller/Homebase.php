@@ -34,6 +34,13 @@ class Homebase extends Base
         // }
 
         $allSite  = cache('Site')?cache('Site'):Site::where('status',1)->column('*','id');
+        //语言设定
+        $mark = $allSite[getSiteId()]['mark'];
+        if ($mark && ($mark.'_'.getSiteId() != cookie('var'))){
+            cookie('var',$mark.'_'.getSiteId());
+            header('Location:'.$_SERVER['REQUEST_URI']);exit;
+        }
+
         if (getSite('alone')!=1){
             $siteId   = 1;
         }else{
