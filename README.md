@@ -13,8 +13,8 @@
 
 # 演示地址和相关连接
 - 前台：http://www.dzdcms.com/
-- 标准后台：http://demo.dzdcms.com/admin/
-- 高端后台：http://top.dzdcms.com/admin/
+- 标准后台：http://demo.dzdcms.com/admin
+- 高端后台：http://top.dzdcms.com/admin
 - 所有站管理员账号：demo  密码：123456
 - 英文站独立管理员：english  密码：123456
 - 文档：https://doc.dzdcms.com/
