@@ -359,11 +359,15 @@ class Admin extends Adminaddon
         $modelClass = new \app\cms\model\Category;
         $cursor     = Db::connect($db_config)->name('category')->where('type', 'in', '0,1,2')->cursor();
         foreach ($cursor as $key => $value) {
-            $value['id']      = $value['catid'];
-            $value['url']     = $value['type'] == 2 ? $value['url'] : '';
-            $value['status']  = $value['ismenu'] ? 1 : 0;
+            $data['id']      = $value['catid'];
+            $data['modelid']     = $value['modelid'];
+            $data['catname']     = $value['catname'];
+            $data['parentid']    = $value['parentid'];
+            $data['url']     = $value['type'] == 2 ? $value['url'] : '';
+            $data['status']  = $value['ismenu'] ? 1 : 0;
+            $data['listorder']   = $value['listorder'];
             $setting          = $this->string2array($value['setting']);
-            $value['setting'] = array(
+            $data['setting'] = array(
                 'meta_title'        => isset($setting['meta_title']) ? $setting['meta_title'] : '',
                 'meta_keywords'     => isset($setting['meta_keywords']) ? $setting['meta_keywords'] : '',
                 'meta_description'  => isset($setting['meta_description']) ? $setting['meta_description'] : '',
@@ -372,10 +376,13 @@ class Admin extends Adminaddon
                 'show_template'     => isset($setting['show_template']) ? $setting['show_template'] . '.html' : 'show.html',
                 'page_template'     => isset($setting['page_template']) ? $setting['page_template'] . '.html' : 'page.html',
             );
-            $value['catdir'] = $pinyin->permalink($value['catname'], '');
-            $value['catdir'] = substr($value['catdir'], 0, 10);
-            $value['type']   = $value['type'] == 0 ? 2 : 1;
-            $value['image']  = $value['image'];
+            $data['catdir'] = $pinyin->permalink($value['catname'], '');
+            $data['catdir'] = substr($data['catdir'], 0, 10);
+            $data['type']   = $value['type'] == 0 ? 2 : 1;
+            $data['image']  = $value['image'];
+            $data['english'] = "";
+            $data['target'] = 0;
+            $data['sites'] = 1;
             /*if ($value['image']) {
             $value['image'] = strrchr($value['image'], '/');
             $image_id       = Db::name('attachment')->where('path', 'like', '%' . $value['image'])->value('id');
@@ -383,12 +390,13 @@ class Admin extends Adminaddon
             } else {
             $value['image'] = '';
             }*/
-            $result = $this->validate($value, 'app\cms\validate\Category.list');
+            $result = $this->validate($data, 'app\cms\validate\Category.list');
             if (true !== $result) {
                 $this->error($result);
             }
-            $modelClass->addCategory($value, ['id', 'parentid', 'catname', 'arrparentid', 'arrchildid', 'child', 'items', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'status']);
-            unset($value);
+            //$modelClass->addCategory($value, ['id', 'parentid', 'catname', 'arrparentid', 'arrchildid', 'child', 'items', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'status']);
+            $modelClass->addCategory($data, ['id', 'parentid', 'catname', 'arrparentid', 'arrchildid', 'catdir', 'english', 'type', 'modelid', 'image', 'icon', 'url', 'setting', 'listorder', 'letter', 'sites', 'target', 'detail', 'status']);
+            unset($data);
         }
         unset($cursor);
     }
@@ -409,22 +417,31 @@ class Admin extends Adminaddon
                     $data['modelField'] = [
                         'id'          => $value['id'],
                         'catid'       => $value['catid'],
+                        'theme'       => $value['title'],
                         'thumb'       => $value['thumb'],
-                        'tags'        => '',
+                        'flag'        => '',
                         'url'         => '',
+                        'likes'       => '',
+                        'dislikes'    => '',
+                        'paytype'     => '',
+                        'readpoint'   => '',
+                        'groupids'    => '',
                         'hits'        => 0,
                         'modelid'     => $value['modelid'], //优化
-                        'title'       => $value['title'],
-                        'keywords'    => $value['keywords'] ? explode(" ", $value['keywords']) : '',
-                        'description' => $value['description'],
                         'listorder'   => $value['listorder'],
                         'status'      => $value['status'] === 99 ? 1 : 0,
                         'inputtime'   => date('Y-m-d h:i:s', $value['inputtime']),
                         'updatetime'  => date('Y-m-d h:i:s', $value['updatetime']),
                     ];
                     $data['modelFieldExt'] = [
-                        'did'     => $value['id'],
-                        'content' => $value['content'],
+                        'id'          => $value['id'],
+                        'did'         => $value['id'],
+                        'site_id'     => 1,
+                        'tags'        => '',
+                        'title'       => $value['title'],
+                        'keywords'    => $value['keywords'] ? explode(" ", $value['keywords']) : '',
+                        'description' => $value['description'],
+                        'content'     => $value['content'],
                     ];
                     //是否有自定义字段
                     if (isset($v9_fields[$value['modelid']])) {
