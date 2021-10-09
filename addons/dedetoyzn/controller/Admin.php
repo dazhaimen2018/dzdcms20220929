@@ -327,7 +327,9 @@ class Admin extends Adminaddon
                 $data['modelid']     = $dede_models[$value['channeltype']]['id'];
                 $data['catname']     = $value['typename'];
                 $data['parentid']    = $value['reid'];
-                $data['description'] = "";
+                $data['english'] = "";
+                $data['target'] = 0;
+                $data['sites'] = 1;
                 $data['url']         = $value['ispart'] == 2 ? $value['typedir'] : '';
                 $data['status']      = $value['ishidden'] == 0 ? 1 : 0;
                 $data['listorder']   = $value['sortrank'];
@@ -354,7 +356,8 @@ class Admin extends Adminaddon
                 if (true !== $result) {
                     $this->error($result);
                 }
-                $modelClass->addCategory($data, ['id', 'parentid', 'catname', 'arrparentid', 'arrchildid', 'child', 'items', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'status']);
+                //$modelClass->addCategory($data, ['id', 'parentid', 'catname', 'arrparentid', 'arrchildid', 'child', 'items', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'status']);
+                $modelClass->addCategory($data, ['id', 'parentid', 'catname', 'arrparentid', 'arrchildid', 'catdir', 'english', 'type', 'modelid', 'image', 'icon', 'url', 'setting', 'listorder', 'letter', 'sites', 'target', 'detail', 'status']);
                 unset($data);
             }
         } catch (\Exception $e) {
@@ -384,22 +387,30 @@ class Admin extends Adminaddon
                         $data['modelField'] = [
                             'id'          => $value['id'],
                             'catid'       => $value['typeid'],
+                            'theme'       => $value['title'],
                             'thumb'       => $value['litpic'],
                             'flag'        => $this->getFlag($value['flag']),
-                            'tags'        => '',
                             'url'         => '',
+                            'likes'       => '',
+                            'dislikes'    => '',
+                            'paytype'     => '',
+                            'readpoint'   => '',
+                            'groupids'    => '',
                             'hits'        => $value['click'],
                             'modelid'     => $modelid,
-                            'title'       => $value['title'],
-                            'keywords'    => $value['keywords'],
-                            'description' => $value['description'],
                             'listorder'   => $value['weight'],
                             'status'      => 1,
                             'inputtime'   => date('Y-m-d h:i:s', $value['senddate']),
                             'updatetime'  => date('Y-m-d h:i:s', $value['senddate']),
                         ];
                         $data['modelFieldExt'] = [
-                            'did'     => $value['id'],
+                            'id'          => $value['id'],
+                            'did'         => $value['id'],
+                            'site_id'     => 1,
+                            'tags'        => '',
+                            'title'       => $value['title'],
+                            'keywords'    => $value['keywords'],
+                            'description' => $value['description'],
                             'content' => $value['body'] ?: '',
                         ];
                         //是否有自定义字段
@@ -436,10 +447,15 @@ class Admin extends Adminaddon
                             'catid'      => $value['typeid'],
                             'thumb'      => $value['litpic'],
                             'flag'       => $this->getFlag($value['flag']),
-                            'title'      => $value['title'],
+                            'theme'      => $value['title'],
                             'tags'       => '',
                             'url'        => '',
                             'hits'       => $value['click'],
+                            'likes'       => '',
+                            'dislikes'    => '',
+                            'paytype'     => '',
+                            'readpoint'   => '',
+                            'groupids'    => '',
                             'modelid'    => $modelid, //优化
                             'listorder'  => 0,
                             'status'     => 1,
