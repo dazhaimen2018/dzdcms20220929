@@ -22,7 +22,7 @@ use think\Db;
 class Module extends Adminbase
 {
     //系统模块，隐藏
-    protected $systemModuleList = ['admin', 'index', 'api', 'attachment', 'common', 'addons', 'template', 'error'];
+    protected $systemModuleList = ['admin', 'index', 'api', 'attachment', 'common', 'addons', 'template', 'error','lang'];
     //初始化
     protected function initialize()
     {
