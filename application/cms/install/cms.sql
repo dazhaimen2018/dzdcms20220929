@@ -93,7 +93,7 @@ CREATE TABLE `yzn_page` (
 DROP TABLE IF EXISTS `yzn_tags`;
 CREATE TABLE `yzn_tags` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'tagID',
-  `tag` char(20) NOT NULL DEFAULT '' COMMENT 'tag名称',
+  `tag` char(100) NOT NULL DEFAULT '' COMMENT 'tag名称',
   `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
   `tagdir` varchar(255) NOT NULL DEFAULT '' COMMENT 'tag标识',
   `seo_title` varchar(255) NOT NULL DEFAULT '' COMMENT 'seo标题',
