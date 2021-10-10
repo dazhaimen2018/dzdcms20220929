@@ -526,7 +526,19 @@ class Cms extends Adminbase
                     $save['tags']  = $Translator->text_translator($info['tags'],$site_arr[1]);
                     $save['keywords']  = $Translator->text_translator($info['keywords'],$site_arr[1]);
                     $save['description']  = $Translator->text_translator($info['description'],$site_arr[1]);
-                    $save['content']  = $Translator->text_translator($info['content'],$site_arr[1]);
+
+                    if (isset($info['content'])){
+                        $pattern = stripHtmlTags($info['content']);
+                        $replacement = [];
+                        foreach ($pattern as $pk => $pv){
+                            $replacement[] = $Translator->text_translator($pv,$site_arr[1]);
+                        }
+                        $save_content = restoreHtmlTags($pattern,$replacement,$info['content']);
+                        $save['content'] = $save_content;
+                    }else{
+                        $save['content'] = '';
+                    }
+
                     if (Db::name($cms_table.'_data')->where(['did'=>$id,'site_id'=>$site_arr[0]])->count()>0){
                         if ($data['status']){
                             $result = Db::name($cms_table.'_data')->where(['did'=>$id,'site_id'=>$site_arr[0]])->update($save);

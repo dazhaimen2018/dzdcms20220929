@@ -17,6 +17,7 @@ namespace app\common\controller;
 use app\cms\model\Site;
 use app\common\controller\Base;
 use think\Db;
+use think\facade\Cache;
 use think\facade\Config;
 
 class Homebase extends Base
@@ -32,8 +33,9 @@ class Homebase extends Base
         // if (empty($domain)){
             $domain     = $_SERVER['HTTP_HOST'];
         // }
-
         $allSite  = cache('Site')?cache('Site'):Site::where('status',1)->column('*','id');
+        Cache::set('Site', $allSite, 3600);
+
         //语言设定
         $mark = $allSite[getSiteId()]['mark'];
         if ($mark && ($mark.'_'.getSiteId() != cookie('var'))){

@@ -353,7 +353,20 @@ class Chapter extends Adminbase
                             continue;
                         }
                         $save['chapter'] = $new_value;
-                        $save['details']  = $Translator->text_translator($info['details'],$site_arr[1]);
+                        //$save['details']  = $Translator->text_translator($info['details'],$site_arr[1]);
+
+                        if (isset($info['details'])){
+                            $pattern = stripHtmlTags($info['details']);
+                            $replacement = [];
+                            foreach ($pattern as $pk => $pv){
+                                $replacement[] = $Translator->text_translator($pv,$site_arr[1]);
+                            }
+                            $save_content = restoreHtmlTags($pattern,$replacement,$info['details']);
+                            $save['details'] = $save_content;
+                        }else{
+                            $save['details'] = '';
+                        }
+
                         if (Db::name($cms_table.'_sub_data')->where(['pid'=>$id,'site_id'=>$site_arr[0]])->count()>0){
                             if ($data['status']){
                                 $result = Db::name($cms_table.'_sub_data')->where(['pid'=>$id,'site_id'=>$site_arr[0]])->update($save);

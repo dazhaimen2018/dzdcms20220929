@@ -539,7 +539,18 @@ class Category extends Adminbase
                 }
                 $save['setting'] = json_encode($new_setting);
                 $save['site_id'] = $site_arr[0];
-                $save['detail']  = 0;
+                //$save['detail']  = 0;
+                if (isset($info2['detail'])){
+                    $pattern = stripHtmlTags($info2['detail']);
+                    $replacement = [];
+                    foreach ($pattern as $pk => $pv){
+                        $replacement[] = $Translator->text_translator($pv,$site_arr[1]);
+                    }
+                    $save_content = restoreHtmlTags($pattern,$replacement,$info2['detail']);
+                    $save['detail'] = $save_content;
+                }else{
+                    $save['detail'] = '';
+                }
                 $save['status']  = 0;
                 if ($CategoryDataModel->where(['catid'=>$catid,'site_id'=>$site_arr[0]])->count()>0){
                     if ($data['status']){
@@ -588,8 +599,12 @@ class Category extends Adminbase
                         $save['description'] = '';
                     }
                     if (isset($page_info['content'])){
-                        $save_content = $Translator->text_translator($page_info['content'],$site_arr[1]);
-                        $save_content = htmlTagReplace($save_content);
+                        $pattern = stripHtmlTags($page_info['content']);
+                        $replacement = [];
+                        foreach ($pattern as $pk => $pv){
+                            $replacement[] = $Translator->text_translator($pv,$site_arr[1]);
+                        }
+                        $save_content = restoreHtmlTags($pattern,$replacement,$page_info['content']);
                         $save['content'] = $save_content;
                     }else{
                         $save['content'] = '';

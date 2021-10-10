@@ -364,13 +364,34 @@ function timeRule($time)
         return '刚刚';
     }
 }
-
-function htmlTagReplace($save_content){
-    $patterns = array();
-    $patterns[0] = '/<\s+p\s+>/';
-    $patterns[1] = '/<\/\s+p\s+>/';
-    $replacements = array();
-    $replacements[0] = '<p>';
-    $replacements[1] = '</p>';
-    return preg_replace($patterns,$replacements,$save_content);
+/**
+ * 删除指定标签
+ * @return mixed
+ */
+function stripHtmlTags($str)
+{
+    preg_match_all("/<([\w]+)[^>]*>(.*?)<\/([\w]+)[^>]*>/s", $str,$data);
+    $new_data = [];
+    foreach($data[0] as $key => $value){
+        $nvalue = strip_tags($value);
+        if ($nvalue){
+            $new_data[] = trim($nvalue);
+        }
+    }
+    return $new_data;
+}
+/**
+ * 还原指定标签
+ * @return mixed
+ */
+function restoreHtmlTags($pattern,$replacement,$str)
+{
+    if ($pattern && is_array($pattern)){
+        foreach($pattern as &$value){
+            $value = trim($value,'/');
+            $value = '/'.$value.'/';
+        }
+    }
+    $new_data = preg_replace($pattern,$replacement,$str);
+    return $new_data;
 }
