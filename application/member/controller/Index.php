@@ -14,6 +14,7 @@
 // +----------------------------------------------------------------------
 namespace app\member\controller;
 
+use app\cms\model\Site;
 use app\common\library\Ems;
 use app\common\library\Sms;
 use app\member\model\Member as Member_Model;
@@ -31,7 +32,6 @@ class Index extends MemberBase
     {
         parent::initialize();
         $this->Member_Model = new Member_Model;
-
         $auth = $this->auth;
 
         //监听注册登录退出的事件
@@ -393,11 +393,11 @@ class Index extends MemberBase
             }
             $result = $this->validate($data, $rule);
             if (true !== $result) {
-                $this->error($result);
+                $this->error($result, null, ['token' => $this->request->token()]);
             }
 
             if ($type == 'mobile') {
-                $user = $this->Member_Model->where('mobile', $mobile)->find();
+                $user = Member_Model::where('mobile', $mobile)->find();
                 if (!$user) {
                     $this->error(patch('UserNo'), null, ['token' => $this->request->token()]); //用户不存在
                 }
@@ -406,7 +406,7 @@ class Index extends MemberBase
                     $this->error(patch('VerificationError'), null, ['token' => $this->request->token()]);
                 }
             } elseif ($type == 'email') {
-                $user = $this->Member_Model->where('email', $email)->find();
+                $user = Member_Model::where('email', $email)->find();
                 if (!$user) {
                     $this->error(patch('UserNo'), null, ['token' => $this->request->token()]);
                 }
@@ -417,6 +417,7 @@ class Index extends MemberBase
             } else {
                 $this->error(patch('ParameterEmpty'), null, ['token' => $this->request->token()]); //类型错误
             }
+            $this->auth->direct($user->id);
             $res = $this->auth->changepwd($newpassword, '', true);
             if (!$res) {
                 $this->error($this->auth->getError());
