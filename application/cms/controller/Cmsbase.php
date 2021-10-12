@@ -15,6 +15,7 @@
 namespace app\cms\controller;
 
 use app\member\controller\MemberBase;
+use think\facade\Cache;
 
 class Cmsbase extends MemberBase
 {
@@ -32,6 +33,10 @@ class Cmsbase extends MemberBase
         $this->assign("siteurl", $siteurl);
         $this->view->assign('site_id', $siteId);
         if (!$this->cmsConfig['web_site_status']) {
+            $this->error("站点已经关闭，请稍后访问~");
+        }
+        $siteInfo  = Cache::get('siteInfo');
+        if (!$siteInfo['close']) {
             $this->error("站点已经关闭，请稍后访问~");
         }
     }

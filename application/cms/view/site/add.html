@@ -111,6 +111,12 @@
 				<div class="layui-form-mid layui-word-aux">模版请先上传到template下面并包含info.ini文件</div>
 			</div>
 			<div class="layui-form-item">
+				<label class="layui-form-label">站点排序</label>
+				<div class="layui-input-block">
+					<input type="number" name="listorder" autocomplete="off" placeholder="排序" class="layui-input" value="{$data.listorder|default='0'}">
+				</div>
+			</div>
+			<div class="layui-form-item">
 				<label class="layui-form-label">独立数据</label>
 				<div class="layui-input-block">
 					<input type="radio" name="alone" value="1" {if !$data['alone']}checked{/if} {eq name="data.alone" value="1" }checked{/eq} title="是">
@@ -119,19 +125,20 @@
 				<div class="layui-form-mid layui-word-aux">选否时：主要实用于城市分站、自动调用主站数据并在相应位置自动添加区域名称（站点名称）！</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">排序</label>
+				<label class="layui-form-label">是否显示</label>
 				<div class="layui-input-block">
-					<input type="number" name="listorder" autocomplete="off" placeholder="排序" class="layui-input" value="{$data.listorder|default='0'}">
+					<input type="radio" name="status" value="1" {if !$data['status']}checked{/if} {eq name="data.status" value="1" }checked{/eq} title="是">
+					<input type="radio" name="status" value="0" {eq name="data.status" value="0" }checked{/eq} title="否">
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">状态</label>
+				<label class="layui-form-label">站点开关</label>
 				<div class="layui-input-block">
-					<input type="radio" name="status" value="1" {if !$data['status']}checked{/if} {eq name="data.status" value="1" }checked{/eq} title="开启">
-					<input type="radio" name="status" value="0" {eq name="data.status" value="0" }checked{/eq} title="关闭">
+					<input type="radio" name="close" value="1" {if !$data['close']}checked{/if} {eq name="data.close" value="1" }checked{/eq} title="开">
+					<input type="radio" name="close" value="0" {eq name="data.close" value="0" }checked{/eq} title="关">
+
 				</div>
 			</div>
-
 			<input name="id" type="hidden" value="{$data.id}">
 			<div class="layui-form-item layer-footer">
 				<div class="layui-input-block">

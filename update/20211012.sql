@@ -1,0 +1,1 @@
+ALTER TABLE `yzn_site` CHANGE `translate` `close` TINYINT NOT NULL DEFAULT '1' COMMENT '站点开关';
