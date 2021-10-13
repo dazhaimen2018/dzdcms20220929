@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2021-09-08 06:32:21
+-- 生成日期： 2021-10-12 09:30:09
 -- 服务器版本： 8.0.24
--- PHP 版本： 7.4.22
+-- PHP 版本： 7.4.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 数据库： `osega_cn`
+-- 数据库： `demo_dzdcms_com`
 --
 
 -- --------------------------------------------------------
@@ -47,7 +47,7 @@ CREATE TABLE `yzn_admin` (
 --
 
 INSERT INTO `yzn_admin` (`id`, `username`, `password`, `roleid`, `site_id`, `encrypt`, `nickname`, `last_login_time`, `last_login_ip`, `email`, `token`, `status`) VALUES
-(1, 'admin', 'fa92f5b131d2451bdc4bdf750a0b54d4', 1, 0, 'xW5OhH', '多站点', 1631053898, '', 'admin@admin.com', '', 1);
+(1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 0, 'xW5OhH', '多站点', 1634002188, '114.248.220.138', 'admin@admin.com', '3c9bfb7e-5f3a-4c1f-8418-1ef927071a23', 1);
 
 -- --------------------------------------------------------
 
@@ -202,7 +202,8 @@ INSERT INTO `yzn_config` (`id`, `name`, `type`, `title`, `group`, `options`, `re
 (14, 'upload_thumb_water_alpha', 'text', '水印透明度', 'upload', '', '请输入0~100之间的数字，数字越小，透明度越高', 1552435299, 1552436083, 1, '50', 8),
 (15, 'system_name', 'text', '系统名称', 'system', '', '', 1618874857, 1618874857, 1, 'DZDCMS', 100),
 (16, 'admin_domain', 'text', '后台登录域名', 'system', '', '后台安全登录域名必须是授权顶级域名的二级域名如admin.dzdcms.com', 1625271425, 1625271425, 1, '', 100),
-(17, 'system_logo', 'image', '系统LOGO', 'system', '', '', 1614839822, 1614839893, 1, '/favicon.ico', 100);
+(17, 'system_logo', 'image', '系统LOGO', 'system', '', '', 1614839822, 1614839893, 1, '/favicon.ico', 100),
+(18, 'width', 'text', '栏目列表宽度', 'system', '', '内容发布页面左侧栏目列表宽度', 1633175388, 1633175388, 1, '180px', 100);
 
 -- --------------------------------------------------------
 
@@ -243,24 +244,85 @@ INSERT INTO `yzn_field_type` (`name`, `title`, `listorder`, `default_define`, `i
 ('text', '输入框', 1, 'varchar(255) NOT NULL', 0, 1),
 ('checkbox', '复选框', 2, 'varchar(32) NOT NULL', 1, 0),
 ('textarea', '多行文本', 3, 'varchar(255) NOT NULL', 0, 1),
-('radio', '单选按钮', 4, 'char(10) NOT NULL', 1, 0),
-('switch', '开关', 5, 'tinyint(2) UNSIGNED NOT NULL', 0, 0),
-('array', '数组', 6, 'varchar(512) NOT NULL', 0, 0),
-('select', '下拉框', 7, 'char(10) NOT NULL', 1, 0),
-('selects', '下拉框(多选)', 8, 'varchar(32) NOT NULL', 1, 0),
-('selectpage', '高级下拉框', 9, 'varchar(32) NOT NULL', 1, 0),
-('image', '单张图', 10, 'varchar(255) NOT NULL', 0, 0),
-('images', '多张图', 11, 'text NOT NULL', 0, 0),
-('tags', '标签', 12, 'varchar(255) NOT NULL', 0, 1),
-('number', '数字', 13, 'int(10) UNSIGNED NOT NULL', 0, 0),
-('datetime', '日期和时间', 14, 'int(10) UNSIGNED NOT NULL', 0, 0),
-('Ueditor', '百度编辑器', 15, 'mediumtext NOT NULL', 0, 1),
-('markdown', 'markdown编辑器', 16, 'mediumtext NOT NULL', 0, 1),
-('files', '多文件', 17, 'text NOT NULL', 0, 0),
-('file', '单文件', 18, 'varchar(255) NOT NULL', 0, 0),
-('color', '颜色值', 19, 'varchar(7) NOT NULL', 0, 0),
-('city', '城市地区', 20, 'varchar(255) NOT NULL', 0, 0),
-('custom', '自定义', 21, 'text NOT NULL', 1, 0);
+('password', '密码', 4, 'varchar(255) NOT NULL', 0, 1),
+('radio', '单选按钮', 5, 'char(10) NOT NULL', 1, 0),
+('switch', '开关', 6, 'tinyint(2) UNSIGNED NOT NULL', 0, 0),
+('array', '数组', 7, 'varchar(512) NOT NULL', 0, 0),
+('select', '下拉框', 8, 'char(10) NOT NULL', 1, 0),
+('selects', '下拉框(多选)', 9, 'varchar(32) NOT NULL', 1, 0),
+('selectpage', '高级下拉框', 10, 'varchar(32) NOT NULL', 1, 0),
+('image', '单张图', 11, 'varchar(255) NOT NULL', 0, 0),
+('images', '多张图', 12, 'text NOT NULL', 0, 0),
+('tags', '标签', 13, 'varchar(255) NOT NULL', 0, 1),
+('number', '数字', 14, 'int(10) UNSIGNED NOT NULL', 0, 0),
+('datetime', '日期和时间', 15, 'int(10) UNSIGNED NOT NULL', 0, 0),
+('Ueditor', '百度编辑器', 16, 'mediumtext NOT NULL', 0, 1),
+('markdown', 'markdown编辑器', 17, 'mediumtext NOT NULL', 0, 1),
+('files', '多文件', 18, 'text NOT NULL', 0, 0),
+('file', '单文件', 19, 'varchar(255) NOT NULL', 0, 0),
+('color', '颜色值', 20, 'varchar(7) NOT NULL', 0, 0),
+('city', '城市地区', 21, 'varchar(255) NOT NULL', 0, 0),
+('custom', '自定义', 22, 'text NOT NULL', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yzn_language`
+--
+
+CREATE TABLE `yzn_language` (
+  `id` smallint UNSIGNED NOT NULL COMMENT '站点ID',
+  `name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '语言名称',
+  `mark` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '语言标识',
+  `logo` varchar(255) NOT NULL DEFAULT '' COMMENT '站点LOGO',
+  `listorder` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
+  `common` tinyint NOT NULL DEFAULT '0' COMMENT '最常见的'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='站点表';
+
+--
+-- 转存表中的数据 `yzn_language`
+--
+
+INSERT INTO `yzn_language` (`id`, `name`, `mark`, `logo`, `listorder`, `status`, `common`) VALUES
+(1, '中文', 'zh-cn', '', 1, 1, 1),
+(2, '英语', 'en', '', 2, 1, 1),
+(3, '日语', 'ja', '', 3, 1, 1),
+(4, '韩语', 'ko', '', 4, 1, 1),
+(5, '法语', 'fr', '', 5, 1, 1),
+(6, '西班牙语', 'es', '', 6, 1, 1),
+(7, '葡萄牙语', 'pt', '', 7, 1, 1),
+(8, '意大利语', 'it', '', 8, 1, 1),
+(9, '俄语', 'ru', '', 9, 1, 1),
+(10, '越南语', 'vi', '', 10, 1, 1),
+(11, '德语', 'de', '', 11, 1, 1),
+(12, '阿拉伯语', 'ar', '', 0, 1, 1),
+(13, '印度尼西亚语', 'id', '', 0, 1, 1),
+(14, '希腊语', 'el', '', 0, 1, 0),
+(15, '荷兰语', 'nl', '', 0, 1, 0),
+(16, '波兰语', 'pl', '', 0, 1, 0),
+(17, '保加利亚语', 'bg', '', 0, 1, 0),
+(18, '爱沙尼亚语', 'et', '', 0, 1, 0),
+(19, '丹麦语', 'da', '', 0, 1, 0),
+(20, '芬兰语', 'fi', '', 0, 1, 0),
+(21, '捷克语', 'cs', '', 0, 1, 0),
+(22, '罗马尼亚语', 'ro', '', 0, 1, 0),
+(23, '斯洛文尼亚语', 'sl', '', 0, 1, 0),
+(24, '瑞典语', 'sv', '', 0, 1, 0),
+(25, '匈牙利语', 'hu', '', 0, 1, 0),
+(26, '土耳其语', 'tr', '', 0, 1, 0),
+(27, '乌克兰语', 'uk', '', 0, 1, 0),
+(28, '马来语', 'ms', '', 0, 1, 0),
+(29, '挪威语', 'no', '', 0, 1, 0),
+(30, '尼泊尔语', 'ne', '', 0, 1, 0),
+(31, '印地语', 'hi', '', 0, 1, 0),
+(32, '斯洛伐克语', 'sk', '', 0, 1, 0),
+(33, '爱尔兰语', 'ga', '', 0, 1, 0),
+(34, '哈萨克语', 'kk', '', 0, 1, 0),
+(35, '老挝语', 'lo', '', 0, 1, 0),
+(36, '蒙古语', 'mn', '', 0, 1, 0),
+(37, '缅甸语', 'my', '', 0, 1, 0),
+(38, '泰语', 'th', '', 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -338,7 +400,12 @@ INSERT INTO `yzn_menu` (`id`, `title`, `icon`, `parentid`, `app`, `controller`, 
 (56, '插件安装', '', 39, 'addons', 'addons', 'install', '', 1, '', 0, 0),
 (57, '插件卸载', '', 39, 'addons', 'addons', 'uninstall', '', 1, '', 0, 0),
 (58, '插件状态', '', 39, 'addons', 'addons', 'state', '', 1, '', 0, 0),
-(59, '本地安装', '', 39, 'addons', 'addons', 'local', '', 1, '', 0, 0);
+(59, '本地安装', '', 39, 'addons', 'addons', 'local', '', 1, '', 0, 0),
+(60, '语言管理', 'icon-palette-line', 10, 'admin', 'language', 'index', '', 1, '', 0, 0),
+(61, '新增语言', '', 60, 'admin', 'language', 'add', '', 1, '', 0, 0),
+(62, '编辑语言', '', 60, 'admin', 'language', 'edit', '', 1, '', 0, 0),
+(63, '删除语言', '', 60, 'admin', 'language', 'del', '', 1, '', 0, 0),
+(64, '批量语言', '', 60, 'admin', 'language', 'multi', '', 1, '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -419,19 +486,22 @@ CREATE TABLE `yzn_site` (
   `mark` varchar(30) NOT NULL DEFAULT '' COMMENT '站点标识',
   `http` varchar(30) NOT NULL DEFAULT '' COMMENT 'HTTP',
   `domain` varchar(100) NOT NULL DEFAULT '' COMMENT '站点域名',
-  `url` varchar(255) DEFAULT NULL COMMENT 'URL',
+  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '站点网址',
   `logo` varchar(255) NOT NULL DEFAULT '' COMMENT '站点LOGO',
   `favicon` varchar(255) NOT NULL DEFAULT '' COMMENT '站点图标',
   `template` varchar(30) NOT NULL DEFAULT '' COMMENT '皮肤',
   `brand` varchar(100) NOT NULL DEFAULT '' COMMENT '品牌名称',
-  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '站点标题',
-  `keywords` varchar(100) NOT NULL DEFAULT '' COMMENT '站点关键词',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '站点标题',
+  `keywords` varchar(255) NOT NULL DEFAULT '' COMMENT '站点关键词',
   `description` mediumtext NOT NULL COMMENT '站点描述',
   `parentid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '父ID',
   `arrparentid` varchar(255) NOT NULL DEFAULT '' COMMENT '所有父ID',
   `arrchildid` mediumtext COMMENT '所有子站点ID',
   `child` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否存在子站点，1存在',
   `listorder` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序',
+  `alone` tinyint NOT NULL DEFAULT '1' COMMENT '独立数据',
+  `close` tinyint NOT NULL DEFAULT '1' COMMENT '站点开关',
+  `source` tinyint NOT NULL DEFAULT '0' COMMENT '默认站点',
   `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
   `inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='站点表';
@@ -440,8 +510,8 @@ CREATE TABLE `yzn_site` (
 -- 转存表中的数据 `yzn_site`
 --
 
-INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `status`, `inputtime`) VALUES
-(1, '中文站', 'zh-cn', 'http', 'demo.dzdcms.com', 'http://demo.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 0);
+INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `alone`, `close`, `source`, `status`, `inputtime`) VALUES
+(1, '中文站', 'zh-cn', 'http', 'demo.dzdcms.com', 'http://demo.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 1, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -539,6 +609,12 @@ ALTER TABLE `yzn_field_type`
   ADD UNIQUE KEY `name` (`name`);
 
 --
+-- 表的索引 `yzn_language`
+--
+ALTER TABLE `yzn_language`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- 表的索引 `yzn_menu`
 --
 ALTER TABLE `yzn_menu`
@@ -629,7 +705,7 @@ ALTER TABLE `yzn_cache`
 -- 使用表AUTO_INCREMENT `yzn_config`
 --
 ALTER TABLE `yzn_config`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_INCREMENT=18;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_INCREMENT=19;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_ems`
@@ -638,10 +714,16 @@ ALTER TABLE `yzn_ems`
   MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID';
 
 --
+-- 使用表AUTO_INCREMENT `yzn_language`
+--
+ALTER TABLE `yzn_language`
+  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '站点ID', AUTO_INCREMENT=39;
+
+--
 -- 使用表AUTO_INCREMENT `yzn_menu`
 --
 ALTER TABLE `yzn_menu`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '菜单ID', AUTO_INCREMENT=60;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '菜单ID', AUTO_INCREMENT=65;
 
 --
 -- 使用表AUTO_INCREMENT `yzn_model`

@@ -336,7 +336,7 @@ class Admin extends Adminaddon
                 $data['setting']     = array(
                     'meta_title'        => isset($value['seotitle']) ? $value['seotitle'] : '',
                     'meta_keywords'     => isset($value['keywords']) ? $value['keywords'] : '',
-                    'meta_description'  => isset($value['description']) ? $value['description'] : '',
+                    'meta_description'  => isset($value['description']) ? mb_substr($value['description'], 0, 200) : '',
 
                     'category_template' => isset($value['tempindex']) ? $this->getTemplate($value['tempindex'], 'category') : 'category.html',
                     'list_template'     => isset($value['templist']) ? $this->getTemplate($value['templist'], 'list') : 'list.html',
@@ -410,7 +410,7 @@ class Admin extends Adminaddon
                             'tags'        => '',
                             'title'       => $value['title'],
                             'keywords'    => $value['keywords'],
-                            'description' => $value['description'],
+                            'description' => mb_substr($value['description'], 0, 200),
                             'content' => $value['body'] ?: '',
                         ];
                         //是否有自定义字段
@@ -496,7 +496,7 @@ class Admin extends Adminaddon
                     'title'       => $value['typename'],
                     'content'     => $value['content'],
                     'keywords'    => $value['keywords'],
-                    'description' => $value['description'],
+                    'description' => mb_substr($value['description'], 0, 200),
                     'inputtime'   => time(),
                     'updatetime'  => time(),
                 ];
