@@ -148,6 +148,7 @@ class Content extends MemberBase
                 if ($v['id'] == $catid) {
                     $array[$k]['selected'] = "selected";
                 }
+                $array[$k]['catname'] =  $array[$k]['catname']? $array[$k]['catname']:$v['catname'];
                 //含子栏目和单页不可以发表
                 if ($v['child'] == 1 || $v['type'] == 1) {
                     $array[$k]['disabled'] = "disabled";
