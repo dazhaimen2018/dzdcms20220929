@@ -53,7 +53,7 @@ class Category extends Adminbase
         $this->pageTemplate = str_replace($this->themePath . DS, '', glob($this->themePath . DS . 'page*'));
 
         // 20200805 马博所有站点
-        $siteAdmin = $this->auth->site_id;
+        $siteAdmin = $this->auth->sites;
         if ($siteAdmin) {
             $whereSite = " id = $siteAdmin";
         }else{
@@ -94,7 +94,7 @@ class Category extends Adminbase
             $tree->nbsp = '&nbsp;&nbsp;&nbsp;';
             $categorys  = array();
             // 获取当前管理所属站点
-            $sites = $this->auth->site_id;
+            $sites = $this->auth->sites;
             if($sites){
                 $site  = [];
                 foreach (explode(',', $sites) as $k => $v) {
@@ -234,7 +234,7 @@ class Category extends Adminbase
             //栏目列表 可以用缓存的方式
 
             // 获取当前管理所属站点
-            $sites = $this->auth->site_id;
+            $sites = $this->auth->sites;
             if($sites){
                 $site  = [];
                 foreach (explode(',', $sites) as $k => $v) {
@@ -393,7 +393,7 @@ class Category extends Adminbase
             }
             //栏目列表 可以用缓存的方式
             // 获取当前管理所属站点
-            $sites = $this->auth->site_id;
+            $sites = $this->auth->sites;
             if($sites){
                 $site  = [];
                 foreach (explode(',', $sites) as $k => $v) {

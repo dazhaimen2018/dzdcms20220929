@@ -44,7 +44,7 @@
 
 		        <ul class="layui-nav layui-layout-right">
 		            <li class="layui-nav-item"><a href="{:homePage()}" target="_blank"><i class="iconfont icon-homepage" title="站点首页"></i></a></li>
-                    {if isModuleInstall('cms') && !$userInfo.site_id}
+                    {if isModuleInstall('cms') && !$userInfo.sites}
                     <li class="layui-nav-item"><a href="javascript:;"><img src="__STATIC__/lang/image/{if getSiteInfo('mark')}{:getSiteInfo('mark')}{else}site{/if}.png" class="layui-nav-img userAvatar" width="35" height="35">{:onSiteName()}【切换】</a>
                         <dl class="layui-nav-child" id="change">
                             <dd><a href="javascript:;" data-type="0"><img class="site-icon" src= "/static/lang/image/site.png"> 所有站点</a></dd>

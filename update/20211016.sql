@@ -1,0 +1,1 @@
+ALTER TABLE `yzn_admin` CHANGE `site_id` `sites` SMALLINT UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID';

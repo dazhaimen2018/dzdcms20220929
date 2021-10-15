@@ -35,7 +35,7 @@ class Chapter extends Adminbase
         // 20200805 马博所有站点
         $catid    = $this->request->param('catid/d', 0);
         $did      = $this->request->param('did/d', 0);
-        $sites    = $this->auth->site_id;
+        $sites    = $this->auth->sites;
         if ($sites) {
             $whereSite = " id = $sites";
         }else{

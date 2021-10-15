@@ -73,7 +73,7 @@ class Main extends Adminbase
             $sys_info['site']  = 0;
         }
         $role_id  = $this->auth->roleid;
-        $site     = $this->auth->site_id;
+        $site     = $this->auth->sites;
         $sys_info['group'] = Db::name('auth_group')->where('id', $role_id)->cache(60)->value('title');
         if ($site){
             $sys_info['site'] = Db::name('site')->where('id', $site)->cache(60)->value('name');

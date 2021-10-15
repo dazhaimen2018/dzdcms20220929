@@ -32,7 +32,7 @@ CREATE TABLE `yzn_admin` (
   `username` varchar(20) DEFAULT NULL COMMENT '管理账号',
   `password` varchar(32) DEFAULT NULL COMMENT '管理密码',
   `roleid` tinyint UNSIGNED DEFAULT '0',
-  `site_id` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID',
+  `sites` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID',
   `encrypt` varchar(6) DEFAULT NULL COMMENT '加密因子',
   `nickname` char(16) NOT NULL COMMENT '昵称',
   `last_login_time` int UNSIGNED DEFAULT '0' COMMENT '最后登录时间',
@@ -46,7 +46,7 @@ CREATE TABLE `yzn_admin` (
 -- 转存表中的数据 `yzn_admin`
 --
 
-INSERT INTO `yzn_admin` (`id`, `username`, `password`, `roleid`, `site_id`, `encrypt`, `nickname`, `last_login_time`, `last_login_ip`, `email`, `token`, `status`) VALUES
+INSERT INTO `yzn_admin` (`id`, `username`, `password`, `roleid`, `sites`, `encrypt`, `nickname`, `last_login_time`, `last_login_ip`, `email`, `token`, `status`) VALUES
 (1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 0, 'xW5OhH', '多站点', 1634002188, '114.248.220.138', 'admin@admin.com', '3c9bfb7e-5f3a-4c1f-8418-1ef927071a23', 1);
 
 -- --------------------------------------------------------

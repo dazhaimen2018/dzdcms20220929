@@ -18,9 +18,9 @@
                 {{#  } }}
             </script>
             <script type="text/html" id="site">
-                {{# if(d.site_id ==0){ }}所有站
+                {{# if(d.sites ==0){ }}所有站
                 {{#  } else { }}
-                站点{{d.site_id }}
+                站点{{d.sites }}
                 {{#  } }}
             </script>
         </div>
@@ -56,7 +56,7 @@ layui.use('yznTable', function() {
                 { field: 'id', width: 80, title: 'ID'},
                 { field: 'username', width: 120, title: '登录名'},
                 { field: 'roleid', width: 120, title: '所属角色'},
-                { field: 'site_id', width: 120, title: '所属站点',templet: '#site', align: "center"},
+                { field: 'sites', width: 120, title: '所属站点',templet: '#site', align: "center"},
                 { field: 'last_login_ip', title: '最后登录IP' , align: "center"},
                 { field: 'last_login_time', width: 200, title: '最后登录时间', search: 'range' },
                 { field: 'email',width: 200, title: 'E-mail' },

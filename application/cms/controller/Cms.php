@@ -31,7 +31,7 @@ class Cms extends Adminbase
         $this->cmsConfig = cache("Cms_Config");
         $this->assign("cmsConfig", $this->cmsConfig);
         // 20200805 马博所有站点
-        $siteIds    = $this->auth->site_id;
+        $siteIds    = $this->auth->sites;
         if ($siteIds) {
             $whereSite = " id = $siteIds";
         }else{
@@ -79,7 +79,7 @@ class Cms extends Adminbase
             }
         }
         // 获取当前管理所属站点
-        $sites = $this->auth->site_id;
+        $sites = $this->auth->sites;
         if($sites){
             $site  = [];
             foreach (explode(',', $sites) as $k => $v) {
