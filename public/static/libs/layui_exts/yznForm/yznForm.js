@@ -377,6 +377,33 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                     return false;
                 });
 
+                //只删除当前站点数据(要刷新)
+                $(document).on('click', '.layui-tr-load', function() {
+                    var that = $(this),
+                        index = that.parents('tr').eq(0).data('index'),
+                        tr = $('.layui-table-body').find('tr[data-index="' + index + '"]'),
+                        href = !that.attr('data-href') ? that.attr('href') : that.attr('data-href');
+                    layer.confirm('单站模式只删除当前站点数据，删除之后无法恢复，您确定要删除吗？', { icon: 3, title: '提示信息' }, function(index) {
+                        if (!href) {
+                            notice.info({ message: '请设置data-href参数' });
+                            return false;
+                        }
+                        $.get(href, function(res) {
+                            if (res.code == 1) {
+                                notice.success({ message: res.msg });
+                                //增加刷新代码 待优化
+                                location.reload();
+                            } else {
+                                notice.error({ message: res.msg });
+                            }
+                        });
+
+                        layer.close(index);
+
+                    });
+                    return false;
+                });
+
                 /**
                  * 普通按钮点击iframe弹窗
                  * @href 弹窗地址

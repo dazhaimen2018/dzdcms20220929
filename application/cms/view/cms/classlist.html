@@ -7,7 +7,7 @@
     <a data-open='{:url("push",["catid"=>$catid])}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs layui-btn-warm" title="推送并翻译">推送</a>
     {{#  } }}
     <a class="layui-btn layui-btn-xs" data-open='{:url("edit",["catid"=>$catid])}?id={{ d.id }}' data-title="编辑内容" data-full="true">编辑</a>
-    <a href='{:url("del",["catid"=>$catid])}?ids={{ d.id }}&sites={:onSite()}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
+    <a href='{:url("del",["catid"=>$catid])}?ids={{ d.id }}&sites={:onSite()}' class="layui-btn layui-btn-danger layui-btn-xs {if onSite()}layui-tr-load{else}layui-tr-del{/if}">删除</a>
     {{# if(d.modelType==3){ }}
     <a class="layui-btn layui-btn-normal layui-btn-xs" data-open='{:url("cms/chapter/index",["catid"=>$catid])}?did={{ d.id }}' data-title="章节列表" data-full="true">内容</a>
     {{#  } }}
