@@ -615,6 +615,7 @@ class Cms extends Adminbase
         $this->check_priv('delete');
         $catid = $this->request->param('catid/d', 0);
         $ids   = $this->request->param('ids/a', null);
+        $sites = $this->request->param('sites/d', null);
         if (empty($ids) || !$catid) {
             $this->error('参数错误！');
         }
@@ -624,7 +625,7 @@ class Cms extends Adminbase
         $modelid   = getCategory($catid, 'modelid');
         try {
             foreach ($ids as $id) {
-                $this->Cms_Model->deleteModelData($modelid, $id, $this->cmsConfig['web_site_recycle']);
+                $this->Cms_Model->deleteModelData($modelid, $id, $sites, $this->cmsConfig['web_site_recycle']);
             }
         } catch (\Exception $ex) {
             $this->error($ex->getMessage());

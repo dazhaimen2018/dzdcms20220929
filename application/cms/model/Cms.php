@@ -276,7 +276,7 @@ class Cms extends Modelbase
     }
 
     //删除模型内容
-    public function deleteModelData($modeId, $id, $no_delete = false)
+    public function deleteModelData($modeId, $id, $sites, $no_delete = false)
     {
         $modelInfo = cache('Model');
         $modelInfo = $modelInfo[$modeId];
@@ -288,16 +288,20 @@ class Cms extends Modelbase
         if (!empty($data['tags'])) {
             $this->tagDispose([], $data['id'], $data['catid'], $modeId);
         }
-
-        if ($no_delete) {
-            Db::name($modelInfo['tablename'])->where('id', $id)->setField('status', -1);
+        if ($sites) {
+            //如果站点ID不为0，只删除当前数据
+            Db::name($modelInfo['tablename'] . $this->ext_table)->where('did', $id)->where('site_id', $sites)->delete();
         } else {
-            Db::name($modelInfo['tablename'])->where('id', $id)->delete();
-            if (2 == $modelInfo['type']) {
-                Db::name($modelInfo['tablename'] . $this->ext_table)->where('did', $id)->delete();
+            if ($no_delete) {
+                Db::name($modelInfo['tablename'])->where('id', $id)->setField('status', -1);
+            }  else {
+                Db::name($modelInfo['tablename'])->where('id', $id)->delete();
+                if (2 == $modelInfo['type']) {
+                    Db::name($modelInfo['tablename'] . $this->ext_table)->where('did', $id)->delete();
+                }
+                //更新栏目统计
+                $this->updateCategoryItems($data['catid'], 'delete');
             }
-            //更新栏目统计
-            $this->updateCategoryItems($data['catid'], 'delete');
         }
         //标签
         hook('content_delete_end', $data);
