@@ -67,13 +67,13 @@ class Manager extends Adminbase
 
             list($page, $limit, $where) = $this->buildTableParames();
             $this->AuthGroupModel       = new AuthGroupModel();
-
+            $this->Site                 = new Site();
             $count = $this->modelClass
                 ->where($where)
                 ->where('id', 'in', $this->childrenAdminIds)
                 ->order('id DESC')
-                ->withAttr('site_id', function ($value, $data) {
-                    return getSiteName($value);
+                ->withAttr('roleid', function ($value, $data) {
+                    return $this->AuthGroupModel->getRoleIdName($value);
                 })
                 ->count();
 
@@ -83,6 +83,9 @@ class Manager extends Adminbase
                 ->order('id DESC')
                 ->withAttr('roleid', function ($value, $data) {
                     return $this->AuthGroupModel->getRoleIdName($value);
+                })
+                ->withAttr('sites', function ($value, $data) {
+                    return $this->Site->getSiteName($value);
                 })
                 ->page($page, $limit)
                 ->select();

@@ -19,4 +19,13 @@ use think\Model;
 class Site extends Model
 {
 	protected $createTime = 'inputtime';
+
+    public function getSiteName($sites)
+    {
+        if ($sites) {
+            return $this->where(array('id' => $sites))->value('name');
+        } else{
+            return '所有站';
+        }
+    }
 }
