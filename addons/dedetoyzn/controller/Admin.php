@@ -356,7 +356,7 @@ class Admin extends Adminaddon
         try {
             foreach ($cursor as $key => $value) {
                 $data['id']          = $value['id'];
-                $data['modelid']     = $dede_models[$value['channeltype']]['id'];
+                $data['modelid']     = $value['ispart'] != 0 ? 0 : $dede_models[$value['channeltype']]['id'];
                 $data['catname']     = $value['typename'];
                 $data['parentid']    = $value['reid'];
                 $data['english'] = "";
@@ -413,7 +413,7 @@ class Admin extends Adminaddon
                 try {
                     $cursor = Db::connect($db_config)
                         ->name('archives')->alias('a')
-                        ->join([$db_config['prefix'] . $value['name'] => 'w'], 'a.id=w.aid')->field('a.*,w.*')->select();
+                        ->join([$db_config['prefix'] . $value['name'] => 'w'], 'a.id=w.aid and a.typeid=w.typeid')->field('a.*,w.*')->select();
                     foreach ($cursor as $key => $value) {
                         $modelid            = $dede_models[$value['channel']]['id'];
                         $data['modelField'] = [
@@ -431,7 +431,7 @@ class Admin extends Adminaddon
                             'hits'        => $value['click'],
                             'modelid'     => $modelid,
                             'listorder'   => $value['weight'],
-                            'status'      => 1,
+                            'status'      => $value['arcrank'] == -2 ? -1 : 1,
                             'inputtime'   => date('Y-m-d h:i:s', $value['senddate']),
                             'updatetime'  => date('Y-m-d h:i:s', $value['senddate']),
                         ];
@@ -456,9 +456,9 @@ class Admin extends Adminaddon
                                         break;
                                 }
                                 if ($v['ifsystem']) {
-                                    $data['modelField'][$v['name']] = $value[$v['name']];
+                                    $data['modelField'][$v['name']] = $value[$v['name']] ?? "";
                                 } else {
-                                    $data['modelFieldExt'][$v['name']] = $value[$v['name']];
+                                    $data['modelFieldExt'][$v['name']] = $value[$v['name']] ?? "";
                                 }
                             }
                         }
@@ -490,7 +490,7 @@ class Admin extends Adminaddon
                             'groupids'    => '',
                             'modelid'    => $modelid, //优化
                             'listorder'  => 0,
-                            'status'     => 1,
+                            'status'     => $value['arcrank'] == -2 ? -1 : 1,
                             'inputtime'  => date('Y-m-d h:i:s', $value['senddate']),
                             'updatetime' => date('Y-m-d h:i:s', $value['senddate']),
                         ];
@@ -498,9 +498,9 @@ class Admin extends Adminaddon
                         if (isset($dede_fields[$modelid])) {
                             foreach ($dede_fields[$modelid] as $k => $v) {
                                 if ($v['ifsystem']) {
-                                    $data['modelField'][$v['name']] = $value[$v['name']];
+                                    $data['modelField'][$v['name']] = $value[$v['name']] ?? "";
                                 } else {
-                                    $data['modelFieldExt'][$v['name']] = $value[$v['name']];
+                                    $data['modelFieldExt'][$v['name']] = $value[$v['name']] ?? "";
                                 }
                             }
                         }
