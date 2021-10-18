@@ -10,13 +10,15 @@
             {yzn module="cms" action="lists" catid="4" siteId="$site_id" cache="3600" order="listorder DESC,inputtime DESC" num="9" return="data"}
             {volist name="data" id="item"}
             <div class="layui-col-md4 layui-col-sm6">
-                <div class="content" title="{$item.description}">
-                    <div class="layui-icon {$item.icon}"><i></i></div>
-                    <div class="layui-text">
-                        <p class="label">{$item.title}</p>
-                        <p class="layui-desc">{$item.description}</p>
+                <a href="{$item.url}">
+                    <div class="content" title="{$item.description}">
+                        <div class="layui-icon {$item.icon}"><i></i></div>
+                        <div class="layui-text">
+                            <p class="label">{$item.title}</p>
+                            <p class="layui-desc">{$item.description}</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             {/volist}
             {/yzn}

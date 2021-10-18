@@ -40,12 +40,6 @@ return [
                                 "name"   => "面板",
                             ],
                             [
-                                "route"  => "cms/cms/public_categorys",
-                                "type"   => 1,
-                                "status" => 0,
-                                "name"   => "栏目列表",
-                            ],
-                            [
                                 "route"  => "cms/cms/classlist",
                                 "type"   => 1,
                                 "status" => 0,
@@ -100,15 +94,45 @@ return [
                                 "name"   => "回收站",
                                 "icon"   => "icon-trash",
                             ],
+                            [
+                                "route"  => "cms/cms/destroy",
+                                "type"   => 1,
+                                "status" => 0,
+                                "name"   => "清空回收站",
+                            ],
+                            [
+                                "route"  => "cms/cms/restore",
+                                "type"   => 1,
+                                "status" => 0,
+                                "name"   => "还原回收站",
+                            ],
                         ],
                     ],
                     [
                         "route"  => "cms/publish/index",
                         "type"   => 1,
-                        "status" => 0,
+                        "status" => 1,
                         "name"   => "稿件管理",
                         "icon"   => "icon-draft-line",
                         "child"  => [
+                            [
+                                "route"  => "cms/publish/del",
+                                "type"   => 1,
+                                "status" => 0,
+                                "name"   => "删除",
+                            ],
+                            [
+                                "route"  => "cms/publish/pass",
+                                "type"   => 1,
+                                "status" => 0,
+                                "name"   => "通过",
+                            ],
+                            [
+                                "route"  => "cms/publish/reject",
+                                "type"   => 1,
+                                "status" => 0,
+                                "name"   => "退稿",
+                            ],
                         ],
                     ],
                     [
@@ -143,6 +167,12 @@ return [
                                 "name"   => "删除",
                             ],
                             [
+                                "route"  => "cms/tags/create",
+                                "type"   => 1,
+                                "status" => 0,
+                                "name"   => "数据重建",
+                            ],
+                            [
                                 "route"  => "cms/tags/multi",
                                 "type"   => 1,
                                 "status" => 0,
@@ -150,10 +180,80 @@ return [
                             ],
                         ],
                     ],
+                    [
+                        "route"  => "cms/sub/index",
+                        "type"   => 1,
+                        "status" => 0,
+                        "name"   => "章节内容",
+                        "icon"   => "icon-draft-line",
+                        "child"  => [
+                            [
+                                "route"  => "cms/sub/index",
+                                "type"   => 1,
+                                "status" => 0,
+                                "name"   => "章节列表",
+                            ],
+                            [
+                                "route"  => "cms/sub/add",
+                                "type"   => 1,
+                                "status" => 0,
+                                "name"   => "添加",
+                            ],
+                            [
+                                "route"  => "cms/sub/edit",
+                                "type"   => 1,
+                                "status" => 0,
+                                "name"   => "编辑",
+                            ],
+                            [
+                                "route"  => "cms/sub/del",
+                                "type"   => 1,
+                                "status" => 0,
+                                "name"   => "删除",
+                            ],
+                            [
+                                "route"  => "cms/sub/listorder",
+                                "type"   => 1,
+                                "status" => 0,
+                                "name"   => "排序",
+                            ],
+                            [
+                                "route"  => "cms/sub/setstate",
+                                "type"   => 1,
+                                "status" => 0,
+                                "name"   => "状态",
+                            ],
+                            [
+                                "route"  => "cms/sub/check_title",
+                                "type"   => 1,
+                                "status" => 0,
+                                "name"   => "标题检查",
+                            ],
+                            [
+                                "route"  => "cms/sub/recycle",
+                                "type"   => 1,
+                                "status" => 0,
+                                "name"   => "回收站",
+                                "icon"   => "icon-trash",
+                            ],
+                            [
+                                "route"  => "cms/sub/destroy",
+                                "type"   => 1,
+                                "status" => 0,
+                                "name"   => "清空回收站",
+                            ],
+                            [
+                                "route"  => "cms/sub/restore",
+                                "type"   => 1,
+                                "status" => 0,
+                                "name"   => "还原回收站",
+                            ],
+                        ],
+                    ],
                 ],
             ],
             [
-                "route"  => "cms/category/index1",
+                "route"  => "cms/category/index",
                 "type"   => 1,
                 "status" => 1,
                 "name"   => "相关设置",
@@ -170,52 +270,53 @@ return [
                         "route"  => "cms/category/index",
                         "type"   => 1,
                         "status" => 1,
-                        "name"   => "栏目列表",
+                        "name"   => "栏目管理",
                         "icon"   => "icon-other",
-                        "child"  => [
+                        "child"  =>
                             [
-                                "route"  => "cms/category/add",
-                                "type"   => 1,
-                                "status" => 0,
-                                "name"   => "添加栏目",
+                                [
+                                    "route"  => "cms/category/add",
+                                    "type"   => 1,
+                                    "status" => 0,
+                                    "name"   => "添加栏目",
+                                ],
+                                [
+                                    "route"  => "cms/category/singlepage",
+                                    "type"   => 1,
+                                    "status" => 0,
+                                    "name"   => "添加单页",
+                                ],
+                                [
+                                    "route"  => "cms/category/cat_priv",
+                                    "type"   => 1,
+                                    "status" => 0,
+                                    "name"   => "栏目授权",
+                                ],
+                                [
+                                    "route"  => "cms/category/edit",
+                                    "type"   => 1,
+                                    "status" => 0,
+                                    "name"   => "编辑栏目",
+                                ],
+                                [
+                                    "route"  => "cms/category/del",
+                                    "type"   => 1,
+                                    "status" => 0,
+                                    "name"   => "删除栏目",
+                                ],
+                                [
+                                    "route"  => "cms/category/multi",
+                                    "type"   => 1,
+                                    "status" => 0,
+                                    "name"   => "批量更新",
+                                ],
+                                [
+                                    "route"  => "cms/category/public_tpl_file_list",
+                                    "type"   => 1,
+                                    "status" => 0,
+                                    "name"   => "栏目模板",
+                                ],
                             ],
-                            [
-                                "route"  => "cms/category/singlepage",
-                                "type"   => 1,
-                                "status" => 0,
-                                "name"   => "添加单页",
-                            ],
-                            [
-                                "route"  => "cms/category/wadd",
-                                "type"   => 1,
-                                "status" => 0,
-                                "name"   => "添加外部链接",
-                            ],
-                            [
-                                "route"  => "cms/category/cat_priv",
-                                "type"   => 1,
-                                "status" => 0,
-                                "name"   => "栏目授权",
-                            ],
-                            [
-                                "route"  => "cms/category/edit",
-                                "type"   => 1,
-                                "status" => 0,
-                                "name"   => "编辑栏目",
-                            ],
-                            [
-                                "route"  => "cms/category/del",
-                                "type"   => 1,
-                                "status" => 0,
-                                "name"   => "删除栏目",
-                            ],
-                            [
-                                "route"  => "cms/category/multi",
-                                "type"   => 1,
-                                "status" => 0,
-                                "name"   => "批量更新",
-                            ],
-                        ],
                     ],
                     [
                         "route"  => "cms/models/index",
@@ -298,18 +399,6 @@ return [
                                 "name"   => "删除模型",
                             ],
                             [
-                                "route"  => "cms/models/setSub",
-                                "type"   => 1,
-                                "status" => 0,
-                                "name"   => "模型投稿",
-                            ],
-                            [
-                                "route"  => "cms/models/setstate",
-                                "type"   => 1,
-                                "status" => 0,
-                                "name"   => "设置模型状态",
-                            ],
-                            [
                                 "route"  => "cms/models/multi",
                                 "type"   => 1,
                                 "status" => 0,
@@ -322,7 +411,7 @@ return [
                         "type" => 1,
                         "status" => 1,
                         "name" => "站点管理",
-                        "icon" => "icon-apartment",
+                        "icon" => "icon-global",
                         "child" =>
                             [
                                 [
@@ -369,7 +458,7 @@ return [
                         "type" => 1,
                         "status" => 1,
                         "name" => "碎片管理",
-                        "icon" => "icon-setup",
+                        "icon" => "icon-manage",
                         "child" =>
                             [
                                 [
@@ -409,6 +498,62 @@ return [
                                     "name" => "碎片状态",
                                 ],
 
+                            ],
+                    ],
+                    [
+                        "route" => "cms/template/index",
+                        "type" => 1,
+                        "status" => 1,
+                        "name" => "模版管理",
+                        "icon" => "icon-palette-line",
+                        "child" =>
+                            [
+                                [
+                                    "route" => "cms/template/index",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "模版管理",
+                                ],
+                                [
+                                    "route" => "cms/template/local",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "本地安装",
+                                ],
+                            ],
+                    ],
+                    [
+                        "route" => "cms/search/index",
+                        "type" => 1,
+                        "status" => 1,
+                        "name" => "搜索记录",
+                        "icon" => "icon-search",
+                        "child" =>
+                            [
+                                [
+                                    "route" => "cms/search/index",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "搜索列表",
+                                ],
+                                [
+                                    "route" => "cms/search/add",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "添加搜索",
+                                ],
+                                [
+                                    "route" => "cms/search/edit",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "搜索编辑",
+                                ],
+                                [
+                                    "route" => "cms/search/del",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "搜索删除",
+                                ],
                             ],
                     ],
                 ],
