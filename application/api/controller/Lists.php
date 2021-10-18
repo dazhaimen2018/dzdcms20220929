@@ -7,6 +7,9 @@ namespace app\api\controller;
 use app\common\controller\Adminbase;
 use think\Db;
 
+// +----------------------------------------------------------------------
+// | dzdcms [ 多站点CMS后端数据调用]
+// +----------------------------------------------------------------------
 
 class Lists extends Adminbase
 {
@@ -35,6 +38,26 @@ class Lists extends Adminbase
             return $this->selectpage();
         }
 
+    }
+
+    //获取标题拼音
+    public function getTitlePinyin()
+    {
+        $config = isset(cache("Cms_Config")['show_url_mode']) && 1 == cache("Cms_Config")['show_url_mode'];
+        $title = $this->request->post("title");
+        //分隔符
+        $delimiter = $this->request->post("delimiter", "");
+        $pinyin = new \Overtrue\Pinyin\Pinyin('Overtrue\Pinyin\MemoryFileDictLoader');
+        if ($title) {
+            if ($config) {
+                $result = $pinyin->permalink($title, $delimiter);
+                $this->success("", null, ['pinyin' => $result]);
+            } else {
+                $this->error();
+            }
+        } else {
+            $this->error('标题不为能空');
+        }
     }
 
 }

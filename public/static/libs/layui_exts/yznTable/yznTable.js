@@ -32,6 +32,10 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element', 'yznForm']
                 icon: 'layui-icon-search',
                 extend: 'data-table-id="' + options.id + '"'
             }];
+            var tableDone = options.done || function() {};
+            options.done = function(res, curr, count) {
+                tableDone(res, curr, count);
+            };
 
             // 判断元素对象是否有嵌套的
             options.cols = yznTable.formatCols(options.cols, options.init);
@@ -107,8 +111,11 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element', 'yznForm']
             formatToolbar.icon = formatToolbar.icon !== '' ? '<i class="' + formatToolbar.icon + '"></i> ' : '';
             formatToolbar.class = formatToolbar.class !== '' ? 'class="' + formatToolbar.class + '" ' : '';
 
+            // parent 马博 20211018
             if (toolbar.method === 'open') {
                 formatToolbar.method = formatToolbar.method !== '' ? 'data-open="' + formatToolbar.url + '" data-title="' + formatToolbar.title + '" ' : '';
+            }else if(toolbar.method === 'parent'){
+                formatToolbar.method = formatToolbar.method !== '' ? 'parent-open="' + formatToolbar.url + '" data-title="' + formatToolbar.title + '" ' : '';
             }else{
                 formatToolbar.method = formatToolbar.method !== '' ? 'data-request="' + formatToolbar.url + '" data-title="' + formatToolbar.title + '" ' : '';
             }

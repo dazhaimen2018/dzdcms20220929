@@ -337,7 +337,7 @@ layui.define(['layer','notice'], function(exports) {
 
     //自己添加主题
     $(function(){
-        var theme = $('#theme').val();
+        var theme  = $('#theme').val();
         if (!theme){
             $('#title').bind('input propertychange', function() {
                 var title = $('#title').val();
@@ -345,6 +345,7 @@ layui.define(['layer','notice'], function(exports) {
             });
         }
     });
+
     //马博加 end
     exports(MOD_NAME, yzn);
 });

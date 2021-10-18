@@ -97,6 +97,15 @@
                 $('#link').val($(data.elem).find("option:selected").attr("data-url"));
             });
 
+            //获取标题拼音
+            $("#title").blur(function(){
+                var value = this.value;
+                var node = this;
+                $.post('api/lists/getTitlePinyin',{title:value, delimiter: "-"},function (data){
+                    $("#diyurl").val(data.data.pinyin.substr(0, 100));
+                },'json');
+            })
+
             //关联栏目 顶级栏目parentid根据情况修改,workid为当前字段名
             $(".workid").data("params", function (obj) {
                 return {custom: {parentid: 1}};

@@ -1,7 +1,9 @@
 /* 自己定义 */
 .fr {float: right;}
 .layui-form-item.layui-required:after{content:"*";color:red;position: absolute;top:5px;left:15px;}
-.childrenBody {padding: 10px;}
+.childrenBody {padding: 5px;}
+.iframe_box {padding: 5px;background-color: #f2f2f2;}
+.layui-layout-admin .layui-footer {height: 40px;line-height: 40px;}
 /*默认头部*/
 .layui-layout-admin .layui-header {background-color: #fff !important;box-shadow: inset 0 -1px 0 0 #e5ecf0;}
 .layui-layout-admin .layui-header .layui-header-content > ul > .layui-nav-item.layui-this, .layui-tool i:hover {background-color: #ff3d00 !important;}
@@ -55,6 +57,10 @@
 .form-search .layui-form-item{display: block;flex: none!important;float: left;clear: none;margin: 5px 5px 5px 0;}
 .form-search .layui-form-item .layui-input-inline{flex: auto;}
 /* form-search end */
+
+/*小程序*/
+.layui-table {border: none!important;}
+.layui-table .layui-form-item{width: 100%;display: revert!important;}
 
 .layui-header .layui-nav .layui-nav-item{height: 60px;line-height: 60px;}
 .layui-form-item{position: relative;margin-bottom: 10px;display: flex;}
