@@ -4,39 +4,50 @@
 <div class="layui-card">
     <div class="layui-card-body layui-form-pane">
         <form class="layui-form" method="post">
-            <div class="layui-tab">
-                <ul class="layui-tab-title">
-                    <li class="layui-this">基本信息</li>
-                    {volist name="site" id="s" key="i" }
-                    <!--增加判断是否多站一起发布站点tab--->
-                    {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
-                    {if $i == getSiteInfo('id')}
-                    {include file="item_site" /}
-                    {/if}
-                    {else}
-                    {include file="item_site" /}
-                    {/if}
-                    {/volist}
-                </ul>
-                <div class="layui-tab-content">
-                    <div class="layui-tab-item layui-show">
-                        {include file="admin@inputItem" /}
+
+            <div class="layui-col-md8">
+                <div class="layui-card">
+                    <div class="layui-tab">
+                        <ul class="layui-tab-title">
+                            {volist name="sites" id="site" key="i" }
+                            <li {if $i==1}class="layui-this"{/if}> {if $site.mark} <img src="/static/lang/image/{$site.mark}.png" title="{$site.name}">{/if} {$site.name}</li>
+                            {/volist}
+
+                        </ul>
+                        <div class="layui-tab-content">
+
+                            {volist name="extra_data" id="s" key="k"}
+                            <div class="layui-tab-item {if $k==1}layui-show{/if}">
+                                <input type="hidden" name="extra_data[{$k}][site_id]" value="{$s.site_id}" />
+                                <input type="hidden" name="extra_data[{$k}][id]" value="{$s.id}" />
+                                {volist name="extraFieldList" id="vo"}
+                                <?php
+                        $value = '';
+                        if(!empty($s[$vo['name']])){
+                         $value= $s[$vo['name']];
+                         }
+                        ?>
+                                {include file="admin@inputItemExt" /}
+                                {/volist}
+                            </div>
+                            {/volist}
+                        </div>
                     </div>
-                    {volist name="extra_data" id="s" key="k"}
-                    <!--增加判断是否多站一起发布--->
-                    {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
-                    {if $k == getSiteInfo('id')}
-                    {include file="item_ext" /}
-                    {/if}
-                    {else}
-                    {include file="item_ext" /}
-                    {/if}
-                    {/volist}
+                </div>
+            </div>
+
+            <div class="layui-col-md4">
+                <div class="layui-card">
+                    <div class="layui-card-header"><i class="layui-icon layui-icon-form layui-red"></i> 基本信息</div>
+                    <div class="layui-card-body layui-row layui-col-space10">
+                        {include file="admin@inputItem" /}
+                        {include file="cms@cms/cmsItem" /}
+                    </div>
                 </div>
             </div>
             {if count($fieldList)}
             <div class="layui-form-item layer-footer">
-                <div>
+                <div class="layui-input-block">
                     {if (isset(cache("Cms_Config")['data_import']) && 1 == cache("Cms_Config")['data_import'] && 1 != cache("Cms_Config")['site'])}
                     <button class="layui-btn layui-btn-danger btn-import iconfont icon-dibu" type="button" title="一键同步主站数据，然后修改再提交！">数据同步</button>
                     {/if}
@@ -54,6 +65,9 @@
     layui.use(['form', 'layer','yznForm'], function() {
         var form = layui.form,
             yznForm = layui.yznForm;
+        $(document).on("fa.event.appendfieldlist", ".btn-append", function (e, obj) {
+            yznForm.events.faselect(obj);
+        });
 
         {notempty name='cmsConfig.web_site_getwords'}
         GV.ueditor_getwords_url="{:url('addons/getwords/getkeywords',['isadmin'=>1])}";
@@ -80,12 +94,16 @@
             $('.btn-import').on('click', function(e) {
                 layer.msg("同步成功！",{icon: 1});
                 $(window).scrollTop(0);
-                location.href = '{:url("edit",["catid"=>$catid,"import"=>1,"dialog"=>1])}&id={$id}';
+                location.href = '{:url("edit",["catid"=>$catid])}?id={$id}&dialog=1&import=1';
             });
-
 
             form.on('select(fasttype)', function(data) {
                 $('#link').val($(data.elem).find("option:selected").attr("data-url"));
+            });
+
+            //关联栏目 顶级栏目parentid根据情况修改,workid为当前字段名
+            $(".workid").data("params", function (obj) {
+                return {custom: {parentid: 1}};
             });
         })
 </script>
