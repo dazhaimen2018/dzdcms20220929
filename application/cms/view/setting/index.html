@@ -1,57 +1,58 @@
 {extend name="admin@index_layout"/}
 {block name="main"}
 <div class="layui-card">
-    <div class="layui-card-header">CMS配置</div>
+    <div class="layui-card-header"><i class="iconfont icon-setup"></i> CMS配置</div>
     <div class="layui-card-body">
         <form class="layui-form" method="post">
             <div class="layui-tab">
                 <ul class="layui-tab-title">
-                    <li class="layui-this"><i class="layui-icon layui-icon-set"></i> 基本配置</li>
-                    <li><i class="layui-icon layui-icon-util"></i> 其他</li>
+                    <li class="layui-this">基本配置</li>
+                    <li>其他</li>
                 </ul>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
                         <div class="layui-form-item">
-                            <label class="layui-form-label">站点域名</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="setting[domain]" placeholder="只有多个相同域名站点时有效，不带http://和/ 如 www.dzdcms.com" class="layui-input" value="{$setting['domain']}">
-                            </div>
-                            <div class="layui-form-mid layui-word-aux">只有多个相同域名站点时有效，不带http://和/ 如 www.dzdcms.com</div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">站点开关</label>
-                            <div class="layui-input-block">
+                            <label  class="layui-form-label">站点开关</label>
+                            <div class="layui-input-inline w300">
                                 <input type="radio" name="setting[web_site_status]" value="1" title="开启" {if 1==$setting['web_site_status']}checked{/if}>
                                 <input type="radio" name="setting[web_site_status]" value="0" title="关闭" {if 0==$setting['web_site_status']}checked{/if}>
                             </div>
                             <div class="layui-form-mid layui-word-aux">站点关闭后前台将不能访问</div>
                         </div>
+                        <div class="layui-form-item">
+                            <label>站引导页</label>
+                            <div class="layui-form-field-label">
+                                <input type="radio" name="setting[web_site_guide]" value="1" title="开启" {if 1==$setting['web_site_guide']}checked{/if}>
+                                <input type="radio" name="setting[web_site_guide]" value="0" title="关闭" {if 0==$setting['web_site_guide']}checked{/if}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">站点引导页开启后默认页为default.html 关闭后前台首页为index.html</div>
+                        </div>
 
                         <div class="layui-form-item">
-                            <label class="layui-form-label" title="栏目图标直接上传图片选2；用iconfont或layui字休图片选1">栏目图标</label>
-                            <div class="layui-input-block">
+                            <label title="开启同步后，在管理分站内容和单页时可手动导入主站数据">数据同步</label>
+                            <div class="layui-form-field-label">
+                                <input type="radio" name="setting[data_import]" value="1" title="开启" {if 1==$setting['data_import']}checked{/if}>
+                                <input type="radio" name="setting[data_import]" value="0" title="关闭" {if 0==$setting['data_import']}checked{/if}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">数据同步主要用在城市站和站群中，多语言站不太适合</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label title="栏目图标直接上传图片选2；用iconfont或layui字休图片选1">栏目图标</label>
+                            <div class="layui-form-field-label">
                                 <input type="radio" name="setting[icon_mode]" value="1" title="图片" {if 1==$setting['icon_mode']}checked{/if}>
                                 <input type="radio" name="setting[icon_mode]" value="2" title="字体" {if 2==$setting['icon_mode']}checked{/if}>
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label" title="前端栏目和文章的网址模式">URL模式</label>
-                            <div class="layui-input-block">
+                            <label title="前端栏目和文章的网址模式">URL模式</label>
+                            <div class="layui-form-field-label">
                                 <input type="radio" name="setting[site_url_mode]" value="1" title="数字" {if 1==$setting['site_url_mode']}checked{/if}>
                                 <input type="radio" name="setting[site_url_mode]" value="2" title="标识" {if 2==$setting['site_url_mode']}checked{/if}>
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label" title="前端栏目网址模式">列表模式</label>
-                            <div class="layui-input-block">
-                                <input type="radio" name="setting[site_cat_url]" value="1" title="/id(catdir)/" {if 1==$setting['site_cat_url']}checked{/if}>
-                                <input type="radio" name="setting[site_cat_url]" value="0" title="/id(catdir).html" {if 0==$setting['site_cat_url']}checked{/if}>
-                            </div>
-                        </div>
-                        {if !$userInfo.site_id}
-                        <div class="layui-form-item">
-                            <label class="layui-form-label" title="文章和单页发布和修改模式">发布模式</label>
-                            <div class="layui-input-block">
+                            <label title="文章和单页发布和修改模式">发布模式</label>
+                            <div class="layui-form-field-label">
                                 <input type="radio" name="setting[publish_mode]" value="1" title="多站" {if 1==$setting['publish_mode']}checked{/if}>
                                 <input type="radio" name="setting[publish_mode]" value="2" title="单站" {if 2==$setting['publish_mode']}checked{/if}>
                             </div>
@@ -59,29 +60,26 @@
                         </div>
                         {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
                         <div class="layui-form-item">
-                            <label class="layui-form-label layui-red" title="单站模式时必须要选一个">切换站点</label>
-                            <div class="layui-input-block">
+                            <label title="栏目和碎片发布和修改模式">栏目模式</label>
+                            <div class="layui-form-field-label">
+                                <input type="radio" name="setting[category_mode]" value="1" title="多站" {if 1==$setting['category_mode']}checked{/if}>
+                                <input type="radio" name="setting[category_mode]" value="2" title="单站" {if 2==$setting['category_mode']}checked{/if}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">全站模式发布和修改时，所有站同时必须编辑；单站模式一次只能管理一个站！</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label title="单站模式时必须要选一个">切换站点 <font color="red">*</font></label>
+                            <div class="layui-form-field-label">
                                 {volist name="siteArray" id="vo"}
                                 <input type="radio" name="setting[site]" value="{$vo.id}" title="{$vo.name}" {if $vo['id']==$setting['site']}checked{/if}>
                                 {/volist}
                             </div>
-                            <div class="layui-form-mid layui-word-aux">1、只有发布模式选了单站时才有效；2、多人同时作业时，只能针对同一个站；3、只针对管理所有站的管理员有效！</div>
+                            <div class="layui-form-mid layui-word-aux">1、只有发布模式选了单站时才有效；2、多人同时作业时，只能针对同一个站！</div>
                         </div>
                         {/if}
-                        {/if}
-
                         <div class="layui-form-item">
-                            <label class="layui-form-label" title="内容发布和编辑页面基本信息所在位置">发布布局</label>
-                            <div class="layui-input-block">
-                                <input type="radio" name="setting[offside]" value="1" title="左侧" {if 1==$setting['offside']}checked{/if}>
-                                <input type="radio" name="setting[offside]" value="0" title="右侧" {if 0==$setting['offside']}checked{/if}>
-                            </div>
-                            <div class="layui-form-mid layui-word-aux">内容添加和编辑页面基本信息所在位置,显示屏大建议选右边</div>
-                        </div>
-
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">缓存时间</label>
-                            <div class="layui-input-block">
+                            <label>缓存时间</label>
+                            <div class="layui-form-field-label">
                                 <input type="text" name="setting[site_cache_time]" placeholder="请输入缓存时间" class="layui-input" value="{$setting['site_cache_time']}">
                             </div>
                             <div class="layui-form-mid layui-word-aux">单页和详情页有效</div>
@@ -89,73 +87,47 @@
                     </div>
                     <div class="layui-tab-item">
                         <div class="layui-form-item">
-                            <label class="layui-form-label">回收站</label>
-                            <div class="layui-input-block">
+                            <label  class="layui-form-label">回收站</label>
+                            <div class="layui-input-inline w300">
                                 <input type="radio" name="setting[web_site_recycle]" value="1" title="开启" {if 1==$setting['web_site_recycle']}checked{/if}>
                                 <input type="radio" name="setting[web_site_recycle]" value="0" title="关闭" {if 0==$setting['web_site_recycle']}checked{/if}>
                             </div>
                             <div class="layui-form-mid layui-word-aux">开启后，误删的文章可以恢复,反之不可还原</div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">引导页</label>
-                            <div class="layui-input-block">
-                                <input type="radio" name="setting[web_site_guide]" value="1" title="开启" {if 1==$setting['web_site_guide']}checked{/if}>
-                                <input type="radio" name="setting[web_site_guide]" value="0" title="关闭" {if 0==$setting['web_site_guide']}checked{/if}>
-                            </div>
-                            <div class="layui-form-mid layui-word-aux">开启后，默认页为default.html 关闭后前台首页为index.html</div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">栏目授权</label>
-                            <div class="layui-input-block">
+                            <label  class="layui-form-label">栏目授权</label>
+                            <div class="layui-input-inline w300">
                                 <input type="radio" name="setting[site_category_auth]" value="1" title="开启" {if 1==$setting['site_category_auth']}checked{/if}>
                                 <input type="radio" name="setting[site_category_auth]" value="0" title="关闭" {if 0==$setting['site_category_auth']}checked{/if}>
                             </div>
                             <div class="layui-form-mid layui-word-aux">开启后，可在【栏目授权】单独给管理员分配可管理的内容栏目</div>
                         </div>
-
                         <div class="layui-form-item">
-                            <label class="layui-form-label" title="开启同步后，在管理分站内容和单页时可手动导入主站数据">数据同步</label>
-                            <div class="layui-input-block">
-                                <input type="radio" name="setting[data_import]" value="1" title="开启" {if 1==$setting['data_import']}checked{/if}>
-                                <input type="radio" name="setting[data_import]" value="0" title="关闭" {if 0==$setting['data_import']}checked{/if}>
-                            </div>
-                            <div class="layui-form-mid layui-word-aux">开启后，管理分站内容时，点击数据同步按钮分站会自动调用主站内容，然后简单编辑后就可发布！</div>
-                        </div>
-
-                        <!--
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">数据共享</label>
-                            <div class="layui-input-block">
-                                <input type="radio" name="setting[data_share]" value="1" title="开启" {if 1==$setting['data_share']}checked{/if}>
-                                <input type="radio" name="setting[data_share]" value="0" title="关闭" {if 0==$setting['data_share']}checked{/if}>
-                            </div>
-                            <div class="layui-form-mid layui-word-aux">开启后，分站如果没有单独编辑内容前端会自动调用主站内容</div>
-                        </div>
-                         -->
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">站长推送</label>
-                            <div class="layui-input-block">
+                            <label  class="layui-form-label">站长推送</label>
+                            <div class="layui-input-inline w300">
                                 <input type="radio" name="setting[web_site_baidupush]" value="1" title="开启" {if 1==$setting['web_site_baidupush']}checked{/if}>
                                 <input type="radio" name="setting[web_site_baidupush]" value="0" title="关闭" {if 0==$setting['web_site_baidupush']}checked{/if}>
                             </div>
                             <div class="layui-form-mid layui-word-aux">如果开启百度熊掌+百度站长推送，将在文章发布时自动进行推送(需要安装推送插件)</div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">中文分词</label>
-                            <div class="layui-input-block">
+                            <label  class="layui-form-label">中文分词</label>
+                            <div class="layui-input-inline w300">
                                 <input type="radio" name="setting[web_site_getwords]" value="1" title="开启" {if 1==$setting['web_site_getwords']}checked{/if}>
                                 <input type="radio" name="setting[web_site_getwords]" value="0" title="关闭" {if 0==$setting['web_site_getwords']}checked{/if}>
                             </div>
                             <div class="layui-form-mid layui-word-aux">开启后，会将内容分词提取到关键词中(需要安装中文分词插件)</div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">关键字链接</label>
-                            <div class="layui-input-block">
+                            <label>关键字链接</label>
+                            <div class="layui-form-field-label">
                                 <textarea name="setting[autolinks]" placeholder="请输入关键字链接" class="layui-textarea" style="width: 300px;">{$setting['autolinks']}</textarea>
                             </div>
                             <div class="layui-form-mid layui-word-aux">每行1组以"关键词<b class="text-danger">|</b>(半角竖线)链接"形式填写, 可用第2个竖线追加参数:<b class="text-danger">n</b>代表nofollow标记, <b class="text-danger">e</b>代表external nofollow标记, <b class="text-danger">b</b>代表本窗口打开.</br> 例: google<strong>|</strong>http://www.google.com<strong>|</strong>n 即此链接带nofollow(默认新窗口打开)</div>
                         </div>
-
+                        <div class="layui-form-item">
+                            <div class="layui-form-mid layui-word-aux">违禁词库位于<b class="text-danger">data/words.txt</b>一行一个</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -204,27 +176,6 @@
                 <h2 class="layui-colla-title">5、栏目图标如果用不着，可设置为字体，然后用于栏目的其他参数输入<i class="layui-icon layui-colla-icon"></i></h2>
                 <div class="layui-colla-content">
                     <p>1、有一些网站根本不需要栏目图标，可是需要增加一个栏目其他参数时，设置为字体，就可以当做一个输入框了。2、如果用系统自带的字体，可直接输入 layui-icon layui-icon-shrink-right这样的格式</p>
-                </div>
-            </div>
-
-            <div class="layui-colla-item">
-                <h2 class="layui-colla-title">6、虚拟站点数据从哪里来？<i class="layui-icon layui-colla-icon"></i></h2>
-                <div class="layui-colla-content">
-                    <p>1、站点‘独立数据’选否的站为虚拟站，所有虚拟站不用发布内容前端会自动调用主站内容；2、主要使用于城市分站。</p>
-                </div>
-            </div>
-
-            <div class="layui-colla-item">
-                <h2 class="layui-colla-title">7、违禁词库在哪里？<i class="layui-icon layui-colla-icon"></i></h2>
-                <div class="layui-colla-content">
-                    <p> 违禁词库位于<b class="text-danger">data/words.txt</b>一行一个</p>
-                </div>
-            </div>
-            <div class="layui-colla-item">
-                <h2 class="layui-colla-title"><b class="text-danger">8、如何切换后台当前管理站点？</b><i class="layui-icon layui-colla-icon"></i></h2>
-                <div class="layui-colla-content">
-                    <p> 超级管理员或所属站点为所有站的管理员，在后台：内容-CMS配置中切换站点；</p>
-                    <p><b class="text-danger">如果有多个管理员，每个人管理1个站，可在设置-管理员管理-编辑/添加-所属站点中设置，</b>登录后的管理员只能管理指定的站点！</p>
                 </div>
             </div>
         </div>

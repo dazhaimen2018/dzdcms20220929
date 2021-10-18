@@ -33,8 +33,6 @@ class install extends InstallBase
         }
         //安装演示数据
         if (request()->param('demo') == 1) {
-            //先清空站点
-            Db::name('site')->delete(true);
             $sql_file = APP_PATH . "cms/install/demo.sql";
             if (file_exists($sql_file)) {
                 $sql_statement = Sql::getSqlFromFile($sql_file);

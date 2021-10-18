@@ -4,43 +4,48 @@
 <div class="layui-card">
     <div class="layui-card-body layui-form-pane">
         <form class="layui-form" method="post">
-            <div class="layui-col-md8">
-                <div class="layui-card">
-                    <div class="layui-tab">
-                        <ul class="layui-tab-title">
-                            {volist name="sites" id="site" key="i" }
-                            <li {if $i==1}class="layui-this"{/if}> {if $site.mark} <img src="/static/lang/image/{$site.mark}.png" title="{$site.name}">{/if} {$site.name}</li>
-                            {/volist}
-
-                        </ul>
-                        <div class="layui-tab-content">
-                            {volist name="sites" id="site" key="k" }
-                            <div class="layui-tab-item {if $k==1}layui-show{/if}">
-                                <input type="hidden" name="extra_data[{$k}][site_id]" value="{$site.id}" />
-                                {volist name="extraFieldList" id="vo"}
-                                {include file="admin@inputItemExt" /}
-                                {/volist}
-                            </div>
-                            {/volist}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="layui-col-md4">
-                <div class="layui-card">
-                    <div class="layui-card-header"><i class="layui-icon layui-icon-form layui-red"></i> 基本信息</div>
-                    <div class="layui-card-body layui-row layui-col-space10">
+            <div class="layui-tab">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">基本信息</li>
+                    {volist name="site" id="s" key="i" }
+                    {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
+                    {if $i == getSiteInfo('id')}
+                    {include file="item_site" /}
+                    {/if}
+                    {else}
+                    {include file="item_site" /}
+                    {/if}
+                    {/volist}
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
                         {include file="admin@inputItem" /}
-                        {include file="cms@cms/cmsItem" /}
                     </div>
+                    {volist name="site" id="s" key="k"}
+                    {if (isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode'])}
+                    {if $k == getSiteInfo('id')}
+                    <div class="layui-tab-item">
+                        <input type="hidden" name="extra_data[{$k}][site_id]" value="{$s.id}" />
+                        {volist name="extraFieldList" id="vo"}
+                        {include file="admin@inputItemExt" /}
+                        {/volist}
+                    </div>
+                    {/if}
+                    {else}
+                    <div class="layui-tab-item">
+                        <input type="hidden" name="extra_data[{$k}][site_id]" value="{$s.id}" />
+                        {volist name="extraFieldList" id="vo"}
+                        {include file="admin@inputItemExt" /}
+                        {/volist}
+                    </div>
+                    {/if}
+                    {/volist}
                 </div>
             </div>
-
             <input type="hidden" name="modelField[catid]" value="{$catid}">
             {if count($fieldList)}
             <div class="layui-form-item layer-footer">
-                <div class="layui-input-block">
+                <div>
                     <button class="layui-btn iconfont icon-send" lay-submit> 立即提交</button>
                     <button type="reset" class="layui-btn layui-btn-primary iconfont icon-trash"> 重置</button>
                 </div>
@@ -55,10 +60,6 @@
     layui.use(['form','layer','yznForm'], function() {
         var form = layui.form,
             yznForm = layui.yznForm;
-
-        $(document).on("fa.event.appendfieldlist", ".btn-append", function (e, obj) {
-            yznForm.events.faselect(obj);
-        });
 
         {notempty name='cmsConfig.web_site_getwords'}
         GV.ueditor_getwords_url="{:url('addons/getwords/getkeywords',['isadmin'=>1])}";
@@ -96,11 +97,6 @@
             form.on('select(fasttype)', function(data) {
                 $('#link').val($(data.elem).find("option:selected").attr("data-url"));
             });
-
-            //关联栏目 顶级栏目parentid根据情况修改,workid为当前字段名
-            $(".workid").data("params", function (obj) {
-                return {custom: {parentid: 1}};
-            });
-        });
+        })
 </script>
 {/block}

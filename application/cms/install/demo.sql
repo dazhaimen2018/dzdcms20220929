@@ -1,772 +1,289 @@
--- version 5.0.2
--- 主机： localhost
--- 生成日期： 2021-06-26 21:32:03
--- 服务器版本： 8.0.24
--- PHP 版本： 7.4.20
+DROP TABLE IF EXISTS `yzn_article`;
+CREATE TABLE `yzn_article` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '文档ID',
+  `catid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目ID',
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
+  `thumb` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '缩略图',
+  `flag` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
+  `keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO关键词',
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
+  `tags` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Tags标签',
+  `listorder` smallint(5) unsigned NOT NULL DEFAULT '100' COMMENT '排序',
+  `uid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
+  `username` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
+  `sysadd` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否后台添加',
+  `hits` mediumint(8) unsigned DEFAULT '0' COMMENT '点击量',
+  `inputtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `url` varchar(100) NOT NULL DEFAULT '' COMMENT '链接地址',
+  `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='文章模型模型表';
 
-DROP TABLE IF EXISTS `yzn_news`;
-CREATE TABLE `yzn_news` (
-`id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
-`catid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '栏目ID',
-`theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
-`url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',
-`thumb` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '封面图片',
-`flag` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
-`paytype` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '支付类型',
-`readpoint` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '支付数量',
-`listorder` smallint UNSIGNED NOT NULL DEFAULT '100' COMMENT '排序',
-`uid` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
-`username` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
-`sysadd` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否后台添加',
-`hits` mediumint UNSIGNED DEFAULT '0' COMMENT '点击量',
-`likes` mediumint UNSIGNED DEFAULT '0' COMMENT '点赞数',
-`dislikes` mediumint UNSIGNED DEFAULT '0' COMMENT '点踩数',
-`inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
-`updatetime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
-`pushtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '推送时间',
-`status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
-`comment` tinyint NOT NULL DEFAULT '0' COMMENT '允许评论',
-`icon` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '标题图标',
-`image` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Banner',
-`groupids` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0' COMMENT '访问权限',
-PRIMARY KEY (`id`),
-KEY `status` (`catid`,`status`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='资讯模型模型表';
+DROP TABLE IF EXISTS `yzn_article_data`;
+CREATE TABLE `yzn_article_data` (
+  `did` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `content` mediumtext COLLATE utf8_unicode_ci COMMENT '内容',
+  PRIMARY KEY (`did`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='文章模型模型表';
 
-DROP TABLE IF EXISTS `yzn_news_data`;
-CREATE TABLE `yzn_news_data` (
-`id` mediumint UNSIGNED NOT NULL COMMENT '自然ID',
-`did` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '文档ID',
-`site_id` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID',
-`title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
-`tags` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Tags标签',
-`keywords` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO关键词',
-`description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
-`content` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '内容',
-PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='资讯模型模型表';
+DROP TABLE IF EXISTS `yzn_picture`;
+CREATE TABLE `yzn_picture` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '文档ID',
+  `catid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目ID',
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
+  `thumb` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '缩略图',
+  `flag` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
+  `keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO关键词',
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
+  `tags` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Tags标签',
+  `listorder` smallint(5) unsigned NOT NULL DEFAULT '100' COMMENT '排序',
+  `uid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
+  `username` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
+  `sysadd` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否后台添加',
+  `hits` mediumint(8) unsigned DEFAULT '0' COMMENT '点击量',
+  `inputtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `url` varchar(100) NOT NULL DEFAULT '' COMMENT '链接地址',
+  `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='图片模型模型表';
 
-DROP TABLE IF EXISTS `yzn_photo`;
-CREATE TABLE `yzn_photo` (
-`id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
-`catid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '栏目ID',
-`theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
-`url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',
-`thumb` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '封面图片',
-`flag` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
-`paytype` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '支付类型',
-`readpoint` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '支付数量',
-`listorder` smallint UNSIGNED NOT NULL DEFAULT '100' COMMENT '排序',
-`uid` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
-`username` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
-`sysadd` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否后台添加',
-`hits` mediumint UNSIGNED DEFAULT '0' COMMENT '点击量',
-`likes` mediumint UNSIGNED DEFAULT '0' COMMENT '点赞数',
-`dislikes` mediumint UNSIGNED DEFAULT '0' COMMENT '点踩数',
-`inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
-`updatetime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
-`pushtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '推送时间',
-`status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
-`comment` tinyint NOT NULL DEFAULT '0' COMMENT '允许评论',
-`image` text COLLATE utf8_unicode_ci NOT NULL COMMENT '图组',
-PRIMARY KEY (`id`),
-KEY `status` (`catid`,`status`)
+DROP TABLE IF EXISTS `yzn_picture_data`;
+CREATE TABLE `yzn_picture_data` (
+  `did` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `content` mediumtext COLLATE utf8_unicode_ci COMMENT '内容',
+  PRIMARY KEY (`did`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='图片模型模型表';
 
-
-DROP TABLE IF EXISTS `yzn_photo_data`;
-CREATE TABLE `yzn_photo_data` (
-`id` mediumint UNSIGNED NOT NULL COMMENT '自然ID',
-`did` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '文档ID',
-`site_id` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID',
-`title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
-`tags` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Tags标签',
-`keywords` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO关键词',
-`description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
-`content` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '内容',
-PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='图片模型模型表';
-
+DROP TABLE IF EXISTS `yzn_download`;
 CREATE TABLE `yzn_download` (
-`id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
-`catid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '栏目ID',
-`theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
-`url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',
-`thumb` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '封面图片',
-`flag` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
-`paytype` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '支付类型',
-`readpoint` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '支付数量',
-`listorder` smallint UNSIGNED NOT NULL DEFAULT '100' COMMENT '排序',
-`uid` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
-`username` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
-`sysadd` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否后台添加',
-`hits` mediumint UNSIGNED DEFAULT '0' COMMENT '点击量',
-`likes` mediumint UNSIGNED DEFAULT '0' COMMENT '点赞数',
-`dislikes` mediumint UNSIGNED DEFAULT '0' COMMENT '点踩数',
-`inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
-`updatetime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
-`pushtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '推送时间',
-`status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
-`comment` tinyint NOT NULL DEFAULT '0' COMMENT '允许评论',
-`times` int UNSIGNED NOT NULL COMMENT '下载次数',
-`file` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '文件上传',
-PRIMARY KEY (`id`),
-KEY `status` (`catid`,`status`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='下载模型模型表';
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '文档ID',
+  `catid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目ID',
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
+  `thumb` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '缩略图',
+  `flag` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
+  `keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO关键词',
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
+  `tags` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Tags标签',
+  `listorder` smallint(5) unsigned NOT NULL DEFAULT '100' COMMENT '排序',
+  `uid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
+  `username` varchar(20) COLLATE utf8_unicode_ci NOT NULL COMMENT '用户名',
+  `sysadd` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否后台添加',
+  `hits` mediumint(8) unsigned DEFAULT '0' COMMENT '点击量',
+  `inputtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `url` varchar(100) NOT NULL DEFAULT '' COMMENT '链接地址',
+  `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='下载模型模型表';
 
+DROP TABLE IF EXISTS `yzn_download_data`;
 CREATE TABLE `yzn_download_data` (
-`id` mediumint UNSIGNED NOT NULL COMMENT '自然ID',
-`did` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '文档ID',
-`site_id` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID',
-`title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
-`tags` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Tags标签',
-`keywords` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO关键词',
-`description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
-`content` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '内容',
-PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='下载模型模型表';
+  `did` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `content` mediumtext COLLATE utf8_unicode_ci COMMENT '内容',
+  PRIMARY KEY (`did`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='下载模型模型表';
 
-INSERT INTO `yzn_download` (`id`, `catid`, `theme`, `url`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `times`, `file`) VALUES
-(1, 9, '多站点CMS官方模版下载', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 2, 0, 0, 1632832944, 1632832970, 0, 1, 1, 99, '/uploads/images/dzdcms.zip'),
-(2, 9, '文档模版', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632832972, 1632957797, 0, 1, 1, 0, '/uploads/images/dzdcms.zip');
+DROP TABLE IF EXISTS `yzn_product`;
+CREATE TABLE `yzn_product` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '文档ID',
+  `catid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目ID',
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
+  `thumb` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '缩略图',
+  `flag` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
+  `keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO关键词',
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
+  `tags` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Tags标签',
+  `listorder` smallint(5) unsigned NOT NULL DEFAULT '100' COMMENT '排序',
+  `uid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
+  `username` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
+  `sysadd` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否后台添加',
+  `hits` mediumint(8) unsigned DEFAULT '0' COMMENT '点击量',
+  `inputtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `url` varchar(100) NOT NULL DEFAULT '' COMMENT '链接地址',
+  `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
+  `type` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '类型',
+  `trade` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '行业',
+  `price` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '价格',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='产品模型模型表';
 
-INSERT INTO `yzn_download_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`, `description`, `content`) VALUES
-(1, 1, 1, '多站点CMS官方模版下载', '', '', '多站点CMS官方模版下载多站点CMS官方模版下载多站点CMS官方模版下载多站点CMS官方模版下载', '<p>多站点CMS官方模版下载多站点CMS官方模版下载多站点CMS官方模版下载多站点CMS官方模版下载</p>'),
-(2, 2, 1, '文档模版', '', '', '文档模版授权用户才可以下载！', '<p>文档模版授权用户才可以下载！</p>');
+DROP TABLE IF EXISTS `yzn_product_data`;
+CREATE TABLE `yzn_product_data` (
+  `did` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `content` mediumtext COLLATE utf8_unicode_ci COMMENT '内容',
+  PRIMARY KEY (`did`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='产品模型模型表';
 
+INSERT INTO `yzn_category` VALUES (2, '公司简介', 'Introduction', 1, 0, 1, '0,1', '2', 0, 0, 0, '', '', 0, 'a:4:{s:10:\"meta_title\";s:0:\"\";s:13:\"meta_keywords\";s:0:\"\";s:16:\"meta_description\";s:0:\"\";s:13:\"page_template\";s:9:\"page.html\";}', 1, 1);
+INSERT INTO `yzn_category` VALUES (3, '企业文化', 'culture', 1, 0, 1, '0,1', '3', 0, 0, 0, '', '', 0, 'a:4:{s:10:\"meta_title\";s:0:\"\";s:13:\"meta_keywords\";s:0:\"\";s:16:\"meta_description\";s:0:\"\";s:13:\"page_template\";s:9:\"page.html\";}', 2, 1);
+INSERT INTO `yzn_category` VALUES (4, '公司荣誉', 'honor', 2, 2, 1, '0,1', '4', 0, 0, 0, '', '', 5, 'a:7:{s:10:\"meta_title\";s:0:\"\";s:13:\"meta_keywords\";s:0:\"\";s:16:\"meta_description\";s:0:\"\";s:17:\"category_template\";s:21:\"category_picture.html\";s:13:\"list_template\";s:17:\"list_picture.html\";s:13:\"show_template\";s:17:\"show_picture.html\";s:13:\"page_template\";s:9:\"page.html\";}', 3, 1);
+INSERT INTO `yzn_category` VALUES (5, '案例展示', 'case', 2, 3, 0, '0', '5', 0, 0, 0, '', '', 9, 'a:7:{s:10:\"meta_title\";s:0:\"\";s:13:\"meta_keywords\";s:0:\"\";s:16:\"meta_description\";s:0:\"\";s:17:\"category_template\";s:18:\"category_case.html\";s:13:\"list_template\";s:14:\"list_case.html\";s:13:\"show_template\";s:17:\"show_picture.html\";s:13:\"page_template\";s:9:\"page.html\";}', 2, 1);
+INSERT INTO `yzn_category` VALUES (6, '新闻中心', 'news', 2, 1, 0, '0', '6,9,10,14', 1, 0, 0, '', '', 0, 'a:7:{s:10:\"meta_title\";s:0:\"\";s:13:\"meta_keywords\";s:0:\"\";s:16:\"meta_description\";s:0:\"\";s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";s:13:\"page_template\";s:9:\"page.html\";}', 3, 1);
+INSERT INTO `yzn_category` VALUES (8, '联系我们', 'contact', 1, 0, 0, '0', '8,18,19', 1, 0, 0, '', 'cms/index/lists?catid=18', 0, 'N;', 4, 1);
+INSERT INTO `yzn_category` VALUES (9, '网络营销', 'marketing', 2, 1, 6, '0,6', '9', 0, 0, 0, '', '', 2, 'a:6:{s:10:\"meta_title\";s:0:\"\";s:13:\"meta_keywords\";s:0:\"\";s:16:\"meta_description\";s:0:\"\";s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 1, 1);
+INSERT INTO `yzn_category` VALUES (10, '网站知识', 'knowledge', 2, 1, 6, '0,6', '10', 0, 0, 0, '', '', 2, 'a:7:{s:10:\"meta_title\";s:0:\"\";s:13:\"meta_keywords\";s:0:\"\";s:16:\"meta_description\";s:0:\"\";s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";s:13:\"page_template\";s:9:\"page.html\";}', 2, 1);
+INSERT INTO `yzn_category` VALUES (14, '备案知识', 'record', 2, 1, 6, '0,6', '14', 0, 0, 0, '', '', 2, 'a:7:{s:10:\"meta_title\";s:0:\"\";s:13:\"meta_keywords\";s:0:\"\";s:16:\"meta_description\";s:0:\"\";s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";s:13:\"page_template\";s:9:\"page.html\";}', 3, 1);
+INSERT INTO `yzn_category` VALUES (1, '关于我们', 'about', 1, 0, 0, '0', '1,2,3,4', 1, 0, 0, '', 'cms/index/lists?catid=2', 0, 'N;', 0, 1);
+INSERT INTO `yzn_category` VALUES (18, '联系方式', 'fangshi', 1, 0, 8, '0,8', '18', 0, 0, 0, '', '', 0, 'a:4:{s:10:\"meta_title\";s:0:\"\";s:13:\"meta_keywords\";s:0:\"\";s:16:\"meta_description\";s:0:\"\";s:13:\"page_template\";s:9:\"page.html\";}', 100, 1);
 
-INSERT INTO `yzn_category` (`id`, `catname`, `catdir`, `english`, `type`, `modelid`, `parentid`, `arrparentid`, `arrchildid`, `sites`, `child`, `image`, `icon`, `url`, `items`, `setting`, `listorder`, `target`, `status`) VALUES
-(1, '资讯', 'news', '', 2, 1, 0, '0', '1,6,5', '1,2', 1, '', '', '', 0, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 1, 0, 1),
-(2, '关于', 'about', '', 1, 0, 0, '0', '2,14,8,7', '1,2', 1, '', '', '/jianjie/', 0, 'a:1:{s:13:\"page_template\";s:9:\"page.html\";}', 2, 0, 1),
-(3, '案例', 'anli', '', 2, 2, 0, '0', '3', '1,2', 0, '', '', '', 3, 'a:3:{s:17:\"category_template\";s:19:\"category_photo.html\";s:13:\"list_template\";s:15:\"list_photo.html\";s:13:\"show_template\";s:15:\"show_photo.html\";}', 3, 0, 1),
-(4, '优点', 'youdian', '', 2, 1, 0, '0', '4', '1,2', 0, '', '', '', 6, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 4, 0, 1),
-(5, '行业新闻', 'hangye', '', 2, 1, 1, '0,1', '5', '1,2', 0, '', '', '', 6, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 1, 0, 1),
-(6, '公司动态', 'dongtai', '', 2, 1, 1, '0,1', '6', '1,2', 0, '', '', '', 2, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 2, 0, 1),
-(7, '公司简介', 'jianjie', '', 1, 0, 2, '0,2', '7', '1,2', 0, '', '', '', 0, 'a:1:{s:13:\"page_template\";s:9:\"page.html\";}', 1, 0, 1),
-(8, '联系我们', 'lianxi', '', 1, 0, 2, '0,2', '8', '1,2', 0, '', '', '', 0, 'a:1:{s:13:\"page_template\";s:9:\"page.html\";}', 2, 0, 1),
-(9, '下载', 'download', '', 2, 3, 0, '0', '9', '1,2', 0, '', '', '', 2, 'a:3:{s:17:\"category_template\";s:22:\"category_download.html\";s:13:\"list_template\";s:18:\"list_download.html\";s:13:\"show_template\";s:18:\"show_download.html\";}', 9, 0, 1),
-(10, '视频', 'video', '', 2, 4, 0, '0', '10', '1,2', 0, '', '', '', 2, 'a:3:{s:17:\"category_template\";s:19:\"category_video.html\";s:13:\"list_template\";s:15:\"list_video.html\";s:13:\"show_template\";s:15:\"show_video.html\";}', 10, 0, 1),
-(11, '留言', 'message', '', 1, 0, 0, '0', '11', '1,2', 0, '', '', '', 0, 'a:1:{s:13:\"page_template\";s:14:\"page_form.html\";}', 11, 0, 1),
-(12, '文档', 'doc', '', 1, 0, 0, '0', '12', '1,2', 0, '', '', 'https://doc.dzdcms.com/', 0, 'a:1:{s:13:\"page_template\";s:9:\"page.html\";}', 12, 0, 1),
-(13, '服务器面板', 'server', '', 1, 0, 0, '0', '13', '1,2', 0, '', '', 'https://www.bt.cn/?invite_code=MV92dmlscHQ=', 0, 'a:1:{s:13:\"page_template\";s:9:\"page.html\";}', 100, 1, 0),
-(14, '程序下载', 'system', '', 1, 0, 2, '0,2', '14', '1,2', 0, '', '', '', 0, 'a:1:{s:13:\"page_template\";s:9:\"page.html\";}', 100, 0, 1);
+INSERT INTO `yzn_model` VALUES (1, 'cms', '文章模型', 'article', '文章模型', 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 2, 1546574975, 1566893866, 0, 1);
+INSERT INTO `yzn_model` VALUES (2, 'cms', '图片模型', 'picture', '图片模型', 'a:3:{s:17:\"category_template\";s:21:\"category_picture.html\";s:13:\"list_template\";s:17:\"list_picture.html\";s:13:\"show_template\";s:17:\"show_picture.html\";}', 2, 1548754193, 1566896531, 0, 1);
+INSERT INTO `yzn_model` VALUES (3, 'cms', '产品模型', 'product', '产品模型', 'a:3:{s:17:\"category_template\";s:21:\"category_picture.html\";s:13:\"list_template\";s:17:\"list_picture.html\";s:13:\"show_template\";s:17:\"show_picture.html\";}', 2, 1549165800, 1566894329, 0, 1);
+INSERT INTO `yzn_model` VALUES (4, 'cms', '下载模型', 'download', '下载模型', 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 2, 1549624988, 1566894292, 0, 1);
 
+INSERT INTO `yzn_model_field` VALUES (76, 1, 'url', '链接地址', '有值时生效，内部链接格式:模块/控制器/操作?参数=参数值&...，外部链接则必须http://开头', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(100) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1608023551, 1608023551, 300, 1);
+INSERT INTO `yzn_model_field` VALUES (77, 2, 'url', '链接地址', '有值时生效，内部链接格式:模块/控制器/操作?参数=参数值&...，外部链接则必须http://开头', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(100) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1608023551, 1608023551, 300, 1);
+INSERT INTO `yzn_model_field` VALUES (78, 3, 'url', '链接地址', '有值时生效，内部链接格式:模块/控制器/操作?参数=参数值&...，外部链接则必须http://开头', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(100) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1608023551, 1608023551, 300, 1);
+INSERT INTO `yzn_model_field` VALUES (79, 4, 'url', '链接地址', '有值时生效，内部链接格式:模块/控制器/操作?参数=参数值&...，外部链接则必须http://开头', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(100) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1608023551, 1608023551, 300, 1);
+INSERT INTO `yzn_model_field` VALUES (74, 3, 'thumb', '缩略图', '', '', '', 'image', 'a:3:{s:6:\"define\";s:36:\"int(5) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1565948216, 1565948216, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (75, 4, 'thumb', '缩略图', '', '', '', 'image', 'a:3:{s:6:\"define\";s:36:\"int(5) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1565948216, 1565948216, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (73, 2, 'thumb', '缩略图', '', '', '', 'image', 'a:3:{s:6:\"define\";s:36:\"int(5) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1565948216, 1565948216, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (70, 4, 'did', '附表文档id', '', '', '', 'hidden', '', 0, 1, 1, 0, 0, 0, 1549624988, 1549624988, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (71, 4, 'content', '内容', '', '', '', 'Ueditor', 'a:3:{s:6:\"define\";s:13:\"text NOT NULL\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1549624988, 1549624988, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (72, 1, 'thumb', '缩略图', '', '', '', 'image', 'a:3:{s:6:\"define\";s:36:\"int(5) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1565948216, 1565948216, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (69, 4, 'hits', '点击量', '', '', '', 'number', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1549624988, 1549624988, 200, 1);
+INSERT INTO `yzn_model_field` VALUES (68, 4, 'updatetime', '更新时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1549624988, 1549624988, 200, 1);
+INSERT INTO `yzn_model_field` VALUES (66, 4, 'status', '状态', '', '', '', 'radio', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:21:\"0:待审核\r\n1:通过\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1549624988, 1549624988, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (67, 4, 'inputtime', '创建时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1549624988, 1549624988, 200, 1);
+INSERT INTO `yzn_model_field` VALUES (62, 4, 'uid', '用户id', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1549624988, 1549624988, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (63, 4, 'username', '用户名', '', '', '', 'text', NULL, 1, 1, 1, 0, 0, 0, 1558767044, 1558767044, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (64, 4, 'sysadd', '是否后台添加', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1558767044, 1558767044, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (65, 4, 'listorder', '排序', '', '', '', 'number', 'a:3:{s:6:\"define\";s:40:\"tinyint(3) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:3:\"100\";}', 1, 0, 1, 0, 0, 0, 1549624988, 1549624988, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (60, 4, 'description', 'SEO摘要', '如不填写，则自动截取附表中编辑器的200字符', '', '', 'textarea', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1549624988, 1549624988, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (61, 4, 'tags', 'Tags标签', '关键词用回车确认', '', '', 'tags', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 0, 1546574975, 1546574975, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (59, 4, 'keywords', 'SEO关键词', '关键词用回车确认', '', '', 'tags', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1549624988, 1549624988, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (58, 4, 'flag', '属性', '', '', '', 'checkbox', 'a:3:{s:6:\"define\";s:31:\"varchar(32) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:76:\"1:置顶[1]\r\n2:头条[2]\r\n3:特荐[3]\r\n4:推荐[4]\r\n5:热点[5]\r\n6:幻灯[6]\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1551846870, 1551846870, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (55, 4, 'id', '文档id', '', '', '', 'hidden', '', 1, 0, 1, 0, 0, 1, 1549624988, 1549624988, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (56, 4, 'catid', '栏目id', '', '', '', 'hidden', '', 1, 0, 1, 0, 0, 1, 1549624988, 1549624988, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (57, 4, 'title', '标题', '', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 1, 1, 1, 1549624988, 1549624988, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (54, 3, 'price', '价格', '', '', '', 'radio', 'a:4:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:42:\"1:≤2500\r\n2:≤5000\r\n3:≤8000\r\n4:≥1万\";s:10:\"filtertype\";s:1:\"1\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 1, 0, 1, 1552372433, 1552372433, 0, 1);
+INSERT INTO `yzn_model_field` VALUES (53, 3, 'trade', '行业', '', '', '', 'radio', 'a:4:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:78:\"1:机械设备\r\n2:车辆物流\r\n3:地产建筑装修\r\n4:教育培训\r\n5:其他\";s:10:\"filtertype\";s:1:\"1\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 1, 0, 1, 1552372387, 1552372387, 0, 1);
+INSERT INTO `yzn_model_field` VALUES (50, 3, 'did', '附表文档id', '', '', '', 'hidden', '', 0, 1, 1, 0, 0, 0, 1549165800, 1549165800, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (51, 3, 'content', '内容', '', '', '', 'Ueditor', 'a:3:{s:6:\"define\";s:13:\"text NOT NULL\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1549165800, 1549165800, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (52, 3, 'type', '类型', '', '', '', 'radio', 'a:4:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:91:\"1:营销网站\r\n2:电商网站\r\n3:响应式网站\r\n4:手机网站\r\n5:外贸网站\r\n6:其他\";s:10:\"filtertype\";s:1:\"1\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 1, 0, 1, 1552368369, 1552372294, 0, 1);
+INSERT INTO `yzn_model_field` VALUES (48, 3, 'updatetime', '更新时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1549165800, 1549165800, 200, 1);
+INSERT INTO `yzn_model_field` VALUES (49, 3, 'hits', '点击量', '', '', '', 'number', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1549165800, 1549165800, 200, 1);
+INSERT INTO `yzn_model_field` VALUES (47, 3, 'inputtime', '创建时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1549165800, 1549165800, 200, 1);
+INSERT INTO `yzn_model_field` VALUES (44, 3, 'sysadd', '是否后台添加', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1558767044, 1558767044, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (45, 3, 'listorder', '排序', '', '', '', 'number', 'a:3:{s:6:\"define\";s:40:\"tinyint(3) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:3:\"100\";}', 1, 0, 1, 0, 0, 0, 1549165800, 1549165800, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (46, 3, 'status', '状态', '', '', '', 'radio', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:21:\"0:待审核\r\n1:通过\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1549165800, 1549165800, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (42, 3, 'uid', '用户id', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1549165800, 1549165800, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (43, 3, 'username', '用户名', '', '', '', 'text', NULL, 1, 1, 1, 0, 0, 0, 1558767044, 1558767044, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (41, 3, 'tags', 'Tags标签', '关键词用回车确认', '', '', 'tags', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 0, 1546574975, 1546574975, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (40, 3, 'description', 'SEO摘要', '如不填写，则自动截取附表中编辑器的200字符', '', '', 'textarea', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1549165800, 1549165800, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (39, 3, 'keywords', 'SEO关键词', '关键词用回车确认', '', '', 'tags', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1549165800, 1549165800, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (36, 3, 'catid', '栏目id', '', '', '', 'hidden', '', 1, 0, 1, 0, 0, 1, 1549165800, 1549165800, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (37, 3, 'title', '标题', '', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 1, 1, 1, 1549165800, 1549165800, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (38, 3, 'flag', '属性', '', '', '', 'checkbox', 'a:3:{s:6:\"define\";s:31:\"varchar(32) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:76:\"1:置顶[1]\r\n2:头条[2]\r\n3:特荐[3]\r\n4:推荐[4]\r\n5:热点[5]\r\n6:幻灯[6]\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1551846870, 1551846870, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (33, 2, 'did', '附表文档id', '', '', '', 'hidden', '', 0, 1, 1, 0, 0, 0, 1548754192, 1548754192, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (34, 2, 'content', '内容', '', '', '', 'Ueditor', 'a:3:{s:6:\"define\";s:13:\"text NOT NULL\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1548754192, 1548754192, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (35, 3, 'id', '文档id', '', '', '', 'hidden', '', 1, 0, 1, 0, 0, 1, 1549165800, 1549165800, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (32, 2, 'hits', '点击量', '', '', '', 'number', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1548754192, 1548754192, 200, 1);
+INSERT INTO `yzn_model_field` VALUES (31, 2, 'updatetime', '更新时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1548754192, 1548754192, 200, 1);
+INSERT INTO `yzn_model_field` VALUES (30, 2, 'inputtime', '创建时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1548754192, 1548754192, 200, 1);
+INSERT INTO `yzn_model_field` VALUES (29, 2, 'status', '状态', '', '', '', 'radio', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:21:\"0:待审核\r\n1:通过\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1548754192, 1548754192, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (27, 2, 'sysadd', '是否后台添加', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1558767044, 1558767044, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (28, 2, 'listorder', '排序', '', '', '', 'number', 'a:3:{s:6:\"define\";s:40:\"tinyint(3) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:3:\"100\";}', 1, 0, 1, 0, 0, 0, 1548754192, 1548754192, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (24, 2, 'tags', 'Tags标签', '关键词用回车确认', '', '', 'tags', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 0, 1546574975, 1546574975, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (25, 2, 'uid', '用户id', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1548754192, 1548754192, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (26, 2, 'username', '用户名', '', '', '', 'text', NULL, 1, 1, 1, 0, 0, 0, 1558767044, 1558767044, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (23, 2, 'description', 'SEO摘要', '如不填写，则自动截取附表中编辑器的200字符', '', '', 'textarea', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1548754192, 1548754192, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (22, 2, 'keywords', 'SEO关键词', '关键词用回车确认', '', '', 'tags', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1548754192, 1548754192, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (20, 2, 'title', '标题', '', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 1, 1, 1, 1548754192, 1548754192, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (21, 2, 'flag', '属性', '', '', '', 'checkbox', 'a:3:{s:6:\"define\";s:31:\"varchar(32) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:76:\"1:置顶[1]\r\n2:头条[2]\r\n3:特荐[3]\r\n4:推荐[4]\r\n5:热点[5]\r\n6:幻灯[6]\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1551846870, 1551846870, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (6, 1, 'description', 'SEO摘要', '如不填写，则自动截取附表中编辑器的200字符', '', '', 'textarea', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1546574975, 1546574975, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (7, 1, 'tags', 'Tags标签', '关键词用回车确认', '', '', 'tags', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 0, 1546574975, 1546574975, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (8, 1, 'uid', '用户id', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1546574975, 1546574975, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (9, 1, 'username', '用户名', '', '', '', 'text', NULL, 1, 1, 1, 0, 0, 0, 1558767044, 1558767044, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (10, 1, 'sysadd', '是否后台添加', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1558767044, 1558767044, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (11, 1, 'listorder', '排序', '', '', '', 'number', 'a:3:{s:6:\"define\";s:40:\"tinyint(3) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:3:\"100\";}', 1, 0, 1, 0, 0, 0, 1546574975, 1546574975, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (12, 1, 'status', '状态', '', '', '', 'radio', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:21:\"0:待审核\r\n1:通过\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1546574975, 1546574975, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (13, 1, 'inputtime', '创建时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1546574975, 1546574975, 200, 1);
+INSERT INTO `yzn_model_field` VALUES (14, 1, 'updatetime', '更新时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1546574975, 1546574975, 200, 1);
+INSERT INTO `yzn_model_field` VALUES (15, 1, 'hits', '点击量', '', '', '', 'number', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1546574975, 1546574975, 200, 1);
+INSERT INTO `yzn_model_field` VALUES (16, 1, 'did', '附表文档id', '', '', '', 'hidden', '', 0, 1, 1, 0, 0, 0, 1546574975, 1546574975, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (17, 1, 'content', '内容', '', '', '', 'Ueditor', 'a:3:{s:6:\"define\";s:13:\"text NOT NULL\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1546574975, 1546574975, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (18, 2, 'id', '文档id', '', '', '', 'hidden', '', 1, 0, 1, 0, 0, 1, 1548754192, 1548754192, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (19, 2, 'catid', '栏目id', '', '', '', 'hidden', '', 1, 0, 1, 0, 0, 1, 1548754192, 1548754192, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (1, 1, 'id', '文档id', '', '', '', 'hidden', '', 1, 0, 1, 0, 0, 1, 1546574975, 1546574975, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (2, 1, 'catid', '栏目id', '', '', '', 'hidden', '', 1, 0, 1, 0, 0, 1, 1546574975, 1546574975, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (3, 1, 'title', '标题', '', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 1, 1, 1, 1546574975, 1546574975, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (4, 1, 'flag', '属性', '', '', '', 'checkbox', 'a:3:{s:6:\"define\";s:31:\"varchar(32) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:76:\"1:置顶[1]\r\n2:头条[2]\r\n3:特荐[3]\r\n4:推荐[4]\r\n5:热点[5]\r\n6:幻灯[6]\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1551846870, 1551846870, 100, 1);
+INSERT INTO `yzn_model_field` VALUES (5, 1, 'keywords', 'SEO关键词', '关键词用回车确认', '', '', 'tags', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1546574975, 1546574975, 100, 1);
 
-INSERT INTO `yzn_category_data` (`id`, `catid`, `catname`, `description`, `setting`, `site_id`, `detail`, `status`) VALUES
-(1, 13, '服务器面板', '服务器面板简介', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, '', 0),
-(2, 12, '文档', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, '', 0),
-(3, 11, '留言', '用layui表单的在线留言系统', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, '', 0),
-(4, 10, '视频', '这里只是测试视频', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, '', 0),
-(5, 9, '下载', '测试下载', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, '', 0),
-(6, 4, '优点', '系统优点简要列举，不限如下！', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, '', 0),
-(7, 3, '案例', '测试案例', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, '', 0),
-(8, 2, '关于我们', '关于多站点', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, '', 0),
-(9, 8, '联系我们', '联系我们可用微信或QQ', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, '', 0),
-(10, 7, '系统简介', '多站点CMS简介', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, '', 0),
-(11, 1, '资讯', '文章栏目', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, '', 0),
-(12, 6, '公司动态', '系统发展动态', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, '', 0),
-(13, 5, '行业新闻', '行业新闻动态资讯', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, '', 0),
-(14, 1, 'News', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, '<p>0</p>', 0),
-(15, 6, 'Company Dynamic', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, '<p>0</p>', 0),
-(16, 5, 'Industry News', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, '<p>0</p>', 0),
-(17, 7, 'Company profile', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, '0', 0),
-(18, 8, 'Contact us', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, '0', 0),
-(19, 14, '程序下载', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, '', 0),
-(20, 14, 'Program download', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, '0', 0),
-(21, 2, 'About us', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, '', 0),
-(22, 3, 'case', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, '0', 0),
-(23, 4, 'advantages', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, '0', 0),
-(24, 9, 'download', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, '0', 0),
-(25, 10, 'video', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, '0', 0),
-(26, 11, 'Message', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, '<p>0</p>', 0),
-(27, 12, 'Document', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, '<p>0</p>', 0);
+INSERT INTO `yzn_article` VALUES (1, 9, '让客户留住更长时间访问你的网站', 0, '', '', '什么能让您的客户“一见钟情”？除了网站的界面，没有其他因素。网站的界面是非常重要的因素之一。因为这是客户访问网站时的第一印象。那时，您需要为客户提供一个吸引人且引人注目的界面。要做到这一点非常容易，你只需要有一个合理布局的界面，整洁不要分散读者的注意力。在与网站互动时，客户可以轻松搜索他们需要学习的信息。此外，您还可以使用一些额外的注释来使界面更加美观：首先，效果的最大效果用于避免分散用户的注意力。这些效果甚至会使网站更重，并且加载速度更慢。其次，您可以创建更多可用空间并消除不重要的信息，从而使关键消息更', '', 100, 1, 'admin', 1, 0, 1550188136, 1550476672,'', 1);
+INSERT INTO `yzn_article` VALUES (2, 9, '移动网站需要吸引哪些观众并将其转化为客户', 0, '', '', '在移动设备上设计网站以吸引观众并使他们成为他们的客户并不容易。移动网站是否只有两个友好元素，下载速度是否足够快？使用移动设备访问网站的人是那些时间很少的人，所以他们总是希望事情快速而正确。', '', 100, 1, 'admin', 1, 0, 1550202861, 1550450153, '',1);
+INSERT INTO `yzn_article` VALUES (3, 14, '空壳网站是什么？如何避免成为空壳网站？空壳网站怎么处理？', 0, '', '', '一、备案数据，包括：主体信息、网站信息、接入信息。\r\n（1）主体信息是指，网站主办者（网站开办者）的注册信息。\r\n（2）网站信息是指，网站主办者开办的（一个或多个）网站的注册信息。\r\n（3）接入信息是指，网站主办者（每个）网站的数据存放的虚拟空间的接入信息。', '', 100, 1, 'admin', 1, 0, 1550448808, 1550476816,'', 1);
+INSERT INTO `yzn_article` VALUES (4, 14, '单位或网站涉及金融类关键词，办理网站备案注意事项', 0, '', '', '1.根据《国务院办公厅关于印发互联网金融风险专项整治工作实施方案的通知（国办发〔2016〕21号）》要求，公司注册名称或经营范围中使用“交易所”、“交易中心”、“金融”、“资产管理”、“理财”、“基金”、“基金管理”、“投资管理（包括投资）”、“财富管理”、“股权投资基金”、“网贷”、“网络借贷”、“P2P”、“股权众筹”、“互联网保险”、“支付”、“信托”等字样的企业，在做网站备案业务办理时，需提供金融管理部门的专项审批文件。', '', 100, 1, 'admin', 1, 0, 1550449235, 1550449733, '',1);
+INSERT INTO `yzn_article` VALUES (5, 10, '个人建设网站有哪些步骤？', 0, '', '', '虽然互联网上付费提供网站建设和网站制作服务的公司或者个人有很多，都是为企业或者个人提供网站建设和网页设计服务的，但是对于那些刚刚走出校门或者刚刚参加工作的朋友来说，如果想通过互联网创业，想要做一个自己的网站，但是又没有明确的经营理念，只是想要尝试一下互联网创业，这时候大部分人都会选择自己建网站，一方面是为了能够节省较高的网站建设费用，另一方面也可以简单的学习一些网站建设或网站制作的一些基本知识，那么自己建网站到底应该如何入手呢今天小编就跟大家写一篇自己建网站的全攻略，希望能够帮助那些想要自己建网站的朋友有', '', 100, 1, 'admin', 1, 0, 1550449817, 1550476910, '',1);
+INSERT INTO `yzn_article` VALUES (6, 10, '企业建设手机网站注意的事项？', 0, '', '', ' 虽然很多企业都专门弄起了APP软件，不过从综合层面来说，还是网站更加靠谱一些，因为网站比制作APP成本要低廉很多，而且受传统思维习惯的影响，大部分的会主动寻找相关内容的人来说，他们还是更加习惯利用搜索引擎去进行寻找。并且这一群人在社会上面也拥有一定的社会经验以及地位，像是销售人员、采购人员等等，如果他们不再办公室，正好在上班途中或者是出差途中的话，肯定是需要使用手机来搜索某些信息的，所以从实用性角度来看的话，反倒是企业网站比APP更好一些，那么，企业建设手机网站的时候要注意什么?', '', 100, 1, 'admin', 1, 0, 1550450424, 1550476700, '',1);
 
+INSERT INTO `yzn_article_data` VALUES (1, '&lt;p&gt;&lt;strong&gt;通过网站让客户“一见钟情”&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;什么能让您的客户“一见钟情”？除了网站的界面，没有其他因素。网站的界面是非常重要的因素之一。因为这是客户访问网站时的第一印象。那时，您需要为客户提供一个吸引人且引人注目的界面。要做到这一点非常容易，你只需要有一个合理布局的界面，整洁不要分散读者的注意力。在与网站互动时，客户可以轻松搜索他们需要学习的信息。此外，您还可以使用一些额外的注释来使界面更加美观：首先，效果的最大效果用于避免分散用户的注意力。这些效果甚至会使网站更重，并且加载速度更慢。其次，您可以创建更多可用空间并消除不重要的信息，从而使关键消息更容易，更快地到达客户。&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;内容不仅要有回报，还应该精美呈现&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;对客户有用的内容是让客户保持更长时间的首要因素之一。但是，不仅昂贵的信息足够，内容的呈现和格式是您的网站有更长的时间留在客户的技巧。您可以设计一个白色背景的网站，以便所有信息变得更加突出。绝对不要使用色彩鲜艳的花朵和图案的深色背景，因为它可能使读者难以获取信息。此外，字体用法和段落间距同样重要。选择的字体不应该太挑剔，时尚，但应该是简单，易于看到的字体和显示专业性。附加，线条之间应该是合理的距离，内容布局的段落更加开放。&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;优化网站以与所有设备兼容&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;通常情况下，企业只能优化显示在计算机或笔记本电脑上，但往往会忽略各种其他重要设备，如智能手机或平板电脑等。但是，用户数量的情况随着移动设备的访问越来越多，新网站可确保与设备（包括移动设备）的兼容性。&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;适当地浏览网站中的信息&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;如果您通过主页给客户留下了深刻印象，客户一直渴望了解您的业务。为了使此过程更好地运行，您需要确保子页面的所有链接与前面提到的链接标题的内容一致。\r\n您还可以为关键位置的内容创建重音，以提高点击率。而且您也不要忘记确保您没有基本错误，例如链接到损坏的页面，丢失图像甚至丢失链接。&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;定期更新网站内容&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;内容不需要质量，但在网站上也需要有数量。这里的金额并不意味着猖獗的金额，而是每天都是偶数。如果客户返回您的网站但仍然是旧内容，则您可能会失去客户，因为客户不想返回网站更新旧内容。\r\n有了这些提示，您需要立即更新缺少的元素以完成网站并留住客户。做好这些事情后，您会很快注意到您网站的跳出率大&lt;/p&gt;');
+INSERT INTO `yzn_article_data` VALUES (2, '&lt;p&gt;在移动设备上设计网站以吸引观众并使他们成为他们的客户并不容易。移动网站是否只有两个友好元素，下载速度是否足够快？&lt;br/&gt;&lt;/p&gt;&lt;p&gt;使用移动设备访问网站的人是那些时间很少的人，所以他们总是希望事情快速而正确。&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;1：并非计算机上显示的所有内容都需要显示在移动设备上&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;很容易看出微小的移动屏幕不能像计算机那样宽，因此需要选择出现在移动屏幕上的网站内容。重要内容，您需要将它们推上去，以便它们可以显示在移动屏幕上&lt;/p&gt;&lt;p&gt;还需要选择移动屏幕上显示的网站内容&lt;br/&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;2：网站下载速度&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;专业网站设计师应该始终关注的一件事是下载网站的速度。根据一项研究，谷歌正在研究，53％的用户将离开一个网站，如果下载需要超过3秒。提高网站的下载速度有时只是为了删除图像，减少图像的大小是网站可以更快下载。但是，有时原因比我们想象的更复杂，例如，原因来自网站代码，或者可能是因为您的网站开发的内容远远超过原始网站，而且当前主机不再响应了。&lt;/p&gt;&lt;p&gt;所以你需要找出你的网站下载速度慢的原因以及在哪里立即修复它。&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;3：添加通话按钮&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;对于移动用户，尤其是移动用户访问网站，他们说话的时间非常重要。因此，在查看产品信息之后，他们会立即打电话询问产品。但你确定他们会耐心等待撤回并找到你的电话号码吗？绝对不是。现在，移动屏幕上始终可用的简单呼叫按钮是可以立即按下客户想要呼叫的最全面的解决方案。&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;4：集成返回顶部按钮&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;对于网站，菜单始终是一个重要的导航栏，可帮助用户导航到网站内的子页面。对于某些网站，当用户向下滚动并阅读下面的内容时，此菜单栏将始终显示在屏幕上。但是，其他一些网站没有。因此，当用户在网站底部附近阅读时，想要查看菜单，他们必须进行大量冲浪，现在，返回顶部按钮将非常有效并让用户感到舒适。&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;5：网站上的菜单&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;与网站显示在计算机上的不同，手机上显示的网站菜单将减少到一行。当您想要查看时，用户将单击以显示子菜单。菜单图标现在是3个图块，但不是每个人都知道图标是菜单，因此如果您想让它更容易理解，您可以立即编写菜单字母。&lt;/p&gt;');
+INSERT INTO `yzn_article_data` VALUES (6, '&lt;p&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;虽然很多企业都专门弄起了APP软件，不过从综合层面来说，还是网站更加靠谱一些，因为网站比制作APP成本要低廉很多，而且受传统思维习惯的影响，大部分的会主动寻找相关内容的人来说，他们还是更加习惯利用搜索引擎去进行寻找。并且这一群人在社会上面也拥有一定的社会经验以及地位，像是销售人员、采购人员等等，如果他们不再办公室，正好在上班途中或者是出差途中的话，肯定是需要使用手机来搜索某些信息的，所以从实用性角度来看的话，反倒是企业网站比APP更好一些，那么，企业建设手机网站的时候要注意什么?&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;第一、图片设计&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;  虽然当前的手机企业网站在建设的时候都是弄成的响应式网站，它可以按照上网具体设备的不同，而自动调整成符合当前屏幕大小的格式，但是只要稍微留心一些，就会发现，就算是那些超级大型的网站，他们在图片处理方面都已经十分谨慎了，还是会出现因为图片出现一些问题，因为只要出现图片就会消耗流量，另外如果图片太多的话，也会导致企业网站页面的加载速度变得非常慢，导致用户体验严重受到影响，因此在不是特别有必要的情况之下，最好还是少使用图片比较合适。&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;  &lt;strong&gt;第二、页面简洁&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;  既然是建设手机企业网站，那在设计的时候建议还是弄得简单一些更合适，不需要像电脑PC端的网站一样弄很多的内容，因为手机本身的屏幕就要比PC端小很多，如果手机企业网站建设的时候设计很多的内容，会导致人们浏览起来变得比较困难的，特别是用内容作为主导倾向的网站，建设成简洁的形式，更加容易让网友找到自己需要的信息&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;  &lt;strong&gt;第三、断点功能&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;  对于移动网站的断点设置，在CSS模式样式中，都支持断点功能设置，而传统PC端网站就缺少这个功能设置，所以经常会出现网站显示不合理，大量乱码等现象。但是，网站断点功能并非就保证网站访问流畅，对于断点技术的研究，还在进一步探讨中，比如说，在移动设备显示不错的网站，可是反过来用PC端却显示紊乱，在特别注重移动端网站的时候，也要注意到传统网站的感受，只要这样全兼容的设计，才符合未来网站的发展方向。&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;');
+INSERT INTO `yzn_article_data` VALUES (3, '&lt;p&gt;一、备案数据，包括：主体信息、网站信息、接入信息。&lt;/p&gt;&lt;p&gt;（1）主体信息是指，网站主办者（网站开办者）的注册信息。&lt;/p&gt;&lt;p&gt;（2）网站信息是指，网站主办者开办的（一个或多个）网站的注册信息。&lt;/p&gt;&lt;p&gt;（3）接入信息是指，网站主办者（每个）网站的数据存放的虚拟空间的接入信息。&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;二、空壳类备案数据，包括:空壳主体和空壳网站。&lt;/p&gt;&lt;p&gt;（1）空壳主体是指，在工业和信息化部备案系统中，网站主办者的历史备案信息只存在主体信息，没有网站信息和接入信息。&lt;/p&gt;&lt;p&gt;（2）空壳网站是指，在工业和信息化部备案系统中，网站主办者的历史备案信息中含有主体信息和网站信息，但（一个或多个网站）没有接入信息（即网站有备案号，但由于网站实际使用空间IP地址变更，之前空间接入商已将网站的备案信息取消接入，同时网站主办者并没有在新的空间接入商办理备案信息转接入）。&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; 通俗来讲，空壳网站是指，用户域名绑定IP发生变更（主要是更换了不同空间接入商IP），但备案信息没有及时变更，因此就变成了空壳网站。&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;三、空壳类备案数据处理方式。&lt;/p&gt;&lt;p&gt;（1）若网站主办者存在空壳主体信息，则唯一解决方式：&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; 需网站主办者携带相关证件到网站实际的接入商重新办理备案。已被注销（收回）的备案号及备案信息无法恢复。&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;四、如何避免成为空壳类数据。&lt;/p&gt;&lt;p&gt;（1）不可随意变更域名绑定IP（若需变更请及时联系网站实际使用的空间接入商）；&lt;/p&gt;&lt;p&gt;以此避免因未及时变更网站备案接入信息，而成为空壳类备案数据，从而被当地省通信管理局注销（收回）备案号。&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;五、办理网站备案真实性核验，请网站负责人携带以下材料：&lt;/p&gt;&lt;p&gt;（1）本人身份证原件&lt;/p&gt;&lt;p&gt;（2）单位有效证件（含年检页）原件&lt;/p&gt;&lt;p&gt;（3）企业法人身份证原件&lt;/p&gt;&lt;p&gt;（4）单位公章&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;');
+INSERT INTO `yzn_article_data` VALUES (4, '&lt;ol class=&quot; list-paddingleft-2&quot; style=&quot;list-style-type: decimal;&quot;&gt;&lt;li&gt;&lt;p&gt;根据《国务院办公厅关于印发互联网金融风险专项整治工作实施方案的通知（国办发〔2016〕21号）》要求，公司注册名称或经营范围中使用“交易所”、“交易中心”、“金融”、“资产管理”、“理财”、“基金”、“基金管理”、“投资管理（包括投资）”、“财富管理”、“股权投资基金”、“网贷”、“网络借贷”、“P2P”、“股权众筹”、“互联网保险”、“支付”、“信托”等字样的企业，在做网站备案业务办理时，需提供金融管理部门的专项审批文件。&lt;/p&gt;&lt;/li&gt;&lt;/ol&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;2.无相关金融许可的不允许接入。若网站内容确实和金融活动无关的，需要用户更改公司注册名称或经营范围，否则不予备案。&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;3.对于上述存量网站，备案中心将会不定期进行核查，一旦发现违规从事金融活动，将直接予以注销备案号处置。&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;4.（仅供参考）涉及金融类业务相关许可证办理部门：&lt;/p&gt;&lt;p&gt;&amp;nbsp; ① p2p网站需要金融办和银监会两家一起发的许可证；&lt;/p&gt;&lt;p&gt;&amp;nbsp; ② 股票、公募基金是证监会发的证；&lt;/p&gt;&lt;p&gt;&amp;nbsp; ③ 私募基金是证券协会的备案（股权投资指的就是私募基金）；&lt;/p&gt;&lt;p&gt;&amp;nbsp; ④ 小额贷款是银监会发证；&lt;/p&gt;&lt;p&gt;&amp;nbsp; ⑤ 第三方支付是人民银行发证；&lt;/p&gt;&lt;p&gt;&amp;nbsp; ⑥ 保险是保监会发证；&lt;/p&gt;&lt;p&gt;&amp;nbsp; ⑦ 金融机构发证比如银行什么的都是银监会；&lt;/p&gt;&lt;p&gt;&amp;nbsp; ⑧ 证券公司发证都是证监会；&lt;/p&gt;&lt;p&gt;&amp;nbsp; ⑨ 信托公司是银监会；&lt;/p&gt;');
+INSERT INTO `yzn_article_data` VALUES (5, '&lt;p&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;虽然互联网上付费提供网站建设和网站制作服务的公司或者个人有很多，都是为企业或者个人提供网站建设和网页设计服务的，但是对于那些刚刚走出校门或者刚刚参加工作的朋友来说，如果想通过互联网创业，想要做一个自己的网站，但是又没有明确的经营理念，只是想要尝试一下互联网创业，这时候大部分人都会选择自己建网站，一方面是为了能够节省较高的网站建设费用，另一方面也可以简单的学习一些网站建设或网站制作的一些基本知识，那么自己建网站到底应该如何入手呢今天小编就跟大家写一篇自己建网站的全攻略，希望能够帮助那些想要自己建网站的朋友有一个系统的认识和了解。&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;1、了解基础的脚本语言&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;  无论你是打算用网络上分享出来的免费源代码做网站还是用自助建站系统来建网站，首先应该学习和了解的就是网站前台脚本语言，网站前台脚本语言主要是html/js/css这三种，其中html是客户端网页源代码的主要语言，js脚本语言用来实现各种网页特效，css脚本语言用来实现网站的各种布局及网页色调的调整。&lt;/p&gt;&lt;p&gt;  相对于php、java等编程语言来说，脚本语言更加容易记忆和学习，所以一般想要接触网站建设的朋友都应该首先学习和认识上边说道的三种脚本语言。&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;2、免费的源码程序&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;  对于刚学网站建设的朋友来说，自己建网站肯定不可能上来就自己写一套强大的网站CMS系统，这几乎是不可能的，而且也是不现实的，毕竟一套功能强大的网站管理系统往往都是很多人开发测试很久才能完成的，依靠一个人的力量快速的完全一套建站系统显然难度很大，所以这就需要借助网络上已经分享出来的免费网站源码程序来快速完成自己建网站的目的。&lt;/p&gt;&lt;p&gt;  自建网站虽然除了使用免费的源码程序还可以通过选择一些免费的自助建站平台来完成，但是小编这里推荐大家使用免费的源码程序来做网站，这样一方面是保证网站最终的控制权在自己手里，另一方面也有助于更好的提升自己的网站建设的认识和熟悉，如果你使用自助建站平台，永远都不可能明白网站开发的基本框架设计，但是你通过研究别人分享出来的免费源码就可以很好的掌握整个程序的框架结构和页面设计方面的一些知识，能够更好的提升自己的专业技能。&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;3、服务器及域名&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;  通过学习第一步骤的那些前台脚本语言，然后按照第二步骤说的去下载和研究别人的源码程序，相信很快你就可以自己建网站了，但是建立好的网站如果只是在本地运行，那只有你自己可以访问和看到，如何才能让网络上的所有人都看到自己做的网站呢，这就涉及到了网站的发布，网站发布就需要使用服务器和域名，这时候就需要我们去接触服务器和域名。&lt;/p&gt;&lt;p&gt;  虽然说大部分的新手自己建网站都不希望花费太高的成本，但是服务器和域名的成本是每一个做网站的人都要承担的，而且一个稳定的服务器直接影响到你网站将来的打开速度、网站性能及搜索引擎收录情况，所以建议新手们在购买服务器的时候还是要选择性价比比较高的服务器。&lt;/p&gt;&lt;p&gt;  哦，最后还得补充一下，要想自己建网站，除了上边说道的这些都必须要学习和了解之外，还有两个重要的软件需要下载安装和学习怎么使用，一个是Dreamweaver(简称DW)另一个就是Photoshop(简称PS)这两款软件即使你不打算自己开发设计，你就是研究和修改别人的源码程序也一样需要用到，比如你在步骤二中需要修改别人的网页代码，肯定需要用DW打开网页文件来编辑，需要修改别人程序的中图标或者图片就肯定需要使用PS来作图，所以这两款软件也是自己建网站过程中必须要学习使用的。&lt;/p&gt;');
 
-INSERT INTO `yzn_lang_data` (`id`, `lang_id`, `value`, `site_id`, `status`) VALUES
-(1, 1, '多站点CMS', 1, 0),
-(2, 2, '京ICP备12010025号-11', 1, 0),
-(3, 3, 'Copyright © 2006-2021 dzdcms.com All rights reserved.', 1, 0),
-(4, 4, '首页', 1, 0),
-(5, 4, 'Home', 2, 0),
-(6, 1, 'DZDCMS', 2, 0),
-(7, 3, 'Copyright © 2006-2021 dzdcms.com All rights reserved.', 2, 0),
-(8, 2, '京ICP备12010025号-11', 2, 0),
-(9, 4, '首页', 3, 0),
-(10, 4, '首页', 4, 0),
-(11, 3, 'Copyright © 2006-2021 dzdcms.com All rights reserved.', 3, 0),
-(12, 3, 'Copyright © 2006-2021 dzdcms.com All rights reserved.', 4, 0),
-(13, 2, '京ICP备12010025号-11', 3, 0),
-(14, 2, '京ICP备12010025号-11', 4, 0),
-(15, 1, '多站点CMS', 3, 0),
-(16, 1, '多站点CMS', 4, 0),
-(17, 5, '所有站点', 1, 0),
-(18, 5, 'All sites', 2, 0),
-(19, 5, '所有站点', 3, 0),
-(20, 5, '所有站点', 4, 0),
-(21, 6, '请输入关键字', 1, 0),
-(22, 6, 'Please input keywords', 2, 0),
-(23, 6, '请输入关键字', 3, 0),
-(24, 6, '请输入关键字', 4, 0),
-(25, 7, '注册', 1, 0),
-(26, 7, 'register', 2, 0),
-(27, 7, '注册', 3, 0),
-(28, 7, '注册', 4, 0),
-(29, 8, '登录', 1, 0),
-(30, 8, 'Login', 2, 0),
-(31, 8, '登录', 3, 0),
-(32, 8, '登录', 4, 0),
-(33, 9, '友情链接', 1, 0),
-(34, 9, 'Links', 2, 0),
-(35, 9, '友情链接', 3, 0),
-(36, 9, '友情链接', 4, 0),
-(37, 10, '姓名', 1, 0),
-(38, 10, 'Name', 2, 0),
-(39, 10, '姓名', 3, 0),
-(40, 10, '姓名', 4, 0),
-(41, 11, '请输入姓名', 1, 0),
-(42, 11, 'Please enter your name', 2, 0),
-(43, 11, '请输入姓名', 3, 0),
-(44, 11, '请输入姓名', 4, 0),
-(45, 12, '手机', 1, 0),
-(46, 12, 'phone', 2, 0),
-(47, 12, '手机', 3, 0),
-(48, 12, '手机', 4, 0),
-(49, 13, '请输入手机', 1, 0),
-(50, 13, 'Please input mobile phone', 2, 0),
-(51, 13, '请输入手机', 3, 0),
-(52, 13, '请输入手机', 4, 0),
-(53, 14, '邮箱', 1, 0),
-(54, 14, 'E-mail', 2, 0),
-(55, 14, '邮箱', 3, 0),
-(56, 14, '邮箱', 4, 0),
-(57, 15, '请输入邮箱', 1, 0),
-(58, 15, 'Please input email', 2, 0),
-(59, 15, '请输入邮箱', 3, 0),
-(60, 15, '请输入邮箱', 4, 0),
-(61, 16, '留言内容', 1, 0),
-(62, 16, 'Message content', 2, 0),
-(63, 16, '留言内容', 3, 0),
-(64, 16, '留言内容', 4, 0),
-(65, 17, '请输入留言内容', 1, 0),
-(66, 17, 'Please enter the message', 2, 0),
-(67, 17, '请输入留言内容', 3, 0),
-(68, 17, '请输入留言内容', 4, 0),
-(69, 18, '验证码', 1, 0),
-(70, 18, 'Captcha', 2, 0),
-(71, 18, '验证码', 3, 0),
-(72, 18, '验证码', 4, 0),
-(73, 19, '立即提交', 1, 0),
-(74, 19, 'Submit', 2, 0),
-(75, 19, '立即提交', 3, 0),
-(76, 19, '立即提交', 4, 0),
-(77, 20, '重置', 1, 0),
-(78, 20, 'Reset', 2, 0),
-(79, 20, '重置', 3, 0),
-(80, 20, '重置', 4, 0),
-(81, 21, '页面不存在', 1, 0),
-(82, 22, '浏览', 1, 0),
-(83, 22, 'Views', 2, 0),
-(84, 23, '加载更多', 1, 0),
-(85, 23, 'Load More', 2, 0),
-(86, 24, '暂无更多数据', 1, 0),
-(87, 24, 'No More Data', 2, 0),
-(88, 25, '上一篇', 1, 0),
-(89, 25, 'Pre', 2, 0),
-(90, 26, '下一篇', 1, 0),
-(91, 26, 'Next', 2, 0),
-(92, 27, '已经没有了', 1, 0),
-(93, 27, 'No data', 2, 0),
-(94, 28, '对不起，目前没有结果！', 1, 0),
-(95, 29, '会员登录', 1, 0),
-(96, 30, '账号', 1, 0),
-(97, 31, '密码', 1, 0),
-(98, 32, '保持会话', 1, 0),
-(99, 33, '忘记密码', 1, 0),
-(100, 34, '注册会员', 1, 0),
-(101, 35, '手机验证码', 1, 0),
-(102, 36, '获取验证码', 1, 0),
-(103, 37, '邮箱验证码', 1, 0),
-(104, 38, '确认密码', 1, 0),
-(105, 39, '昵称', 1, 0),
-(106, 40, '已有帐号', 1, 0),
-(107, 41, '新密码', 1, 0),
-(108, 42, '你已是我们的正式会员', 1, 0),
-(109, 43, '注册时间', 1, 0),
-(110, 44, '登录时间', 1, 0),
-(111, 45, '会员信息', 1, 0),
-(112, 46, '账户余额', 1, 0),
-(113, 47, '积分点数', 1, 0),
-(114, 48, '用户组', 1, 0),
-(115, 49, '登录次数', 1, 0),
-(116, 50, '会员中心', 1, 0),
-(117, 51, '基本设置', 1, 0),
-(118, 52, '退出', 1, 0),
-(119, 53, '自助升级', 1, 0),
-(120, 54, '我的资料', 1, 0),
-(121, 55, '头像', 1, 0),
-(122, 56, '用户名', 1, 0),
-(123, 57, '修改', 1, 0),
-(124, 58, '修改手机', 1, 0),
-(125, 59, '激活', 1, 0),
-(126, 60, '修改邮箱', 1, 0),
-(127, 61, '激活邮箱', 1, 0),
-(128, 62, '激活手机', 1, 0),
-(129, 21, 'Page Not', 2, 0),
-(130, 28, 'No Search Data', 2, 0),
-(131, 29, 'Member Login', 2, 0),
-(132, 30, 'Account', 2, 0),
-(133, 31, 'Password', 2, 0),
-(134, 32, 'Logged', 2, 0),
-(135, 33, 'Forget', 2, 0),
-(136, 34, 'Registered', 2, 0),
-(137, 35, 'Phone Verification Code', 2, 0),
-(138, 36, 'Get Verification Code', 2, 0),
-(139, 37, 'Email Verification Code', 2, 0),
-(140, 38, 'Confirm Password', 2, 0),
-(141, 39, 'nickname', 2, 0),
-(142, 40, 'Have Account', 2, 0),
-(143, 41, 'New Password', 2, 0),
-(144, 42, 'You are a full member of our company', 2, 0),
-(145, 43, 'Registration Time', 2, 0),
-(146, 44, 'Last Login Time', 2, 0),
-(147, 45, 'Member Info', 2, 0),
-(148, 46, 'Account Balance', 2, 0),
-(149, 47, 'Integral points', 2, 0),
-(150, 48, 'User Group', 2, 0),
-(151, 49, 'Login Times', 2, 0),
-(152, 50, 'Member Center', 2, 0),
-(153, 51, 'Basic Settings', 2, 0),
-(154, 52, 'Log out', 2, 0),
-(155, 53, 'Self service upgrade', 2, 0),
-(156, 54, 'My Profile', 2, 0),
-(157, 55, 'Avatar', 2, 0),
-(158, 56, 'User Name', 2, 0),
-(159, 57, 'Edit', 2, 0),
-(160, 58, 'Phone Edit', 2, 0),
-(161, 59, 'Activation', 2, 0),
-(162, 60, 'Email Edit', 2, 0),
-(163, 61, 'Activate Mailbox', 2, 0),
-(164, 62, 'Activate Phone', 2, 0),
-(165, 63, '确认修改', 1, 0),
-(166, 63, 'Confirm', 2, 0),
-(167, 64, '建议尺寸168*168，支持jpg、png、gif，最大不能超过300KB', 1, 0),
-(168, 64, 'The recommended size is 168 * 168 and supports JPG, PNG and GIF. The maximum size can not exceed 300KB', 2, 0),
-(169, 65, '上传头像', 1, 0),
-(170, 65, 'Upload Avatar', 2, 0),
-(171, 66, '旧密码', 1, 0),
-(172, 66, 'Old Password', 2, 0),
-(173, 67, '内容管理', 1, 0),
-(174, 67, 'My Article', 2, 0),
-(175, 68, '在线投稿', 1, 0),
-(176, 68, 'Publish', 2, 0),
-(177, 69, '我的稿件', 1, 0),
-(178, 69, 'published', 2, 0),
-(179, 70, '投稿必须激活邮箱或手机', 1, 0),
-(180, 70, 'Email or mobile phone must be activated for submission', 2, 0),
-(181, 71, '操作成功，内容已通过审核！', 1, 0),
-(182, 71, 'The operation is successful, and the content has passed the approval!', 2, 0),
-(183, 72, '操作成功，等待管理员审核！', 1, 0),
-(184, 72, 'Operation succeeded, waiting for administrator approval!', 2, 0),
-(185, 73, '上传成功', 1, 0),
-(186, 73, 'Upload succeeded', 2, 0),
-(187, 74, '删除', 1, 0),
-(188, 74, 'Delete', 2, 0),
-(189, 75, '已退稿', 1, 0),
-(190, 75, 'Rejected', 2, 0),
-(191, 76, '待审核', 1, 0),
-(192, 76, 'Not approved', 2, 0),
-(193, 77, '已通过', 1, 0),
-(194, 77, 'Passed', 2, 0),
-(195, 78, '栏目分类', 1, 0),
-(196, 78, 'Category', 2, 0),
-(197, 79, '请选择发布栏目', 1, 0),
-(198, 79, 'Please select a column', 2, 0),
-(199, 80, '同意并发布', 1, 0),
-(200, 80, 'Agree to publish', 2, 0),
-(201, 81, '稿件编辑', 1, 0),
-(202, 81, 'Edit manuscript', 2, 0),
-(203, 82, '新手机号', 1, 0),
-(204, 82, 'New mobile number', 2, 0),
-(205, 83, '新邮箱', 1, 0),
-(206, 83, 'New Email', 2, 0),
-(207, 84, '免责声明', 1, 0),
-(208, 84, 'disclaimer', 2, 0),
-(209, 85, '会员中心', 1, 0),
-(210, 85, 'Member Center', 2, 0),
-(211, 86, '内容不存在或未审核！', 1, 0),
-(212, 86, 'The content does not exist or is not approved', 2, 0),
-(213, 87, '恭喜你！支付成功！', 1, 0),
-(214, 87, 'congratulations! Payment successful', 2, 0),
-(215, 88, '您已经是登陆状态！', 1, 0),
-(216, 88, 'You are already logged in!', 2, 0),
-(217, 89, '验证码错误', 1, 0),
-(218, 89, 'Verification code error', 2, 0),
-(219, 90, '登录成功！', 1, 0),
-(220, 90, 'Login succeeded!', 2, 0),
-(221, 91, '账号或者密码错误！', 1, 0),
-(222, 91, 'Wrong account or password!', 2, 0),
-(223, 92, '您已经是登陆状态，无需注册！', 1, 0),
-(224, 92, 'You are already logged in, no registration required!', 2, 0),
-(225, 93, '系统不允许新会员注册！', 1, 0),
-(226, 93, 'The system does not allow new members to register!', 2, 0),
-(227, 94, '会员注册成功！', 1, 0),
-(228, 94, 'Member registration succeeded!', 2, 0),
-(229, 95, '帐号注册失败！', 1, 0),
-(230, 95, 'Account registration failed!', 2, 0),
-(231, 96, '该会员不存在！', 1, 0),
-(232, 96, 'Member does not exist!', 2, 0),
-(233, 97, '修改成功！', 1, 0),
-(234, 97, 'Modification succeeded!', 2, 0),
-(235, 98, '参数不得为空！', 1, 0),
-(236, 98, 'Parameter cannot be empty!', 2, 0),
-(237, 99, '邮箱格式不正确！', 1, 0),
-(238, 99, 'Incorrect email format!', 2, 0),
-(239, 100, '邮箱已占用', 1, 0),
-(240, 100, 'Mailbox already exists', 2, 0),
-(241, 101, '手机号格式不正确！', 1, 0),
-(242, 101, 'Wrong phone number', 2, 0),
-(243, 102, '手机号已占用', 1, 0),
-(244, 102, 'Phone number already exists', 2, 0),
-(245, 103, '激活成功', 1, 0),
-(246, 103, 'Activation succeeded', 2, 0),
-(247, 104, '用户不存在', 1, 0),
-(248, 104, 'user does not exist', 2, 0),
-(249, 105, '重置成功', 1, 0),
-(250, 105, 'Reset successful', 2, 0),
-(251, 106, '此会员组不允许升级', 1, 0),
-(252, 106, 'This member group does not allow upgrades', 2, 0),
-(253, 107, '会员组类型错误', 1, 0),
-(254, 107, 'Member group type error', 2, 0),
-(255, 108, '购买时限必须大于0！', 1, 0),
-(256, 108, 'Time limit must be greater than 0!', 2, 0),
-(257, 109, '购买成功', 1, 0),
-(258, 109, 'Purchase successful', 2, 0),
-(259, 110, '升级用户组', 1, 0),
-(260, 110, 'Upgrade user group', 2, 0),
-(261, 111, '注销成功', 1, 0),
-(262, 111, 'Logout succeeded', 2, 0),
-(263, 112, '余额不足，请先充值！', 1, 0),
-(264, 112, 'Insufficient balance, please recharge first!', 2, 0),
-(265, 113, '账户已经被锁定', 1, 0),
-(266, 113, 'Account locked', 2, 0),
-(267, 114, '您还未登录', 1, 0),
-(268, 114, 'You are not logged in', 2, 0),
-(269, 115, '账户不正确', 1, 0),
-(270, 115, 'Account error', 2, 0),
-(271, 116, '密码不正确', 1, 0),
-(272, 116, 'Password error', 2, 0),
-(273, 117, '禁止访问', 1, 0),
-(274, 118, '新手上路', 1, 0),
-(275, 119, '初级会员', 1, 0),
-(276, 120, '中级会员', 1, 0),
-(277, 121, '高级会员', 1, 0),
-(278, 122, '认证会员', 1, 0),
-(279, 123, '游客', 1, 0),
-(280, 118, 'Novice', 2, 0),
-(281, 117, 'Prohibited', 2, 0),
-(282, 119, 'Junior Member', 2, 0),
-(283, 120, 'Intermediate Member', 2, 0),
-(284, 121, 'Senior Member', 2, 0),
-(285, 122, 'Certified Member', 2, 0),
-(286, 123, 'Visitor', 2, 0);
+INSERT INTO `yzn_picture` VALUES (1, 4, 'ISO9001证书', 0, '', '', '', '', 100, 1, 'admin', 1, 0, 1550552511, 1550554247, '',1);
+INSERT INTO `yzn_picture` VALUES (2, 4, 'ISO14001证书', 0, '', '', '', '', 100, 1, 'admin', 1, 0, 1550554284, 1550554288, '',1);
+INSERT INTO `yzn_picture` VALUES (3, 4, 'OHSAS18001证书', 0, '', '', '', '', 100, 1, 'admin', 1, 0, 1550554298, 1550554301,'', 1);
+INSERT INTO `yzn_picture` VALUES (4, 4, '企业信用等级评价', 0, '', '', '', '', 100, 1, 'admin', 1, 0, 1550554307, 1550554309,'', 1);
+INSERT INTO `yzn_picture` VALUES (5, 4, '企业荣誉证书', 0, '', '', '', '', 100, 1, 'admin', 1, 0, 1550554314, 1550554316, '',1);
 
+INSERT INTO `yzn_product` VALUES (1, 5, '苏州欧泊**机电进出口有限公司', 0, '', '', '苏州欧伯**机电进出口有限公司成立于2014年，是德国HUK/DOPAG/METER MIX定量注脂、打胶产品正式授权的代理商，另经销德国CAPTRON、NORELEM等众多国外知名品牌，可为客户提供从技术咨询、产品销售、技术支持到售后服务的全程服务。公司自成立以来，一直致力于为客户提供德国及欧美地区原产的各类工业备品、备件，并确保100%原厂全新正品。', '注脂,打胶', 100, 1, 'admin', 1, 0, 1552365964, 1553067407,'', 1, 4, 1, 1);
+INSERT INTO `yzn_product` VALUES (4, 5, '南通红*居餐饮管理有限公司', 0, '4', '', '南通红*居餐饮管理有限公司是一家具有自己的厨师团队，具备丰富的经验，专业承包及管理企事业机关单位、学校、医院、大型工业园区、工厂，建筑工地、写字楼的食堂及营养配餐等后勤项目的大型餐饮承包企业，在上海、江苏、浙江、都有设立公司营业部。团队有500余人，并可为各企业提供专业厨师团队、厨工，勤杂工，免费厨房餐饮管理;餐饮服务，保洁服务，家庭服务；停车场管理服务；劳务派遣经营；绿化维护，食品经营;婚庆礼仪服务;会...', '餐饮管理,婚庆礼仪,劳务派遣', 100, 1, 'admin', 1, 0, 1552366803, 1553067319,'', 1, 3, 5, 3);
+INSERT INTO `yzn_product` VALUES (2, 5, '海安华**仓储有限公司', 0, '', '', '海安华**仓储有限公司主要以海安物流、仓储为主。 公司秉承“诚信经营、服务至上”的核心价值观；先进的物流理念和丰富的物流操作经验，为不同客户量身定做及提供专业物流方案和优质、高效的物流服务，从而帮客户降低成本，提升市场竞争力。　　公司已和众多知名企业携手合作，共创辉煌；承运范围涵盖了化工、机械、建材、纺织、电子电器、食品、制药、高科技产品等各行各业。', '物流服务', 100, 1, 'admin', 1, 0, 1552366267, 1553067377,'', 1, 5, 2, 3);
+INSERT INTO `yzn_product` VALUES (3, 5, '苏州领*线教育科技有限公司', 0, '4', '', '苏州领*线教育科技有限公司是一家专注于高品质少儿培训和智能课程开发、提供精品化与专业化相结合的少儿教育科技机构。我们多年来，始终致力于将我们的课堂打造成为孩子快乐成长的乐园与成功的起点，并且成为江苏校外教育的品牌。我们已在苏州市区、常熟、张家港、吴江、昆山、太仓、常州、无锡、杭州、江西九江、内蒙古通辽、山东淄博等地成功开办了教学基地。', '校外教育,智能课程', 100, 1, 'admin', 1, 0, 1552366358, 1553067339, '',1, 3, 4, 4);
+INSERT INTO `yzn_product` VALUES (5, 5, '苏州威*莱斯升降机械设备有限公司', 0, '4', '', '苏州威*莱斯升降机械设备有限公司是专业提供各类升降平台出租租赁服务的厂家，自公司创立以来，经过长期对液压升降机、升降平台、高空作业车的研制和探索，积累了丰富的专业经验。凭借丰富的专业技术及不断开拓创新的精神，致力于产品的开发和创新，以自身专业特长，创造高品质的产品。', '机械设备,升降机,租赁服务', 100, 1, 'admin', 1, 0, 1552366872, 1553067296, '',1, 3, 1, 2);
+INSERT INTO `yzn_product` VALUES (6, 5, '苏州非*搬运包装有限公司', 0, '4', '', '苏州非*搬运安装有限公司于2016年7月在苏州工业园区这块沸腾的热土上重组合并挂牌成立。随着经济的发展,，公司秉承创新、创优、与时共进的原则把原有四家搬运公司重组洗牌、强强联手。作为一家专业承接各类精密机器设备搬运、装卸、安装定位工程的大企业，公司装备齐全、技术力量雄厚。施工人员均受过国家安全生产监督部门正规的专业培训，持有相应的资格证书，对各种精密机器设备的搬运、安装工程有着丰富的工作经验。施工车辆都是...', '精密机器,专业培训,资格证书', 100, 1, 'admin', 1, 0, 1552366920, 1553067267,'', 1, 1, 5, 1);
+INSERT INTO `yzn_product` VALUES (7, 5, '上海朗**业科技有限公司', 0, '', '', '上海朗**业科技有限公司，成立于2016年，致力于进口国外先进的工业设备、仪器和耗材。团队成员均由长期从事科学研究、仪器销售与服务人士组成，有着丰富的售前和售后服务经验，可为国内科研、工业客户提供一站式解决方案。“朗助工业，喜翼科技！”一直以来都是团队的奋斗方向, 多年的经营与市场反馈赢得了市场客户的信赖。', '', 100, 1, 'admin', 1, 0, 1589007525, 1589007618, '',1, 3, 4, 4);
+INSERT INTO `yzn_product` VALUES (8, 5, '盐城万**力资源有限公司', 0, '', '', '公司以严守合同，诚信服务与客户为本企业的基本操守，坚持“真诚  高效 共赢”的文化理念，先后在城市周边、射阳、大丰、阜宁、徐州、昆山等地设办事处，依托强大、广泛的社会资源和一支团结奋进、具有良好亲和力以及丰富人力资源服务实践和管理经验的团队', '', 100, 1, 'admin', 1, 0, 1589007678, 1589007750,'', 1, 3, 4, 2);
+INSERT INTO `yzn_product` VALUES (9, 5, '江苏森**设集团有限公司', 0, '', '', '江苏森**设集团有限公司是按照中华人民共和国公司法，于2006 年9 月5 日经过企业改制重组，在江苏省盐城市工商行政管理局亭湖分局注册成立，其性质为有限责任公司，注册资金10088万元。', '', 100, 1, 'admin', 1, 0, 1589007934, 1589008001,'', 1, 1, 1, 2);
 
-INSERT INTO `yzn_model` (`id`, `module`, `name`, `tablename`, `description`, `setting`, `type`, `create_time`, `update_time`, `listorders`, `status`) VALUES
-(1, 'cms', '资讯模型', 'news', '', 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 2, 1615820163, 1624583653, 0, 1),
-(2, 'cms', '图片模型', 'photo', '', 'a:3:{s:17:\"category_template\";s:19:\"category_photo.html\";s:13:\"list_template\";s:15:\"list_photo.html\";s:13:\"show_template\";s:15:\"show_photo.html\";}', 2, 1615820925, 1624583766, 0, 1),
-(3, 'cms', '下载模型', 'download', '', 'a:3:{s:17:\"category_template\";s:22:\"category_download.html\";s:13:\"list_template\";s:18:\"list_download.html\";s:13:\"show_template\";s:18:\"show_download.html\";}', 2, 1624576170, 1624583785, 0, 1),
-(4, 'cms', '视频模型', 'video', '', 'a:3:{s:17:\"category_template\";s:19:\"category_video.html\";s:13:\"list_template\";s:15:\"list_video.html\";s:13:\"show_template\";s:15:\"show_video.html\";}', 2, 1624576188, 1624583834, 0, 1);
+INSERT INTO `yzn_product_data` VALUES (1, '&lt;p&gt;苏州欧伯**机电进出口有限公司成立于2014年，是德国HUK/DOPAG/METER MIX定量注脂、打胶产品正式授权的代理商，另经销德国CAPTRON、NORELEM等众多国外知名品牌，可为客户提供从技术咨询、产品销售、技术支持到售后服务的全程服务。公司自成立以来，一直致力于为客户提供德国及欧美地区原产的各类工业备品、备件，并确保100%原厂全新正品。&lt;/p&gt;');
+INSERT INTO `yzn_product_data` VALUES (4, '&lt;p&gt;南通红*居餐饮管理有限公司是一家具有自己的厨师团队，具备丰富的经验，专业承包及管理企事业机关单位、学校、医院、大型工业园区、工厂，建筑工地、写字楼的食堂及营养配餐等后勤项目的大型餐饮承包企业，在上海、江苏、浙江、都有设立公司营业部。团队有500余人，并可为各企业提供专业厨师团队、厨工，勤杂工，免费厨房餐饮管理;餐饮服务，保洁服务，家庭服务；停车场管理服务；劳务派遣经营；绿化维护，食品经营;婚庆礼仪服务;会务服务;展览展示服务;厨房设备及用品、餐具、办公用品的销售、餐厅规划设计，厨具设计、出售、安装等服务&lt;/p&gt;');
+INSERT INTO `yzn_product_data` VALUES (2, '&lt;p&gt;海安华**仓储有限公司主要以海安物流、仓储为主。 公司秉承“诚信经营、服务至上”的核心价值观；先进的物流理念和丰富的物流操作经验，为不同客户量身定做及提供专业物流方案和优质、高效的物流服务，从而帮客户降低成本，提升市场竞争力。\r\n　　公司已和众多知名企业携手合作，共创辉煌；承运范围涵盖了化工、机械、建材、纺织、电子电器、食品、制药、高科技产品等各行各业。&lt;/p&gt;');
+INSERT INTO `yzn_product_data` VALUES (3, '&lt;p&gt;苏州领*线教育科技有限公司是一家专注于高品质少儿培训和智能课程开发、提供精品化与专业化相结合的少儿教育科技机构。我们多年来，始终致力于将我们的课堂打造成为孩子快乐成长的乐园与成功的起点，并且成为江苏校外教育的品牌。我们已在苏州市区、常熟、张家港、吴江、昆山、太仓、常州、无锡、杭州、江西九江、内蒙古通辽、山东淄博等地成功开办了教学基地。&lt;/p&gt;');
+INSERT INTO `yzn_product_data` VALUES (5, '&lt;p&gt;苏州威*莱斯升降机械设备有限公司是专业提供各类升降平台出租租赁服务的厂家，自公司创立以来，经过长期对液压升降机、升降平台、高空作业车的研制和探索，积累了丰富的专业经验。凭借丰富的专业技术及不断开拓创新的精神，致力于产品的开发和创新，以自身专业特长，创造高品质的产品。&lt;/p&gt;');
+INSERT INTO `yzn_product_data` VALUES (6, '&lt;p&gt;苏州非*搬运安装有限公司于2016年7月在苏州工业园区这块沸腾的热土上重组合并挂牌成立。随着经济的发展,，公司秉承创新、创优、与时共进的原则把原有四家搬运公司重组洗牌、强强联手。作为一家专业承接各类精密机器设备搬运、装卸、安装定位工程的大企业，公司装备齐全、技术力量雄厚。施工人员均受过国家安全生产监督部门正规的专业培训，持有相应的资格证书，对各种精密机器设备的搬运、安装工程有着丰富的工作经验。施工车辆都是定期由特种设备监督局定期安检的，搬运工具都是领先的。长期与多家财险、寿险公司合作，保证客户利益的最大化，员工利益的最大保障。&lt;/p&gt;');
+INSERT INTO `yzn_product_data` VALUES (7, '&lt;p&gt;上海朗**业科技有限公司，成立于2016年，致力于进口国外先进的工业设备、仪器和耗材。团队成员均由长期从事科学研究、仪器销售与服务人士组成，有着丰富的售前和售后服务经验，可为国内科研、工业客户提供一站式解决方案。\r\n\r\n“朗助工业，喜翼科技！”一直以来都是团队的奋斗方向, 多年的经营与市场反馈赢得了市场客户的信赖。\r\n&amp;nbsp;&lt;/p&gt;&lt;p&gt;旗下代理合作涵盖了Mettler Toledo, Brand, EIMINC, Leica, CBS, Astero, Thermofisher, UnionMicronClean, Technoflex, SPC, &amp;nbsp;Oxypharm, FRITSCH, Copley等众多一线品牌产品。&lt;/p&gt;');
+INSERT INTO `yzn_product_data` VALUES (8, '&lt;p&gt;公司以严守合同，诚信服务与客户为本企业的基本操守，坚持“真诚&amp;nbsp; 高效 共赢”的文化理念，先后在城市周边、射阳、大丰、阜宁、徐州、昆山等地设办事处，依托强大、广泛的社会资源和一支团结奋进、具有良好亲和力以及丰富人力资源服务实践和管理经验的团队，在企业人力资源业务外包服务领域、劳务派遣服务以及劳务输出、劳动事务代理、劳动政策咨询等服务领域形成了独特资源和业务优势，积累了丰富的人力资源业务服务经验，专注于将“道万**力”打招成江苏人力资源及其管理领域的专业服务品牌。&lt;/p&gt;');
+INSERT INTO `yzn_product_data` VALUES (9, '&lt;p&gt;&amp;nbsp; 江苏森**设集团有限公司是按照中华人民共和国公司法，于2006 年9 月5 日经过企业改制重组，在江苏省盐城市工商行政管理局亭湖分局注册成立，其性质为有限责任公司，注册资金10088万元。&lt;/p&gt;&lt;p&gt;&amp;nbsp; 公司是自主经营、独立核算、自负盈亏、具有独立法人资格的经济实体，主要从事高空维修、高空安装、高空建筑、高空防腐、高空清洗、高空加固、特种防腐、 地下堵漏以及铁塔防护等方面的高空作业。&lt;/p&gt;&lt;p&gt;&amp;nbsp; 公司设有工程部、施工部、设备部、财务部和法务部，是集工程方案设计、工程施工和质量安全管理等为一体的综合性高空作业工程公司。目前，公司下辖六个分公司，22个项目部。公司本部设有党总支、工会、办公室(兼投标办)、质量安全部、施工技术部、材料设备部。人事教育部和计划财务部，共有员工1086人，具有专业技术人员166人，其中高级工程师12人，项目经理22人。拥有大中型机械设备68台(件)，企业固定资产目前己达亿。年施工产值2亿。&lt;/p&gt;');
 
+INSERT INTO `yzn_page` VALUES (2, '关于我们', '', '', '<p>&nbsp; &nbsp; xxx网络科技股份有限公司是一家集策略咨询、创意创新、视觉设计、技术研发、内容制造、营销推广为一体的综合型数字化创新服务企业，其利用公司持续积累的核心技术和互联网思维，提供以互联网、移动互联网为核心的网络技术服务和互动整合营销服务，为传统企业实现“互联网+”升级提供整套解决方案。公司定位于中大型企业为核心客户群，可充分满足这一群体相比中小企业更为丰富、高端、多元的互联网数字综合需求。</p><p><br/></p><p>&nbsp; &nbsp; xxx网络科技股份有限公司作为一家互联网数字服务综合商，其主营业务包括移动互联网应用开发服务、数字互动整合营销服务、互联网网站建设综合服务和电子商务综合服务。</p><p><br/></p><p>&nbsp; &nbsp; xxx网络科技股份有限公司秉承实现全网价值营销的理念，通过实现互联网与移动互联网的精准数字营销和用户数据分析，日益深入到客户互联网技术建设及运维营销的方方面面，在帮助客户形成自身互联网运作体系的同时，有效对接BAT(百度，阿里，腾讯)等平台即百度搜索、阿里电商、腾讯微信，通过平台的推广来推进互联网综合服务，实现企业、用户、平台三者完美对接，并形成高效互动的枢纽，在帮助客户获取互联网高附加价值的同时获得自身的不断成长和壮大。</p>', 0, 0);
+INSERT INTO `yzn_page` VALUES (3, '企业文化', '', '', '<p>【愿景】</p><ul class=\" list-paddingleft-2\" style=\"list-style-type: disc;\"><li><p>不断倾听和满足用户需求，引导并超越用户需求，赢得用户尊敬</p></li><li><p>通过提升品牌形象，使员工具有高度企业荣誉感，赢得员工尊敬&nbsp;</p></li><li><p>推动互联网行业的健康发展，与合作伙伴共成长，赢得行业尊敬</p></li><li><p>注重企业责任，用心服务，关爱社会、回馈社会，赢得社会尊敬</p></li></ul><p><br/></p><p>【使命】</p><ul class=\" list-paddingleft-2\" style=\"list-style-type: disc;\"><li><p>使产品和服务像水和电融入人们的生活，为人们带来便捷和愉悦</p></li><li><p>关注不同地域、群体，并针对不同对象提供差异化的产品和服务</p></li><li><p>打造开放共赢平台，与合作伙伴共同营造健康的互联网生态环境</p></li></ul><p><br/></p><p>【管理理念】</p><ul class=\" list-paddingleft-2\" style=\"list-style-type: disc;\"><li><p>为员工提供良好的工作环境和激励机制&nbsp;</p></li><li><p>完善员工培养体系和职业发展通道，使员工与企业同步成长</p></li><li><p>充分尊重和信任员工，不断引导和鼓励，使其获得成就的喜悦</p></li></ul>', 0, 0);
+INSERT INTO `yzn_page` VALUES (18, '联系我们', '', '', '<p>手　机：158-88888888</p><p>传　真：0512-88888888</p><p>邮　编：215000</p><p>邮　箱：admin@admin.com</p><p>地　址：江苏省苏州市吴中区某某工业园一区</p><p><br/></p><p><img width=\"530\" height=\"340\" src=\"http://api.map.baidu.com/staticimage?center=116.404,39.915&zoom=10&width=530&height=340&markers=116.404,39.915\"/></p>', 0, 0);
 
-INSERT INTO `yzn_model_field` (`id`, `modelid`, `name`, `title`, `remark`, `pattern`, `errortips`, `type`, `setting`, `ifsystem`, `iscore`, `iffixed`, `ifrequire`, `ifsearch`, `isadd`, `create_time`, `update_time`, `listorder`, `status`) VALUES
-(1, 1, 'id', '文档id', '', '', '', 'hidden', NULL, 1, 0, 1, 0, 0, 1, 1632823818, 1632823818, 100, 1),
-(2, 1, 'catid', '栏目id', '', '', '', 'hidden', NULL, 1, 0, 1, 0, 0, 1, 1632823818, 1632823818, 100, 1),
-(3, 1, 'theme', '主题', '', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 1, 1, 1, 1632823818, 1632823818, 2, 1),
-(4, 1, 'flag', '属性', '', '', '', 'checkbox', 'a:3:{s:6:\"define\";s:31:\"varchar(32) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:76:\"1:置顶[1]\r\n2:头条[2]\r\n3:特荐[3]\r\n4:推荐[4]\r\n5:热点[5]\r\n6:幻灯[6]\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 0, 1632823818, 1632825069, 3, 1),
-(5, 1, 'thumb', '封面图片', '', '', '', 'image', 'a:3:{s:6:\"define\";s:13:\"text NOT NULL\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1632823818, 1632823818, 4, 1),
-(6, 1, 'url', '跳转连接', '', '', '', 'link', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 1, 1632823818, 1632825961, 6, 1),
-(7, 1, 'uid', '用户id', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1632823818, 1632823818, 100, 1),
-(8, 1, 'username', '用户名', '', '', '', 'text', NULL, 1, 1, 1, 0, 0, 0, 1632823818, 1632823818, 100, 1),
-(9, 1, 'sysadd', '是否后台添加', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1632823818, 1632823818, 100, 1),
-(10, 1, 'paytype', '支付类型', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:18:\"0:积分\r\n1:金额\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1632823818, 1632825966, 7, 1),
-(11, 1, 'readpoint', '支付数量', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823818, 1632825969, 8, 1),
-(12, 1, 'listorder', '排序', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:40:\"tinyint(3) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:3:\"100\";}', 1, 0, 1, 0, 0, 0, 1632823818, 1632823818, 8, 1),
-(13, 1, 'status', '状态', '', '', '', 'radio', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:18:\"0:禁用\r\n1:启用\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1632823818, 1632823818, 9, 1),
-(14, 1, 'hits', '点击量', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823818, 1632823818, 10, 1),
-(15, 1, 'likes', '点赞数', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823818, 1632823818, 11, 1),
-(16, 1, 'dislikes', '点踩数', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823818, 1632823818, 12, 1),
-(17, 1, 'inputtime', '创建时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1632823818, 1632869869, 7, 1),
-(18, 1, 'updatetime', '更新时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1632823818, 1632823818, 14, 1),
-(19, 1, 'pushtime', '推送时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1632823818, 1632823818, 15, 1),
-(20, 1, 'comment', '允许评论', '', '', '', 'radio', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:18:\"0:禁止\r\n1:允许\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1632823818, 1632823818, 16, 1),
-(21, 1, 'id', '自然ID', '', '', '', 'hidden', NULL, 0, 0, 1, 0, 0, 0, 1632823818, 1632823818, 100, 1),
-(22, 1, 'did', '附表文档id', '', '', '', 'hidden', NULL, 0, 1, 1, 0, 0, 0, 1632823818, 1632823818, 100, 1),
-(23, 1, 'site_id', '站点ID', '', '', '', 'hidden', NULL, 0, 0, 1, 0, 0, 1, 1632823818, 1632823818, 100, 1),
-(24, 1, 'title', '标题', '', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 1, 1, 1, 1, 1632823818, 1632823818, 1, 1),
-(25, 1, 'tags', 'Tags标签', '关键词用回车确认', '', '', 'tags', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1632823818, 1632823818, 10, 1),
-(26, 1, 'keywords', 'SEO关键词', '关键词用回车确认', '', '', 'tags', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1632823818, 1632823818, 11, 1),
-(27, 1, 'description', 'SEO摘要', '如不填写，则自动截取附表中编辑器的200字符', '', '', 'textarea', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1632823818, 1632823818, 12, 1),
-(28, 1, 'content', '内容', '', '', '', 'Ueditor', 'a:3:{s:6:\"define\";s:13:\"text NOT NULL\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 1, 0, 1, 1632823818, 1632823818, 13, 1),
-(29, 2, 'id', '文档id', '', '', '', 'hidden', NULL, 1, 0, 1, 0, 0, 1, 1632823847, 1632823847, 100, 1),
-(30, 2, 'catid', '栏目id', '', '', '', 'hidden', NULL, 1, 0, 1, 0, 0, 1, 1632823847, 1632823847, 100, 1),
-(31, 2, 'theme', '主题', '', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 1, 1, 1, 1632823847, 1632823847, 2, 1),
-(32, 2, 'flag', '属性', '', '', '', 'checkbox', 'a:3:{s:6:\"define\";s:31:\"varchar(32) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:76:\"1:置顶[1]\r\n2:头条[2]\r\n3:特荐[3]\r\n4:推荐[4]\r\n5:热点[5]\r\n6:幻灯[6]\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 0, 1632823847, 1632823847, 3, 0),
-(33, 2, 'thumb', '封面图片', '', '', '', 'image', 'a:3:{s:6:\"define\";s:13:\"text NOT NULL\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1632823847, 1632823847, 4, 1),
-(34, 2, 'url', '跳转连接', '', '', '', 'link', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 1, 1632823847, 1632823847, 5, 1),
-(35, 2, 'uid', '用户id', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1632823847, 1632823847, 100, 1),
-(36, 2, 'username', '用户名', '', '', '', 'text', NULL, 1, 1, 1, 0, 0, 0, 1632823847, 1632823847, 100, 1),
-(37, 2, 'sysadd', '是否后台添加', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1632823847, 1632823847, 100, 1),
-(38, 2, 'paytype', '支付类型', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:18:\"0:积分\r\n1:金额\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1632823847, 1632823847, 6, 1),
-(39, 2, 'readpoint', '支付数量', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823847, 1632823847, 7, 1),
-(40, 2, 'listorder', '排序', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:40:\"tinyint(3) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:3:\"100\";}', 1, 0, 1, 0, 0, 0, 1632823847, 1632823847, 8, 1),
-(41, 2, 'status', '状态', '', '', '', 'radio', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:18:\"0:禁用\r\n1:启用\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1632823847, 1632823847, 9, 1),
-(42, 2, 'hits', '点击量', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823847, 1632823847, 10, 1),
-(43, 2, 'likes', '点赞数', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823847, 1632823847, 11, 1),
-(44, 2, 'dislikes', '点踩数', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823847, 1632823847, 12, 1),
-(45, 2, 'inputtime', '创建时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1632823847, 1632823847, 13, 1),
-(46, 2, 'updatetime', '更新时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1632823847, 1632823847, 14, 1),
-(47, 2, 'pushtime', '推送时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1632823847, 1632823847, 15, 1),
-(48, 2, 'comment', '允许评论', '', '', '', 'radio', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:18:\"0:禁止\r\n1:允许\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1632823847, 1632823847, 16, 1),
-(49, 2, 'id', '自然ID', '', '', '', 'hidden', NULL, 0, 0, 1, 0, 0, 0, 1632823847, 1632823847, 100, 1),
-(50, 2, 'did', '附表文档id', '', '', '', 'hidden', NULL, 0, 1, 1, 0, 0, 0, 1632823847, 1632823847, 100, 1),
-(51, 2, 'site_id', '站点ID', '', '', '', 'hidden', NULL, 0, 0, 1, 0, 0, 1, 1632823847, 1632823847, 100, 1),
-(52, 2, 'title', '标题', '', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 1, 1, 1, 1, 1632823847, 1632823847, 1, 1),
-(53, 2, 'tags', 'Tags标签', '关键词用回车确认', '', '', 'tags', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1632823847, 1632823847, 10, 1),
-(54, 2, 'keywords', 'SEO关键词', '关键词用回车确认', '', '', 'tags', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1632823847, 1632823847, 11, 1),
-(55, 2, 'description', 'SEO摘要', '如不填写，则自动截取附表中编辑器的200字符', '', '', 'textarea', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1632823847, 1632823847, 12, 1),
-(56, 2, 'content', '内容', '', '', '', 'Ueditor', 'a:3:{s:6:\"define\";s:13:\"text NOT NULL\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 1, 0, 1, 1632823847, 1632823847, 13, 1),
-(57, 3, 'id', '文档id', '', '', '', 'hidden', NULL, 1, 0, 1, 0, 0, 1, 1632823874, 1632823874, 100, 1),
-(58, 3, 'catid', '栏目id', '', '', '', 'hidden', NULL, 1, 0, 1, 0, 0, 1, 1632823874, 1632823874, 100, 1),
-(59, 3, 'theme', '主题', '', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 1, 1, 1, 1632823874, 1632823874, 2, 1),
-(60, 3, 'flag', '属性', '', '', '', 'checkbox', 'a:3:{s:6:\"define\";s:31:\"varchar(32) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:76:\"1:置顶[1]\r\n2:头条[2]\r\n3:特荐[3]\r\n4:推荐[4]\r\n5:热点[5]\r\n6:幻灯[6]\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 0, 1632823874, 1632823874, 3, 0),
-(61, 3, 'thumb', '封面图片', '', '', '', 'image', 'a:3:{s:6:\"define\";s:13:\"text NOT NULL\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1632823874, 1632823874, 4, 1),
-(62, 3, 'url', '跳转连接', '', '', '', 'link', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 1, 1632823874, 1632823874, 5, 1),
-(63, 3, 'uid', '用户id', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1632823874, 1632823874, 100, 1),
-(64, 3, 'username', '用户名', '', '', '', 'text', NULL, 1, 1, 1, 0, 0, 0, 1632823874, 1632823874, 100, 1),
-(65, 3, 'sysadd', '是否后台添加', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1632823874, 1632823874, 100, 1),
-(66, 3, 'paytype', '支付类型', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:18:\"0:积分\r\n1:金额\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1632823874, 1632823874, 6, 1),
-(67, 3, 'readpoint', '支付数量', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823874, 1632823874, 7, 1),
-(68, 3, 'listorder', '排序', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:40:\"tinyint(3) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:3:\"100\";}', 1, 0, 1, 0, 0, 0, 1632823874, 1632823874, 8, 1),
-(69, 3, 'status', '状态', '', '', '', 'radio', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:18:\"0:禁用\r\n1:启用\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1632823874, 1632823874, 9, 1),
-(70, 3, 'hits', '点击量', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823874, 1632823874, 10, 1),
-(71, 3, 'likes', '点赞数', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823874, 1632823874, 11, 1),
-(72, 3, 'dislikes', '点踩数', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823874, 1632823874, 12, 1),
-(73, 3, 'inputtime', '创建时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1632823874, 1632823874, 13, 1),
-(74, 3, 'updatetime', '更新时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1632823874, 1632823874, 14, 1),
-(75, 3, 'pushtime', '推送时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1632823874, 1632823874, 15, 1),
-(76, 3, 'comment', '允许评论', '', '', '', 'radio', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:18:\"0:禁止\r\n1:允许\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1632823874, 1632823874, 16, 1),
-(77, 3, 'id', '自然ID', '', '', '', 'hidden', NULL, 0, 0, 1, 0, 0, 0, 1632823874, 1632823874, 100, 1),
-(78, 3, 'did', '附表文档id', '', '', '', 'hidden', NULL, 0, 1, 1, 0, 0, 0, 1632823874, 1632823874, 100, 1),
-(79, 3, 'site_id', '站点ID', '', '', '', 'hidden', NULL, 0, 0, 1, 0, 0, 1, 1632823874, 1632823874, 100, 1),
-(80, 3, 'title', '标题', '', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 1, 1, 1, 1, 1632823874, 1632823874, 1, 1),
-(81, 3, 'tags', 'Tags标签', '关键词用回车确认', '', '', 'tags', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1632823874, 1632823874, 10, 1),
-(82, 3, 'keywords', 'SEO关键词', '关键词用回车确认', '', '', 'tags', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1632823874, 1632823874, 11, 1),
-(83, 3, 'description', 'SEO摘要', '如不填写，则自动截取附表中编辑器的200字符', '', '', 'textarea', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1632823874, 1632823874, 12, 1),
-(84, 3, 'content', '内容', '', '', '', 'Ueditor', 'a:3:{s:6:\"define\";s:13:\"text NOT NULL\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 1, 0, 1, 1632823874, 1632823874, 13, 1),
-(85, 4, 'id', '文档id', '', '', '', 'hidden', NULL, 1, 0, 1, 0, 0, 1, 1632823897, 1632823897, 100, 1),
-(86, 4, 'catid', '栏目id', '', '', '', 'hidden', NULL, 1, 0, 1, 0, 0, 1, 1632823897, 1632823897, 100, 1),
-(87, 4, 'theme', '主题', '', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 1, 1, 1, 1632823897, 1632823897, 2, 1),
-(88, 4, 'flag', '属性', '', '', '', 'checkbox', 'a:3:{s:6:\"define\";s:31:\"varchar(32) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:76:\"1:置顶[1]\r\n2:头条[2]\r\n3:特荐[3]\r\n4:推荐[4]\r\n5:热点[5]\r\n6:幻灯[6]\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 0, 1632823897, 1632823897, 3, 0),
-(89, 4, 'thumb', '封面图片', '', '', '', 'image', 'a:3:{s:6:\"define\";s:13:\"text NOT NULL\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1632823897, 1632832881, 3, 1),
-(90, 4, 'url', '跳转连接', '', '', '', 'link', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 1, 1632823897, 1632823897, 5, 1),
-(91, 4, 'uid', '用户id', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1632823897, 1632823897, 100, 1),
-(92, 4, 'username', '用户名', '', '', '', 'text', NULL, 1, 1, 1, 0, 0, 0, 1632823897, 1632823897, 100, 1),
-(93, 4, 'sysadd', '是否后台添加', '', '', '', 'number', NULL, 1, 1, 1, 0, 0, 0, 1632823897, 1632823897, 100, 1),
-(94, 4, 'paytype', '支付类型', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:18:\"0:积分\r\n1:金额\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1632823897, 1632823897, 6, 1),
-(95, 4, 'readpoint', '支付数量', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823897, 1632823897, 7, 1),
-(96, 4, 'listorder', '排序', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:40:\"tinyint(3) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:3:\"100\";}', 1, 0, 1, 0, 0, 0, 1632823897, 1632823897, 8, 1),
-(97, 4, 'status', '状态', '', '', '', 'radio', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:18:\"0:禁用\r\n1:启用\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1632823897, 1632823897, 9, 1),
-(98, 4, 'hits', '点击量', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823897, 1632823897, 10, 1),
-(99, 4, 'likes', '点赞数', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823897, 1632823897, 11, 1),
-(100, 4, 'dislikes', '点踩数', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823897, 1632823897, 12, 1),
-(101, 4, 'inputtime', '创建时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1632823897, 1632823897, 13, 1),
-(102, 4, 'updatetime', '更新时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1632823897, 1632823897, 14, 1),
-(103, 4, 'pushtime', '推送时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1632823897, 1632823897, 15, 1),
-(104, 4, 'comment', '允许评论', '', '', '', 'radio', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:18:\"0:禁止\r\n1:允许\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1632823897, 1632823897, 16, 1),
-(105, 4, 'id', '自然ID', '', '', '', 'hidden', NULL, 0, 0, 1, 0, 0, 0, 1632823897, 1632823897, 100, 1),
-(106, 4, 'did', '附表文档id', '', '', '', 'hidden', NULL, 0, 1, 1, 0, 0, 0, 1632823897, 1632823897, 100, 1),
-(107, 4, 'site_id', '站点ID', '', '', '', 'hidden', NULL, 0, 0, 1, 0, 0, 1, 1632823897, 1632823897, 100, 1),
-(108, 4, 'title', '标题', '', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 1, 1, 1, 1, 1632823897, 1632823897, 1, 1),
-(109, 4, 'tags', 'Tags标签', '关键词用回车确认', '', '', 'tags', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1632823897, 1632823897, 10, 1),
-(110, 4, 'keywords', 'SEO关键词', '关键词用回车确认', '', '', 'tags', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1632823897, 1632823897, 11, 1),
-(111, 4, 'description', 'SEO摘要', '如不填写，则自动截取附表中编辑器的200字符', '', '', 'textarea', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 0, 0, 1, 1632823897, 1632823897, 12, 1),
-(112, 4, 'content', '内容', '', '', '', 'Ueditor', 'a:3:{s:6:\"define\";s:13:\"text NOT NULL\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 0, 0, 0, 1, 0, 1, 1632823897, 1632823897, 13, 1),
-(113, 2, 'image', '图组', '', '', '', 'images', 'a:3:{s:6:\"define\";s:13:\"text NOT NULL\";s:5:\"value\";s:0:\"\";s:7:\"options\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1632825691, 1632825699, 5, 1),
-(114, 1, 'icon', '标题图标', '', '', '', 'text', 'a:3:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:5:\"value\";s:0:\"\";s:7:\"options\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1632825912, 1632825978, 3, 1),
-(115, 1, 'image', 'Banner', '', '', '', 'image', 'a:3:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:5:\"value\";s:0:\"\";s:7:\"options\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1632825941, 1632825953, 5, 1),
-(116, 3, 'times', '下载次数', '', '', '', 'number', 'a:3:{s:6:\"define\";s:25:\"int(10) UNSIGNED NOT NULL\";s:5:\"value\";s:0:\"\";s:7:\"options\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1632829300, 1632829391, 10, 1),
-(117, 3, 'file', '文件上传', '', '', '', 'file', 'a:3:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:5:\"value\";s:0:\"\";s:7:\"options\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1632829375, 1632829387, 3, 1),
-(118, 4, 'video', '视频文件', '', '', '', 'file', 'a:3:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:5:\"value\";s:0:\"\";s:7:\"options\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1632832866, 1632832878, 4, 1),
-(119, 1, 'groupids', '访问权限', '', '', '不选代表无限制', 'selectpage', 'a:4:{s:6:\"define\";s:20:\"varchar(32) NOT NULL\";s:7:\"options\";s:110:\"url:/api/lists/memberGroup\r\nfield:name\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:1:\"0\";}', 1, 0, 0, 0, 0, 0, 1632838010, 1632868864, 101, 1);
+INSERT INTO `yzn_tags` VALUES (1, '精密机器', '', '', '', 1, 0, 1553067267, 1553067267, 0);
+INSERT INTO `yzn_tags` VALUES (2, '专业培训', '', '', '', 1, 0, 1553067267, 1553067267, 0);
+INSERT INTO `yzn_tags` VALUES (3, '资格证书', '', '', '', 1, 0, 1553067267, 1553067267, 0);
+INSERT INTO `yzn_tags` VALUES (4, '机械设备', '', '', '', 1, 0, 1553067296, 1553067296, 0);
+INSERT INTO `yzn_tags` VALUES (5, '升降机', '', '', '', 1, 0, 1553067296, 1553067296, 0);
+INSERT INTO `yzn_tags` VALUES (6, '租赁服务', '', '', '', 1, 0, 1553067296, 1553067296, 0);
+INSERT INTO `yzn_tags` VALUES (7, '餐饮管理', '', '', '', 1, 0, 1553067319, 1553067319, 0);
+INSERT INTO `yzn_tags` VALUES (8, '婚庆礼仪', '', '', '', 1, 0, 1553067319, 1553067319, 0);
+INSERT INTO `yzn_tags` VALUES (9, '劳务派遣', '', '', '', 1, 0, 1553067319, 1553067319, 0);
+INSERT INTO `yzn_tags` VALUES (10, '校外教育', '', '', '', 1, 0, 1553067339, 1553067339, 0);
+INSERT INTO `yzn_tags` VALUES (11, '智能课程', '', '', '', 1, 0, 1553067339, 1553067339, 0);
+INSERT INTO `yzn_tags` VALUES (12, '物流服务', '', '', '', 1, 0, 1553067377, 1553067377, 0);
+INSERT INTO `yzn_tags` VALUES (13, '注脂', '', '', '', 1, 0, 1553067408, 1553067408, 0);
+INSERT INTO `yzn_tags` VALUES (14, '打胶', '', '', '', 1, 0, 1553067408, 1553067408, 0);
 
-
-INSERT INTO `yzn_news` (`id`, `catid`, `theme`, `url`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `icon`, `image`, `groupids`) VALUES
-(1, 6, 'DZDCMS', '', '/uploads/images/photo.png', '6', 1, 0, 0, 1, 'admin', 1, 14, 11, 12, 1632825416, 1633168928, 0, 1, 1, '', '/uploads/images/banner.png', ''),
-(2, 6, '多站点CMS是基于最新TP5.1x框架和layui2.5x的多站点内容管理系统', '', '/uploads/images/photo.png', '6', 0, 0, 99, 1, 'admin', 1, 20, 9, 8, 1632825588, 1633168918, 0, 1, 1, '', '/uploads/images/banner.png', ''),
-(3, 4, '域名灵活', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632826023, 1632958405, 0, 1, 1, 'layui-icon-star', '', ''),
-(4, 4, '一站管理', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632826050, 1632958393, 0, 1, 1, 'layui-icon-user', '', ''),
-(5, 4, '数据同步', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632826077, 1632957826, 0, 1, 1, 'layui-icon-transfer', '', ''),
-(6, 4, '插件丰富', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632826102, 1632957811, 0, 1, 1, 'layui-icon-app', '', ''),
-(7, 5, '恭喜多站点CMS2.0.0正式版上线啦 ', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1616928568, 1632826760, 0, 1, 1, '', '', ''),
-(8, 5, '恭喜多站点CMS入住thinkphp服务市场', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1615891822, 1632826769, 0, 1, 1, '', '', ''),
-(9, 5, '恭喜多站点CMS入住thinkphp服务市场', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1616064675, 1632826779, 0, 1, 1, '', '', ''),
-(10, 4, '多端支持', '', '/uploads/images/20210928/36dbfdc1e4fd1ed549f48255f7c3e3ad.png', '', 1, 0, 100, 1, 'admin', 1, 1, 0, 0, 1632826335, 1632826352, 0, 1, 1, 'layui-icon-cellphone', '', ''),
-(11, 4, '长期更新', '', '/uploads/images/20210928/36dbfdc1e4fd1ed549f48255f7c3e3ad.png', '', 1, 0, 100, 1, 'admin', 1, 1, 0, 0, 1632826354, 1632826376, 0, 1, 1, 'layui-icon-auz', '', ''),
-(12, 5, '好消息！DZDCMS多站点内容管理系统可以免费使用啦！', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632826395, 1632826788, 0, 1, 1, '', '/uploads/images/20210928/5545474fedb30a8651f02125c7893213.png', ''),
-(13, 5, '所有用户可免费使用官网模版啦！', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 1, 0, 0, 1632826425, 1632826799, 0, 1, 1, '', '', ''),
-(14, 5, '授权用户可免费使用文档模版啦', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 3, 0, 0, 1632826475, 1632826809, 0, 1, 1, '', '', '');
-
-
-INSERT INTO `yzn_news_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`, `description`, `content`) VALUES
-(1, 1, 1, 'DZDCMS', '', '', '多站点CMS是一款功能强大的多站点内容管理系统', '<p>多站点CMS经过多年的更新迭代，系统功能已经非常完善了，不管你是建多语言站、还是城市分站、集团分站还是站群等等，都可以完美实现你的功能需求！</p><p>后台功能列举</p><p>1、功能强大：支持模型管理和字段相关管理，方便自由扩展</p><p>2、栏目灵活：网站栏目可多站共用也可单站私用</p><p>3、管理简单：发布内容可设置多站一起发布也可只管理单站</p><p>4、数据同步：开启后，发布分站内容可以从主站一键导入、管理维护省事</p><p>5、域名灵活：每个站一个单独域名；也可以主站用顶级域名，分站用二级域名；还可以所有站共用一个域名任意切换内容（适用说多语言站）</p><p>6、表单功能：自定义表单，随心所欲建任意表单</p><p>7、个性模版：每个网站可以设置不同的风格模版</p><p>8、个性主题：所有网站可以共用相同模版可设置不同的样式</p><p>9、一键翻译：主站发布完内容，可一键翻译推送到所有分站！支持100+种语言的一键翻译推送。</p><p>10、单独管理：每个分站可设置单独的管理员，管理员可分配只管理一个站或管理所有站。</p><p>11、内容目录：内容页可分章节和目录、适合小说、视频、课件、词条等网站的建设</p><p>12、虚拟分站：可建设虚拟站点，主要用于城市分站、只发布主站内容、分站不用发布！可生成任意城市站点</p><p>... ...</p><p>做网站 只写HTML模板即可</p><p><br/></p>'),
-(2, 2, 1, '多站点CMS是基于最新TP5.1x框架和layui2.5x的多站点内容管理系统', '', '', '多站点CMS是基于最新TP5.1x框架和layui2.5x的多站点内容管理系统', '<p>多站点CMS经过多年的更新迭代，系统功能已经非常完善了，不管你是建多语言站、还是城市分站、集团分站还是站群等等，都可以完美实现你的功能需求！</p><p>后台功能列举</p><p>1、功能强大：支持模型管理和字段相关管理，方便自由扩展</p><p>2、栏目灵活：网站栏目可多站共用也可单站私用</p><p>3、管理简单：发布内容可设置多站一起发布也可只管理单站</p><p>4、数据同步：开启后，发布分站内容可以从主站一键导入、管理维护省事</p><p>5、域名灵活：每个站一个单独域名；也可以主站用顶级域名，分站用二级域名；还可以所有站共用一个域名任意切换内容（适用说多语言站）</p><p>6、表单功能：自定义表单，随心所欲建任意表单</p><p>7、个性模版：每个网站可以设置不同的风格模版</p><p>8、个性主题：所有网站可以共用相同模版可设置不同的样式</p><p>9、一键翻译：主站发布完内容，可一键翻译推送到所有分站！支持100+种语言的一键翻译推送。</p><p>10、单独管理：每个分站可设置单独的管理员，管理员可分配只管理一个站或管理所有站。</p><p>11、内容目录：内容页可分章节和目录、适合小说、视频、课件、词条等网站的建设</p><p>12、虚拟分站：可建设虚拟站点，主要用于城市分站、只发布主站内容、分站不用发布！可生成任意城市站点</p><p>... ...</p><p>做网站 只写HTML模板即可</p>'),
-(3, 3, 1, '域名灵活', '', '', '多站可以用一个域名、也可以一个站一个域名、可以是二级域名、也可以全部是顶级域名！', '<p>多站可以用一个域名、也可以一个站一个域名、可以是二级域名、也可以全部是顶级域名！</p>'),
-(4, 4, 1, '一站管理', '', '', '一个后台可以做多个网站、适合企业站、多语言站、外贸站、城市分站、站群等建站需求', '<p>一个后台可以做多个网站、适合企业站、多语言站、外贸站、城市分站、站群等建站需求</p>'),
-(5, 5, 1, '数据同步', '', '', '管理内容可一键导入主站内容，然后修改发布，操作简单方便。', '<p>管理内容可一键导入主站内容，然后修改发布，操作简单方便。</p>'),
-(6, 6, 1, '插件丰富', '', '', '可提供yzncms免费开发的所有插件，授权用户也可提供付费插件，还会开发更多插件供大家使用。', '<p>可提供yzncms免费开发的所有插件，授权用户也可提供付费插件，还会开发更多插件供大家使用。</p>'),
-(7, 7, 1, '恭喜多站点CMS2.0.0正式版上线啦 ', '', '', '恭喜多站点CMS2.0.0正式版上线啦 ', '<p>恭喜多站点CMS2.0.0正式版上线啦&nbsp;恭喜多站点CMS2.0.0正式版上线啦&nbsp;恭喜多站点CMS2.0.0正式版上线啦&nbsp;恭喜多站点CMS2.0.0正式版上线啦&nbsp;</p>'),
-(8, 8, 1, '恭喜多站点CMS入住thinkphp服务市场', '', '', '恭喜多站点CMS入住thinkphp服务市场', '<p>恭喜多站点CMS入住thinkphp服务市场</p><p>连接地址：<a href=\"https://market.topthink.com/product/389\" target=\"_blank\">https://market.topthink.com/product/389</a></p><p><br/></p><p><br/></p>'),
-(9, 9, 1, '恭喜多站点CMS入住thinkphp服务市场', '', '', '恭喜多站点CMS入住thinkphp服务市场', '<p>恭喜多站点CMS入住thinkphp服务市场恭喜多站点CMS入住thinkphp服务市场恭喜多站点CMS入住thinkphp服务市场</p><p style=\"white-space: normal;\">恭喜多站点CMS入住thinkphp服务市场</p><p style=\"white-space: normal;\">连接地址：<a href=\"https://market.topthink.com/product/389\" target=\"_blank\">https://market.topthink.com/product/389</a></p><p><br/></p><p><br/></p>'),
-(10, 10, 1, '多端支持', '', '', '页面为响应式设计，支持电脑、平板、智能手机等设备，微信浏览器以及各种常见浏览器。', '<p>页面为响应式设计，支持电脑、平板、智能手机等设备，微信浏览器以及各种常见浏览器。</p>'),
-(11, 11, 1, '长期更新', '', '', '我公司成立于2006年，十多年来一直致力于网站建设、我们的客户也是使用这套系统，长期更新升级，保证让大家使用最安全优化最好的程序！', '<p>我公司成立于2006年，十多年来一直致力于网站建设、我们的客户也是使用这套系统，长期更新升级，保证让大家使用最安全优化最好的程序！</p>'),
-(12, 12, 1, '好消息！DZDCMS多站点内容管理系统可以免费使用啦！', '', '', '好消息，为了满足更多用户的需求、和众多老用户的要求，从今天开始可以免费使用啦！', '<p>好消息，为了满足更多用户的需求、和众多老用户的要求，从今天开始可以免费使用啦！</p><p>多站点CMS经过多年的更新迭代，系统功能已经非常完善了，不管你是建多语言站、还是城市分站、集团分站还是站群等等，都可以完美实现你的功能需求！</p><p>那大家肯定也有一个疑问，我们开发者也是人，也是需要吃饭和养家糊口的，所以免费版无法增加站点，如果需要增加站点，需要找我们授权，授权费用非常便宜，我们图的就是薄利多销，让更多的人能用到这么优美的系统。</p><p>以后授权会不会影响现有数据？绝对不对，默认站数据完善了，就可以增加其他站点，分站的数量是没有限制的！</p><p>&nbsp; &nbsp; &nbsp; &nbsp;您在使用中有好的建议，我们会采纳并免费更新进来！</p><p><br/></p><p>功能列举</p><p>1、功能强大：支持模型管理和字段相关管理，方便自由扩展</p><p>2、栏目灵活：网站栏目可多站共用也可单站私用</p><p>3、管理简单：发布内容可设置多站一起发布也可只管理单站</p><p>4、数据同步：开启后，发布分站内容可以从主站一键导入、管理维护省事</p><p>5、域名灵活：每个站一个单独域名；也可以主站用顶级域名，分站用二级域名；还可以所有站共用一个域名任意切换内容（适用说多语言站）</p><p>6、表单功能：自定义表单，随心所欲建任意表单</p><p>7、个性模版：每个网站可以设置不同的风格模版</p><p>8、个性主题：所有网站可以共用相同模版可设置不同的样式</p><p>9、数据共享：开启后分站如果没有单独编辑内容前端会自动调用主站内容，可让分站变的内容饱满丰富！</p><p>10、单独管理：每个分站可设置单独的管理员，管理员可分配只管理一个站或管理所有站。</p><p>... ...</p><p>做网站 只写HTML模板即可</p>'),
-(13, 13, 1, '所有用户可免费使用官网模版啦！', '', '', '不管是免费用户还是授权用户都可以免费使用官方模版！', '<p style=\"white-space: normal;\">不管是免费用户还是授权用户都可以免费使用官方模版！</p><p style=\"white-space: normal;\">官方模版，包含模型有：</p><p style=\"white-space: normal;\">资讯模型</p><p style=\"white-space: normal;\">图片模型</p><p style=\"white-space: normal;\">下载模型</p><p style=\"white-space: normal;\">视频模型等</p><p><br/></p>'),
-(14, 14, 1, '授权用户可免费使用文档模版啦', '', '', '授权用户可免费使用文档模版啦授权用户可免费使用文档模版啦授权用户可免费使用文档模版啦授权用户可免费使用文档模版啦', '<p>授权用户可免费使用文档模版啦授权用户可免费使用文档模版啦授权用户可免费使用文档模版啦授权用户可免费使用文档模版啦</p>'),
-(15, 1, 2, 'DZDCMS', '', '', 'Multi - site CMS is a powerful multi - site content management system', '<p>&nbsp;Multi-site CMS after years of iteration, the system function has been very perfect, whether you are to build multi-language station, or city station, group station or station group and so on, can perfectly achieve your functional needs!&nbsp;</p><p>1, powerful: support model management and field related management, convenient free expansion&nbsp;</p><p>2, columns flexible: website columns can be shared or single station private use&nbsp;</p><p>3, simple management:</p><p>4, Data synchronization: After this function is enabled, the content of publishing sub-stations can be imported from the master station with one key, saving management and maintenance.&nbsp;</p><p>5, The main station can also use the top-level domain name, the sub-station can use the second-level domain name;&nbsp;</p><p>6, form function: custom form, as you like to build any form</p><p>7, personality template: each website can set different style template</p><p>8, personality theme: All websites can share the same template can be set up different styles</p><p>9, one click translation: the master website published content, can be one click translation push to all sub-stations! Support 100+ languages of one-click translation push.&nbsp;</p><p>10, Separate management: a separate administrator can be set for each sub-station, and the administrator can be assigned to manage only one station or all stations.&nbsp;</p><p>11, content directory: content page can be divided into chapters and directories, suitable for novels, videos, courseware, entries and other website construction &lt; P &gt;12, virtual sub-station: can build virtual site, mainly used for urban sub-station, only release the main station content, sub-station need not release! Can generate any city site</p><p>... .</p><p><br/></p><p><br/></p>'),
-(16, 2, 2, 'Multi-site CMS is a multi-site content management system based on the latest TP5.1x framework and LayUI 2.5x', '', '', 'Multi-site CMS is a multi-site content management system based on the latest TP5.1x framework and LayUI 2.5x', '<p>&nbsp;Multi-site CMS after years of iteration, the system function has been very perfect, whether you are to build multi-language station, or city station, group station or station group and so on, can perfectly achieve your functional needs!&nbsp;</p><p>1, powerful: support model management and field related management, convenient free expansion&nbsp;</p><p>2, columns flexible: website columns can be shared or single station private use&nbsp;</p><p>3, simple management:</p><p>4, Data synchronization: After this function is enabled, the content of publishing sub-stations can be imported from the master station with one key, saving management and maintenance.&nbsp;</p><p>5, The main station can also use the top-level domain name, the sub-station can use the second-level domain name;&nbsp;</p><p>6, form function: custom form, as you like to build any form</p><p>7, personality template: each website can set different style template</p><p>8, personality theme: All websites can share the same template can be set up different styles</p><p>9, one click translation: the master website published content, can be one click translation push to all sub-stations! Support 100+ languages of one-click translation push.&nbsp;</p><p>10, Separate management: a separate administrator can be set for each sub-station, and the administrator can be assigned to manage only one station or all stations.&nbsp;</p><p>11, content directory: content page can be divided into chapters and directories, suitable for novels, videos, courseware, entries and other website construction &lt; P &gt;12, virtual sub-station: can build virtual site, mainly used for urban sub-station, only release the main station content, sub-station need not release! Can generate any city site</p><p>... .</p><p><br/></p>');
-
-
-INSERT INTO `yzn_page` (`id`, `catid`, `site_id`, `title`, `thumb`, `keywords`, `description`, `content`, `inputtime`, `updatetime`) VALUES
-(1, 11, 1, '在线留言', '', '', '这里是测试在线留言', '<p>本表单是用layui做的ajax方式提交的无刷新自定义表单系统，欢迎测试！</p>', 1632833009, 1632833026),
-(2, 12, 1, '文档', '', '', '', '<p>文档在栏目中直接设置的跳转，这里就不用编辑了</p>', 1632833032, 1632833067),
-(3, 7, 1, '多站点CMS', '', '', '', '<p style=\"white-space: normal;\">　　多站点CMS是基于yzncms二次开发而来的多站点内容管理系统，原系统cms模块只支持一个站，本系统继承了原cms模块的所有功能和优点，衍生为多站点cms，本多站点CMS不光可以建中文英文等不限语言数量的多语言网站，还可以建城市分站，集团分站、站群等任何你能想到的站。</p><p style=\"white-space: normal;\"><br/></p><p style=\"white-space: normal;\">　　当然了，你要用他来建一个站，那肯定是没有问题的，那天有需要了，直接增加第二个站，第N个站，是非常方便的。<br/></p><p style=\"white-space: normal;\"><br/></p><p style=\"white-space: normal;\">　　主站和分站可单独设置域名，二级域名或顶级域名都行、一个站一个域名，还是多个站共用域名，都是可以的，不过不支持二级目录！<br/></p><p style=\"white-space: normal;\">　　</p><p style=\"white-space: normal;\">　　本系统还增加了很多功能，如数据同步功能、这个功能我一提到就兴奋、你知道了也一定会兴奋、那就是在管理分站时可一键同步主站数据、然后修改后就可以发布、如果你比我还懒，导入后不用修改直接发布，哈哈！<br/></p><p style=\"white-space: normal;\"><br/></p><p style=\"white-space: normal;\">　　YznCMS(又名御宅男CMS)是基于最新TP5.1x框架和layui2.6x的后台管理系统。创立于2017年初，是一款完全免费开源的项目，他将是您轻松建站的首选利器。框架易于功能扩展，代码维护，方便二次开发，帮助开发者简单高效降低二次开发成本，满足专注业务深度开发的需求。<br/></p><p style=\"white-space: normal;\"><br/></p><p style=\"white-space: normal;\">鸣谢：</p><p style=\"white-space: normal;\">yzncms:http://blog.yzncms.com<br/></p><p style=\"white-space: normal;\">thinkphp:http://www.thinkphp.cn</p><p style=\"white-space: normal;\">layui: http://www.layui.com</p><p style=\"white-space: normal;\">layuimini: http://layuimini.99php.cn</p><p><br/></p>', 1632833729, 1633052906),
-(4, 8, 1, '联系我们', '', '', '', '<p style=\"white-space: normal;\">QQ：8355763（注明：多站点）</p><p style=\"white-space: normal;\">QQ群：712780220</p><p style=\"white-space: normal;\">手机@微信：13693153699</p>', 1632833840, 1633220980),
-(5, 14, 1, '程序下载', '', '', '', '<p>一、代码托管平台下载</p><p>建议在码云上下载，随时可拉取最新的文件</p><p>下载地址：<a href=\"https://gitee.com/vipbuy/dzdcms\" target=\"_blank\">https://gitee.com/vipbuy/dzdcms</a></p><p><br/></p><p>二、本地下载</p><p>下载地址：<a href=\"http://www.dzdcms.com/update.html\" target=\"_self\">http://www.dzdcms.com/update.html</a></p><p>本地我们会上传程序包和升级包，每次有大的版本升级会发布升级包。</p><p>升级说明，</p><p>1、有二开习惯的，建议用码云下载，方便识别有改动的文件；</p><p>2、备份好程序后，覆盖升级包；</p><p>3、如果升级包中有sql文件，请在myphpadmin上面导入数据库升级补丁</p><p><br/></p>', 1632833948, 1633220931),
-(6, 7, 2, 'Multi-site CMS', '', '', '', '<p style=\"white-space: normal;\">site CMS is based on more yzncms secondary development of site content management system, the original system CMS module supports only one station, the system inherited all the features and advantages of the original CMS module, derivative multi-site CMS, this site more CMS can not only build an unlimited number of language such as Chinese English multilingual web site, can also be built city sites, Group stations, groups of stations, any station you can think of.</p><p style=\"white-space: normal;\"><br/></p><p style=\"white-space: normal;\">The domain name can be set separately for the main site and sub-site, the second level domain name or top-level domain name, a single site domain name, or multiple sites shared domain name, all are ok, but the second level directory is not supported!&nbsp;</p><p style=\"white-space: normal;\"><br/></p><p style=\"white-space: normal;\">YznCMS(also known as Otaku CMS) is a background management system based on the latest TP5.1x framework and Layui 2.6x. Founded in early 2017, is a completely free open source project, he will be your first choice to easily build a site. The framework is easy to function expansion, code maintenance, convenient secondary development, help developers to simply and efficiently reduce the cost of secondary development, to meet the needs of in-depth business development. <br/></p><p style=\"white-space: normal;\"><br/></p><p style=\"&quot;white-space:\">yzncms:http://blog.yzncms.com<br/></p><p style=\"white-space: normal;\">thinkphp:http://www.thinkphp.cn</p><p style=\"white-space: normal;\">layui: http://www.layui.com</p><p style=\"white-space: normal;\">layuimini: http://layuimini.99php.cn</p><p><br/></p>', 1632833729, 1633052906),
-(7, 8, 2, 'Contact us', '', '', '', '<p>QQ: 8355763 (Note: multi site)</p><p><br/></p><p>QQ group: 712780220</p><p><br/></p><p>Mobile @ wechat: 13693153699</p>', 1632833840, 1633220980),
-(8, 14, 2, 'Program download', '', '', '', '<p>It is recommended to download from the code cloud and pull the latest file at any time.<br/></p><p>download address:&nbsp;<a href=\"https://gitee.com/vipbuy/dzdcms\" target=\"_blank\">https://gitee.com/vipbuy/dzdcms</a></p><p><br/></p><p>2, local download</p><p>download address:&nbsp;&nbsp;<a href=\"http://www.dzdcms.com/update.html\" target=\"_blank\">http://www.dzdcms.com/update.html</a></p><p>we upload local packages and upgrade package, Update packages are released every time there is a major version upgrade.</p><p>Upgrade instructions,</p><p><br/></p><p>2. After backing up the program, overwrite the upgrade package.</p><p><br/></p><p><br/></p>', 1632833948, 1633220931),
-(9, 11, 2, 'Online message', '', '', 'Here is the test online message', '<p> This form is a custom form system with no refresh submitted by LayUI in ajax way, welcome to test! </p>', 1632833009, 1632833026),
-(10, 12, 2, 'The document', '', '', '', '<p> The jump to the </p> document is set directly in the column, so there is no need to edit </p>', 1632833032, 1632833067);
-
-
-INSERT INTO `yzn_photo` (`id`, `catid`, `theme`, `url`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `image`) VALUES
-(1, 3, '官网模版', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 1, 0, 0, 1632825714, 1632826857, 0, 1, 1, '/uploads/images/banner.png,/uploads/images/banner.png'),
-(2, 3, '官网模版', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632825765, 1632826875, 0, 1, 1, '/uploads/images/banner.png,/uploads/images/banner.png'),
-(3, 3, '官网模版', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632825799, 1632958331, 0, 1, 1, '/uploads/images/banner.png,/uploads/images/banner.png');
-
-
-INSERT INTO `yzn_photo_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`, `description`, `content`) VALUES
-(1, 1, 1, '官网模版', '', '', '官网模版', '<p>多站点CMS经过多年的更新迭代，系统功能已经非常完善了，不管你是建多语言站、还是城市分站、集团分站还是站群等等，都可以完美实现你的功能需求！</p><p>后台功能列举</p><p>1、功能强大：支持模型管理和字段相关管理，方便自由扩展</p><p>2、栏目灵活：网站栏目可多站共用也可单站私用</p><p>3、管理简单：发布内容可设置多站一起发布也可只管理单站</p><p>4、数据同步：开启后，发布分站内容可以从主站一键导入、管理维护省事</p><p>5、域名灵活：每个站一个单独域名；也可以主站用顶级域名，分站用二级域名；还可以所有站共用一个域名任意切换内容（适用说多语言站）</p><p>6、表单功能：自定义表单，随心所欲建任意表单</p><p>7、个性模版：每个网站可以设置不同的风格模版</p><p>8、个性主题：所有网站可以共用相同模版可设置不同的样式</p><p>9、一键翻译：主站发布完内容，可一键翻译推送到所有分站！支持38+种语言站的一键翻译推送。</p><p>10、单独管理：每个分站可设置单独的管理员，管理员可分配只管理一个站或管理所有站。</p><p>... ...</p><p>做网站 只写HTML模板即可</p><p><br/></p>'),
-(2, 2, 1, '官网模版', '', '', '官网模版', '<p>多站点CMS经过多年的更新迭代，系统功能已经非常完善了，不管你是建多语言站、还是城市分站、集团分站还是站群等等，都可以完美实现你的功能需求！</p><p>后台功能列举</p><p>1、功能强大：支持模型管理和字段相关管理，方便自由扩展</p><p>2、栏目灵活：网站栏目可多站共用也可单站私用</p><p>3、管理简单：发布内容可设置多站一起发布也可只管理单站</p><p>4、数据同步：开启后，发布分站内容可以从主站一键导入、管理维护省事</p><p>5、域名灵活：每个站一个单独域名；也可以主站用顶级域名，分站用二级域名；还可以所有站共用一个域名任意切换内容（适用说多语言站）</p><p>6、表单功能：自定义表单，随心所欲建任意表单</p><p>7、个性模版：每个网站可以设置不同的风格模版</p><p>8、个性主题：所有网站可以共用相同模版可设置不同的样式</p><p>9、一键翻译：主站发布完内容，可一键翻译推送到所有分站！支持38+种语言站的一键翻译推送。</p><p>10、单独管理：每个分站可设置单独的管理员，管理员可分配只管理一个站或管理所有站。</p><p>... ...</p><p>做网站 只写HTML模板即可</p><p><br/></p><p><br/></p>'),
-(3, 3, 1, '官网模版', '', '', '官网模版', '<p>多站点CMS经过多年的更新迭代，系统功能已经非常完善了，不管你是建多语言站、还是城市分站、集团分站还是站群等等，都可以完美实现你的功能需求！</p><p>后台功能列举</p><p>1、功能强大：支持模型管理和字段相关管理，方便自由扩展</p><p>2、栏目灵活：网站栏目可多站共用也可单站私用</p><p>3、管理简单：发布内容可设置多站一起发布也可只管理单站</p><p>4、数据同步：开启后，发布分站内容可以从主站一键导入、管理维护省事</p><p>5、域名灵活：每个站一个单独域名；也可以主站用顶级域名，分站用二级域名；还可以所有站共用一个域名任意切换内容（适用说多语言站）</p><p>6、表单功能：自定义表单，随心所欲建任意表单</p><p>7、个性模版：每个网站可以设置不同的风格模版</p><p>8、个性主题：所有网站可以共用相同模版可设置不同的样式</p><p>9、一键翻译：主站发布完内容，可一键翻译推送到所有分站！支持100+种语言的一键翻译推送。</p><p>10、单独管理：每个分站可设置单独的管理员，管理员可分配只管理一个站或管理所有站。</p><p>11、内容目录：内容页可分章节和目录、适合小说、视频、课件、词条等网站的建设</p><p>12、虚拟分站：可建设虚拟站点，主要用于城市分站、只发布主站内容、分站不用发布！可生成任意城市站点</p><p>... ...</p><p>做网站 只写HTML模板即可</p><p><br/></p><p><br/></p>');
-
-
-INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `alone`, `close`, `source`, `status`, `inputtime`) VALUES
-(1, '中文站', 'zh-cn', 'http', 'demo.dzdcms.com', 'http://demo.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 1, 0, 1, 0),
-(2, 'English', 'en', 'http', 'endemo.dzdcms.com', 'http://endemo.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', 'dzdcms', 'Multi-site CMS demonstration station', 'Multi-site CMS, multi-site official website, multi-site official website,DzdCMS template, multi-site template, module plug-in, open source,PHP CMS,PHP', 'Multi-site CMS official website is a set of simple, robust, flexible, open source multi-site content management system, is the domestic open source CMS station group system, the number of program installation has been very high, many foreign trade websites, group websites, city stations are using multi-site CMS or based on CMS core development', 0, '', NULL, 0, 2, 1, 1, 0, 1, 0),
-(3, '北京', 'zh-cn', 'http', 'bj.dzdcms.com', 'http://bj.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 3, 0, 1, 0, 1, 0),
-(4, '上海', 'zh-cn', 'http', 'sh.dzdcms.com', 'http://sh.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 4, 0, 1, 0, 1, 0);
-
-
-INSERT INTO `yzn_attachment` (`id`, `aid`, `uid`, `name`, `module`, `path`, `thumb`, `url`, `mime`, `ext`, `size`, `md5`, `sha1`, `driver`, `create_time`, `update_time`, `listorders`, `status`) VALUES
-(1, 1, 0, 'logo.png', 'admin', '/uploads/images/logo.png', '', '', 'image/png', 'png', 16140, '693cf31fc1e433bf91cd178d658d4e36', '16f445461fd1218f6fdf258074c567f3cf4b490f', 'local', 1614839862, 1614839862, 100, 1),
-(2, 1, 0, 'banner.png', 'cms', '/uploads/images/banner.png', '', '', 'image/png', 'png', 1573089, '5545474fedb30a8651f02125c7893213', '7a94db83c3f77aa163734e71712421455bd81768', 'local', 1615821110, 1615821110, 100, 1),
-(3, 1, 0, 'photo', 'cms', '/uploads/images/photo.png', '', '', 'image/png', 'png', 7094, '80784dba0655f5653b38b80feabff97f', 'c64ff38bde00dcf35c89babbb6d2635bb0f80061', 'local', 1615844116, 1615844116, 100, 1),
-(4, 1, 0, 'favicon.ico', 'cms', '/favicon.ico', '', '', 'image/x-icon', 'ico', 1150, 'fabed83f1e2944e510b80aad828bbac7', 'c54edc4a91c093e10e14ca15288a8559d58c2f84', 'local', 1624409065, 1624409065, 100, 1);
-
-CREATE TABLE `yzn_video` (
- `id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
- `catid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '栏目ID',
- `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
- `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',
- `thumb` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '封面图片',
- `flag` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
- `paytype` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '支付类型',
- `readpoint` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '支付数量',
- `listorder` smallint UNSIGNED NOT NULL DEFAULT '100' COMMENT '排序',
- `uid` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
- `username` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
- `sysadd` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否后台添加',
- `hits` mediumint UNSIGNED DEFAULT '0' COMMENT '点击量',
- `likes` mediumint UNSIGNED DEFAULT '0' COMMENT '点赞数',
- `dislikes` mediumint UNSIGNED DEFAULT '0' COMMENT '点踩数',
- `inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
- `updatetime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
- `pushtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '推送时间',
- `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
- `comment` tinyint NOT NULL DEFAULT '0' COMMENT '允许评论',
- `video` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '视频文件',
-    PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='视频模型模型表';
-
-
-
-INSERT INTO `yzn_video` (`id`, `catid`, `theme`, `url`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `video`) VALUES
-(1, 10, '测试视频', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632832804, 1632832900, 0, 1, 1, 'https://blz-videos.nosdn.127.net/1/OverWatch/OVR-S03_E03_McCree_REUNION_zhCN_1080P_mb78.mp4'),
-(2, 10, '视频测试二视频测试二', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632832905, 1632832926, 0, 1, 1, 'https://blz-videos.nosdn.127.net/1/OverWatch/AnimatedShots/Overwatch_AnimatedShot_CinematicTrailer.mp4');
-
-CREATE TABLE `yzn_video_data` (
-`id` mediumint UNSIGNED NOT NULL COMMENT '自然ID',
-`did` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '文档ID',
-`site_id` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID',
-`title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
-`tags` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Tags标签',
-`keywords` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO关键词',
-`description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
-`content` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '内容',
-PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='视频模型模型表';
-
-
-INSERT INTO `yzn_video_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`, `description`, `content`) VALUES
-(1, 1, 1, '测试视频', '', '', '测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频', '<p>测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频</p>'),
-(2, 2, 1, '视频测试二视频测试二', '', '', '视频测试二视频测试二视频测试二视频测试二', '<p>视频测试二视频测试二视频测试二视频测试二</p>');
-
-
-ALTER TABLE `yzn_attachment`
-    MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
-ALTER TABLE `yzn_category`
-    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '栏目ID', AUTO_INCREMENT=15;
-
-ALTER TABLE `yzn_category_data`
-    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
-
-ALTER TABLE `yzn_lang_data`
-    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=287;
-
-ALTER TABLE `yzn_model`
-    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
-ALTER TABLE `yzn_model_field`
-    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
-
-ALTER TABLE `yzn_news`
-    MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '文档ID', AUTO_INCREMENT=15;
-
-ALTER TABLE `yzn_news_data`
-    MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自然ID', AUTO_INCREMENT=17;
-
-ALTER TABLE `yzn_page`
-    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
-ALTER TABLE `yzn_photo`
-    MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '文档ID', AUTO_INCREMENT=4;
-
-ALTER TABLE `yzn_photo_data`
-    MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自然ID', AUTO_INCREMENT=4;
-
-ALTER TABLE `yzn_site`
-    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '站点ID', AUTO_INCREMENT=5;
-
-ALTER TABLE `yzn_video`
-    MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '文档ID', AUTO_INCREMENT=3;
-
-ALTER TABLE `yzn_video_data`
-    MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自然ID', AUTO_INCREMENT=3;
-
-ALTER TABLE `yzn_download`
-    MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '文档ID', AUTO_INCREMENT=3;
-
-ALTER TABLE `yzn_download_data`
-    MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自然ID', AUTO_INCREMENT=3;
+INSERT INTO `yzn_tags_content` VALUES ('精密机器', 3, 6, 5, 1553067267);
+INSERT INTO `yzn_tags_content` VALUES ('专业培训', 3, 6, 5, 1553067267);
+INSERT INTO `yzn_tags_content` VALUES ('资格证书', 3, 6, 5, 1553067267);
+INSERT INTO `yzn_tags_content` VALUES ('机械设备', 3, 5, 5, 1553067296);
+INSERT INTO `yzn_tags_content` VALUES ('升降机', 3, 5, 5, 1553067296);
+INSERT INTO `yzn_tags_content` VALUES ('租赁服务', 3, 5, 5, 1553067296);
+INSERT INTO `yzn_tags_content` VALUES ('餐饮管理', 3, 4, 5, 1553067319);
+INSERT INTO `yzn_tags_content` VALUES ('婚庆礼仪', 3, 4, 5, 1553067319);
+INSERT INTO `yzn_tags_content` VALUES ('劳务派遣', 3, 4, 5, 1553067319);
+INSERT INTO `yzn_tags_content` VALUES ('校外教育', 3, 3, 5, 1553067339);
+INSERT INTO `yzn_tags_content` VALUES ('智能课程', 3, 3, 5, 1553067339);
+INSERT INTO `yzn_tags_content` VALUES ('物流服务', 3, 2, 5, 1553067377);
+INSERT INTO `yzn_tags_content` VALUES ('注脂', 3, 1, 5, 1553067408);
+INSERT INTO `yzn_tags_content` VALUES ('打胶', 3, 1, 5, 1553067408);
