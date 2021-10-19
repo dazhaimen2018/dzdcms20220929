@@ -339,7 +339,7 @@ layui.define(['layer','notice'], function(exports) {
     $(function(){
         var theme  = $('#theme').val();
         if (!theme){
-            $('#title').bind('input propertychange', function() {
+            $('#title').blur('input propertychange', function() {
                 var title = $('#title').val();
                 $('#theme').val(title);
             });
