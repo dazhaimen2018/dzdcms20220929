@@ -3,7 +3,7 @@
 <div class="layui-card">
     <div class="layui-card-header">CMS配置</div>
     <div class="layui-card-body">
-        <form class="layui-form" method="post">
+        <form class="layui-form" method="post" lay-filter="layui-form">
             <div class="layui-tab">
                 <ul class="layui-tab-title">
                     <li class="layui-this"><i class="layui-icon layui-icon-set"></i> 基本配置</li>
@@ -37,24 +37,25 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label" title="前端栏目和文章的网址模式">URL模式</label>
                             <div class="layui-input-block">
-                                <input type="radio" name="setting[site_url_mode]" value="1" title="数字" {if 1==$setting['site_url_mode']}checked{/if}>
-                                <input type="radio" name="setting[site_url_mode]" value="2" title="标识" {if 2==$setting['site_url_mode']}checked{/if}>
+                                <input type="radio" name="setting[site_url_mode]" value="1" title="数字" {if 1==$setting['site_url_mode']}checked{/if} lay-filter='url_mode'>
+                                <input type="radio" name="setting[site_url_mode]" value="2" title="标识" {if 2==$setting['site_url_mode']}checked{/if} lay-filter='url_mode'>
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label" title="前端栏目网址模式">列表模式</label>
                             <div class="layui-input-block">
-                                <input type="radio" name="setting[site_cat_url]" value="1" title="/id(catdir)/" {if 1==$setting['site_cat_url']}checked{/if}>
-                                <input type="radio" name="setting[site_cat_url]" value="0" title="/id(catdir).html" {if 0==$setting['site_cat_url']}checked{/if}>
+                                <input type="radio" name="setting[site_cat_url]" value="1" title="无html" {if 1==$setting['site_cat_url']}checked{/if}>
+                                <input type="radio" name="setting[site_cat_url]" value="0" title="有html" {if 0==$setting['site_cat_url']}checked{/if}>
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label" title="前端详情页URL模式">内容模式</label>
                             <div class="layui-input-block">
-                                <input type="radio" name="setting[show_url_mode]" value="1" title="/id(catdir)/diy-url.html" {if 1==$setting['show_url_mode']}checked{/if}>
-                                <input type="radio" name="setting[show_url_mode]" value="0" title="/id(catdir)/id.html" {if 0==$setting['show_url_mode']}checked{/if}>
+                                <input type="radio" name="setting[show_url_mode]" value="1" title="自定义" {if 1==$setting['show_url_mode']}checked{/if}  {if 1==$setting['site_url_mode']}disabled{/if}>
+                                <input type="radio" name="setting[show_url_mode]" value="0" title="数字ID" {if 0==$setting['show_url_mode']}checked{/if}>
                             </div>
                         </div>
+
                         {if !$userInfo.site_id}
                         <div class="layui-form-item">
                             <label class="layui-form-label" title="文章和单页发布和修改模式">发布模式</label>
@@ -129,16 +130,6 @@
                             <div class="layui-form-mid layui-word-aux">开启后，管理分站内容时，点击数据同步按钮分站会自动调用主站内容，然后简单编辑后就可发布！</div>
                         </div>
 
-                        <!--
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">数据共享</label>
-                            <div class="layui-input-block">
-                                <input type="radio" name="setting[data_share]" value="1" title="开启" {if 1==$setting['data_share']}checked{/if}>
-                                <input type="radio" name="setting[data_share]" value="0" title="关闭" {if 0==$setting['data_share']}checked{/if}>
-                            </div>
-                            <div class="layui-form-mid layui-word-aux">开启后，分站如果没有单独编辑内容前端会自动调用主站内容</div>
-                        </div>
-                         -->
                         <div class="layui-form-item">
                             <label class="layui-form-label">站长推送</label>
                             <div class="layui-input-block">
@@ -241,8 +232,17 @@
 {block name="script"}
 
 <script type="text/javascript">
-    layui.use('yznForm', function() {
-        var yznForm = layui.yznForm;
+    layui.use(['form','yznForm'], function(){
+        var form = layui.form,
+            yznForm = layui.yznForm;
+
+        form.on('radio(url_mode)', function(data){
+            if(data.value==1){
+                $('input[title=自定义]').removeAttr('checked').prop('disabled','disabled');
+                $('input[title=数字ID]').removeAttr('disabled').prop('checked','checked');
+                form.render('radio')
+            }
+        });
 
         yznForm.listen('', function (res) {
             layer.msg("更新成功！",{icon: 1});
