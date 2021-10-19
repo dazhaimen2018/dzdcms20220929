@@ -242,6 +242,10 @@
                 $('input[title=数字ID]').removeAttr('disabled').prop('checked','checked');
                 form.render('radio')
             }
+            if(data.value==2){
+                $('input[title=自定义]').removeAttr('disabled');
+                form.render('radio')
+            }
         });
 
         yznForm.listen('', function (res) {
