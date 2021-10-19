@@ -132,7 +132,9 @@ class Cms extends Adminbase
     //栏目信息列表
     public function classlist()
     {
-        $catid = $this->request->param('catid/d', 0);
+        $catid      = $this->request->param('catid/d', 0);
+        $url_mode   = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
+        $show_mode  = isset(cache("Cms_Config")['show_url_mode']) ? cache("Cms_Config")['show_url_mode'] : 1;
         //当前栏目信息
         $catInfo = getCategory($catid);
         if (empty($catInfo)) {
@@ -170,8 +172,10 @@ class Cms extends Adminbase
             $siteUrl = onSiteUrl();
             $_list   = [];
             foreach ($list as $k => $v) {
+                $cat             = $url_mode == 1 ? $catid : (isset($Category[$catid]) ? $Category[$catid]['catdir'] : getCategory($catid, 'catdir'));
+                $diy             = $show_mode == 1 ? $v['diyurl'] : $v['id'];
                 $v['updatetime'] = date('Y-m-d H:i', $v['updatetime']);
-                $v['url']        = $siteUrl.buildContentUrl($v['catid'], $v['id'], $v['url']);
+                $v['url']        = $siteUrl.buildContentUrl($cat, $diy, $v['url']);
                 //马博 显示已添站点ID
                 $sites           = Db::name($tableName . '_data')->where('did', $v['id'])->field('site_id as id')->select();
                 $v['site']       = array_column($sites,'id');
