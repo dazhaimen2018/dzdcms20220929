@@ -32,8 +32,12 @@ Route::group('/', function () {
     Route::rule('tag/[:tagdir]', 'cms/index/tags');
     if (isset(cache("Cms_Config")['site_url_mode']) && 2 == cache("Cms_Config")['site_url_mode']) {
         Route::rule('admin', 'admin/index/index');//如去除c/ d/ 需要解开此注释
+        if (isset(cache("Cms_Config")['show_url_mode']) && 1 == cache("Cms_Config")['show_url_mode']) {
+            Route::rule(':catdir/:diyurl', 'cms/index/shows')->pattern(['catdir' => '[A-Za-z0-9\-\_]+', 'diyurl' => '[A-Za-z0-9\-\_]+']);
+        }else{
+            Route::rule(':catdir/:id', 'cms/index/shows')->pattern(['catdir' => '[A-Za-z0-9\-\_]+', 'id' => '\d+']);
+        }
         Route::rule(':catdir/:id', 'cms/index/shows')->pattern(['catdir' => '[A-Za-z0-9\-\_]+', 'id' => '\d+']);
         Route::rule(':catdir/[:condition]'.$slash, 'cms/index/lists')->pattern(['catdir' => '[A-Za-z0-9\-\_]+', 'condition' => '[0-9_&=a-zA-Z]+']);
     }
-
 });

@@ -140,6 +140,7 @@ class Index extends Cmsbase
         //ID
         $id  = $this->request->param('id/d', 0);
         $cat = $this->request->param('catid/d', 0);
+        $diy = $this->request->param('diyurl/s', 0);
         if (empty($cat)) {
             $cat = $this->request->param('catdir/s', '');
         }
@@ -158,7 +159,11 @@ class Index extends Cmsbase
         if (empty($modelInfo)) {
             $this->error(patch('PageNot')); //模型不存在
         }
-        //更新点击量
+        //更新点击量 获得文章ID
+        $show_mode  = isset(cache("Cms_Config")['show_url_mode']) ? cache("Cms_Config")['show_url_mode'] : 1;
+        if ($show_mode) {
+            $id = Db::name($modelInfo['tablename'])->where('diyurl', $diy)->value('id');
+        }
         Db::name($modelInfo['tablename'])->where('id', $id)->setInc('hits');
         //内容所有字段
         $ifcache = $this->cmsConfig['site_cache_time'] ? $this->cmsConfig['site_cache_time'] : false;
@@ -357,7 +362,6 @@ class Index extends Cmsbase
 
         //时间范围
         $time = $this->request->param('time/s', '');
-
         $result = $this->validate([
             'keyword' => $keyword,
         ], [
