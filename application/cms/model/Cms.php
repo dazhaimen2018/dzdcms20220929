@@ -673,7 +673,6 @@ class Cms extends Modelbase
     public function getChapterContent($modeId, $where, $moreifo = false, $field = '*', $order = '', $cache = false, $site_id = 0,$type="next")
     {
         $url_mode  = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
-        $show_mode  = isset(cache("Cms_Config")['show_url_mode']) ? cache("Cms_Config")['show_url_mode'] : 1;
         $tableName = $this->getModelTableName($modeId);
         if (getSite('alone')==1){
             $site_id = getSiteId();
@@ -720,8 +719,7 @@ class Cms extends Modelbase
             $Category        = cache('Category');
             $dataInfo        = $this->dealModelShowData($ModelField[$modeId], $dataInfo);
             $cat             = $url_mode == 1 ? $dataInfo['catid'] : (isset($Category[$dataInfo['catid']]) ? $Category[$dataInfo['catid']]['catdir'] : getCategory($dataInfo['catid'], 'catdir'));
-            $diy             = $show_mode == 1 ? $dataInfo['diyurl'] : $dataInfo['id'];
-            $dataInfo['url'] = buildChapterUrl($cat, $diy, $dataInfo['url']);
+            $dataInfo['url'] = buildChapterUrl($cat, $dataInfo['id'], $dataInfo['url']);
         }
         return $dataInfo;
 
