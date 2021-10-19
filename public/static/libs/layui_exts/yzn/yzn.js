@@ -335,7 +335,7 @@ layui.define(['layer','notice'], function(exports) {
         layer.close(this.index);
     });
 
-    //自己添加主题
+    //自己添加主题  已经有时不再重新获取
     $(function(){
         var theme  = $('#theme').val();
         if (!theme){
@@ -345,6 +345,18 @@ layui.define(['layer','notice'], function(exports) {
             });
         }
     });
+
+    //获取标题拼音 已经有时不再重新获取
+    $("#title").blur(function(){
+        var value = this.value;
+        var diyurl  = $('#diyurl').val();
+        var node = this;
+        if (!diyurl){
+            $.post('api/lists/getTitlePinyin',{title:value, delimiter: "-"},function (data){
+                $("#diyurl").val(data.data.pinyin.substr(0, 100));
+            },'json');
+        }
+    })
 
     //马博加 end
     exports(MOD_NAME, yzn);
