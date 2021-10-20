@@ -365,7 +365,34 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                     parent.yzn.open(title, url, clienWidth, clientHeight);
                 });
 
+                //只删除当前站点数据(要刷新) 马博 20211017
+                $(document).on('click', '.layui-tr-load', function() {
+                    var that = $(this),
+                        index = that.parents('tr').eq(0).data('index'),
+                        tr = $('.layui-table-body').find('tr[data-index="' + index + '"]'),
+                        href = !that.attr('data-href') ? that.attr('href') : that.attr('data-href');
+                    layer.confirm('单站模式只删除当前站点数据，删除之后无法恢复，您确定要删除吗？', { icon: 3, title: '提示信息' }, function(index) {
+                        if (!href) {
+                            notice.info({ message: '请设置data-href参数' });
+                            return false;
+                        }
+                        $.get(href, function(res) {
+                            if (res.code == 1) {
+                                notice.success({ message: res.msg });
+                                //增加刷新代码 待优化
+                                location.reload();
+                            } else {
+                                notice.error({ message: res.msg });
+                            }
+                        });
 
+                        layer.close(index);
+
+                    });
+                    return false;
+                });
+
+                //马博 20211017 end
 
                 //通用状态设置开关
                 form.on('switch(switchStatus)', function(data) {
@@ -410,33 +437,6 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                             }
                         });
                         layer.close(index);
-                    });
-                    return false;
-                });
-
-                //只删除当前站点数据(要刷新) 马博 20211017
-                $(document).on('click', '.layui-tr-load', function() {
-                    var that = $(this),
-                        index = that.parents('tr').eq(0).data('index'),
-                        tr = $('.layui-table-body').find('tr[data-index="' + index + '"]'),
-                        href = !that.attr('data-href') ? that.attr('href') : that.attr('data-href');
-                    layer.confirm('单站模式只删除当前站点数据，删除之后无法恢复，您确定要删除吗？', { icon: 3, title: '提示信息' }, function(index) {
-                        if (!href) {
-                            notice.info({ message: '请设置data-href参数' });
-                            return false;
-                        }
-                        $.get(href, function(res) {
-                            if (res.code == 1) {
-                                notice.success({ message: res.msg });
-                                //增加刷新代码 待优化
-                                location.reload();
-                            } else {
-                                notice.error({ message: res.msg });
-                            }
-                        });
-
-                        layer.close(index);
-
                     });
                     return false;
                 });
@@ -670,20 +670,20 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                     })
                 }
             },
-            citypicker: function() {
+            citypicker: function(layform) {
                 // 绑定城市选择组件
-                if ($("[data-toggle='city-picker']").size() > 0) {
+                if ($("[data-toggle='city-picker']", layform).size() > 0) {
                     layui.define('citypicker', function(exports) {
                         var citypicker = layui.citypicker;
                     })
                 }
             },
-            datetimepicker: function() {
+            datetimepicker: function(layform) {
                 // 绑定时间组件
-                if ($(".layui-form .datetime").size() > 0) {
+                if ($(".datetime",layform).size() > 0) {
                     layui.define('laydate', function(exports) {
                         var laydate = layui.laydate;
-                        $(".layui-form .datetime").each(function() {
+                        $(".datetime",layform).each(function() {
                             var format = $(this).attr('data-date'),
                                 type = $(this).attr('data-date-type'),
                                 range = $(this).attr('data-date-range');
@@ -709,12 +709,12 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                     })
                 }
             },
-            tagsinput: function() {
+            tagsinput: function(layform) {
                 // 绑定tags标签组件
-                if ($(".layui-form .form-tags").size() > 0) {
+                if ($(".form-tags",layform).size() > 0) {
                     layui.define('tagsinput', function(exports) {
                         var tagsinput = layui.tagsinput;
-                        $('.form-tags').each(function() {
+                        $('.form-tags',layform).each(function() {
                             $(this).tagsInput({
                                 width: 'auto',
                                 defaultText: $(this).data('remark'),
@@ -724,12 +724,12 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                     })
                 }
             },
-            colorpicker: function() {
+            colorpicker: function(layform) {
                 // 绑定颜色组件
-                if ($('.layui-form .layui-color-box').length > 0) {
+                if ($('.layui-color-box',layform).length > 0) {
                     layui.define('colorpicker', function(exports) {
                         var colorpicker = layui.colorpicker;
-                        $('.layui-color-box').each(function() {
+                        $('.layui-color-box',layform).each(function() {
                             var input_id = $(this).data("input-id");
                             var inputObj = $("#" + input_id);
                             colorpicker.render({
@@ -743,14 +743,14 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                     })
                 }
             },
-            ueditor: function() {
+            ueditor: function(layform) {
                 // ueditor编辑器集合
                 var ueditors = {};
                 // 绑定ueditor编辑器组件
-                if ($(".layui-form .js-ueditor").size() > 0) {
+                if ($(".js-ueditor",layform).size() > 0) {
                     layui.define('ueditor', function(exports) {
                         var ueditor = layui.ueditor;
-                        $('.layui-form .js-ueditor').each(function() {
+                        $('.js-ueditor',layform).each(function() {
                             var ueditor_name = $(this).attr('id');
                             ueditors[ueditor_name] = UE.getEditor(ueditor_name, {
                                 allowDivTransToP: false, //转换p标签
@@ -760,7 +760,7 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                                 maximumWords: 50000, //允许的最大字符数
                                 serverUrl: GV.ueditor_upload_url,
                             });
-                            $('#' + ueditor_name + 'grabimg').click(function() {
+                            $('#' + ueditor_name + 'grabimg',layform).click(function() {
                                 var con = ueditors[ueditor_name].getContent();
                                 $.post('/attachment/Attachments/geturlfile', { 'content': con, 'type': 'images' },
                                     function(data) {
@@ -812,7 +812,7 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                                 });
                             }
                             //过滤敏感字
-                            $('#' + ueditor_name + 'filterword').click(function() {
+                            $('#' + ueditor_name + 'filterword',layform).click(function() {
                                 var con = ueditors[ueditor_name].getContent();
                                 yzn.request.post({
                                     url: 'admin/ajax/filterWord',
@@ -1104,11 +1104,11 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
             events.selectpage(form);
             events.fieldlist(form);
             events.faselect(form);
-            events.citypicker();
-            events.datetimepicker();
-            events.tagsinput();
-            events.colorpicker();
-            events.ueditor();
+            events.citypicker(form);
+            events.datetimepicker(form);
+            events.tagsinput(form);
+            events.colorpicker(form);
+            events.ueditor(form);
             events.cropper();
             events.xmSelect();
             events.upload_image('.webUpload');
