@@ -24,15 +24,16 @@ class Content extends MemberBase
     {
         parent::initialize();
         $this->Cms_Model = new Cms_Model;
-        //$this->Member_Content_Model = new Member_Content_Model;
     }
 
     public function publish()
     {
         $groupinfo = $this->_check_group_auth($this->auth->groupid);
         //没有认证用户不得投稿
-        if (empty($this->auth->ischeck_email) && empty($this->auth->ischeck_mobile)) {
-            $this->error(patch('publishCondition'));
+        if (isset(cache("Cms_Config")['authentication']) && 1 == cache("Cms_Config")['authentication']) {
+            if (empty($this->auth->ischeck_email) && empty($this->auth->ischeck_mobile)) {
+                $this->error(patch('publishCondition'));
+            }
         }
         //判断每日投稿数
         $allowpostnum = Member_Content_Model::where('uid', $this->auth->id)->whereTime('create_time', 'd')->count();
@@ -144,11 +145,12 @@ class Content extends MemberBase
             $array = Db::name('Category')->where($where)->where($whereIn)->where('status',1)->order('listorder ASC, id ASC')->cache(60)->column('*', 'id');
             foreach ($array as $k => $v) {
                 //获得当前站点栏目名称
-                $array[$k]['catname'] =  Db::name('Category_data')->where('catid',$v['id'])->where('site_id',$sites)->cache(60)->value('catname');
+                $array[$k]['catname'] = Db::name('Category_data')->where('catid',$v['id'])->where('site_id',$sites)->cache(60)->value('catname');
+                $array[$k]['catname'] = $array[$k]['catname'] ? $array[$k]['catname'] : $v['catname'];
                 if ($v['id'] == $catid) {
                     $array[$k]['selected'] = "selected";
                 }
-                $array[$k]['catname'] =  $array[$k]['catname']? $array[$k]['catname']:$v['catname'];
+
                 //含子栏目和单页不可以发表
                 if ($v['child'] == 1 || $v['type'] == 1) {
                     $array[$k]['disabled'] = "disabled";

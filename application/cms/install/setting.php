@@ -22,4 +22,5 @@ return array(
     'offside'            => 0,
     'icon_mode'          => 1,
     'site'               => 1,
+    'authentication'     => 0,
 );
