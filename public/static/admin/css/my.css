@@ -1,8 +1,8 @@
 /* 自己定义 */
 .fr {float: right;}
 .layui-form-item.layui-required:after{content:"*";color:red;position: absolute;top:5px;left:15px;}
-.childrenBody {padding: 5px;}
-.iframe_box {padding: 5px;background-color: #f2f2f2;}
+.childrenBody {padding: 10px;}
+/*.iframe_box {padding: 5px;background-color: #f2f2f2;}*/
 .layui-layout-admin .layui-footer {height: 40px;line-height: 40px;}
 /*默认头部*/
 .layui-layout-admin .layui-header {background-color: #fff !important;box-shadow: inset 0 -1px 0 0 #e5ecf0;}
@@ -67,7 +67,7 @@
 
 .layui-form-item label,.layui-form-item .layui-form-label{min-width:110px;padding:0 8px;height:38px;line-height:38px;border:1px solid #e6e6e6;border-radius:2px 0 0 2px;text-align:center;background-color:#FBFBFB;overflow:hidden;box-sizing:border-box;text-overflow:ellipsis;white-space:normal;}
 .layui-form-item .layui-form-field-label,.layui-form-item .layui-input-inline{flex:1;margin-left:-1px;margin-right: 0!important;}
-.layui-form-item .layui-input-block{margin-left: -1px;flex: 1;display: block;max-width: 100%;position: relative;}
+.layui-form-item .layui-input-block{margin-left: -1px;flex: 1;display: block;max-width: 100%;position: revert;}
 .layui-form-item .layui-input-block .btn-repeat{position: absolute;top: 4px;right: 4px;}
 .layui-form-item .layui-form-radio, .layui-form-item .layui-form-switch{margin:6px 0 0 10px}
 .layui-iconpicker .layui-anim{width: 280px}
@@ -78,6 +78,7 @@
 
 .fieldlist dd {border: 1px solid #e6e6e6;margin:0 0 10px 0!important;display: flex}
 .fieldlist dd:first-child {display: none!important;}
+.fieldlist dd:last-child {border:none!important;}
 .fieldlist dd>.btn-append {margin: 0!important;}
 .fieldlist dd input:first-child {width: 200px!important;border-right: 1px solid #e6e6e6}
 .fieldlist dd input:nth-child(2){flex: 1;border-right: 1px solid #e6e6e6}
