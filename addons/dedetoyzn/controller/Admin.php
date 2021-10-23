@@ -446,7 +446,7 @@ class Admin extends Adminaddon
                             'tags'        => '',
                             'keywords'    => $value['keywords'],
                             'description' => mb_substr($value['description'], 0, 200),
-                            'content'     => $value['body'] ?: '',
+                            'content'     => $value['body'] ?: '正在更新中',
                         ];
                         //是否有自定义字段
                         if (isset($dede_fields[$modelid])) {

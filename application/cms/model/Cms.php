@@ -61,7 +61,7 @@ class Cms extends Modelbase
         if (!$this->table_exists($tablename)) {
             throw new \Exception('数据表不存在！');
         }
-        $this->getAfterText($data, $extraData);
+        $this->getAfterTextAll($data, $extraData);
 
         if (!defined('IN_ADMIN') || (defined('IN_ADMIN') && IN_ADMIN == false)) {
             empty($data['uid']) ? \app\member\service\User::instance()->id : $data['uid'];
@@ -119,7 +119,7 @@ class Cms extends Modelbase
         return $id;
     }
 
-    //添加模型内容-原-采集和投稿
+    //添加模型内容-原-采集和投稿-数据转换
     public function addModelData($data, $dataExt = [])
     {
         $catid = (int) $data['catid'];
@@ -193,7 +193,7 @@ class Cms extends Modelbase
         if (!$this->table_exists($tablename)) {
             throw new \Exception('数据表不存在！');
         }
-        $this->getAfterText($data, $extraData);
+        $this->getAfterTextAll($data, $extraData);
         $dataAll              = $this->dealModelPostData($modelid, $data, $dataExt);
         list($data, $dataExt) = $dataAll;
 
@@ -818,9 +818,9 @@ class Cms extends Modelbase
     }
 
     /**
-     * 文本处理
+     * 文本处理 多站点
      */
-    protected function getAfterText(&$data, &$extraData)
+    protected function getAfterTextAll(&$data, &$extraData)
     {
         $siteId = getSiteId();
         //自动提取摘要，如果有设置自动提取，且description为空，且有内容字段才执行
@@ -831,6 +831,60 @@ class Cms extends Modelbase
         //自动提取缩略图
         if (isset($data['auto_thumb']) && empty($data['thumb']) && isset($extraData[$siteId]['content'])) {
             $thumb         = \util\GetImgSrc::src($extraData[$siteId]['content']);
+            $data['thumb'] = $thumb ? $thumb : '';
+        }
+        //关键词加链接
+        $autolinks = cache("Cms_Config")['autolinks'];
+        if (!empty($autolinks) && isset($dataExt['content'])) {
+            if (strpos($autolinks, '|')) {
+                //解析关键词数组
+                $kwsets = array_filter(preg_split("/(\r|\n|\r\n)/", $autolinks));
+                foreach ($kwsets as $kwset) {
+                    $kwarray[] = explode('|', $kwset);
+                }
+            }
+            foreach ($kwarray as $i => $row) {
+                $txt = trim($row['0']);
+                if ($txt) {
+                    $link = trim($row['1']);
+                    $set  = isset($row['2']) ? trim($row['2']) : '';
+                    $rel  = '';
+                    $open = '_blank';
+
+                    //处理标记与打开方式
+                    if ($set) {
+                        if (false !== stripos($set, 'e')) {
+                            $rel = ' rel="external nofollow"';
+                        } elseif (false !== stripos($set, 'n')) {
+                            $rel = ' rel="nofollow"';
+                        }
+                        $open = false !== stripos($set, 'b') ? '_self' : $open;
+                    }
+
+                    $dataExt['content'] = false !== strpos($dataExt['content'], $txt)
+                        //正则排除参数和链接
+                        ? preg_replace('/(?!<[^>]*)' . $txt . '(?![^<]*(>|<\/[a|sc]))/s'
+                            , '<a href="' . $link . '"' . $rel . 'target="' . $open . '" title="' . $txt . '">' . $txt . '</a>', $dataExt['content']) : $dataExt['content'];
+                }
+            }
+        }
+        unset($data['get_introduce']);
+        unset($data['auto_thumb']);
+    }
+
+    /**
+     * 文本处理 原 适合投稿 数据转换时用
+     */
+    protected function getAfterText(&$data, &$dataExt)
+    {
+        //自动提取摘要，如果有设置自动提取，且description为空，且有内容字段才执行
+        if (isset($data['get_introduce']) && $data['description'] == '' && (isset($dataExt['content']) || isset($data['content']))) {
+            $content             = isset($dataExt['content']) ? $dataExt['content'] : (isset($data['content']) ? $data['content'] : '');
+            $data['description'] = str_cut(str_replace(array("\r\n", "\t", '&ldquo;', '&rdquo;', '&nbsp;'), '', strip_tags($content)), 200);
+        }
+        //自动提取缩略图
+        if (isset($data['auto_thumb']) && empty($data['thumb']) && (isset($dataExt['content']) || isset($data['content']))) {
+            $thumb         = isset($dataExt['content']) ? \util\GetImgSrc::src($dataExt['content']) : (isset($data['content']) ? \util\GetImgSrc::src($data['content']) : false);
             $data['thumb'] = $thumb ? $thumb : '';
         }
         //关键词加链接
