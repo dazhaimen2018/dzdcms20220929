@@ -64,6 +64,7 @@ class Admin extends Adminaddon
         'updatetime',
         'pushtime',
         'url',
+        'diyurl',
         'status',
         'did',
         'content',
@@ -359,9 +360,9 @@ class Admin extends Adminaddon
                 $data['modelid']     = $value['ispart'] != 0 ? 0 : $dede_models[$value['channeltype']]['id'];
                 $data['catname']     = $value['typename'];
                 $data['parentid']    = $value['reid'];
-                $data['english'] = "";
-                $data['target'] = 0;
-                $data['sites'] = 1;
+                $data['english']     = "";
+                $data['target']      = 0;
+                $data['sites']       = 1;
                 $data['url']         = $value['ispart'] == 2 ? $value['typedir'] : '';
                 $data['status']      = $value['ishidden'] == 0 ? 1 : 0;
                 $data['listorder']   = $value['sortrank'];
@@ -388,8 +389,7 @@ class Admin extends Adminaddon
                 if (true !== $result) {
                     $this->error($result);
                 }
-                //$modelClass->addCategory($data, ['id', 'parentid', 'catname', 'arrparentid', 'arrchildid', 'child', 'items', 'catdir', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'status']);
-                $modelClass->addCategory($data, ['id', 'parentid', 'catname', 'arrparentid', 'arrchildid', 'catdir', 'english', 'type', 'modelid', 'image', 'icon', 'url', 'setting', 'listorder', 'letter', 'sites', 'target', 'detail', 'status']);
+                $modelClass->addCategory($data, ['id', 'parentid', 'catname', 'arrparentid', 'arrchildid', 'catdir', 'english', 'type', 'modelid', 'image', 'icon', 'url', 'setting', 'listorder', 'sites', 'target', 'status']);
                 unset($data);
             }
         } catch (\Exception $e) {
@@ -423,15 +423,18 @@ class Admin extends Adminaddon
                             'thumb'       => $value['litpic'],
                             'flag'        => $this->getFlag($value['flag']),
                             'url'         => '',
-                            'likes'       => '',
-                            'dislikes'    => '',
-                            'paytype'     => '',
-                            'readpoint'   => '',
+                            'diyurl'      => '',
+                            'likes'       => 0,
+                            'dislikes'    => 0,
+                            'comment'     => 0,
+                            'paytype'     => 0,
+                            'readpoint'   => 0,
                             'groupids'    => '',
                             'hits'        => $value['click'],
                             'modelid'     => $modelid,
                             'listorder'   => $value['weight'],
                             'status'      => $value['arcrank'] == -2 ? -1 : 1,
+                            'pushtime'    => 0,
                             'inputtime'   => date('Y-m-d h:i:s', $value['senddate']),
                             'updatetime'  => date('Y-m-d h:i:s', $value['senddate']),
                         ];
@@ -439,11 +442,11 @@ class Admin extends Adminaddon
                             'id'          => $value['id'],
                             'did'         => $value['id'],
                             'site_id'     => 1,
-                            'tags'        => '',
                             'title'       => $value['title'],
+                            'tags'        => '',
                             'keywords'    => $value['keywords'],
                             'description' => mb_substr($value['description'], 0, 200),
-                            'content' => $value['body'] ?: '',
+                            'content'     => $value['body'] ?: '',
                         ];
                         //是否有自定义字段
                         if (isset($dede_fields[$modelid])) {
@@ -481,16 +484,19 @@ class Admin extends Adminaddon
                             'flag'       => $this->getFlag($value['flag']),
                             'theme'      => $value['title'],
                             'tags'       => '',
-                            'url'        => '',
-                            'hits'       => $value['click'],
-                            'likes'       => '',
-                            'dislikes'    => '',
-                            'paytype'     => '',
-                            'readpoint'   => '',
+                            'url'         => '',
+                            'diyurl'      => '',
+                            'likes'       => 0,
+                            'dislikes'    => 0,
+                            'comment'     => 0,
+                            'paytype'     => 0,
+                            'readpoint'   => 0,
                             'groupids'    => '',
-                            'modelid'    => $modelid, //优化
+                            'hits'       => $value['click'],
+                            'modelid'    => $modelid,
                             'listorder'  => 0,
                             'status'     => $value['arcrank'] == -2 ? -1 : 1,
+                            'pushtime'   => 0,
                             'inputtime'  => date('Y-m-d h:i:s', $value['senddate']),
                             'updatetime' => date('Y-m-d h:i:s', $value['senddate']),
                         ];
