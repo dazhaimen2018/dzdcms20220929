@@ -392,9 +392,32 @@ class Admin extends Adminaddon
                 $modelClass->addCategory($data, ['id', 'parentid', 'catname', 'arrparentid', 'arrchildid', 'catdir', 'english', 'type', 'modelid', 'image', 'icon', 'url', 'setting', 'listorder', 'sites', 'target', 'status']);
                 unset($data);
             }
+
         } catch (\Exception $e) {
             $this->error($e->getMessage());
         }
+
+        //栏目附表增加数据
+        $cursor      = Db::connect($db_config)->name('arctype')->cursor();
+        try {
+            foreach ($cursor as $key => $value) {
+                if(($value['description'] || $value['content']) && $value['content']!='&nbsp;'){
+                    $datas[] = [
+                        'catid'       => $value['id'],
+                        'site_id'     => 1,
+                        'catname'     => $value['typename'],
+                        'description' => $value['description'],
+                        'detail'      => $value['content'],
+                    ];
+                }
+            }
+            if ($datas) {
+                Db::name('category_data')->insertAll($datas);
+            }
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
+        }
+
         unset($cursor);
     }
 
@@ -531,6 +554,7 @@ class Admin extends Adminaddon
             foreach ($cursor as $key => $value) {
                 $data[] = [
                     'catid'       => $value['id'],
+                    'site_id'     => 1,
                     'title'       => $value['typename'],
                     'content'     => $value['content'],
                     'keywords'    => $value['keywords'],
@@ -575,6 +599,7 @@ class Admin extends Adminaddon
                 'listorder'   => $value['sortrank'],
                 'inputtime'   => $value['dtime'],
                 'description' => $value['msg'],
+                'sites'       => 1,
                 'status'      => 1,
             ];
         };
