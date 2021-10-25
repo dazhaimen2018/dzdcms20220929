@@ -158,6 +158,8 @@
 .layui-show .layui-field-title {margin: 10px 0 10px;}
 .layui-show .layui-elem-field legend {font-size: 14px;}
 .edui-default .edui-editor, .edui-default .edui-editor-iframeholder{width: 100%!important;}
+/* 取消图片点击边框 */
+.edui-editor-imagescale {display: none !important;}
 
 .sp_input {border: none!important;box-shadow:none!important;}
 .sp_results li{height: 36px!important;line-height: 36px!important;padding: 0 10px!important;}
