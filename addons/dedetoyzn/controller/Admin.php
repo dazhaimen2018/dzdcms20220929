@@ -30,6 +30,7 @@ class Admin extends Adminaddon
         'model',
         'model_field',
         'category',
+        'category_data',
         'page',
         'attachment',
     );
@@ -209,7 +210,13 @@ class Admin extends Adminaddon
     public function step3()
     {
         $db_config  = Cache::get('db_config');
-        $res        = Db::connect($db_config)->name('channeltype')->select();
+
+        //获得有数据的模型ID
+        $models     = Db::connect($db_config)->name('arctype')->field('channeltype as id')->select();
+        $models     = array_column($models,'id');
+        $models     = array_unique($models);
+        $models     = implode(',',$models);
+        $res        = Db::connect($db_config)->name('channeltype')->whereIn('id',$models)->select();
         $modelClass = new \app\cms\model\Models;
         $data       = $dede_models       = [];
         try {
@@ -251,8 +258,12 @@ class Admin extends Adminaddon
     public function step4()
     {
         $db_config = Cache::get('db_config');
-        //$dede_models = Cache::get('dede_models');
-        $res         = Db::connect($db_config)->name('channeltype')->select();
+        //获得有数据的模型ID
+        $models     = Db::connect($db_config)->name('arctype')->field('channeltype as id')->select();
+        $models     = array_column($models,'id');
+        $models     = array_unique($models);
+        $models     = implode(',',$models);
+        $res         = Db::connect($db_config)->name('channeltype')->whereIn('id',$models)->select();
         $modelClass  = new \app\cms\model\ModelField;
         $dede_fields = $data = [];
         foreach ($res as $key => $value) {
@@ -382,8 +393,18 @@ class Admin extends Adminaddon
                     $data['catdir'] = $pinyin->permalink($value['typename'], '');
                     $data['catdir'] = substr($data['catdir'], 0, 10);
                 }
-                $data['catdir'] = in_array($data['catdir'], $catdir) ?: $data['catdir'] . genRandomString(3);
-                $catdir[]       = $data['catdir'];
+                //$data['catdir'] = in_array($data['catdir'], $catdir) ?: $data['catdir'] . genRandomString(3);
+                //$data['catdir']  = in_array($data['catdir'], $catdir) ?: $data['catdir'];
+                //$catdir[]        = $data['catdir'];
+
+                $catdir          = $value['typedir'];
+                $catdir          = $this->cut_str($catdir,'/',-1);
+                $data['catdir']  = $catdir ? $catdir : $data['catdir'];
+                //从数据库中查查询，如果已存在，用拼音并增加随机数
+                $result = db('category')->where(['catdir' => $data['catdir']])->find();
+                if($result){
+                    $data['catdir'] = $data['catdir']. genRandomString(3);
+                }
                 $data['type']   = $value['ispart'] != 0 ? 1 : 2;
                 $result         = $this->validate($data, 'app\cms\validate\Category.list');
                 if (true !== $result) {
@@ -649,5 +670,26 @@ class Admin extends Adminaddon
             $array = json_decode($data, true);
         }
         return $array;
+    }
+
+
+    private function cut_str($str,$sign,$number){
+        $array=explode($sign, $str);
+        $length=count($array);
+        if($number<0){
+            $new_array=array_reverse($array);
+            $abs_number=abs($number);
+            if($abs_number>$length){
+                return 'error';
+            }else{
+                return $new_array[$abs_number-1];
+            }
+        }else{
+            if($number>=$length){
+                return 'error';
+            }else{
+                return $array[$number];
+            }
+        }
     }
 }
