@@ -86,6 +86,7 @@ class Index extends Cmsbase
         $models = cache('Model');
         //栏目扩展配置信息
         $setting = $category['setting'];
+        $setting_data = $category['setting_data'];
         //类型为列表的栏目
         if ($category['type'] == 2) {
             //栏目首页模板
@@ -94,7 +95,7 @@ class Index extends Cmsbase
             $template_list = $setting['list_template'] ? $setting['list_template'] : 'list';
             //判断使用模板类型，如果有子栏目使用频道页模板
             $template = $category['child'] ? $template : $template_list;
-            $seo      = seo($catid, '', $setting['meta_description'], $setting['meta_keywords']);
+            $seo      = seo($catid, '', $setting_data['description'], $setting_data['keyword']);
             //单页
         } else if ($category['type'] == 1) {
             $template = $setting['page_template'] ? $setting['page_template'] : 'page';
@@ -104,8 +105,8 @@ class Index extends Cmsbase
                 $info = $info->toArray();
             }
             //SEO
-            $keywords = $info['keywords'] ? $info['keywords'] : $setting['meta_keywords'];
-            $description = $info['description'] ? $info['description'] : $setting['meta_description'];
+            $keywords = $info['keywords'] ? $info['keywords'] : $setting_data['keyword'];
+            $description = $info['description'] ? $info['description'] : $setting_data['description'];
             $seo = seo($catid, '', $description, $keywords);
             $this->assign($info);
         }
@@ -209,6 +210,8 @@ class Index extends Cmsbase
                 $allow_visitor = 1;
             }
         }
+
+
         //SEO
         $keywords = $info['keywords'] ? $info['keywords'] : $setting['meta_keywords'];
         $title = $info['title'] ? $info['title'] : $setting['meta_title'];

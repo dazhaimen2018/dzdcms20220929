@@ -42,17 +42,19 @@ function getCategory($cat, $fields = '', $newCache = false)
     }
     if (empty($cache)) {
         //读取数据
-        $cache = db('category')->where($field, $cat)->cache(60)->find();
+        $cache = db('category')->where($field, $cat)->find();
         if (empty($cache)) {
             Cache::set($key, 'false', 60);
             return false;
         } else {
             //马博
-            $category_data = db('category_data')->where(['catid' => $cache['id'], 'site_id' => $siteId])->cache(60)->find();
+            $category_data = db('category_data')->where(['catid' => $cache['id'], 'site_id' => $siteId])->find();
+
             if ($category_data) {
-                $cache['catname']     = $category_data['catname'];
-                $cache['description'] = $category_data['description'];
-                $cache['detail']      = $category_data['detail'];
+                $cache['catname']      = $category_data['catname'];
+                $cache['description']  = $category_data['description'];
+                $cache['detail']       = $category_data['detail'];
+                $cache['setting_data'] = json_decode($category_data['setting'],true);
             }
             //马博 end
             //扩展配置
@@ -62,7 +64,6 @@ function getCategory($cat, $fields = '', $newCache = false)
             Cache::set($key, $cache, 3600);
         }
     }
-
     if ($fields) {
         //支持var.property，不过只支持一维数组
         if (false !== strpos($fields, '.')) {
