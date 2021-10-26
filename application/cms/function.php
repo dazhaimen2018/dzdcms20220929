@@ -12,6 +12,7 @@
 // +----------------------------------------------------------------------
 // | cms函数文件
 // +----------------------------------------------------------------------
+use app\cms\model\Site;
 use think\facade\Cache;
 use think\facade\Request;
 
@@ -258,45 +259,32 @@ function paramencode($arr)
  */
 function seo($catid = '', $title = '', $description = '', $keyword = '')
 {
-    //马博 新增
     $siteId = getSiteId();
+    if (!empty($title)) {
+        $title = strip_tags($title);
+    }
+    if (!empty($description)) {
+        $description = strip_tags($description);
+    }
+    if (!empty($keyword)) {
+        $keyword = str_replace(' ', ',', strip_tags($keyword));
+    }
+
+    $site  = cache('siteSeo') ? cache('siteSeo') : db('site')->where('id', $siteId)->field('title,name,keywords,description')->find();;
+    Cache::set('siteSeo', $site, 3600);
     if (!empty($catid)) {
-        $cat           = getCategory($catid);
-        $category_data = db('category_data')->where(['catid' => $catid, 'site_id' => $siteId])->cache(60)->find();
-        $setting       = json_decode($category_data['setting'], true);
-        if ($setting['title']) {
-            $title = $setting['title'];
-        }
-        if ($setting['keywords']) {
-            $keyword = $setting['keywords'];
-        }
-        if ($setting['description']) {
-            $description = $setting['description'];
-        }
+        $cat = getCategory($catid);
     }
-
-    $site = db('site')->where('id', $siteId)->cache(60)->find();
-    if (!$title && $site) {
-        $title = $site['title'];
-    }
-
-    if (!$keyword && $site) {
-        $keyword = $site['keywords'];
-    }
-
-    if (!$description && $site) {
-        $description = $site['description'];
-    }
-    //马博 end
-    $seo['site_title']  = $site['title'];
-    $seo['keyword']     = !empty($keyword) ? $keyword : $site['site_keyword'];
-    $seo['description'] = isset($description) && !empty($description) ? $description : (isset($cat['setting']['meta_description']) && !empty($cat['setting']['meta_description']) ? $cat['setting']['meta_description'] : (isset($site['site_description']) && !empty($site['site_description']) ? $site['site_description'] : ''));
-    $seo['title']       = (isset($title) && !empty($title) ? $title . ' - ' : '') . (isset($cat['setting']['meta_title']) && !empty($cat['setting']['meta_title']) ? $cat['setting']['meta_title'] . ' - ' : (isset($cat['catname']) && !empty($cat['catname']) ? $cat['catname'] :''));
+    $seo['site_title']  = isset($site['title']) && !empty($site['title']) ? $site['title'] : $site['name'];
+    $seo['keyword']     = !empty($keyword) ? $keyword : $site['keywords'];
+    $seo['description'] = isset($description) && !empty($description) ? $description : (isset($cat['setting']['meta_description']) && !empty($cat['setting']['meta_description']) ? $cat['setting']['meta_description'] : (isset($site['description']) && !empty($site['description']) ? $site['description'] : ''));
+    $seo['title']       = (isset($title) && !empty($title) ? $title . ' - ' : '') . (isset($cat['setting']['meta_title']) && !empty($cat['setting']['meta_title']) ? $cat['setting']['meta_title']: '');
     foreach ($seo as $k => $v) {
         $seo[$k] = str_replace(array("\n", "\r"), '', $v);
     }
     return $seo;
 }
+
 
 /**
  * 生成栏目URL

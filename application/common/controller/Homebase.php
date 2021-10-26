@@ -29,15 +29,12 @@ class Homebase extends Base
         $this->request->filter('trim,strip_tags,htmlspecialchars');
         parent::initialize();
         $config = \think\facade\config::get('app.');
-        // $domain         = isset(cache("Cms_Config")['domain']) ? cache("Cms_Config")['domain'] : 1;
-        // if (empty($domain)){
-            $domain     = $_SERVER['HTTP_HOST'];
-        // }
-        $allSite  = cache('Site')?cache('Site'):Site::where('status',1)->column('*','id');
-        Cache::set('Site', $allSite, 3600);
+        $domain     = $_SERVER['HTTP_HOST'];
+        $sites  = cache('sites')?cache('sites'):Site::where('status',1)->column('*','id');
+        Cache::set('sites', $sites, 3600);
 
         //语言设定
-        $mark = $allSite[getSiteId()]['mark'];
+        $mark = $sites[getSiteId()]['mark'];
         if ($mark && ($mark.'_'.getSiteId() != cookie('var'))){
             cookie('var',$mark.'_'.getSiteId());
             header('Location:'.$_SERVER['REQUEST_URI']);exit;
@@ -48,7 +45,7 @@ class Homebase extends Base
         }else{
             $siteId   = getSite('id');
         }
-        $siteName = $allSite[$siteId]['name'];
+        $siteName = $sites[$siteId]['name'];
 
         $site   = [
             'upload_thumb_water'     => $config['upload_thumb_water'],
@@ -63,7 +60,7 @@ class Homebase extends Base
         $this->assign([
             'site'     => $site,
             'domain'   => $domain,
-            'allSite'  => $allSite,
+            'allSite'  => $sites,
             'siteName' => $siteName,
             'siteId'   => $siteId,
         ]);

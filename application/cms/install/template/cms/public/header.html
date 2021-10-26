@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>{if !isset($catid)}{:getSite('title')}{else}{$SEO['title']}{/if}{if getSite('brand')} -【{:getSite('brand')}】{/if}</title>
+    <title>{if condition="isset($SEO['title']) && !empty($SEO['title'])"}{$SEO['title']}{/if}{$SEO['site_title']}{if getSite('brand')} -【{:getSite('brand')}】{/if}</title>
     <meta name="keywords" content="{$SEO['keyword']}" />
     <meta name="description" content="{$SEO['description']}" />
     <link href="{:getSite('favicon')}" rel="icon">

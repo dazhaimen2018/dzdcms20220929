@@ -87,15 +87,17 @@ class Index extends Cmsbase
         //栏目扩展配置信息
         $setting = $category['setting'];
         $setting_data = $category['setting_data'];
+
         //类型为列表的栏目
         if ($category['type'] == 2) {
             //栏目首页模板
-            $template = $setting['category_template'] ? $setting['category_template'] : 'category';
+            $template      = $setting['category_template'] ? $setting['category_template'] : 'category';
             //栏目列表页模板
             $template_list = $setting['list_template'] ? $setting['list_template'] : 'list';
             //判断使用模板类型，如果有子栏目使用频道页模板
-            $template = $category['child'] ? $template : $template_list;
-            $seo      = seo($catid, '', $setting_data['description'], $setting_data['keyword']);
+            $template      = $category['child'] ? $template : $template_list;
+            $title         =  $setting_data['title'] ? $setting_data['title'] : $category['catname'];
+            $seo           = seo($catid, $title, $setting_data['description'], $setting_data['keyword']);
             //单页
         } else if ($category['type'] == 1) {
             $template = $setting['page_template'] ? $setting['page_template'] : 'page';
@@ -105,9 +107,10 @@ class Index extends Cmsbase
                 $info = $info->toArray();
             }
             //SEO
-            $keywords = $info['keywords'] ? $info['keywords'] : $setting_data['keyword'];
+            $title       =  $setting_data['title'] ? $setting_data['title'] : $info['title'];
+            $keywords    = $info['keywords'] ? $info['keywords'] : $setting_data['keyword'];
             $description = $info['description'] ? $info['description'] : $setting_data['description'];
-            $seo = seo($catid, '', $description, $keywords);
+            $seo         = seo($catid, $title, $description, $keywords);
             $this->assign($info);
         }
         $tpar     = explode(".", $template, 2);
@@ -126,7 +129,7 @@ class Index extends Cmsbase
         $this->assign($category);
         $this->assign([
             'top_parentid' => $top_parentid,
-            'parentid' => $parentid,
+            'parentid'     => $parentid,
             'SEO'          => $seo,
             'catid'        => $catid,
             'page'         => $page,
@@ -153,9 +156,9 @@ class Index extends Cmsbase
         if (empty($category)) {
             $this->error(patch('PageNot')); //栏目不存在
         }
-        $catid = $category['id'];
+        $catid     = $category['id'];
         //模型ID
-        $modelid = $category['modelid'];
+        $modelid   = $category['modelid'];
         $modelInfo = cache('Model')[$modelid];
         if (empty($modelInfo)) {
             $this->error(patch('PageNot')); //模型不存在
@@ -168,7 +171,7 @@ class Index extends Cmsbase
         Db::name($modelInfo['tablename'])->where('id', $id)->setInc('hits');
         //内容所有字段
         $ifcache = $this->cmsConfig['site_cache_time'] ? $this->cmsConfig['site_cache_time'] : false;
-        $info = $this->CmsModel->getContent($modelid, "id={$id}", true, '*', '', $ifcache, $this->site_id);
+        $info    = $this->CmsModel->getContent($modelid, "id={$id}", true, '*', '', $ifcache, $this->site_id);
         if (!$info || ($info['status'] !== 1 && !\app\admin\service\User::instance()->isLogin())) {
             throw new \think\Exception(patch('PageError'), 404);
         }
@@ -189,12 +192,13 @@ class Index extends Cmsbase
             $this->assign("pages", '');
         }
         //栏目扩展配置信息
-        $setting = $category['setting'];
+        $setting      = $category['setting'];
+        $setting_data = $category['setting_data'];
         //内容页模板
-        $template = $setting['show_template'] ? $setting['show_template'] : 'show';
+        $template     = $setting['show_template'] ? $setting['show_template'] : 'show';
         //去除模板文件后缀
-        $newstempid = explode(".", $template);
-        $template = $newstempid[0];
+        $newstempid   = explode(".", $template);
+        $template     = $newstempid[0];
         unset($newstempid);
         //阅读收费
         $readpoint     = isset($info['readpoint']) ? (int) $info['readpoint'] : 0; //金额
@@ -213,10 +217,10 @@ class Index extends Cmsbase
 
 
         //SEO
-        $keywords = $info['keywords'] ? $info['keywords'] : $setting['meta_keywords'];
-        $title = $info['title'] ? $info['title'] : $setting['meta_title'];
-        $description = $info['description'] ? $info['description'] : $setting['meta_description'];
-        $seo = seo($catid, $title, $description, $keywords);
+        $keywords    = $info['keywords'] ? $info['keywords'] : $setting_data['keyword'];
+        $title       = $info['title'] ? $info['title'] : $setting_data['title'];
+        $description = $info['description'] ? $info['description'] : $setting_data['description'];
+        $seo         = seo($catid, $title, $description, $keywords);
         //获取顶级栏目ID
         $arrparentid = explode(',', $category['arrparentid']);
         $top_parentid = isset($arrparentid[1]) ? $arrparentid[1] : $catid;
@@ -231,8 +235,8 @@ class Index extends Cmsbase
             'catid'         => $catid,
             'page'          => $page,
             'modelid'       => $modelid,
-            'title' => $title,
-            'parentid' => $id,
+            'title'         => $title,
+            'parentid'      => $id,
         ]);
         return $this->fetch('/' . $template);
     }
