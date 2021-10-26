@@ -270,8 +270,14 @@ function seo($catid = '', $title = '', $description = '', $keyword = '')
         $keyword = str_replace(' ', ',', strip_tags($keyword));
     }
 
-    $site  = cache('siteSeo') ? cache('siteSeo') : db('site')->where('id', $siteId)->field('title,name,keywords,description')->find();;
-    Cache::set('siteSeo', $site, 3600);
+    $key  = 'siteSeo';
+    $site = cache($key);
+    if ($site['id'] != $siteId){ //如果站点ID不登录SEO缓存中的站点ID。清楚缓存，重新缓存
+        Cache::rm($key, null);
+        $site = db('site')->where('id', $siteId)->field('id,title,name,keywords,description')->find();
+        Cache::set($key, $site, 3600);
+    }
+
     if (!empty($catid)) {
         $cat = getCategory($catid);
     }
