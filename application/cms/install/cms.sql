@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS `yzn_site`;
 CREATE TABLE `yzn_site` (
 `id` smallint UNSIGNED NOT NULL COMMENT '站点ID',
-`name` varchar(30) NOT NULL DEFAULT '' COMMENT '站点名称',
+`name` varchar(100) NOT NULL DEFAULT '' COMMENT '站点名称',
 `mark` varchar(30) NOT NULL DEFAULT '' COMMENT '站点标识',
 `http` varchar(30) NOT NULL DEFAULT '' COMMENT 'HTTP',
 `domain` varchar(100) NOT NULL DEFAULT '' COMMENT '站点域名',
@@ -29,8 +29,8 @@ PRIMARY KEY (`id`)
 DROP TABLE IF EXISTS `yzn_category`;
 CREATE TABLE `yzn_category` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '栏目ID',
-  `catname` varchar(30) NOT NULL DEFAULT '' COMMENT '栏目名称',
-  `catdir` varchar(30) NOT NULL DEFAULT '' COMMENT '唯一标识',
+  `catname` varchar(100) NOT NULL DEFAULT '' COMMENT '栏目名称',
+  `catdir` varchar(100) NOT NULL DEFAULT '' COMMENT '唯一标识',
   `english` varchar(100) NOT NULL DEFAULT '' COMMENT '英文标题',
   `type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '类别',
   `modelid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '模型ID',
@@ -126,8 +126,8 @@ CREATE TABLE `yzn_tags_content` (
 DROP TABLE IF EXISTS `yzn_lang`;
 CREATE TABLE `yzn_lang` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '配置ID',
-  `name` varchar(30) NOT NULL DEFAULT '' COMMENT '配置名称',
-  `type` varchar(30) NOT NULL DEFAULT '' COMMENT '配置类型',
+  `name` varchar(100) NOT NULL DEFAULT '' COMMENT '配置名称',
+  `type` varchar(100) NOT NULL DEFAULT '' COMMENT '配置类型',
   `title` varchar(100) NOT NULL DEFAULT '' COMMENT '配置标题',
   `group` varchar(100) NOT NULL DEFAULT '' COMMENT '配置分组',
   `options` varchar(255) NOT NULL DEFAULT '' COMMENT '配置项',
