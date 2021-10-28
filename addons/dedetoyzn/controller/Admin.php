@@ -17,6 +17,7 @@ namespace addons\dedetoyzn\Controller;
 use app\addons\util\Adminaddon;
 use think\Db;
 use think\facade\Cache;
+use think\facade\Log;
 
 class Admin extends Adminaddon
 {
@@ -444,6 +445,7 @@ class Admin extends Adminaddon
 
     public function step6()
     {
+        Log::close();
         set_time_limit(0);
         ini_set('memory_limit', '500M');
         $db_config   = Cache::get('db_config');
@@ -464,7 +466,7 @@ class Admin extends Adminaddon
                             'id'          => $value['id'],
                             'catid'       => $value['typeid'],
                             'theme'       => $value['title'],
-                            'thumb'       => $value['litpic'],
+                            'thumb'       => $value['litpic'] ?? "",
                             'flag'        => $this->getFlag($value['flag']),
                             'url'         => '',
                             'diyurl'      => '',
@@ -524,7 +526,7 @@ class Admin extends Adminaddon
                         $data['modelField'] = [
                             'id'         => $value['id'],
                             'catid'      => $value['typeid'],
-                            'thumb'      => $value['litpic'],
+                            'thumb'       => $value['litpic'] ?? "",
                             'flag'       => $this->getFlag($value['flag']),
                             'theme'      => $value['title'],
                             'tags'       => '',
@@ -562,8 +564,10 @@ class Admin extends Adminaddon
                 }
 
             };
+            unset($cursor);
         }
-
+        unset($dede_models);
+        unset($dede_fields);
     }
 
     public function step7()
