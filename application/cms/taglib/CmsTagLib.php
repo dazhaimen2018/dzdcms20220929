@@ -113,7 +113,7 @@ class CmsTagLib
             $data['limit'] = 0 == (int) $data['num'] ? 10 : (int) $data['num'];
         }
         if (empty($data['order'])) {
-            $data['order'] = array('updatetime' => 'DESC', 'id' => 'DESC');
+            $data['order'] = ['updatetime' => 'DESC', 'id' => 'DESC'];
         }
         if (isset($data['flag'])) {
             $flag = [];
@@ -143,7 +143,9 @@ class CmsTagLib
         }else{
             $siteId = 1;
         }
-        $result = model('cms/Cms')->getList($modelid, $this->where($data), $moreifo, $siteId, $data['field'], $data['order'], $data['limit'], $data['page'], $data['simple']);
+        $pageconfig                                     = [];
+        isset($data['pagepath']) && $pageconfig['path'] = $data['pagepath'];
+        $result                                         = model('cms/Cms')->getList($modelid, $this->where($data), $moreifo, $data['field'], $data['order'], $data['limit'], $data['page'], $data['simple'], $pageconfig);
         return $result;
     }
 
