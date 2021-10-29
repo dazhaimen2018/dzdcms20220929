@@ -164,7 +164,7 @@
                     <label class="layui-form-label">章节页模板</label>
                     <div class="layui-input-block">
                         <select name="setting[chapter_template]">
-                            <option value="last.{:config('template.view_suffix')}" selected>默认章节页:chapter.{:config('template.view_suffix')}</option>
+                            <option value="chapter.{:config('template.view_suffix')}" selected>默认章节页:chapter.{:config('template.view_suffix')}</option>
                             {volist name="tp_chapter" id="vo"}
                             <option value="{$vo}" {eq name="setting['chapter_template']" value="$vo" }selected{/eq}>{$vo} </option>
                             {/volist}
