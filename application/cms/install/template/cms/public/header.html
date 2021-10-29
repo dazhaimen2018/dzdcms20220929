@@ -64,9 +64,9 @@
                         {if $i==1 && $site_id==1}
                         <dd> <a name="gb2big5" id="gb2big5"><img src= "/static/lang/image/{$vo.mark}.png"> 繁体中文</a></dd>
                         {elseif $vo['domain']==$domain}
-                        <dd><a {if $site_id==$vo.id}class="active"{/if} href="javascript:void(0)" onclick="setLang('{$vo.mark}','{$vo.id}')" title="切换到{$vo.name}"><img src= "/static/lang/image/{$vo.mark}.png"> {$vo.name}</a></dd>
+                        <dd><a {if $site_id==$vo.id}class="active"{/if} href="javascript:void(0)" onclick="setLang('{$vo.mark}','{$vo.id}')" title="切换到{$vo.name|raw}"><img src= "/static/lang/image/{$vo.mark}.png"> {$vo.name|raw}</a></dd>
                         {else}
-                        <dd> <a {if $site_id==$vo.id}class="active"{/if} href="{$vo.url}" onclick="setLang('{$vo.mark}','{$vo.id}')" title="跳转到{$vo.name}"><img src= "/static/lang/image/{$vo.mark}.png"> {$vo.name}</a></dd>
+                        <dd> <a {if $site_id==$vo.id}class="active"{/if} href="{$vo.url}" onclick="setLang('{$vo.mark}','{$vo.id}')" title="跳转到{$vo.name|raw}"><img src= "/static/lang/image/{$vo.mark}.png"> {$vo.name|raw}</a></dd>
                         {/if}
                         {/volist}
                     </dl>
