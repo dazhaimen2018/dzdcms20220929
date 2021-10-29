@@ -107,8 +107,10 @@ class CmsTagLib
      */
     public function lists($data)
     {
-        $catid = isset($data['catid']) ? trim($data['catid']) : '';
-        $data['where'] = isset($data['where']) ? $data['where'] . " AND `status`=1" : "`status`=1";
+        $catid  = isset($data['catid']) ? trim($data['catid']) : '';
+        $onTime = time(); // 当前时间 未来文章不显示
+        //$data['where'] = isset($data['where']) ? $data['where'] . " AND `status`=1" : "`status`=1";
+        $data['where'] = isset($data['where']) ? $data['where'] . " AND `status`=1 AND `inputtime`<" . $onTime : "`status`=1  AND `inputtime`<" . $onTime;
         if (!isset($data['limit'])) {
             $data['limit'] = 0 == (int) $data['num'] ? 10 : (int) $data['num'];
         }
