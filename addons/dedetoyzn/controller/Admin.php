@@ -76,6 +76,7 @@ class Admin extends Adminaddon
     //初始化
     public function init()
     {
+        Log::close();
         $data = $this->request->post();
         if (empty($data['hostname']) || empty($data['database']) || empty($data['username']) || empty($data['password']) || empty($data['prefix'])) {
             $this->error('数据库配置不得为空！');
@@ -131,6 +132,7 @@ class Admin extends Adminaddon
     //任务执行
     public function start()
     {
+        Log::close();
         $page    = $this->request->param('page/d', 0);
         $db_task = Cache::get('db_task');
         if (isset($db_task[$page])) {
@@ -445,7 +447,6 @@ class Admin extends Adminaddon
 
     public function step6()
     {
-        Log::close();
         set_time_limit(0);
         ini_set('memory_limit', '500M');
         $db_config   = Cache::get('db_config');
