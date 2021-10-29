@@ -145,7 +145,7 @@ class CmsTagLib
         }
         $pageconfig                                     = [];
         isset($data['pagepath']) && $pageconfig['path'] = $data['pagepath'];
-        $result                                         = model('cms/Cms')->getList($modelid, $this->where($data), $moreifo, $data['field'], $data['order'], $data['limit'], $data['page'], $data['simple'], $pageconfig);
+        $result                                         = model('cms/Cms')->getList($modelid, $this->where($data), $moreifo, $siteId, $data['field'], $data['order'], $data['limit'], $data['page'], $data['simple'], $pageconfig);
         return $result;
     }
 
