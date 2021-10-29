@@ -3,9 +3,7 @@
 -- 生成日期： 2021-06-26 21:32:03
 -- 服务器版本： 8.0.24
 -- PHP 版本： 7.4.20
-
-DROP TABLE IF EXISTS `yzn_news`;
-CREATE TABLE `yzn_news` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__news` (
 `id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
 `catid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '栏目ID',
 `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
@@ -34,8 +32,7 @@ PRIMARY KEY (`id`),
 KEY `status` (`catid`,`status`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='资讯模型模型表';
 
-DROP TABLE IF EXISTS `yzn_news_data`;
-CREATE TABLE `yzn_news_data` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__news_data` (
 `id` mediumint UNSIGNED NOT NULL COMMENT '自然ID',
 `did` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '文档ID',
 `site_id` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID',
@@ -47,8 +44,7 @@ CREATE TABLE `yzn_news_data` (
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='资讯模型模型表';
 
-DROP TABLE IF EXISTS `yzn_photo`;
-CREATE TABLE `yzn_photo` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__photo` (
 `id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
 `catid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '栏目ID',
 `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
@@ -75,9 +71,7 @@ PRIMARY KEY (`id`),
 KEY `status` (`catid`,`status`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='图片模型模型表';
 
-
-DROP TABLE IF EXISTS `yzn_photo_data`;
-CREATE TABLE `yzn_photo_data` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__photo_data` (
 `id` mediumint UNSIGNED NOT NULL COMMENT '自然ID',
 `did` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '文档ID',
 `site_id` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID',
@@ -89,7 +83,7 @@ CREATE TABLE `yzn_photo_data` (
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='图片模型模型表';
 
-CREATE TABLE `yzn_download` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__download` (
 `id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
 `catid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '栏目ID',
 `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
@@ -117,7 +111,7 @@ PRIMARY KEY (`id`),
 KEY `status` (`catid`,`status`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='下载模型模型表';
 
-CREATE TABLE `yzn_download_data` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__download_data` (
 `id` mediumint UNSIGNED NOT NULL COMMENT '自然ID',
 `did` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '文档ID',
 `site_id` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID',
@@ -129,16 +123,59 @@ CREATE TABLE `yzn_download_data` (
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='下载模型模型表';
 
-INSERT INTO `yzn_download` (`id`, `catid`, `theme`, `url`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `times`, `file`) VALUES
+
+CREATE TABLE IF NOT EXISTS `__PREFIX__video` (
+   `id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
+   `catid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '栏目ID',
+   `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
+    `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',
+    `diyurl` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '自定义URL',
+    `thumb` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '封面图片',
+    `flag` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
+    `paytype` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '支付类型',
+    `readpoint` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '支付数量',
+    `listorder` smallint UNSIGNED NOT NULL DEFAULT '100' COMMENT '排序',
+    `uid` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
+    `username` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
+    `sysadd` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否后台添加',
+    `hits` mediumint UNSIGNED DEFAULT '0' COMMENT '点击量',
+    `likes` mediumint UNSIGNED DEFAULT '0' COMMENT '点赞数',
+    `dislikes` mediumint UNSIGNED DEFAULT '0' COMMENT '点踩数',
+    `inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
+    `updatetime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
+    `pushtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '推送时间',
+    `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
+    `comment` tinyint NOT NULL DEFAULT '0' COMMENT '允许评论',
+    `video` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '视频文件',
+    PRIMARY KEY (`id`)
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='视频模型模型表';
+
+CREATE TABLE IF NOT EXISTS `__PREFIX__video_data` (
+   `id` mediumint UNSIGNED NOT NULL COMMENT '自然ID',
+   `did` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '文档ID',
+   `site_id` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID',
+   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
+    `tags` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Tags标签',
+    `keywords` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO关键词',
+    `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
+    `content` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '内容',
+    PRIMARY KEY (`id`)
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='视频模型模型表';
+
+
+
+
+
+INSERT INTO `__PREFIX__download` (`id`, `catid`, `theme`, `url`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `times`, `file`) VALUES
 (1, 9, '多站点CMS官方模版下载', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 2, 0, 0, 1632832944, 1632832970, 0, 1, 1, 99, '/uploads/images/dzdcms.zip'),
 (2, 9, '文档模版', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632832972, 1632957797, 0, 1, 1, 0, '/uploads/images/dzdcms.zip');
 
-INSERT INTO `yzn_download_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`, `description`, `content`) VALUES
+INSERT INTO `__PREFIX__download_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`, `description`, `content`) VALUES
 (1, 1, 1, '多站点CMS官方模版下载', '', '', '多站点CMS官方模版下载多站点CMS官方模版下载多站点CMS官方模版下载多站点CMS官方模版下载', '<p>多站点CMS官方模版下载多站点CMS官方模版下载多站点CMS官方模版下载多站点CMS官方模版下载</p>'),
 (2, 2, 1, '文档模版', '', '', '文档模版授权用户才可以下载！', '<p>文档模版授权用户才可以下载！</p>');
 
 
-INSERT INTO `yzn_category` (`id`, `catname`, `catdir`, `english`, `type`, `modelid`, `parentid`, `arrparentid`, `arrchildid`, `sites`, `child`, `image`, `icon`, `url`, `items`, `setting`, `listorder`, `target`, `status`) VALUES
+INSERT INTO `__PREFIX__category` (`id`, `catname`, `catdir`, `english`, `type`, `modelid`, `parentid`, `arrparentid`, `arrchildid`, `sites`, `child`, `image`, `icon`, `url`, `items`, `setting`, `listorder`, `target`, `status`) VALUES
 (1, '资讯', 'news', '', 2, 1, 0, '0', '1,6,5', '1,2', 1, '', '', '', 0, 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 1, 0, 1),
 (2, '关于', 'about', '', 1, 0, 0, '0', '2,14,8,7', '1,2', 1, '', '', '/jianjie/', 0, 'a:1:{s:13:\"page_template\";s:9:\"page.html\";}', 2, 0, 1),
 (3, '案例', 'anli', '', 2, 2, 0, '0', '3', '1,2', 0, '', '', '', 3, 'a:3:{s:17:\"category_template\";s:19:\"category_photo.html\";s:13:\"list_template\";s:15:\"list_photo.html\";s:13:\"show_template\";s:15:\"show_photo.html\";}', 3, 0, 1),
@@ -155,7 +192,7 @@ INSERT INTO `yzn_category` (`id`, `catname`, `catdir`, `english`, `type`, `model
 (14, '程序下载', 'system', '', 1, 0, 2, '0,2', '14', '1,2', 0, '', '', '', 0, 'a:1:{s:13:\"page_template\";s:9:\"page.html\";}', 100, 0, 1);
 
 
-INSERT INTO `yzn_category_data` (`id`, `catid`, `catname`, `description`, `setting`, `site_id`, `detail`, `status`) VALUES
+INSERT INTO `__PREFIX__category_data` (`id`, `catid`, `catname`, `description`, `setting`, `site_id`, `detail`, `status`) VALUES
 (1, 13, '服务器面板', '服务器面板简介', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, '', 0),
 (2, 12, '文档', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, '', 0),
 (3, 11, '留言', '用layui表单的在线留言系统', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 1, '', 0),
@@ -185,7 +222,7 @@ INSERT INTO `yzn_category_data` (`id`, `catid`, `catname`, `description`, `setti
 (27, 12, 'Document', '', '{\"title\":\"\",\"keyword\":\"\",\"description\":\"\"}', 2, '<p>0</p>', 0);
 
 
-INSERT INTO `yzn_lang_data` (`id`, `lang_id`, `value`, `site_id`, `status`) VALUES
+INSERT INTO `__PREFIX__lang_data` (`id`, `lang_id`, `value`, `site_id`, `status`) VALUES
 (1, 1, '多站点CMS', 1, 0),
 (2, 2, '京ICP备12010025号-11', 1, 0),
 (3, 3, 'Copyright © 2006-2021 dzdcms.com All rights reserved.', 1, 0),
@@ -474,14 +511,14 @@ INSERT INTO `yzn_lang_data` (`id`, `lang_id`, `value`, `site_id`, `status`) VALU
 (286, 123, 'Visitor', 2, 0);
 
 
-INSERT INTO `yzn_model` (`id`, `module`, `name`, `tablename`, `description`, `setting`, `type`, `create_time`, `update_time`, `listorders`, `status`) VALUES
+INSERT INTO `__PREFIX__model` (`id`, `module`, `name`, `tablename`, `description`, `setting`, `type`, `create_time`, `update_time`, `listorders`, `status`) VALUES
 (1, 'cms', '资讯模型', 'news', '', 'a:3:{s:17:\"category_template\";s:13:\"category.html\";s:13:\"list_template\";s:9:\"list.html\";s:13:\"show_template\";s:9:\"show.html\";}', 2, 1615820163, 1624583653, 0, 1),
 (2, 'cms', '图片模型', 'photo', '', 'a:3:{s:17:\"category_template\";s:19:\"category_photo.html\";s:13:\"list_template\";s:15:\"list_photo.html\";s:13:\"show_template\";s:15:\"show_photo.html\";}', 2, 1615820925, 1624583766, 0, 1),
 (3, 'cms', '下载模型', 'download', '', 'a:3:{s:17:\"category_template\";s:22:\"category_download.html\";s:13:\"list_template\";s:18:\"list_download.html\";s:13:\"show_template\";s:18:\"show_download.html\";}', 2, 1624576170, 1624583785, 0, 1),
 (4, 'cms', '视频模型', 'video', '', 'a:3:{s:17:\"category_template\";s:19:\"category_video.html\";s:13:\"list_template\";s:15:\"list_video.html\";s:13:\"show_template\";s:15:\"show_video.html\";}', 2, 1624576188, 1624583834, 0, 1);
 
 
-INSERT INTO `yzn_model_field` (`id`, `modelid`, `name`, `title`, `remark`, `pattern`, `errortips`, `type`, `setting`, `ifsystem`, `iscore`, `iffixed`, `ifrequire`, `ifsearch`, `isadd`, `create_time`, `update_time`, `listorder`, `status`) VALUES
+INSERT INTO `__PREFIX__model_field` (`id`, `modelid`, `name`, `title`, `remark`, `pattern`, `errortips`, `type`, `setting`, `ifsystem`, `iscore`, `iffixed`, `ifrequire`, `ifsearch`, `isadd`, `create_time`, `update_time`, `listorder`, `status`) VALUES
 (1, 1, 'id', '文档id', '', '', '', 'hidden', NULL, 1, 0, 1, 0, 0, 1, 1632823818, 1632823818, 100, 1),
 (2, 1, 'catid', '栏目id', '', '', '', 'hidden', NULL, 1, 0, 1, 0, 0, 1, 1632823818, 1632823818, 100, 1),
 (3, 1, 'theme', '主题', '', '', '', 'text', 'a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT \'\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 1, 1, 1, 1632823818, 1632823818, 2, 1),
@@ -603,7 +640,7 @@ INSERT INTO `yzn_model_field` (`id`, `modelid`, `name`, `title`, `remark`, `patt
 (119, 1, 'groupids', '访问权限', '', '', '不选代表无限制', 'selectpage', 'a:4:{s:6:\"define\";s:20:\"varchar(32) NOT NULL\";s:7:\"options\";s:110:\"url:/api/lists/memberGroup\r\nfield:name\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:1:\"0\";}', 1, 0, 0, 0, 0, 0, 1632838010, 1632868864, 101, 1);
 
 
-INSERT INTO `yzn_news` (`id`, `catid`, `theme`, `url`, `diyurl`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `icon`, `image`, `groupids`) VALUES
+INSERT INTO `__PREFIX__news` (`id`, `catid`, `theme`, `url`, `diyurl`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `icon`, `image`, `groupids`) VALUES
 (1, 6, 'DZDCMS', '', '', '/uploads/images/photo.png', '6', 1, 0, 0, 1, 'admin', 1, 14, 11, 12, 1632825416, 1633168928, 0, 1, 1, '', '/uploads/images/banner.png', ''),
 (2, 6, '多站点CMS是基于最新TP5.1x框架和layui2.5x的多站点内容管理系统', '',  '', '/uploads/images/photo.png', '6', 0, 0, 99, 1, 'admin', 1, 20, 9, 8, 1632825588, 1633168918, 0, 1, 1, '', '/uploads/images/banner.png', ''),
 (3, 4, '域名灵活', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632826023, 1632958405, 0, 1, 1, 'layui-icon-star', '', ''),
@@ -620,7 +657,7 @@ INSERT INTO `yzn_news` (`id`, `catid`, `theme`, `url`, `diyurl`, `thumb`, `flag`
 (14, 5, '授权用户可免费使用文档模版啦', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 3, 0, 0, 1632826475, 1632826809, 0, 1, 1, '', '', '');
 
 
-INSERT INTO `yzn_news_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`, `description`, `content`) VALUES
+INSERT INTO `__PREFIX__news_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`, `description`, `content`) VALUES
 (1, 1, 1, 'DZDCMS', '', '', '多站点CMS是一款功能强大的多站点内容管理系统', '<p>多站点CMS经过多年的更新迭代，系统功能已经非常完善了，不管你是建多语言站、还是城市分站、集团分站还是站群等等，都可以完美实现你的功能需求！</p><p>后台功能列举</p><p>1、功能强大：支持模型管理和字段相关管理，方便自由扩展</p><p>2、栏目灵活：网站栏目可多站共用也可单站私用</p><p>3、管理简单：发布内容可设置多站一起发布也可只管理单站</p><p>4、数据同步：开启后，发布分站内容可以从主站一键导入、管理维护省事</p><p>5、域名灵活：每个站一个单独域名；也可以主站用顶级域名，分站用二级域名；还可以所有站共用一个域名任意切换内容（适用说多语言站）</p><p>6、表单功能：自定义表单，随心所欲建任意表单</p><p>7、个性模版：每个网站可以设置不同的风格模版</p><p>8、个性主题：所有网站可以共用相同模版可设置不同的样式</p><p>9、一键翻译：主站发布完内容，可一键翻译推送到所有分站！支持100+种语言的一键翻译推送。</p><p>10、单独管理：每个分站可设置单独的管理员，管理员可分配只管理一个站或管理所有站。</p><p>11、内容目录：内容页可分章节和目录、适合小说、视频、课件、词条等网站的建设</p><p>12、虚拟分站：可建设虚拟站点，主要用于城市分站、只发布主站内容、分站不用发布！可生成任意城市站点</p><p>... ...</p><p>做网站 只写HTML模板即可</p><p><br/></p>'),
 (2, 2, 1, '多站点CMS是基于最新TP5.1x框架和layui2.5x的多站点内容管理系统', '', '', '多站点CMS是基于最新TP5.1x框架和layui2.5x的多站点内容管理系统', '<p>多站点CMS经过多年的更新迭代，系统功能已经非常完善了，不管你是建多语言站、还是城市分站、集团分站还是站群等等，都可以完美实现你的功能需求！</p><p>后台功能列举</p><p>1、功能强大：支持模型管理和字段相关管理，方便自由扩展</p><p>2、栏目灵活：网站栏目可多站共用也可单站私用</p><p>3、管理简单：发布内容可设置多站一起发布也可只管理单站</p><p>4、数据同步：开启后，发布分站内容可以从主站一键导入、管理维护省事</p><p>5、域名灵活：每个站一个单独域名；也可以主站用顶级域名，分站用二级域名；还可以所有站共用一个域名任意切换内容（适用说多语言站）</p><p>6、表单功能：自定义表单，随心所欲建任意表单</p><p>7、个性模版：每个网站可以设置不同的风格模版</p><p>8、个性主题：所有网站可以共用相同模版可设置不同的样式</p><p>9、一键翻译：主站发布完内容，可一键翻译推送到所有分站！支持100+种语言的一键翻译推送。</p><p>10、单独管理：每个分站可设置单独的管理员，管理员可分配只管理一个站或管理所有站。</p><p>11、内容目录：内容页可分章节和目录、适合小说、视频、课件、词条等网站的建设</p><p>12、虚拟分站：可建设虚拟站点，主要用于城市分站、只发布主站内容、分站不用发布！可生成任意城市站点</p><p>... ...</p><p>做网站 只写HTML模板即可</p>'),
 (3, 3, 1, '域名灵活', '', '', '多站可以用一个域名、也可以一个站一个域名、可以是二级域名、也可以全部是顶级域名！', '<p>多站可以用一个域名、也可以一个站一个域名、可以是二级域名、也可以全部是顶级域名！</p>'),
@@ -639,7 +676,7 @@ INSERT INTO `yzn_news_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`
 (16, 2, 2, 'Multi-site CMS is a multi-site content management system based on the latest TP5.1x framework and LayUI 2.5x', '', '', 'Multi-site CMS is a multi-site content management system based on the latest TP5.1x framework and LayUI 2.5x', '<p>&nbsp;Multi-site CMS after years of iteration, the system function has been very perfect, whether you are to build multi-language station, or city station, group station or station group and so on, can perfectly achieve your functional needs!&nbsp;</p><p>1, powerful: support model management and field related management, convenient free expansion&nbsp;</p><p>2, columns flexible: website columns can be shared or single station private use&nbsp;</p><p>3, simple management:</p><p>4, Data synchronization: After this function is enabled, the content of publishing sub-stations can be imported from the master station with one key, saving management and maintenance.&nbsp;</p><p>5, The main station can also use the top-level domain name, the sub-station can use the second-level domain name;&nbsp;</p><p>6, form function: custom form, as you like to build any form</p><p>7, personality template: each website can set different style template</p><p>8, personality theme: All websites can share the same template can be set up different styles</p><p>9, one click translation: the master website published content, can be one click translation push to all sub-stations! Support 100+ languages of one-click translation push.&nbsp;</p><p>10, Separate management: a separate administrator can be set for each sub-station, and the administrator can be assigned to manage only one station or all stations.&nbsp;</p><p>11, content directory: content page can be divided into chapters and directories, suitable for novels, videos, courseware, entries and other website construction &lt; P &gt;12, virtual sub-station: can build virtual site, mainly used for urban sub-station, only release the main station content, sub-station need not release! Can generate any city site</p><p>... .</p><p><br/></p>');
 
 
-INSERT INTO `yzn_page` (`id`, `catid`, `site_id`, `title`, `thumb`, `keywords`, `description`, `content`, `inputtime`, `updatetime`) VALUES
+INSERT INTO `__PREFIX__page` (`id`, `catid`, `site_id`, `title`, `thumb`, `keywords`, `description`, `content`, `inputtime`, `updatetime`) VALUES
 (1, 11, 1, '在线留言', '', '', '这里是测试在线留言', '<p>本表单是用layui做的ajax方式提交的无刷新自定义表单系统，欢迎测试！</p>', 1632833009, 1632833026),
 (2, 12, 1, '文档', '', '', '', '<p>文档在栏目中直接设置的跳转，这里就不用编辑了</p>', 1632833032, 1632833067),
 (3, 7, 1, '多站点CMS', '', '', '', '<p style=\"white-space: normal;\">　　多站点CMS是基于yzncms二次开发而来的多站点内容管理系统，原系统cms模块只支持一个站，本系统继承了原cms模块的所有功能和优点，衍生为多站点cms，本多站点CMS不光可以建中文英文等不限语言数量的多语言网站，还可以建城市分站，集团分站、站群等任何你能想到的站。</p><p style=\"white-space: normal;\"><br/></p><p style=\"white-space: normal;\">　　当然了，你要用他来建一个站，那肯定是没有问题的，那天有需要了，直接增加第二个站，第N个站，是非常方便的。<br/></p><p style=\"white-space: normal;\"><br/></p><p style=\"white-space: normal;\">　　主站和分站可单独设置域名，二级域名或顶级域名都行、一个站一个域名，还是多个站共用域名，都是可以的，不过不支持二级目录！<br/></p><p style=\"white-space: normal;\">　　</p><p style=\"white-space: normal;\">　　本系统还增加了很多功能，如数据同步功能、这个功能我一提到就兴奋、你知道了也一定会兴奋、那就是在管理分站时可一键同步主站数据、然后修改后就可以发布、如果你比我还懒，导入后不用修改直接发布，哈哈！<br/></p><p style=\"white-space: normal;\"><br/></p><p style=\"white-space: normal;\">　　YznCMS(又名御宅男CMS)是基于最新TP5.1x框架和layui2.6x的后台管理系统。创立于2017年初，是一款完全免费开源的项目，他将是您轻松建站的首选利器。框架易于功能扩展，代码维护，方便二次开发，帮助开发者简单高效降低二次开发成本，满足专注业务深度开发的需求。<br/></p><p style=\"white-space: normal;\"><br/></p><p style=\"white-space: normal;\">鸣谢：</p><p style=\"white-space: normal;\">yzncms:http://blog.yzncms.com<br/></p><p style=\"white-space: normal;\">thinkphp:http://www.thinkphp.cn</p><p style=\"white-space: normal;\">layui: http://www.layui.com</p><p style=\"white-space: normal;\">layuimini: http://layuimini.99php.cn</p><p><br/></p>', 1632833729, 1633052906),
@@ -652,114 +689,83 @@ INSERT INTO `yzn_page` (`id`, `catid`, `site_id`, `title`, `thumb`, `keywords`, 
 (10, 12, 2, 'The document', '', '', '', '<p> The jump to the </p> document is set directly in the column, so there is no need to edit </p>', 1632833032, 1632833067);
 
 
-INSERT INTO `yzn_photo` (`id`, `catid`, `theme`, `url`, `diyurl`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `image`) VALUES
+INSERT INTO `__PREFIX__photo` (`id`, `catid`, `theme`, `url`, `diyurl`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `image`) VALUES
 (1, 3, '官网模版', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 1, 0, 0, 1632825714, 1632826857, 0, 1, 1, '/uploads/images/banner.png,/uploads/images/banner.png'),
 (2, 3, '官网模版', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632825765, 1632826875, 0, 1, 1, '/uploads/images/banner.png,/uploads/images/banner.png'),
 (3, 3, '官网模版', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632825799, 1632958331, 0, 1, 1, '/uploads/images/banner.png,/uploads/images/banner.png');
 
 
-INSERT INTO `yzn_photo_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`, `description`, `content`) VALUES
+INSERT INTO `__PREFIX__photo_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`, `description`, `content`) VALUES
 (1, 1, 1, '官网模版', '', '', '官网模版', '<p>多站点CMS经过多年的更新迭代，系统功能已经非常完善了，不管你是建多语言站、还是城市分站、集团分站还是站群等等，都可以完美实现你的功能需求！</p><p>后台功能列举</p><p>1、功能强大：支持模型管理和字段相关管理，方便自由扩展</p><p>2、栏目灵活：网站栏目可多站共用也可单站私用</p><p>3、管理简单：发布内容可设置多站一起发布也可只管理单站</p><p>4、数据同步：开启后，发布分站内容可以从主站一键导入、管理维护省事</p><p>5、域名灵活：每个站一个单独域名；也可以主站用顶级域名，分站用二级域名；还可以所有站共用一个域名任意切换内容（适用说多语言站）</p><p>6、表单功能：自定义表单，随心所欲建任意表单</p><p>7、个性模版：每个网站可以设置不同的风格模版</p><p>8、个性主题：所有网站可以共用相同模版可设置不同的样式</p><p>9、一键翻译：主站发布完内容，可一键翻译推送到所有分站！支持38+种语言站的一键翻译推送。</p><p>10、单独管理：每个分站可设置单独的管理员，管理员可分配只管理一个站或管理所有站。</p><p>... ...</p><p>做网站 只写HTML模板即可</p><p><br/></p>'),
 (2, 2, 1, '官网模版', '', '', '官网模版', '<p>多站点CMS经过多年的更新迭代，系统功能已经非常完善了，不管你是建多语言站、还是城市分站、集团分站还是站群等等，都可以完美实现你的功能需求！</p><p>后台功能列举</p><p>1、功能强大：支持模型管理和字段相关管理，方便自由扩展</p><p>2、栏目灵活：网站栏目可多站共用也可单站私用</p><p>3、管理简单：发布内容可设置多站一起发布也可只管理单站</p><p>4、数据同步：开启后，发布分站内容可以从主站一键导入、管理维护省事</p><p>5、域名灵活：每个站一个单独域名；也可以主站用顶级域名，分站用二级域名；还可以所有站共用一个域名任意切换内容（适用说多语言站）</p><p>6、表单功能：自定义表单，随心所欲建任意表单</p><p>7、个性模版：每个网站可以设置不同的风格模版</p><p>8、个性主题：所有网站可以共用相同模版可设置不同的样式</p><p>9、一键翻译：主站发布完内容，可一键翻译推送到所有分站！支持38+种语言站的一键翻译推送。</p><p>10、单独管理：每个分站可设置单独的管理员，管理员可分配只管理一个站或管理所有站。</p><p>... ...</p><p>做网站 只写HTML模板即可</p><p><br/></p><p><br/></p>'),
 (3, 3, 1, '官网模版', '', '', '官网模版', '<p>多站点CMS经过多年的更新迭代，系统功能已经非常完善了，不管你是建多语言站、还是城市分站、集团分站还是站群等等，都可以完美实现你的功能需求！</p><p>后台功能列举</p><p>1、功能强大：支持模型管理和字段相关管理，方便自由扩展</p><p>2、栏目灵活：网站栏目可多站共用也可单站私用</p><p>3、管理简单：发布内容可设置多站一起发布也可只管理单站</p><p>4、数据同步：开启后，发布分站内容可以从主站一键导入、管理维护省事</p><p>5、域名灵活：每个站一个单独域名；也可以主站用顶级域名，分站用二级域名；还可以所有站共用一个域名任意切换内容（适用说多语言站）</p><p>6、表单功能：自定义表单，随心所欲建任意表单</p><p>7、个性模版：每个网站可以设置不同的风格模版</p><p>8、个性主题：所有网站可以共用相同模版可设置不同的样式</p><p>9、一键翻译：主站发布完内容，可一键翻译推送到所有分站！支持100+种语言的一键翻译推送。</p><p>10、单独管理：每个分站可设置单独的管理员，管理员可分配只管理一个站或管理所有站。</p><p>11、内容目录：内容页可分章节和目录、适合小说、视频、课件、词条等网站的建设</p><p>12、虚拟分站：可建设虚拟站点，主要用于城市分站、只发布主站内容、分站不用发布！可生成任意城市站点</p><p>... ...</p><p>做网站 只写HTML模板即可</p><p><br/></p><p><br/></p>');
 
-INSERT INTO `yzn_attachment` (`id`, `aid`, `uid`, `name`, `module`, `path`, `thumb`, `url`, `mime`, `ext`, `size`, `md5`, `sha1`, `driver`, `create_time`, `update_time`, `listorders`, `status`) VALUES
+INSERT INTO `__PREFIX__attachment` (`id`, `aid`, `uid`, `name`, `module`, `path`, `thumb`, `url`, `mime`, `ext`, `size`, `md5`, `sha1`, `driver`, `create_time`, `update_time`, `listorders`, `status`) VALUES
 (1, 1, 0, 'logo.png', 'admin', '/uploads/images/logo.png', '', '', 'image/png', 'png', 16140, '693cf31fc1e433bf91cd178d658d4e36', '16f445461fd1218f6fdf258074c567f3cf4b490f', 'local', 1614839862, 1614839862, 100, 1),
 (2, 1, 0, 'banner.png', 'cms', '/uploads/images/banner.png', '', '', 'image/png', 'png', 1573089, '5545474fedb30a8651f02125c7893213', '7a94db83c3f77aa163734e71712421455bd81768', 'local', 1615821110, 1615821110, 100, 1),
 (3, 1, 0, 'photo', 'cms', '/uploads/images/photo.png', '', '', 'image/png', 'png', 7094, '80784dba0655f5653b38b80feabff97f', 'c64ff38bde00dcf35c89babbb6d2635bb0f80061', 'local', 1615844116, 1615844116, 100, 1),
 (4, 1, 0, 'favicon.ico', 'cms', '/favicon.ico', '', '', 'image/x-icon', 'ico', 1150, 'fabed83f1e2944e510b80aad828bbac7', 'c54edc4a91c093e10e14ca15288a8559d58c2f84', 'local', 1624409065, 1624409065, 100, 1);
 
-CREATE TABLE `yzn_video` (
- `id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
- `catid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '栏目ID',
- `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
- `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',
- `diyurl` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '自定义URL',
- `thumb` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '封面图片',
- `flag` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '属性',
- `paytype` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '支付类型',
- `readpoint` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '支付数量',
- `listorder` smallint UNSIGNED NOT NULL DEFAULT '100' COMMENT '排序',
- `uid` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
- `username` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
- `sysadd` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否后台添加',
- `hits` mediumint UNSIGNED DEFAULT '0' COMMENT '点击量',
- `likes` mediumint UNSIGNED DEFAULT '0' COMMENT '点赞数',
- `dislikes` mediumint UNSIGNED DEFAULT '0' COMMENT '点踩数',
- `inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
- `updatetime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
- `pushtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '推送时间',
- `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
- `comment` tinyint NOT NULL DEFAULT '0' COMMENT '允许评论',
- `video` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '视频文件',
-    PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='视频模型模型表';
 
-
-
-INSERT INTO `yzn_video` (`id`, `catid`, `theme`, `url`, `diyurl`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `video`) VALUES
+INSERT INTO `__PREFIX__video` (`id`, `catid`, `theme`, `url`, `diyurl`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `video`) VALUES
 (1, 10, '测试视频', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632832804, 1632832900, 0, 1, 1, 'https://blz-videos.nosdn.127.net/1/OverWatch/OVR-S03_E03_McCree_REUNION_zhCN_1080P_mb78.mp4'),
 (2, 10, '视频测试二视频测试二', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632832905, 1632832926, 0, 1, 1, 'https://blz-videos.nosdn.127.net/1/OverWatch/AnimatedShots/Overwatch_AnimatedShot_CinematicTrailer.mp4');
 
-CREATE TABLE `yzn_video_data` (
-`id` mediumint UNSIGNED NOT NULL COMMENT '自然ID',
-`did` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '文档ID',
-`site_id` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID',
-`title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
-`tags` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Tags标签',
-`keywords` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO关键词',
-`description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
-`content` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '内容',
-PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='视频模型模型表';
 
-
-INSERT INTO `yzn_video_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`, `description`, `content`) VALUES
+INSERT INTO `__PREFIX__video_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`, `description`, `content`) VALUES
 (1, 1, 1, '测试视频', '', '', '测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频', '<p>测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频测试视频</p>'),
 (2, 2, 1, '视频测试二视频测试二', '', '', '视频测试二视频测试二视频测试二视频测试二', '<p>视频测试二视频测试二视频测试二视频测试二</p>');
 
+INSERT INTO `__PREFIX__site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `alone`, `close`, `source`, `status`, `inputtime`) VALUES
+ (1, '中文站', 'zh-cn', 'http', 'demo.dzdcms.com', 'http://demo.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 1, 0, 1, 0),
+ (2, 'English', 'en', 'http', 'endemo.dzdcms.com', 'http://endemo.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', 'dzdcms', 'Multi-site CMS demonstration station', 'Multi-site CMS, multi-site official website, multi-site official website,DzdCMS template, multi-site template, module plug-in, open source,PHP CMS,PHP', 'Multi-site CMS official website is a set of simple, robust, flexible, open source multi-site content management system, is the domestic open source CMS station group system, the number of program installation has been very high, many foreign trade websites, group websites, city stations are using multi-site CMS or based on CMS core development', 0, '', NULL, 0, 2, 1, 1, 0, 1, 0),
+ (3, '北京', 'zh-cn', 'http', 'bj.dzdcms.com', 'http://bj.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 3, 1, 1, 0, 1, 0),
+ (4, '上海', 'ko', 'http', 'sh.dzdcms.com', 'http://sh.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 4, 1, 1, 0, 1, 0);
 
-ALTER TABLE `yzn_attachment`
+ALTER TABLE `__PREFIX__site`
+    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '站点ID', AUTO_INCREMENT=5;
+
+ALTER TABLE `__PREFIX__attachment`
     MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
-ALTER TABLE `yzn_category`
+ALTER TABLE `__PREFIX__category`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '栏目ID', AUTO_INCREMENT=15;
 
-ALTER TABLE `yzn_category_data`
+ALTER TABLE `__PREFIX__category_data`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
-ALTER TABLE `yzn_lang_data`
+ALTER TABLE `__PREFIX__lang_data`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=287;
 
-ALTER TABLE `yzn_model`
+ALTER TABLE `__PREFIX__model`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
-ALTER TABLE `yzn_model_field`
+ALTER TABLE `__PREFIX__model_field`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 
-ALTER TABLE `yzn_news`
+ALTER TABLE `__PREFIX__news`
     MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '文档ID', AUTO_INCREMENT=15;
 
-ALTER TABLE `yzn_news_data`
+ALTER TABLE `__PREFIX__news_data`
     MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自然ID', AUTO_INCREMENT=17;
 
-ALTER TABLE `yzn_page`
+ALTER TABLE `__PREFIX__page`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
-ALTER TABLE `yzn_photo`
+ALTER TABLE `__PREFIX__photo`
     MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '文档ID', AUTO_INCREMENT=4;
 
-ALTER TABLE `yzn_photo_data`
+ALTER TABLE `__PREFIX__photo_data`
     MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自然ID', AUTO_INCREMENT=4;
 
-ALTER TABLE `yzn_video`
+ALTER TABLE `__PREFIX__video`
     MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '文档ID', AUTO_INCREMENT=3;
 
-ALTER TABLE `yzn_video_data`
+ALTER TABLE `__PREFIX__video_data`
     MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自然ID', AUTO_INCREMENT=3;
 
-ALTER TABLE `yzn_download`
+ALTER TABLE `__PREFIX__download`
     MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '文档ID', AUTO_INCREMENT=3;
 
-ALTER TABLE `yzn_download_data`
+ALTER TABLE `__PREFIX__download_data`
     MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自然ID', AUTO_INCREMENT=3;

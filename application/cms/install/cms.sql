@@ -1,5 +1,4 @@
-DROP TABLE IF EXISTS `yzn_site`;
-CREATE TABLE `yzn_site` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__site` (
 `id` smallint UNSIGNED NOT NULL COMMENT '站点ID',
 `name` varchar(100) NOT NULL DEFAULT '' COMMENT '站点名称',
 `mark` varchar(30) NOT NULL DEFAULT '' COMMENT '站点标识',
@@ -26,8 +25,7 @@ CREATE TABLE `yzn_site` (
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='站点表';
 
-DROP TABLE IF EXISTS `yzn_category`;
-CREATE TABLE `yzn_category` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__category` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '栏目ID',
   `catname` varchar(100) NOT NULL DEFAULT '' COMMENT '栏目名称',
   `catdir` varchar(100) NOT NULL DEFAULT '' COMMENT '唯一标识',
@@ -52,9 +50,7 @@ CREATE TABLE `yzn_category` (
   KEY `parentid` (`parentid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='栏目表';
 
-
-DROP TABLE IF EXISTS `yzn_category_data`;
-CREATE TABLE `yzn_category_data` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__category_data` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `catid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目ID',
   `catname` varchar(100) NOT NULL DEFAULT '' COMMENT '栏目名称',
@@ -66,8 +62,7 @@ CREATE TABLE `yzn_category_data` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='栏目附表';
 
-DROP TABLE IF EXISTS `yzn_category_priv`;
-CREATE TABLE `yzn_category_priv` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__category_priv` (
   `catid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目ID',
   `roleid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '角色或者组ID',
   `is_admin` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否为管理员 1、管理员',
@@ -75,23 +70,21 @@ CREATE TABLE `yzn_category_priv` (
   KEY `catid` (`catid`,`roleid`,`is_admin`,`action`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='栏目权限表';
 
-DROP TABLE IF EXISTS `yzn_page`;
-CREATE TABLE `yzn_page` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__page` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `catid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目ID',
   `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
   `title` varchar(160) NOT NULL DEFAULT '' COMMENT '标题',
   `thumb` varchar(160) NOT NULL DEFAULT '' COMMENT '单页图片',
   `keywords` varchar(255) NOT NULL DEFAULT '' COMMENT '关键字',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT 'SEO描述',
+  `description` varchar(500) NOT NULL DEFAULT '' COMMENT 'SEO描述',
   `content` text COMMENT '内容',
   `inputtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='单页内容表';
 
-DROP TABLE IF EXISTS `yzn_tags`;
-CREATE TABLE `yzn_tags` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__tags` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'tagID',
   `tag` char(100) NOT NULL DEFAULT '' COMMENT 'tag名称',
   `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
@@ -110,9 +103,7 @@ CREATE TABLE `yzn_tags` (
   KEY `hits` (`hits`,`listorder`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='tags主表';
 
-
-DROP TABLE IF EXISTS `yzn_tags_content`;
-CREATE TABLE `yzn_tags_content` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__tags_content` (
   `tag` char(100) NOT NULL COMMENT 'tag名称',
   `modelid` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '模型ID',
   `contentid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '信息ID',
@@ -123,8 +114,7 @@ CREATE TABLE `yzn_tags_content` (
   KEY `tag` (`tag`(10))
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='tags数据表';
 
-DROP TABLE IF EXISTS `yzn_lang`;
-CREATE TABLE `yzn_lang` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__lang` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '配置ID',
   `name` varchar(100) NOT NULL DEFAULT '' COMMENT '配置名称',
   `type` varchar(100) NOT NULL DEFAULT '' COMMENT '配置类型',
@@ -140,9 +130,7 @@ CREATE TABLE `yzn_lang` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='碎片管理';
 
-
-DROP TABLE IF EXISTS `yzn_lang_data`;
-CREATE TABLE `yzn_lang_data` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__lang_data` (
  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
  `lang_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '配置ID',
  `value` text COMMENT '相关配置信息',
@@ -151,8 +139,7 @@ CREATE TABLE `yzn_lang_data` (
  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='网站配置附表';
 
-DROP TABLE IF EXISTS `yzn_search_log`;
-CREATE TABLE `yzn_search_log` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__search_log` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
   `keywords` varchar(255) NOT NULL DEFAULT '' COMMENT '关键字',
@@ -164,8 +151,7 @@ CREATE TABLE `yzn_search_log` (
   UNIQUE KEY `keywords` (`keywords`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='搜索记录表';
 
-
-CREATE TABLE `yzn_lang_group` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__lang_group` (
   `id` mediumint UNSIGNED NOT NULL COMMENT '碎片分组id,自增主键',
   `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '碎片分组',
   `description` varchar(80) NOT NULL DEFAULT '' COMMENT '描述信息',
@@ -173,11 +159,8 @@ CREATE TABLE `yzn_lang_group` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='碎片分组表';
 
---
--- 转存表中的数据 `yzn_lang`
---
 
-INSERT INTO `yzn_lang` (`id`, `name`, `type`, `title`, `group`, `options`, `remark`, `create_time`, `update_time`, `value`, `listorder`, `status`) VALUES
+INSERT INTO `__PREFIX__lang` (`id`, `name`, `type`, `title`, `group`, `options`, `remark`, `create_time`, `update_time`, `value`, `listorder`, `status`) VALUES
 (1, 'siteName', 'text', '网站名称', '1', '', '', 1615821490, 1633126840, '多站点CMS', 100, 1),
 (2, 'beian', 'text', '备案号', '1', '', '', 1615821524, 1633126855, '京ICP备12010025号-11', 100, 1),
 (3, 'copyright', 'text', '尾部版权', '1', '', '', 1615821624, 1633126871, 'Copyright © 2006-2021 dzdcms.com All rights reserved.', 100, 1),
@@ -303,21 +286,21 @@ INSERT INTO `yzn_lang` (`id`, `name`, `type`, `title`, `group`, `options`, `rema
 (123, 'Visitor', 'text', '游客', '2', '', '', 1633307367, 1633315338, '游客', 100, 1);
 
 
-INSERT INTO `yzn_lang_group` (`id`, `name`, `description`, `status`) VALUES
+INSERT INTO `__PREFIX__lang_group` (`id`, `name`, `description`, `status`) VALUES
 (1, '内容', '前端网页中出现的', 1),
 (2, '会员', '会员中心所有文字标签', 1),
 (3, '系统', '后端的提示语在前端显示的', 1);
 
-INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `alone`, `close`, `source`, `status`, `inputtime`) VALUES
+INSERT INTO `__PREFIX__site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `alone`, `close`, `source`, `status`, `inputtime`) VALUES
 (1, '中文站', 'zh-cn', 'http', 'demo.dzdcms.com', 'http://demo.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 1, 0, 1, 0);
 
-ALTER TABLE `yzn_site`
+ALTER TABLE `__PREFIX__site`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '站点ID', AUTO_INCREMENT=2;
 
-ALTER TABLE `yzn_lang`
+ALTER TABLE `__PREFIX__lang`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_INCREMENT=124;
 
-ALTER TABLE `yzn_lang_group`
+ALTER TABLE `__PREFIX__lang_group`
     MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户组id,自增主键', AUTO_INCREMENT=4;
 
 

@@ -1,49 +1,50 @@
-{include file="public/header" /}
-{include file="public/banner_In" /}
-<div class="layui-container page">
-    <div class="layui-row layui-col-space20">
-        <div class="layui-col-sm3 layui-col-md2 layui-left">
-            <div class="left-nav-title">
-                <div class="title">按时间搜索</div>
-            </div>
-            <div class="layui-panel">
-                <ul class="layui-menu">
-                    <li class="layui-menu-item-divider"></li>
-                    <li {empty name="time"}class="layui-menu-item-checked"{/empty}> <a href="?keyword={$keyword}&modelid={$modelid}&time=">全部时间</a></li>
-                    <li class="layui-menu-item-divider"></li>
-                    <li {eq name="time" value="day"}class="layui-menu-item-checked"{/eq}> <a href="?keyword={$keyword}&modelid={$modelid}&time=day">一天内</a></li>
-                    <li class="layui-menu-item-divider"></li>
-                    <li {eq name="time" value="week"}class="layui-menu-item-checked"{/eq}> <a href="?keyword={$keyword}&modelid={$modelid}&time=week">一周内</a></li>
-                    <li class="layui-menu-item-divider"></li>
-                    <li {eq name="time" value="month"}class="layui-menu-item-checked"{/eq}> <a href="?keyword={$keyword}&modelid={$modelid}&time=month">一月内</a></li>
-                    <li class="layui-menu-item-divider"></li>
-                    <li {eq name="time" value="year"}class="layui-menu-item-checked"{/eq}> <a href="?keyword={$keyword}&modelid={$modelid}&time=year">一年内</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="layui-col-sm9 layui-col-md10">
-            <div class="layui-card">
-                <div class="layui-card-header">
-                    <span class="layui-breadcrumb layui-hide-xs" style="visibility: visible;">
-                        <a href="{$siteurl}">首页</a> <a href="/">搜索</a> <a href="/">{$keyword}</a>
-                    </span>
-                </div>
-            </div>
-            <div class="layui-row">
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <form name="formsearch" action="{:url('cms/index/search')}" class="layui-search">
-                            <div class="layui-input-inline">
-                                <input class="layui-input" type="text" name="keyword" value="请输入关键字" onfocus="if(this.value==defaultValue)this.value=''" onblur="if(this.value=='')this.value=defaultValue">
-                            </div>
-                            <div class="layui-input-inline">
-                                <button type="submit" class="layui-btn layui-btn-danger"><i class="layui-icon layui-icon-search">搜索</i></button>
-                            </div>
-                            </form>
+{include file="header" /}
+<div class="main">
+    <div class="search-top-box">
+        <div class="w1200">
+            <div class="search_box">
+                <div class="search radius6">
+                    <form method="get" name="search" action="{:url('cms/index/search')}">
+                        <div class="select_box">
+                            <div class="select_showbox" style="cursor: pointer;">搜索全部</div>
+                            <ul class="select_option" style="display: none;">
+                                <li class="selected"><a href="javascript:set_option(0);">搜索全部</a></li>
+                                {volist name="modellist" id="vo"}
+                                <li class=""><a href="javascript:set_option({$vo.id});">{$vo.name}</a></li>
+                                {/volist}
+                            </ul>
                         </div>
+                        <input id="modelid" name="modelid" value="0" type="hidden">
+                        <input class="inp_srh" name="keyword" placeholder="请输入搜索关键词">
+                        <input class="btn_srh" type="submit" value="搜索">
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-{include file="public/footer" /}
+<script type="text/javascript">
+$(function() {
+    $(".select_showbox").click(function() {
+        $(".select_option").show();
+        $(this).addClass("active");
+    });
+
+    $(".select_option li").click(function() {
+        $(".select_showbox").html($(this).html());
+        $(".select_option").hide();
+        $(".select_showbox").removeClass("active");
+    });
+
+    $(".select_option li").hover(function() {
+        $(this).addClass("selected");
+    }, function() {
+        $(this).removeClass("selected");
+    });
+});
+
+function set_option(id) {
+    $("#modelid").val(id);
+}
+</script>
+{include file="footer" /}
