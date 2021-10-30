@@ -19,25 +19,39 @@ class Lists extends Adminbase
 
     }
 
-    //高级下拉菜单url 选点站栏目
+    /**
+     * 高级下拉菜单url 同模型所有栏目
+     * url:/api/lists/category // 同模型的所有栏目  /api/lists/category/modelid/2 其他模型的ID
+     * field:catname
+     * key:id
+     * pagination:true
+     * page_size:10
+     * multiple:true
+     * max:10
+     * order:id
+     */
+
     public function category(){
-        $catid = $this->request->param('catid/d', 0);
+        $modelid = $this->request->param('modelid/d', 0);
+        if (!$modelid){
+            $modelid = 1;
+        }
+        $wheres = 'modelid =' . $modelid ;
         $this->modelClass = Db::name('category');
         //如果发送的来源是Selectpage，则转发到Selectpage
         if ($this->request->request('keyField')) {
-            return $this->selectpage();
+            return $this->selectpage($wheres);
         }
-
     }
 
     //高级下拉菜单url 会员级别
     public function memberGroup(){
+        $wheres = '' ;
         $this->modelClass = Db::name('member_group');
         //如果发送的来源是Selectpage，则转发到Selectpage
         if ($this->request->request('keyField')) {
-            return $this->selectpage();
+            return $this->selectpage($wheres);
         }
-
     }
 
     //获取标题拼音

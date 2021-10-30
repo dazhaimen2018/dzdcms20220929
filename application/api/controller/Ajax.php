@@ -17,6 +17,21 @@ class Ajax extends Cmsbase
         parent::initialize();
     }
 
+    // 文档模型 标题搜索
+    public function search()
+    {
+        $keyword = $this->request->param('w/s', '', 'trim,safe_replace,strip_tags,htmlspecialchars');
+        $keyword = str_replace('%', '', $keyword); //过滤'%'，用户全文搜索
+        $where   = "theme like '%$keyword%'";
+        $list    = db('docs')->where($where)->field('id,theme as title,catid,url')->select();
+        $_list   = [];
+        foreach ($list as $k => $v) {
+            $v['url']  =  $v['url']?$v['url']: '/'. getCategory($v['catid'],'catdir').'/'.$v['id'].'.html';
+            $_list[]   = $v;
+        }
+        $result = array("code" => 0, "data" => $_list, "msg"=>  "success");
+        return json($result);
+    }
 
     public function doctor()
     {
