@@ -158,6 +158,7 @@ class Models extends Modelbase
                 CREATE TABLE `{$table}` (
                `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '文档ID',
 				`catid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目ID',
+				 `catids` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '同步栏目',
 				`theme` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',				
 				`url` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',				
 				`diyurl` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '自定义URL',				
@@ -177,7 +178,7 @@ class Models extends Modelbase
 				`pushtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '推送时间',
                 `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '前台显示',
                 `comment` tinyint(2) NOT NULL DEFAULT '0' COMMENT '允许评论',
-                `groupids` tinyint(2) NOT NULL DEFAULT '0' COMMENT '访问权限',
+                `groupids` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '访问权限',
 				PRIMARY KEY (`id`),
                 KEY `status` (`catid`,`status`)
                 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='{$data['name']}模型表';
@@ -292,11 +293,19 @@ EOF;
                 'isadd'     => 1,
             ],
             [
+                'name'    => 'catids',
+                'title'   => '同步栏目',
+                'type'    => 'selectpage',
+                'listorder' => 3,
+                'remark' => '同时发布在其他栏目中',
+                'setting' => "a:4:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:7:\"options\";s:110:\"url:/api/lists/category\r\nfield:catname\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:0:\"\";}",
+            ],
+            [
                 'name'    => 'flag',
                 'title'   => '属性',
                 'type'    => 'checkbox',
-                'listorder'=> 3,
-                'iffixed' => 0,
+                'listorder'=> 4,
+                'ifrequire' => 1,
                 'setting' => "a:3:{s:6:\"define\";s:31:\"varchar(32) NOT NULL DEFAULT ''\";s:7:\"options\";s:76:\"1:置顶[1]\r\n2:头条[2]\r\n3:特荐[3]\r\n4:推荐[4]\r\n5:热点[5]\r\n6:幻灯[6]\";s:5:\"value\";s:0:\"\";}",
             ],
             [
@@ -421,7 +430,7 @@ EOF;
                 'title'   => '访问权限',
                 'type'    => 'selectpage',
                 'listorder' => 21,
-                'setting' => "a:4:{s:6:\"define\";s:20:\"varchar(32) NOT NULL\";s:7:\"options\";s:111:\"url:/api/lists/memberGroup\r\nfield:name\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:1:\"0\";}",
+                'setting' => "a:4:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:7:\"options\";s:110:\"url:/api/lists/memberGroup\r\nfield:name\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:0:\"\";}",
             ],
 
         ];
