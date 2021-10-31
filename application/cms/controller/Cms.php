@@ -169,8 +169,10 @@ class Cms extends Adminbase
                 ['catid', '=', $catid],
                 ['status', 'in', [0, 1]],
             ];
-            $total   = Db::name($tableName)->where($where)->where($conditions)->count();
-            $list    = Db::name($tableName)->page($page, $limit)->where($where)->where($conditions)->order('listorder DESC, id DESC')->select();
+            //显示同步发布在本栏目的文章 catids中包含$catid
+            $catidsOr = "FIND_IN_SET($catid,catids)";
+            $total   = Db::name($tableName)->where($where)->where($conditions)->whereOr($catidsOr)->count();
+            $list    = Db::name($tableName)->page($page, $limit)->where($where)->where($conditions)->whereOr($catidsOr)->order('listorder DESC, id DESC')->select();
             $siteId  = onSite();
             $siteUrl = onSiteUrl();
             $_list   = [];
@@ -221,7 +223,6 @@ class Cms extends Adminbase
         $this->assign([
             'string' => $string,
             'catid'  => $catid,
-            'site'   => $siteData,
         ]);
         return $this->fetch();
     }
