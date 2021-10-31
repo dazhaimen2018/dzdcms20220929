@@ -657,6 +657,13 @@ class Cms extends Adminbase
         $this->success('删除成功！');
     }
 
+
+    //移除同步发布在本栏目的文章
+    public function out()
+    {
+        $this->success('移除正在开发中。。。！');
+    }
+
     //清空回收站
     public function destroy()
     {

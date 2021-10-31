@@ -393,7 +393,7 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                 });
 
                 //同步发布文章被移除(不刷新)
-                $(document).on('click', '.layui-tr-remove', function() {
+                $(document).on('click', '.layui-tr-out', function() {
                     var that = $(this),
                         index = that.parents('tr').eq(0).data('index'),
                         tr = $('.layui-table-body').find('tr[data-index="' + index + '"]'),
