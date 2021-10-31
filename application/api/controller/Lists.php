@@ -34,14 +34,15 @@ class Lists extends Adminbase
     public function category(){
         $modelid = $this->request->param('modelid/d', 0);
         $catid = $this->request->param('catid/d', 0);
-        if (!$modelid){
+        if (!$modelid){ //同步发布
             $catCache  = cache('catCache'); //从缓存中得到模型ID
             $modelid   = $catCache['modelid'];
             $catid     = $catCache['catid'];
             //相同模型并且不含当前栏目并且是终极栏目
             $wheres = 'modelid =' . $modelid .' AND child = 0 AND id <>' . $catid;
         } else {
-            $wheres = 'modelid =' . $modelid;
+            //关联其他模型栏目
+            $wheres = 'modelid =' . $modelid .' AND child = 0';
         }
         $this->modelClass = Db::name('category');
         //如果发送的来源是Selectpage，则转发到Selectpage
