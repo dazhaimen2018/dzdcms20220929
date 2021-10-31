@@ -391,6 +391,33 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                     });
                     return false;
                 });
+
+                //同步发布文章被移除(不刷新)
+                $(document).on('click', '.layui-tr-remove', function() {
+                    var that = $(this),
+                        index = that.parents('tr').eq(0).data('index'),
+                        tr = $('.layui-table-body').find('tr[data-index="' + index + '"]'),
+                        href = !that.attr('data-href') ? that.attr('href') : that.attr('data-href');
+                    layer.confirm('移除之后可编辑原文章恢复，您确定要移除吗？', { icon: 3, title: '提示信息' }, function(index) {
+                        if (!href) {
+                            notice.info({ message: '请设置data-href参数' });
+                            return false;
+                        }
+                        $.get(href, function(res) {
+                            if (res.code == 1) {
+                                notice.success({ message: res.msg });
+                                //that.parents('tr').remove();
+                                tr.remove();
+                            } else {
+                                notice.error({ message: res.msg });
+                            }
+                        });
+                        layer.close(index);
+                    });
+                    return false;
+                });
+
+
                 //马博 20211017 end
 
                 //通用状态设置开关
@@ -747,7 +774,7 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                         $('.js-ueditor',layform).each(function() {
                             var ueditor_name = $(this).attr('id');
                             ueditors[ueditor_name] = UE.getEditor(ueditor_name, {
-                                allowDivTransToP: false, //转换p标签
+                                //allowDivTransToP: false, //转换p标签
                                 initialFrameWidth: '100%',
                                 initialFrameHeight: 400, //初始化编辑器高度,默认320
                                 autoHeightEnabled: false, //是否自动长高
