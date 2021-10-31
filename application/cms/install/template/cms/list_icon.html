@@ -24,7 +24,7 @@
     {php}$where=structure_filters_sql($modelid);{/php}
     <div class="layui-container merit" style="padding-bottom: 85px;">
         <div class="layui-row layui-col-space30">
-            {yzn module="cms" action="lists" where="$where" catid="$catid" cache="3600" order="listorder DESC" num="20" page="$page" return="data"}
+            {yzn module="cms" action="lists" where="$where" catid="$catid" catids="$catid" siteId="$siteId"  cache="3600" order="listorder DESC" num="20" page="$page" return="data"}
             {volist name="data" id="item"}
             <div class="layui-col-sm6 layui-col-md3 ">
                 <div class="angle_box">

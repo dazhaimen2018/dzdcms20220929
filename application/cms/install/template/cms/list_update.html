@@ -14,7 +14,7 @@
                 </div>
                 <div class="layui-card-body">
                     <ul class="layui-timeline">
-                        {yzn module="cms" action="lists" catid="$catid"  siteId="$site_id" cache="3600" order="inputtime DESC" num="12" page="$page" return="data"}
+                        {yzn module="cms" action="lists" catid="$catid" catids="$catid" siteId="$siteId" cache="3600" order="inputtime DESC" num="12" page="$page" return="data"}
                         {volist name="data" id="item"}
                         <li class="layui-timeline-item">
                             <i class="layui-icon layui-timeline-axis"></i>
