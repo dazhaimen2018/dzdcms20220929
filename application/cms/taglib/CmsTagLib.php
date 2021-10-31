@@ -126,6 +126,16 @@ class CmsTagLib
                 $data['where'] .= " AND (" . implode(' OR ', $flag) . ")";
             }
         }
+        //同步发布
+        if (isset($data['catids'])) {
+            $catids = [];
+            foreach (explode(',', $data['catids']) as $k => $v) {
+                $catids[] = "FIND_IN_SET('" . $v . "', catids)";
+            }
+            if ($catids) {
+                $data['where'] .= " OR (" . implode(' OR ', $catids) . ")";
+            }
+        }
         $data['field']  = isset($data['field']) ? $data['field'] : '*';
         $data['simple'] = isset($data['simple']) ? (is_numeric($data['simple']) ? (int) $data['simple'] : (bool) $data['simple']) : false;
         $moreifo        = isset($data['moreinfo']) ? $data['moreinfo'] : 0;
