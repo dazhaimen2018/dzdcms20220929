@@ -20,6 +20,7 @@ use app\cms\model\Page as Page_Model;
 use app\cms\model\Site;
 use app\common\controller\Adminbase;
 use think\Db;
+use think\facade\Cache;
 
 
 class Cms extends Adminbase
@@ -308,17 +309,25 @@ class Cms extends Adminbase
             $cache =  cleanUp();
             $this->success('操作成功！');
         } else {
+            //强制清除缓存
+            Cache::rm('catCache', null);
             $catid = $this->request->param('catid/d', 0);
             $import = $this->request->param('import/d', 0);
             $category = getCategory($catid);
             if (empty($category)) {
                 $this->error('该栏目不存在！');
             }
+            // 缓存一个栏目ID和模型ID 同步发布栏目时要用到
+            $cache['catid']   = $catid;
+            $cache['modelid'] = $category['modelid'];
+            Cache::set('catCache', $cache, 3600);
+
             if(isset(cache("Cms_Config")['offside']) && 1 == cache("Cms_Config")['offside']) {
                 $view = 'add_tab';
             }
             if ($category['type'] == 2) {
                 $modelid = $category['modelid'];
+
                 $fieldList = $this->Cms_Model->getFieldListAll($modelid);
                 $extraFieldList = $this->Cms_Model->getExtraField($modelid, 0);
                 $this->assign([
@@ -418,6 +427,8 @@ class Cms extends Adminbase
             $this->success('编辑成功！');
 
         } else {
+            //强制清除缓存
+            Cache::rm('catCache', null);
             $catid    = $this->request->param('catid/d', 0);
             $import   = $this->request->param('import/d', 0);
             $id       = $this->request->param('id/d', 0);
@@ -425,6 +436,11 @@ class Cms extends Adminbase
             if (empty($category)) {
                 $this->error('该栏目不存在！');
             }
+            // 缓存一个栏目ID和模型ID 同步发布栏目时要用到
+            $cache['catid']   = $catid;
+            $cache['modelid'] = $category['modelid'];
+            Cache::set('catCache', $cache, 3600);
+
             if(isset(cache("Cms_Config")['offside']) && 1 == cache("Cms_Config")['offside']) {
                 $view = 'edit_tab';
             }

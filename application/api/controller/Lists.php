@@ -33,8 +33,11 @@ class Lists extends Adminbase
 
     public function category(){
         $modelid = $this->request->param('modelid/d', 0);
+        $catid = $this->request->param('catid/d', 0);
         if (!$modelid){
-            $modelid = 1;
+            $catCache  = cache('catCache'); //从缓存中得到模型ID
+            $modelid   = $catCache['modelid'];
+            $catid     = $catCache['catid'];
         }
         $wheres = 'modelid =' . $modelid ;
         $this->modelClass = Db::name('category');
