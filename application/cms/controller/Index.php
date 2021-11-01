@@ -405,7 +405,8 @@ class Index extends Cmsbase
         //加入搜索历史
         cookie("shistory", $shistory);
 
-        $modellist = Db::name('Model')->where('status', 1)->where('module','cms')->cache(60)->select();
+        //$modellist = Db::name('Model')->where('status', 1)->where('module','cms')->cache(60)->select();
+        $modellist = cache('Model');
         if (!$modellist) {
             return $this->error('没有可搜索模型~');
         }
