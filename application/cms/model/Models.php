@@ -298,7 +298,7 @@ EOF;
                 'type'    => 'selectpage',
                 'listorder' => 3,
                 'remark' => '同时发布在其他栏目中',
-                'setting' => "a:4:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:7:\"options\";s:110:\"url:/api/lists/category\r\nfield:catname\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:0:\"\";}",
+                'setting' => "a:4:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:7:\"options\";s:110:\"url:/admin/ajax/category\r\nfield:catname\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:0:\"\";}",
             ],
             [
                 'name'    => 'flag',
@@ -430,7 +430,7 @@ EOF;
                 'title'   => '访问权限',
                 'type'    => 'selectpage',
                 'listorder' => 21,
-                'setting' => "a:4:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:7:\"options\";s:110:\"url:/api/lists/memberGroup\r\nfield:name\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:0:\"\";}",
+                'setting' => "a:4:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:7:\"options\";s:110:\"url:/admin/ajax/memberGroup\r\nfield:name\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:0:\"\";}",
             ],
 
         ];

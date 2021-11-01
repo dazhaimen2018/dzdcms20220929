@@ -637,7 +637,7 @@ INSERT INTO `__PREFIX__model_field` (`id`, `modelid`, `name`, `title`, `remark`,
 (116, 3, 'times', '下载次数', '', '', '', 'number', 'a:3:{s:6:\"define\";s:25:\"int(10) UNSIGNED NOT NULL\";s:5:\"value\";s:0:\"\";s:7:\"options\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1632829300, 1632829391, 10, 1),
 (117, 3, 'file', '文件上传', '', '', '', 'file', 'a:3:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:5:\"value\";s:0:\"\";s:7:\"options\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1632829375, 1632829387, 3, 1),
 (118, 4, 'video', '视频文件', '', '', '', 'file', 'a:3:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:5:\"value\";s:0:\"\";s:7:\"options\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1632832866, 1632832878, 4, 1),
-(119, 1, 'groupids', '访问权限', '', '', '不选代表无限制', 'selectpage', 'a:4:{s:6:\"define\";s:20:\"varchar(32) NOT NULL\";s:7:\"options\";s:110:\"url:/api/lists/memberGroup\r\nfield:name\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:1:\"0\";}', 1, 0, 0, 0, 0, 0, 1632838010, 1632868864, 101, 1);
+(119, 1, 'groupids', '访问权限', '', '', '不选代表无限制', 'selectpage', 'a:4:{s:6:\"define\";s:20:\"varchar(32) NOT NULL\";s:7:\"options\";s:110:\"url:/admin/ajax/memberGroup\r\nfield:name\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:1:\"0\";}', 1, 0, 0, 0, 0, 0, 1632838010, 1632868864, 101, 1);
 
 
 INSERT INTO `__PREFIX__news` (`id`, `catid`, `theme`, `url`, `diyurl`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `icon`, `image`, `groupids`) VALUES
