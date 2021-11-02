@@ -6,6 +6,7 @@
 CREATE TABLE IF NOT EXISTS `__PREFIX__news` (
 `id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
 `catid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '栏目ID',
+`catids` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0' COMMENT '同步栏目',
 `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
 `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',
 `diyurl` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '自定义URL',
@@ -47,6 +48,7 @@ PRIMARY KEY (`id`)
 CREATE TABLE IF NOT EXISTS `__PREFIX__photo` (
 `id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
 `catid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '栏目ID',
+`catids` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0' COMMENT '同步栏目',
 `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
 `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',
 `diyurl` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '自定义URL',
@@ -86,6 +88,7 @@ PRIMARY KEY (`id`)
 CREATE TABLE IF NOT EXISTS `__PREFIX__download` (
 `id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
 `catid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '栏目ID',
+`catids` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0' COMMENT '同步栏目',
 `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
 `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',
 `diyurl` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '自定义URL',
@@ -127,6 +130,7 @@ PRIMARY KEY (`id`)
 CREATE TABLE IF NOT EXISTS `__PREFIX__video` (
    `id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
    `catid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '栏目ID',
+   `catids` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0' COMMENT '同步栏目',
    `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',
     `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',
     `diyurl` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '自定义URL',
@@ -166,9 +170,9 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__video_data` (
 
 
 
-INSERT INTO `__PREFIX__download` (`id`, `catid`, `theme`, `url`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `times`, `file`) VALUES
-(1, 9, '多站点CMS官方模版下载', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 2, 0, 0, 1632832944, 1632832970, 0, 1, 1, 99, '/uploads/images/dzdcms.zip'),
-(2, 9, '文档模版', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632832972, 1632957797, 0, 1, 1, 0, '/uploads/images/dzdcms.zip');
+INSERT INTO `__PREFIX__download` (`id`, `catid`, `catids`, `theme`, `url`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `times`, `file`) VALUES
+(1, 9, '', '多站点CMS官方模版下载', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 2, 0, 0, 1632832944, 1632832970, 0, 1, 1, 99, '/uploads/images/dzdcms.zip'),
+(2, 9, '', '文档模版', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632832972, 1632957797, 0, 1, 1, 0, '/uploads/images/dzdcms.zip');
 
 INSERT INTO `__PREFIX__download_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`, `description`, `content`) VALUES
 (1, 1, 1, '多站点CMS官方模版下载', '', '', '多站点CMS官方模版下载多站点CMS官方模版下载多站点CMS官方模版下载多站点CMS官方模版下载', '<p>多站点CMS官方模版下载多站点CMS官方模版下载多站点CMS官方模版下载多站点CMS官方模版下载</p>'),
@@ -535,7 +539,7 @@ INSERT INTO `__PREFIX__model_field` (`id`, `modelid`, `name`, `title`, `remark`,
 (14, 1, 'hits', '点击量', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823818, 1632823818, 10, 1),
 (15, 1, 'likes', '点赞数', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823818, 1632823818, 11, 1),
 (16, 1, 'dislikes', '点踩数', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823818, 1632823818, 12, 1),
-(17, 1, 'inputtime', '创建时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1632823818, 1632869869, 7, 1),
+(17, 1, 'inputtime', '定时发布', '创建时间为未来时是定时发布', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1632823818, 1632869869, 7, 1),
 (18, 1, 'updatetime', '更新时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1632823818, 1632823818, 14, 1),
 (19, 1, 'pushtime', '推送时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1632823818, 1632823818, 15, 1),
 (20, 1, 'comment', '允许评论', '', '', '', 'radio', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:18:\"0:禁止\r\n1:允许\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1632823818, 1632823818, 16, 1),
@@ -563,7 +567,7 @@ INSERT INTO `__PREFIX__model_field` (`id`, `modelid`, `name`, `title`, `remark`,
 (42, 2, 'hits', '点击量', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823847, 1632823847, 10, 1),
 (43, 2, 'likes', '点赞数', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823847, 1632823847, 11, 1),
 (44, 2, 'dislikes', '点踩数', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823847, 1632823847, 12, 1),
-(45, 2, 'inputtime', '创建时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1632823847, 1632823847, 13, 1),
+(45, 2, 'inputtime', '定时发布', '创建时间为未来时是定时发布', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1632823847, 1632823847, 13, 1),
 (46, 2, 'updatetime', '更新时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1632823847, 1632823847, 14, 1),
 (47, 2, 'pushtime', '推送时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1632823847, 1632823847, 15, 1),
 (48, 2, 'comment', '允许评论', '', '', '', 'radio', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:18:\"0:禁止\r\n1:允许\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1632823847, 1632823847, 16, 1),
@@ -591,7 +595,7 @@ INSERT INTO `__PREFIX__model_field` (`id`, `modelid`, `name`, `title`, `remark`,
 (70, 3, 'hits', '点击量', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823874, 1632823874, 10, 1),
 (71, 3, 'likes', '点赞数', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823874, 1632823874, 11, 1),
 (72, 3, 'dislikes', '点踩数', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823874, 1632823874, 12, 1),
-(73, 3, 'inputtime', '创建时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1632823874, 1632823874, 13, 1),
+(73, 3, 'inputtime', '定时发布', '创建时间为未来时是定时发布', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1632823874, 1632823874, 13, 1),
 (74, 3, 'updatetime', '更新时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1632823874, 1632823874, 14, 1),
 (75, 3, 'pushtime', '推送时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1632823874, 1632823874, 15, 1),
 (76, 3, 'comment', '允许评论', '', '', '', 'radio', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:18:\"0:禁止\r\n1:允许\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1632823874, 1632823874, 16, 1),
@@ -619,7 +623,7 @@ INSERT INTO `__PREFIX__model_field` (`id`, `modelid`, `name`, `title`, `remark`,
 (98, 4, 'hits', '点击量', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823897, 1632823897, 10, 1),
 (99, 4, 'likes', '点赞数', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823897, 1632823897, 11, 1),
 (100, 4, 'dislikes', '点踩数', '', '', '', 'dzd', 'a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}', 1, 0, 1, 0, 0, 0, 1632823897, 1632823897, 12, 1),
-(101, 4, 'inputtime', '创建时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1632823897, 1632823897, 13, 1),
+(101, 4, 'inputtime', '定时发布', '创建时间为未来时是定时发布', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1632823897, 1632823897, 13, 1),
 (102, 4, 'updatetime', '更新时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1632823897, 1632823897, 14, 1),
 (103, 4, 'pushtime', '推送时间', '', '', '', 'datetime', 'a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}', 1, 1, 1, 0, 0, 0, 1632823897, 1632823897, 15, 1),
 (104, 4, 'comment', '允许评论', '', '', '', 'radio', 'a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT \'0\'\";s:7:\"options\";s:18:\"0:禁止\r\n1:允许\";s:5:\"value\";s:1:\"1\";}', 1, 0, 1, 0, 0, 0, 1632823897, 1632823897, 16, 1),
@@ -637,24 +641,27 @@ INSERT INTO `__PREFIX__model_field` (`id`, `modelid`, `name`, `title`, `remark`,
 (116, 3, 'times', '下载次数', '', '', '', 'number', 'a:3:{s:6:\"define\";s:25:\"int(10) UNSIGNED NOT NULL\";s:5:\"value\";s:0:\"\";s:7:\"options\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1632829300, 1632829391, 10, 1),
 (117, 3, 'file', '文件上传', '', '', '', 'file', 'a:3:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:5:\"value\";s:0:\"\";s:7:\"options\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1632829375, 1632829387, 3, 1),
 (118, 4, 'video', '视频文件', '', '', '', 'file', 'a:3:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:5:\"value\";s:0:\"\";s:7:\"options\";s:0:\"\";}', 1, 0, 0, 0, 0, 1, 1632832866, 1632832878, 4, 1),
-(119, 1, 'groupids', '访问权限', '', '', '不选代表无限制', 'selectpage', 'a:4:{s:6:\"define\";s:20:\"varchar(32) NOT NULL\";s:7:\"options\";s:110:\"url:/admin/ajax/memberGroup\r\nfield:name\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:1:\"0\";}', 1, 0, 0, 0, 0, 0, 1632838010, 1632868864, 101, 1);
+(119, 1, 'groupids', '访问权限', '', '', '不选代表无限制', 'selectpage', 'a:4:{s:6:\"define\";s:20:\"varchar(32) NOT NULL\";s:7:\"options\";s:110:\"url:/admin/ajax/memberGroup\r\nfield:name\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:1:\"0\";}', 1, 0, 0, 0, 0, 0, 1632838010, 1632868864, 101, 1),
+(120, 1, 'catids', '同步栏目', '同时发布在其他栏目中', '', '', 'selectpage', 'a:4:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:7:\"options\";s:111:\"url:/admin/ajax/category\r\nfield:catname\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1635731248, 1635731248, 3, 1),
+(121, 2, 'catids', '同步栏目', '同时发布在其他栏目中', '', '', 'selectpage', 'a:4:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:7:\"options\";s:111:\"url:/admin/ajax/category\r\nfield:catname\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1635731248, 1635731248, 3, 1),
+(122, 3, 'catids', '同步栏目', '同时发布在其他栏目中', '', '', 'selectpage', 'a:4:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:7:\"options\";s:111:\"url:/admin/ajax/category\r\nfield:catname\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1635731248, 1635731248, 3, 1),
+(123, 4, 'catids', '同步栏目', '同时发布在其他栏目中', '', '', 'selectpage', 'a:4:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:7:\"options\";s:111:\"url:/admin/ajax/category\r\nfield:catname\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:0:\"\";}', 1, 0, 1, 0, 0, 0, 1635731248, 1635731248, 3, 1);
 
-
-INSERT INTO `__PREFIX__news` (`id`, `catid`, `theme`, `url`, `diyurl`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `icon`, `image`, `groupids`) VALUES
-(1, 6, 'DZDCMS', '', '', '/uploads/images/photo.png', '6', 1, 0, 0, 1, 'admin', 1, 14, 11, 12, 1632825416, 1633168928, 0, 1, 1, '', '/uploads/images/banner.png', ''),
-(2, 6, '多站点CMS是基于最新TP5.1x框架和layui2.5x的多站点内容管理系统', '',  '', '/uploads/images/photo.png', '6', 0, 0, 99, 1, 'admin', 1, 20, 9, 8, 1632825588, 1633168918, 0, 1, 1, '', '/uploads/images/banner.png', ''),
-(3, 4, '域名灵活', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632826023, 1632958405, 0, 1, 1, 'layui-icon-star', '', ''),
-(4, 4, '一站管理', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632826050, 1632958393, 0, 1, 1, 'layui-icon-user', '', ''),
-(5, 4, '数据同步', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632826077, 1632957826, 0, 1, 1, 'layui-icon-transfer', '', ''),
-(6, 4, '插件丰富', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632826102, 1632957811, 0, 1, 1, 'layui-icon-app', '', ''),
-(7, 5, '恭喜多站点CMS2.0.0正式版上线啦 ', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1616928568, 1632826760, 0, 1, 1, '', '', ''),
-(8, 5, '恭喜多站点CMS入住thinkphp服务市场', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1615891822, 1632826769, 0, 1, 1, '', '', ''),
-(9, 5, '恭喜多站点CMS入住thinkphp服务市场', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1616064675, 1632826779, 0, 1, 1, '', '', ''),
-(10, 4, '多端支持', '', '', '/uploads/images/20210928/36dbfdc1e4fd1ed549f48255f7c3e3ad.png', '', 1, 0, 100, 1, 'admin', 1, 1, 0, 0, 1632826335, 1632826352, 0, 1, 1, 'layui-icon-cellphone', '', ''),
-(11, 4, '长期更新', '', '', '/uploads/images/20210928/36dbfdc1e4fd1ed549f48255f7c3e3ad.png', '', 1, 0, 100, 1, 'admin', 1, 1, 0, 0, 1632826354, 1632826376, 0, 1, 1, 'layui-icon-auz', '', ''),
-(12, 5, '好消息！DZDCMS多站点内容管理系统可以免费使用啦！', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632826395, 1632826788, 0, 1, 1, '', '/uploads/images/20210928/5545474fedb30a8651f02125c7893213.png', ''),
-(13, 5, '所有用户可免费使用官网模版啦！', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 1, 0, 0, 1632826425, 1632826799, 0, 1, 1, '', '', ''),
-(14, 5, '授权用户可免费使用文档模版啦', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 3, 0, 0, 1632826475, 1632826809, 0, 1, 1, '', '', '');
+INSERT INTO `__PREFIX__news` (`id`, `catid`, `catids`, `theme`, `url`, `diyurl`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `icon`, `image`, `groupids`) VALUES
+(1, 6, '', 'DZDCMS', '', '', '/uploads/images/photo.png', '6', 1, 0, 0, 1, 'admin', 1, 14, 11, 12, 1632825416, 1633168928, 0, 1, 1, '', '/uploads/images/banner.png', ''),
+(2, 6, '', '多站点CMS是基于最新TP5.1x框架和layui2.5x的多站点内容管理系统', '',  '', '/uploads/images/photo.png', '6', 0, 0, 99, 1, 'admin', 1, 20, 9, 8, 1632825588, 1633168918, 0, 1, 1, '', '/uploads/images/banner.png', ''),
+(3, 4, '', '域名灵活', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632826023, 1632958405, 0, 1, 1, 'layui-icon-star', '', ''),
+(4, 4, '', '一站管理', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632826050, 1632958393, 0, 1, 1, 'layui-icon-user', '', ''),
+(5, 4, '', '数据同步', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632826077, 1632957826, 0, 1, 1, 'layui-icon-transfer', '', ''),
+(6, 4, '', '插件丰富', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632826102, 1632957811, 0, 1, 1, 'layui-icon-app', '', ''),
+(7, 5, '', '恭喜多站点CMS2.0.0正式版上线啦 ', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1616928568, 1632826760, 0, 1, 1, '', '', ''),
+(8, 5, '', '恭喜多站点CMS入住thinkphp服务市场', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1615891822, 1632826769, 0, 1, 1, '', '', ''),
+(9, 5, '', '恭喜多站点CMS入住thinkphp服务市场', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1616064675, 1632826779, 0, 1, 1, '', '', ''),
+(10, 4, '', '多端支持', '', '', '/uploads/images/20210928/36dbfdc1e4fd1ed549f48255f7c3e3ad.png', '', 1, 0, 100, 1, 'admin', 1, 1, 0, 0, 1632826335, 1632826352, 0, 1, 1, 'layui-icon-cellphone', '', ''),
+(11, 4, '', '长期更新', '', '', '/uploads/images/20210928/36dbfdc1e4fd1ed549f48255f7c3e3ad.png', '', 1, 0, 100, 1, 'admin', 1, 1, 0, 0, 1632826354, 1632826376, 0, 1, 1, 'layui-icon-auz', '', ''),
+(12, 5, '', '好消息！DZDCMS多站点内容管理系统可以免费使用啦！', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632826395, 1632826788, 0, 1, 1, '', '/uploads/images/20210928/5545474fedb30a8651f02125c7893213.png', ''),
+(13, 5, '', '所有用户可免费使用官网模版啦！', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 1, 0, 0, 1632826425, 1632826799, 0, 1, 1, '', '', ''),
+(14, 5, '', '授权用户可免费使用文档模版啦', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 3, 0, 0, 1632826475, 1632826809, 0, 1, 1, '', '', '');
 
 
 INSERT INTO `__PREFIX__news_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`, `description`, `content`) VALUES
@@ -689,10 +696,10 @@ INSERT INTO `__PREFIX__page` (`id`, `catid`, `site_id`, `title`, `thumb`, `keywo
 (10, 12, 2, 'The document', '', '', '', '<p> The jump to the </p> document is set directly in the column, so there is no need to edit </p>', 1632833032, 1632833067);
 
 
-INSERT INTO `__PREFIX__photo` (`id`, `catid`, `theme`, `url`, `diyurl`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `image`) VALUES
-(1, 3, '官网模版', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 1, 0, 0, 1632825714, 1632826857, 0, 1, 1, '/uploads/images/banner.png,/uploads/images/banner.png'),
-(2, 3, '官网模版', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632825765, 1632826875, 0, 1, 1, '/uploads/images/banner.png,/uploads/images/banner.png'),
-(3, 3, '官网模版', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632825799, 1632958331, 0, 1, 1, '/uploads/images/banner.png,/uploads/images/banner.png');
+INSERT INTO `__PREFIX__photo` (`id`, `catid`, `catids`, `theme`, `url`, `diyurl`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `image`) VALUES
+(1, 3, '', '官网模版', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 1, 0, 0, 1632825714, 1632826857, 0, 1, 1, '/uploads/images/banner.png,/uploads/images/banner.png'),
+(2, 3, '', '官网模版', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632825765, 1632826875, 0, 1, 1, '/uploads/images/banner.png,/uploads/images/banner.png'),
+(3, 3, '', '官网模版', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632825799, 1632958331, 0, 1, 1, '/uploads/images/banner.png,/uploads/images/banner.png');
 
 
 INSERT INTO `__PREFIX__photo_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`, `description`, `content`) VALUES
@@ -707,9 +714,9 @@ INSERT INTO `__PREFIX__attachment` (`id`, `aid`, `uid`, `name`, `module`, `path`
 (4, 1, 0, 'favicon.ico', 'cms', '/favicon.ico', '', '', 'image/x-icon', 'ico', 1150, 'fabed83f1e2944e510b80aad828bbac7', 'c54edc4a91c093e10e14ca15288a8559d58c2f84', 'local', 1624409065, 1624409065, 100, 1);
 
 
-INSERT INTO `__PREFIX__video` (`id`, `catid`, `theme`, `url`, `diyurl`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `video`) VALUES
-(1, 10, '测试视频', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632832804, 1632832900, 0, 1, 1, 'https://blz-videos.nosdn.127.net/1/OverWatch/OVR-S03_E03_McCree_REUNION_zhCN_1080P_mb78.mp4'),
-(2, 10, '视频测试二视频测试二', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632832905, 1632832926, 0, 1, 1, 'https://blz-videos.nosdn.127.net/1/OverWatch/AnimatedShots/Overwatch_AnimatedShot_CinematicTrailer.mp4');
+INSERT INTO `__PREFIX__video` (`id`, `catid`, `catids`, `theme`, `url`, `diyurl`, `thumb`, `flag`, `paytype`, `readpoint`, `listorder`, `uid`, `username`, `sysadd`, `hits`, `likes`, `dislikes`, `inputtime`, `updatetime`, `pushtime`, `status`, `comment`, `video`) VALUES
+(1, 10, '', '测试视频', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632832804, 1632832900, 0, 1, 1, 'https://blz-videos.nosdn.127.net/1/OverWatch/OVR-S03_E03_McCree_REUNION_zhCN_1080P_mb78.mp4'),
+(2, 10, '', '视频测试二视频测试二', '', '', '/uploads/images/photo.png', '', 1, 0, 100, 1, 'admin', 1, 0, 0, 0, 1632832905, 1632832926, 0, 1, 1, 'https://blz-videos.nosdn.127.net/1/OverWatch/AnimatedShots/Overwatch_AnimatedShot_CinematicTrailer.mp4');
 
 
 INSERT INTO `__PREFIX__video_data` (`id`, `did`, `site_id`, `title`, `tags`, `keywords`, `description`, `content`) VALUES
@@ -741,7 +748,7 @@ ALTER TABLE `__PREFIX__model`
     MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 ALTER TABLE `__PREFIX__model_field`
-    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+    MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 
 ALTER TABLE `__PREFIX__news`
     MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '文档ID', AUTO_INCREMENT=15;
