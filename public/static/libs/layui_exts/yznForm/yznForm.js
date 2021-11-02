@@ -529,7 +529,7 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                         var mimetype = $(this).data("mimetype") ? $(this).data("mimetype") : '';
                         var admin_id = $(this).data("admin-id") ? $(this).data("admin-id") : '';
                         var user_id = $(this).data("user-id") ? $(this).data("user-id") : '';
-                        var url = $(this).data("url") ? $(this).data("url") : '/attachment/Attachments/select';
+                        var url = $(this).data("url") ? $(this).data("url") : GV.attachment_select_url;
                         yzn.open('选择',url + "?element_id=" + $(this).attr("id") + "&multiple=" + multiple + "&mimetype=" + mimetype + "&admin_id=" + admin_id + "&user_id=" + user_id, 
                             '800','650',{
                             callback: function (data) {
@@ -774,7 +774,7 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                         $('.js-ueditor',layform).each(function() {
                             var ueditor_name = $(this).attr('id');
                             ueditors[ueditor_name] = UE.getEditor(ueditor_name, {
-                                //allowDivTransToP: false, //转换p标签
+                                allowDivTransToP: false, //转换p标签
                                 initialFrameWidth: '100%',
                                 initialFrameHeight: 400, //初始化编辑器高度,默认320
                                 autoHeightEnabled: false, //是否自动长高
@@ -792,7 +792,7 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                             //打开图片管理
                             ueditors[ueditor_name].addListener("upload.online", function (e, editor, dialog) {
                                 dialog.close(false);
-                                yzn.open('选择',"/attachment/Attachments/select?element_id=&multiple=true&mimetype=image/*", '800','650',{
+                                yzn.open('选择',GV.attachment_select_url + "?element_id=&multiple=true&mimetype=image/*", '800','650',{
                                     callback: function (data) {
                                         var urlArr = data.url.split(/\,/);
                                         urlArr.forEach(function (url, index) {
@@ -806,7 +806,7 @@ layui.define(['layer', 'form', 'yzn', 'table', 'notice', 'element', 'dragsort'],
                             //打开附件管理
                             ueditors[ueditor_name].addListener("file.online", function (e, editor, dialog) {
                                 dialog.close(false);
-                                yzn.open('选择',"/attachment/Attachments/select?element_id=&multiple=true&mimetype=application/*", '800','650',{
+                                yzn.open('选择',GV.attachment_select_url + "?element_id=&multiple=true&mimetype=application/*", '800','650',{
                                     callback: function (data) {
                                         var urlArr = data.url.split(/\,/);
                                         urlArr.forEach(function (url, index) {
