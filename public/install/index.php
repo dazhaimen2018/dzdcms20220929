@@ -25,7 +25,7 @@ $db_config = array(
     'DB_HOST'   => '127.0.0.1',
     'DB_PORT'   => '3306',
     'DB_NAME'   => 'yzncms',
-    'DB_PREFIX' => 'yzn_',
+    'DB_PREFIX' => 'dzd_',
     'DB_USER'   => 'root',
     'DB_PASS'   => '',
 );
