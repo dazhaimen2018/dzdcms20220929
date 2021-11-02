@@ -1,5 +1,4 @@
-DROP TABLE IF EXISTS `yzn_member`;
-CREATE TABLE `yzn_member` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__member` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `username` char(16) NOT NULL COMMENT '用户名',
   `nickname` char(16) NOT NULL DEFAULT '' COMMENT '昵称',
@@ -29,8 +28,7 @@ CREATE TABLE `yzn_member` (
   KEY `mobile` (`mobile`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='会员表';
 
-DROP TABLE IF EXISTS `yzn_member_group`;
-CREATE TABLE `yzn_member_group` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__member_group` (
 `id` tinyint UNSIGNED NOT NULL COMMENT '会员组id',
 `name` char(15) NOT NULL COMMENT '用户组名称',
 `lang` varchar(50) NOT NULL COMMENT '英文名称',
@@ -58,8 +56,7 @@ CREATE TABLE `yzn_member_group` (
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `yzn_member_content`;
-CREATE TABLE `yzn_member_content` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__member_content` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `catid` smallint(5) NOT NULL COMMENT '栏目ID',
   `content_id` int(10) NOT NULL COMMENT '信息ID',
@@ -71,8 +68,7 @@ CREATE TABLE `yzn_member_content` (
   KEY `uid` (`catid`,`content_id`,`status`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='会员投稿信息记录表';
 
-DROP TABLE IF EXISTS `yzn_member_token`;
-CREATE TABLE `yzn_member_token` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__member_token` (
   `token` varchar(50) NOT NULL COMMENT 'Token',
   `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '会员ID',
   `create_time` int(10) DEFAULT NULL COMMENT '创建时间',
@@ -80,7 +76,7 @@ CREATE TABLE `yzn_member_token` (
   PRIMARY KEY (`token`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='会员Token表';
 
-INSERT INTO `yzn_member_group` (`id`, `name`, `lang`, `issystem`, `starnum`, `point`, `allowmessage`, `allowvisit`, `allowpost`, `allowpostverify`, `allowsearch`, `allowupgrade`, `allowsendmessage`, `allowpostnum`, `allowattachment`, `price_y`, `price_m`, `price_d`, `icon`, `usernamecolor`, `description`, `listorder`, `status`, `expand`) VALUES
+INSERT INTO `__PREFIX__member_group` (`id`, `name`, `lang`, `issystem`, `starnum`, `point`, `allowmessage`, `allowvisit`, `allowpost`, `allowpostverify`, `allowsearch`, `allowupgrade`, `allowsendmessage`, `allowpostnum`, `allowattachment`, `price_y`, `price_m`, `price_d`, `icon`, `usernamecolor`, `description`, `listorder`, `status`, `expand`) VALUES
 (1, '禁止访问', 'Prohibited', 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, '0.00', '0.00', '0.00', '', '', '0', 0, 1, ''),
 (2, '新手上路', 'Novice', 1, 1, 50, 100, 1, 1, 0, 0, 0, 1, 0, 0, '50.00', '10.00', '1.00', '', '', '', 2, 1, ''),
 (6, '初级会员', 'Junior', 1, 2, 100, 150, 0, 1, 0, 0, 1, 1, 0, 0, '300.00', '30.00', '1.00', '', '', '', 6, 1, ''),
@@ -89,5 +85,5 @@ INSERT INTO `yzn_member_group` (`id`, `name`, `lang`, `issystem`, `starnum`, `po
 (7, '认证会员', 'Certified', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0.00', '0.00', '0.00', '', '#000000', '', 7, 1, ''),
 (8, '游客', 'Visitor', 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, '0.00', '0.00', '0.00', '', '', '', 0, 1, '');
 
-ALTER TABLE `yzn_member_group`
+ALTER TABLE `__PREFIX__member_group`
     MODIFY `id` tinyint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '会员组id', AUTO_INCREMENT=9;
