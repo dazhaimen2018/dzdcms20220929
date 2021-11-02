@@ -336,10 +336,10 @@ EOF;
             ],
             [
                 'name'      => 'inputtime',
-                'title'     => '创建时间',
+                'title'     => '定时发布',
                 'type'      => 'datetime',
                 'listorder' => 12,
-                'remark'    => '定时发布可选择未来的时间！',
+                'remark'    => '定时发布(创建时间)可选择未来的时间！',
                 'setting'   => "a:3:{s:6:\"define\";s:37:\"int(10) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}",
             ],
             [
