@@ -629,9 +629,6 @@ class Cms extends Adminbase
         }
     }
 
-
-
-
     //删除
     public function del()
     {
@@ -661,7 +658,25 @@ class Cms extends Adminbase
     //移除同步发布在本栏目的文章
     public function out()
     {
-        $this->success('移除正在开发中。。。！');
+        $id     = $this->request->param('id/d', 0);
+        $catid  = $this->request->param('catid/d', 0);
+        $outid  = $this->request->param('outid/d', 0);
+        if (empty($outid) || !$catid) {
+            $this->error('参数错误！');
+        }
+        $modelid   = getCategory($catid, 'modelid');
+        $modelInfo = cache('Model');
+        $modelInfo = $modelInfo[$modelid];
+        $catids    = Db::name($modelInfo['tablename'])->where('id', $id)->field('catids')->find();
+        $catids    = explode(',',$catids['catids']);
+        for ( $i=0; $i<count($catids); $i++ ){
+            if($outid == $catids[$i]) unset($catids[$i]);
+        }
+        $catids = arr2str($catids);
+        Db::name($modelInfo['tablename'])->where('id', $id)->update([
+            'catids'		=>	$catids,
+        ]);
+        $this->success('移除成功！');
     }
 
     //清空回收站
