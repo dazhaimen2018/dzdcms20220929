@@ -15,7 +15,7 @@
 namespace app\member\controller;
 
 use app\cms\model\Cms as Cms_Model;
-use app\member\model\MemberContent as Member_Content_Model;
+use app\member\model\MemberContent as MemberContentModel;
 use think\Db;
 
 class Content extends MemberBase
@@ -36,7 +36,7 @@ class Content extends MemberBase
             }
         }
         //判断每日投稿数
-        $allowpostnum = Member_Content_Model::where('uid', $this->auth->id)->whereTime('create_time', 'd')->count();
+        $allowpostnum = MemberContentModel::where('uid', $this->auth->id)->whereTime('create_time', 'd')->count();
         if ($groupinfo['allowpostnum'] > 0 && $allowpostnum >= $groupinfo['allowpostnum']) {
             $this->error("今日投稿数量已达上限！");
         }
@@ -60,15 +60,15 @@ class Content extends MemberBase
             }
             $catid = intval($data['modelField']['catid']);
             if (empty($catid)) {
-                $this->error("请指定栏目ID！");
+                $this->error("请指定栏目ID！", null, ['token' => $this->request->token()]);
             }
             $catidPrv = Db::name('category_priv')->where(array("catid" => $catid, "roleid" => $this->auth->groupid, "is_admin" => 0, "action" => "add"))->find();
             if (empty($catidPrv)) {
-                $this->error("您没有该栏目投稿权限！");
+                $this->error("您没有该栏目投稿权限！", null, ['token' => $this->request->token()]);
             }
             $category = Db::name('Category')->find($catid);
             if (empty($category)) {
-                $this->error('该栏目不存在！');
+                $this->error('该栏目不存在！', null, ['token' => $this->request->token()]);
             }
             $fields = Db::name('model_field')->where('modelid', $category['modelid'])->where('isadd', 1)->column('name,ifsystem');
             $_data  = [];
@@ -99,7 +99,7 @@ class Content extends MemberBase
             }
             //添加投稿记录
             if ($id) {
-                Member_Content_Model::create([
+                MemberContentModel::create([
                     'catid'       => $catid,
                     'content_id'  => $id,
                     'uid'         => $_data['modelField']['uid'],
@@ -136,16 +136,17 @@ class Content extends MemberBase
             }
 
             // 获得能投稿的栏目ID
-            $catidArr = Db::name('category_priv')->where(array( "roleid" => $this->auth->groupid, "is_admin" => 0, "action" => "add"))->cache(60)->select();
+            $catidArr = Db::name('category_priv')->where(array( "roleid" => $this->auth->groupid, "is_admin" => 0, "action" => "add"))->select();
             $catids   = array_column($catidArr,'catid');
             $catids   = implode(",", $catids);
             if ($catids){
                 $whereIn  = " id in($catids)";
             }
-            $array = Db::name('Category')->where($where)->where($whereIn)->where('status',1)->order('listorder ASC, id ASC')->cache(60)->column('*', 'id');
+            $array = Db::name('Category')->where($where)->where($whereIn)->where('status',1)->order('listorder DESC, id DESC')->column('*', 'id');
+
             foreach ($array as $k => $v) {
                 //获得当前站点栏目名称
-                $array[$k]['catname'] = Db::name('Category_data')->where('catid',$v['id'])->where('site_id',$sites)->cache(60)->value('catname');
+                $array[$k]['catname'] = Db::name('Category_data')->where('catid',$v['id'])->where('site_id',$sites)->value('catname');
                 $array[$k]['catname'] = $array[$k]['catname'] ? $array[$k]['catname'] : $v['catname'];
                 if ($v['id'] == $catid) {
                     $array[$k]['selected'] = "selected";
@@ -251,18 +252,18 @@ class Content extends MemberBase
             }
 
             if ($_data['modelField']['status'] == 1) {
-                Member_Content_Model::where(['content_id' => $id, 'catid' => $catid])->update(['status' => 1]);
+                MemberContentModel::where(['content_id' => $id, 'catid' => $catid])->update(['status' => 1]);
                 //增加清除缓存
                 $cache =  cleanUp();
                 $this->success('编辑成功，内容已通过审核！', url('published'));
 
             } else {
-                Member_Content_Model::where(['content_id' => $id, 'catid' => $catid])->update(['status' => 0]);
+                MemberContentModel::where(['content_id' => $id, 'catid' => $catid])->update(['status' => 0]);
                 $this->success('编辑成功，等待管理员审核！', url('published'));
             }
         } else {
             $id   = $this->request->param('id/d', 0);
-            $info = Member_Content_Model::where(array('uid' => $this->auth->id, 'id' => $id))->find();
+            $info = MemberContentModel::where(array('uid' => $this->auth->id, 'id' => $id))->find();
             if (empty($info)) {
                 $this->error('稿件不存在！');
             }
@@ -302,8 +303,8 @@ class Content extends MemberBase
             if ('checking' == $type) {
                 $where['status'] = 0;
             }
-            $total = Member_Content_Model::where($where)->count();
-            $_list = Member_Content_Model::where($where)->page($page, $limit)->order(array("id" => "DESC"))->select();
+            $total = MemberContentModel::where($where)->count();
+            $_list = MemberContentModel::where($where)->page($page, $limit)->order(array("id" => "DESC"))->select();
             foreach ($_list as $k => $v) {
                 $modelid   = getCategory($v['catid'], 'modelid');
                 $tablename = ucwords(getModel($modelid, 'tablename'));
@@ -329,7 +330,7 @@ class Content extends MemberBase
             $this->error('请指定需要删除的信息！');
         }
         //信息
-        $info = Member_Content_Model::where('id', $id)->find();
+        $info = MemberContentModel::where('id', $id)->find();
         //只能删除自己的 且 未通过审核的
         if ($info && $info['uid'] == $this->auth->id && $info['status'] != 1) {
             //取得栏目信息
