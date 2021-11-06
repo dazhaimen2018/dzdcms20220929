@@ -25,6 +25,7 @@ use think\facade\Cache;
 
 class Cms extends Adminbase
 {
+    protected $searchFields = 'id,title';
     protected function initialize()
     {
         parent::initialize();
