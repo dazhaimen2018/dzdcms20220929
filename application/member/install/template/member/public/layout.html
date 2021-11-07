@@ -66,11 +66,6 @@
         <li class="layui-nav-item {if $Request.action=='index' && $Request.controller=='Index' }layui-this{/if}">
             <a href="{:url('member/index/index')}"><i class="iconfont icon-user-line"></i>&nbsp;{:lang('MemberCenter')}</a>
         </li>
-
-        <li class="layui-nav-item {if $Request.action=='auth'}layui-this{/if}">
-            <a href="{:url('member/auth/index')}"><i class="iconfont icon-shield-user-line"></i>&nbsp;授权证书</a>
-        </li>
-
         <li class="layui-nav-item {eq name='Request.action' value='profile' }layui-this{/eq}">
             <a href="{:url('member/index/profile')}"><i class="iconfont icon-setup"></i>&nbsp;{:lang('BasicSettings')}</a>
         </li>
