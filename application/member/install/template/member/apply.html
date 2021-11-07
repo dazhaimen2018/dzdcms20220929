@@ -1,0 +1,133 @@
+{extend name="public/header"/}
+{block name="main"}
+<link rel="stylesheet" href="__STATIC__/admin/css/cms.css">
+<div class="layui-card">
+    <div class="layui-card-body layui-form-pane">
+        <div class="layui-form layui-form-pane layui-tab-item layui-show">
+            <form class="layui-form" method="post">
+                <div class="layui-form-item"> <label class="layui-form-label">域名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="domain" required="" lay-verify="required" autocomplete="off" value=""  placeholder="域名(如：dzdcms.com,不要写http://www.和/)" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                   <label class="layui-form-label">手机</label>
+                    <div class="layui-input-inline input-item">
+                        <input type="text" name="mobile" lay-verify="phone|required" autocomplete="off" placeholder="{:lang('phone')}" value="{$userinfo.mobile}" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">姓名</label>
+                    <div class="layui-input-inline input-item">
+                        <input type="text" name="title" lay-verify="required" autocomplete="off" placeholder="联系人" value="{$userinfo.nickname}" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">类型</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="type" value="0"  title="免费版"  lay-filter='type'>
+                        <input type="radio" name="type" value="1" checked title="标准版" lay-filter='type'>
+                        <input type="radio" name="type" value="2"  title="高级版" lay-filter='type'>
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">标准版限时促销198元；高级版限时促销598元！</div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">价格</label>
+                    <div class="layui-input-inline input-item">
+                        <input type="text" name="price" id="price" lay-verify="required" autocomplete="off" placeholder="价格" value="198" class="layui-input" readonly="readonly">
+                    </div>
+                    <button class="layui-btn layui-btn-disabled">元</button>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">付款</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="pay" value="1"  title="在线付" lay-filter='pay'>
+                        <input type="radio" name="pay" value="2"  title="淘宝付" lay-filter='pay'>
+                        <input type="radio" name="pay" value="3"  checked title="微信付" lay-filter='pay'>
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">根据您的需要付款，建议淘宝付款</div>
+                </div>
+
+                <div class="layui-form-item"  id="batch_add" style="display:none">
+                    <label class="layui-form-label">订单</label>
+                    <div class="layui-input-inline input-item">
+                        <input type="text" name="order" autocomplete="off" placeholder="请输入淘宝订单号" class="layui-input">
+                    </div>
+                    <a class="layui-btn layui-btn-danger" type="button" href="https://item.taobao.com/item.htm?id=660013666861" target="_blank">淘宝订购</a>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">付款截图</label>
+                    <div class="layui-input-block layui-upload">
+                        {php}echo \util\Form::images('thumb'){/php}
+                    </div>
+                </div>
+                <div class="layui-form-item web_seo">
+                    <label class="layui-form-label">特别说明</label>
+                    <div class="layui-input-block">
+                        <textarea name="description" placeholder="网站简介" class="layui-textarea"> </textarea>
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">特殊要求和客服对您的承诺可以写在这里</div>
+                </div>
+                <div class="layui-form-item">
+                   <div>
+                       <input type="checkbox" id="keeplogin" lay-skin="primary" title="授权即同意" value="1" checked>
+                       <a href="{:url('forget')}" class="lay-user-jump-change lay-link" style="margin-top: 9px;">用户协议</a>
+                       <span class="lay-user-jump-change" style="margin-top: 9px;">和</span>
+                       <a href="{:url('forget')}" class="lay-user-jump-change lay-link" style="margin-top: 9px;">隐私政策</a>
+                   </div>
+                </div>
+
+                <div class="layui-form-item layer-footer">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit="{:url('member/auth/add')}" data-refresh="ture" lay-submit> 提交申请 </button>
+                        <button type="reset" class="layui-btn layui-btn-primary iconfont icon-trash"> 重置</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="js"}
+{include file="public/layui" /}
+<script>
+        layui.use(['form','yznForm'], function() {
+        var yznForm = layui.yznForm;
+        var form = layui.form;
+        yznForm.listen();
+
+        form.on('radio(type)', function(data){
+            if(data.value==1){
+                var price = 198;
+                $('#price').val(price);
+                form.render('radio')
+            }
+            if(data.value==2){
+                var price = 598;
+                $('#price').val(price);
+                form.render('radio')
+            }
+            if(data.value==0){
+                var price = 0;
+                $('#price').val(price);
+                form.render('radio')
+            }
+        });
+
+        form.on('radio(pay)', function(data){
+            if(2==data.value){
+                //批量
+                $('#batch_add').show();
+            } else {
+                $('#batch_add').hide();
+            }
+        });
+    });
+</script>
+{/block}

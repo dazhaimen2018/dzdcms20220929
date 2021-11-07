@@ -1,0 +1,68 @@
+{extend name="public/layout"/}
+{block name="main"}
+<div class="layui-tab layui-tab-brief">
+    <ul class="layui-tab-title">
+        <li class="layui-this">授权证书</li>
+    </ul>
+    <div class="layui-tab-content" style="padding: 20px 0;">
+        <div class="layui-tab-item layui-show">
+            <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="status">
+    {{#  if(d.status==-1){ }}
+<button class="layui-btn layui-btn-danger layui-btn layui-btn-xs">{:lang('Rejected')}</button>
+    {{#  } else if(d.status==0){ }}
+<button class="layui-btn layui-btn-danger layui-btn layui-btn-xs">{:lang('NotApproved')}</button>
+    {{#  } else if(d.status==1){ }}
+<button class="layui-btn layui-btn layui-btn-xs">{:lang('Passed')}</button>
+    {{#  } }}
+</script>
+{/block}
+{block name="js"}
+<script>
+    layui.use(['table', 'yznTable'], function() {
+        var table = layui.yznTable;
+
+        var init = {
+            table_elem: '#currentTable',
+            delete_url: "{:url('del')}",
+            modify_url: '{:url("multi")}',
+        };
+
+        table.render({
+            init: init,
+            id: 'currentTable',
+            elem: '#currentTable',
+            toolbar: ['refresh',
+                [{
+                    text: '申请授权',
+                    url: "{:url('member/auth/add')}",
+                    method: 'open',
+                    class: 'layui-btn layui-btn-sm layui-btn-normal',
+                    icon: 'iconfont icon-add',
+                    extend: 'data-width="900" data-height="600"',
+                }
+                ]
+            ],
+            url: '{:url("index")}',
+            search:false,
+            cols: [
+                [
+                    { field: 'id', width: 60, title: 'ID' },
+                    { field: 'title', title: "联系人"},
+                    { field: 'mobile',width: 120, title: "电话"},
+                    { field: 'domain', title: "域名"},
+                    { field: 'inputtime', width: 180, title: "申请时间" },
+                    { field: 'status', width: 80, title: "状态",align: "center", templet: '#status' }
+                ]
+            ],
+            page: {}
+        });
+
+    });
+</script>
+
+{/block}
