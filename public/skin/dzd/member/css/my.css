@@ -39,7 +39,10 @@
 .layui-form-pane .layui-form-text .layui-form-label{width: 110px;border-right: none;}
 .layui-form-pane .layui-form-text .layui-input-block{top: 0;}
 .layui-form-item label{width: 110px;background-color: #f2f2f2;height: 38px;line-height: 38px;padding: 0 10px;border: 1px solid #e6e6e6;border-right: none;box-sizing: border-box;}
-.layui-form-item .layui-form-field-label, .layui-form-item .layui-input-inline, .layui-form-item .layui-input-block{flex: 1;padding: 0!important;max-width: 100%;margin-left: 0}
+.layui-form-item .layui-form-field-label, .layui-form-item .layui-input-inline, .layui-form-item .layui-input-block{flex: 1;padding: 0!important;max-width: 100%;margin-left: 0;border: 1px solid #e6e6e6;box-sizing: unset;}
+.layui-input, .layui-select{height: 36px;border-width: 0;}
+.layui-textarea {border-width: 0;}
+
 .layui-form-item .layui-input-inline{margin-right: 0;}
 .layui-table, .layui-table-view { margin: 0 auto;}
 .layui-form-item .captcha{border: 1px solid #e6e6e6;height: 36px;margin-left: -2px;}
@@ -67,6 +70,14 @@
 .layui-form-item .uploader-list img{width: 100%;height: 100%}
 .layui-form-item .uploader-list .thumbnail .remove-picture{position: absolute;top: 0;right: 0}
 
+/*上传图片布局*/
+.layui-form-item .thumbnail{margin-top: 10px!important;margin-left: 10px!important; }
+.layui-form-item .layui-upload{border: none!important;display: flex;flex-wrap: wrap;}
+.layui-form-item .layui-upload .layui-col-xs4{width: auto!important;flex: 1}
+.layui-form-item .layui-upload input{border: 1px solid #e6e6e6;height: 38px;line-height: 38px}
+.layui-form-item .plupload-preview{width: 100% !important;flex-grow: 4;}
+
+.layer-footer{display: none}
 .webuploader-pick{ padding: 0 15px!important; height: 38px; line-height: 38px;background: #ff5722!important; border-radius: 2px; -webkit-border-radius: 2px; -moz-border-radius: 2px; -ms-border-radius: 2px; -o-border-radius: 2px; }
 .webuploader-container{position:relative;}
 .webuploader-element-invisible{position:absolute !important;clip:rect(1px 1px 1px 1px);/* IE6,IE7 */ clip:rect(1px,1px,1px,1px);}
