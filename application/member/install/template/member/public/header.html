@@ -22,12 +22,13 @@
             'image_upload_url': '{$image_upload_url ? $image_upload_url : url("attachment/upload/upload", ["dir" => "images"])}',
             'file_upload_url': '{$file_upload_url ? $file_upload_url : url("attachment/upload/upload", ["dir" => "files"])}',
             'ueditor_upload_url': '{$ueditor_upload_url ? $ueditor_upload_url : url("attachment/upload/upload", ["dir" => "images","from"=>"ueditor"])}',
-            'attachment_select_url': '{$attachment_select_url ? $attachment_select_url : url("attachment/attachments/select")}',
+            'profile_upload_url': '{$profile_upload_url ? $profile_upload_url : url("member/index/profile")}',
+            'attachment_select_url': '{$attachment_select_url ? $attachment_select_url : url("member/attachments/select")}',
         };
     </script>
 </head>
 
-<body class="childrenBody {:defined('IS_DIALOG') && IS_DIALOG ? 'is-dialog' : ''}">
+<body class="body" style="margin-top: 10px;">
 {block name="main"}主内容{/block}
 {block name="js"}{/block}
 </body>
