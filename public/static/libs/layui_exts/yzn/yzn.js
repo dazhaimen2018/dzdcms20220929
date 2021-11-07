@@ -352,7 +352,7 @@ layui.define(['layer','notice'], function(exports) {
         var diyurl  = $('#diyurl').val();
         var node = this;
         if (!diyurl){
-            $.post('api/lists/getTitlePinyin',{title:value, delimiter: "-"},function (data){
+            $.post('admin/ajax/getTitlePinyin',{title:value, delimiter: "-"},function (data){
                 $("#diyurl").val(data.data.pinyin.substr(0, 100));
             },'json');
         }
