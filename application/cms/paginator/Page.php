@@ -183,12 +183,10 @@ class Page extends Paginator
      */
     protected function url($page)
     {
-        $params = request()->param();
-        //url分页起始路径
         if(isset(cache("Cms_Config")['site_cat_url']) && 1 == cache("Cms_Config")['site_cat_url']) {
-            $this->options['path'] = "/";
+            $slash = "/";
         }else{
-            $this->options['path'] = "";
+            $slash = "";
         }
         //后续代码与库文件一致
         if ($page <= 0) {
@@ -209,7 +207,7 @@ class Page extends Paginator
 
         $url = $path;
         if (!empty($parameters)) {
-            $url .= '?' . http_build_query($parameters, null, '&');
+            $url .= $slash .'?' . http_build_query($parameters, null, '&');
         }
 
         return $url . $this->buildFragment();
