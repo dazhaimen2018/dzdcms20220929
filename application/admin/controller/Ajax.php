@@ -90,6 +90,20 @@ class Ajax extends Adminbase
             return $this->selectpage($wheres);
         }
     }
+
+    /**
+     * 高级下拉菜单url 会员列表
+     */
+
+    public function member(){
+        $wheres = '' ;
+        $this->modelClass = Db::name('member');
+        //如果发送的来源是Selectpage，则转发到Selectpage
+        if ($this->request->request('keyField')) {
+            return $this->selectpage($wheres);
+        }
+    }
+
     /**
      *  获取标题拼音
      */
