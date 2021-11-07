@@ -466,6 +466,7 @@ class Admin extends Adminaddon
                         $data['modelField'] = [
                             'id'          => $value['id'],
                             'catid'       => $value['typeid'],
+                            'catids'      => '',
                             'theme'       => $value['title'],
                             'thumb'       => $value['litpic'] ?? "",
                             'flag'        => $this->getFlag($value['flag']),
