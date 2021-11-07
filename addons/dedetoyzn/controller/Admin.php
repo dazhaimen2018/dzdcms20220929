@@ -490,7 +490,7 @@ class Admin extends Adminaddon
                             'did'         => $value['id'],
                             'site_id'     => 1,
                             'title'       => $value['title'],
-                            'tags'        => '',
+                            'tags'        => $value['keywords'],
                             'keywords'    => $value['keywords'],
                             'description' => mb_substr($value['description'], 0, 200),
                             'content'     => $value['body'] ?: '正在更新中',
