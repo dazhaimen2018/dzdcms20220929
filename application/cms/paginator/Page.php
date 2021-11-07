@@ -176,4 +176,42 @@ class Page extends Paginator
 		}
 		return $this->getAvailablePageWrapper($url, $page);
 	}
+
+    /**
+     * cms定义url path格式
+     * thinkphp/library/think/paginator.php
+     */
+    protected function url($page)
+    {
+        $params = request()->param();
+        //url分页起始路径
+        if(isset(cache("Cms_Config")['site_cat_url']) && 1 == cache("Cms_Config")['site_cat_url']) {
+            $this->options['path'] = "/";
+        }else{
+            $this->options['path'] = "";
+        }
+        //后续代码与库文件一致
+        if ($page <= 0) {
+            $page = 1;
+        }
+
+        if (strpos($this->options['path'], '[PAGE]') === false) {
+            $parameters = [$this->options['var_page'] => $page];
+            $path       = $this->options['path'];
+        } else {
+            $parameters = [];
+            $path       = str_replace('[PAGE]', $page, $this->options['path']);
+        }
+
+        if (count($this->options['query']) > 0) {
+            $parameters = array_merge($this->options['query'], $parameters);
+        }
+
+        $url = $path;
+        if (!empty($parameters)) {
+            $url .= '?' . http_build_query($parameters, null, '&');
+        }
+
+        return $url . $this->buildFragment();
+    }
 }
