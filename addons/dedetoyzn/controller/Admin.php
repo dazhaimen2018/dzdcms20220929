@@ -460,7 +460,11 @@ class Admin extends Adminaddon
                 try {
                     $cursor = Db::connect($db_config)
                         ->name('archives')->alias('a')
-                        ->join([$db_config['prefix'] . $value['name'] => 'w'], 'a.id=w.aid and a.typeid=w.typeid')->field('a.*,w.*')->select();
+                        ->join([$db_config['prefix'] . $value['name'] => 'w'], 'a.id=w.aid and a.typeid=w.typeid')
+                        ->leftjoin([$db_config['prefix'] . 'taglist' => 's'], 'a.id=s.aid')
+                        ->field('a.*,w.*,GROUP_CONCAT(s.tag) as tags')
+                        ->group('a.id')
+                        ->select();
                     foreach ($cursor as $key => $value) {
                         $modelid            = $dede_models[$value['channel']]['id'];
                         $data['modelField'] = [
@@ -491,7 +495,7 @@ class Admin extends Adminaddon
                             'did'         => $value['id'],
                             'site_id'     => 1,
                             'title'       => $value['title'],
-                            'tags'        => $value['keywords'],
+                            'tags'        => isset($value['tags']) ? $value['tags'] : "",
                             'keywords'    => $value['keywords'],
                             'description' => mb_substr($value['description'], 0, 200),
                             'content'     => $value['body'] ?: '正在更新中',
