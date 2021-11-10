@@ -131,7 +131,6 @@ li {list-style: none!important;}
     .banner-show img{height: 100%;width: auto}
 }
 
-
 .product-card{background-color:#fff;box-shadow:0 2px 5px 0 rgba(0,0,0,0.04),0 2px 10px 0 rgba(0,0,0,0.06);margin-bottom:10px}
 .product-card .product-cover{position:relative;height:240px;width:100%;overflow:hidden;text-align:center}
 .product-card .product-cover > .product-cover-img{height:100%;width:100%;background-repeat:no-repeat;background-position:center;background-size:cover;transition:all .4s}
@@ -168,9 +167,10 @@ li {list-style: none!important;}
 .merit h3{font-size:20px;margin:5px 0 20px 0;color:#333;font-weight:400}
 .merit p{font-size:16px;margin-bottom:5px;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;}
 
-.project-list-item{background-color: #fff;border-radius: 4px;cursor: pointer;transition: all .2s;}
+.project-list-item{background-color: #fff;border-radius: 4px;cursor: pointer;transition: all .2s;width: 100%;}
 .project-list-item:hover{box-shadow: 2px 0 4px rgba(0, 21, 41, .35);}
-.project-list-item .project-list-item-cover{width: 100%;height: 245px;display: block;border-top-left-radius: 4px;border-top-right-radius: 4px;}
+.project-list-item .project-list-item-cover{width: 100%;display: block;border-top-left-radius: 4px;border-top-right-radius: 4px;overflow: hidden;height: 0;padding-bottom: 55%;position: relative;}
+.project-list-item .project-list-item-cover img{width: 100%;position: absolute;top:0;left:0;}
 
 .project-list-item-body{padding: 20px;border: 1px solid #e8e8e8;}
 .project-list-item .project-list-item-body>h2{font-size: 16px;margin-bottom: 12px;height: 24px;line-height: 24px;overflow: hidden;white-space: normal;text-overflow: ellipsis}
@@ -228,11 +228,15 @@ li {list-style: none!important;}
 .list-box .list-pic{width:300px;max-height: 200px;margin-right: 15px;overflow: hidden}
 .list-box .list-pic img{width: 100%;}
 .list-box .list-text{flex: 1;}
+.list-box .list-text h2{margin-bottom: 10px}
+.list-box .title-msg{margin-top: 10px}
 
 @media screen and (max-width: 768px){
+    .layui-hide-xs{display: block!important;}
     .layui-card-body{padding: 0}
-    .list-box{padding: 10px}
-    .list-box .list-pic{width:120px;max-height: 120px;}
+    .list-box{padding: 10px;display: revert}
+    .list-box .list-pic{width:100%;height: auto;float: left;margin-bottom: 10px}
+    .list-box .list-text{width: 100%;flex: revert}
     .list-box .list-text h2{font-size: 16px;}
 }
 
@@ -241,8 +245,9 @@ li {list-style: none!important;}
 .layui-left .left-nav-title .title{font-size: 16px; background: #FF9434; line-height: 50px;color: #FFF;}
 .layui-left .layui-panel{text-align: left;border-width: 0px;width: 100%;}
 .layui-left .layui-panel .layui-menu{margin: 0!important;}
-.layui-left .layui-panel .layui-menu li{margin: 0!important;padding: 10px;text-align: center}
+.layui-left .layui-panel .layui-menu li{margin: 0;padding: 10px;text-align: center;}
 .layui-left .layui-panel .layui-menu .layui-menu-item-divider{margin: 0!important;padding: 0!important;}
+
 
 .section{margin:0 auto;display: block;padding: 20px 0;overflow: hidden;float: left;width: 100%}
 .section:nth-child(odd){background-color:#fff}
@@ -362,8 +367,11 @@ li {list-style: none!important;}
 #pages li:hover a{color: #fff;}
 
 @media screen and (max-width: 768px){
-    .layui-left .left-nav-title{width: 100%;top: 10px;}
+    .layui-left .left-nav-title{width: 100%;top: 10px;display: none;}
     .layui-left .left-nav-title dl dd{margin-top: 8px}
+    .layui-left .layui-menu{width: 100%;display: flex;justify-content: space-between}
+    .layui-left .layui-menu li{float: left;margin-bottom: 10px}
+    .layui-menu .layui-menu-item-checked:after {width: 100%;border-right: none;border-bottom: 3px solid #5FB878;}
     .shop-temp .temp-hot{padding-top: 30px;}
     .temp-title-cn{margin-bottom: 30px; font-size: 20px;}
     .temp-title-cn span{height: 2px; margin-left: -105px;}

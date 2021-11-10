@@ -1,7 +1,10 @@
 <div class="layui-col-md3 ew-datagrid-item" >
     <div class="project-list-item">
         <a href="{$item.url}">
-            <img class="project-list-item-cover" src="{$item.thumb|default='/uploads/images/photo.png'}">
+
+            <div class="project-list-item-cover">
+                <img src="{$item.thumb|default='/uploads/images/photo.png'}">
+            </div>
             <div class="project-list-item-body"><h2>{$siteName}{$item.title}</h2>
                 <div class="project-list-item-text layui-text">{$siteName}{$item.description}</div>
                 <div class="project-list-item-desc">
