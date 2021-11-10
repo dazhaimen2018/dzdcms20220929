@@ -16,6 +16,7 @@ namespace app\cms\controller;
 
 use app\cms\model\SearchLog;
 use app\cms\model\Cms as CmsModel;
+use app\cms\model\Chapter;
 use app\cms\model\Site;
 use think\Db;
 use think\Session;
@@ -28,6 +29,7 @@ class Index extends Cmsbase
     {
         parent::initialize();
         $this->CmsModel = new CmsModel;
+        $this->ChapterModel = new Chapter;
         $siteId = getSiteId();
         $this->site_id = $siteId;
 
@@ -246,6 +248,7 @@ class Index extends Cmsbase
     {
         //ID
         $id  = $this->request->param('id/d', 0);
+        $did = $this->request->param('did/d', 0);
         $cat = $this->request->param('catid/d', 0);
         if (empty($cat)) {
             $cat = $this->request->param('catdir/s', '');
@@ -267,10 +270,10 @@ class Index extends Cmsbase
         }
         //更新点击量 子表
        // Db::name($modelInfo['tablename'])->where('id', $id)->setInc('hits');
-        Db::name($modelInfo['tablename'].'_sub_data')->where('id', $id)->setInc('views');
+        Db::name($modelInfo['tablename'].'_sub_data')->where('did', $did)->where('id', $id)->setInc('views');
         //内容所有字段
         $ifcache = $this->cmsConfig['site_cache_time'] ? $this->cmsConfig['site_cache_time'] : false;
-        $info = $this->CmsModel->getChapterContent($modelid, "id={$id}", true, '*', '', $ifcache, $this->site_id);
+        $info = $this->ChapterModel->getChapterContent($modelid, $id,"id={$did}", true, '*', '', $ifcache, $this->site_id);
         if (!$info || ($info['status'] !== 1 && !\app\admin\service\User::instance()->isLogin())) {
             throw new \think\Exception(patch('PageError'), 404);
         }

@@ -170,6 +170,7 @@ class CmsTagLib
     {
         $catid = isset($data['catid']) ? trim($data['catid']) : '';
         $did   = isset($data['did']) ? trim($data['did']) : '';
+        $id    = isset($data['id']) ? trim($data['id']) : '';
         $data['where'] = isset($data['where']) ? $data['where'] . " AND `status`=1" : "`status`=1";
         if (!isset($data['limit'])) {
             $data['limit'] = 0 == (int) $data['num'] ? 10 : (int) $data['num'];
@@ -205,7 +206,7 @@ class CmsTagLib
         }else{
             $siteId = 1;
         }
-        $result = model('cms/Chapter')->getChapterList($modelid, $this->where($data), $moreifo, $siteId, $did, $data['field'], $data['order'], $data['limit'], $data['page'], $data['simple']);
+        $result = model('cms/Chapter')->getChapterList($modelid, $this->where($data), $moreifo, $siteId, $did, $id, $data['field'], $data['order'], $data['limit'], $data['page'], $data['simple']);
         return $result;
     }
 
@@ -293,6 +294,47 @@ class CmsTagLib
         $result    = model('cms/Cms')->getContent(getCategory($data['catid'], 'modelid'), "catid =" . $data['catid'] . " AND " . $tableName . ".status=1 AND " . $tableName . ".id >" . $data['id'], false, '*');
         if (!$result) {
             $result['title'] = $msg;
+            $result['url']   = 'javascript:alert("' . $msg . '");';
+        }
+        $result['target'] = $target;
+        return $result;
+    }
+
+    /**
+     * 上一页
+     */
+    public function chapterPre($data)
+    {
+        //当没有内容时的提示语
+        $msg = !empty($data['msg']) ? $data['msg'] : patch('NoData');
+        //是否新窗口打开
+        $target    = !empty($data['target']) ? ' target=_blank ' : '';
+        $tableName = model('cms/Chapter')->getModelTableName(getCategory($data['catid'], 'modelid'));
+        $tableName = $tableName . '_sub_data';
+        $result    = model('cms/Chapter')->getChapterContent(getCategory($data['catid'], 'modelid'), $data['did'], "catid =" . $data['catid'] . " AND " . $tableName . ".status=1 AND " . $tableName . ".id <" . $data['id'], false, '*','', $cache = false, $site_id = 0,$type="chapterPre");
+        if (!$result) {
+            $result['chapter'] = $msg;
+            $result['url']   = 'javascript:alert("' . $msg . '");';
+        }
+        $result['target'] = $target;
+        return $result;
+
+    }
+
+    /**
+     * 下一页
+     */
+    public function chapterNext($data)
+    {
+        //当没有内容时的提示语
+        $msg = !empty($data['msg']) ? $data['msg'] : patch('NoData');
+        //是否新窗口打开
+        $target    = !empty($data['target']) ? ' target=_blank ' : '';
+        $tableName = model('cms/Chapter')->getModelTableName(getCategory($data['catid'], 'modelid'));
+        $tableName = $tableName . '_sub_data';
+        $result    = model('cms/Chapter')->getChapterContent(getCategory($data['catid'], 'modelid'), $data['did'], "catid =" . $data['catid'] . " AND " . $tableName . ".status=1 AND " . $tableName . ".id >" . $data['id'], false, '*');
+        if (!$result) {
+            $result['chapter'] = $msg;
             $result['url']   = 'javascript:alert("' . $msg . '");';
         }
         $result['target'] = $target;

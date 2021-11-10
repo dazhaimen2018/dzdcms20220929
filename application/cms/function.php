@@ -316,10 +316,10 @@ function buildContentUrl($cat, $id, $url = '', $suffix = true, $domain = false)
 }
 
 //创建章节内容链接
-function buildChapterUrl($cat, $id, $url = '', $suffix = true, $domain = false)
+function buildChapterUrl($cat, $did, $id, $url = '', $suffix = true, $domain = false)
 {
     $field = is_numeric($cat) ? 'catid' : 'catdir';
-    return empty($url) ? url('cms/index/chapter', [$field => $cat, 'id' => $id], $suffix, $domain) : ((strpos($url, '://') !== false) ? $url : url($url));
+    return empty($url) ? url('cms/index/chapter', [$field => $cat, 'did' => $did, 'id' => $id], $suffix, $domain) : ((strpos($url, '://') !== false) ? $url : url($url));
 }
 
 
