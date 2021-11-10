@@ -4,8 +4,8 @@
     <div class="layui-row layui-col-space20">
         {include file="public/left" /}
         <div class="layui-col-sm9 layui-col-md10">
+            {include file="public/location" /}
             <div class="layui-card">
-                <div class="layui-card-header">{:getCategory($catid,'catname')}</div>
                 <div class="layui-card-body">
                     <blockquote class="layui-elem-quote layui-quote-nm">
                         {$description|raw}

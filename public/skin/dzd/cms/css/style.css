@@ -1,6 +1,6 @@
 body{padding-top:70px;color:#666;background:#f4f7f7;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Helvetica Neue',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'}
 .layui-btn-container{padding: 10px 0}
-.layui-main{position: relative;z-index: 1;overflow: hidden;width: 100% !important;margin: 15px auto}
+.layui-main{position: relative;z-index: 1;overflow: hidden;width: 100% !important;margin: 0 auto}
 .layui-container{margin: 0 auto;}
 .body-height{min-height: calc(100vh - 70px - 140px - 30px);}
 .body-height-show{min-height: calc(100vh - 70px - 500px - 30px);}
@@ -8,7 +8,7 @@ body{padding-top:70px;color:#666;background:#f4f7f7;font-family:-apple-system,Bl
 .layui-top-20{margin-top: 20px}
 .layui-card:last-child {margin-bottom: 20px;}
 li {list-style: none!important;}
-.layui-card-body{padding: 10px}
+.layui-card-body{padding: 0 10px}
 .header{position:fixed;top:0;left:0;right:0;background-color:#fff;z-index:1000;padding:0 60px;box-shadow:0 1px 2px 0 rgba(0,0,0,0.05)}
 .header .layui-logo{height:70px;line-height:70px;display:inline-block;font-size:22px;font-weight:600;color:#333;}
 .header .layui-logo img{height:50px;margin-right: 10px}
@@ -103,10 +103,10 @@ li {list-style: none!important;}
 .banner .item2 ul{margin-top:40px;}
 .banner .item2 ul li{display:inline-block;margin:0 10px;}
 .banner .subbtn{text-align:center;}
-.banner .button{font-size:16px;color:#fff;margin:0 7px;padding:10px 25px;border-radius:20px;text-decoration:none;border:1px solid #fff;transition: all .4s cubic-bezier(.4,0,.2,1);}
+.banner .button{font-size:16px;color:#fff;margin:0 5px;padding: 5px 15px;border-radius:20px;text-decoration:none;border:1px solid #fff;transition: all .4s cubic-bezier(.4,0,.2,1);}
 .banner .button:hover{color:#065fe3;background-color:#fff;}
 .banner .mainbtn{text-align:center;margin-top:50px;}
-.banner .mainbtn a{font-size:16px;color:#3566f2;margin:20px auto;padding:10px 25px;background: #fff;border-radius:20px;text-decoration:none;}
+.banner .mainbtn a{font-size:16px;color:#3566f2;margin:15px auto;padding:10px 25px;background: #fff;border-radius:20px;text-decoration:none;}
 
 .insideBanner{position: relative;overflow: hidden;color: #fff;min-height: 300px;background-color: #5FB878;max-height: 500px}
 .insideBanner img{width: 100%;position: relative;left: 50%;-webkit-transform: translateX(-50%);-moz-transform: translateX(-50%);-ms-transform: translateX(-50%);-o-transform: translateX(-50%);transform: translateX(-50%);}
@@ -240,14 +240,20 @@ li {list-style: none!important;}
     .list-box .list-text h2{font-size: 16px;}
 }
 
-.layui-left{padding: 0!important;margin-bottom: 10px}
-.layui-left .left-nav-title{position: absolute; left: 0; width: 100%; z-index: 100;top: -50px; background: #fff;  box-shadow: 0px 1px 5px rgba(0,0,0,0.15);text-align: center}
+.layui-location{overflow: hidden;background-color: #fff;padding: 0 15px;margin-top: 10px;}
+.layui-breadcrumb{line-height: 40px;height: 40px}
+.layui-left{padding: 0!important;}
+.layui-left .left-nav-title{position: absolute; left: 0; width: 100%; z-index: 100;top: -40px; background: #fff;  box-shadow: 0px 1px 5px rgba(0,0,0,0.15);text-align: center}
 .layui-left .left-nav-title .title{font-size: 16px; background: #FF9434; line-height: 50px;color: #FFF;}
-.layui-left .layui-panel{text-align: left;border-width: 0px;width: 100%;}
+.layui-left .layui-panel{text-align: left;border-width: 0px;width: 100%;top: 10px;}
 .layui-left .layui-panel .layui-menu{margin: 0!important;}
 .layui-left .layui-panel .layui-menu li{margin: 0;padding: 10px;text-align: center;}
 .layui-left .layui-panel .layui-menu .layui-menu-item-divider{margin: 0!important;padding: 0!important;}
 
+.layui-right .layui-menu{background-color: revert;margin: 0!important;}
+.layui-right .layui-menu{display: flex;flex-flow: row wrap;align-content: flex-start;justify-content: center;}
+.layui-right .layui-menu li{display: inline-block;margin:5px!important;text-align: center;line-height: 28px;width: auto;background-color: #F6F6F6;padding: 5px 10px!important;}
+.layui-right .layui-menu .layui-menu-item-checked:after {width: 100%;border-right: none;border-bottom: 3px solid #5FB878;}
 
 .section{margin:0 auto;display: block;padding: 20px 0;overflow: hidden;float: left;width: 100%}
 .section:nth-child(odd){background-color:#fff}
@@ -369,8 +375,9 @@ li {list-style: none!important;}
 @media screen and (max-width: 768px){
     .layui-left .left-nav-title{width: 100%;top: 10px;display: none;}
     .layui-left .left-nav-title dl dd{margin-top: 8px}
-    .layui-left .layui-menu{width: 100%;display: flex;justify-content: space-between}
-    .layui-left .layui-menu li{float: left;margin-bottom: 10px}
+    .layui-left .layui-menu{display: flex;flex-flow: row wrap;align-content: flex-start;justify-content: center;}
+    .layui-left .layui-menu li{display: inline-block;margin:5px!important;text-align: center;line-height: 28px;width: auto;background-color: #F6F6F6;padding: 5px 10px!important;}
+    .layui-left .layui-menu li .layui-menu-body-title{min-width: 90px}
     .layui-menu .layui-menu-item-checked:after {width: 100%;border-right: none;border-bottom: 3px solid #5FB878;}
     .shop-temp .temp-hot{padding-top: 30px;}
     .temp-title-cn{margin-bottom: 30px; font-size: 20px;}

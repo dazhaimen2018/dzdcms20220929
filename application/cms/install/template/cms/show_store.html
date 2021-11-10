@@ -2,8 +2,11 @@
 {include file="public/banner_In" /}
 <div class="layui-main">
     <div class="layui-container">
+
         <div class="layui-row layui-col-space15">
+
             <div class="layui-col-md8">
+                {include file="public/location" /}
                 <div class="fly-panel">
                     <div class="title-article">
                         <h1>{$siteName}{$title}</h1>
@@ -78,48 +81,6 @@
                 </div>
             </div>
             <div class="layui-col-md4">
-                <div class="fly-panel">
-                    <div class="layui-card">
-                        <div class="layui-card-header">开发商</div>
-                        <div class="layui-card-body">
-                            <div class="media media-default">
-                                <div class="media-left">
-                                    <a class="js-user-card" href="" data-toggle="popover" data-placement="left" data-type="user" data-id="12541" data-original-title="" title="">
-                                        <span class="avatar-img"><img src="{:letter_avatar('yzncms')}" alt=""></span>
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <div class="title">
-                                        <a class="link-dark link-dark" href="">yzncms</a>
-                                    </div>
-                                    <div class="">有问题私信沟通</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="fly-panel">
-                    <div class="layui-card">
-                        <div class="layui-card-header">插件信息</div>
-                        <div class="layui-card-body">
-                            <div class="text-left" style="display: table;padding:10px 0;">
-                                <!--介绍区域-->
-                                <div class="layui-col-xs12">
-                                    <i class="layui-icon layui-icon-fonts-code"></i>插件标识：<span>{$ide}</span>
-                                </div>
-                                <div class="layui-col-xs12">
-                                    <i class="layui-icon layui-icon-app"></i>插件名称：<span>{$title}</span>
-                                </div>
-                                <div class="layui-col-xs12">
-                                    <i class="layui-icon layui-icon-util"></i>最新版本：<span>{$version}</span>
-                                </div>
-                                <div class="layui-col-xs12">
-                                    <i class="layui-icon layui-icon-date"></i>发布日期：<span>{$inputtime|date='Y-m-d H:i'}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="fly-panel">
                     <dl class="fly-panel fly-list-one" data-id="15">
@@ -171,6 +132,51 @@
 
                     </dl>
                 </div>
+
+                <div class="fly-panel">
+                    <div class="layui-card">
+                        <div class="layui-card-header">开发商</div>
+                        <div class="layui-card-body">
+                            <div class="media media-default">
+                                <div class="media-left">
+                                    <a class="js-user-card" href="" data-toggle="popover" data-placement="left" data-type="user" data-id="12541" data-original-title="" title="">
+                                        <span class="avatar-img"><img src="{:letter_avatar('yzncms')}" alt=""></span>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <div class="title">
+                                        <a class="link-dark link-dark" href="">yzncms</a>
+                                    </div>
+                                    <div class="">有问题私信沟通</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fly-panel">
+                    <div class="layui-card">
+                        <div class="layui-card-header">插件信息</div>
+                        <div class="layui-card-body">
+                            <div class="text-left" style="display: table;padding:10px 0;">
+                                <!--介绍区域-->
+                                <div class="layui-col-xs12">
+                                    <i class="layui-icon layui-icon-fonts-code"></i>插件标识：<span>{$ide}</span>
+                                </div>
+                                <div class="layui-col-xs12">
+                                    <i class="layui-icon layui-icon-app"></i>插件名称：<span>{$title}</span>
+                                </div>
+                                <div class="layui-col-xs12">
+                                    <i class="layui-icon layui-icon-util"></i>最新版本：<span>{$version}</span>
+                                </div>
+                                <div class="layui-col-xs12">
+                                    <i class="layui-icon layui-icon-date"></i>发布日期：<span>{$inputtime|date='Y-m-d H:i'}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
 
 
                 <div class="fly-panel">
