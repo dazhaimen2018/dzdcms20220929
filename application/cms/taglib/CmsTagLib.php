@@ -26,22 +26,34 @@ class CmsTagLib
      * @param type $attr
      * @return type
      */
-    protected function where($attr)
-    {
+    protected function where($attr) {
         $where = [];
         if (isset($attr['where']) && $attr['where']) {
             array_push($where, $attr['where']);
         }
         //栏目id条件
-        if (isset($attr['catid']) && (int) $attr['catid']) {
-            $catid = (int) $attr['catid'];
-            if (getCategory($catid, 'child')) {
-                $catids_str = getCategory($catid, 'arrchildid');
-                $pos        = strpos($catids_str, ',') + 1;
-                $catids_str = substr($catids_str, $pos);
-                array_push($where, "`catid` in(" . $catids_str . ',' . $catid . ")");
+        if (isset($attr['catid']) && (int)$attr['catid']) {
+            $catid = (int)$attr['catid'];
+
+            //同步发布
+            if (isset($attr['catids'])) {
+                $catids   = [];
+                $orCatids = "";
+                foreach (explode(',', $attr['catids']) as $k => $v) {
+                    $catids[] = "FIND_IN_SET('" . $v . "', catids)";
+                }
+                if ($catids) {
+                    $orCatids = " OR (" . implode(' OR ', $catids) . ")";
+                }
+            }
+
+            if (getCategory($catid, 'child')) {// 有子栏目
+                $catids_str = getCategory($catid, 'arrchildid');// 所有子栏目ID
+                // $pos = strpos($catids_str, ',') + 1;// 查找子字符串在字符串中第一次出现的位置
+                // $catids_str = substr($catids_str, $pos); // 返回字符串的一部分
+                array_push($where, "(`catid` in(" . $catids_str . ")" . $orCatids.")");
             } else {
-                array_push($where, "`catid` = " . $catid);
+                array_push($where, "(`catid` = " . $catid . $orCatids.")");
             }
         }
         $where_str = "";
@@ -50,6 +62,7 @@ class CmsTagLib
         }
         return $where_str;
     }
+
 
     /**
      * 栏目标签
@@ -64,7 +77,6 @@ class CmsTagLib
         }else{
             $siteId = 1;
         }
-        //$siteId = getSiteId();
         //每页显示总数
         //$num = isset($data['num']) ? (int) $data['num'] : 10;
         if (!isset($data['limit'])) {
@@ -126,18 +138,6 @@ class CmsTagLib
                 $data['where'] .= " AND (" . implode(' OR ', $flag) . ")";
             }
         }
-
-        //同步发布
-        if (isset($data['catids'])) {
-            $catids = [];
-            foreach (explode(',', $data['catids']) as $k => $v) {
-                $catids[] = "FIND_IN_SET('" . $v . "', catids)";
-            }
-            if ($catids) {
-                $data['where'] .= " and (catid=" . $data['catid'] . " OR (" . implode(' OR ', $catids) . "))";
-            }
-        }
-
         $data['field']  = isset($data['field']) ? $data['field'] : '*';
         $data['simple'] = isset($data['simple']) ? (is_numeric($data['simple']) ? (int) $data['simple'] : (bool) $data['simple']) : false;
         $moreifo        = isset($data['moreinfo']) ? $data['moreinfo'] : 0;
@@ -301,7 +301,7 @@ class CmsTagLib
     }
 
     /**
-     * 上一页
+     * 章节上一页
      */
     public function chapterPre($data)
     {
@@ -322,7 +322,7 @@ class CmsTagLib
     }
 
     /**
-     * 下一页
+     * 章节下一页
      */
     public function chapterNext($data)
     {
