@@ -1,1 +1,21 @@
-{include file="list_ajax" /}
+{php}
+$catid=request()->param('catid/d',0);
+if (empty($catid)) {
+$cat = request()->param('catdir/s', '');
+$catid = getCategory($cat,'id');
+}
+$page=request()->param('page/d',1);
+$offset=($page-1)*5;
+$limit="$offset,5";
+{/php}
+{yzn module="cms" action="lists" catid="$catid" siteId="$siteId" cache="3600" order="listorder DESC" limit="$limit" return="data"}
+{volist name="data" id="item"}
+{include file="public/list_item" /}
+{/volist}
+{/yzn}
+
+{if !$__LIST__}
+<div class="layui-load"><a class="no-date" href="javascipt:;">{:lang('NoMoreData')}</a></div>
+{else /}
+<div class="layui-load"><a href="?page={:$page+1}" data-page="{$page}" class="btn-loadmore">{:lang('LoadMore']}</a></div>
+{/if}

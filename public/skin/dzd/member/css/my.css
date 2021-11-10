@@ -61,6 +61,7 @@
 .js-upload-image, .js-upload-file{display:flex;position:relative;}
 .js-upload-file #file_list_file{flex: 1;}
 
+
 /*上传图片布局*/
 .layui-form-item .border-none{line-height: 20px!important;}
 .layui-form-item .js-upload-image, .layui-form-item .js-upload-images{display: flex}

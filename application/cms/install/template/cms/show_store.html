@@ -1,0 +1,223 @@
+{include file="public/header" /}
+{include file="public/banner_In" /}
+<div class="layui-main">
+    <div class="layui-container">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md8">
+                <div class="fly-panel">
+                    <div class="title-article">
+                        <h1>{$siteName}{$title}</h1>
+                        <div class="title-msg">
+                            <span><i class="layui-icon layui-icon-username"></i> {$username}</span>
+                            <span><i class="layui-icon layui-icon-time"></i> {$inputtime|date='Y-m-d H:i'} </span>
+                            <span><i class="layui-icon layui-icon-read"></i> {$hits} {:lang('Views')}</span>
+                            {if isModuleInstall('baidu_record')}
+                            <span><i class="iconfont icon-baidu"></i> {:hook('baidu_record')}</span>
+                            {/if}
+                        </div>
+                    </div>
+                    <div class="layui-carousel banner-show" id="slide">
+                        <div carousel-item>
+                            {if $images}
+                            {volist name="images" id="vo"}
+                            <div> <img src="{$vo}" class="img-responsive"></div>
+                            {/volist}
+                            {else}
+                            <div> <img src="{$thumb}" class="img-responsive"></div>
+                            {/if}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fly-panel">
+                    <div class="layui-card case-content">
+                        <div class="layui-card-body detail-body layui-text">
+                            {$content|raw}
+                        </div>
+                    </div>
+                </div>
+                <div class="fly-panel">
+                    <div class="layui-card">
+                        <div class="layui-card-header">更新记录</div>
+                        <div class="layui-card-body">
+                            <ul class="layui-timeline">
+                                {yzn module="cms" action="chapters" catid="$catid" did="$id" siteId="$site_id" cache="3600" order="id ASC" num="100" return="data"}
+                                {volist name="data" id="item"}
+                                <li class="layui-timeline-item">
+                                    <i class="layui-icon layui-timeline-axis"></i>
+                                    <div class="layui-timeline-content layui-text">
+                                        <h3 class="layui-timeline-title">{:timeRule($item['inputtime'])}</h3>
+                                        <p>{$item.chapter}</p>
+                                        <ul>
+                                            {$item.details|raw}
+                                        </ul>
+                                    </div>
+                                </li>
+                                {/volist}
+                                {/yzn}
+                                <li class="layui-timeline-item">
+                                    <i class="layui-icon layui-timeline-axis"></i>
+                                    <div class="layui-timeline-content layui-text">
+                                        <h3 class="layui-timeline-title">{:timeRule($inputtime)}</h3>
+                                        <p>首次发布</p>
+                                        <ul>
+                                            {$description}
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="layui-timeline-item">
+                                    <i class="layui-icon layui-timeline-axis"></i>
+                                    <div class="layui-timeline-content layui-text">
+                                        <div class="layui-timeline-title">无数个日夜开发中。。。</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        {include file="public/page_text" /}
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md4">
+                <div class="fly-panel">
+                    <div class="layui-card">
+                        <div class="layui-card-header">开发商</div>
+                        <div class="layui-card-body">
+                            <div class="media media-default">
+                                <div class="media-left">
+                                    <a class="js-user-card" href="" data-toggle="popover" data-placement="left" data-type="user" data-id="12541" data-original-title="" title="">
+                                        <span class="avatar-img"><img src="{:letter_avatar('yzncms')}" alt=""></span>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <div class="title">
+                                        <a class="link-dark link-dark" href="">yzncms</a>
+                                    </div>
+                                    <div class="">有问题私信沟通</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fly-panel">
+                    <div class="layui-card">
+                        <div class="layui-card-header">插件信息</div>
+                        <div class="layui-card-body">
+                            <div class="text-left" style="display: table;padding:10px 0;">
+                                <!--介绍区域-->
+                                <div class="layui-col-xs12">
+                                    <i class="layui-icon layui-icon-fonts-code"></i>插件标识：<span>{$ide}</span>
+                                </div>
+                                <div class="layui-col-xs12">
+                                    <i class="layui-icon layui-icon-app"></i>插件名称：<span>{$title}</span>
+                                </div>
+                                <div class="layui-col-xs12">
+                                    <i class="layui-icon layui-icon-util"></i>最新版本：<span>{$version}</span>
+                                </div>
+                                <div class="layui-col-xs12">
+                                    <i class="layui-icon layui-icon-date"></i>发布日期：<span>{$inputtime|date='Y-m-d H:i'}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fly-panel">
+                    <dl class="fly-panel fly-list-one" data-id="15">
+                        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                            <ul class="layui-tab-title">
+                                <li class="advanced" style="width: 40%">高级授权<span class="layui-badge layui-bg-blue">新</span></li>
+                                <li class="general layui-this" style="width: 40%">普通授权<span class="layui-badge ">hot</span></li>
+                            </ul>
+                            <div class="layui-tab-content">
+                                <div class="layui-tab-item">
+                                    <div style="padding: 0 20px;">
+                                        <br>
+                                        <p style="font-size: 20px;">授权价格：<span class=""><i class="layui-icon layui-icon-rmb"></i></span>
+                                            <span class="" style="font-size: 14px;">0.00</span>
+                                        </p>
+                                        <br>
+                                        <div>
+                                            <p><i class="layui-icon layui-icon-ok"></i> 提供无加密源代码</p>
+                                            <p><i class="layui-icon layui-icon-ok"></i> 永久免费升级</p>
+                                            <p><i class="layui-icon layui-icon-ok"></i> 社区技术支持</p>
+                                            <p><i class="layui-icon layui-icon-ok"></i> 可用于学习自营网站或应用</p>
+                                            <p><i class="layui-icon layui-icon-ok"></i> 可用于为客户定制开发项目</p>
+                                            <p><i class="layui-icon layui-icon-ok"></i> 可去除代码头部版权注释</p>
+                                            <p><i class="layui-icon layui-icon-close"></i> 禁止转售或转移插件源码</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-tab-item  layui-show">
+                                    <div style="padding: 0 20px;">
+                                        <br>
+                                        <p style="font-size: 20px;">授权价格：<span class=""><i class="layui-icon layui-icon-rmb"></i></span>
+                                            <span style="font-size: 14px;">0.00</span>
+                                        </p>
+                                        <br>
+                                        <div>
+                                            <p><i class="layui-icon layui-icon-ok"></i> 提供无加密源代码</p>
+                                            <p><i class="layui-icon layui-icon-ok"></i> 三年内免费升级</p>
+                                            <p><i class="layui-icon layui-icon-ok"></i> 社区技术支持</p>
+                                            <p><i class="layui-icon layui-icon-ok"></i> 可用于学习或自营网站或应用</p>
+                                            <p><i class="layui-icon layui-icon-ok"></i> 可为客户定制开发</p>
+                                            <p><i class="layui-icon layui-icon-close"></i> 禁止修改和去除代码头部版权注释</p>
+                                            <p><i class="layui-icon layui-icon-close"></i> 禁止转售或转移插件源码</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </dl>
+                </div>
+
+
+                <div class="fly-panel">
+                    <div class="layui-card">
+                        <div class="layui-card-header">热门应用</div>
+                        <div class="layui-card-body">
+                            <div class="layui-row layui-col-space25 merit">
+                                {yzn module="cms" action="lists" catid="$catid" catids="$catid" siteId="$siteId" cache="3600" order="hits DESC" num="6" return="data"}
+                                {volist name="data" id="item"}
+                                    <div class="layui-col-xs6">
+                                        <a href="{$item.url}">
+                                            <div class="content" title="{$item.title}">
+                                                <div class="layui-icon {$item.icon}"><i></i></div>
+                                                <div class="layui-text">
+                                                    <p class="label">{$item.title}</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {/volist}
+                                {/yzn}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="fly-panel">
+                    <div class="layui-card">
+                        <div class="layui-card-header">联系我们</div>
+                        <div class="layui-card-body">
+                            <a href="{$website}" class="layui-btn" target="_blank"><i class="layui-icon layui-icon-website"></i> 查看演示</a>
+                            <a href="{:config('web_site_qq')}" target="_blank"  type="button" class="layui-btn layui-btn-warm"><i class="layui-icon layui-icon-login-qq"></i> 我要建站</a>
+                            {if $lang}
+                            <div class="intro-txt">
+                                {volist name="lang" id="vo"}
+                                <span class="layui-badge"><img src="/static/language/{$key}.png" title="{$vo}"></span>
+                                {/volist}
+                            </div>
+                            {/if}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+{include file="public/footer" /}

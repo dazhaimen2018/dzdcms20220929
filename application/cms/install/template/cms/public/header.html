@@ -25,7 +25,7 @@
                 {volist name="data" id="vo"}
                 <li class="layui-nav-item {if isset($catid) && in_array($catid,explode(',',$vo['arrchildid']))}layui-this{/if}">
                     {if $vo['child']}
-                    <a href="javascript:;">{$vo.catname}</a>
+                    <a href="{$vo.url}">{$vo.catname}</a>
                     <dl class="layui-nav-child">
                         <!-- 二级菜单 -->
                         {yzn module="cms" action="category" catid="$vo['id']" siteId="$siteId" cache="3600" order="listorder ASC" num="10" return="data"}

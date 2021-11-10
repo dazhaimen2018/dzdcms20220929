@@ -2,7 +2,7 @@
 {block name="main"}
 <div class="layui-tab layui-tab-brief">
     <ul class="layui-tab-title">
-        <li class="layui-this">授权证书</li>
+        <li class="layui-this"><i class="iconfont icon-shield-user-line"></i> 授权证书</li>
     </ul>
     <div class="layui-tab-content" style="padding: 20px 0;">
         <div class="layui-tab-item layui-show">
@@ -19,7 +19,40 @@
     {{#  } else if(d.status==1){ }}
 <button class="layui-btn layui-btn layui-btn-xs">{:lang('Passed')}</button>
     {{#  } }}
+    {{#  if(d.file!=0){ }}
+    <a href='{{ d.file }}' class="layui-btn layui-btn-xs layui-btn-warm" title="解压后放在application下面" target="_blank">下载授权</a>
+    {{#  } }}
 </script>
+
+
+<div class="layui-tab layui-tab-brief">
+    <ul class="layui-tab-title">
+        <li class="layui-this"><i class="iconfont icon-systemprompt"></i> 重要提示</li>
+    </ul>
+    <div class="layui-tab-content" style="padding: 20px 0;">
+        <div class="layui-tab-item layui-show">
+            <div class="layui-collapse" lay-accordion="">
+                <div class="layui-colla-item">
+                    <h2 class="layui-colla-title">1、授权申请提交后多久才可以用？<i class="layui-icon layui-colla-icon"></i></h2>
+                    <div class="layui-colla-content layui-show">
+                        <p>一般授权审核需要1个工作日。</p>
+                        <p>如果着急，可联络客服立即处理！客服QQ：8355763</p>
+                    </div>
+                </div>
+                <div class="layui-colla-item">
+                    <h2 class="layui-colla-title">2、授权证书怎么用？<i class="layui-icon layui-colla-icon"></i></h2>
+                    <div class="layui-colla-content">
+                        <p>证书下载后，解压后放在application下覆盖相应的文件即可</p>
+                        <p>覆盖后，如果不能用，或是有乱码提示，应该您的系统是windows,或是虚拟主机，请联系客服替换新的证书</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 {/block}
 {block name="js"}
 <script>
@@ -51,12 +84,11 @@
             search:false,
             cols: [
                 [
-                    { field: 'id', width: 60, title: 'ID' },
-                    { field: 'title', title: "联系人"},
+                    { field: 'title', title: "联系人",width: 120},
                     { field: 'mobile',width: 120, title: "电话"},
                     { field: 'domain', title: "域名"},
                     { field: 'inputtime', width: 180, title: "申请时间" },
-                    { field: 'status', width: 80, title: "状态",align: "center", templet: '#status' }
+                    { field: 'status', width: 150, title: "状态",align: "center", templet: '#status' }
                 ]
             ],
             page: {}

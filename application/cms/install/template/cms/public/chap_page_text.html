@@ -1,0 +1,14 @@
+<div class="layui-card">
+    <div class="page-text">
+        <div class="nav-span previous d-inline-block">
+            {yzn module="cms" action="chapterPre" catid="$catid"  siteId="$siteId" id="$id" did="$did" cache="3600" return="data"}
+            <a href="{$data.url}" {$data.target}><i class="layui-icon layui-icon-prev"></i> {:lang('Pre')}：{$data.chapter}</a>
+            {/yzn}
+        </div>
+        <div class="nav-span d-inline-block">
+            {yzn module="cms" action="chapterNext" catid="$catid" siteId="$siteId" did="$did" id="$id" cache="3600" return="data"}
+            <a href="{$data.url}" {$data.target}>{:lang('Next')}：{$data.chapter} <i class="layui-icon layui-icon-next"></i></a>
+            {/yzn}
+        </div>
+    </div>
+</div>

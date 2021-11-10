@@ -83,7 +83,7 @@ li {list-style: none!important;}
     .header .layui-layout-left{left: auto;top: 130px}
     .header .header-search{display: none!important;}
 }
-.banner-show{height: 400px!important;overflow: hidden}
+.banner-show{height: 400px!important;overflow: hidden;width: revert!important;margin: 15px;padding-bottom: 15px;background-color: #fff; }
 
 .banner-show img{width: 100%}
 .banner{width:100%;float:left;height:695px!important;text-align:center;overflow:hidden;position:relative;}
@@ -187,7 +187,7 @@ li {list-style: none!important;}
 .ew-table-loading > i{color: #999;font-size: 30px;}
 .ew-table-loading.ew-loading-float{position: absolute;top: 0;left: 0;right: 0;}
 
-.title-article{margin: 15px;border-bottom: 1px solid #eee;padding: 10px 0}
+.title-article{margin: 0 15px;border-bottom: 1px solid #eee;padding: 10px 0}
 .title-article h1 {padding-bottom: 10px }
 .title-article p {margin-bottom: 10px; color: #666 }
 .title-article p span {margin-right: 10px }
@@ -199,6 +199,7 @@ li {list-style: none!important;}
 .title-article .title-msg span a:hover {color: #1e9fff }
 .title-article .title-right {position: absolute; top: 20px; right: 15px; background: #f5f5f5; padding: 10px; overflow: hidden }
 .title-article .title-right img {max-width: 120px !important; max-height: 120px !important }
+.fly-panel {margin-bottom: 15px;border-radius: 2px;background-color: #fff;box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);}
 
 .layui-thumb img{width: 100%}
 .read-btn{display: inline-block;padding: 8px 25px;border-radius: 8px;background: #50a1ff;color: #fff !important;margin: 0 10px 0 0;font-size: 16px;font-weight: 500;border: 1px solid #50a1ff;}
@@ -289,7 +290,7 @@ li {list-style: none!important;}
 .media:first-child{margin-top: 0;}
 .media, .media-body{zoom: 1; overflow: hidden;}
 .media-left, .media-right, .media-body{display: table-cell; vertical-align: top;}
-.media-left, .media > .pull-left{padding-right: 10px;}
+.media-left, .media > .pull-left{padding-right: 10px;height: 58px;}
 .media-body .label-success{color: #fff!important;display:inline-block;padding:.3em .4em;}
 .avatar-img{font-size: 0;}
 .avatar-text, .avatar-img{display: inline-block; box-sizing: content-box; color: #fff; text-align: center; vertical-align: top; background-color: #e8ecf3; font-weight: normal; width: 48px; height: 48px; border-radius: 48px; font-size: 24px; line-height: 48px;}
