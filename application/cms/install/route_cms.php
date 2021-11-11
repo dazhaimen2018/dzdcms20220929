@@ -27,7 +27,7 @@ Route::group('/', function () {
     Route::rule('index', 'cms/index/index');
     Route::rule('lists/:catid/[:condition]'.$slash, 'cms/index/lists')->pattern(['catid' => '\d+', 'condition' => '[0-9_&=a-zA-Z]+']);
     Route::rule('shows/:catid/:id', 'cms/index/shows')->pattern(['catid' => '\d+', 'id' => '\d+']);
-    Route::rule('chapter/:catid/:id', 'cms/index/chapter')->pattern(['catid' => '\d+', 'id' => '\d+']);
+    Route::rule('chapter/:catid/:did/:id', 'cms/index/chapter')->pattern(['catid' => '\d+', 'did' => '\d+', 'id' => '\d+']);
     Route::rule('search', 'cms/index/search');
     Route::rule('tag/[:tagdir]', 'cms/index/tags');
     if (isset(cache("Cms_Config")['site_url_mode']) && 2 == cache("Cms_Config")['site_url_mode']) {
@@ -40,4 +40,5 @@ Route::group('/', function () {
         Route::rule(':catdir/:id', 'cms/index/shows')->pattern(['catdir' => '[A-Za-z0-9\-\_]+', 'id' => '\d+']);
         Route::rule(':catdir/[:condition]'.$slash, 'cms/index/lists')->pattern(['catdir' => '[A-Za-z0-9\-\_]+', 'condition' => '[0-9_&=a-zA-Z]+']);
     }
+
 });
