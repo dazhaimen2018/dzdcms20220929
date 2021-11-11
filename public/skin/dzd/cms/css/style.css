@@ -152,14 +152,11 @@ li {list-style: none!important;}
 .product-card .product-body .info .xy{margin: 0 4px;vertical-align: 2.5px}
 .product-card .product-body .info .note_icon{float: right}
 
-
-
-
 .merit .layui-icon{height:52px;width: 52px;margin: 0 auto; background-color:rgba(62,196,131,.15);color:#3ec483;padding:15px;border-radius:50%;font-size:22px;box-sizing:border-box}
 .merit .layui-icon{ cursor: pointer;-webkit-transition: all .5s ease;transition: all .5s ease;text-align: center;}
 .merit .layui-icon:hover{ transform: rotate(360deg); border-color: #009688;opacity: 1; }
 
-.merit .content{border: 1px solid #DEDEDE; padding: 30px 36px 30px 36px; text-align: center; transition: 0.3s;background: #fff;}
+.merit .content{border: 1px solid #e8e8e8; border-radius: 4px;padding: 20px; text-align: center; transition: 0.3s;background: #fff;  margin-top: 15px;}
 .merit .content p.label{font-size: 18px; color: #666666; line-height: 46px; padding-top: 5px;}
 .merit .content a{font-size: 18px; color: #a1d8cb; line-height: 68px;}
 .merit .content:hover{box-shadow: 0 0 3px 3px #EEE; transition: 0.3s;}
@@ -167,12 +164,12 @@ li {list-style: none!important;}
 .merit h3{font-size:20px;margin:5px 0 20px 0;color:#333;font-weight:400}
 .merit p{font-size:16px;margin-bottom:5px;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;}
 
-.project-list-item{background-color: #fff;border-radius: 4px;cursor: pointer;transition: all .2s;width: 100%;}
+.project-list-item{background-color: #fff;border-radius: 4px;cursor: pointer;transition: all .2s;width: 100%;border: 1px solid #e8e8e8;}
 .project-list-item:hover{box-shadow: 2px 0 4px rgba(0, 21, 41, .35);}
 .project-list-item .project-list-item-cover{width: 100%;display: block;border-top-left-radius: 4px;border-top-right-radius: 4px;overflow: hidden;height: 0;padding-bottom: 55%;position: relative;}
 .project-list-item .project-list-item-cover img{width: 100%;position: absolute;top:0;left:0;}
 
-.project-list-item-body{padding: 20px;border: 1px solid #e8e8e8;}
+.project-list-item-body{padding: 20px;}
 .project-list-item .project-list-item-body>h2{font-size: 16px;margin-bottom: 12px;height: 24px;line-height: 24px;overflow: hidden;white-space: normal;text-overflow: ellipsis}
 .project-list-item .project-list-item-text{height: 40px;overflow: hidden;margin-bottom: 12px;}
 .project-list-item .project-list-item-desc{position: relative;}
