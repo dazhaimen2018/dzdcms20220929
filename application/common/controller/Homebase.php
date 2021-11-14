@@ -42,7 +42,7 @@ class Homebase extends Base
         //$siteName 虚拟站点显示自己的站点名称 独立站不显示
         if (getSite('alone')!=1){
             $siteId   = 1;
-            $siteName = $sites[$siteId]['name'];
+            $siteName = getSite('name');
         }else{
             $siteId   = getSite('id');
             $siteName = '';
