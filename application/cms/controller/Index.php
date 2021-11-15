@@ -166,9 +166,14 @@ class Index extends Cmsbase
             $this->error(patch('PageNot')); //模型不存在
         }
         //更新点击量 获得文章ID
-        $show_mode  = isset(cache("Cms_Config")['show_url_mode']) ? cache("Cms_Config")['show_url_mode'] : 1;
+        $show_mode    = isset(cache("Cms_Config")['show_url_mode']) ? cache("Cms_Config")['show_url_mode'] : 1;
+        $showCatMode  = isset(cache("Cms_Config")['show_cat_mode']) ? cache("Cms_Config")['show_cat_mode'] : 1;
+
         if ($show_mode) {
             $id = Db::name($modelInfo['tablename'])->where('diyurl', $diy)->value('id');
+        }
+        if ($showCatMode) {
+            $catid = Db::name($modelInfo['tablename'])->where('id', $id)->value('catid');
         }
         Db::name($modelInfo['tablename'])->where('id', $id)->setInc('hits');
         //内容所有字段

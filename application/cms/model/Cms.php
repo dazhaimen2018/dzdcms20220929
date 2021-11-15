@@ -63,7 +63,7 @@ class Cms extends Modelbase
         }
         //判断diyurl是否已经存在
         if ($data['diyurl']){
-            $diyur= db::name($tablename)->where('diyurl',$data['diyurl'])->find();
+            $diyur = db::name($tablename)->where('diyurl',$data['diyurl'])->find();
             if ($diyur) {
                 throw new \Exception('自定义URL已经存在！');
             }
@@ -202,7 +202,7 @@ class Cms extends Modelbase
         }
         //判断diyurl是否已经存在
         if ($data['diyurl']){
-            $diyur= db::name($tablename)->where('diyurl',$data['diyurl'])->where('id','<>',$id)->find();
+            $diyur = db::name($tablename)->where('diyurl',$data['diyurl'])->where('id','<>',$id)->find();
             if ($diyur) {
                 throw new \Exception('自定义URL已经存在！');
             }
@@ -539,7 +539,8 @@ class Cms extends Modelbase
     {
         $url_mode   = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
         $show_mode  = isset(cache("Cms_Config")['show_url_mode']) ? cache("Cms_Config")['show_url_mode'] : 1;
-//        $dataShare  = cache("Cms_Config")['data_share']; //数据共享
+        $showCatMode  = isset(cache("Cms_Config")['show_cat_mode']) ? cache("Cms_Config")['show_cat_mode'] : 1;
+
         $tableName  = $this->getModelTableName($modeId);
         $result     = [];
         if (getSite('alone')==1){
@@ -602,7 +603,12 @@ class Cms extends Modelbase
             $Category   = cache('Category');
             foreach ($result as $key => $vo) {
                 $vo           = $this->dealModelShowData($ModelField[$modeId], $vo);
-                $cat          = $url_mode  == 1 ? $vo['catid'] : (isset($Category[$vo['catid']]) ? $Category[$vo['catid']]['catdir'] : getCategory($vo['catid'], 'catdir'));
+                //获取顶级栏目ID
+                $category     = getCategory($vo['catid']);
+                $arrparentid  = explode(',', $category['arrparentid']);
+                $topParentid  = isset($arrparentid[1]) ? $arrparentid[1] : $vo['catid'];
+                $newCatid     = $showCatMode == 1 ? $topParentid : $vo['catid'];
+                $cat          = $url_mode  == 1 ? $newCatid : (isset($Category[$newCatid]) ? $Category[$newCatid]['catdir'] : getCategory($newCatid, 'catdir'));
                 $diy          = $show_mode == 1 ? $vo['diyurl'] : $vo['id'];
                 $vo['url']    = buildContentUrl($cat, $diy, $vo['url']);
                 $result[$key] = $vo;
@@ -623,6 +629,7 @@ class Cms extends Modelbase
     {
         $url_mode  = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
         $show_mode  = isset(cache("Cms_Config")['show_url_mode']) ? cache("Cms_Config")['show_url_mode'] : 1;
+        $showCatMode  = isset(cache("Cms_Config")['show_cat_mode']) ? cache("Cms_Config")['show_cat_mode'] : 1;
         $tableName = $this->getModelTableName($modeId);
         if (getSite('alone')==1){
             $site_id = getSiteId();
@@ -657,7 +664,14 @@ class Cms extends Modelbase
             $ModelField      = cache('ModelField');
             $Category        = cache('Category');
             $dataInfo        = $this->dealModelShowData($ModelField[$modeId], $dataInfo);
-            $cat             = $url_mode == 1 ? $dataInfo['catid'] : (isset($Category[$dataInfo['catid']]) ? $Category[$dataInfo['catid']]['catdir'] : getCategory($dataInfo['catid'], 'catdir'));
+
+            //获取顶级栏目ID
+            $category     = getCategory($dataInfo['catid']);
+            $arrparentid  = explode(',', $category['arrparentid']);
+            $topParentid  = isset($arrparentid[1]) ? $arrparentid[1] : $dataInfo['catid'];
+            $newCatid     = $showCatMode == 1 ? $topParentid : $dataInfo['catid'];
+
+            $cat             = $url_mode == 1 ? $newCatid : (isset($Category[$newCatid]) ? $Category[$newCatid]['catdir'] : getCategory($newCatid, 'catdir'));
             $diy             = $show_mode == 1 ? $dataInfo['diyurl'] : $dataInfo['id'];
             $dataInfo['url'] = buildContentUrl($cat, $diy, $dataInfo['url']);
         }

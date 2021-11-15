@@ -17,7 +17,7 @@ return array(
     'site_url_mode'      => 1,
     'site_cat_url'       => 0,
     'show_url_mode'      => 0,
-    'phpcms_mode'        => 0,
+    'show_cat_mode'        => 0,
     'site_category_auth' => 0,
     'data_import'        => 0,
     'offside'            => 0,

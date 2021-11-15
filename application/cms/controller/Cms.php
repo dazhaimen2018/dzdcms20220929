@@ -137,6 +137,7 @@ class Cms extends Adminbase
         $catid      = $this->request->param('catid/d', 0);
         $url_mode   = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
         $show_mode  = isset(cache("Cms_Config")['show_url_mode']) ? cache("Cms_Config")['show_url_mode'] : 1;
+        $showCatMode  = isset(cache("Cms_Config")['show_cat_mode']) ? cache("Cms_Config")['show_cat_mode'] : 1;
         //当前栏目信息
         $catInfo = getCategory($catid);
         if (empty($catInfo)) {
@@ -178,7 +179,13 @@ class Cms extends Adminbase
             $siteUrl = onSiteUrl();
             $_list   = [];
             foreach ($list as $k => $v) {
-                $cat             = $url_mode == 1 ? $catid : (isset($Category[$catid]) ? $Category[$catid]['catdir'] : getCategory($catid, 'catdir'));
+                //获取顶级栏目ID
+                $category        = getCategory($catid);
+                $arrparentid     = explode(',', $category['arrparentid']);
+                $topParentid     = isset($arrparentid[1]) ? $arrparentid[1] : $catid;
+                $newCatid        = $showCatMode == 1 ? $topParentid : $catid;
+
+                $cat             = $url_mode == 1 ? $catid : (isset($Category[$newCatid]) ? $Category[$newCatid]['catdir'] : getCategory($newCatid, 'catdir'));
                 $diy             = $show_mode == 1 ? $v['diyurl'] : $v['id'];
                 $v['updatetime'] = date('Y-m-d H:i', $v['updatetime']);
                 $v['url']        = $siteUrl.buildContentUrl($cat, $diy, $v['url']);

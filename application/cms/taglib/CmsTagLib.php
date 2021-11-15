@@ -26,7 +26,8 @@ class CmsTagLib
      * @param type $attr
      * @return type
      */
-    protected function where($attr) {
+    protected function where($attr)
+    {
         $where = [];
         if (isset($attr['where']) && $attr['where']) {
             array_push($where, $attr['where']);

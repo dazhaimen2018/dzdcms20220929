@@ -18,14 +18,6 @@
                             </div>
                             <div class="layui-form-mid layui-word-aux">只有多个相同域名站点时有效，不带http://和/ 如 www.dzdcms.com</div>
                         </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">站点开关</label>
-                            <div class="layui-input-block">
-                                <input type="radio" name="setting[web_site_status]" value="1" title="开启" {if 1==$setting['web_site_status']}checked{/if}>
-                                <input type="radio" name="setting[web_site_status]" value="0" title="关闭" {if 0==$setting['web_site_status']}checked{/if}>
-                            </div>
-                            <div class="layui-form-mid layui-word-aux">站点关闭后前台将不能访问</div>
-                        </div>
 
                         <div class="layui-form-item">
                             <label class="layui-form-label" title="栏目图标直接上传图片选2；用iconfont或layui字休图片选1">栏目图标</label>
@@ -49,13 +41,20 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
+                            <label class="layui-form-label" title="前端详情页URL目录模式">内容目录</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="setting[show_cat_mode]" value="1" title="顶级" {if 1==$setting['show_cat_mode']}checked{/if}>
+                                <input type="radio" name="setting[show_cat_mode]" value="0" title="终极" {if 0==$setting['show_cat_mode']}checked{/if}>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
                             <label class="layui-form-label" title="前端详情页URL模式">内容模式</label>
                             <div class="layui-input-block">
                                 <input type="radio" name="setting[show_url_mode]" value="1" title="自定义" {if 1==$setting['show_url_mode']}checked{/if}  {if 1==$setting['site_url_mode']}disabled{/if}>
                                 <input type="radio" name="setting[show_url_mode]" value="0" title="数字ID" {if 0==$setting['show_url_mode']}checked{/if}>
                             </div>
                         </div>
-
                         {if !$userInfo.site_id}
                         <div class="layui-form-item">
                             <label class="layui-form-label" title="文章和单页发布和修改模式">发布模式</label>
@@ -96,6 +95,14 @@
                         </div>
                     </div>
                     <div class="layui-tab-item">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">站点开关</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="setting[web_site_status]" value="1" title="开启" {if 1==$setting['web_site_status']}checked{/if}>
+                                <input type="radio" name="setting[web_site_status]" value="0" title="关闭" {if 0==$setting['web_site_status']}checked{/if}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">站点关闭后前台将不能访问</div>
+                        </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">回收站</label>
                             <div class="layui-input-block">
