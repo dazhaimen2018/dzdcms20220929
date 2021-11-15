@@ -61,6 +61,13 @@ class Cms extends Modelbase
         if (!$this->table_exists($tablename)) {
             throw new \Exception('数据表不存在！');
         }
+        //判断diyurl是否已经存在
+        if ($data['diyurl']){
+            $diyur= db::name($tablename)->where('diyurl',$data['diyurl'])->find();
+            if ($diyur) {
+                throw new \Exception('自定义URL已经存在！');
+            }
+        }
         $this->getAfterTextAll($data, $extraData);
 
         if (!defined('IN_ADMIN') || (defined('IN_ADMIN') && IN_ADMIN == false)) {
@@ -193,6 +200,14 @@ class Cms extends Modelbase
         if (!$this->table_exists($tablename)) {
             throw new \Exception('数据表不存在！');
         }
+        //判断diyurl是否已经存在
+        if ($data['diyurl']){
+            $diyur= db::name($tablename)->where('diyurl',$data['diyurl'])->where('id','<>',$id)->find();
+            if ($diyur) {
+                throw new \Exception('自定义URL已经存在！');
+            }
+        }
+
         $this->getAfterTextAll($data, $extraData);
         $dataAll              = $this->dealModelPostData($modelid, $data, $dataExt);
         list($data, $dataExt) = $dataAll;
