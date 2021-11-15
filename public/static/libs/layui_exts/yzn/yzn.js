@@ -348,14 +348,13 @@ layui.define(['layer','notice'], function(exports) {
 
     //获取标题拼音 已经有时不再重新获取
     $("#title").blur(function(){
-        var value = this.value;
-        var diyurl  = $('#diyurl').val();
-        var node = this;
-        if (!diyurl){
-            $.post('admin/ajax/getTitlePinyin',{title:value, delimiter: "-"},function (data){
-                $("#diyurl").val(data.data.pinyin.substr(0, 100));
-            },'json');
-        }
+        var value  = this.value;
+        var diyurl = $('#diyurl').val();
+        var theme  = $('#theme').val(); //主题的内容
+        var node   = this;
+        $.post('admin/ajax/getTitlePinyin',{title:theme, delimiter: "-"},function (data){
+            $("#diyurl").val(data.data.pinyin.substr(0, 100));
+        },'json');
     })
 
     //马博加 end
