@@ -7,7 +7,7 @@
             <div class="layui-col-sm6 layui-col-md12">
                 <div class="layui-card">
                     <div class="layui-card-header">
-                        <i class="iconfont icon-user-line icon"></i>亲爱的{$userInfo.username}！
+                        <i class="iconfont icon-user-line icon"></i>个人信息
                     </div>
                     <div class="layui-card-body layui-text layadmin-text">
                         <p id="nowTime"></p>
@@ -147,7 +147,7 @@
                         <div class="layui-card">
                             <div class="layui-card-header"><i class="iconfont icon-shujutu icon"></i>数据统计</div>
                             <div class="layui-card-body">
-                                <div id="echarts-records" style="width: 100%;min-height:328px"></div>
+                                <div id="echarts-records" style="width: 100%;min-height:368px"></div>
                             </div>
                         </div>
                     </div>
@@ -200,7 +200,7 @@
                     <div class="layui-card-body layui-text">
                         <table class="layui-table">
                             <colgroup>
-                                <col width="120">
+                                <col width="140">
                                 <col>
                             </colgroup>
                             <tbody>
@@ -208,6 +208,10 @@
                             <tr>
                                 <td>系统版本</td>
                                 <td class="version">{:config('web_site_name')} v{$Think.config.version.yzncms_version}</td>
+                            </tr>
+                            <tr>
+                                <td>ThinkPHP版本</td>
+                                <td class="think">{$Think.VERSION}</td>
                             </tr>
                             <tr>
                                 <td>PHP 版本</td>
