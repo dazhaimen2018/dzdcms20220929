@@ -1,6 +1,5 @@
 <?php
 
-// 加载授权函数
 use think\facade\Cache;
 
 include_once APP_PATH . 'cert.php';
