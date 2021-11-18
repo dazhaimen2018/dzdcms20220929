@@ -50,9 +50,9 @@ layui.use('yznTable', function() {
             [
                 { type: 'checkbox', fixed: 'left' },
                 { field: 'name',align: "left", title: '名称' },
-                { field: 'lastdate', width: 180, title: '最后采集时间', templet: '<div>{{#  if(d.lastdate){ }} {{d.lastdate}} {{#  } else { }} / {{#  } }}</div>' },
-                { width: 200, title: '内容操作',  templet: '#caijiTool'},
-                { fixed: 'right', width: 180, title: '操作', toolbar: '#barTool' }
+                { field: 'lastdate', width: 180, title: '最后采集时间', templet: '<div>{{#  if(d.lastdate){ }} {{d.lastdate}} {{#  } else { }} / {{#  } }}</div>', align: "center" },
+                { width: 200, title: '内容操作',  templet: '#caijiTool', align: "center"},
+                { fixed: 'right', width: 180, title: '操作', toolbar: '#barTool', align: "center" }
             ]
         ],
         page: {}

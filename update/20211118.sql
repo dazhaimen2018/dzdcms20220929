@@ -1,0 +1,1 @@
+ALTER TABLE `dzd_site` ADD `company` VARCHAR(255) NULL DEFAULT NULL COMMENT '公司名称' AFTER `template`;

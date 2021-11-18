@@ -219,6 +219,7 @@ EOF;
                 'listorder' => 1,
                 'ifsearch'  => 1,
                 'ifrequire' => 1,
+                'iffixed'   => 0,
                 'setting'   => "a:3:{s:6:\"define\";s:32:\"varchar(255) NOT NULL DEFAULT ''\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}",
                 'isadd'     => 1,
             ],

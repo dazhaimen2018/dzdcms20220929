@@ -17,6 +17,7 @@ namespace app\member\controller;
 use app\cms\model\Site;
 use app\common\library\Ems;
 use app\common\library\Sms;
+use app\member\model\Authorized;
 use app\member\model\Member as Member_Model;
 use think\Db;
 use think\facade\Cookie;
