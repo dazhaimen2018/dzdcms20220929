@@ -13,12 +13,9 @@
 
 # 演示地址和相关连接
 - 前台：http://www.dzdcms.com/
-- 标准后台：http://demo.dzdcms.com/admin
-- 高端后台：http://top.dzdcms.com/admin
-- 所有站管理员账号：demo  密码：123456
-- 英文站独立管理员：english  密码：123456
+- 后台：http://demo.dzdcms.com/admin
+- 管理员账号：demo  密码：123456
 - 文档：https://doc.dzdcms.com/
-- YznCMS：https://gitee.com/ken678/YZNCMS
 - 本地安装教程 https://doc.dzdcms.com/downs.html
 
 # 每日更新说明
