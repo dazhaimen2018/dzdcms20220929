@@ -438,7 +438,7 @@ CREATE TABLE `yzn_site` (
 `source` tinyint NOT NULL DEFAULT '0' COMMENT '默认站点',
 `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
 `inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_cimb3 COMMENT='站点表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='站点表';
 
 --
 -- 转存表中的数据 `yzn_site`
