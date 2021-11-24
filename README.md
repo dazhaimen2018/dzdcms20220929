@@ -82,8 +82,8 @@ DZDcms多站点内容管理系统是基于yzncms二次开发而来,YznCMS(又名
 ## [环境要求]
 - 支持系统：WinXP/Win2003/Vista/Win7/Win8/Linux
 - WEB服务器：iis/apache/nginx
-- PHP版本：php >= 7.0（支持8.0）
-- 数据库：MySQL >= 5.0
+- PHP版本：php >= 7.2（支持8.0）
+- 数据库：MySQL >= 5.6
 
 
 ## [必看教程]
