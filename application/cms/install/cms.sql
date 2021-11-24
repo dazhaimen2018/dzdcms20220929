@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__site` (
 `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
 `inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
 PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='站点表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='站点表';
 
 CREATE TABLE IF NOT EXISTS `__PREFIX__category` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '栏目ID',
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__category` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `catdir` (`catdir`),
   KEY `parentid` (`parentid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='栏目表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='栏目表';
 
 CREATE TABLE IF NOT EXISTS `__PREFIX__category_data` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
@@ -60,15 +60,15 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__category_data` (
   `detail` mediumtext NOT NULL COMMENT '栏目介绍',
   `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '是否导航显示',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='栏目附表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='栏目附表';
 
 CREATE TABLE IF NOT EXISTS `__PREFIX__category_priv` (
   `catid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目ID',
   `roleid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '角色或者组ID',
   `is_admin` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否为管理员 1、管理员',
-  `action` char(30) NOT NULL DEFAULT '' COMMENT '动作',
+  `action` varchar(30) NOT NULL DEFAULT '' COMMENT '动作',
   KEY `catid` (`catid`,`roleid`,`is_admin`,`action`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='栏目权限表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='栏目权限表';
 
 CREATE TABLE IF NOT EXISTS `__PREFIX__page` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
@@ -82,11 +82,11 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__page` (
   `inputtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='单页内容表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='单页内容表';
 
 CREATE TABLE IF NOT EXISTS `__PREFIX__tags` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'tagID',
-  `tag` char(100) NOT NULL DEFAULT '' COMMENT 'tag名称',
+  `tag` varchar(100) NOT NULL DEFAULT '' COMMENT 'tag名称',
   `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
   `tagdir` varchar(255) NOT NULL DEFAULT '' COMMENT 'tag标识',
   `seo_title` varchar(255) NOT NULL DEFAULT '' COMMENT 'seo标题',
@@ -101,10 +101,10 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__tags` (
   UNIQUE KEY `tag` (`tag`),
   KEY `usetimes` (`usetimes`,`listorder`),
   KEY `hits` (`hits`,`listorder`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='tags主表';
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='tags主表';
 
 CREATE TABLE IF NOT EXISTS `__PREFIX__tags_content` (
-  `tag` char(100) NOT NULL COMMENT 'tag名称',
+  `tag` varchar(100) NOT NULL COMMENT 'tag名称',
   `modelid` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '模型ID',
   `contentid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '信息ID',
   `catid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目ID',
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__tags_content` (
   `updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   KEY `modelid` (`modelid`,`contentid`),
   KEY `tag` (`tag`(10))
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='tags数据表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='tags数据表';
 
 CREATE TABLE IF NOT EXISTS `__PREFIX__lang` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '配置ID',
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__lang` (
   `listorder` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='碎片管理';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='碎片管理';
 
 CREATE TABLE IF NOT EXISTS `__PREFIX__lang_data` (
  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__lang_data` (
  `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
  `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='网站配置附表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='网站配置附表';
 
 CREATE TABLE IF NOT EXISTS `__PREFIX__search_log` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__search_log` (
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `keywords` (`keywords`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='搜索记录表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='搜索记录表';
 
 CREATE TABLE IF NOT EXISTS `__PREFIX__lang_group` (
   `id` mediumint UNSIGNED NOT NULL COMMENT '碎片分组id,自增主键',
@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__lang_group` (
   `description` varchar(80) NOT NULL DEFAULT '' COMMENT '描述信息',
   `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='碎片分组表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='碎片分组表';
 
 
 INSERT INTO `__PREFIX__lang` (`id`, `name`, `type`, `title`, `group`, `options`, `remark`, `create_time`, `update_time`, `value`, `listorder`, `status`) VALUES

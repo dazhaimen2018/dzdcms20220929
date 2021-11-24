@@ -12,4 +12,4 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__links` (
    `sites` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '所属站点',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0未通过,1正常,2未审核',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='友情链接';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='友情链接';

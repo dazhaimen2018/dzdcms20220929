@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__news` (
 `groupids` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0' COMMENT '访问权限',
 PRIMARY KEY (`id`),
 KEY `status` (`catid`,`status`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='资讯模型模型表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='资讯模型模型表';
 
 CREATE TABLE IF NOT EXISTS `__PREFIX__news_data` (
 `id` mediumint UNSIGNED NOT NULL COMMENT '自然ID',
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__news_data` (
 `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
 `content` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '内容',
 PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='资讯模型模型表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='资讯模型模型表';
 
 CREATE TABLE IF NOT EXISTS `__PREFIX__photo` (
 `id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__photo` (
 `image` text COLLATE utf8_unicode_ci NOT NULL COMMENT '图组',
 PRIMARY KEY (`id`),
 KEY `status` (`catid`,`status`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='图片模型模型表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='图片模型模型表';
 
 CREATE TABLE IF NOT EXISTS `__PREFIX__photo_data` (
 `id` mediumint UNSIGNED NOT NULL COMMENT '自然ID',
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__photo_data` (
 `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
 `content` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '内容',
 PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='图片模型模型表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='图片模型模型表';
 
 CREATE TABLE IF NOT EXISTS `__PREFIX__download` (
 `id` mediumint UNSIGNED NOT NULL COMMENT '文档ID',
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__download` (
 `file` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '文件上传',
 PRIMARY KEY (`id`),
 KEY `status` (`catid`,`status`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='下载模型模型表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='下载模型模型表';
 
 CREATE TABLE IF NOT EXISTS `__PREFIX__download_data` (
 `id` mediumint UNSIGNED NOT NULL COMMENT '自然ID',
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__download_data` (
 `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
 `content` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '内容',
 PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='下载模型模型表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='下载模型模型表';
 
 
 CREATE TABLE IF NOT EXISTS `__PREFIX__video` (
@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__video` (
     `comment` tinyint NOT NULL DEFAULT '0' COMMENT '允许评论',
     `video` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '视频文件',
     PRIMARY KEY (`id`)
-    ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='视频模型模型表';
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='视频模型模型表';
 
 CREATE TABLE IF NOT EXISTS `__PREFIX__video_data` (
    `id` mediumint UNSIGNED NOT NULL COMMENT '自然ID',
@@ -164,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__video_data` (
     `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
     `content` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '内容',
     PRIMARY KEY (`id`)
-    ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci COMMENT='视频模型模型表';
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='视频模型模型表';
 
 
 
