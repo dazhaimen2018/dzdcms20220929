@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__tags` (
   UNIQUE KEY `tag` (`tag`),
   KEY `usetimes` (`usetimes`,`listorder`),
   KEY `hits` (`hits`,`listorder`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='tags主表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='tags主表';
 
 CREATE TABLE IF NOT EXISTS `__PREFIX__tags_content` (
   `tag` varchar(100) NOT NULL COMMENT 'tag名称',
@@ -139,17 +139,16 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__lang_data` (
  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='网站配置附表';
 
-CREATE TABLE IF NOT EXISTS `__PREFIX__search_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
-  `keywords` varchar(255) NOT NULL DEFAULT '' COMMENT '关键字',
-  `nums` int(10) unsigned DEFAULT '0' COMMENT '搜索次数',
-  `ip` varchar(30) NOT NULL DEFAULT '' COMMENT 'IP',
-  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `keywords` (`keywords`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='搜索记录表';
+CREATE TABLE IF NOT EXISTS `dzd_search_log` (
+    `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+    `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
+    `keywords` varchar(255) NOT NULL DEFAULT '' COMMENT '关键字',
+    `nums` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '点击数',
+    `ip` varchar(30) NOT NULL DEFAULT '' COMMENT 'SEO描述',
+    `inputtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+    `updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+    PRIMARY KEY (`id`)
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='搜索记录表';
 
 CREATE TABLE IF NOT EXISTS `__PREFIX__lang_group` (
   `id` mediumint UNSIGNED NOT NULL COMMENT '碎片分组id,自增主键',
