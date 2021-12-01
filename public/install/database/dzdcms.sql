@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2021-10-12 09:30:09
--- 服务器版本： 8.0.24
--- PHP 版本： 7.4.24
+-- 生成日期： 2021-12-01 14:42:36
+-- 服务器版本： 5.7.34-log
+-- PHP 版本： 7.4.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,136 +24,136 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- 表的结构 `yzn_admin`
+-- 表的结构 `dzd_admin`
 --
 
-CREATE TABLE `yzn_admin` (
-  `id` smallint UNSIGNED NOT NULL COMMENT '用户ID',
-  `username` varchar(20) DEFAULT NULL COMMENT '管理账号',
-  `password` varchar(32) DEFAULT NULL COMMENT '管理密码',
-  `roleid` tinyint UNSIGNED DEFAULT '0',
-  `sites` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID',
-  `encrypt` varchar(6) DEFAULT NULL COMMENT '加密因子',
-  `nickname` char(16) NOT NULL COMMENT '昵称',
-  `last_login_time` int UNSIGNED DEFAULT '0' COMMENT '最后登录时间',
-  `last_login_ip` char(15) NOT NULL DEFAULT '' COMMENT '最后登录IP',
-  `email` varchar(40) DEFAULT NULL,
-  `token` varchar(60) NOT NULL DEFAULT '' COMMENT 'Session标识',
-  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='管理员表';
+CREATE TABLE `dzd_admin` (
+  `id` smallint(5) UNSIGNED NOT NULL COMMENT '用户ID',
+  `username` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '管理账号',
+  `password` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '管理密码',
+  `roleid` tinyint(3) UNSIGNED DEFAULT '0',
+  `sites` smallint(5) UNSIGNED NOT NULL DEFAULT '0' COMMENT '站点ID',
+  `encrypt` varchar(6) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '加密因子',
+  `nickname` varchar(16) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '昵称',
+  `last_login_time` int(10) UNSIGNED DEFAULT '0' COMMENT '最后登录时间',
+  `last_login_ip` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '最后登录IP',
+  `email` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `token` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Session标识',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='管理员表';
 
 --
--- 转存表中的数据 `yzn_admin`
+-- 转存表中的数据 `dzd_admin`
 --
 
-INSERT INTO `yzn_admin` (`id`, `username`, `password`, `roleid`, `sites`, `encrypt`, `nickname`, `last_login_time`, `last_login_ip`, `email`, `token`, `status`) VALUES
-(1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 0, 'xW5OhH', '多站点', 1634002188, '114.248.220.138', 'admin@admin.com', '3c9bfb7e-5f3a-4c1f-8418-1ef927071a23', 1);
+INSERT INTO `dzd_admin` (`id`, `username`, `password`, `roleid`, `sites`, `encrypt`, `nickname`, `last_login_time`, `last_login_ip`, `email`, `token`, `status`) VALUES
+(1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 0, 'xW5OhH', '多站点', 1638340933, '', 'admin@admin.com', '', 1);
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `yzn_adminlog`
+-- 表的结构 `dzd_adminlog`
 --
 
-CREATE TABLE `yzn_adminlog` (
-  `id` int UNSIGNED NOT NULL COMMENT '日志ID',
-  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
-  `uid` smallint NOT NULL DEFAULT '0' COMMENT '操作者ID',
-  `info` text NOT NULL COMMENT '说明',
-  `create_time` int UNSIGNED NOT NULL DEFAULT '0',
-  `ip` char(15) NOT NULL DEFAULT '' COMMENT '操作IP',
-  `get` varchar(255) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='操作日志';
+CREATE TABLE `dzd_adminlog` (
+  `id` int(10) UNSIGNED NOT NULL COMMENT '日志ID',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
+  `uid` smallint(6) NOT NULL DEFAULT '0' COMMENT '操作者ID',
+  `info` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '说明',
+  `create_time` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `ip` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '操作IP',
+  `get` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='操作日志';
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `yzn_attachment`
+-- 表的结构 `dzd_attachment`
 --
 
-CREATE TABLE `yzn_attachment` (
-  `id` int UNSIGNED NOT NULL,
-  `aid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '管理员id',
-  `uid` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
-  `name` varchar(100) NOT NULL DEFAULT '' COMMENT '文件名',
-  `module` char(15) NOT NULL DEFAULT '' COMMENT '模块名，由哪个模块上传的',
-  `path` varchar(255) NOT NULL DEFAULT '' COMMENT '文件路径',
-  `thumb` varchar(255) NOT NULL DEFAULT '' COMMENT '缩略图路径',
-  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '文件链接',
-  `mime` varchar(100) NOT NULL DEFAULT '' COMMENT '文件mime类型',
-  `ext` char(4) NOT NULL DEFAULT '' COMMENT '文件类型',
-  `size` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '文件大小',
-  `md5` char(32) NOT NULL DEFAULT '' COMMENT '文件md5',
-  `sha1` char(40) NOT NULL DEFAULT '' COMMENT 'sha1 散列值',
-  `driver` varchar(16) NOT NULL DEFAULT 'local' COMMENT '上传驱动',
-  `create_time` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '上传时间',
-  `update_time` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `listorders` int NOT NULL DEFAULT '100' COMMENT '排序',
-  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='附件表';
+CREATE TABLE `dzd_attachment` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `aid` smallint(5) UNSIGNED NOT NULL DEFAULT '0' COMMENT '管理员id',
+  `uid` mediumint(8) UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '文件名',
+  `module` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '模块名，由哪个模块上传的',
+  `path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '文件路径',
+  `thumb` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '缩略图路径',
+  `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '文件链接',
+  `mime` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '文件mime类型',
+  `ext` varchar(4) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '文件类型',
+  `size` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '文件大小',
+  `md5` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '文件md5',
+  `sha1` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'sha1 散列值',
+  `driver` varchar(16) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'local' COMMENT '上传驱动',
+  `create_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '上传时间',
+  `update_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `listorders` int(11) NOT NULL DEFAULT '100' COMMENT '排序',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='附件表';
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `yzn_auth_group`
+-- 表的结构 `dzd_auth_group`
 --
 
-CREATE TABLE `yzn_auth_group` (
-  `id` mediumint UNSIGNED NOT NULL COMMENT '用户组id,自增主键',
-  `parentid` mediumint UNSIGNED NOT NULL DEFAULT '0' COMMENT '父组别',
-  `module` varchar(20) NOT NULL COMMENT '用户组所属模块',
-  `type` tinyint NOT NULL COMMENT '组类型',
-  `title` char(20) NOT NULL DEFAULT '' COMMENT '用户组中文名称',
-  `description` varchar(80) NOT NULL DEFAULT '' COMMENT '描述信息',
-  `rules` text NOT NULL COMMENT '用户组拥有的规则id，多个规则 , 隔开',
-  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='权限组表';
+CREATE TABLE `dzd_auth_group` (
+  `id` mediumint(8) UNSIGNED NOT NULL COMMENT '用户组id,自增主键',
+  `parentid` mediumint(8) UNSIGNED NOT NULL DEFAULT '0' COMMENT '父组别',
+  `module` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户组所属模块',
+  `type` tinyint(4) NOT NULL COMMENT '组类型',
+  `title` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户组中文名称',
+  `description` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '描述信息',
+  `rules` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户组拥有的规则id，多个规则 , 隔开',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='权限组表';
 
 --
--- 转存表中的数据 `yzn_auth_group`
+-- 转存表中的数据 `dzd_auth_group`
 --
 
-INSERT INTO `yzn_auth_group` (`id`, `parentid`, `module`, `type`, `title`, `description`, `rules`, `status`) VALUES
+INSERT INTO `dzd_auth_group` (`id`, `parentid`, `module`, `type`, `title`, `description`, `rules`, `status`) VALUES
 (1, 0, 'admin', 1, '超级管理员', '拥有所有权限', '*', 1),
 (2, 1, 'admin', 1, '编辑', '编辑', '', 1);
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `yzn_auth_rule`
+-- 表的结构 `dzd_auth_rule`
 --
 
-CREATE TABLE `yzn_auth_rule` (
-  `id` mediumint UNSIGNED NOT NULL COMMENT '规则id,自增主键',
-  `module` varchar(20) NOT NULL COMMENT '规则所属module',
-  `type` tinyint NOT NULL DEFAULT '1' COMMENT '1-url;2-主菜单',
-  `name` char(80) NOT NULL DEFAULT '' COMMENT '规则唯一英文标识',
-  `title` char(20) NOT NULL DEFAULT '' COMMENT '规则中文描述',
-  `condition` varchar(300) NOT NULL DEFAULT '' COMMENT '规则附加条件',
-  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='规则表';
+CREATE TABLE `dzd_auth_rule` (
+  `id` mediumint(8) UNSIGNED NOT NULL COMMENT '规则id,自增主键',
+  `module` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '规则所属module',
+  `type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1-url;2-主菜单',
+  `name` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '规则唯一英文标识',
+  `title` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '规则中文描述',
+  `condition` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '规则附加条件',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='规则表';
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `yzn_cache`
+-- 表的结构 `dzd_cache`
 --
 
-CREATE TABLE `yzn_cache` (
-  `id` int NOT NULL,
-  `key` char(100) NOT NULL DEFAULT '' COMMENT '缓存KEY值',
-  `name` char(100) NOT NULL DEFAULT '' COMMENT '名称',
-  `module` char(20) NOT NULL DEFAULT '' COMMENT '模块名称',
-  `model` char(30) NOT NULL DEFAULT '' COMMENT '模型名称',
-  `action` char(30) NOT NULL DEFAULT '' COMMENT '方法名',
+CREATE TABLE `dzd_cache` (
+  `id` int(11) NOT NULL,
+  `key` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '缓存KEY值',
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '名称',
+  `module` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '模块名称',
+  `model` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '模型名称',
+  `action` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '方法名',
   `system` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否系统'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='缓存列队表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='缓存列队表';
 
 --
--- 转存表中的数据 `yzn_cache`
+-- 转存表中的数据 `dzd_cache`
 --
 
-INSERT INTO `yzn_cache` (`id`, `key`, `name`, `module`, `model`, `action`, `system`) VALUES
+INSERT INTO `dzd_cache` (`id`, `key`, `name`, `module`, `model`, `action`, `system`) VALUES
 (1, 'Config', '网站配置', 'admin', 'Config', 'config_cache', 1),
 (2, 'Menu', '后台菜单', 'admin', 'Menu', 'menu_cache', 1),
 (3, 'Module', '可用模块列表', 'admin', 'Module', 'module_cache', 1),
@@ -163,29 +163,29 @@ INSERT INTO `yzn_cache` (`id`, `key`, `name`, `module`, `model`, `action`, `syst
 -- --------------------------------------------------------
 
 --
--- 表的结构 `yzn_config`
+-- 表的结构 `dzd_config`
 --
 
-CREATE TABLE `yzn_config` (
-  `id` int UNSIGNED NOT NULL COMMENT '配置ID',
-  `name` varchar(30) NOT NULL DEFAULT '' COMMENT '配置名称',
-  `type` varchar(32) NOT NULL DEFAULT '' COMMENT '配置类型',
-  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '配置说明',
-  `group` varchar(32) NOT NULL DEFAULT '' COMMENT '配置分组',
-  `options` varchar(255) NOT NULL DEFAULT '' COMMENT '配置项',
-  `remark` varchar(100) NOT NULL DEFAULT '' COMMENT '配置说明',
-  `create_time` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `update_time` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
-  `value` text COMMENT '配置值',
-  `listorder` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='网站配置';
+CREATE TABLE `dzd_config` (
+  `id` int(10) UNSIGNED NOT NULL COMMENT '配置ID',
+  `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '配置名称',
+  `type` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '配置类型',
+  `title` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '配置说明',
+  `group` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '配置分组',
+  `options` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '配置项',
+  `remark` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '配置说明',
+  `create_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
+  `value` text COLLATE utf8mb4_unicode_ci COMMENT '配置值',
+  `listorder` smallint(5) UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='网站配置';
 
 --
--- 转存表中的数据 `yzn_config`
+-- 转存表中的数据 `dzd_config`
 --
 
-INSERT INTO `yzn_config` (`id`, `name`, `type`, `title`, `group`, `options`, `remark`, `create_time`, `update_time`, `status`, `value`, `listorder`) VALUES
+INSERT INTO `dzd_config` (`id`, `name`, `type`, `title`, `group`, `options`, `remark`, `create_time`, `update_time`, `status`, `value`, `listorder`) VALUES
 (1, 'web_site_icp', 'text', '备案信息', 'base', '', '', 1551244923, 1551244971, 1, '', 1),
 (2, 'web_site_statistics', 'textarea', '站点代码', 'base', '', '', 1551244957, 1551244957, 1, '', 100),
 (3, 'config_group', 'array', '配置分组', 'system', '', '', 1494408414, 1494408414, 1, '{\"base\":\"基础\",\"system\":\"系统\",\"upload\":\"上传\",\"develop\":\"开发\"}', 0),
@@ -208,39 +208,39 @@ INSERT INTO `yzn_config` (`id`, `name`, `type`, `title`, `group`, `options`, `re
 -- --------------------------------------------------------
 
 --
--- 表的结构 `yzn_ems`
+-- 表的结构 `dzd_ems`
 --
 
-CREATE TABLE `yzn_ems` (
-  `id` int UNSIGNED NOT NULL COMMENT 'ID',
-  `event` varchar(30) NOT NULL DEFAULT '' COMMENT '事件',
-  `email` varchar(100) NOT NULL DEFAULT '' COMMENT '邮箱',
-  `code` varchar(10) NOT NULL DEFAULT '' COMMENT '验证码',
-  `times` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '验证次数',
-  `ip` char(15) NOT NULL DEFAULT '' COMMENT '操作IP',
-  `create_time` int UNSIGNED DEFAULT '0' COMMENT '创建时间'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='邮箱验证码表';
+CREATE TABLE `dzd_ems` (
+  `id` int(10) UNSIGNED NOT NULL COMMENT 'ID',
+  `event` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '事件',
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '邮箱',
+  `code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '验证码',
+  `times` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '验证次数',
+  `ip` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '操作IP',
+  `create_time` int(10) UNSIGNED DEFAULT '0' COMMENT '创建时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='邮箱验证码表';
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `yzn_field_type`
+-- 表的结构 `dzd_field_type`
 --
 
-CREATE TABLE `yzn_field_type` (
-  `name` varchar(32) NOT NULL COMMENT '字段类型',
-  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '中文类型名',
-  `listorder` int NOT NULL DEFAULT '0' COMMENT '排序',
-  `default_define` varchar(128) NOT NULL DEFAULT '' COMMENT '默认定义',
-  `ifoption` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否需要设置选项',
-  `ifstring` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否自由字符'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='字段类型表';
+CREATE TABLE `dzd_field_type` (
+  `name` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字段类型',
+  `title` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '中文类型名',
+  `listorder` int(11) NOT NULL DEFAULT '0' COMMENT '排序',
+  `default_define` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '默认定义',
+  `ifoption` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否需要设置选项',
+  `ifstring` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否自由字符'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='字段类型表';
 
 --
--- 转存表中的数据 `yzn_field_type`
+-- 转存表中的数据 `dzd_field_type`
 --
 
-INSERT INTO `yzn_field_type` (`name`, `title`, `listorder`, `default_define`, `ifoption`, `ifstring`) VALUES
+INSERT INTO `dzd_field_type` (`name`, `title`, `listorder`, `default_define`, `ifoption`, `ifstring`) VALUES
 ('text', '输入框', 1, 'varchar(255) NOT NULL', 0, 1),
 ('checkbox', '复选框', 2, 'varchar(32) NOT NULL', 1, 0),
 ('textarea', '多行文本', 3, 'varchar(255) NOT NULL', 0, 1),
@@ -267,24 +267,24 @@ INSERT INTO `yzn_field_type` (`name`, `title`, `listorder`, `default_define`, `i
 -- --------------------------------------------------------
 
 --
--- 表的结构 `yzn_language`
+-- 表的结构 `dzd_language`
 --
 
-CREATE TABLE `yzn_language` (
-  `id` smallint UNSIGNED NOT NULL COMMENT '站点ID',
-  `name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '语言名称',
-  `mark` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '语言标识',
-  `logo` varchar(255) NOT NULL DEFAULT '' COMMENT '站点LOGO',
-  `listorder` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序',
-  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
-  `common` tinyint NOT NULL DEFAULT '0' COMMENT '最常见的'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='站点表';
+CREATE TABLE `dzd_language` (
+  `id` smallint(5) UNSIGNED NOT NULL COMMENT '站点ID',
+  `name` varchar(30) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '语言名称',
+  `mark` varchar(30) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '语言标识',
+  `logo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点LOGO',
+  `listorder` smallint(5) UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
+  `common` tinyint(4) NOT NULL DEFAULT '0' COMMENT '最常见的'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='站点表';
 
 --
--- 转存表中的数据 `yzn_language`
+-- 转存表中的数据 `dzd_language`
 --
 
-INSERT INTO `yzn_language` (`id`, `name`, `mark`, `logo`, `listorder`, `status`, `common`) VALUES
+INSERT INTO `dzd_language` (`id`, `name`, `mark`, `logo`, `listorder`, `status`, `common`) VALUES
 (1, '中文', 'zh-cn', '', 1, 1, 1),
 (2, '英语', 'en', '', 2, 1, 1),
 (3, '日语', 'ja', '', 3, 1, 1),
@@ -327,29 +327,29 @@ INSERT INTO `yzn_language` (`id`, `name`, `mark`, `logo`, `listorder`, `status`,
 -- --------------------------------------------------------
 
 --
--- 表的结构 `yzn_menu`
+-- 表的结构 `dzd_menu`
 --
 
-CREATE TABLE `yzn_menu` (
-  `id` int UNSIGNED NOT NULL COMMENT '菜单ID',
-  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '标题',
-  `icon` varchar(64) NOT NULL DEFAULT '' COMMENT '图标',
-  `parentid` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '上级分类ID',
-  `app` char(20) NOT NULL DEFAULT '' COMMENT '应用标识',
-  `controller` char(20) NOT NULL DEFAULT '' COMMENT '控制器标识',
-  `action` char(20) NOT NULL DEFAULT '' COMMENT '方法标识',
-  `parameter` char(255) NOT NULL DEFAULT '' COMMENT '附加参数',
-  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
-  `tip` varchar(255) NOT NULL DEFAULT '' COMMENT '提示',
-  `is_dev` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否开发者可见',
-  `listorder` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序ID'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='后台菜单表';
+CREATE TABLE `dzd_menu` (
+  `id` int(10) UNSIGNED NOT NULL COMMENT '菜单ID',
+  `title` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
+  `icon` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '图标',
+  `parentid` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '上级分类ID',
+  `app` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '应用标识',
+  `controller` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '控制器标识',
+  `action` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '方法标识',
+  `parameter` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '附加参数',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
+  `tip` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '提示',
+  `is_dev` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否开发者可见',
+  `listorder` smallint(5) UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序ID'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='后台菜单表';
 
 --
--- 转存表中的数据 `yzn_menu`
+-- 转存表中的数据 `dzd_menu`
 --
 
-INSERT INTO `yzn_menu` (`id`, `title`, `icon`, `parentid`, `app`, `controller`, `action`, `parameter`, `status`, `tip`, `is_dev`, `listorder`) VALUES
+INSERT INTO `dzd_menu` (`id`, `title`, `icon`, `parentid`, `app`, `controller`, `action`, `parameter`, `status`, `tip`, `is_dev`, `listorder`) VALUES
 (3, '设置', 'icon-setup', 0, 'admin', 'setting', 'index', '', 1, '', 0, 0),
 (4, '模块', 'icon-apps-line', 0, 'admin', 'module', 'index1', '', 1, '', 0, 9),
 (5, '扩展', 'icon-equalizer-line', 0, 'addons', 'addons', 'index1', '', 1, '', 0, 10),
@@ -410,253 +410,253 @@ INSERT INTO `yzn_menu` (`id`, `title`, `icon`, `parentid`, `app`, `controller`, 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `yzn_model`
+-- 表的结构 `dzd_model`
 --
 
-CREATE TABLE `yzn_model` (
-  `id` smallint UNSIGNED NOT NULL,
-  `module` varchar(15) NOT NULL DEFAULT '' COMMENT '所属模块',
-  `name` char(30) NOT NULL DEFAULT '' COMMENT '模型名称',
-  `tablename` char(20) NOT NULL DEFAULT '' COMMENT '表名',
-  `description` char(100) NOT NULL DEFAULT '' COMMENT '描述',
-  `setting` text NOT NULL COMMENT '配置信息',
-  `type` tinyint UNSIGNED NOT NULL DEFAULT '1' COMMENT '模型类别：1-独立表，2-主附表',
-  `create_time` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '添加时间',
-  `update_time` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `listorders` tinyint NOT NULL DEFAULT '0' COMMENT '排序',
-  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='模型列表';
+CREATE TABLE `dzd_model` (
+  `id` smallint(5) UNSIGNED NOT NULL,
+  `module` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '所属模块',
+  `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '模型名称',
+  `tablename` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '表名',
+  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '描述',
+  `setting` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '配置信息',
+  `type` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '模型类别：1-独立表，2-主附表',
+  `create_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `update_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `listorders` tinyint(4) NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='模型列表';
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `yzn_model_field`
+-- 表的结构 `dzd_model_field`
 --
 
-CREATE TABLE `yzn_model_field` (
-  `id` smallint UNSIGNED NOT NULL,
-  `modelid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '模型ID',
-  `name` varchar(20) NOT NULL DEFAULT '' COMMENT '字段名',
-  `title` varchar(30) NOT NULL DEFAULT '' COMMENT '别名',
-  `remark` tinytext COMMENT '字段提示',
-  `pattern` varchar(255) NOT NULL DEFAULT '' COMMENT '数据校验正则',
-  `errortips` varchar(255) NOT NULL DEFAULT '' COMMENT '数据校验未通过的提示信息',
-  `type` varchar(20) NOT NULL DEFAULT '' COMMENT '字段类型',
-  `setting` mediumtext COMMENT '字段配置',
-  `ifsystem` tinyint UNSIGNED NOT NULL DEFAULT '1' COMMENT '是否主表字段 1 是',
-  `iscore` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否内部字段',
-  `iffixed` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否固定不可修改',
-  `ifrequire` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否必填',
-  `ifsearch` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '作为搜索条件',
-  `isadd` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '在投稿中显示',
-  `create_time` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `update_time` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `listorder` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序',
-  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='模型字段列表';
+CREATE TABLE `dzd_model_field` (
+  `id` smallint(5) UNSIGNED NOT NULL,
+  `modelid` smallint(5) UNSIGNED NOT NULL DEFAULT '0' COMMENT '模型ID',
+  `name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '字段名',
+  `title` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '别名',
+  `remark` tinytext COLLATE utf8mb4_unicode_ci COMMENT '字段提示',
+  `pattern` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '数据校验正则',
+  `errortips` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '数据校验未通过的提示信息',
+  `type` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '字段类型',
+  `setting` mediumtext COLLATE utf8mb4_unicode_ci COMMENT '字段配置',
+  `ifsystem` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '是否主表字段 1 是',
+  `iscore` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否内部字段',
+  `iffixed` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否固定不可修改',
+  `ifrequire` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否必填',
+  `ifsearch` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '作为搜索条件',
+  `isadd` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '在投稿中显示',
+  `create_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `listorder` smallint(5) UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='模型字段列表';
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `yzn_module`
+-- 表的结构 `dzd_module`
 --
 
-CREATE TABLE `yzn_module` (
-  `module` varchar(15) NOT NULL COMMENT '模块',
-  `name` varchar(20) NOT NULL DEFAULT '' COMMENT '模块名称',
-  `sign` varchar(255) NOT NULL DEFAULT '' COMMENT '签名',
-  `iscore` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '内置模块',
-  `version` varchar(50) NOT NULL DEFAULT '' COMMENT '版本',
-  `setting` mediumtext COMMENT '设置信息',
-  `create_time` int NOT NULL DEFAULT '0' COMMENT '安装时间',
-  `update_time` int NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `listorder` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序',
-  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='已安装模块列表';
+CREATE TABLE `dzd_module` (
+  `module` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模块',
+  `name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '模块名称',
+  `sign` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '签名',
+  `iscore` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '内置模块',
+  `version` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '版本',
+  `setting` mediumtext COLLATE utf8mb4_unicode_ci COMMENT '设置信息',
+  `create_time` int(11) NOT NULL DEFAULT '0' COMMENT '安装时间',
+  `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `listorder` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='已安装模块列表';
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `yzn_site`
+-- 表的结构 `dzd_site`
 --
 
-CREATE TABLE `yzn_site` (
-  `id` smallint UNSIGNED NOT NULL COMMENT '站点ID',
-  `name` varchar(30) NOT NULL DEFAULT '' COMMENT '站点名称',
-  `mark` varchar(30) NOT NULL DEFAULT '' COMMENT '站点标识',
-  `http` varchar(30) NOT NULL DEFAULT '' COMMENT 'HTTP',
-  `domain` varchar(100) NOT NULL DEFAULT '' COMMENT '站点域名',
-  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '站点网址',
-  `logo` varchar(255) NOT NULL DEFAULT '' COMMENT '站点LOGO',
-  `favicon` varchar(255) NOT NULL DEFAULT '' COMMENT '站点图标',
-  `template` varchar(30) NOT NULL DEFAULT '' COMMENT '皮肤',
-  `brand` varchar(100) NOT NULL DEFAULT '' COMMENT '品牌名称',
-  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '站点标题',
-  `keywords` varchar(255) NOT NULL DEFAULT '' COMMENT '站点关键词',
-  `description` mediumtext NOT NULL COMMENT '站点描述',
-  `parentid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '父ID',
-  `arrparentid` varchar(255) NOT NULL DEFAULT '' COMMENT '所有父ID',
-  `arrchildid` mediumtext COMMENT '所有子站点ID',
-  `child` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否存在子站点，1存在',
-  `listorder` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序',
-  `alone` tinyint NOT NULL DEFAULT '1' COMMENT '独立数据',
-  `close` tinyint NOT NULL DEFAULT '1' COMMENT '站点开关',
-  `source` tinyint NOT NULL DEFAULT '0' COMMENT '默认站点',
-  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
-  `inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='站点表';
+CREATE TABLE `dzd_site` (
+  `id` smallint(5) UNSIGNED NOT NULL COMMENT '站点ID',
+  `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点名称',
+  `mark` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点标识',
+  `http` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'HTTP',
+  `domain` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点域名',
+  `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点网址',
+  `logo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点LOGO',
+  `favicon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点图标',
+  `template` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '皮肤',
+  `brand` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '品牌名称',
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点标题',
+  `keywords` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点关键词',
+  `description` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '站点描述',
+  `parentid` smallint(5) UNSIGNED NOT NULL DEFAULT '0' COMMENT '父ID',
+  `arrparentid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '所有父ID',
+  `arrchildid` mediumtext COLLATE utf8mb4_unicode_ci COMMENT '所有子站点ID',
+  `child` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否存在子站点，1存在',
+  `listorder` smallint(5) UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序',
+  `alone` tinyint(4) NOT NULL DEFAULT '1' COMMENT '独立数据',
+  `close` tinyint(4) NOT NULL DEFAULT '1' COMMENT '站点开关',
+  `source` tinyint(4) NOT NULL DEFAULT '0' COMMENT '默认站点',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
+  `inputtime` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='站点表';
 
 --
--- 转存表中的数据 `yzn_site`
+-- 转存表中的数据 `dzd_site`
 --
 
-INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `alone`, `close`, `source`, `status`, `inputtime`) VALUES
+INSERT INTO `dzd_site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `alone`, `close`, `source`, `status`, `inputtime`) VALUES
 (1, '中文站', 'zh-cn', 'http', 'demo.dzdcms.com', 'http://demo.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 1, 0, 1, 0);
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `yzn_sms`
+-- 表的结构 `dzd_sms`
 --
 
-CREATE TABLE `yzn_sms` (
-  `id` int UNSIGNED NOT NULL COMMENT 'ID',
-  `event` varchar(30) NOT NULL DEFAULT '' COMMENT '事件',
-  `mobile` varchar(20) NOT NULL DEFAULT '' COMMENT '手机号',
-  `code` varchar(10) NOT NULL DEFAULT '' COMMENT '验证码',
-  `times` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '验证次数',
-  `ip` char(15) NOT NULL DEFAULT '' COMMENT '操作IP',
-  `create_time` int UNSIGNED DEFAULT '0' COMMENT '创建时间'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='短信验证码表';
+CREATE TABLE `dzd_sms` (
+  `id` int(10) UNSIGNED NOT NULL COMMENT 'ID',
+  `event` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '事件',
+  `mobile` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '手机号',
+  `code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '验证码',
+  `times` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '验证次数',
+  `ip` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '操作IP',
+  `create_time` int(10) UNSIGNED DEFAULT '0' COMMENT '创建时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='短信验证码表';
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `yzn_terms`
+-- 表的结构 `dzd_terms`
 --
 
-CREATE TABLE `yzn_terms` (
-  `id` bigint UNSIGNED NOT NULL COMMENT '分类ID',
-  `parentid` smallint NOT NULL DEFAULT '0' COMMENT '父ID',
-  `name` varchar(20) NOT NULL DEFAULT '' COMMENT '分类名称',
-  `module` varchar(15) NOT NULL DEFAULT '' COMMENT '所属模块',
-  `setting` mediumtext COMMENT '相关配置信息'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='分类表';
+CREATE TABLE `dzd_terms` (
+  `id` bigint(20) UNSIGNED NOT NULL COMMENT '分类ID',
+  `parentid` smallint(6) NOT NULL DEFAULT '0' COMMENT '父ID',
+  `name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '分类名称',
+  `module` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '所属模块',
+  `setting` mediumtext COLLATE utf8mb4_unicode_ci COMMENT '相关配置信息'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='分类表';
 
 --
 -- 转储表的索引
 --
 
 --
--- 表的索引 `yzn_admin`
+-- 表的索引 `dzd_admin`
 --
-ALTER TABLE `yzn_admin`
+ALTER TABLE `dzd_admin`
   ADD PRIMARY KEY (`id`),
   ADD KEY `username` (`username`);
 
 --
--- 表的索引 `yzn_adminlog`
+-- 表的索引 `dzd_adminlog`
 --
-ALTER TABLE `yzn_adminlog`
+ALTER TABLE `dzd_adminlog`
   ADD PRIMARY KEY (`id`);
 
 --
--- 表的索引 `yzn_attachment`
+-- 表的索引 `dzd_attachment`
 --
-ALTER TABLE `yzn_attachment`
+ALTER TABLE `dzd_attachment`
   ADD PRIMARY KEY (`id`);
 
 --
--- 表的索引 `yzn_auth_group`
+-- 表的索引 `dzd_auth_group`
 --
-ALTER TABLE `yzn_auth_group`
+ALTER TABLE `dzd_auth_group`
   ADD PRIMARY KEY (`id`);
 
 --
--- 表的索引 `yzn_auth_rule`
+-- 表的索引 `dzd_auth_rule`
 --
-ALTER TABLE `yzn_auth_rule`
+ALTER TABLE `dzd_auth_rule`
   ADD PRIMARY KEY (`id`),
   ADD KEY `module` (`module`,`status`,`type`);
 
 --
--- 表的索引 `yzn_cache`
+-- 表的索引 `dzd_cache`
 --
-ALTER TABLE `yzn_cache`
+ALTER TABLE `dzd_cache`
   ADD PRIMARY KEY (`id`),
   ADD KEY `ckey` (`key`);
 
 --
--- 表的索引 `yzn_config`
+-- 表的索引 `dzd_config`
 --
-ALTER TABLE `yzn_config`
+ALTER TABLE `dzd_config`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `uk_name` (`name`),
   ADD KEY `type` (`type`),
   ADD KEY `group` (`group`);
 
 --
--- 表的索引 `yzn_ems`
+-- 表的索引 `dzd_ems`
 --
-ALTER TABLE `yzn_ems`
+ALTER TABLE `dzd_ems`
   ADD PRIMARY KEY (`id`);
 
 --
--- 表的索引 `yzn_field_type`
+-- 表的索引 `dzd_field_type`
 --
-ALTER TABLE `yzn_field_type`
+ALTER TABLE `dzd_field_type`
   ADD PRIMARY KEY (`name`),
   ADD UNIQUE KEY `name` (`name`);
 
 --
--- 表的索引 `yzn_language`
+-- 表的索引 `dzd_language`
 --
-ALTER TABLE `yzn_language`
+ALTER TABLE `dzd_language`
   ADD PRIMARY KEY (`id`);
 
 --
--- 表的索引 `yzn_menu`
+-- 表的索引 `dzd_menu`
 --
-ALTER TABLE `yzn_menu`
+ALTER TABLE `dzd_menu`
   ADD PRIMARY KEY (`id`),
   ADD KEY `pid` (`parentid`);
 
 --
--- 表的索引 `yzn_model`
+-- 表的索引 `dzd_model`
 --
-ALTER TABLE `yzn_model`
+ALTER TABLE `dzd_model`
   ADD PRIMARY KEY (`id`);
 
 --
--- 表的索引 `yzn_model_field`
+-- 表的索引 `dzd_model_field`
 --
-ALTER TABLE `yzn_model_field`
+ALTER TABLE `dzd_model_field`
   ADD PRIMARY KEY (`id`),
   ADD KEY `name` (`name`,`modelid`);
 
 --
--- 表的索引 `yzn_module`
+-- 表的索引 `dzd_module`
 --
-ALTER TABLE `yzn_module`
+ALTER TABLE `dzd_module`
   ADD PRIMARY KEY (`module`),
-  ADD KEY `sign` (`sign`);
+  ADD KEY `sign` (`sign`(250));
 
 --
--- 表的索引 `yzn_site`
+-- 表的索引 `dzd_site`
 --
-ALTER TABLE `yzn_site`
+ALTER TABLE `dzd_site`
   ADD PRIMARY KEY (`id`);
 
 --
--- 表的索引 `yzn_sms`
+-- 表的索引 `dzd_sms`
 --
-ALTER TABLE `yzn_sms`
+ALTER TABLE `dzd_sms`
   ADD PRIMARY KEY (`id`);
 
 --
--- 表的索引 `yzn_terms`
+-- 表的索引 `dzd_terms`
 --
-ALTER TABLE `yzn_terms`
+ALTER TABLE `dzd_terms`
   ADD PRIMARY KEY (`id`),
   ADD KEY `name` (`name`),
   ADD KEY `module` (`module`);
@@ -666,94 +666,94 @@ ALTER TABLE `yzn_terms`
 --
 
 --
--- 使用表AUTO_INCREMENT `yzn_admin`
+-- 使用表AUTO_INCREMENT `dzd_admin`
 --
-ALTER TABLE `yzn_admin`
-  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户ID', AUTO_INCREMENT=2;
+ALTER TABLE `dzd_admin`
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户ID', AUTO_INCREMENT=2;
 
 --
--- 使用表AUTO_INCREMENT `yzn_adminlog`
+-- 使用表AUTO_INCREMENT `dzd_adminlog`
 --
-ALTER TABLE `yzn_adminlog`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '日志ID';
+ALTER TABLE `dzd_adminlog`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '日志ID';
 
 --
--- 使用表AUTO_INCREMENT `yzn_attachment`
+-- 使用表AUTO_INCREMENT `dzd_attachment`
 --
-ALTER TABLE `yzn_attachment`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `dzd_attachment`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- 使用表AUTO_INCREMENT `yzn_auth_group`
+-- 使用表AUTO_INCREMENT `dzd_auth_group`
 --
-ALTER TABLE `yzn_auth_group`
-  MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户组id,自增主键', AUTO_INCREMENT=3;
+ALTER TABLE `dzd_auth_group`
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户组id,自增主键', AUTO_INCREMENT=3;
 
 --
--- 使用表AUTO_INCREMENT `yzn_auth_rule`
+-- 使用表AUTO_INCREMENT `dzd_auth_rule`
 --
-ALTER TABLE `yzn_auth_rule`
-  MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '规则id,自增主键';
+ALTER TABLE `dzd_auth_rule`
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '规则id,自增主键';
 
 --
--- 使用表AUTO_INCREMENT `yzn_cache`
+-- 使用表AUTO_INCREMENT `dzd_cache`
 --
-ALTER TABLE `yzn_cache`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `dzd_cache`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- 使用表AUTO_INCREMENT `yzn_config`
+-- 使用表AUTO_INCREMENT `dzd_config`
 --
-ALTER TABLE `yzn_config`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_INCREMENT=19;
+ALTER TABLE `dzd_config`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_INCREMENT=19;
 
 --
--- 使用表AUTO_INCREMENT `yzn_ems`
+-- 使用表AUTO_INCREMENT `dzd_ems`
 --
-ALTER TABLE `yzn_ems`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID';
+ALTER TABLE `dzd_ems`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID';
 
 --
--- 使用表AUTO_INCREMENT `yzn_language`
+-- 使用表AUTO_INCREMENT `dzd_language`
 --
-ALTER TABLE `yzn_language`
-  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '站点ID', AUTO_INCREMENT=39;
+ALTER TABLE `dzd_language`
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '站点ID', AUTO_INCREMENT=39;
 
 --
--- 使用表AUTO_INCREMENT `yzn_menu`
+-- 使用表AUTO_INCREMENT `dzd_menu`
 --
-ALTER TABLE `yzn_menu`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '菜单ID', AUTO_INCREMENT=65;
+ALTER TABLE `dzd_menu`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '菜单ID', AUTO_INCREMENT=65;
 
 --
--- 使用表AUTO_INCREMENT `yzn_model`
+-- 使用表AUTO_INCREMENT `dzd_model`
 --
-ALTER TABLE `yzn_model`
-  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `dzd_model`
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- 使用表AUTO_INCREMENT `yzn_model_field`
+-- 使用表AUTO_INCREMENT `dzd_model_field`
 --
-ALTER TABLE `yzn_model_field`
-  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `dzd_model_field`
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- 使用表AUTO_INCREMENT `yzn_site`
+-- 使用表AUTO_INCREMENT `dzd_site`
 --
-ALTER TABLE `yzn_site`
-  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '站点ID', AUTO_INCREMENT=2;
+ALTER TABLE `dzd_site`
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '站点ID', AUTO_INCREMENT=2;
 
 --
--- 使用表AUTO_INCREMENT `yzn_sms`
+-- 使用表AUTO_INCREMENT `dzd_sms`
 --
-ALTER TABLE `yzn_sms`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID';
+ALTER TABLE `dzd_sms`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID';
 
 --
--- 使用表AUTO_INCREMENT `yzn_terms`
+-- 使用表AUTO_INCREMENT `dzd_terms`
 --
-ALTER TABLE `yzn_terms`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '分类ID';
+ALTER TABLE `dzd_terms`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '分类ID';
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
