@@ -32,9 +32,9 @@ class CmsTagLib
             $catid = (int)$attr['catid'];
 
             //同步发布
+            $catids   = [];
+            $orCatids = '';
             if (isset($attr['catids'])) {
-                $catids   = [];
-                $orCatids = "";
                 foreach (explode(',', $attr['catids']) as $k => $v) {
                     $catids[] = "FIND_IN_SET('" . $v . "', catids)";
                 }

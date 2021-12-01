@@ -180,7 +180,7 @@ class Site extends Adminbase
                 'templates' => $templates,
                 'data'      => $data,
             ]);
-			return $this->fetch('add');
+			return $this->fetch();
 		}
 	}
 	/**

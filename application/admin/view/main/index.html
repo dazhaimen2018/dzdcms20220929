@@ -12,7 +12,9 @@
                     <div class="layui-card-body layui-text layadmin-text">
                         <p id="nowTime"></p>
                         <p><i class="iconfont icon-user-shared-2-line"></i> 管理角色：{$sys_info['group']}</p>
+                        {if isModuleInstall('cms')}
                         <p><i class="layui-icon layui-icon-website"></i> 管理站点：{$sys_info['site']}</p>
+                        {/if}
                         <p><i class="layui-icon layui-icon-date"></i> 登录时间：<?php if($userInfo['last_login_time'] > 0) { echo $userInfo['last_login_time'];} else { echo '--';}?></p>
                     </div>
                 </div>
@@ -80,7 +82,11 @@
                                                         <h5>站点统计</h5>
                                                     </div>
                                                     <div class="panel-content">
+                                                        {if isModuleInstall('cms')}
                                                         <h1 class="no-margins">{$sys_info.sites}</h1>
+                                                        {else}
+                                                        <h1 class="no-margins">0</h1>
+                                                        {/if}
                                                         <small>总记录数</small>
                                                     </div>
                                                 </div>

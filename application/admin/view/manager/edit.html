@@ -45,7 +45,7 @@
         <div class="layui-input-block">
             <select name="sites" lay-filter="filter">
                 <option>请选择站点</option>
-                <option value="0" {eq name="vo.id" value="$data.sites" }selected{/eq}>所有站</option>
+                <option value="0" {if $data['sites']==0}selected{/if}>所有站</option>
                 {volist name="site" id="vo"}
                 <option value="{$vo.id}" {eq name="vo.id" value="$data.sites" }selected{/eq}>{$vo.name}</option>
                 {/volist}

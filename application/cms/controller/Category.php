@@ -48,6 +48,8 @@ class Category extends Adminbase
         $this->pageTemplate = str_replace($themePath . DS, '', glob($themePath . DS . 'page*'));
 
         // 20200805 马博所有站点
+        $whereIn = '';
+        $whereSite = '';
         $siteAdmin = $this->auth->sites;
         if ($siteAdmin) {
             $whereSite = " id = $siteAdmin";
@@ -88,6 +90,7 @@ class Category extends Adminbase
             $tree->icon = ['&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ '];
             $tree->nbsp = '&nbsp;&nbsp;&nbsp;';
             $categorys  = [];
+            $whereSite = '';
             // 获取当前管理所属站点
             $sites = $this->auth->sites;
             if($sites){
@@ -201,7 +204,7 @@ class Category extends Adminbase
                 if ($catid) {
                     isset($data['priv_groupid']) && model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
                     // 20200805 马博添加
-                    $this->addCategoryData($data['category_data'], $catid);
+                    //$this->addCategoryData($data['category_data'], $catid);
                     // 20200805 马博添加 end
                     $this->success("添加成功！", url("Category/index"));
                 } else {
@@ -221,6 +224,7 @@ class Category extends Adminbase
             //输出可用模型
             $modelsdata = cache("Model");
             $models     = [];
+            $whereSite = '';
             foreach ($modelsdata as $v) {
                 if ($v['status'] == 1 && $v['module'] == 'cms') {
                     $models[] = $v;
@@ -294,13 +298,13 @@ class Category extends Adminbase
                     if (!empty($d['cd_id'])) {
                         $id    = intval($d['cd_id']);
                         $model = CategoryData::where(['id' => $id]);
-                        $model->update(['catname' => trim($d['catname']), 'description' => trim($d['description']), 'detail' => trim($d['detail']), 'status' => trim($d['status']), 'setting' => json_encode($d['setting'])]);
+                        $model->update(['catname' => trim($d['catname']), 'description' => trim($d['description']), 'detail' => trim($d['detail']),  'setting' => json_encode($d['setting'])]);
                     } else {
                         $model              = new CategoryData();
                         $model->catname     = trim($d['catname']);
                         $model->description = trim($d['description']);
                         $model->detail      = trim($d['detail']);
-                        $model->status      = trim($d['status']);
+                        $model->status      = 1;
                         $model->setting     = json_encode($d['setting']);
                         $model->site_id     = $d['site_id'];
                         $model->catid       = $catid;
@@ -389,6 +393,7 @@ class Category extends Adminbase
             //栏目列表 可以用缓存的方式
             // 获取当前管理所属站点
             $sites = $this->auth->sites;
+            $whereSite = '';
             if($sites){
                 $site  = [];
                 foreach (explode(',', $sites) as $k => $v) {
@@ -413,12 +418,15 @@ class Category extends Adminbase
             $siteArray = Site::where(['alone' => 1])->select()->toArray();
 
             $categoryData = CategoryData::where(['catid' => $catid])->select()->toArray();
+
             $ret = [];
+
             foreach ($this->site as $k => $s) {
                 if ($categoryData) {
                     foreach ($categoryData as $e) {
                         if ($e['site_id'] == $s['id']) {
                             $ret[$k] = $e;
+                            $ret[$k]['setting'] = json_decode((string)$ret[$k]['setting'],true);
                         } else {
                             $ret[$k]['site_id'] = $s['id'];
                         }
@@ -457,12 +465,6 @@ class Category extends Adminbase
             }
         }
 
-    }
-
-//推送并翻译
-    public function push()
-    {
-        return $this->error(tipsText());
     }
 
     //删除栏目

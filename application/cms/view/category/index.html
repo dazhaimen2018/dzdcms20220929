@@ -11,7 +11,7 @@
 </div>
 <script type="text/html" id="barTool">
     {{# if({$push}) { }}
-    <a data-open='{:url("push")}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs layui-btn-warm" title="推送并翻译">推送</a>
+    <a data-open='{:url("push/category")}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs layui-btn-warm" title="推送并翻译">推送</a>
     {{#  } }}
     <a data-open="{{d.add_url}}" data-width="900" data-height="600" class="layui-btn layui-btn-xs layui-btn-normal" title="添加子栏目">添加</a>
     <a data-open='{:url("edit")}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs" title="编辑">编辑</a>

@@ -1,5 +1,6 @@
 <?php
 
+// 加载授权函数
 use think\facade\Cache;
 
 include_once APP_PATH . 'cert.php';
@@ -34,47 +35,7 @@ function tipsText(){
     return '需要授权,请联系技术';
 }
 
-function getSiteId()
-{
-    $key = 'siteInfo';
-    $domain    = $_SERVER['HTTP_HOST'];
-    $setDomain = isset(cache("Cms_Config")['domain']) ? cache("Cms_Config")['domain'] : 1;
-    $header    =  preg_match('/^([a-z\-]+)/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches);
-    $mark      = $matches[1]; // 获得header中的语言标识
-    $siteInfo  = Cache::get($key);
-    if ( $setDomain && $domain == $setDomain) {
-        // 站点域名相同时，还得优化
-        if($mark == $siteInfo['mark']){
-            return $siteInfo['id'];
-        }else{
-            Cache::rm($key, null);
-            $site = db('site')->where("mark='{$mark}' and domain='{$domain}'")->find();
-            Cache::set($key, $site, 3600);
-            return $site['id'];
-        }
 
-    }else{
-        if($domain == $siteInfo['domain']){
-            return $siteInfo['id'];
-        } else {
-            Cache::rm($key, null);
-            $site      = db('site')->where("domain='{$domain}'")->find();
-            if($site){
-                Cache::set($key, $site, 3600);
-                return $site['id'];
-            } else {
-                //域名未绑定站点，打开默认站点
-                Cache::rm($key, null);
-                $site      = db('site')->where("id=1")->find();
-                Cache::set($key, $site, 3600);
-                return 1;
-            }
-
-        }
-
-    }
-
-}
 
 function valid(){
     return true; //需要授权时删除本行
@@ -102,25 +63,4 @@ function empower(){
     }
 }
 
-function onSite(){
-    if (valid()){
-        $userInfo = Session::get('admin');
-        $adminId = $userInfo['site_id'];
-        if($adminId){
-            $siteId =   $adminId;
-        } else{
-            $siteId = cache("Cms_Config")['site'];
-        }
-    }else{
-        $siteId  = 1;
-    }
-    return $siteId;
-}
-
-//当前站URL
-function onSiteUrl(){
-    $siteId  = onSite();
-    $siteUrl = db('site')->where('id',$siteId)->cache(60)->value('url');
-    return $siteUrl;
-}
 

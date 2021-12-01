@@ -3,8 +3,7 @@
 <link rel="stylesheet" href="__STATIC__/admin/css/cms.css">
 <div class="layui-card">
     <div class="layui-card-body layui-form-pane">
-        <form class="layui-form" method="post">
-
+        <form class="layui-form">
             <div class="layui-col-md8">
                 <div class="layui-card">
                     <div class="layui-form-item">
@@ -44,12 +43,9 @@
                 </div>
                 {include file="cms@item_push" /}
             </div>
-
-
             <div class="layui-form-item layer-footer">
                 <div class="layui-input-block">
-                    <input type="hidden" name="id" value="{$id}">
-                    <input type="hidden" name="catid" value="{$catid}">
+                    <input type="hidden" name="id" value="{$lang_id}">
                     <button type="submit" class="layui-btn iconfont icon-send" lay-submit lay-filter="sub">推送并翻译</button>
                     <button type="reset" class="layui-btn layui-btn-primary iconfont icon-trash"> 重置</button>
                 </div>
@@ -109,13 +105,13 @@
                     layer.closeAll();
                     yzn.msg.success('执行完成', function() {
                         var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                        parent.layui.table.reload('currentTable');
                         //parent.location.reload();//刷新父页面，注意一定要在关闭当前iframe层之前执行刷新
+                        parent.layui.table.reload('currentTable');
                         parent.layer.close(index); //再执行关闭
                     });
                 }
             }
-            xhr.open("POST","{:url('push')}",true);
+            xhr.open("POST","{:url('lang')}",true);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(JSON.stringify(data.field));
             return false;

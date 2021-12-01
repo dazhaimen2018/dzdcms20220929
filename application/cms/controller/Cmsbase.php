@@ -38,8 +38,11 @@ class Cmsbase extends MemberBase
             $this->error("站点已经关闭，请稍后访问~");
         }
         $siteInfo  = Cache::get('siteInfo');
-        if (!$siteInfo['close']) {
-            $this->error("站点已经关闭，请稍后访问~");
+        if($siteInfo){
+            if (!$siteInfo['close']) {
+                $this->error("站点已经关闭，请稍后访问~");
+            }
         }
+
     }
 }

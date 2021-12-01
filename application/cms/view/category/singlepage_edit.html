@@ -139,14 +139,6 @@
             </div>
             <!-- 多语言设置 -->
             {volist name="category_data" id="s" key="k"}
-            <?php
-            $setting = json_decode($s['setting'],true);
-            $page_title = $setting['title'];
-            $page_keyword = $setting['keyword'];
-            $page_description = $setting['description'];
-            $siteId = $s['site_id'];
-            $cdId = $s['id'];
-            ?>
             {include file="item_category" /}
             {/volist}
             <!-- 多语言设置 end-->

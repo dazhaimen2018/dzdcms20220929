@@ -14,7 +14,7 @@
                     {volist name="sites" id="s" key="k" }
                     <div class="layui-tab-item {if $k==1}layui-show layui-this{/if}">
                         <input type="hidden" name="extra_data[{$k}][site_id]" value="{$s.id}"/>
-                        <input type="hidden" name="extra_data[{$k}][id]" value="{$info[$k-1]['id']}"/>
+                        <input type="hidden" name="extra_data[{$k}][id]" value="{$info[$k-1]['id']|default=''}"/>
                         <input type="hidden" name="extra_data[{$k}][catid]" value="{$catid}"/>
                         <div class="layui-form-item">
                             <label class="layui-form-label layui-form-item-required"> {:getSiteName($k)}标题

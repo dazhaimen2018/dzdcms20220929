@@ -60,7 +60,7 @@ class Index extends Cmsbase
     public function index()
     {
         $page = $this->request->param('page/d', 1);
-        $seo = seo();
+        $seo  = seo();
         $this->assign([
             'SEO'  => $seo,
             'page' => $page,
@@ -82,12 +82,11 @@ class Index extends Cmsbase
         if (empty($category)) {
             $this->error(patch('PageNot')); //栏目不存在
         }
-        $catid = $category['id'];
-        //模型ID
+        $catid   = $category['id'];
         $modelid = $category['modelid'];
-        $models = cache('Model');
+        $models  = cache('Model');
         //栏目扩展配置信息
-        $setting = $category['setting'];
+        $setting      = $category['setting'];
         $setting_data = $category['setting_data'];
 
         //类型为列表的栏目

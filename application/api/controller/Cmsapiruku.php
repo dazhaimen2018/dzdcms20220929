@@ -25,12 +25,13 @@ class Cmsapiruku extends Api
 				$this->error("火车头入库密码验证失败！");
 				exit();
 			}
+
 			//发布的添加用户名和id
-			$data['modelField']['LocoySpider'] = true;
+			//$data['modelField']['LocoySpider'] = true;
 			$data['modelField']['uid'] = 1;
 			$data['modelField']['username'] = 'admin';// 用户名
-			// $data['modelField']['sysadd'] = 1;
-				
+            $data['modelField']['sysadd'] = 1;
+
             $catid = intval($data['modelField']['catid']);
             if (empty($catid)) {
                 $this->error("请指定栏目ID！");

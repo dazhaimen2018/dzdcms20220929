@@ -108,7 +108,7 @@ function  cleanUp(){
 
 function onSiteName(){
     $userInfo = Session::get('admin');
-    $siteIds = $userInfo['site_id'];
+    $siteIds  = $userInfo['sites'];
     if(isset(cache("Cms_Config")['publish_mode']) && 1 == cache("Cms_Config")['publish_mode']) {
         if($siteIds){
             $siteName = getSiteInfo('name');
@@ -127,4 +127,75 @@ function onSiteName(){
 function showsUrl($id,$catid){
     $url = '';
     return buildContentUrl($catid, $id, $url);
+}
+
+function onSite(){
+    if (valid()){
+        $siteId = '';
+        $userInfo = Session::get('admin');
+        if($userInfo){
+
+            $adminId = $userInfo['sites'];
+            if($adminId){
+                $siteId =   $adminId;
+            } else{
+                $siteId = cache("Cms_Config")['site'];
+            }
+        }
+    }else{
+        $siteId  = 1;
+    }
+    return $siteId;
+}
+
+//当前站URL
+function onSiteUrl(){
+    $siteId  = onSite();
+    $siteUrl = db('site')->where('id',$siteId)->cache(60)->value('url');
+    return $siteUrl;
+}
+
+function getSiteId()
+{
+    $key = 'siteInfo';
+    $domain    = $_SERVER['HTTP_HOST'];
+    $setDomain = isset(cache("Cms_Config")['domain']) ? cache("Cms_Config")['domain'] : 1;
+    $header    =  preg_match('/^([a-z\-]+)/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches);
+    $mark      = $matches[1]; // 获得header中的语言标识
+    $siteInfo  = Cache::get($key);
+    if ( $setDomain && $domain == $setDomain) {
+        // 站点域名相同时，还得优化
+        if($mark == $siteInfo['mark']){
+            return $siteInfo['id'];
+        }else{
+            Cache::rm($key, null);
+            $site = db('site')->where("mark='{$mark}' and domain='{$domain}'")->find();
+            Cache::set($key, $site, 3600);
+            return $site['id'];
+        }
+
+    }else{
+        if(!$siteInfo){
+            Cache::rm($key, null);
+            $site      = db('site')->where("domain='{$domain}'")->find();
+            if($site){
+                Cache::set($key, $site, 3600);
+                return $site['id'];
+            } else {
+                //域名未绑定站点，打开默认站点
+                Cache::rm($key, null);
+                $site      = db('site')->where("id=1")->find();
+                Cache::set($key, $site, 3600);
+                return 1;
+            }
+        }else{
+            if($domain == $siteInfo['domain']){
+                return $siteInfo['id'];
+            }
+        }
+
+
+    }
+
+
 }

@@ -55,7 +55,7 @@
                                 <input type="radio" name="setting[show_url_mode]" value="0" title="数字ID" {if 0==$setting['show_url_mode']}checked{/if}>
                             </div>
                         </div>
-                        {if !$userInfo.site_id}
+                        {if !$userInfo.sites}
                         <div class="layui-form-item">
                             <label class="layui-form-label" title="文章和单页发布和修改模式">发布模式</label>
                             <div class="layui-input-block">

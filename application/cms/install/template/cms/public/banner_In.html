@@ -1,19 +1,10 @@
 <div class="insideBanner">
     {if $catid}
-    {if $banner}
-    <img src="{$banner}" alt="{$title}">
-    <div class="thumb">
-        <h2 class="title"><span>{$title}</span></h2>
-        <div class="desc">{$description}</div>
-    </div>
-    {else}
     <img src="{:getCategory($top_parentid,'image')}" alt="{:getCategory($top_parentid,'catname')}">
     <div class="thumb">
         <h2 class="title"><span>{:getCategory($top_parentid,'catname')}</span></h2>
         <div class="desc">{:getCategory($top_parentid,'description')}</div>
     </div>
-    {/if}
-
     {else}
     <img src="{:getCategory(1,'image')}" alt="dzdcms">
     <div class="thumb">

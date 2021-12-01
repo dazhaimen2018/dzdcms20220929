@@ -63,11 +63,11 @@
                     <div class="layui-tab-item">
                         <input type="hidden" name="lang_data[{$k}][site_id]" value="{$s['site_id']}" />
                         <input type="hidden" name="lang_data[{$k}][lang_id]" value="{$s['lang_id']}" />
-                        <input type="hidden" name="lang_data[{$k}][id]" value="{$s['id']}" />
+                        <input type="hidden" name="lang_data[{$k}][id]" value="{$s['id']|default=''}" />
                         <div class="layui-form-item">
                             <label class="layui-form-label">数据</label>
                             <div class="layui-input-block">
-                                <textarea lay-verify="required" lay-reqText="数据不能为空" name="lang_data[{$k}][value]" placeholder="请输入数据" class="layui-textarea">{$s['value']}</textarea>
+                                <textarea lay-verify="required" lay-reqText="数据不能为空" name="lang_data[{$k}][value]" placeholder="请输入数据" class="layui-textarea">{$s['value']|default=''}</textarea>
                             </div>
                         </div>
                     </div>

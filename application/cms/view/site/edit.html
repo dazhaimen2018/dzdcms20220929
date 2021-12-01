@@ -7,14 +7,14 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">站点名称</label>
 				<div class="layui-input-block">
-					<input type="text" name="name" lay-verify="required" lay-reqtext="站点名称不能为空" autocomplete="off" placeholder="" class="layui-input" value="">
+					<input type="text" name="name" lay-verify="required" lay-reqtext="站点名称不能为空" autocomplete="off" placeholder="" class="layui-input" value="{$data.name|default=''}">
 				</div>
 			</div>
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">语言标识</label>
 				<div class="layui-input-inline">
-					<input autocomplete="off" class="layui-input" id="mark" name="mark" placeholder="语言标识" type="text" value="">
+					<input autocomplete="off" class="layui-input" id="mark" name="mark" placeholder="语言标识" type="text" value="{$data.mark|default=''}">
 				</div>
 				<div class="layui-input-inline">
 					<select lay-filter="fasttype">
@@ -88,13 +88,13 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">网站Logo</label>
 				<div class="layui-input-block layui-upload">
-					{php}echo \util\Form::images('logo'){/php}
+					{php}echo \util\Form::images('logo','',$data['logo']){/php}
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">网站图标</label>
 				<div class="layui-input-block layui-upload">
-					{php}echo \util\Form::images('favicon'){/php}
+					{php}echo \util\Form::images('favicon','',$data['favicon']){/php}
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -118,26 +118,27 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">独立数据</label>
 				<div class="layui-input-block">
-					<input type="radio" name="alone" value="1" title="是" checked>
-					<input type="radio" name="alone" value="0" title="否">
+					<input type="radio" name="alone" value="1" {if !$data['alone']}checked{/if} {eq name="data.alone" value="1" }checked{/eq} title="是">
+					<input type="radio" name="alone" value="0" {eq name="data.alone" value="0" }checked{/eq} title="否">
 				</div>
 				<div class="layui-form-mid layui-word-aux">选否时：主要实用于城市分站、自动调用主站数据并在相应位置自动添加区域名称（站点名称）！</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">是否显示</label>
 				<div class="layui-input-block">
-					<input type="radio" name="status" value="1" title="是" checked>
-					<input type="radio" name="status" value="0" title="否">
+					<input type="radio" name="status" value="1" {if !$data['status']}checked{/if} {eq name="data.status" value="1" }checked{/eq} title="是">
+					<input type="radio" name="status" value="0" {eq name="data.status" value="0" }checked{/eq} title="否">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">站点开关</label>
 				<div class="layui-input-block">
-					<input type="radio" name="close" value="1" title="开" checked>
-					<input type="radio" name="close" value="0" title="关">
+					<input type="radio" name="close" value="1" {if !$data['close']}checked{/if} {eq name="data.close" value="1" }checked{/eq} title="开">
+					<input type="radio" name="close" value="0" {eq name="data.close" value="0" }checked{/eq} title="关">
 
 				</div>
 			</div>
+			<input name="id" type="hidden" value="{$data.id}">
 			<div class="layui-form-item layer-footer">
 				<div class="layui-input-block">
 					{if $push}

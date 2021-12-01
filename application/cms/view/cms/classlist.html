@@ -4,7 +4,7 @@
 <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
 <script type="text/html" id="barTool">
     {{# if({$push}){ }}
-    <a data-open='{:url("push",["catid"=>$catid])}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs layui-btn-warm" title="推送并翻译">推送</a>
+    <a data-open='{:url("push/cms",["catid"=>$catid])}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs layui-btn-warm" title="推送并翻译">推送</a>
     {{#  } }}
 
     {{# if(d.catid !== {$catid}){ }}

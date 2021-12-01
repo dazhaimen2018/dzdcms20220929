@@ -1,34 +1,34 @@
 <div class="layui-tab-item">
-    <input type="hidden" name="category_data[{$k}][site_id]" value="{$siteId}"/>
-    <input type="hidden" name="category_data[{$k}][cd_id]" value="{$cdId}"/>
+    <input type="hidden" name="category_data[{$k}][site_id]" value="{$category_data[$k-1]['site_id']}"/>
+    <input type="hidden" name="category_data[{$k}][cd_id]" value="{$category_data[$k-1]['id']|default=''}"/>
     <div class="layui-form-item">
-        <label class="layui-form-label">{:lang('Category Title',[],$s['mark'])}</label>
+        <label class="layui-form-label">栏目标题</label>
         <div class="layui-input-block">
-            <input class="layui-input" name="category_data[{$k}][catname]"  placeholder="{:lang('Category Title',[],$s['mark'])}" type="text" value="{$category_data[$k-1]['catname']}">
+            <input class="layui-input" name="category_data[{$k}][catname]"  placeholder="栏目名称" type="text" value="{$category_data[$k-1]['catname']|default=''}">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">{:lang('Category Description',[],$s['mark'])}</label>
+        <label class="layui-form-label">栏目简介</label>
         <div class="layui-input-block">
-            <textarea class="layui-textarea" name="category_data[{$k}][description]" placeholder="{:lang('Category Description',[],$s['mark'])}">{$category_data[$k-1]['description']}</textarea>
+            <textarea class="layui-textarea" name="category_data[{$k}][description]" placeholder="栏目简介">{$category_data[$k-1]['description']|default=''}</textarea>
         </div>
     </div>
     <div class="layui-form-item web_seo">
-        <label class="layui-form-label">{:lang('Page Title',[],$s['mark'])}</label>
+        <label class="layui-form-label">SEO标题</label>
         <div class="layui-input-block">
-            <input class="layui-input" name="category_data[{$k}][setting][title]" placeholder="{:lang('Title set for search engine',[],$s['mark'])}" type="text" value="{$page_title}">
+            <input class="layui-input" name="category_data[{$k}][setting][title]" placeholder="针对搜索引擎设置的标题" type="text" value="{$category_data[$k-1]['setting']['title']|default=''}">
         </div>
     </div>
     <div class="layui-form-item web_seo">
-        <label class="layui-form-label">{:lang('Page Keyword',[],$s['mark'])}</label>
+        <label class="layui-form-label">SEO关键词</label>
         <div class="layui-input-block">
-            <input class="layui-input" name="category_data[{$k}][setting][keyword]" placeholder="{:lang('Keywords separated by half comma',[],$s['mark'])}" type="text" value="{$page_keyword}">
+            <input class="layui-input" name="category_data[{$k}][setting][keyword]" placeholder="关键字中间用半角逗号隔开" type="text" value="{$category_data[$k-1]['setting']['keyword']|default=''}">
         </div>
     </div>
     <div class="layui-form-item web_seo">
-        <label class="layui-form-label">{:lang('Page Description',[],$s['mark'])}</label>
+        <label class="layui-form-label">SEO描述</label>
         <div class="layui-input-block">
-            <textarea class="layui-textarea" name="category_data[{$k}][setting][description]" placeholder="{:lang('Page description for search engine settings',[],$s['mark'])}">{$page_description}</textarea>
+            <textarea class="layui-textarea" name="category_data[{$k}][setting][description]" placeholder="针对搜索引擎设置的网页描述">{$category_data[$k-1]['setting']['description']|default=''}</textarea>
         </div>
     </div>
 

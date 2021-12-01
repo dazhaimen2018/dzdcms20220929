@@ -1,16 +1,14 @@
 <div class="layui-carousel banner" id="slide">
     <div carousel-item>
-        {yzn module="cms" action="lists" modelid="8" flag="6" siteId="$site_id" cache="3600"  order="listorder ASC" num="3" return="data"}
+        {yzn module="cms" action="lists" modelid="1" siteId="$site_id" cache="3600"  order="listorder ASC" num="3" return="data"}
         {volist name="data" id="item" key=i"}
         {if $i%2==1}
-        <div class="swiper-slide item1" style="background-image:url({$item.image});">
+        <div class="swiper-slide item1" style="background-image:url({$item.thumb});">
             <div class="inner">
                 <div id="mainTheme" ><h1>{$item.title}<span></span></h1></div>
                 <p data-swiper-parallax="-1500">{$item.description}</p>
                 <div class="subbtn" data-swiper-parallax="-3000">
-                    {volist name="$item['items']" id="vo" key="j"}
-                    <a class="button" href="{$vo|raw}" data-swiper-parallax="0"  data-swiper-parallax-duration="1000" target="_blank">{$key}</a></a>
-                    {/volist}
+
                 </div>
                 <div class="mainbtn"  data-swiper-parallax="-4500" data-swiper-parallax-opacity="0">
                     <a  href="https://gitee.com/vipbuy/dzdcms.git" target="_blank"><i class="layui-icon layui-icon-download-circle"></i> 程序下载</a>
@@ -20,7 +18,7 @@
             </div>
         </div>
         {else}
-        <div class="swiper-slide item2" style="background-image:url({$item.image});">
+        <div class="swiper-slide item2" style="background-image:url({$item.thumb});">
             <div class="inner">
                 <h2 data-swiper-parallax="-1500">{$item.title}</h2>
                 <div class="img">

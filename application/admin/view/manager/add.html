@@ -44,7 +44,7 @@
                 <option>请选择站点</option>
                 <option value="0">所有站</option>
                 {volist name="site" id="vo"}
-                <option value="{$vo.id}" {if condition=" $sites eq $vo['id'] "}selected{/if}>{$vo.name}</option>
+                <option value="{$vo.id}">{$vo.name}</option>
                 {/volist}
             </select>
         </div>

@@ -30,7 +30,9 @@ class Cms extends Adminbase
         $this->cmsConfig = cache("Cms_Config");
         $this->assign("cmsConfig", $this->cmsConfig);
         // 20200805 马博所有站点
-        $siteIds    = $this->auth->sites;
+        $siteIds   = $this->auth->sites;
+        $whereIn   = '';
+        $whereSite = '';
         if ($siteIds) {
             $whereSite = " id = $siteIds";
         }else{
@@ -44,6 +46,7 @@ class Cms extends Adminbase
         }
         $catid    = $this->request->param('catid/d', 0);
         $catSites = getCategory($catid,'sites'); //当前栏目所属站点
+        
         if($catSites){
             $whereIn  = " id in($catSites)";
         }
@@ -57,6 +60,8 @@ class Cms extends Adminbase
     {
         $isAdministrator = $this->auth->isAdministrator();
         $json            = $priv_catids            = [];
+        $where = '';
+        $whereSite = '';
         if (0 !== (int) $this->cmsConfig['site_category_auth']) {
             //栏目权限 超级管理员例外
             if ($isAdministrator !== true) {
@@ -324,6 +329,7 @@ class Cms extends Adminbase
                 $this->error('该栏目不存在！');
             }
             // 缓存一个栏目ID和模型ID 同步发布栏目时要用到
+            $view             = '';
             $cache['catid']   = $catid;
             $cache['modelid'] = $category['modelid'];
             Cache::set('catCache', $cache, 3600);
@@ -443,6 +449,7 @@ class Cms extends Adminbase
                 $this->error('该栏目不存在！');
             }
             // 缓存一个栏目ID和模型ID 同步发布栏目时要用到
+            $view             = '';
             $cache['catid']   = $catid;
             $cache['modelid'] = $category['modelid'];
             Cache::set('catCache', $cache, 3600);
@@ -506,12 +513,6 @@ class Cms extends Adminbase
                 return $this->fetch('singlepage');
             }
         }
-    }
-
-    //推送并翻译
-    public function push()
-    {
-        return $this->error(tipsText());
     }
 
     //删除

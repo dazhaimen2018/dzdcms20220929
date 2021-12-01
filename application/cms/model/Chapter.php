@@ -533,7 +533,7 @@ class Chapter extends Modelbase
      * @param  array     $config   配置参数
      */
 
-    public function getChapterList($modeId, $where, $moreifo, $siteId = 1, $did, $id ,$field = '*', $order = '', $limit = 10, $page = null, $simple = false, $config = [])
+    public function getChapterList($modeId, $where, $moreifo, $did, $id, $siteId = 1, $field = '*', $order = '', $limit = 10, $page = null, $simple = false, $config = [])
     {
         $url_mode  = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
        // $dataShare = cache("Cms_Config")['data_share']; //数据共享

@@ -27,7 +27,8 @@ class Lang extends Adminbase
 		$this->banfie = array("text", "checkbox", "textarea", "radio", "number", "datetime", "image", "images", "array", "switch", "select", "Ueditor", "file", "files", 'color', 'tags', 'markdown');
 
         // 20200805 马博所有站点
-        $sites = $this->auth->sites;
+        $sites     = $this->auth->sites;
+        $whereSite = '';
         if ($sites) {
             $whereSite = " id = $sites";
         }else{
@@ -188,12 +189,6 @@ class Lang extends Adminbase
 			return $this->fetch();
 		}
 	}
-
-    //编辑配置
-    public function push()
-    {
-        return $this->error(tipsText());
-    }
 
 	//删除配置
 	public function del()

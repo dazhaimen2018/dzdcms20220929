@@ -78,7 +78,7 @@ class Adminbase extends Base
         !defined('IS_DIALOG') && define('IS_DIALOG', $this->request->param("dialog") ? true : false);
 
         // 判断是否有登录权 20210703 马博
-        $siteId      = onSite();
+        //$siteId      = onSite();
         $domain      = $_SERVER['HTTP_HOST'];
         $adminDomain = adminDomain();
         $authDomain  = config('admin_domain');
@@ -156,7 +156,7 @@ class Adminbase extends Base
         ];
         $this->assign('site', $site);
         $this->assign('push', $push);
-        $this->assign('siteId', $siteId);
+        //$this->assign('siteId', $siteId);
         $this->assign('auth', $this->auth);
         $this->assign('userInfo', Session::get('admin'));
     }

@@ -418,10 +418,20 @@ class Cms extends Modelbase
 
                 //扩展配置
                 $value['setting'] = unserialize($value['setting']);
-                $value['options'] = $value['setting']['options'];
+                if (!empty($value['setting']['options'])) {
+                    $value['options'] = $value['setting']['options'];
+                } else {
+                    $value['options'] = '';
+                }
+
                 //在新增时候添加默认值
                 if (!$id) {
-                    $value['value'] = $value['setting']['value'];
+                    if (!empty($value['setting']['value'])) {
+                        $value['value'] = $value['setting']['value'];
+                    } else {
+                        $value['value'] = '';
+                    }
+
                 }
                 if ($value['type'] == 'custom') {
                     if ($value['options'] != '') {
@@ -908,6 +918,7 @@ class Cms extends Modelbase
         $list = db('model_field')->where("modelid=" . $modeId . " and ifsystem=" . $ifsystem)->order('listorder asc,id asc')->select();
         if (!empty($list)) {
             //编辑信息时查询出已有信息
+            $id = 0;
             if ($id) {
                 $modelInfo = Db::name('Model')->where('id', $modeId)->field('tablename,type')->find();
                 $dataInfo  = Db::name($modelInfo['tablename'])->where('id', $id)->find();
@@ -936,10 +947,18 @@ class Cms extends Modelbase
 
                 //扩展配置
                 $value['setting'] = unserialize($value['setting']);
-                $value['options'] = $value['setting']['options'];
+                if (!empty($value['setting']['options'])) {
+                    $value['options'] = $value['setting']['options'];
+                } else {
+                    $value['options'] = '';
+                }
                 //在新增时候添加默认值
                 if (!$id) {
-                    $value['value'] = $value['setting']['value'];
+                    if (!empty($value['setting']['value'])) {
+                        $value['value'] = $value['setting']['value'];
+                    } else {
+                        $value['value'] = '';
+                    }
                 }
                 if ($value['type'] == 'custom') {
                     if ($value['options'] != '') {

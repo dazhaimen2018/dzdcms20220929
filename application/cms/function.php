@@ -261,14 +261,18 @@ function seo($catid = '', $title = '', $description = '', $keyword = '')
         $description = strip_tags($description);
     }
     if (!empty($keyword)) {
-        //$keyword = str_replace(' ', ',', strip_tags($keyword));
         $keyword = strip_tags($keyword);
     }
 
     $key  = 'siteSeo';
     $site = cache($key);
-    if ($site['id'] != $siteId){ //如果站点ID不登录SEO缓存中的站点ID。清楚缓存，重新缓存
-        Cache::rm($key, null);
+    if($site){
+        if ($site['id'] != $siteId){ //如果站点ID不登录SEO缓存中的站点ID。清楚缓存，重新缓存
+            Cache::rm($key, null);
+            $site = db('site')->where('id', $siteId)->field('id,title,name,keywords,description')->find();
+            Cache::set($key, $site, 3600);
+        }
+    }else{
         $site = db('site')->where('id', $siteId)->field('id,title,name,keywords,description')->find();
         Cache::set($key, $site, 3600);
     }

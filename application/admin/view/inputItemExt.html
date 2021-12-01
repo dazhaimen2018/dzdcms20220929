@@ -1,12 +1,12 @@
 {switch name="vo.type"}
 {case value="hidden"}
-{if $vo.value}<input type="hidden" class="form-control" name="extra_data[{$k}][{$vo.name}]" value="{$value}">{/if}
+{if $vo.value}<input type="hidden" class="form-control" name="extra_data[{$k}][{$vo.name}]" value="{$value|default=''}">{/if}
 {/case}
 {case value="text"}
 <div class="layui-form-item">
 	<label class="layui-form-label {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}layui-form-item-required{/if}" title="{:getSiteName($k)}{$vo.title}">{:getSiteName($k)}{$vo.title} </label>
 	<div class="layui-input-block">
-		<input type="text" id="{$vo.name}" name="extra_data[{$k}][{$vo.name}]" placeholder="请输入{$vo.title}" autocomplete="off" class="layui-input" value="{$value}">
+		<input type="text" id="{$vo.name}" name="extra_data[{$k}][{$vo.name}]" placeholder="请输入{$vo.title}" autocomplete="off" class="layui-input" value="{$value|default=''}">
 	</div>
 	{if $vo.remark}<div class="layui-form-mid layui-word-aux">{$vo.remark|raw}</div>{/if}
 </div>
@@ -15,7 +15,7 @@
 <div class="layui-form-item">
 	<label class="layui-form-label">{$vo.title}</label>
 	<div class="layui-input-block">
-		<input type="text" name="extra_data[{$k}][{$vo.name}]" class="layui-input form-tags tags-{$vo.name}" value="{$value}" data-remark="{$vo.remark|default='输入回车确认'}">
+		<input type="text" name="extra_data[{$k}][{$vo.name}]" class="layui-input form-tags tags-{$vo.name}" value="{$value|default=''}" data-remark="{$vo.remark|default='输入回车确认'}">
 	</div>
 	{if $vo.remark}<div class="layui-form-mid layui-word-aux">{$vo.remark|raw}</div>{/if}
 </div>
@@ -24,7 +24,7 @@
 <div class="layui-form-item">
 	<label class="layui-form-label  {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}layui-form-item-required{/if}">{$vo.title}</label>
 	<div class="layui-input-block">
-		<input type="number" name="extra_data[{$k}][{$vo.name}]" placeholder="请输入{$vo.title}" autocomplete="off" class="layui-input" value="{$value}">
+		<input type="number" name="extra_data[{$k}][{$vo.name}]" placeholder="请输入{$vo.title}" autocomplete="off" class="layui-input" value="{$value|default=''}">
 	</div>
 	{if $vo.remark}<div class="layui-form-mid layui-word-aux">{$vo.remark|raw}</div>{/if}
 </div>
@@ -43,7 +43,7 @@
 	<dl class="layui-input-block fieldlist border-none" data-name="extra_data[{$k}][{$vo.name}]" data-id="{$vo.name}">
 		<dd><ins>键名</ins><ins>键值</ins></dd>
 		<dd class="border-none"><button type="button" class="layui-btn btn-append">追加</button></dd>
-		<textarea name="extra_data[{$k}][{$vo.name}]" class="layui-textarea layui-hide">{$value}</textarea>
+		<textarea name="extra_data[{$k}][{$vo.name}]" class="layui-textarea layui-hide">{$value|default=''}</textarea>
 	</dl>
 	{if $vo.remark}<div class="layui-form-mid layui-word-aux">{$vo.remark|raw}</div>{/if}
 </div>
@@ -117,7 +117,7 @@
 	<label class="layui-form-label {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}layui-form-item-required{/if}">{$vo.title}</label>
 	<div class="layui-input-block">
 		<div class="layui-input-inline" style="width: 120px;">
-			<input type="text" name="extra_data[{$k}][{$vo.name}]" value="{$value}" placeholder="请选择颜色" class="layui-input test-form-input" id="c-{$vo.name}">
+			<input type="text" name="extra_data[{$k}][{$vo.name}]" value="{$value|default=''}" placeholder="请选择颜色" class="layui-input test-form-input" id="c-{$vo.name}">
 		</div>
 		<div class="layui-inline" style="left: -11px;">
 			<div class="layui-color-box" data-input-id="c-{$vo.name}"></div>
@@ -132,7 +132,7 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">{$vo.title}</label>
 		<div class="layui-input-block">
-			<input type="text" class="layui-input datetime" name="extra_data[{$k}][{$vo.name}]" placeholder="请输入{$vo.title}" value="{$value}">
+			<input type="text" class="layui-input datetime" name="extra_data[{$k}][{$vo.name}]" placeholder="请输入{$vo.title}" value="{$value|default=''}">
 		</div>
 		{if $vo.remark}<div class="layui-form-mid layui-word-aux">{$vo.remark|raw}</div>{/if}
 	</div>
@@ -142,7 +142,7 @@
 <div class="layui-form-item">
 	<label class="layui-form-label  {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}layui-form-item-required{/if}">{$vo.title}</label>
 	<div class="layui-input-block">
-		   <textarea placeholder="请输入{$vo.title}" class="layui-textarea" name="extra_data[{$k}][{$vo.name}]">{$value}</textarea>
+		   <textarea placeholder="请输入{$vo.title}" class="layui-textarea" name="extra_data[{$k}][{$vo.name}]">{$value|default=''}</textarea>
 	</div>
 	{if $vo.remark}<div class="layui-form-mid layui-word-aux">{$vo.remark|raw}</div>{/if}
 </div>
@@ -186,7 +186,7 @@
 <div class="layui-form-item">
 	<div class="layui-input-block border-none">
 		<div class="edit">
-			<script type="text/plain" class="js-ueditor" id="{$vo.name}{$k}" name="extra_data[{$k}][{$vo.name}]"> {$value|raw}</script>
+			<script type="text/plain" class="js-ueditor" id="{$vo.name}{$k}" name="extra_data[{$k}][{$vo.name}]"> {$value|default=''|raw}</script>
 		</div>
 		<div class="{$vo.name}_attr editor_tool">
 			<a class="layui-btn layui-btn-sm" id="{$vo.name}{$k}grabimg" style="margin-top: 4px;">图片本地化</a>

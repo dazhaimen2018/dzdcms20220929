@@ -39,7 +39,31 @@
             </div>
             <div class="layui-row listAjax">
                 {volist name="list" id="item" empty="<div class='tc font20 l-h80'>$noData</div>"}
-                {include file="public/list_item" /}
+                <div class="list-box">
+                    {if $item['thumb']}
+                    <div class="list-pic">
+                        <a href="{$item.url}" title="{$item.title}" alt="{$item.title}">
+                            <img src="{$item.thumb|default='/uploads/images/photo.png'}" alt="{$item.title}" class="img-full">
+                        </a>
+                    </div>
+                    {/if}
+                    <div class="list-text">
+                        <a href="{$item.url}" title="{$item.title}" alt="{$item.title}">
+                            <h2>{$siteName}{$item.title|str_ireplace=$keyword,"<font style='color:red'>$keyword</font>",###|raw}</h2>
+                            <p>{$siteName}{$item.description|str_ireplace=$keyword,"<font style='color:red'>$keyword</font>",###|raw}</p>
+                        </a>
+                        <div class="title-msg">
+                            <span><i class="layui-icon layui-icon-cols"></i> <a href="{:getCategory($item['catid'],'url')} ">{:getCategory($item['catid'],'catname')} </a></span>
+                            <span><i class="layui-icon layui-icon-date"></i> {$item.updatetime|date="Y-m-d"}</span>
+                            <span><i class="layui-icon layui-icon-read"></i> {$item.hits} {:lang('Views')}</span>
+                            <span class="tag-list layui-right"> <i class="layui-icon layui-icon-note"></i>
+                {volist name=":explode(',',$item['tags'])" id="vo"}
+                <a class="tag" href="{:url('cms/index/tags',['tagdir'=>getTagDir($vo)])}">{$vo}</a>
+                {/volist}
+            </span>
+                        </div>
+                    </div>
+                </div>
                 {/volist}
             </div>
             <div class="layui-row ">
