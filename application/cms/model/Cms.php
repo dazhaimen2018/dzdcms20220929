@@ -418,20 +418,11 @@ class Cms extends Modelbase
 
                 //扩展配置
                 $value['setting'] = unserialize($value['setting']);
-                if (!empty($value['setting']['options'])) {
-                    $value['options'] = $value['setting']['options'];
-                } else {
-                    $value['options'] = '';
-                }
+                $value['options'] = $value['setting']['options'];
 
                 //在新增时候添加默认值
                 if (!$id) {
-                    if (!empty($value['setting']['value'])) {
-                        $value['value'] = $value['setting']['value'];
-                    } else {
-                        $value['value'] = '';
-                    }
-
+                    $value['value'] = $value['setting']['value'];
                 }
                 if ($value['type'] == 'custom') {
                     if ($value['options'] != '') {
@@ -947,18 +938,10 @@ class Cms extends Modelbase
 
                 //扩展配置
                 $value['setting'] = unserialize($value['setting']);
-                if (!empty($value['setting']['options'])) {
-                    $value['options'] = $value['setting']['options'];
-                } else {
-                    $value['options'] = '';
-                }
+                $value['options'] = $value['setting']['options'];
                 //在新增时候添加默认值
                 if (!$id) {
-                    if (!empty($value['setting']['value'])) {
-                        $value['value'] = $value['setting']['value'];
-                    } else {
-                        $value['value'] = '';
-                    }
+                    $value['value'] = $value['setting']['value'];
                 }
                 if ($value['type'] == 'custom') {
                     if ($value['options'] != '') {

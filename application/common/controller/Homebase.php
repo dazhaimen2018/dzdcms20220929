@@ -28,12 +28,7 @@ class Homebase extends Base
         $sites  = cache('sites')?cache('sites'):Site::where('status',1)->column('*','id');
         Cache::set('sites', $sites, 3600);
         //语言设定
-        $siteId = getSiteId();
-       if($siteId){
-           $mark = $sites[$siteId]['mark'];
-       } else{
-           $mark = '';
-       }
+        $mark = $sites[getSiteId()]['mark'];
 
         if ($mark && ($mark.'_'.getSiteId() != cookie('var'))){
             cookie('var',$mark.'_'.getSiteId());

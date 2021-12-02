@@ -155,6 +155,7 @@ function onSiteUrl(){
     return $siteUrl;
 }
 
+//当前站ID
 function getSiteId()
 {
     $key = 'siteInfo';
@@ -175,27 +176,34 @@ function getSiteId()
         }
 
     }else{
-        if(!$siteInfo){
-            Cache::rm($key, null);
-            $site      = db('site')->where("domain='{$domain}'")->find();
-            if($site){
-                Cache::set($key, $site, 3600);
-                return $site['id'];
-            } else {
-                //域名未绑定站点，打开默认站点
-                Cache::rm($key, null);
-                $site      = db('site')->where("id=1")->find();
-                Cache::set($key, $site, 3600);
-                return 1;
-            }
-        }else{
+        if($siteInfo){
             if($domain == $siteInfo['domain']){
                 return $siteInfo['id'];
+            } else {
+                Cache::rm($key, null);
+                $site      = db('site')->where("domain='{$domain}'")->find();
+                if($site){
+                    Cache::set($key, $site, 3600);
+                    return $site['id'];
+                } else {
+                    //域名未绑定站点，打开默认站点
+                    Cache::rm($key, null);
+                    $site      = db('site')->where("id=1")->find();
+                    Cache::set($key, $site, 3600);
+                    return 1;
+                }
+
             }
+        }else{
+            Cache::rm($key, null);
+            $site      = db('site')->where("domain='{$domain}'")->find();
+            Cache::set($key, $site, 3600);
+            return $site['id'];
         }
 
 
     }
 
-
 }
+
+
