@@ -129,25 +129,6 @@ function showsUrl($id,$catid){
     return buildContentUrl($catid, $id, $url);
 }
 
-function onSite(){
-    if (valid()){
-        $siteId = '';
-        $userInfo = Session::get('admin');
-        if($userInfo){
-
-            $adminId = $userInfo['sites'];
-            if($adminId){
-                $siteId =   $adminId;
-            } else{
-                $siteId = cache("Cms_Config")['site'];
-            }
-        }
-    }else{
-        $siteId  = 1;
-    }
-    return $siteId;
-}
-
 //当前站URL
 function onSiteUrl(){
     $siteId  = onSite();

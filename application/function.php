@@ -35,7 +35,24 @@ function tipsText(){
     return '需要授权,请联系技术';
 }
 
+function onSite(){
+    if (valid()){
+        $siteId = '';
+        $userInfo = Session::get('admin');
+        if($userInfo){
 
+            $adminId = $userInfo['sites'];
+            if($adminId){
+                $siteId =   $adminId;
+            } else{
+                $siteId = cache("Cms_Config")['site'];
+            }
+        }
+    }else{
+        $siteId  = 1;
+    }
+    return $siteId;
+}
 
 function valid(){
     return true; //需要授权时删除本行
