@@ -69,17 +69,17 @@ layui.use('yznTable', function() {
         cols: [
             [
                 { type: 'checkbox', fixed: 'left' },
-                { field: 'listorder', width: 70, title: '排序', edit: 'text' },
+                { field: 'listorder', width: 70, title: '排序', edit: 'text',search:false },
                 { field: 'id', width: 70, title: 'ID' },
                 { field: 'sites', width: 100, title: '所属站点' },
-                { field: 'name', title: '网站名称' },
+                { field: 'name', title: '网站名称', operate: 'like'  },
                 { field: 'url', title: '网站网址' },
                 { field: 'image', width: 150, title: '网站LOGO', templet: '#image', selectList: { 0: '无', 1: '有' } },
                 { field: 'linktype', width: 150, title: '链接类型', templet: '#type', selectList: { 0: '文字链接', 1: '图片链接' } },
                 { field: 'termsid', width: 80, title: '分类ID' },
                 { field: 'inputtime', width: 180, title: '添加时间', search: 'range' },
                 { field: 'status', width: 120, align: "center", title: '状态', templet: '#statusTpl', unresize: true, selectList: { 0: '未通过', 1: '已通过' } },
-                { fixed: 'right', width: 150, title: '操作', toolbar: '#barTool' }
+                { fixed: 'right', width: 150, title: '操作', toolbar: '#barTool', align: "center" }
             ]
         ],
         page: {}

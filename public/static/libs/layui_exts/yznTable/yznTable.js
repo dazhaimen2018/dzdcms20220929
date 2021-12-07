@@ -1,7 +1,7 @@
 /**
  @ Name：简单封下table
  */
-layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element', 'yznForm'], function(exports) {
+layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element'], function(exports) {
     var MOD_NAME = 'yznTable',
         $ = layui.$,
         table = layui.table,
@@ -15,6 +15,8 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element', 'yznForm']
         table_elem: '#currentTable',
         table_render_id: 'currentTable',
     };
+
+    var ColumnsForSearch = [];
 
     yznTable = {
         render: function(options) {
@@ -146,20 +148,24 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element', 'yznForm']
                 d.search = yzn.parame(d.search, true);
                 d.searchTip = d.searchTip || '请输入' + d.title || '';
                 d.searchValue = d.searchValue || '';
-                d.searchOp = d.searchOp || '%*%';
+                d.operate = d.operate || '=';
                 d.timeType = d.timeType || 'datetime';
+                d.extend = typeof d.extend === 'undefined' ? '' : d.extend;
+                d.addClass = typeof d.addClass === 'undefined' ? (typeof d.addclass === 'undefined' ? 'layui-input' : 'layui-input ' + d.addclass) : 'layui-input ' + d.addClass;
                 if (d.field !== false && d.search !== false) {
+                    ColumnsForSearch.push(d);
                     switch (d.search) {
                         case true:
                             formHtml += '\t<div class="layui-form-item layui-inline">\n' +
                                 '<label class="layui-form-label">' + d.title + '</label>\n' +
                                 '<div class="layui-input-inline">\n' +
-                                '<input id="c-' + d.fieldAlias + '" name="' + d.fieldAlias + '" data-search-op="' + d.searchOp + '" value="' + d.searchValue + '" placeholder="' + d.searchTip + '" class="layui-input">\n' +
+                                '<input type="hidden" class="form-control operate" name="' + d.fieldAlias + '-operate" data-name="' + d.fieldAlias + '" value="' + d.operate + '" readonly>\n'+
+                                '<input class="'+ d.addClass +'" id="c-' + d.fieldAlias + '" name="' + d.fieldAlias + '" value="' + d.searchValue + '" placeholder="' + d.searchTip + '" '+d.extend+'>\n' +
                                 '</div>\n' +
                                 '</div>';
                             break;
                         case 'select':
-                            d.searchOp = '=';
+                            d.operate = '=';
                             var selectHtml = '';
                             $.each(d.selectList, function(sI, sV) {
                                 var selected = '';
@@ -171,7 +177,8 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element', 'yznForm']
                             formHtml += '\t<div class="layui-form-item layui-inline">\n' +
                                 '<label class="layui-form-label">' + d.title + '</label>\n' +
                                 '<div class="layui-input-inline">\n' +
-                                '<select class="layui-select" id="c-' + d.fieldAlias + '" name="' + d.fieldAlias + '"  data-search-op="' + d.searchOp + '" >\n' +
+                                '<input type="hidden" class="form-control operate" name="' + d.fieldAlias + '-operate" data-name="' + d.fieldAlias + '" value="' + d.operate + '" readonly>\n'+
+                                '<select class="layui-select" id="c-' + d.fieldAlias + '" name="' + d.fieldAlias + '">\n' +
                                 '<option value="">- 全部 -</option> \n' +
                                 selectHtml +
                                 '</select>\n' +
@@ -179,20 +186,35 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element', 'yznForm']
                                 '</div>';
                             break;
                         case 'range':
-                            d.searchOp = 'range';
+                            d.operate = 'range';
                             formHtml += '\t<div class="layui-form-item layui-inline">\n' +
                                 '<label class="layui-form-label">' + d.title + '</label>\n' +
                                 '<div class="layui-input-inline">\n' +
-                                '<input id="c-' + d.fieldAlias + '" name="' + d.fieldAlias + '"  data-search-op="' + d.searchOp + '"  value="' + d.searchValue + '" placeholder="' + d.searchTip + '" class="layui-input">\n' +
+                                '<input type="hidden" class="form-control operate" name="' + d.fieldAlias + '-operate" data-name="' + d.fieldAlias + '" value="' + d.operate + '" readonly>\n'+
+                                '<input class="'+ d.addClass +'" id="c-' + d.fieldAlias + '" name="' + d.fieldAlias + '" value="' + d.searchValue + '" placeholder="' + d.searchTip + '" '+d.extend+'>\n' +
                                 '</div>\n' +
                                 '</div>';
                             break;
                         case 'time':
-                            d.searchOp = '=';
+                            d.operate = '=';
                             formHtml += '\t<div class="layui-form-item layui-inline">\n' +
                                 '<label class="layui-form-label">' + d.title + '</label>\n' +
                                 '<div class="layui-input-inline">\n' +
-                                '<input id="c-' + d.fieldAlias + '" name="' + d.fieldAlias + '"  data-search-op="' + d.searchOp + '"  value="' + d.searchValue + '" placeholder="' + d.searchTip + '" class="layui-input">\n' +
+                                '<input class="'+ d.addClass +'" id="c-' + d.fieldAlias + '" name="' + d.fieldAlias + '"  data-search-op="' + d.operate + '"  value="' + d.searchValue + '" placeholder="' + d.searchTip + '" '+d.extend+'>\n' +
+                                '</div>\n' +
+                                '</div>';
+                            break;
+                        case 'between':
+                            d.operate = 'BETWEEN';
+                            formHtml += '\t<div class="layui-form-item layui-inline">\n' +
+                                '<input type="hidden" class="form-control operate" name="' + d.fieldAlias + '-operate" data-name="' + d.fieldAlias + '" value="' + d.operate + '" readonly>\n'+
+                                '<label class="layui-form-label">' + d.title + '</label>\n' +
+                                '<div class="layui-input-inline" style="width: 80px;">\n'+
+                                '<input type="text" name="' + d.fieldAlias + '" id="' + d.fieldAlias + '-min" placeholder="' + d.searchTip + '" autocomplete="off" class="'+ d.addClass +'" '+d.extend+'>\n'+
+                                '</div>\n' +
+                                '<div class="layui-form-mid">-</div>\n'+
+                                '<div class="layui-input-inline" style="width: 80px;">\n'+
+                                '<input type="text" name="' + d.fieldAlias + '" id="' + d.fieldAlias + '-min" placeholder="' + d.searchTip + '" autocomplete="off" class="'+ d.addClass +'" '+d.extend+'>\n'+
                                 '</div>\n' +
                                 '</div>';
                             break;
@@ -203,7 +225,7 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element', 'yznForm']
             if (formHtml !== '') {
                 $(elem).before('<fieldset style="border:1px solid #ddd;" id="searchFieldset_' + tableId + '" class="table-search-fieldset '+ (searchFormVisible ? "" : "layui-hide")+'">\n' +
                     '<legend>条件搜索</legend>\n' +
-                    '<form class="layui-form layui-form-pane form-search">\n' +
+                    '<form class="layui-form layui-form-pane form-search form-commonsearch">\n' +
                     formHtml +
                     '<div class="layui-form-item layui-inline" style="margin-left: 115px">\n' +
                     '<button type="submit" class="layui-btn layui-btn-normal" data-type="tableSearch" data-table="' + tableId + '" lay-submit lay-filter="' + tableId + '_filter"> 搜 索</button>\n' +
@@ -286,6 +308,21 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element', 'yznForm']
         },
         listenTableSearch: function(tableId) {
             form.on('submit(' + tableId + '_filter)', function(data) {
+                var searchQuery = yznTable.getSearchQuery(this,true);
+
+
+                table.reload(tableId, {
+                    page: {
+                        curr: 1
+                    },
+                    where: {
+                        filter: JSON.stringify(searchQuery.filter),
+                        op: JSON.stringify(searchQuery.op)
+                    }
+                });
+                return false;
+            })
+            /*form.on('submit(' + tableId + '_filter)', function(data) {
                 var dataField = data.field;
                 var formatFilter = {},
                     formatOp = {};
@@ -308,13 +345,57 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element', 'yznForm']
                     }
                 });
                 return false;
-            });
+            });*/
             $(document).on('blur', '#layui-input-search', function (event) {
                 var text = $(this).val();
                 table.reload(tableId, {where:{search: text}});
                 $('#layui-input-search').prop("value",$(this).val());
                 return false
             })
+        },
+        getSearchQuery : function (that, removeempty) {
+            var op = {};
+            var filter = {};
+            var value = '';
+            $("form.form-commonsearch .operate").each(function (i) {
+                var name = $(this).data("name");
+                var sym = $(this).is("select") ? $("option:selected", this).val() : $(this).val().toUpperCase();
+                var obj = $("[name='" + name + "']",'.form-commonsearch');
+                if (obj.size() == 0)
+                    return true;
+                var vObjCol = ColumnsForSearch[i];
+                var process = vObjCol && typeof vObjCol.process == 'function' ? vObjCol.process : null;
+                if (obj.size() > 1) {
+                    if (/BETWEEN$/.test(sym)) {
+                        var value_begin = $.trim($("[name='" + name + "']:first", that.$commonsearch).val()),
+                            value_end = $.trim($("[name='" + name + "']:last", that.$commonsearch).val());
+                        if (value_begin.length || value_end.length) {
+                            if (process) {
+                                value_begin = process(value_begin, 'begin');
+                                value_end = process(value_end, 'end');
+                            }
+                            value = value_begin + ',' + value_end;
+                        } else {
+                            value = '';
+                        }
+                        //如果是时间筛选，将operate置为RANGE
+                        if ($("[name='" + name + "']:first", '.form-commonsearch').hasClass("datetimepicker")) {
+                            sym = 'RANGE';
+                        }
+                    } else {
+                        value = $("[name='" + name + "']:checked", '.form-commonsearch').val();
+                        value = process ? process(value) : value;
+                    }
+                }else{
+                    value = process ? process(obj.val()) : obj.val();
+                }
+                if (removeempty && (value == '' || value == null || ($.isArray(value) && value.length == 0)) && !sym.match(/null/i)) {
+                    return true;
+                }
+                op[name] = sym;
+                filter[name] = value;
+            });
+            return {op: op, filter: filter};
         },
         listenToolbar: function(layFilter, tableId) {
             table.on('toolbar(' + layFilter + ')', function(obj) {

@@ -37,15 +37,20 @@ function tipsText(){
 
 function onSite(){
     if (valid()){
-        $siteId = '';
+        $siteId = 0;
         $userInfo = Session::get('admin');
         if($userInfo){
 
             $adminId = $userInfo['sites'];
             if($adminId){
-                $siteId =   $adminId;
-            } else{
-                $siteId = cache("Cms_Config")['site'];
+                $siteId = $adminId;
+            } else {
+                if(cache("Cms_Config")){
+                    $siteId = cache("Cms_Config")['site'];
+                } else {
+                    $siteId = 1;
+                }
+
             }
         }
     }else{
