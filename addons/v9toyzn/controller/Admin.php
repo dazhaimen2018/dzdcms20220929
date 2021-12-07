@@ -417,10 +417,12 @@ class Admin extends Adminaddon
                     $data['modelField'] = [
                         'id'          => $value['id'],
                         'catid'       => $value['catid'],
+                        'catids'      => '',
                         'theme'       => $value['title'],
                         'thumb'       => $value['thumb'],
                         'flag'        => '',
                         'url'         => '',
+                        'diyurl'      => '',
                         'likes'       => '',
                         'dislikes'    => '',
                         'paytype'     => '',
@@ -430,6 +432,7 @@ class Admin extends Adminaddon
                         'modelid'     => $value['modelid'], //优化
                         'listorder'   => $value['listorder'],
                         'status'      => $value['status'] === 99 ? 1 : 0,
+                        'pushtime'    => 0,
                         'inputtime'   => date('Y-m-d h:i:s', $value['inputtime']),
                         'updatetime'  => date('Y-m-d h:i:s', $value['updatetime']),
                     ];
@@ -521,6 +524,7 @@ class Admin extends Adminaddon
                 'listorder'   => $value['listorder'],
                 'inputtime'   => $value['addtime'],
                 'description' => $value['introduce'],
+                'sites'       => 1,
                 'status'      => $value['passed'],
             ];
             if ($value['logo']) {
