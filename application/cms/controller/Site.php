@@ -19,7 +19,7 @@ class Site extends Adminbase
     protected $noNeedRight = [
         'cms/site/translator',
     ];
-	protected $modelClass = null;
+    protected $searchFields = 'id,name';
 	//初始化
 	protected function initialize()
 	{
@@ -37,11 +37,12 @@ class Site extends Adminbase
     public function index()
     {
         if ($this->request->isAjax()) {
+            list($page, $limit, $where) = $this->buildTableParames();
             $models     = cache('Model');
             $tree       = new \util\Tree();
             $tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
             $tree->nbsp = '&nbsp;&nbsp;&nbsp;';
-            $sites  = array();
+            $sites      = [];
             $result     = Db::name('site')->order(array('listorder', 'id' => 'ASC'))->select();
             foreach ($result as $k => $v) {
                 $v['name'] = '<a data-width="900" data-height="600" data-open="' . url('edit', ['id' => $v['id']]) . '"">' . $v['name'] . '</a>';
@@ -55,7 +56,7 @@ class Site extends Adminbase
             $tree->init($sites);
             $_list  = $tree->getTreeList($tree->getTreeArray(0), 'name');
             $total  = count($_list);
-            $result = array("code" => 0, "count" => $total, "data" => $_list);
+            $result = ["code" => 0, "count" => $total, "data" => $_list];
             return json($result);
         }
         return $this->fetch();

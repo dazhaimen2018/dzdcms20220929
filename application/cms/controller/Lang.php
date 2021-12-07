@@ -19,6 +19,7 @@ use think\facade\Env;
 class Lang extends Adminbase
 {
 	public $banfie;
+    protected $searchFields = 'id,name,title';
 	protected function initialize()
 	{
 		parent::initialize();

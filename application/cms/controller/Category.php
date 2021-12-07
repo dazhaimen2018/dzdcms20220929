@@ -30,6 +30,7 @@ class Category extends Adminbase
         'cms/category/count_items',
         'cms/category/public_cache',
     ];
+    protected $searchFields = 'id,catname';
     protected function initialize()
     {
         parent::initialize();
@@ -48,7 +49,7 @@ class Category extends Adminbase
         $this->pageTemplate = str_replace($themePath . DS, '', glob($themePath . DS . 'page*'));
 
         // 20200805 马博所有站点
-        $whereIn = '';
+        $whereIn   = '';
         $whereSite = '';
         $siteAdmin = $this->auth->sites;
         if ($siteAdmin) {
@@ -90,7 +91,7 @@ class Category extends Adminbase
             $tree->icon = ['&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ '];
             $tree->nbsp = '&nbsp;&nbsp;&nbsp;';
             $categorys  = [];
-            $whereSite = '';
+            $whereSite  = '';
             // 获取当前管理所属站点
             $sites = $this->auth->sites;
             if($sites){

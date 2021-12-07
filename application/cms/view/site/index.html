@@ -64,8 +64,8 @@
 {/block}
 {block name="script"}
 <script>
-    layui.use(['table', 'yznTable'], function() {
-    var table = layui.yznTable;
+    layui.use('yznTable', function() {
+        var table = layui.yznTable;
 
     var init = {
         table_elem: '#currentTable',
@@ -97,12 +97,12 @@
             }]
         ],
         url: '{:url("index")}',
-        search:false,
+        search:true,
         cols: [
             [
                 {field: 'id', title: 'ID', width: 80, fixed: true, sort: true,align:"center"},
                 { field: 'listorder', width: 70, title: '排序', edit: 'text',search:false },
-                {field: 'name', title: '站点名称'},
+                {field: 'name', title: '站点名称', searchOp: 'like'},
                 { field: 'close', width: 90, align: "center", title: '站点开关', templet: '#closeTpl', unresize: true,search:false },
                 { field: 'source', width: 90, align: "center", title: '默认站点', templet: '#sourceTpl', unresize: true,search:false },
                 { field: 'alone', width: 90, align: "center", title: '独立数据', templet: '#aloneTpl', unresize: true,search:false },
@@ -110,10 +110,10 @@
                 {field: 'template', title: '主题', width: 90,align:"center" },
                 {field: 'icon', title: '语言', width: 90,templet:"#icon",align:"center",search:false },
                 { field: 'url', title: 'URL',width: 280, templet:'#url'},
-                { field: 'logo', width: 110, title: 'LOGO', search: false, templet: yznTable.image, align:"center" },
-                { field: 'favicon', width: 90, title: '图标', search: false, templet: yznTable.image, align:"center"},
+                { field: 'logo', width: 120, title: 'LOGO', search: false, templet: yznTable.formatter.image },
+                { field: 'favicon', width: 80, title: '图标', search: false, templet: yznTable.formatter.image },
                 { field: 'status', width: 100, align: "center", title: '状态', templet: '#statusTpl', unresize: true,search:false },
-                {fixed: 'right', title:'操作',width:180, toolbar: '#barTool',align:"center"},
+                {fixed: 'right', title:'操作',width:180, toolbar: '#barTool',align:"center"}
             ]
         ],
         page: {}
