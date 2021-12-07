@@ -161,8 +161,8 @@ class Cms extends Modelbase
             //主表
             $id = Db::name($tablename)->insertGetId($data);
             //TAG标签处理
-            if (!empty($data['tags'])) {
-                $this->tagDispose($data['tags'], $id, $catid, $modelid);
+            if (!empty($dataExt['tags'])) {
+                $this->tagDispose($dataExt['tags'], $id, $catid, $modelid,$dataExt['site_id']);
             }
             //附表
             if (!empty($dataExt)) {
