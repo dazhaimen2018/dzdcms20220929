@@ -72,7 +72,7 @@ class Tags extends Adminbase
      */
     public function del()
     {
-        $tagid = $this->request->param('ids/a', null);
+        $tagid = $this->request->param('id/a', null);
         if (!is_array($tagid)) {
             $tagid = array($tagid);
         }

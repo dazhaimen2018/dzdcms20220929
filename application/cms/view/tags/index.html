@@ -8,47 +8,44 @@
         </div>
     </div>
 </div>
-<script type="text/html" id="barTool">
-    <a data-open='{:url("edit")}?id={{ d.id }}' class="layui-btn layui-btn-xs" title="编辑">编辑</a>
-    <a href='{:url("del")}?ids={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
-</script>
 {/block}
 {block name="script"}
 <script>
-    layui.use(['yznTable'], function() {
-        var table = layui.yznTable;
+layui.use(['yznTable'], function() {
+    var yznTable = layui.yznTable;
 
-        var init = {
-            table_elem: '#currentTable',
-            delete_url: "{:url('del')}",
-            modify_url: '{:url("multi")}',
-        };
+    var init = {
+        table_elem: '#currentTable',
+        edit_url: "{:url('edit')}",
+        delete_url: "{:url('del')}",
+        modify_url: '{:url("multi")}',
+    };
 
-        table.render({
-            init: init,
-            id: 'currentTable',
-            toolbar: ['refresh','delete',
-                [{
-                    html:'<a class="layui-btn layui-btn-sm layui-btn-warm" href="{:url("create")}"><i class="iconfont icon-warning"></i>&nbsp;数据重建</a>'
-                }],
-            ],
-            url: '{:url("index")}',
-            cols: [
-                [
-                    { type: 'checkbox', fixed: 'left' },
-                    { field: 'listorder', width: 70, title: '排序', edit: 'text', search: false },
-                    { field: 'tag', align: "left", title: 'Tags名称', searchOp: 'like' },
-                    { field: 'tagdir', align: "left", width: 200, title: '拼音', searchOp: 'like' },
-                    { field: 'usetimes', width: 100, title: '信息总数' },
-                    { field: 'hits', width: 100, title: '点击量',search: 'between',searchTip:'点击量' },
-                    { field: 'url',width: 60,align:"center", title: 'URL',templet:table.url,search:false},
-                    { field: 'create_time', width: 180, title: '创建时间', search: 'range' },
-                    { field: 'update_time', width: 180, title: '更新时间', search: 'range' },
-                    { fixed: 'right', width: 150, title: '操作', toolbar: '#barTool', align: "center" }
-                ]
-            ],
-            page: {}
-        });
+    yznTable.render({
+        init: init,
+        id: 'currentTable',
+        toolbar: ['refresh','delete',
+            [{
+                html:'<a class="layui-btn layui-btn-sm layui-btn-warm" href="{:url("create")}"><i class="iconfont icon-warning"></i>&nbsp;数据重建</a>'
+            }],
+        ],
+        url: '{:url("index")}',
+        cols: [
+            [
+                { type: 'checkbox', fixed: 'left' },
+                { field: 'listorder', width: 70, title: '排序', edit: 'text', search: false },
+                { field: 'tag', align: "left", title: 'Tags名称', searchOp: 'like'  },
+                { field: 'tagdir', align: "left", width: 200, title: '拼音', searchOp: 'like' },
+                { field: 'usetimes', width: 100, title: '信息总数', align: "center" },
+                { field: 'hits', width: 100, title: '点击量',search: 'between',searchTip:'点击量', align: "center" },
+                { field: 'url',width: 60,align:"center", title: 'URL',templet:yznTable.formatter.url,search:false},
+                { field: 'create_time', width: 180, title: '创建时间', search: 'range', align: "center" },
+                { field: 'update_time', width: 180, title: '更新时间', search: 'range', align: "center" },
+                { width:120, title: '操作',templet: yznTable.formatter.tool,operat: ['edit','delete'], align: "center"}
+            ]
+        ],
+        page: {}
     });
+});
 </script>
 {/block}

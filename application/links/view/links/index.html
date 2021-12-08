@@ -17,26 +17,18 @@
     </div>
 </div>
 <script type="text/html" id="type">
-    {{# if(d.linktype ==0){ }}
+  {{# if(d.linktype ==0){ }}
   文字链接
   {{#  } else { }}
   图片链接
   {{#  } }}
 </script>
 <script type="text/html" id="image">
-    {{# if(d.image ==0){ }}
+  {{# if(d.image ==0){ }}
   无
   {{#  } else { }}
   有
   {{#  } }}
-
-</script>
-<script type="text/html" id="barTool">
-    <a data-open='{:url("edit")}?id={{ d.id }}' class="layui-btn layui-btn-xs" data-width="900" data-height="600" title="编辑">编辑</a>
-    <a href='{:url("del")}?ids={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
-</script>
-<script type="text/html" id="statusTpl">
-    <input type="checkbox" name="status" value="{{d.id}}" data-href="{:url('multi')}?id={{d.id}}&param=status" lay-skin="switch" lay-text="已通过|未通过" lay-filter="switchStatus" {{ d.status==1 ? 'checked' : '' }}>
 </script>
 {/block}
 {block name="script"}
@@ -47,6 +39,7 @@ layui.use('yznTable', function() {
     var init = {
         table_elem: '#currentTable',
         add_url: "{:url('add')}",
+        edit_url: "{:url('edit')}",
         delete_url: "{:url('del')}",
         modify_url: '{:url("multi")}',
     };
@@ -69,17 +62,17 @@ layui.use('yznTable', function() {
         cols: [
             [
                 { type: 'checkbox', fixed: 'left' },
-                { field: 'listorder', width: 70, title: '排序', edit: 'text',search:false },
+                { field: 'listorder', width: 70, title: '排序', edit: 'text',search:false},
                 { field: 'id', width: 70, title: 'ID' },
                 { field: 'sites', width: 100, title: '所属站点' },
-                { field: 'name', title: '网站名称', searchOp: 'like'  },
+                { field: 'name', title: '网站名称', searchOp: 'like' },
                 { field: 'url', title: '网站网址' },
                 { field: 'image', width: 150, title: '网站LOGO', templet: '#image', selectList: { 0: '无', 1: '有' } },
                 { field: 'linktype', width: 150, title: '链接类型', templet: '#type', selectList: { 0: '文字链接', 1: '图片链接' } },
                 { field: 'termsid', width: 80, title: '分类ID' },
                 { field: 'inputtime', width: 180, title: '添加时间', search: 'range' },
-                { field: 'status', width: 120, align: "center", title: '状态', templet: '#statusTpl', unresize: true, selectList: { 0: '未通过', 1: '已通过' } },
-                { fixed: 'right', width: 150, title: '操作', toolbar: '#barTool', align: "center" }
+                { field: 'status', width: 120, align: "center", title: '状态', unresize: true, selectList: { 0: '未通过', 1: '已通过' },templet: yznTable.formatter.switch,tips:"已通过|未通过" },
+                { width:120, title: '操作',templet: yznTable.formatter.tool,operat: ['edit','delete']}
             ]
         ],
         page: {}

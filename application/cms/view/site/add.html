@@ -1,155 +1,226 @@
 {extend name="admin@index_layout"/}
 {block name="main"}
-<link rel="stylesheet" href="__STATIC__/admin/css/cms.css">
-<div class="layui-card">
-	<div class="layui-card-body layui-form-pane">
-		<form class="layui-form form-horizontal" action="" method="post" lay-filter="example">
-			<div class="layui-form-item">
-				<label class="layui-form-label">站点名称</label>
-				<div class="layui-input-block">
-					<input type="text" name="name" lay-verify="required" lay-reqtext="站点名称不能为空" autocomplete="off" placeholder="" class="layui-input" value="">
+
+<form class="layui-form" method="post" lay-filter="layui-form" lay-filter="example">
+	<div class="layui-tab">
+		<ul class="layui-tab-title">
+			<li class="layui-this"><i class="layui-icon layui-icon-set"></i> 基本设置</li>
+			<li id="modeTab"><i class="layui-icon layui-icon-template"></i> SEO设置</li>
+			<li><i class="layui-icon layui-icon-auz"></i> 其他设置</li>
+		</ul>
+		<div class="layui-tab-content">
+			<div class="layui-tab-item layui-show">
+				<div class="layui-form-item">
+					<label class="layui-form-label">站点名称</label>
+					<div class="layui-input-block">
+						<input type="text" name="name" lay-verify="required" lay-reqtext="站点名称不能为空" autocomplete="off" placeholder="" class="layui-input" value="">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">语言标识</label>
+					<div class="layui-input-inline">
+						<input autocomplete="off" class="layui-input" id="mark" name="mark" placeholder="语言标识" type="text" value="">
+					</div>
+					<div class="layui-input-inline">
+						<select lay-filter="fasttype">
+							<option data-mark="zh-cn">常用语言标识</option>
+							{volist name="languages" id="vo"}
+							<option data-mark="{$vo.mark}"  {eq name="vo.mark" value="$data.mark|default=''" }selected{/eq}>{$vo.name}</option>
+							{/volist}
+						</select>
+					</div>
+					<div class="layui-form-mid layui-word-aux">
+						多语言选相应的语言就行，如果站群，选相应的语言就行
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">绑定域名</label>
+					<div class="layui-input-inline">
+						<select name="http" lay-verify="required">
+							<option value=""></option>
+							<option value="https" {if $data['http']='https'}selected{/if}>https://</option>
+							<option value="http" {if $data['http']='http'}selected{/if}>http://</option>
+						</select>
+					</div>
+					<div class="layui-input-inline">
+						<input type="text" name="domain" lay-verify="required" lay-reqtext="站点域名不能为空" autocomplete="off" placeholder="en.dzdcms.com" class="layui-input" value="{$data.domain|default=''}">
+					</div>
+					<div class="layui-form-mid layui-word-aux">
+						域名只支持二级域名或顶级域名，不可有子目录
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">上级站点</label>
+					<div class="layui-input-block">
+						<select name="parentid">
+							<option value="0">作为顶级站点</option>
+							{$site|raw}
+						</select>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">网站Logo</label>
+					<div class="layui-input-block layui-upload">
+						{php}echo \util\Form::images('logo'){/php}
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">网站图标</label>
+					<div class="layui-input-block layui-upload">
+						{php}echo \util\Form::images('favicon'){/php}
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">主题风格</label>
+					<div class="layui-input-block">
+						<select name="template" lay-verify="required" lay-reqtext="请选择站点主题风格！">
+							<option value="">请选择主题风格</option>
+							{volist name="templates" id="vo"}
+							<option value="{$vo.name}" {eq name="vo.name" value="$data.template|default=''" }selected{/eq}>{$vo.name}</option>
+							{/volist}
+						</select>
+					</div>
+					<div class="layui-form-mid layui-word-aux">模版请先上传到template下面并包含info.ini文件</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">站点排序</label>
+					<div class="layui-input-block">
+						<input type="number" name="listorder" autocomplete="off" placeholder="排序" class="layui-input" value="{$data.listorder|default='0'}">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">独立数据</label>
+					<div class="layui-input-block">
+						<input type="radio" name="alone" value="1" title="是" checked>
+						<input type="radio" name="alone" value="0" title="否">
+					</div>
+					<div class="layui-form-mid layui-word-aux">选否时：主要实用于城市分站、自动调用主站数据并在相应位置自动添加区域名称（站点名称）！</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">是否显示</label>
+					<div class="layui-input-block">
+						<input type="radio" name="status" value="1" title="是" checked>
+						<input type="radio" name="status" value="0" title="否">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">站点开关</label>
+					<div class="layui-input-block">
+						<input type="radio" name="close" value="1" title="开" checked>
+						<input type="radio" name="close" value="0" title="关">
+
+					</div>
 				</div>
 			</div>
 
-			<div class="layui-form-item">
-				<label class="layui-form-label">语言标识</label>
-				<div class="layui-input-inline">
-					<input autocomplete="off" class="layui-input" id="mark" name="mark" placeholder="语言标识" type="text" value="">
+			<div class="layui-tab-item">
+				<div class="layui-form-item">
+					<label class="layui-form-label">品牌名称</label>
+					<div class="layui-input-block">
+						<input type="text" name="brand" autocomplete="off" placeholder="" class="layui-input" value="{$data.brand|default=''}">
+					</div>
+					<div class="layui-form-mid layui-word-aux">如:多站点</div>
 				</div>
-				<div class="layui-input-inline">
-					<select lay-filter="fasttype">
-						<option data-mark="zh-cn">常用语言标识</option>
-						{volist name="languages" id="vo"}
-						<option data-mark="{$vo.mark}"  {eq name="vo.mark" value="$data.mark|default=''" }selected{/eq}>{$vo.name}</option>
-						{/volist}
-					</select>
+				<div class="layui-form-item">
+					<label class="layui-form-label">SEO标题</label>
+					<div class="layui-input-block">
+						<input type="text" name="title" autocomplete="off" placeholder="" class="layui-input" value="{$data.title|default=''}">
+					</div>
+					<div class="layui-form-mid layui-word-aux">网页的title值</div>
 				</div>
-				<div class="layui-form-mid layui-word-aux">
-					多语言选相应的语言就行，如果站群，选相应的语言就行
-				</div>
-			</div>
 
-			<div class="layui-form-item">
-				<label class="layui-form-label">绑定域名</label>
-				<div class="layui-input-inline">
-					<select name="http" lay-verify="required">
-						<option value=""></option>
-						<option value="https" {if $data['http']='https'}selected{/if}>https://</option>
-						<option value="http" {if $data['http']='http'}selected{/if}>http://</option>
-					</select>
+				<div class="layui-form-item">
+					<label class="layui-form-label">SEO关键词</label>
+					<div class="layui-input-block">
+						<input type="text" name="keywords" autocomplete="off" placeholder="" class="layui-input" value="{$data.keywords|default=''}">
+					</div>
+					<div class="layui-form-mid layui-word-aux">网页的keywords值</div>
 				</div>
-				<div class="layui-input-inline">
-					<input type="text" name="domain" lay-verify="required" lay-reqtext="站点域名不能为空" autocomplete="off" placeholder="en.dzdcms.com" class="layui-input" value="{$data.domain|default=''}">
-				</div>
-				<div class="layui-form-mid layui-word-aux">
-					域名只支持二级域名或顶级域名，不可有子目录
-				</div>
-			</div>
-
-			<div class="layui-form-item">
-				<label class="layui-form-label">上级站点</label>
-				<div class="layui-input-block">
-					<select name="parentid">
-						<option value="0">作为顶级站点</option>
-						{$site|raw}
-					</select>
+				<div class="layui-form-item web_seo">
+					<label class="layui-form-label">SEO描述</label>
+					<div class="layui-input-block">
+						<textarea name="description" placeholder="网站简介" class="layui-textarea">{$data.description|default=''}</textarea>
+					</div>
+					<div class="layui-form-mid layui-word-aux">网页的description值</div>
 				</div>
 			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">品牌名称</label>
-				<div class="layui-input-block">
-					<input type="text" name="brand" autocomplete="off" placeholder="" class="layui-input" value="{$data.brand|default=''}">
+			<!-- 其他设置 -->
+			<div class="layui-tab-item">
+				<div class="layui-form-item">
+					<label class="layui-form-label">网站名称</label>
+					<div class="layui-input-block">
+						<input type="text" name="website" autocomplete="off" placeholder="" class="layui-input" value="{$data.website|default=''}">
+					</div>
 				</div>
-				<div class="layui-form-mid layui-word-aux">如:多站点</div>
-			</div>
-
-			<div class="layui-form-item">
-				<label class="layui-form-label">SEO标题</label>
-				<div class="layui-input-block">
-					<input type="text" name="title" autocomplete="off" placeholder="" class="layui-input" value="{$data.title|default=''}">
+				<div class="layui-form-item">
+					<label class="layui-form-label">公司名称</label>
+					<div class="layui-input-block">
+						<input type="text" name="company" autocomplete="off" placeholder="" class="layui-input" value="{$data.company|default=''}">
+					</div>
 				</div>
-				<div class="layui-form-mid layui-word-aux">网页的title值</div>
-			</div>
-
-			<div class="layui-form-item">
-				<label class="layui-form-label">SEO关键词</label>
-				<div class="layui-input-block">
-					<input type="text" name="keywords" autocomplete="off" placeholder="" class="layui-input" value="{$data.keywords|default=''}">
+				<div class="layui-form-item">
+					<label class="layui-form-label">ICP备案号</label>
+					<div class="layui-input-inline">
+						<input type="text" name="icp" autocomplete="off" placeholder="ICP备案号" class="layui-input" value="{$data.icp|default=''}">
+					</div>
+					<div class="layui-input-inline">
+						<input type="text" name="icp_link" autocomplete="off" placeholder="ICP备案链接" class="layui-input" value="{$data.icp|default='https://beian.miit.gov.cn/'}">
+					</div>
+					<div class="layui-form-mid layui-word-aux">
+						ICP备案链接
+					</div>
 				</div>
-				<div class="layui-form-mid layui-word-aux">网页的keywords值</div>
-			</div>
-			<div class="layui-form-item web_seo">
-				<label class="layui-form-label">SEO描述</label>
-				<div class="layui-input-block">
-					<textarea name="description" placeholder="网站简介" class="layui-textarea">{$data.description|default=''}</textarea>
+				<div class="layui-form-item">
+					<label class="layui-form-label">公安备案号</label>
+					<div class="layui-input-inline">
+						<input type="text" name="gwa" autocomplete="off" placeholder="公安备案号" class="layui-input" value="{$data.gwa|default=''}">
+					</div>
+					<div class="layui-input-inline">
+						<input type="text" name="gwa_link" autocomplete="off" placeholder="公安备案链接" class="layui-input" value="{$data.gwa_link|default='http://www.beian.gov.cn/portal/index.do'}">
+					</div>
+					<div class="layui-form-mid layui-word-aux">
+						公安备案号链接
+					</div>
 				</div>
-				<div class="layui-form-mid layui-word-aux">网页的description值</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">网站Logo</label>
-				<div class="layui-input-block layui-upload">
-					{php}echo \util\Form::images('logo'){/php}
+				<div class="layui-form-item">
+					<label class="layui-form-label">客服代码</label>
+					<div class="layui-input-block">
+						<textarea name="chat" placeholder="客服代码" class="layui-textarea">{$data.chat|default=''}</textarea>
+					</div>
+					<div class="layui-form-mid layui-word-aux">客服代码</div>
 				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">网站图标</label>
-				<div class="layui-input-block layui-upload">
-					{php}echo \util\Form::images('favicon'){/php}
+				<div class="layui-form-item">
+					<label class="layui-form-label">统计代码</label>
+					<div class="layui-input-block">
+						<textarea name="statistics" placeholder="统计代码" class="layui-textarea">{$data.statistics|default=''}</textarea>
+					</div>
+					<div class="layui-form-mid layui-word-aux">统计代码</div>
 				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">主题风格</label>
-				<div class="layui-input-block">
-					<select name="template" lay-verify="required" lay-reqtext="请选择站点主题风格！">
-						<option value="">请选择主题风格</option>
-						{volist name="templates" id="vo"}
-						<option value="{$vo.name}" {eq name="vo.name" value="$data.template|default=''" }selected{/eq}>{$vo.name}</option>
-						{/volist}
-					</select>
-				</div>
-				<div class="layui-form-mid layui-word-aux">模版请先上传到template下面并包含info.ini文件</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">站点排序</label>
-				<div class="layui-input-block">
-					<input type="number" name="listorder" autocomplete="off" placeholder="排序" class="layui-input" value="{$data.listorder|default='0'}">
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">独立数据</label>
-				<div class="layui-input-block">
-					<input type="radio" name="alone" value="1" title="是" checked>
-					<input type="radio" name="alone" value="0" title="否">
-				</div>
-				<div class="layui-form-mid layui-word-aux">选否时：主要实用于城市分站、自动调用主站数据并在相应位置自动添加区域名称（站点名称）！</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">是否显示</label>
-				<div class="layui-input-block">
-					<input type="radio" name="status" value="1" title="是" checked>
-					<input type="radio" name="status" value="0" title="否">
+				<div class="layui-form-item">
+					<label class="layui-form-label">版权信息</label>
+					<div class="layui-input-block">
+						<input type="text" name="copyright" autocomplete="off" placeholder="网站尾部版权信息" class="layui-input" value="{$data.copyright|default=''}">
+					</div>
+					<div class="layui-form-mid layui-word-aux">网站尾部版权信息</div>
 				</div>
 			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">站点开关</label>
-				<div class="layui-input-block">
-					<input type="radio" name="close" value="1" title="开" checked>
-					<input type="radio" name="close" value="0" title="关">
-
-				</div>
+		</div>
+		<input type="hidden" name="type" value="2">
+		<div class="layui-form-item layer-footer">
+			<div class="layui-input-block">
+				{if $push}
+				<button class="layui-btn layui-btn-danger btn-import iconfont icon-dibu site-translator" type="button" title="一键翻译主站数据！">翻译</button>
+				{/if}
+				<button class="layui-btn" lay-submit>立即提交</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 			</div>
-			<div class="layui-form-item layer-footer">
-				<div class="layui-input-block">
-					{if $push}
-					<button class="layui-btn layui-btn-danger btn-import iconfont icon-dibu site-translator" type="button" title="一键翻译主站数据！">翻译</button>
-					{/if}
-					<button class="layui-btn" lay-submit>立即提交</button>
-					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
-				</div>
-			</div>
-		</form>
+		</div>
 	</div>
-</div>
+</form>
 {/block}
 {block name="script"}
 <script type="text/javascript">

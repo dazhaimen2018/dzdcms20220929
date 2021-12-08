@@ -1,27 +1,36 @@
 CREATE TABLE IF NOT EXISTS `__PREFIX__site` (
-`id` smallint UNSIGNED NOT NULL COMMENT '站点ID',
-`name` varchar(100) NOT NULL DEFAULT '' COMMENT '站点名称',
-`mark` varchar(30) NOT NULL DEFAULT '' COMMENT '站点标识',
-`http` varchar(30) NOT NULL DEFAULT '' COMMENT 'HTTP',
-`domain` varchar(100) NOT NULL DEFAULT '' COMMENT '站点域名',
-`url` varchar(255) NOT NULL DEFAULT '' COMMENT '站点网址',
-`logo` varchar(255) NOT NULL DEFAULT '' COMMENT '站点LOGO',
-`favicon` varchar(255) NOT NULL DEFAULT '' COMMENT '站点图标',
-`template` varchar(30) NOT NULL DEFAULT '' COMMENT '皮肤',
-`brand` varchar(100) NOT NULL DEFAULT '' COMMENT '品牌名称',
-`title` varchar(255) NOT NULL DEFAULT '' COMMENT '站点标题',
-`keywords` varchar(255) NOT NULL DEFAULT '' COMMENT '站点关键词',
-`description` mediumtext NOT NULL COMMENT '站点描述',
-`parentid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '父ID',
-`arrparentid` varchar(255) NOT NULL DEFAULT '' COMMENT '所有父ID',
-`arrchildid` mediumtext COMMENT '所有子站点ID',
-`child` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否存在子站点，1存在',
-`listorder` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序',
-`alone` tinyint NOT NULL DEFAULT '1' COMMENT '独立数据',
-`close` tinyint NOT NULL DEFAULT '1' COMMENT '站点开关',
-`source` tinyint NOT NULL DEFAULT '0' COMMENT '默认站点',
-`status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
-`inputtime` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
+`id` smallint(5) UNSIGNED NOT NULL COMMENT '站点ID',
+`name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点名称',
+`mark` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点标识',
+`http` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'HTTP',
+`domain` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点域名',
+`url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点网址',
+`logo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点LOGO',
+`favicon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点图标',
+`template` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '皮肤',
+`brand` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '品牌名称',
+`title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点标题',
+`keywords` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点关键词',
+`description` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '站点描述',
+`parentid` smallint(5) UNSIGNED NOT NULL DEFAULT '0' COMMENT '父ID',
+`arrparentid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '所有父ID',
+`arrchildid` mediumtext COLLATE utf8mb4_unicode_ci COMMENT '所有子站点ID',
+`child` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否存在子站点，1存在',
+`listorder` smallint(5) UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序',
+`alone` tinyint(4) NOT NULL DEFAULT '1' COMMENT '独立数据',
+`close` tinyint(4) NOT NULL DEFAULT '1' COMMENT '站点开关',
+`source` tinyint(4) NOT NULL DEFAULT '0' COMMENT '默认站点',
+`website` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '网站名称',
+`company` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '公司名称',
+`icp` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ICP备案号',
+`icp_link` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ICP备案链接',
+`gwa` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '公安备案号',
+`gwa_link` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '公安备案链接',
+`chat` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '客服代码',
+`statistics` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '统计代码',
+`copyright` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '版权信息',
+`status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
+`inputtime` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='站点表';
 
@@ -291,8 +300,8 @@ INSERT INTO `__PREFIX__lang_group` (`id`, `name`, `description`, `status`) VALUE
 (2, '会员', '会员中心所有文字标签', 1),
 (3, '系统', '后端的提示语在前端显示的', 1);
 
-INSERT INTO `__PREFIX__site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `alone`, `close`, `source`, `status`, `inputtime`) VALUES
-(1, '中文站', 'zh-cn', 'http', 'demo.dzdcms.com', 'http://demo.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 1, 0, 1, 0);
+INSERT INTO `__PREFIX__site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `alone`, `close`, `source`, `website`, `company`, `icp`, `icp_link`, `gwa`, `gwa_link`, `chat`, `statistics`, `copyright`, `status`, `inputtime`) VALUES
+(1, '中文站', 'zh-cn', 'http', 'demo.dzdcms.com', 'http://demo.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0);
 
 ALTER TABLE `__PREFIX__site`
 MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '站点ID', AUTO_INCREMENT=2;

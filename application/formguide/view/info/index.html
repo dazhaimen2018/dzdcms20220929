@@ -9,7 +9,7 @@
 <script type="text/html" id="barTool">
     {{#  if(!d.iffixed){ }}
     <a data-open='{:url("public_view",["formid"=>$formid])}?id={{ d.id }}' data-width="800" data-height="600" class="layui-btn layui-btn-xs">查看</a>
-    <a href='{:url("del",["formid"=>$formid])}?ids={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
+    <a href='{:url("del",["formid"=>$formid])}?id={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
     {{#  } }}
 </script>
 {/block}
@@ -37,7 +37,6 @@ layui.use('yznTable', function() {
             [
                 { type: 'checkbox', fixed: 'left' },
                 { field: 'id', width: 60, title: 'ID' },
-                { field: 'site_id', width: 100, title: '所属站点' },
                 {$formStr|raw}
                 {field: 'ip', width: 150, title: 'IP' },
                 { field: 'inputtime', width: 180, title: '创建时间', search: 'range' },

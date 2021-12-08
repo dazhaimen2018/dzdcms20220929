@@ -21,6 +21,122 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
 
     yznTable = {
         bindevent: function () {
+            //单行表格删除(不刷新)
+            $(document).on('click', '.layui-tr-del', function() {
+                var that = $(this),
+                    index = that.parents('tr').eq(0).data('index'),
+                    tr = $('.layui-table-body').find('tr[data-index="' + index + '"]'),
+                    href = !that.attr('data-href') ? that.attr('href') : that.attr('data-href');
+                layer.confirm('删除之后无法恢复，您确定要删除吗？', { icon: 3, title: '提示信息' }, function(index) {
+                    if (!href) {
+                        notice.info({ message: '请设置data-href参数' });
+                        return false;
+                    }
+                    $.get(href, function(res) {
+                        if (res.code == 1) {
+                            notice.success({ message: res.msg });
+                            //that.parents('tr').remove();
+                            tr.remove();
+                        } else {
+                            notice.error({ message: res.msg });
+                        }
+                    });
+                    layer.close(index);
+                });
+                return false;
+            });
+
+            // 内容新增编辑在父窗口打开 马博 20211017
+            $('body').on('click', '[parent-open]', function() {
+                var clienWidth = $(this).attr('data-width') || 800,
+                    clientHeight = $(this).attr('data-height') || 600,
+                    dataFull = $(this).attr('data-full'),
+                    checkbox = $(this).attr('data-checkbox'),
+                    url = $(this).attr('parent-open'),
+                    title = $(this).attr("title") || $(this).data("title"),
+                    tableId = $(this).attr('data-table');
+
+                if (checkbox === 'true') {
+                    tableId = tableId || init.table_render_id;
+                    var checkStatus = table.checkStatus(tableId),
+                        data = checkStatus.data;
+                    if (data.length <= 0) {
+                        yzn.msg.error('请勾选需要操作的数据');
+                        return false;
+                    }
+                    var ids = [];
+                    $.each(data, function(i, v) {
+                        ids.push(v.id);
+                    });
+                    if (url.indexOf("?") === -1) {
+                        url += '?id=' + ids.join(',');
+                    } else {
+                        url += '&id=' + ids.join(',');
+                    }
+                }
+                if (dataFull === 'true') {
+                    clienWidth = '99%';
+                    clientHeight = '99%';
+                }
+                parent.yzn.open(title, url, clienWidth, clientHeight);
+            });
+
+            //只删除当前站点数据(要刷新) 马博 20211017
+            $(document).on('click', '.layui-tr-load', function() {
+                var that = $(this),
+                    index = that.parents('tr').eq(0).data('index'),
+                    tr = $('.layui-table-body').find('tr[data-index="' + index + '"]'),
+                    href = !that.attr('data-href') ? that.attr('href') : that.attr('data-href');
+                layer.confirm('单站模式只删除当前站点数据，删除之后无法恢复，您确定要删除吗？', { icon: 3, title: '提示信息' }, function(index) {
+                    if (!href) {
+                        notice.info({ message: '请设置data-href参数' });
+                        return false;
+                    }
+                    $.get(href, function(res) {
+                        if (res.code == 1) {
+                            notice.success({ message: res.msg });
+                            //增加刷新代码 待优化
+                            location.reload();
+                        } else {
+                            notice.error({ message: res.msg });
+                        }
+                    });
+
+                    layer.close(index);
+
+                });
+                return false;
+            });
+
+            //同步发布文章被移除(不刷新)
+            $(document).on('click', '.layui-tr-out', function() {
+                var that = $(this),
+                    index = that.parents('tr').eq(0).data('index'),
+                    tr = $('.layui-table-body').find('tr[data-index="' + index + '"]'),
+                    href = !that.attr('data-href') ? that.attr('href') : that.attr('data-href');
+                layer.confirm('移除之后可编辑原文章恢复，您确定要移除吗？', { icon: 3, title: '提示信息' }, function(index) {
+                    if (!href) {
+                        notice.info({ message: '请设置data-href参数' });
+                        return false;
+                    }
+                    $.get(href, function(res) {
+                        if (res.code == 1) {
+                            notice.success({ message: res.msg });
+                            //that.parents('tr').remove();
+                            tr.remove();
+                        } else {
+                            notice.error({ message: res.msg });
+                        }
+                    });
+                    layer.close(index);
+                });
+                return false;
+            });
+
+            //马博 20211017 end
+
+
+
             // 列表页批量操作按钮组
             $('body').on('click', '[data-batch-all]', function() {
                 var that = $(this),
@@ -42,7 +158,7 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                     yzn.request.post({
                         url: url,
                         data: {
-                            ids: ids
+                            id: ids
                         },
                     }, function(res) {
                         yzn.msg.success(res.msg, function() {
@@ -159,120 +275,6 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                     }
                 });
             });
-            //单行表格删除(不刷新)
-            $(document).on('click', '.layui-tr-del', function() {
-                var that = $(this),
-                    index = that.parents('tr').eq(0).data('index'),
-                    tr = $('.layui-table-body').find('tr[data-index="' + index + '"]'),
-                    href = !that.attr('data-href') ? that.attr('href') : that.attr('data-href');
-                layer.confirm('删除之后无法恢复，您确定要删除吗？', { icon: 3, title: '提示信息' }, function(index) {
-                    if (!href) {
-                        notice.info({ message: '请设置data-href参数' });
-                        return false;
-                    }
-                    $.get(href, function(res) {
-                        if (res.code == 1) {
-                            notice.success({ message: res.msg });
-                            //that.parents('tr').remove();
-                            tr.remove();
-                        } else {
-                            notice.error({ message: res.msg });
-                        }
-                    });
-                    layer.close(index);
-                });
-                return false;
-            });
-
-            // 内容新增编辑在父窗口打开 马博 20211017
-            $('body').on('click', '[parent-open]', function() {
-                var clienWidth = $(this).attr('data-width') || 800,
-                    clientHeight = $(this).attr('data-height') || 600,
-                    dataFull = $(this).attr('data-full'),
-                    checkbox = $(this).attr('data-checkbox'),
-                    url = $(this).attr('parent-open'),
-                    title = $(this).attr("title") || $(this).data("title"),
-                    tableId = $(this).attr('data-table');
-
-                if (checkbox === 'true') {
-                    tableId = tableId || init.table_render_id;
-                    var checkStatus = table.checkStatus(tableId),
-                        data = checkStatus.data;
-                    if (data.length <= 0) {
-                        yzn.msg.error('请勾选需要操作的数据');
-                        return false;
-                    }
-                    var ids = [];
-                    $.each(data, function(i, v) {
-                        ids.push(v.id);
-                    });
-                    if (url.indexOf("?") === -1) {
-                        url += '?id=' + ids.join(',');
-                    } else {
-                        url += '&id=' + ids.join(',');
-                    }
-                }
-                if (dataFull === 'true') {
-                    clienWidth = '99%';
-                    clientHeight = '99%';
-                }
-                parent.yzn.open(title, url, clienWidth, clientHeight);
-            });
-
-            //只删除当前站点数据(要刷新) 马博 20211017
-            $(document).on('click', '.layui-tr-load', function() {
-                var that = $(this),
-                    index = that.parents('tr').eq(0).data('index'),
-                    tr = $('.layui-table-body').find('tr[data-index="' + index + '"]'),
-                    href = !that.attr('data-href') ? that.attr('href') : that.attr('data-href');
-                layer.confirm('单站模式只删除当前站点数据，删除之后无法恢复，您确定要删除吗？', { icon: 3, title: '提示信息' }, function(index) {
-                    if (!href) {
-                        notice.info({ message: '请设置data-href参数' });
-                        return false;
-                    }
-                    $.get(href, function(res) {
-                        if (res.code == 1) {
-                            notice.success({ message: res.msg });
-                            //增加刷新代码 待优化
-                            location.reload();
-                        } else {
-                            notice.error({ message: res.msg });
-                        }
-                    });
-
-                    layer.close(index);
-
-                });
-                return false;
-            });
-
-            //同步发布文章被移除(不刷新)
-            $(document).on('click', '.layui-tr-out', function() {
-                var that = $(this),
-                    index = that.parents('tr').eq(0).data('index'),
-                    tr = $('.layui-table-body').find('tr[data-index="' + index + '"]'),
-                    href = !that.attr('data-href') ? that.attr('href') : that.attr('data-href');
-                layer.confirm('移除之后可编辑原文章恢复，您确定要移除吗？', { icon: 3, title: '提示信息' }, function(index) {
-                    if (!href) {
-                        notice.info({ message: '请设置data-href参数' });
-                        return false;
-                    }
-                    $.get(href, function(res) {
-                        if (res.code == 1) {
-                            notice.success({ message: res.msg });
-                            //that.parents('tr').remove();
-                            tr.remove();
-                        } else {
-                            notice.error({ message: res.msg });
-                        }
-                    });
-                    layer.close(index);
-                });
-                return false;
-            });
-
-            //马博 20211017 end
-
         },
         render: function(options) {
             options.init = options.init || init;
@@ -315,7 +317,7 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
             // 监听表格搜索开关显示
             yznTable.listenToolbar(options.layFilter, options.id);
             // 监听表格开关切换
-            //yznTable.renderSwitch(options.cols, options.init, options.id, options.modifyReload);
+            yznTable.renderSwitch(options.cols, options.init, options.id, options.modifyReload);
             // 监听表格文本框编辑
             yznTable.listenEdit(options.init, options.layFilter, options.id, options.modifyReload);
             return newTable;
@@ -379,8 +381,6 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
 
             if (toolbar.method === 'open') {
                 formatToolbar.method = formatToolbar.method !== '' ? 'data-open="' + formatToolbar.url + '" data-title="' + formatToolbar.title + '" ' : '';
-            } else if (toolbar.method === 'parent'){
-                formatToolbar.method = formatToolbar.method !== '' ? 'parent-open="' + formatToolbar.url + '" data-title="' + formatToolbar.title + '" ' : '';
             } else {
                 formatToolbar.method = formatToolbar.method !== '' ? 'data-request="' + formatToolbar.url + '" data-title="' + formatToolbar.title + '" ' : '';
             }
@@ -521,9 +521,9 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                     }
 
                     // 判断是否包含开关组件
-                    /*if (val.templet === yznTable.formatter.switch && val.filter === undefined) {
+                    if (val.templet === yznTable.formatter.switch && val.filter === undefined) {
                         cols[i][index]['filter'] = val.field;
-                    }*/
+                    }
 
                     // 判断是否含有搜索下拉列表
                     if (val.selectList !== undefined && val.search === undefined) {
@@ -644,8 +644,58 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                 }
             });
         },
+        renderSwitch: function (cols, tableInit, tableId, modifyReload) {
+            tableInit.modify_url = tableInit.modify_url || false;
+            cols = cols[0] || {};
+            tableId = tableId || init.table_render_id;
+            if (cols.length > 0) {
+                $.each(cols, function (i, v) {
+                    v.filter = v.filter || false;
+                    if (v.filter !== false && tableInit.modify_url !== false) {
+                        yznTable.listenSwitch({filter: v.filter, url: tableInit.modify_url, tableId: tableId, modifyReload: modifyReload});
+                    }
+                });
+            }
+        },
+        listenSwitch: function (option, ok) {
+            option.filter = option.filter || '';
+            option.url = option.url || '';
+            option.field = option.field || option.filter || '';
+            option.tableId = option.tableId || init.table_render_id;
+            option.modifyReload = option.modifyReload || false;
+            form.on('switch(' + option.filter + ')', function (obj) {
+                var checked = obj.elem.checked ? 1 : 0;
+                if (typeof ok === 'function') {
+                    return ok({
+                        id: obj.value,
+                        checked: checked,
+                    });
+                } else {
+                    var data = {
+                        id: obj.value,
+                        param: option.field,
+                        value: checked,
+                    };
+                    yzn.request.post({
+                        url: option.url,
+                        prefix: true,
+                        data: data,
+                    }, function (res) {
+                        notice.success({ message: res.msg });
+                        if (option.modifyReload) {
+                            table.reload(option.tableId);
+                        }
+                    }, function (res) {
+                        yzn.msg.error(res.msg, function () {
+                            table.reload(option.tableId);
+                        });
+                    }, function () {
+                        table.reload(option.tableId);
+                    });
+                }
+            });
+        },
         listenEdit: function(tableInit, layFilter, tableId, modifyReload) {
-            //console.log(tableInit.modify_url);
             tableInit.modify_url = tableInit.modify_url || false;
             tableId = tableId || init.table_render_id;
             if (tableInit.modify_url !== false) {
@@ -659,12 +709,12 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                         param: field,
                         value: value,
                     };
-                    //console.log(_data);
                     yzn.request.post({
                         url: tableInit.modify_url,
                         prefix: true,
                         data: _data,
                     }, function(res) {
+                        notice.success({ message: res.msg });
                         if (modifyReload) {
                             table.reload(tableId);
                         }
@@ -699,6 +749,10 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
             formatOperat.class = formatOperat.class !== '' ? 'class="' + formatOperat.class + '" ' : '';
             if (operat.method === 'open') {
                 formatOperat.method = formatOperat.method !== '' ? 'data-open="' + formatOperat.url + '" data-title="' + formatOperat.title + '" ' : '';
+            } else if (operat.method === 'href'){
+                formatOperat.method = formatOperat.method !== '' ? 'href="' + formatOperat.url + '" data-title="' + formatOperat.title + '" ' : '';
+            } else if (operat.method === 'none'){ // 常用于与extend配合，自定义监听按钮
+                formatOperat.method = '';
             } else {
                 formatOperat.method = formatOperat.method !== '' ? 'data-request="' + formatOperat.url + '" data-title="' + formatOperat.title + '" ' : '';
             }
@@ -731,12 +785,12 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                                 break;
                             case 'delete':
                                 var operat = {
-                                    class: 'layui-btn layui-btn-danger layui-btn-xs',
-                                    method: 'get',
+                                    class: 'layui-btn layui-btn-danger layui-btn-xs layui-tr-del',
+                                    method: 'href',
                                     field: 'id',
                                     icon: '',
                                     text: '删除',
-                                    title: '确定删除？',
+                                    title: '',
                                     url: option.init.delete_url,
                                     extend: ""
                                 };
@@ -766,6 +820,19 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                     }
                 });
                 return html;
+            },
+            switch: function (data, option) {
+                var field = option.field;
+                option.filter = option.filter || option.field || null;
+                option.checked = option.checked || 1;
+                option.tips = option.tips || '开|关';
+                try {
+                    var value = eval("data." + field);
+                } catch (e) {
+                    var value = undefined;
+                }
+                var checked = value === option.checked ? 'checked' : '';
+                return laytpl('<input type="checkbox" name="' + option.field + '" value="' + data.id + '" lay-skin="switch" lay-text="' + option.tips + '" lay-filter="' + option.filter + '" ' + checked + ' >').render(data);
             },
             image: function(data, option) {
                 option.imageWidth = option.imageWidth || 80;

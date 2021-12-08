@@ -520,7 +520,7 @@ class Cms extends Adminbase
     {
         $this->check_priv('delete');
         $catid = $this->request->param('catid/d', 0);
-        $ids   = $this->request->param('ids/a', null);
+        $ids   = $this->request->param('id/a', null);
         $sites = $this->request->param('sites/d', null);
         if (empty($ids) || !$catid) {
             $this->error('参数错误！');
@@ -569,7 +569,7 @@ class Cms extends Adminbase
     public function destroy()
     {
         $catid = $this->request->param('catid/d', 0);
-        $ids   = $this->request->param('ids/a', null);
+        $ids   = $this->request->param('id/a', null);
         if (empty($ids) || !$catid) {
             $this->error('参数错误！');
         }

@@ -15,10 +15,7 @@
     {{#  } }}
     <a data-open="{{d.add_url}}" data-width="900" data-height="600" class="layui-btn layui-btn-xs layui-btn-normal" title="添加子栏目">添加</a>
     <a data-open='{:url("edit")}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs" title="编辑">编辑</a>
-    <a href='{:url("del")}?ids={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
-</script>
-<script type="text/html" id="statusTpl">
-    <input type="checkbox" name="status" data-href="{:url('multi')}?id={{d.id}}&param=status" value="{{d.id}}" lay-skin="switch" lay-text="显示|隐藏" lay-filter="switchStatus" {{ d.status==1 ? 'checked' : '' }}>
+    <a href='{:url("del")}?id={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
 </script>
 {/block}
 {block name="script"}
@@ -92,9 +89,9 @@
                     { field: 'catdir', width: 120, title: '唯一标识' },
                     { field: 'type', width: 90, title: '栏目类型', templet: '<div>{{#  if(d.type==1){ }} 单页 {{#  } else if(d.type==2){  }} 列表 {{#  }  else { }} 未知 {{#  } }}</div>', align: "center",hide: true },
                     { field: 'modelname', width: 100, title: '所属模型', align: "center" },
-                    { field: 'url', width: 60, align: "center", title: 'URL', templet: table.url,search:false },
-                    { field: 'status', width: 100, align: "center", title: '状态', templet: '#statusTpl', unresize: true,search:false },
-                    { fixed: 'right', width: 220, title: '操作', toolbar: '#barTool', align: "center" }
+                    { field: 'url', width: 60, align: "center", title: 'URL', templet: yznTable.formatter.url,search:false },
+                    { field: 'status', width: 100, align: "center", title: '状态', unresize: true,templet: yznTable.formatter.switch },
+                    { fixed: 'right', width: 210, title: '操作', toolbar: '#barTool', align: "center" }
                 ]
             ],
         });

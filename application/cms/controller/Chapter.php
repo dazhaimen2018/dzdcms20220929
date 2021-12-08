@@ -151,14 +151,155 @@ class Chapter extends Adminbase
 
     public function add()
     {
-        return $this->error(tipsText());
+        $did = $this->request->param('did/d', 0);
+        if ($this->request->isPost()) {
+            $data = $this->request->post();
+            $catid = intval($data['modelField']['catid']);
+            $data['modelField']['did'] = $did;
+            if (empty($catid)) {
+                $this->error("请指定栏目ID！");
+            }
+            $category = getCategory($catid);
+            if (empty($category)) {
+                $this->error('该栏目不存在！');
+            }
+            if ($category['type'] == 2) {
+                $data['modelFieldExt'] = isset($data['modelFieldExt']) ? $data['modelFieldExt'] : [];
+
+                Db::startTrans();
+                try {
+                    $insertId = $this->ChapterModel->addModelDataAll($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
+                    Db::commit();
+                } catch (\Exception $ex) {
+                    Db::rollback();
+                    $this->error($ex->getMessage());
+                }
+
+            }
+            //增加清除缓存
+            //$cache =  cleanUp();
+            $this->success('操作成功！');
+        } else {
+            $catid = $this->request->param('catid/d', 0);
+            $import = $this->request->param('import/d', 0);
+            $category = getCategory($catid);
+            if (empty($category)) {
+                $this->error('该栏目不存在！');
+            }
+            $catSites  = $category['sites']; //当前栏目所属站点
+            $firstSite = substr($catSites,0,strpos($catSites, ','));
+            //发布模式为单站时，如果当前站点不是默认站点时，不能新增！
+            if(isset(cache("Cms_Config")['publish_mode']) && 2 == cache("Cms_Config")['publish_mode']) {
+                if($firstSite != onSite()) {
+                    $this->error('只能默认站新增数据，当前站通过编辑完成数据！');
+                }
+            }
+            if ($category['type'] == 2) {
+                $modelid = $category['modelid'];
+                $fieldList = $this->ChapterModel->getFieldListAll($modelid);
+                $extraFieldList = $this->ChapterModel->getExtraField($modelid, 2);
+                $this->assign([
+                    'catid'     => $catid,
+                    'fieldList' => $fieldList,
+                    'extraFieldList' => $extraFieldList,
+                    'did' => $did,
+                ]);
+                return $this->fetch();
+            }
+        }
     }
 
 
     //编辑信息
     public function edit()
     {
-        return $this->error(tipsText());
+        if ($this->request->isPost()) {
+            $data                        = $this->request->post();
+            $data['modelFieldExt']       = isset($data['modelFieldExt']) ? $data['modelFieldExt'] : [];
+            $data['modelField']['id']    = intval($_GET['id']);
+            $catid                       = $this->request->param('catid/d', 0);
+            $did                         = $this->request->param('did/d', 0);
+            $id                          = $this->request->param('id/d', 0);
+            $data['modelField']['catid'] = $catid;
+            $data['modelField']['id']    = $id;
+            $data['modelField']['did']    = $did;
+            $category                    = getCategory($catid);
+            if (empty($category)) {
+                $this->error('该栏目不存在!!');
+            }
+            if ($category['type'] == 2) {
+                try {
+                    $this->ChapterModel->editModelDataAll($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
+                } catch (\Exception $ex) {
+                    $this->error($ex->getMessage());
+                }
+            }
+            //增加清除缓存
+            //$cache =  cleanUp();
+            $this->success('编辑成功！');
+
+        } else {
+            $catid    = $this->request->param('catid/d', 0);
+            $import   = $this->request->param('import/d', 0);
+            $pid       = $this->request->param('id/d', 0);
+            $category = getCategory($catid);
+            if (empty($category)) {
+                $this->error('该栏目不存在！');
+            }
+            if ($category['type'] == 2) {
+                $modelid   = $category['modelid'];
+
+                $extraFieldList = $this->ChapterModel->getExtraField($modelid, 2);
+                $this->assign([
+                    'catid'     => $catid,
+                    'id'        => $pid,
+                    'extraFieldList' => $extraFieldList,
+                    'did' => $did,
+                ]);
+                $extraData = $this->ChapterModel->getExtraData(['catid' => $catid, 'pid' => $pid]);
+                $ret = [];
+
+                if($import){
+                    foreach ($this->site as $k => $s) {
+                        if ($extraData) {
+                            foreach ($extraData as $e) {
+                                if ($e['site_id'] == $s['id']) {
+                                    $ret[$k] = $e;
+                                    $ret[$k]['id'] = $e['id'];
+                                } else {
+                                    //只输出站点1的数据
+                                    foreach ($extraData as $f) {
+                                        if ($e['site_id']== 1) {
+                                            $ret[$k] = $f;
+                                            $ret[$k]['site_id'] = $s['id'];
+                                            $ret[$k]['id'] = '';
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $ret[$k]['site_id'] = $s['id'];
+                        }
+                    }
+                }else{
+                    foreach ($this->site as $k => $s) {
+                        if ($extraData) {
+                            foreach ($extraData as $e) {
+                                if ($e['site_id'] == $s['id']) {
+                                    $ret[$k] = $e;
+                                } else {
+                                    $ret[$k]['site_id'] = $s['id'];
+                                }
+                            }
+                        } else {
+                            $ret[$k]['site_id'] = $s['id'];
+                        }
+                    }
+                }
+                $this->view->assign('extra_data', $ret);
+                return $this->fetch();
+            }
+        }
     }
 
 
