@@ -88,8 +88,8 @@ layui.use(['yznTable','clipboard'], function() {
             [
                 { field: 'id', title: 'ID', width: 70, align:'center',search:false },
 			    { field: 'listorder', width: 70, title: '排序', edit: 'text',search:false },
-                { field: 'name', title: '名称', width: 200},
-                { field: 'title', title: '标题', width: 200 },
+                { field: 'name', title: '名称', width: 200, searchOp: 'like'},
+                { field: 'title', title: '标题', width: 200, searchOp: 'like' },
                 { field: 'site', width: 150, title: '已发站点', align: "center"},
                 { field: 'group', width: 100, title: '分类', templet: '#groupTpl', align: "center", selectList: { 1: '内容', 2: '会员', 3: '系统'  } },
                 { field: 'remark', title: '备注' },

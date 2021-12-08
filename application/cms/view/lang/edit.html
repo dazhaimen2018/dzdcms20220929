@@ -35,7 +35,7 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">碎片名称</label>
                             <div class="layui-input-block">
-                                <input type="text" name="name" lay-verify="required" lay-reqText="碎片名称不能为空" value="{$info.name}"  placeholder="碎片英文名称" class="layui-input" readonly="readonly">
+                                <input type="text" name="name" lay-verify="required" lay-reqText="碎片名称不能为空" value="{$info.name}"  placeholder="碎片英文名称" class="layui-input" {if $userInfo.id!=1}readonly="readonly"{/if}>
                             </div>
                             <div class="layui-form-mid layui-word-aux">由英文字母开头和下划线组成，如 <code>web_site_title</code></div>
                         </div>
