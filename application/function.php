@@ -85,4 +85,19 @@ function empower(){
     }
 }
 
+function getTableList($fieldList = [])
+{
+    $htmlstr = "";
+    foreach ($fieldList as $k => $v) {
+        if ($v['type'] == "datetime") {
+            $htmlstr .= "{ field: '" . $v['name'] . "',title: '" . $v['title'] . "',templet: function(d){ return layui.formatDateTime(d." . $v['name'] . ") } },\n";
+        }if ($v['type'] == "image") {
+            $htmlstr .= "{ field: '" . $v['name'] . "',title: '" . $v['title'] . "',templet: yznTable.formatter.image },\n";
+        } elseif ($v['type'] != "images" && $v['type'] != "files") {
+            $htmlstr .= "{ field: '" . $v['name'] . "', align: 'left',title: '" . $v['title'] . "' },\n";
+        }
+    }
+    return $htmlstr;
+}
+
 

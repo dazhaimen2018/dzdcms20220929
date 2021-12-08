@@ -227,12 +227,14 @@ class Cms extends Adminbase
         $str = "<option value=@id @selected @disabled>@spacer @catname</option>";
         $tree->init($categorys);
         $string = $tree->getTree(0, $str, $catid);
-        // 20200620 马博
+        // 20200620 马博 20211209新增列表显示字段
         $siteArray = Site::where("status=1")->select()->toArray();
+        $fieldList = Db::name('ModelField')->where('modelid', $modelid)->where('iflist', 1)->select();
         // 20200620 end 马博
         $this->assign([
-            'string' => $string,
-            'catid'  => $catid,
+            'listStr' => getTableList($fieldList),
+            'string'  => $string,
+            'catid'   => $catid,
         ]);
         return $this->fetch();
     }

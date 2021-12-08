@@ -50,7 +50,7 @@ class Info extends AdminBase
             return json($result);
         } else {
             $fieldList = Db::name('ModelField')->where('modelid', $formid)->where('status', 1)->select();
-            $this->assign('formStr', $this->getTableList($fieldList));
+            $this->assign('formStr', getTableList($fieldList));
             $this->assign('formid', $formid);
             return $this->fetch();
         }
@@ -88,21 +88,6 @@ class Info extends AdminBase
             'fieldList' => $fieldList,
         ]);
         return $this->fetch();
-    }
-
-    private function getTableList($fieldList = [])
-    {
-        $htmlstr = "";
-        foreach ($fieldList as $k => $v) {
-            if ($v['type'] == "datetime") {
-                $htmlstr .= "{ field: '" . $v['name'] . "',title: '" . $v['title'] . "',templet: function(d){ return layui.formatDateTime(d." . $v['name'] . ") } },\n";
-            }if ($v['type'] == "image") {
-                $htmlstr .= "{ field: '" . $v['name'] . "',title: '" . $v['title'] . "',templet: yznTable.formatter.image },\n";
-            } elseif ($v['type'] != "images" && $v['type'] != "files") {
-                $htmlstr .= "{ field: '" . $v['name'] . "', align: 'left',title: '" . $v['title'] . "' },\n";
-            }
-        }
-        return $htmlstr;
     }
 
 }
