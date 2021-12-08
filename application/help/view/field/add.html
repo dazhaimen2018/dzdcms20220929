@@ -201,6 +201,15 @@ layui.use(['layer', 'form','yznForm'], function() {
         yznForm = layui.yznForm;
 
         yznForm.listen();
+    //列表是否显示 只对主表字段
+    form.on('radio(filter)', function(data){
+        if(1==data.value){
+            $('#batch_add').show();
+        }
+        if(0==data.value){
+            $('#batch_add').hide();
+        }
+    });
         form.on('select(fieldtype)', function(data) {
             $('#define').val($(data.elem).find("option:selected").attr("data-define"));
             var ifstring = $(data.elem).find("option:selected").attr("data-ifstring");
