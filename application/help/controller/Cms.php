@@ -96,9 +96,12 @@ class Cms extends Adminbase
         $str = "<option value=@id @selected @disabled>@spacer @catname</option>";
         $tree->init($helps);
         $string = $tree->getTree(0, $str, $catid);
-
-        $this->assign('string', $string);
-        $this->assign('catid', $catid);
+        $fieldList = Db::name('ModelField')->where('modelid', $modelid)->where('iflist', 1)->select();
+        $this->assign([
+            'listStr' => getTableList($fieldList),
+            'string'  => $string,
+            'catid'   => $catid,
+        ]);
         return $this->fetch();
     }
 
@@ -280,7 +283,7 @@ class Cms extends Adminbase
     {
         $this->check_priv('delete');
         $catid = $this->request->param('catid/d', 0);
-        $ids   = $this->request->param('ids/a', null);
+        $ids   = $this->request->param('id/a', null);
         if (empty($ids) || !$catid) {
             $this->error('参数错误！');
         }
@@ -304,7 +307,7 @@ class Cms extends Adminbase
     public function destroy()
     {
         $catid = $this->request->param('catid/d', 0);
-        $ids   = $this->request->param('ids/a', null);
+        $ids   = $this->request->param('id/a', null);
         if (empty($ids) || !$catid) {
             $this->error('参数错误！');
         }

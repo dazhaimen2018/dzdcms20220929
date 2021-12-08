@@ -96,12 +96,12 @@
     <div class="layui-form-item">
         <label class="layui-form-label">所在库表</label>
         <div class="layui-input-inline">
-            <input type="radio" name="ifsystem" value="1" title="主表" checked lay-filter="filter">
+            <input type="radio" name="ifsystem" value="1" title="主表" lay-filter="filter" checked>
             <input type="radio" name="ifsystem" value="0" title="附表" lay-filter="filter">
         </div>
     </div>
     {else}
-    <input type="hidden" name="ifsystem" value="1" lay-filter="filter"/>
+    <input type="hidden" name="ifsystem" value="1" />
     {/if}
     <div class="layui-form-item" id="batch_add">
         <label class="layui-form-label">列表显示</label>

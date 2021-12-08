@@ -278,7 +278,7 @@ class Help extends Adminbase
     //删除栏目
     public function del()
     {
-        $ids = $this->request->param('ids/a', null);
+        $ids = $this->request->param('id/a', null);
         if (empty($ids)) {
             $this->error('参数错误！');
         }
