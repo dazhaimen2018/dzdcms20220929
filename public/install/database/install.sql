@@ -381,6 +381,7 @@ CREATE TABLE `yzn_model_field` (
   `iscore` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否内部字段',
   `iffixed` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否固定不可修改',
   `ifrequire` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否必填',
+  `iflist` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否列表显示',
   `ifsearch` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '作为搜索条件',
   `isadd` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '在投稿中显示',
   `create_time` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',

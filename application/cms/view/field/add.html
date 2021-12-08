@@ -96,13 +96,21 @@
     <div class="layui-form-item">
         <label class="layui-form-label">所在库表</label>
         <div class="layui-input-inline">
-            <input type="radio" name="ifsystem" value="1" title="主表" checked>
-            <input type="radio" name="ifsystem" value="0" title="附表">
+            <input type="radio" name="ifsystem" value="1" title="主表" checked lay-filter="filter">
+            <input type="radio" name="ifsystem" value="0" title="附表" lay-filter="filter">
         </div>
     </div>
     {else}
-    <input type="hidden" name="ifsystem" value="1" />
+    <input type="hidden" name="ifsystem" value="1" lay-filter="filter"/>
     {/if}
+    <div class="layui-form-item" id="batch_add">
+        <label class="layui-form-label">列表显示</label>
+        <div class="layui-input-inline">
+            <input type="radio" name="iflist" value="1" title="是">
+            <input type="radio" name="iflist" value="0" title="否" checked>
+        </div>
+        <div class="layui-form-mid layui-word-aux">后台内容列表是否显示</div>
+    </div>
     <div class="layui-form-item">
         <label class="layui-form-label">是否必填</label>
         <div class="layui-input-inline">
@@ -192,6 +200,15 @@ layui.use(['layer', 'form','yznForm'], function() {
         yznForm = layui.yznForm;
 
         yznForm.listen();
+        //列表是否显示 只对主表字段
+    form.on('radio(filter)', function(data){
+        if(1==data.value){
+            $('#batch_add').show();
+        }
+        if(0==data.value){
+            $('#batch_add').hide();
+        }
+    });
         form.on('select(fieldtype)', function(data) {
             $('#define').val($(data.elem).find("option:selected").attr("data-define"));
             var ifstring = $(data.elem).find("option:selected").attr("data-ifstring");

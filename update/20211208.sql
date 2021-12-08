@@ -8,3 +8,6 @@ ALTER TABLE `dzd_site`
     ADD `chat` VARCHAR(255) NULL DEFAULT NULL COMMENT ''客服代码'' AFTER `gwa_link`,
     ADD `statistics` VARCHAR(255) NULL DEFAULT NULL COMMENT ''统计代码'' AFTER `chat`,
     ADD `copyright` VARCHAR(255) NULL DEFAULT NULL COMMENT ''版权信息'' AFTER `statistics`;
+
+ALTER TABLE `dzd_model_field`
+    ADD `iflist` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否列表显示' AFTER `ifrequire`;
