@@ -94,11 +94,11 @@ DZDcms多站点内容管理系统是基于yzncms二次开发而来,YznCMS(又名
 
 ## [截图预览]
 
-![输入图片说明](data/index.png)
-![输入图片说明](category.png)
-![输入图片说明](data/site.png)
-![输入图片说明](data/set.png)
-![输入图片说明](data/add.png)
+![后台首页](public/uploads/images/index.png)
+![栏目管理](public/uploads/images/category.png)
+![站点管理](public/uploads/images/site.png)
+![CMS设置](public/uploads/images/set.png)
+![增加内容](public/uploads/images/add.png)
 
 
 ## [开源协议]  
