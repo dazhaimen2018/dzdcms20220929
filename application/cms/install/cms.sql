@@ -154,8 +154,8 @@ CREATE TABLE IF NOT EXISTS `dzd_search_log` (
 `keywords` varchar(50) NOT NULL DEFAULT '' COMMENT '关键字',
 `nums` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '点击数',
 `ip` varchar(30) NOT NULL DEFAULT '' COMMENT 'SEO描述',
-`inputtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-`updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+`input_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+`update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
 PRIMARY KEY (`id`),
 UNIQUE KEY `keywords` (`keywords`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='搜索记录表';
