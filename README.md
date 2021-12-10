@@ -23,12 +23,6 @@
 - 当天拉取的文件中，如果update下面有新的sql文件，可在phpmyadmin中导入完成数据库的升级！
 - 数据库更新教程：https://doc.dzdcms.com/ask/84.html
 
-![输入图片说明](data/index.png)
-![输入图片说明](category.png)
-![输入图片说明](data/site.png)
-![输入图片说明](data/set.png)
-![输入图片说明](data/add.png)
-
 ## [模块插件清单]
 
 - 免费模块or插件：和框架一样无任何使用限制，可以商业使用
@@ -100,10 +94,11 @@ DZDcms多站点内容管理系统是基于yzncms二次开发而来,YznCMS(又名
 
 ## [截图预览]
 
-![后台首页](https://images.gitee.com/uploads/images/2021/0623/065655_993d4953_1625366.png "index.png")
-![CMS面板](https://images.gitee.com/uploads/images/2021/0623/065729_06c0c8d3_1625366.jpeg "cms_index.jpg")
-![CMS文章列表](https://images.gitee.com/uploads/images/2021/0623/065806_4deb46d9_1625366.png "cms_list.png")
-![站点列表](https://images.gitee.com/uploads/images/2021/0623/065840_1a2d7ffd_1625366.png "site.png")
+![输入图片说明](data/index.png)
+![输入图片说明](category.png)
+![输入图片说明](data/site.png)
+![输入图片说明](data/set.png)
+![输入图片说明](data/add.png)
 
 
 ## [开源协议]  
