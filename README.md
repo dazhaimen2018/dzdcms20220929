@@ -23,10 +23,11 @@
 - 当天拉取的文件中，如果update下面有新的sql文件，可在phpmyadmin中导入完成数据库的升级！
 - 数据库更新教程：https://doc.dzdcms.com/ask/84.html
 
-[![YznCMS](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://gitee.com/ken678/YZNCMS/)
-[![YznCMS](https://img.shields.io/badge/YznCMS-1.0.0-brightgreen.svg)](https://gitee.com/ken678/YZNCMS/)
-[![star](https://gitee.com/ken678/YZNCMS/badge/star.svg?theme=dark)](https://gitee.com/ken678/YZNCMS/stargazers)
-[![fork](https://gitee.com/ken678/YZNCMS/badge/fork.svg?theme=dark)](https://gitee.com/ken678/YZNCMS/members)
+![输入图片说明](data/index.png)
+![输入图片说明](category.png)
+![输入图片说明](data/site.png)
+![输入图片说明](data/set.png)
+![输入图片说明](data/add.png)
 
 ## [模块插件清单]
 
