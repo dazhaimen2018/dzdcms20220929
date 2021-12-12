@@ -50,6 +50,18 @@ class Models extends Modelbase
                 $this->addFieldRecord($res->id, $data['type']);
             }
         }
+        //增加数据到push表中
+        $push['module']       = $module;
+        $push['modelid']      = $res->id;
+        $push['tablename']    = $data['tablename'] . '_data';
+        $push['name']         = $data['name'];
+        $push['description']  = $data['description'];
+        $res = Push::create($push);
+        if($data['type']==3){
+            $push['tablename']    = $data['tablename'] . '_sub_data';
+            $push['name']         = $data['name']. '子表';
+            $res = Push::create($push);
+        }
     }
 
     /**
@@ -128,6 +140,8 @@ class Models extends Modelbase
         cache("Model", null);
         //删除所有和这个模型相关的字段
         Db::name("ModelField")->where("modelid", $id)->delete();
+        //删除推送表中相关数据
+        Db::name("push")->where("modelid", $id)->delete();
         //删除主表
         $table_name = Config::get("database.prefix") . $modeldata['tablename'];
         Db::execute("DROP TABLE IF EXISTS `{$table_name}`");

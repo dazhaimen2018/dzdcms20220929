@@ -189,10 +189,6 @@ class Site extends Adminbase
 	 */
 	public function del()
     {
-        $ids = $this->request->param('id/d');
-        if (!is_numeric($ids) || $ids < 0) {
-            return '参数错误';
-        }
         $this->error('站点只能修改或关闭，不能删除！');
     }
 

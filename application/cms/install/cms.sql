@@ -168,6 +168,21 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__lang_group` (
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='碎片分组表';
 
+CREATE TABLE IF NOT EXISTS `__PREFIX__push` (
+`id` smallint(5) UNSIGNED NOT NULL,
+`module` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '所属模块',
+`modelid` smallint(6) NOT NULL DEFAULT '0' COMMENT '模型ID',
+`name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '模型名称',
+`tablename` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '表名',
+`description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '描述',
+`sites` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '已同站点',
+`create_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '添加时间',
+`update_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
+`listorders` tinyint(4) NOT NULL DEFAULT '0' COMMENT '排序',
+`status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态',
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='推送目录表';
+
 
 INSERT INTO `__PREFIX__lang` (`id`, `name`, `type`, `title`, `group`, `options`, `remark`, `create_time`, `update_time`, `value`, `listorder`, `status`) VALUES
 (1, 'siteName', 'text', '网站名称', '1', '', '', 1615821490, 1633126840, '多站点CMS', 100, 1),
@@ -303,6 +318,11 @@ INSERT INTO `__PREFIX__lang_group` (`id`, `name`, `description`, `status`) VALUE
 INSERT INTO `__PREFIX__site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `alone`, `close`, `source`, `website`, `company`, `icp`, `icp_link`, `gwa`, `gwa_link`, `chat`, `statistics`, `copyright`, `status`, `inputtime`) VALUES
 (1, '中文站', 'zh-cn', 'http', 'demo.dzdcms.com', 'http://demo.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0);
 
+INSERT INTO `__PREFIX__push` (`id`, `module`, `modelid`, `name`, `tablename`, `description`, `sites`, `create_time`, `update_time`, `listorders`, `status`) VALUES
+(1, 'cms', 0, '站点配置', 'site', '', NULL, 0, 0, 0, 1),
+(2, 'cms', 0, '栏目数据', 'category_data', '', NULL, 0, 0, 0, 1),
+(3, 'cms', 0, '碎片数据', 'lang_data', '', NULL, 0, 0, 0, 1);
+
 ALTER TABLE `__PREFIX__site`
 MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '站点ID', AUTO_INCREMENT=2;
 
@@ -311,6 +331,9 @@ MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_I
 
 ALTER TABLE `__PREFIX__lang_group`
 MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户组id,自增主键', AUTO_INCREMENT=4;
+
+ALTER TABLE `__PREFIX__push`
+MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 
 

@@ -1,0 +1,58 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+<link rel="stylesheet" href="__STATIC__/admin/css/cms.css">
+
+<div class="layui-card">
+    <div class="layui-card-header">同步数据（目标语种：中文）</div>
+    <div class="layui-card-body">
+        <div class="layui-form">
+            <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
+            <blockquote class="layui-elem-quote">提示：该操作将覆盖目标语种相关信息，若目标语种相关信息已修改，请谨慎操作！</blockquote>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="barTool">
+    <a data-open='{:url("push/push")}?id={{ d.id }}' class="layui-btn layui-btn-xs layui-btn-warm" title="推送并翻译">同步</a>
+</script>
+{/block}
+{block name="script"}
+<script>
+    layui.use('yznTable', function() {
+        var table = layui.yznTable;
+
+        var init = {
+            table_elem: '#currentTable',
+            delete_url: "{:url('del')}",
+            modify_url: '{:url("multi")}',
+        };
+
+        table.render({
+            init: init,
+            id: 'currentTable',
+            elem: '#currentTable',
+            toolbar: ['refresh', [{
+                        text: "一键推送",
+                        url: "{:url('push')}",
+                        method: 'request',
+                        class: 'layui-btn layui-btn-sm',
+                        icon:'iconfont icon-interactive',
+                        extend: 'data-table="currentTable"',
+                    }]
+            ],
+            url: '{:url("site")}',
+            search:false,
+            cols: [
+                [
+                    { type: 'checkbox', fixed: 'left' },
+                    { field: 'id', width: 70, title: 'ID',search:false , align: "center" ,search:false},
+                    { field: 'name',align: "left", title: '类别' },
+                    { field: 'sites', width: 100, title: '是否推送', align: "center" },
+                    { field: 'updatetime', width: 145, title: '同步时间', search: 'range',hide: true },
+                    {fixed: 'right', title:'操作',width:220, toolbar: '#barTool',align:"center"}
+                ]
+            ],
+        });
+    });
+</script>
+{/block}
+

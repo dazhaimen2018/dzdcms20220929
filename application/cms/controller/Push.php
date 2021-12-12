@@ -14,6 +14,7 @@ use app\cms\model\Cms as Cms_Model;
 use app\cms\model\Lang as Lang_Model;
 use app\cms\model\LangData;
 
+use app\cms\model\Push as PushMode;
 use app\cms\model\Site;
 use app\common\controller\Adminbase;
 use think\Db;
@@ -79,6 +80,21 @@ class Push extends Adminbase
     public function chapter()
     {
         return $this->error(tipsText());
+    }
+
+    //全站同步 cms
+    public function site()  {
+
+        if ($this->request->isAjax()) {
+            $data = PushMode::where('module', 'cms')->select();
+            return json(["code" => 0, "data" => $data]);
+        }
+        return $this->fetch();
+    }
+
+    //一键推送 cms
+    public function push()  {
+        $this->error('正在开发中。。。！');
     }
 
 
