@@ -28,8 +28,10 @@ class Admin extends Adminaddon
     protected function initialize()
     {
         parent::initialize();
-        $this->url_mode  = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
-        $this->directory = (defined('IF_PUBLIC') ? ROOT_PATH . 'public/' : ROOT_PATH);
+        $this->url_mode    = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
+        $this->show_mode   = isset(cache("Cms_Config")['show_url_mode']) ? cache("Cms_Config")['show_url_mode'] : 1;
+        $this->showCatMode = isset(cache("Cms_Config")['show_cat_mode']) ? cache("Cms_Config")['show_cat_mode'] : 1;
+        $this->directory   = (defined('IF_PUBLIC') ? ROOT_PATH . 'public/' : ROOT_PATH);
     }
 
     public function index()
@@ -72,11 +74,18 @@ class Admin extends Adminaddon
                 $volist = [];
                 foreach ($modelList as $vo) {
                     if ($vo['module'] == "cms") {
-                        $volist = Db::name($vo['tablename'])->where('status', 1)->order('updatetime desc')->field('id,catid,updatetime')->select();
+                        $volist = Db::name($vo['tablename'])->where('status', 1)->order('updatetime desc')->field('id,diyurl,catid,updatetime')->select();
                         if (!empty($volist)) {
                             foreach ($volist as $v) {
-                                $cat  = $this->url_mode == 1 ? $v['catid'] : (isset($Category[$v['catid']]) ? $Category[$v['catid']]['catdir'] : getCategory($v['catid'], 'catdir'));
-                                $item = $this->_sitemap_item($rootUrl . buildContentUrl($cat, $v['id']), intval($data['content']['priority']), $data['content']['changefreq'], $v['updatetime']);
+
+                                //获取顶级栏目ID
+                                $category     = getCategory($v['catid']);
+                                $arrparentid  = explode(',', $category['arrparentid']);
+                                $topParentid  = isset($arrparentid[1]) ? $arrparentid[1] : $v['catid'];
+                                $newCatid     = $this->showCatMode == 1 ? $topParentid : $v['catid'];
+                                $cat          = $this->url_mode == 1 ? $newCatid : (isset($Category[$newCatid]) ? $Category[$newCatid]['catdir'] : getCategory($newCatid, 'catdir'));
+                                $diy          = $this->show_mode == 1 ? $v['diyurl'] : $v['id'];
+                                $item         = $this->_sitemap_item($rootUrl . buildContentUrl($cat, $diy, $v['url']), intval($data['content']['priority']), $data['content']['changefreq'], $v['updatetime']);
                                 $this->_add_data($item);
                                 $num++;
                                 if ($num >= $data['num']) {
@@ -88,10 +97,10 @@ class Admin extends Adminaddon
                 }
             }
             //标签
-            $tags = Db::name('tags')->order('create_time desc')->field('tag,update_time')->select();
+            $tags = Db::name('tags')->order('create_time desc')->field('tagdir,update_time')->select();
             if (!empty($tags)) {
                 foreach ($tags as $vo) {
-                    $item = $this->_sitemap_item($rootUrl . url('cms/index/tags', ['tag' => $vo['tag']]), intval($data['tag']['priority']), $data['tag']['changefreq'], time());
+                    $item = $this->_sitemap_item($rootUrl . url('cms/index/tags', ['tagdir' => $vo['tagdir']]), intval($data['tag']['priority']), $data['tag']['changefreq'], time());
                     $this->_add_data($item);
                 }
             }
