@@ -166,7 +166,7 @@ class CmsTagLib
     {
         $catid = isset($data['catid']) ? trim($data['catid']) : '';
         $did   = isset($data['did']) ? trim($data['did']) : '';
-        $id    = isset($data['id']) ? trim($data['id']) : '';
+
         $data['where'] = isset($data['where']) ? $data['where'] . " AND `status`=1" : "`status`=1";
         if (!isset($data['limit'])) {
             $data['limit'] = 0 == (int) $data['num'] ? 10 : (int) $data['num'];
@@ -174,15 +174,15 @@ class CmsTagLib
         if (empty($data['order'])) {
             $data['order'] = array('updatetime' => 'DESC', 'id' => 'DESC');
         }
-        if (isset($data['flag'])) {
-            $flag = [];
-            foreach (explode(',', $data['flag']) as $k => $v) {
-                $flag[] = "FIND_IN_SET('" . $v . "', flag)";
-            }
-            if ($flag) {
-                $data['where'] .= " AND (" . implode(' OR ', $flag) . ")";
-            }
-        }
+//        if (isset($data['flag'])) {
+//            $flag = [];
+//            foreach (explode(',', $data['flag']) as $k => $v) {
+//                $flag[] = "FIND_IN_SET('" . $v . "', flag)";
+//            }
+//            if ($flag) {
+//                $data['where'] .= " AND (" . implode(' OR ', $flag) . ")";
+//            }
+//        }
         $data['field']  = isset($data['field']) ? $data['field'] : '*';
         $data['simple'] = isset($data['simple']) ? (is_numeric($data['simple']) ? (int) $data['simple'] : (bool) $data['simple']) : false;
         $moreifo        = isset($data['moreinfo']) ? $data['moreinfo'] : 0;
@@ -202,7 +202,7 @@ class CmsTagLib
         }else{
             $siteId = 1;
         }
-        $result = model('cms/Chapter')->getChapterList($modelid, $this->where($data), $moreifo, $siteId, $did, $id, $data['field'], $data['order'], $data['limit'], $data['page'], $data['simple']);
+        $result = model('cms/Chapter')->getChapterList($modelid, $this->where($data), $moreifo, $did, $siteId, $data['field'], $data['order'], $data['limit'], $data['page'], $data['simple']);
         return $result;
     }
 
