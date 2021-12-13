@@ -44,7 +44,7 @@ class Admin extends Adminaddon
             $data['num'] = intval($data['num']);
             $type        = isset($data['type']) ? intval($data['type']) : 1;
 
-            $item = $this->_sitemap_item($rootUrl, intval($data['index']['priority']), $data['index']['changefreq'], time());
+            $item = $this->_sitemap_item($rootUrl, intval($data['index']['priority']), $data['index']['changefreq'], date("Y-m-d",time()));
             $this->_add_data($item);
 
             //栏目
@@ -52,7 +52,7 @@ class Admin extends Adminaddon
             if (!empty($List)) {
                 foreach ($List as $vo) {
                     $cat  = $this->url_mode == 1 ? $vo['id'] : $vo['catdir'];
-                    $item = $this->_sitemap_item($rootUrl . buildCatUrl($cat), intval($data['category']['priority']), $data['category']['changefreq'], time());
+                    $item = $this->_sitemap_item($rootUrl . buildCatUrl($cat), intval($data['category']['priority']), $data['category']['changefreq'], date("Y-m-d",time()));
                     $this->_add_data($item);
                 }
             }
@@ -85,7 +85,7 @@ class Admin extends Adminaddon
                                 $newCatid     = $this->showCatMode == 1 ? $topParentid : $v['catid'];
                                 $cat          = $this->url_mode == 1 ? $newCatid : (isset($Category[$newCatid]) ? $Category[$newCatid]['catdir'] : getCategory($newCatid, 'catdir'));
                                 $diy          = $this->show_mode == 1 ? $v['diyurl'] : $v['id'];
-                                $item         = $this->_sitemap_item($rootUrl . buildContentUrl($cat, $diy, $v['url']), intval($data['content']['priority']), $data['content']['changefreq'], $v['updatetime']);
+                                $item         = $this->_sitemap_item($rootUrl . buildContentUrl($cat, $diy, $v['url']), intval($data['content']['priority']), $data['content']['changefreq'], date("Y-m-d",time()));
                                 $this->_add_data($item);
                                 $num++;
                                 if ($num >= $data['num']) {
@@ -100,7 +100,7 @@ class Admin extends Adminaddon
             $tags = Db::name('tags')->order('create_time desc')->field('tagdir,update_time')->select();
             if (!empty($tags)) {
                 foreach ($tags as $vo) {
-                    $item = $this->_sitemap_item($rootUrl . url('cms/index/tags', ['tagdir' => $vo['tagdir']]), intval($data['tag']['priority']), $data['tag']['changefreq'], time());
+                    $item = $this->_sitemap_item($rootUrl . url('cms/index/tags', ['tagdir' => $vo['tagdir']]), intval($data['tag']['priority']), $data['tag']['changefreq'], date("Y-m-d",time()));
                     $this->_add_data($item);
                 }
             }
