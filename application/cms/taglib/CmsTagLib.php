@@ -166,7 +166,6 @@ class CmsTagLib
     {
         $catid = isset($data['catid']) ? trim($data['catid']) : '';
         $did   = isset($data['did']) ? trim($data['did']) : '';
-
         $data['where'] = isset($data['where']) ? $data['where'] . " AND `status`=1" : "`status`=1";
         if (!isset($data['limit'])) {
             $data['limit'] = 0 == (int) $data['num'] ? 10 : (int) $data['num'];
