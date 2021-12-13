@@ -42,7 +42,7 @@ class Chapter extends Modelbase
     //添加模型内容  马博增加 extraData
     public function addModelDataAll($data, $dataExt = [], $extraData = [])
     {
-        $catid     = (int) $data['catid'];
+        $catid = (int) $data['catid'];
         if (isset($data['modelid'])) {
             $modelid = $data['modelid'];
             unset($data['modelid']);
@@ -75,7 +75,13 @@ class Chapter extends Modelbase
         }
         //获取栏目所属站点的第一个站ID
         $catSites  = getCategory($catid, 'sites');; //当前栏目所属站点
-        $firstSite = substr($catSites,0,strpos($catSites, ','));
+        $siteId    = onSite();
+        //如果这个栏目只属于当前站
+        if($catSites==$siteId){
+            $firstSite = $catSites;
+        } else {
+            $firstSite = substr($catSites,0,strpos($catSites, ','));
+        }
         try {
             //主表 不存主表，主要更新主表 章节数量即可
             //$id = Db::name($tablename)->insertGetId($data);
@@ -100,11 +106,7 @@ class Chapter extends Modelbase
                     $e['inputtime']  = request()->time();
                     $e['updatetime'] = request()->time();
                     $extraId = Db::name($tablename . $this->sub_table)->insertGetId($e);
-                    if($e['site_id'] == $firstSite){
-                        $extraPid = $extraId;
-                    }
-                    Db::name($tablename . $this->sub_table)->where('id', $extraId)->update(['pid' => $extraPid]);
-
+                    Db::name($tablename . $this->sub_table)->where('id', $extraId)->update(['pid' => $extraId]);
                 }
             }
 
@@ -906,8 +908,8 @@ class Chapter extends Modelbase
 
     public function getParentData($data)
     {
-        $catid = (int) $data['catid'];
-        $id = intval($data['id']);
+        $catid   = (int) $data['catid'];
+        $id      = intval($data['id']);
         $modelid = getCategory($catid, 'modelid');
         //完整表名获取
         $tablename = $this->getModelTableName($modelid);
