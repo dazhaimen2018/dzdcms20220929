@@ -116,7 +116,17 @@ class Cms extends Modelbase
         //推送到熊掌号和百度站长
         $cmsConfig = cache("Cms_Config");
         if (isset($cmsConfig['web_site_baidupush']) && $cmsConfig['web_site_baidupush']) {
-            hook("baidupush", buildContentUrl($catid, $id, $data['url'], true, true));
+            //获取顶级栏目ID
+            $url_mode   = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
+            $show_mode  = isset(cache("Cms_Config")['show_url_mode']) ? cache("Cms_Config")['show_url_mode'] : 1;
+            $showCatMode  = isset(cache("Cms_Config")['show_cat_mode']) ? cache("Cms_Config")['show_cat_mode'] : 1;
+            $category     = getCategory($catid);
+            $arrparentid  = explode(',', $category['arrparentid']);
+            $topParentid  = isset($arrparentid[1]) ? $arrparentid[1] : $catid;
+            $newCatid     = $showCatMode == 1 ? $topParentid : $catid;
+            $cat          = $url_mode  == 1 ? $newCatid : (isset($Category[$newCatid]) ? $Category[$newCatid]['catdir'] : getCategory($newCatid, 'catdir'));
+            $diy          = $show_mode == 1 ? $data['diyurl']: $id;
+            hook("baidupush", buildContentUrl($cat, $diy, $data['url'], true, true));
         }
         return $id;
     }
@@ -177,7 +187,19 @@ class Cms extends Modelbase
         //推送到熊掌号和百度站长
         $cmsConfig = cache("Cms_Config");
         if (isset($cmsConfig['web_site_baidupush']) && $cmsConfig['web_site_baidupush']) {
-            hook("baidupush", buildContentUrl($catid, $id, $data['url'], true, true));
+
+            //获取顶级栏目ID
+            $url_mode   = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
+            $show_mode  = isset(cache("Cms_Config")['show_url_mode']) ? cache("Cms_Config")['show_url_mode'] : 1;
+            $showCatMode  = isset(cache("Cms_Config")['show_cat_mode']) ? cache("Cms_Config")['show_cat_mode'] : 1;
+            $category     = getCategory($catid);
+            $arrparentid  = explode(',', $category['arrparentid']);
+            $topParentid  = isset($arrparentid[1]) ? $arrparentid[1] : $catid;
+            $newCatid     = $showCatMode == 1 ? $topParentid : $catid;
+            $cat          = $url_mode  == 1 ? $newCatid : (isset($Category[$newCatid]) ? $Category[$newCatid]['catdir'] : getCategory($newCatid, 'catdir'));
+            $diy          = $show_mode == 1 ? $data['diyurl']: $id;
+
+            hook("baidupush", buildContentUrl($cat, $diy, $data['url'], true, true));
         }
         return $id;
     }
