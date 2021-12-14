@@ -172,7 +172,7 @@ class Models extends Modelbase
                 CREATE TABLE `{$table}` (
                `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '文档ID',
 				`catid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目ID',
-				 `catids` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '同步栏目',
+				`catids` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '同步栏目',
 				`theme` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '主题',				
 				`url` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '跳转连接',				
 				`diyurl` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '自定义URL',				
@@ -184,6 +184,7 @@ class Models extends Modelbase
 				`uid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
 				`username` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
 				`sysadd` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否后台添加',
+                `chapters` mediumint(8) UNSIGNED DEFAULT 0 COMMENT '章节数' ,
                 `hits` mediumint(8) UNSIGNED DEFAULT 0 COMMENT '点击量' ,
                 `likes` mediumint(8) UNSIGNED DEFAULT 0 COMMENT '点赞数' ,
                 `dislikes` mediumint(8) UNSIGNED DEFAULT 0 COMMENT '点踩数' ,
@@ -397,6 +398,13 @@ EOF;
                 'name'    => 'readpoint',
                 'title'   => '支付数量',
                 'type'    => 'dzd',
+                'setting'   => "a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}",
+            ],
+            [
+                'name'      => 'chapters',
+                'title'     => '章节数',
+                'type'      => 'dzd',
+                'iffixed'   => 0,
                 'setting'   => "a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}",
             ],
             [

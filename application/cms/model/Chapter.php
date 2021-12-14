@@ -43,6 +43,7 @@ class Chapter extends Modelbase
     public function addModelDataAll($data, $dataExt = [], $extraData = [])
     {
         $catid = (int) $data['catid'];
+        $did   = (int) $data['did'];
         if (isset($data['modelid'])) {
             $modelid = $data['modelid'];
             unset($data['modelid']);
@@ -83,9 +84,8 @@ class Chapter extends Modelbase
             $firstSite = substr($catSites,0,strpos($catSites, ','));
         }
         try {
-            //主表 不存主表，主要更新主表 章节数量即可
-            //$id = Db::name($tablename)->insertGetId($data);
-
+            //主表 主要更新主表 更新时间和 章节数量即可
+            Db::name($tablename)->where('id', $did)->update(['updatetime' => time(),'chapters' =>Db::raw('chapters+1')]);
             // 以下下马博增加
             if ($extraData) {
                 $extra_data = [];
@@ -209,8 +209,9 @@ class Chapter extends Modelbase
             $data['uid']      = \app\admin\service\User::instance()->id;
             $data['username'] = \app\admin\service\User::instance()->username;
         }
-        //主表 更新更新时间即可
-        //Db::name($tablename)->where('id', $id)->update($data);
+        //主表 更新 最后更新时间
+        Db::name($tablename)->where('id', $did)->update(['updatetime' => time()]);
+
         // 以下下马博增加
         if ($extraData) {
             $extra_data = [];
@@ -299,24 +300,24 @@ class Chapter extends Modelbase
     {
         $modelInfo = cache('Model');
         $modelInfo = $modelInfo[$modeId];
-        $data = Db::name($modelInfo['tablename'])->where('id', $id)->find();
+        $data = Db::name($modelInfo['tablename'].'_sub_data')->where('id', $id)->find();
         if (empty($data)) {
             throw new \Exception("该信息不存在！");
         }
         //处理tags
-        if (!empty($data['tags'])) {
-            $this->tagDispose([], $data['id'], $data['catid'], $modeId);
-        }
+//        if (!empty($data['tags'])) {
+//            $this->tagDispose([], $data['id'], $data['catid'], $modeId);
+//        }
 
         if ($no_delete) {
-            Db::name($modelInfo['tablename'])->where('id', $id)->setField('status', -1);
+            Db::name($modelInfo['tablename'] . $this->sub_table)->where('id', $id)->setField('status', -1);
         } else {
-            Db::name($modelInfo['tablename'])->where('id', $id)->delete();
+            Db::name($modelInfo['tablename'] . $this->sub_table)->where('id', $id)->delete();
             if (2 == $modelInfo['type']) {
                 Db::name($modelInfo['tablename'] . $this->sub_table)->where('did', $id)->delete();
             }
             //更新栏目统计
-            $this->updateCategoryItems($data['catid'], 'delete');
+//            $this->updateCategoryItems($data['catid'], 'delete');
         }
         //标签
         hook('content_delete_end', $data);
