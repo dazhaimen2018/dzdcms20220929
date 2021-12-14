@@ -300,14 +300,10 @@ class Chapter extends Modelbase
     {
         $modelInfo = cache('Model');
         $modelInfo = $modelInfo[$modeId];
-        $data = Db::name($modelInfo['tablename'].'_sub_data')->where('id', $id)->find();
+        $data = Db::name($modelInfo['tablename'] . $this->sub_table)->where('id', $id)->find();
         if (empty($data)) {
             throw new \Exception("该信息不存在！");
         }
-        //处理tags
-//        if (!empty($data['tags'])) {
-//            $this->tagDispose([], $data['id'], $data['catid'], $modeId);
-//        }
 
         if ($no_delete) {
             Db::name($modelInfo['tablename'] . $this->sub_table)->where('id', $id)->setField('status', -1);
