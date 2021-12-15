@@ -185,6 +185,7 @@ class Models extends Modelbase
 				`username` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
 				`sysadd` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否后台添加',
                 `chapters` mediumint(8) UNSIGNED DEFAULT 0 COMMENT '章节数' ,
+                `words` mediumint(8) UNSIGNED DEFAULT 0 COMMENT '字数' ,
                 `hits` mediumint(8) UNSIGNED DEFAULT 0 COMMENT '点击量' ,
                 `likes` mediumint(8) UNSIGNED DEFAULT 0 COMMENT '点赞数' ,
                 `dislikes` mediumint(8) UNSIGNED DEFAULT 0 COMMENT '点踩数' ,
@@ -249,6 +250,7 @@ EOF;
 				`price` decimal(10,2) unsigned NOT NULL DEFAULT '0' COMMENT '付费阅读' ,
 				`details` mediumtext COLLATE utf8_unicode_ci COMMENT '章节内容',
                 `views` mediumint(8) UNSIGNED DEFAULT 0 COMMENT '浏览数量' ,
+                `words` mediumint(8) UNSIGNED DEFAULT 0 COMMENT '字数' ,
 				`inputtime` int(10) unsigned NOT NULL DEFAULT '0'  COMMENT '创建时间',
 				`updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
 				`pushtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '推送时间',
@@ -403,6 +405,13 @@ EOF;
             [
                 'name'      => 'chapters',
                 'title'     => '章节数',
+                'type'      => 'dzd',
+                'iffixed'   => 0,
+                'setting'   => "a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}",
+            ],
+            [
+                'name'      => 'words',
+                'title'     => '字数',
                 'type'      => 'dzd',
                 'iffixed'   => 0,
                 'setting'   => "a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}",
@@ -749,6 +758,13 @@ EOF;
                     'type'      => 'number',
                     'ifsystem' => 2,
                     'listorder' => 316,
+                    'setting'   => "a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}",
+                ],
+                [
+                    'name'      => 'words',
+                    'title'     => '字数',
+                    'type'      => 'dzd',
+                    'ifsystem'  => 2,
                     'setting'   => "a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}",
                 ],
                 [
