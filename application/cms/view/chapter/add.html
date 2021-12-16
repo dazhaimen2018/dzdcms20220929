@@ -78,10 +78,6 @@
                 $('#link').val($(data.elem).find("option:selected").attr("data-url"));
             });
 
-            //关联栏目 顶级栏目parentid根据情况修改,workid为当前字段名
-            $(".workid").data("params", function (obj) {
-                return {custom: {parentid: 1}};
-            });
         });
 </script>
 {/block}

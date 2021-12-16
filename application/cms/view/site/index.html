@@ -46,9 +46,6 @@
     <div> <i class="iconfont icon-delete layui-red"></i></div>
     {{#  } }}
 </script>
-<script type="text/html" id="statusTpl">
-    <input type="checkbox" name="status" value="{{d.id}}" data-href="{:url('multi')}?id={{d.id}}&param=status" lay-skin="switch" lay-text="开启|关闭" lay-filter="switchStatus" {{ d.status==1 ? 'checked' : '' }}>
-</script>
 <script type="text/html" id="barTool">
 
     {{#  if({$push} && d.alone == 1){ }}
@@ -118,7 +115,7 @@
                 { field: 'url', title: 'URL',width: 280, templet:'#url'},
                 { field: 'logo', width: 120, title: 'LOGO', search: false, templet: yznTable.formatter.image },
                 { field: 'favicon', width: 80, title: '图标', search: false, templet: yznTable.formatter.image },
-                { field: 'status', width: 100, align: "center", title: '状态', templet: '#statusTpl', unresize: true,search:false },
+                { field: 'status', width: 100, align: "center", title: '状态', unresize: true,templet: yznTable.formatter.switch },
                 {fixed: 'right', title:'操作',width:220, toolbar: '#barTool',align:"center"}
             ]
         ],
