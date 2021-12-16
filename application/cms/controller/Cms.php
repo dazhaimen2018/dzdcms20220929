@@ -147,7 +147,7 @@ class Cms extends Adminbase
         }
         //栏目所属模型
         $modelid   = $catInfo['modelid'];
-        $modelType = db('model')->where('id',$modelid)->cache(60)->value('type');
+        $modelType = db('model')->where('id',$modelid)->value('type');
         if ($this->request->isAjax()) {
             // 20200805 马博
             $limit = $this->request->param('limit/d', 10);
@@ -341,13 +341,14 @@ class Cms extends Adminbase
             }
             if ($category['type'] == 2) {
                 $modelid = $category['modelid'];
-
+                $modelType = db('model')->where('id',$modelid)->value('type');
                 $fieldList = $this->Cms_Model->getFieldListAll($modelid);
                 $extraFieldList = $this->Cms_Model->getExtraField($modelid, 0);
                 $this->assign([
-                    'catid'     => $catid,
-                    'fieldList' => $fieldList,
+                    'catid'          => $catid,
+                    'fieldList'      => $fieldList,
                     'extraFieldList' => $extraFieldList,
+                    'modelType'      => $modelType,
                 ]);
                 return $this->fetch($view);
             } else if ($category['type'] == 1) {
@@ -461,13 +462,15 @@ class Cms extends Adminbase
             }
             if ($category['type'] == 2) {
                 $modelid   = $category['modelid'];
+                $modelType = db('model')->where('id',$modelid)->value('type');
                 $fieldList = $this->Cms_Model->getFieldListAll($modelid, $id);
                 $extraFieldList = $this->Cms_Model->getExtraField($modelid, 0);
                 $this->assign([
-                    'catid'     => $catid,
-                    'id'        => $id,
-                    'fieldList' => $fieldList,
+                    'catid'          => $catid,
+                    'id'             => $id,
+                    'fieldList'      => $fieldList,
                     'extraFieldList' => $extraFieldList,
+                    'modelType'      => $modelType,
                 ]);
                 $extraData = $this->Cms_Model->getExtraData(['catid' => $catid, 'did' => $id]);
                 $ret = [];
