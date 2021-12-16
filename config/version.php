@@ -15,6 +15,6 @@
 
 return [
     "yzncms_name"    => "多站点CMS内容管理系统", //产品名称
-    "yzncms_release" => 20211214, //产品更新日期
-    "yzncms_version" => "3.4.2", //产品版本号
+    "yzncms_release" => 20211216, //产品更新日期
+    "yzncms_version" => "3.4.3", //产品版本号
 ];
