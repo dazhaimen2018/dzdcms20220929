@@ -22,7 +22,7 @@
     {{#  } }}
 </script>
 <script type="text/html" id="statusTpl">
-    <input type="checkbox" name="status" data-href='{:url("setstate",["catid"=>$catid])}?id={{d.id}}' value="{{d.id}}" lay-skin="switch" lay-text="通过|待审核" lay-filter="switchStatus" {{ d.status==1 ? 'checked' : '' }}>
+    <input type="checkbox" name="status" data-href='{:url("setstate",["catid"=>$catid])}?id={{d.id}}' value="{{d.id}}" lay-skin="switch" lay-text="发布|未发布" lay-filter="switchStatus" {{ d.status==1 ? 'checked' : '' }}>
 </script>
 
 

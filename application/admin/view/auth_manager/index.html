@@ -7,23 +7,10 @@
             <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
             <script type="text/html" id="authTool">
                 {{#  if(d.id == {$userInfo.roleid}){ }}
-                <a class="layui-btn layui-btn-xs layui-btn-disabled" title="不可操作">访问授权</a>
+                <a class="layui-btn layui-btn-xs layui-btn-danger layui-btn-disabled">删除</a>
                 {{#  } else { }}
-                <a class='layui-btn layui-btn-xs' data-open='{:url("access?group_name=")}?title={{d.title}}&group_id={{d.id}}' data-width="900" data-height="600"  title="访问授权">访问授权</a>
+                <a class='layui-btn layui-btn-xs' data-open='{:url("access?group_name=")}?title={{d.title}}&group_id={{d.id}}' title="访问授权">访问授权</a>
                 {{#  } }}
-            </script>
-            <script type="text/html" id="barTool">
-                {{#  if(d.id == {$userInfo.roleid}){ }}
-                <a class="layui-btn layui-btn-xs layui-btn-disabled" title="不可操作">编辑</a>
-                <a class="layui-btn layui-btn-xs layui-btn-disabled" title="不可操作">删除</a>
-                {{#  } else { }}
-                <a data-open='{:url("editgroup")}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs" title="编辑">编辑</a>
-                <a href='{:url("deletegroup")}?id={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
-                {{#  } }}
-            </script>
-
-            <script type="text/html" id="status">
-                {{#  if(d.status){ }} <button class="layui-btn layui-btn layui-btn-xs">正常</button> {{#  } else { }} <button class="layui-btn layui-btn-danger layui-btn layui-btn-xs">禁用</button> {{#  } }}
             </script>
         </div>
     </div>
@@ -37,31 +24,30 @@ layui.use('yznTable', function() {
     var init = {
         table_elem: '#currentTable',
         add_url: "{:url('createGroup')}",
+        edit_url: "{:url('editgroup')}",
+        delete_url: "{:url('deletegroup')}",
     };
 
     table.render({
         init: init,
         id:'currentTable',
         elem: '#currentTable',
-        toolbar: ['refresh',
-            [{
-                text: '添加',
-                url: init.add_url,
-                method: 'open',
-                class: 'layui-btn layui-btn-normal layui-btn-sm',
-                icon: 'iconfont icon-add',
-                extend: 'data-width="900" data-height="600"',
-            }]
-        ],
+        toolbar: ['refresh','add'],
         url: '{:url("index")}',
         search:false,
         cols: [
             [
-                { field: 'title',width: 200, title: '授权',templet: '#authTool', align: "center" },
+                { field: 'title',width: 200, title: '授权',templet: '#authTool' },
                 { field: 'title', width: 200, align: 'left', title: '权限组'},
                 { field: 'description', title: '描述' },
-                { field: 'status', width: 100,title: '状态', templet: '#status', align: "center" },
-                { fixed: 'right', width: 160, title: '操作', toolbar: '#barTool', align: "center" }
+                { field: 'status', width: 80,title: '状态',templet: yznTable.formatter.label,selectList:{0:'禁用',1:'正常'}},
+                { width:120, title: '操作',templet: function (d){
+                    if(d.id=={$userInfo.roleid}){
+                        return '<a class="layui-btn layui-btn-xs layui-btn-danger layui-btn-disabled">删除</a>';
+                    }else{
+                        return yznTable.formatter.tool.call(this,d,this);
+                    }
+                },operat: ['edit','delete']}
             ]
         ],
     });

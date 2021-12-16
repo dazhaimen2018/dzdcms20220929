@@ -4,7 +4,7 @@
     <div class="layui-card-header">栏目管理 | {:onSiteName()}</div>
     <div class="layui-card-body">
         <div class="layui-form">
-            <blockquote class="layui-elem-quote">1、添加、修改和删除栏目全部完成后，请点击【更新栏目缓存】；2、筛选时，点击搜索后如果显示无数据，再点击一次搜索试试；</blockquote>
+            <blockquote class="layui-elem-quote">添加、修改和删除栏目全部完成后，请点击【更新栏目缓存】！</blockquote>
             <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
         </div>
     </div>
@@ -12,6 +12,8 @@
 <script type="text/html" id="barTool">
     {{# if({$push}) { }}
     <a data-open='{:url("push/category")}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs layui-btn-warm" title="推送并翻译">推送</a>
+    {{#  } else { }}
+    <a class="layui-btn layui-btn-xs layui-btn-disabled" title="推送并翻译">推送</a>
     {{#  } }}
     <a data-open="{{d.add_url}}" data-width="900" data-height="600" class="layui-btn layui-btn-xs layui-btn-normal" title="添加子栏目">添加</a>
     <a data-open='{:url("edit")}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs" title="编辑">编辑</a>
@@ -20,21 +22,21 @@
 {/block}
 {block name="script"}
 <script>
-    layui.use('yznTable', function() {
-        var table = layui.yznTable;
+layui.use('yznTable', function() {
+    var yznTable = layui.yznTable;
 
-        var init = {
-            table_elem: '#currentTable',
-            delete_url: "{:url('del')}",
-            modify_url: '{:url("multi")}',
-        };
+    var init = {
+        table_elem: '#currentTable',
+        delete_url: "{:url('del')}",
+        modify_url: '{:url("multi")}',
+    };
 
-        table.render({
-            init: init,
-            id: 'currentTable',
-            elem: '#currentTable',
-            toolbar: ['refresh',
-                [{
+    yznTable.render({
+        init: init,
+        id: 'currentTable',
+        elem: '#currentTable',
+        toolbar: ['refresh',
+            [{
                     text: '新增栏目',
                     url: "{:url('add')}",
                     method: 'open',
@@ -42,59 +44,58 @@
                     icon: 'iconfont icon-add',
                     extend: 'data-width="900" data-height="600"',
                 },
-                    {
-                        text: '新增单页',
-                        url: "{:url('singlepage')}",
-                        method: 'open',
-                        class: 'layui-btn layui-btn-sm layui-btn-normal',
-                        icon: 'iconfont icon-add',
-                        extend: 'data-width="900" data-height="600"',
-                    }
-                ], 'delete', [
-                    {
-                        text: '栏目授权',
-                        url: "{:url('cat_priv')}",
-                        method: 'open',
-                        class: 'layui-btn layui-btn-sm layui-btn-normal',
-                        icon: 'iconfont icon-other',
-                    },
-                    {
-                        text: '栏目数据校正',
-                        url: "{:url('count_items')}",
-                        method: 'request',
-                        class: 'layui-btn layui-btn-sm',
-                        icon:'iconfont icon-right',
-                        extend: 'data-table="currentTable"',
-                    },
-                    {
-                        text: "更新栏目缓存",
-                        url: "{:url('public_cache')}",
-                        method: 'request',
-                        class: 'layui-btn layui-btn-sm',
-                        icon:'iconfont icon-shuaxin1',
-                        extend: 'data-table="currentTable"',
-                    }]
-            ],
-            url: '{:url("index")}',
-            search:true,
-            cols: [
-                [
-                    { type: 'checkbox', fixed: 'left' },
-                    { field: 'listorder', width: 70, title: '排序', edit: 'text' ,search:false, align: "center"},
-                    { field: 'id', width: 70, title: 'ID',search:false , align: "center" ,search:false},
-                    { field: 'sites', width: 100, title: '所属站点', align: "center" },
-                    { field: 'catname',align: "left", title: '栏目名称' },
-                    { field: 'onCatname', width: 120, title: '已推/名称' },
-                    { field: 'items', width: 80, title: '数据量',search:false, align: "center" ,hide: true},
-                    { field: 'catdir', width: 120, title: '唯一标识' },
-                    { field: 'type', width: 90, title: '栏目类型', templet: '<div>{{#  if(d.type==1){ }} 单页 {{#  } else if(d.type==2){  }} 列表 {{#  }  else { }} 未知 {{#  } }}</div>', align: "center",hide: true },
-                    { field: 'modelname', width: 100, title: '所属模型', align: "center" },
-                    { field: 'url', width: 60, align: "center", title: 'URL', templet: yznTable.formatter.url,search:false },
-                    { field: 'status', width: 100, align: "center", title: '状态', unresize: true,templet: yznTable.formatter.switch },
-                    { fixed: 'right', width: 210, title: '操作', toolbar: '#barTool', align: "center" }
-                ]
-            ],
-        });
+                {
+                    text: '新增单页',
+                    url: "{:url('singlepage')}",
+                    method: 'open',
+                    class: 'layui-btn layui-btn-sm layui-btn-normal',
+                    icon: 'iconfont icon-add',
+                    extend: 'data-width="900" data-height="600"',
+                }
+            ], 'delete', [{
+                    text: '栏目授权',
+                    url: "{:url('cat_priv')}",
+                    method: 'open',
+                    class: 'layui-btn layui-btn-sm layui-btn-normal',
+                    icon: 'iconfont icon-other',
+                },
+                {
+                    text: '栏目数据校正',
+                    url: "{:url('count_items')}",
+                    method: 'request',
+                    class: 'layui-btn layui-btn-sm',
+                    icon:'iconfont icon-right',
+                    extend: 'data-table="currentTable"',
+                },
+                {
+                text: "更新栏目缓存",
+                url: "{:url('public_cache')}",
+                method: 'request',
+                class: 'layui-btn layui-btn-sm',
+                icon:'iconfont icon-shuaxin1',
+                extend: 'data-table="currentTable"',
+            }]
+        ],
+        url: '{:url("index")}',
+        search:false,
+        cols: [
+            [
+                { type: 'checkbox', fixed: 'left' },
+                { field: 'listorder', width: 70, title: '排序', edit: 'text' },
+                { field: 'id', width: 70, title: 'ID' },
+                { field: 'sites', width: 100, title: '所属站点', align: "center" },
+                { field: 'catname',align: "left", title: '栏目名称' },
+                { field: 'onCatname', width: 120, title: '已推/名称' },
+                { field: 'items', width: 80, title: '数据量' },
+                { field: 'catdir', width: 120, title: '唯一标识' },
+                { field: 'type', width: 90,title: '栏目类型',templet: yznTable.formatter.label,selectList:{1:'单页',2:'列表'},custom:{1:"cyan",2:"blue"}},
+                { field: 'modelname', width: 120, title: '所属模型' },
+                { field: 'url', width: 60, align: "center", title: 'URL', templet: yznTable.formatter.url },
+                { field: 'status', width: 100, align: "center", title: '状态', unresize: true,templet: yznTable.formatter.switch },
+                { fixed: 'right', width: 210, title: '操作', toolbar: '#barTool', align: "center" }
+            ]
+        ],
     });
+});
 </script>
 {/block}

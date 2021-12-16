@@ -47,7 +47,7 @@ class Field extends Adminbase
         }
         if ($this->request->isAjax()) {
             //根据模型读取字段列表
-            $banFields                  = ['id', 'catid', 'did', 'uid', 'sid', 'pid', 'hits', 'words', 'likes', 'dislikes', 'listorder', 'catids', 'site_id', 'diyurl', 'readpoint', 'paytype', 'updatetime', 'pushtime' ,'username','sysadd'];
+            $banFields                  = ['id', 'catid', 'did', 'uid', 'sid', 'pid', 'hits', 'words', 'likes', 'dislikes', 'listorder', 'catids', 'site_id', 'diyurl', 'readpoint', 'paytype', 'updatetime', 'pushtime', 'username', 'sysadd', 'writing', 'comment'];
             list($page, $limit, $where) = $this->buildTableParames();
             $total                      = $this->modelClass->where($where)->where('modelid', $modelid)->whereNotIn('name', $banFields)->count();
             $data                       = $this->modelClass->where($where)->where('modelid', $modelid)->whereNotIn('name', $banFields)->order('listorder DESC, id DESC')->page($page, $limit)->select();
@@ -103,7 +103,7 @@ class Field extends Adminbase
     public function edit()
     {
         //字段ID
-        $fieldid = $this->request->param('fieldid/d', 0);
+        $fieldid = $this->request->param('id/d', 0);
         if (empty($fieldid)) {
             $this->error('字段ID不能为空！');
         }
@@ -135,7 +135,7 @@ class Field extends Adminbase
             $fieldType = Db::name('field_type')->order('listorder')->column('name,title,default_define,ifstring');
             $this->assign([
                 'data'      => $fieldData,
-                'fieldid'   => $fieldid,
+                //'fieldid'   => $fieldid,
                 'fieldType' => $fieldType,
             ]);
             return $this->fetch();
