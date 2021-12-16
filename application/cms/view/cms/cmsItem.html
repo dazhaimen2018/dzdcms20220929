@@ -1,3 +1,22 @@
+{if isModuleInstall('comment')}
+<div class="layui-form-item">
+    <label class="layui-form-label">允许评论</label>
+    <div class="layui-input-inline" title="允许评论">
+        <input type="radio" name="modelField[comment]" value="1" title="允许" {if !$fieldList['comment']['value']}checked{/if} {if $fieldList['comment']['value']==1}checked{/if}>
+        <input type="radio" name="modelField[comment]" value="0" title="禁止" {if $fieldList['comment']['value']==0}checked{/if}>
+    </div>
+</div>
+{/if}
+{if $modelType==3}
+<div class="layui-form-item">
+    <label class="layui-form-label">章节状态</label>
+    <div class="layui-input-inline" title="章节状态">
+        <input type="radio" name="modelField[writing]" value="1" title="完成" {if !$fieldList['writing']['value']}checked{/if} {if $fieldList['writing']['value']==1}checked{/if}>
+        <input type="radio" name="modelField[writing]" value="0" title="连载" {if $fieldList['writing']['value']==0}checked{/if}>
+    </div>
+</div>
+{/if}
+{if (isset(cache("Cms_Config")['show_url_mode']) && 1 == cache("Cms_Config")['show_url_mode'])}
 <div class="layui-form-item">
     <label class="layui-form-label">自定义URL</label>
     <div class="layui-input-inline" title="自定义URL">
@@ -5,7 +24,7 @@
     </div>
     <div class="layui-form-mid layui-word-aux">如果前端需要自定义URL请在配置中开启</div>
 </div>
-
+{/if}
 <div class="layui-form-item">
     <label class="layui-form-label">支付数量</label>
     <div class="layui-input-inline" title="支付数量">

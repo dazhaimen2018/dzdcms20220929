@@ -192,6 +192,7 @@ class Models extends Modelbase
 				`inputtime` int(10) unsigned NOT NULL DEFAULT '0'  COMMENT '创建时间',
 				`updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
 				`pushtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '推送时间',
+                `writing` tinyint(2) NOT NULL DEFAULT '0' COMMENT '写作状态',
                 `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '前台显示',
                 `comment` tinyint(2) NOT NULL DEFAULT '0' COMMENT '允许评论',
                 `groupids` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '访问权限',
@@ -391,6 +392,12 @@ EOF;
                 'iscore' => 1,
             ],
             [
+                'name'    => 'writing',
+                'title'   => '写作状态',
+                'type'    => 'dzd',
+                'setting' => "a:4:{s:6:\"define\";s:19:\"tinyint(2) NOT NULL\";s:7:\"options\";s:18:\"0:连载\r\n1:完本\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:1:\"0\";}",
+            ],
+            [
                 'name'    => 'paytype',
                 'title'   => '支付类型',
                 'type'    => 'dzd',
@@ -452,7 +459,7 @@ EOF;
             [
                 'name'    => 'comment',
                 'title'   => '允许评论',
-                'type'    => 'radio',
+                'type'    => 'dzd',
                 'listorder' => 20,
                 'setting' => "a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:18:\"0:禁止\r\n1:允许\";s:5:\"value\";s:1:\"1\";}",
             ],
@@ -750,7 +757,7 @@ EOF;
                     'type' => 'number',
                     'ifsystem' => 2,
                     'listorder' => 315,
-                    'setting'   => "a:3:{s:6:\"define\";s:42:\"mediumint(8) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:1:\"0\";}",
+                    'setting'   => "a:3:{s:6:\"define\";s:15:\"mediumint(8) UNSIGNED NOT NULL DEFAULT '0'\";s:5:\"value\";s:1:\"0\";s:7:\"options\";s:0:\"\";}",
                 ],
                 [
                     'name'      => 'views',
@@ -781,7 +788,7 @@ EOF;
                     'type'    => 'radio',
                     'listorder'   => 318,
                     'ifsystem' => 2,
-                    'setting' => "a:3:{s:6:\"define\";s:40:\"tinyint(2) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:18:\"0:禁用\r\n1:启用\";s:5:\"value\";s:1:\"1\";}",
+                    'setting' => "a:4:{s:6:\"define\";s:19:\"tinyint(2) NOT NULL\";s:7:\"options\";s:18:\"0:未发\r\n1:发布\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:1:\"0\";}",
                 ]);
 
         }
