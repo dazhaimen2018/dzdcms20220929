@@ -196,6 +196,7 @@ class Models extends Modelbase
                 `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '前台显示',
                 `comment` tinyint(2) NOT NULL DEFAULT '0' COMMENT '允许评论',
                 `groupids` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '访问权限',
+                `specialids` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '所属专题',
 				PRIMARY KEY (`id`),
                 KEY `status` (`catid`,`status`)
                 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='{$data['name']}模型表';
@@ -469,6 +470,13 @@ EOF;
                 'type'    => 'selectpage',
                 'listorder' => 21,
                 'setting' => "a:4:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:7:\"options\";s:111:\"url:/admin/ajax/memberGroup\r\nfield:name\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:0:\"\";}",
+            ],
+            [
+                'name'    => 'specialids',
+                'title'   => '所属专题',
+                'type'    => 'selectpage',
+                'listorder' => 22,
+                'setting' => "a:4:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:7:\"options\";s:107:\"url:/admin/ajax/special\r\nfield:title\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:0:\"\";}",
             ],
 
         ];

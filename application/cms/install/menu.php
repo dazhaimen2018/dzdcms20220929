@@ -547,6 +547,58 @@ return [
                             ],
                     ],
                     [
+                        "route" => "cms/special/index",
+                        "type" => 1,
+                        "status" => 1,
+                        "name" => "专题管理",
+                        "icon" => "icon-select",
+                        "child" =>
+                            [
+                                [
+                                    "route" => "cms/special/index",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "专题管理",
+                                ],
+                                [
+                                    "route" => "cms/special/add",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "添加专题",
+                                ],
+                                [
+                                    "route" => "cms/special/edit",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "专题编辑",
+                                ],
+                                [
+                                    "route" => "cms/special/del",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "专题删除",
+                                ],
+                                [
+                                    "route" => "cms/special/listorder",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "专题排序",
+                                ],
+                                [
+                                    "route" => "cms/special/setstate",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "专题状态",
+                                ],
+                                [
+                                    "route" => "cms/special/special_cache",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "专题缓存",
+                                ],
+                            ],
+                    ],
+                    [
                         "route" => "cms/template/index",
                         "type" => 1,
                         "status" => 1,

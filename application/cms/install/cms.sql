@@ -187,6 +187,31 @@ PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='推送目录表';
 
 
+CREATE TABLE IF NOT EXISTS `__PREFIX__special` (
+`id` int(10) UNSIGNED NOT NULL,
+`sites` int(10) UNSIGNED DEFAULT '0' COMMENT '所属站点',
+`title` varchar(100) DEFAULT '' COMMENT '标题',
+`tag_ids` varchar(1500) DEFAULT '' COMMENT '标签ID集合',
+`flag` varchar(100) DEFAULT '' COMMENT '标志',
+`label` varchar(50) DEFAULT '' COMMENT '标签',
+`image` varchar(255) DEFAULT '' COMMENT '图片',
+`banner` varchar(255) DEFAULT '' COMMENT 'Banner图片',
+`diyname` varchar(100) DEFAULT '' COMMENT '自定义名称',
+`seotitle` varchar(255) DEFAULT '' COMMENT 'SEO标题',
+`keywords` varchar(100) DEFAULT NULL COMMENT '关键字',
+`description` varchar(255) DEFAULT NULL COMMENT '描述',
+`content` text COMMENT '专题介绍',
+`views` int(10) UNSIGNED DEFAULT '0' COMMENT '浏览次数',
+`comments` int(10) UNSIGNED DEFAULT '0' COMMENT '评论次数',
+`iscomment` tinyint(1) UNSIGNED DEFAULT '1' COMMENT '是否允许评论',
+`create_time` int(10) DEFAULT NULL COMMENT '添加时间',
+`update_time` int(10) DEFAULT NULL COMMENT '更新时间',
+`template` varchar(100) DEFAULT '' COMMENT '专题模板',
+`status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态',
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='专题表';
+
+
 INSERT INTO `__PREFIX__lang` (`id`, `name`, `type`, `private`, `title`, `group`, `options`, `remark`, `create_time`, `update_time`, `value`, `listorder`, `status`) VALUES
 (1, 'siteName', 'text', 0, '网站名称', '1', '', '', 1615821490, 1633126840, '多站点CMS', 100, 1),
 (2, 'beian', 'text', 0, '备案号', '1', '', '', 1615821524, 1633126855, '京ICP备12010025号-11', 100, 1),
