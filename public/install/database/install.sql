@@ -436,6 +436,7 @@ CREATE TABLE `yzn_site` (
 `child` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否存在子站点，1存在',
 `listorder` smallint(5) UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序',
 `alone` tinyint(4) NOT NULL DEFAULT '1' COMMENT '独立数据',
+`private` tinyint(4) NOT NULL DEFAULT '0' COMMENT '独立管理',
 `close` tinyint(4) NOT NULL DEFAULT '1' COMMENT '站点开关',
 `source` tinyint(4) NOT NULL DEFAULT '0' COMMENT '默认站点',
 `website` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '网站名称',
@@ -456,8 +457,8 @@ CREATE TABLE `yzn_site` (
 --
 
 
-INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `alone`, `close`, `source`, `website`, `company`, `icp`, `icp_link`, `gwa`, `gwa_link`, `chat`, `statistics`, `copyright`, `status`, `inputtime`) VALUES
-(1, '中文站', 'zh-cn', 'http', 'demo.dzdcms.com', 'http://demo.dzdcms.com', '/uploads/images/logo.png', '/favicon.ico', 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0);
+INSERT INTO `__PREFIX__site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `alone`, `private`, `close`, `source`, `website`, `company`, `icp`, `icp_link`, `gwa`, `gwa_link`, `chat`, `statistics`, `copyright`, `status`, `inputtime`) VALUES
+    (1, '中文站', 'zh-cn', 'http', 'demo.dzdcms.com', 'http://demo.mscms.net', '/uploads/images/logo.png', '/favicon.ico', 'novel', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 0, 1, 0, '', '', '', 'https://beian.miit.gov.cn/', '', 'http://www.beian.gov.cn/portal/index.do', '', '', '', 1, 0);
 
 --
 -- 表的结构 `yzn_sms`
