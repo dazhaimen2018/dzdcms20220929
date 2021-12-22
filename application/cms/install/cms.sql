@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__category` (
 `catdir` varchar(100) NOT NULL DEFAULT '' COMMENT '唯一标识',
 `english` varchar(100) NOT NULL DEFAULT '' COMMENT '英文标题',
 `type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '类别',
+`private` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '私有栏目',
 `modelid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '模型ID',
 `parentid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '父ID',
 `arrparentid` varchar(255) NOT NULL DEFAULT '' COMMENT '所有父ID',
