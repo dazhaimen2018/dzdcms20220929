@@ -30,6 +30,7 @@ class Lang extends Adminbase
         // 20200805 马博所有站点
         $sites     = $this->auth->sites;
         $whereSite = '';
+        $private   = 0;
         if ($sites) {
             $whereSite = " id = $sites";
         }else{
@@ -41,12 +42,22 @@ class Lang extends Adminbase
                 $whereSite = " id = $sites";
             }
         }
-        $sites  = Site::where(['alone' => 1])->where($whereSite)->select()->toArray();
+        $private = getSiteInfo('private');
+        if ($private){
+            $private = 1;
+        } else {
+            $private = 0;
+        }
+        $sites = Site::where('private', $private)->where('alone', 1)->where($whereSite)->select()->toArray();
         $this->site = $sites;
-        $this->view->assign('sites', $sites);
+
         // 20200805 马博 end
         $langGroups = Db::name('langGroup')->select();
-        $this->view->assign('langGroups', $langGroups);
+        $this->assign([
+            'sites'      => $sites,
+            'langGroups' => $langGroups,
+            'private'    => $private,
+        ]);
 	}
 
 	//碎片首页
@@ -54,7 +65,13 @@ class Lang extends Adminbase
 	{
         if ($this->request->isAjax()) {
             list($page, $limit, $where) = $this->buildTableParames();
-            $list   = $this->modelClass->where($where)
+            $private = getSiteInfo('private');
+            if ($private){
+                $private = 1;
+            } else {
+                $private = 0;
+            }
+            $list   = $this->modelClass->where('private', $private)->where($where)
                 ->where('group', $group)
                 ->order(["listorder" => "ASC", "id" => "DESC"])
                 ->page($page, $limit)->select();
@@ -64,7 +81,7 @@ class Lang extends Adminbase
                 $v['site']  = array_column($sites,'id');
                 $_list[]    = $v;
             }
-            $total = $this->modelClass->where($where)->where('group', $group)->count();
+            $total = $this->modelClass->where('private', $private)->where($where)->where('group', $group)->count();
             $result = array("code" => 0, "count" => $total, "data" => $_list);
             return json($result);
         }

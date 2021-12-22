@@ -51,7 +51,7 @@ class Category extends Adminbase
         // 20200805 马博所有站点
         $whereIn   = '';
         $whereSite = '';
-        $whereSite = 0;
+        $private   = 0;
         $siteAdmin = $this->auth->sites;
         if ($siteAdmin) {
             $whereSite = " id = $siteAdmin";
