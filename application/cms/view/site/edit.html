@@ -99,7 +99,7 @@
 					</div>
 					<div class="layui-form-mid layui-word-aux">选否时：主要实用于城市分站、自动调用主站数据并在相应位置自动添加区域名称（站点名称）！</div>
 				</div>
-				<div class="layui-form-item" id="batch_add"  {if !$data['private']}style="display:none"{/if}>
+				<div class="layui-form-item" id="batch_add"  {if !$data['alone']}style="display:none"{/if}>
 					<label class="layui-form-label">独立管理</label>
 					<div class="layui-input-block">
 						<input type="radio" name="private" value="1" {if !$data['private']}checked{/if} {eq name="data.private" value="1" }checked{/eq} title="是">
