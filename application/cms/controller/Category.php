@@ -51,6 +51,7 @@ class Category extends Adminbase
         // 20200805 马博所有站点
         $whereIn   = '';
         $whereSite = '';
+        $whereSite = 0;
         $siteAdmin = $this->auth->sites;
         if ($siteAdmin) {
             $whereSite = " id = $siteAdmin";
@@ -63,7 +64,14 @@ class Category extends Adminbase
                 $whereSite = " id = $site";
             }
         }
-        $sites = Site::where(['alone' => 1])->select()->toArray(); //所有真实数据的站
+        $private = getSiteInfo('private');
+        if ($private){
+            $private = 1;
+        } else {
+            $private = 0;
+        }
+        //所有站 或 站点独立管理为否时 $private为假 显示 private为0的所有栏目 否则显示 显示 private为1的栏目 20211222
+        $sites = Site::where('private', $private)->where('alone', 1)->select()->toArray(); //所有独立数据站点，不包含独立管理的站 private为0的
         $catid = $this->request->param('id/d', 0);
         $catSites = getCategory($catid,'sites'); //当前栏目所属站点
         if($catSites){
@@ -75,6 +83,7 @@ class Category extends Adminbase
             'site'  => $site,
             'sites' => $sites,
             'isall' => $siteAdmin,
+            'private' => $private,
         ]);
         // 20200805 马博 end
 
@@ -92,6 +101,7 @@ class Category extends Adminbase
             $tree->nbsp = '&nbsp;&nbsp;&nbsp;';
             $categorys  = [];
             $whereSite  = '';
+            $private    = 0;
             // 获取当前管理所属站点
             $sites = $this->auth->sites;
             if($sites){
@@ -105,7 +115,14 @@ class Category extends Adminbase
             }
             $siteId  = onSite();
             $siteUrl = onSiteUrl();
-            $result  = Db::name('category')->where($where)->where($whereSite)->order('listorder DESC, id DESC')->select();
+            $private = getSiteInfo('private');
+            if ($private){
+                $private = 1;
+            } else {
+                $private = 0;
+            }
+            //所有站 或 站点独立管理为否时 $private为假 显示 private为0的所有栏目 否则显示 显示 private为1的栏目 20211222
+            $result  = Db::name('category')->where('private', $private )->where($where)->where($whereSite)->order('listorder DESC, id DESC')->select();
             foreach ($result as $k => $v) {
                 if (isset($models[$v['modelid']]['name'])) {
                     $v['modelname'] = $models[$v['modelid']]['name'];
@@ -150,12 +167,12 @@ class Category extends Adminbase
             switch ($data['type']) {
                 //单页
                 case 1:
-                    $fields = ['parentid', 'catname', 'catdir', 'english', 'type', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'target', 'detail', 'status'];
+                    $fields = ['parentid', 'catname', 'catdir', 'english', 'type', 'private', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'target', 'detail', 'status'];
                     $scene  = 'page';
                     break;
                 //列表
                 case 2:
-                    $fields = ['parentid', 'catname', 'catdir', 'english', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'target', 'detail', 'status'];
+                    $fields = ['parentid', 'catname', 'catdir', 'english', 'type', 'private', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'target', 'detail', 'status'];
                     $scene  = 'list';
                     break;
                 default:
@@ -357,7 +374,7 @@ class Category extends Adminbase
             if (true !== $result) {
                 $this->error($result);
             }
-            $status = $this->modelClass->editCategory($data, ['parentid', 'catname', 'catdir', 'english', 'type', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'target', 'detail', 'status']);
+            $status = $this->modelClass->editCategory($data, ['parentid', 'catname', 'catdir', 'english', 'type', 'private', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'target', 'detail', 'status']);
             if ($status) {
                 //更新会员组权限
                 isset($data['priv_groupid']) && model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
