@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__member` (
   `avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '头像',
   `groupid` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '用户组ID',
   `modelid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '用户模型ID',
+  `site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
   `vip` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT 'VIP会员',
   `overduedate` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '过期时间',
   `reg_ip` varchar(15) NOT NULL DEFAULT '' COMMENT '注册IP',
