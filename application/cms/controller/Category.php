@@ -51,7 +51,7 @@ class Category extends Adminbase
         // 20200805 马博所有站点
         $whereIn   = '';
         $whereSite = '';
-        $private   = 0;
+        $private   = onPrivate();
         $siteAdmin = $this->auth->sites;
         if ($siteAdmin) {
             $whereSite = " id = $siteAdmin";
@@ -63,12 +63,6 @@ class Category extends Adminbase
                 }
                 $whereSite = " id = $site";
             }
-        }
-        $private = getSiteInfo('private');
-        if ($private){
-            $private = 1;
-        } else {
-            $private = 0;
         }
         //所有站 或 站点独立管理为否时 $private为假 显示 private为0的所有栏目 否则显示 显示 private为1的栏目 20211222
         $sites = Site::where('private', $private)->where('alone', 1)->select()->toArray(); //所有独立数据站点，不包含独立管理的站 private为0的
@@ -101,7 +95,6 @@ class Category extends Adminbase
             $tree->nbsp = '&nbsp;&nbsp;&nbsp;';
             $categorys  = [];
             $whereSite  = '';
-            $private    = 0;
             // 获取当前管理所属站点
             $sites = $this->auth->sites;
             if($sites){
@@ -115,12 +108,7 @@ class Category extends Adminbase
             }
             $siteId  = onSite();
             $siteUrl = onSiteUrl();
-            $private = getSiteInfo('private');
-            if ($private){
-                $private = 1;
-            } else {
-                $private = 0;
-            }
+            $private = onPrivate();
             //所有站 或 站点独立管理为否时 $private为假 显示 private为0的所有栏目 否则显示 显示 private为1的栏目 20211222
             $result  = Db::name('category')->where('private', $private )->where($where)->where($whereSite)->order('listorder DESC, id DESC')->select();
             foreach ($result as $k => $v) {

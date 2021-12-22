@@ -134,6 +134,17 @@ function onSiteUrl(){
     $siteId  = onSite();
     $siteUrl = db('site')->where('id',$siteId)->cache(60)->value('url');
     return $siteUrl;
+
+}
+
+function onPrivate() {
+    $private = getSiteInfo('private');
+    if ($private){
+        $private = 1;
+    } else {
+        $private = 0;
+    }
+    return $private;
 }
 
 //当前站ID

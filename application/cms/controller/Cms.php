@@ -60,8 +60,8 @@ class Cms extends Adminbase
     {
         $isAdministrator = $this->auth->isAdministrator();
         $json            = $priv_catids            = [];
-        $where = '';
-        $whereSite = '';
+        $where           = '';
+        $whereSite       = '';
         if (0 !== (int) $this->cmsConfig['site_category_auth']) {
             //栏目权限 超级管理员例外
             if ($isAdministrator !== true) {
@@ -93,7 +93,8 @@ class Cms extends Adminbase
                 $whereSite = "  (" . implode(' OR ', $site) . ")";
             }
         }
-        $categorys = Db::name('Category')->where($where)->where($whereSite)->order('listorder DESC, id DESC')->select();
+        $private   = onPrivate();
+        $categorys = Db::name('Category')->where('private', $private)->where($where)->where($whereSite)->order('listorder DESC, id DESC')->select();
 
         foreach ($categorys as $rs) {
             //剔除无子栏目外部链接

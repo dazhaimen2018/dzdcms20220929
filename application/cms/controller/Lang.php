@@ -30,7 +30,6 @@ class Lang extends Adminbase
         // 20200805 马博所有站点
         $sites     = $this->auth->sites;
         $whereSite = '';
-        $private   = 0;
         if ($sites) {
             $whereSite = " id = $sites";
         }else{
@@ -42,13 +41,8 @@ class Lang extends Adminbase
                 $whereSite = " id = $sites";
             }
         }
-        $private = getSiteInfo('private');
-        if ($private){
-            $private = 1;
-        } else {
-            $private = 0;
-        }
-        $sites = Site::where('private', $private)->where('alone', 1)->where($whereSite)->select()->toArray();
+        $private = onPrivate();
+        $sites   = Site::where('private', $private)->where('alone', 1)->where($whereSite)->select()->toArray();
         $this->site = $sites;
 
         // 20200805 马博 end
@@ -65,13 +59,8 @@ class Lang extends Adminbase
 	{
         if ($this->request->isAjax()) {
             list($page, $limit, $where) = $this->buildTableParames();
-            $private = getSiteInfo('private');
-            if ($private){
-                $private = 1;
-            } else {
-                $private = 0;
-            }
-            $list   = $this->modelClass->where('private', $private)->where($where)
+            $private = onPrivate();
+            $list    = $this->modelClass->where('private', $private)->where($where)
                 ->where('group', $group)
                 ->order(["listorder" => "ASC", "id" => "DESC"])
                 ->page($page, $limit)->select();
