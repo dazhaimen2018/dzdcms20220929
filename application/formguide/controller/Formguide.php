@@ -35,7 +35,13 @@ class Formguide extends Adminbase
     public function index()
     {
         if ($this->request->isAjax()) {
-            $data = $this->Models->where(['module' => 'formguide'])->select();
+            $private   = onPrivate();
+            if($private){
+                $siteId = onSite();
+            } else {
+                $siteId = 0;
+            }
+            $data = $this->Models->where('sites', $siteId)->where(['module' => 'formguide'])->select();
             return json(["code" => 0, "data" => $data]);
         } else {
             return $this->fetch();
@@ -50,6 +56,12 @@ class Formguide extends Adminbase
             $result = $this->validate($data, 'Models');
             if (true !== $result) {
                 return $this->error($result);
+            }
+            $private = onPrivate();
+            if($private){
+                $siteId            = onSite();
+                $data['tablename'] = $data['tablename']. '_' .$siteId;
+                $data['sites']     = $siteId;
             }
             try {
                 $this->Models->addModelFormguide($data);
