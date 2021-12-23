@@ -4,7 +4,7 @@ ALTER TABLE `dzd_lang` ADD `private` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '�
 ALTER TABLE `dzd_model` ADD `sites` SMALLINT NOT NULL DEFAULT '0' COMMENT '所属站点' AFTER `id`;
 
 CREATE TABLE IF NOT EXISTS `dzd_special` (
-    `id` int(10) UNSIGNED NOT NULL,
+    `id` smallint(5) UNSIGNED NOT NULL COMMENT 'ID',
     `sites` int(10) UNSIGNED DEFAULT '0' COMMENT '所属站点',
     `title` varchar(255) DEFAULT '' COMMENT '标题',
     `tags` varchar(255) DEFAULT '' COMMENT '标签',
