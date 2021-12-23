@@ -34,14 +34,20 @@ class Special extends Adminbase
     public function index()
     {
         if ($this->request->isAjax()) {
+            $siteUrl = onSiteUrl();
             $private   = onPrivate();
             if($private){
                 $siteId = onSite();
             } else {
                 $siteId = 1;
             }
-            $data = $this->modelClass->where('sites', $siteId)->select();
-            return json(["code" => 0, "data" => $data]);
+            $specials = [];
+            $result   = $this->modelClass->where('sites', $siteId)->select();
+            foreach ($result as $k => $v) {
+                $v['url']           = $siteUrl .'/special/'.$v['diyname'] .'.html';
+                $specials[$v['id']] = $v;
+            }
+            return json(["code" => 0, "data" => $specials]);
         }
         return $this->fetch();
     }

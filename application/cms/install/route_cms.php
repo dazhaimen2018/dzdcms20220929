@@ -30,6 +30,7 @@ Route::group('/', function () {
     Route::rule('chapter/:catid/:did/:id', 'cms/index/chapter')->pattern(['catid' => '\d+', 'did' => '\d+', 'id' => '\d+']);
     Route::rule('search', 'cms/index/search');
     Route::rule('tag/[:tagdir]', 'cms/index/tags');
+    Route::rule('special/[:diyname]', 'cms/index/special');
     if (isset(cache("Cms_Config")['site_url_mode']) && 2 == cache("Cms_Config")['site_url_mode']) {
         Route::rule('admin', 'admin/index/index');//如去除c/ d/ 需要解开此注释
         if (isset(cache("Cms_Config")['show_url_mode']) && 1 == cache("Cms_Config")['show_url_mode']) {

@@ -479,11 +479,11 @@ class Index extends Cmsbase
     // tags
     public function tags()
     {
-        $page  = $page  = $this->request->param('page/d', 1);
-        $tag   = $this->request->param('tag/s', '');
-        $tagdir   = $this->request->param('tagdir/s', '');
+        $page   = $this->request->param('page/d', 1);
+        $tag    = $this->request->param('tag/s', '');
+        $tagdir = $this->request->param('tagdir/s', '');
         $siteId = getSiteId();
-        $where = array();
+        $where  = array();
         if (!empty($tagdir)) {
             $where['tagdir'] = $tagdir;
         }
@@ -508,6 +508,38 @@ class Index extends Cmsbase
         $this->assign("page", $page);
         $this->assign($info);
         return $this->fetch('/tags');
+    }
+
+    // special
+    public function special()
+    {
+        $page     = $this->request->param('page/d', 1);
+        $diyname  = $this->request->param('diyname/s', '');
+        $siteId   = getSiteId();
+        $where    = array();
+        if (!empty($diyname)) {
+            $where['diyname'] = $diyname;
+        }
+        //如果条件为空，则显示标签首页
+        if (empty($where)) {
+            $data = Db::name('special')->where('sites',$siteId)->order(['listorder' => 'DESC', 'views' => 'DESC'])->limit(100)->cache(60)->select();
+            $this->assign("SEO", seo('', '标签'));
+            $this->assign('list', $data);
+            return $this->fetch('/special');
+        }
+
+        //根据条件获取tag信息
+        $info = Db::name('special')->where($where)->find();
+        if (empty($info)) {
+            $this->error(patch('NoSearchData')); //抱歉，沒有找到您需要的内容！
+        }
+        //访问数+1
+        Db::name('special')->where($where)->setInc("views");
+        $this->assign($info);
+        $this->assign("SEO", seo('', $info['seotitle'], $info['description'], $info['keyword']));
+        $this->assign("page", $page);
+        $this->assign($info);
+        return $this->fetch('/special');
     }
 
     // 阅读付费
