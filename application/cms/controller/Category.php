@@ -232,7 +232,13 @@ class Category extends Adminbase
             $models     = [];
             $whereSite = '';
             foreach ($modelsdata as $v) {
-                if ($v['status'] == 1 && $v['module'] == 'cms') {
+                $private   = onPrivate();
+                if($private){
+                    $siteId = onSite();
+                } else {
+                    $siteId = 0;
+                }
+                if ($v['status'] == 1 && $v['module'] == 'cms' && $v['sites'] == $siteId) {
                     $models[] = $v;
                 }
             }
