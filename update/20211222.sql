@@ -6,10 +6,9 @@ ALTER TABLE `dzd_model` ADD `sites` SMALLINT NOT NULL DEFAULT '0' COMMENT '所�
 CREATE TABLE IF NOT EXISTS `dzd_special` (
     `id` int(10) UNSIGNED NOT NULL,
     `sites` int(10) UNSIGNED DEFAULT '0' COMMENT '所属站点',
-    `title` varchar(100) DEFAULT '' COMMENT '标题',
-    `tag_ids` varchar(1500) DEFAULT '' COMMENT '标签ID集合',
+    `title` varchar(255) DEFAULT '' COMMENT '标题',
+    `tags` varchar(255) DEFAULT '' COMMENT '标签',
     `flag` varchar(100) DEFAULT '' COMMENT '标志',
-    `label` varchar(50) DEFAULT '' COMMENT '标签',
     `image` varchar(255) DEFAULT '' COMMENT '图片',
     `banner` varchar(255) DEFAULT '' COMMENT 'Banner图片',
     `diyname` varchar(100) DEFAULT '' COMMENT '自定义名称',
