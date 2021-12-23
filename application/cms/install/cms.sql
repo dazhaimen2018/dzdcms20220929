@@ -207,6 +207,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__special` (
 `create_time` int(10) DEFAULT NULL COMMENT '添加时间',
 `update_time` int(10) DEFAULT NULL COMMENT '更新时间',
 `template` varchar(100) DEFAULT '' COMMENT '专题模板',
+`listorder` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
 `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态',
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='专题表';
