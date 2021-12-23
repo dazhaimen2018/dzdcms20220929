@@ -523,9 +523,9 @@ class Index extends Cmsbase
         //如果条件为空，则显示标签首页
         if (empty($where)) {
             $data = Db::name('special')->where('sites',$siteId)->order(['listorder' => 'DESC', 'views' => 'DESC'])->limit(100)->cache(60)->select();
-            $this->assign("SEO", seo('', '标签'));
+            $this->assign("SEO", seo('', '专题'));
             $this->assign('list', $data);
-            return $this->fetch('/special');
+            return $this->fetch('/special_list');
         }
 
         //根据条件获取tag信息
