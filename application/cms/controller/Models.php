@@ -46,7 +46,13 @@ class Models extends Adminbase
     public function index()
     {
         if ($this->request->isAjax()) {
-            $data = $this->modelClass->where('module', 'cms')->select();
+            $private   = onPrivate();
+            if($private){
+                $siteId = onSite();
+            } else {
+                $siteId = 0;
+            }
+            $data = $this->modelClass->where('sites', $siteId)->where('module', 'cms')->select();
             return json(["code" => 0, "data" => $data]);
         }
         return $this->fetch();
@@ -56,10 +62,16 @@ class Models extends Adminbase
     public function add()
     {
         if ($this->request->isPost()) {
-            $data   = $this->request->post();
-            $result = $this->validate($data, 'Models');
+            $data    = $this->request->post();
+            $private = onPrivate();
+            $result  = $this->validate($data, 'Models');
             if (true !== $result) {
                 return $this->error($result);
+            }
+            if($private){
+                $siteId            = onSite();
+                $data['tablename'] = $data['tablename']. '_' .$siteId;
+                $data['sites']     = $siteId;
             }
             try {
                 $this->modelClass->addModel($data);
