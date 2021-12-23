@@ -350,6 +350,7 @@ INSERT INTO `yzn_menu` (`id`, `title`, `icon`, `parentid`, `app`, `controller`, 
 
 CREATE TABLE `yzn_model` (
   `id` smallint UNSIGNED NOT NULL,
+  `sites` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '所属站点',
   `module` varchar(15) NOT NULL DEFAULT '' COMMENT '所属模块',
   `name` varchar(30) NOT NULL DEFAULT '' COMMENT '模型名称',
   `tablename` varchar(20) NOT NULL DEFAULT '' COMMENT '表名',
