@@ -18,11 +18,11 @@ return array(
     //模块简介[选填]
     'introduce'   => '这是一个功能强大的内容管理模块！',
     //模块作者[选填]
-    'author'      => 'yzncms',
+    'author'      => 'dzdcms',
     //作者地址[选填]
-    'authorsite'  => 'http://www.yzncms.com',
+    'authorsite'  => 'http://www.dzdcms.com',
     //作者邮箱[选填]
-    'authoremail' => '530765310@qq.com',
+    'authoremail' => '8355763@qq.com',
     //版本号，请不要带除数字外的其他字符[必填]
     'version'     => '1.0.0',
     //适配最低yzncms版本[必填]
@@ -51,6 +51,7 @@ return array(
     // 数据表，不要加表前缀[有数据库表时必填]
     'tables'      => [
         'category',
+        'category_data',
         'category_priv',
         'page',
         'tags',

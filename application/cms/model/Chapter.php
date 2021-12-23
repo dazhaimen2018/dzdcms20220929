@@ -56,7 +56,7 @@ class Chapter extends Modelbase
             throw new \Exception('数据表不存在！');
         }
         //$this->getAfterText($data, $extraData);
-
+        $extraData[1]['words'] = mb_strlen($extraData[1]['content']);
         if (!defined('IN_ADMIN') || (defined('IN_ADMIN') && IN_ADMIN == false)) {
             empty($data['uid']) ? \app\member\service\User::instance()->id : $data['uid'];
             empty($data['username']) ? \app\member\service\User::instance()->username : $data['username'];
@@ -84,7 +84,8 @@ class Chapter extends Modelbase
             $firstSite = substr($catSites,0,strpos($catSites, ','));
         }
         try {
-            //主表 主要更新主表 更新时间和 章节数量即可
+            //主表 主要更新主表 更新时间和 章节数量即可 和 字数
+           // $novel_data=['words'=>Db::raw('words+'.($extraData[1]['words']))];
             Db::name($tablename)->where('id', $did)->update(['updatetime' => time(),'chapters' =>Db::raw('chapters+1')]);
             // 以下下马博增加
             if ($extraData) {

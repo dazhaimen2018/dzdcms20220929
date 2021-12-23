@@ -9,18 +9,6 @@
         </div>
     </div>
 </div>
-<script type="text/html" id="logo">
-    {{# if(d.logo ==0){ }}无
-    {{#  } else { }}
-    <div>有图</div>
-    {{#  } }}
-</script>
-<script type="text/html" id="icon">
-    {{# if(d.mark ==0){ }}无
-    {{#  } else { }}
-    <div><img class="site-icon" src="/static/lang/image/{{d.mark}}.png" alt=""></div>
-    {{#  } }}
-</script>
 
 <script type="text/html" id="url">
     <div><a href="{{ d.url }}" target="_blank"><i class="iconfont icon-lianjie"></i> {{ d.url }}</a></div>
@@ -72,6 +60,7 @@
 
     var init = {
         table_elem: '#currentTable',
+        add_url: "{:url('add')}",
         delete_url: "{:url('del')}",
         modify_url: '{:url("multi")}',
     };
@@ -80,19 +69,10 @@
         init: init,
         id: 'currentTable',
         elem: '#currentTable',
-        toolbar: ['refresh',
-            [{
-                    text: '新增站点',
-                    url: "{:url('add')}",
-                    method: 'open',
-                    class: 'layui-btn layui-btn-sm layui-btn-normal',
-                    icon: 'iconfont icon-add',
-                    extend: 'data-width="900" data-height="600"',
-                }
-            ], [
+        toolbar: ['refresh', 'add', [
                 {
                 text: "更新站点缓存",
-                url: "{:url('site_cache')}",
+                url: "{:url('cache')}",
                 method: 'request',
                 class: 'layui-btn layui-btn-sm',
                 icon:'iconfont icon-shuaxin1',

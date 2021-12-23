@@ -475,7 +475,7 @@ return [
                                     "name" => "站点状态",
                                 ],
                                 [
-                                    "route" => "cms/site/site_cache",
+                                    "route" => "cms/site/cache",
                                     "type" => 1,
                                     "status" => 0,
                                     "name" => "站点缓存",
@@ -533,7 +533,7 @@ return [
                                     "name" => "碎片状态",
                                 ],
                                 [
-                                    "route" => "cms/lang/lang_cache",
+                                    "route" => "cms/lang/cache",
                                     "type" => 1,
                                     "status" => 0,
                                     "name" => "碎片缓存",
@@ -591,7 +591,7 @@ return [
                                     "name" => "专题状态",
                                 ],
                                 [
-                                    "route" => "cms/special/special_cache",
+                                    "route" => "cms/special/cache",
                                     "type" => 1,
                                     "status" => 0,
                                     "name" => "专题缓存",

@@ -193,7 +193,7 @@ class Site extends Adminbase
     }
 
     //更新站点缓存
-    public function site_cache() {
+    public function cache() {
         $sites = SiteModel::where('status',1)->column('*','id');
         Cache::set('Site',$sites);
         $this->success("站点缓存更新成功！");

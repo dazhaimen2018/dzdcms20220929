@@ -1,0 +1,122 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+
+<form class="layui-form" method="post" lay-filter="layui-form" lay-filter="example">
+	<div class="layui-tab">
+		<ul class="layui-tab-title">
+			<li class="layui-this"><i class="layui-icon layui-icon-set"></i> 基本设置</li>
+			<li id="modeTab"><i class="layui-icon layui-icon-template"></i> SEO设置</li>
+		</ul>
+		<div class="layui-tab-content">
+			<div class="layui-tab-item layui-show">
+				<div class="layui-form-item">
+					<label class="layui-form-label">专题标题</label>
+					<div class="layui-input-block">
+						<input type="text" name="title" lay-verify="required" lay-reqtext="专题标题不能为空" autocomplete="off" placeholder="" class="layui-input" value="">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">专题标识</label>
+					<div class="layui-input-block">
+						<input type="text" name="diyname" lay-verify="required" lay-reqtext="专题标识" autocomplete="off" placeholder="" class="layui-input" value="">
+					</div>
+				</div>
+				<div class="layui-form-item web_seo">
+					<label class="layui-form-label">专题介绍</label>
+					<div class="layui-input-block">
+						<textarea name="content" placeholder="专题介绍" class="layui-textarea">{$data.content|default=''}</textarea>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">专题图片</label>
+					<div class="layui-input-block layui-upload">
+						{php}echo \util\Form::images('image'){/php}
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">Banner</label>
+					<div class="layui-input-block layui-upload">
+						{php}echo \util\Form::images('banner'){/php}
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">专题模板</label>
+					<div class="layui-input-block">
+						<select name="template">
+							<option value="show.html" selected>专题模板:special.html</option>
+							{volist name="templates" id="vo"}
+							<option value="{$vo}">{$vo}</option>
+							{/volist}
+						</select>
+					</div>
+					<div class="layui-form-mid layui-word-aux">新增模板以special_xx.html形式</div>
+				</div>
+
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">专题浏览</label>
+					<div class="layui-input-block">
+						<input type="number" name="views" autocomplete="off" placeholder="浏览" class="layui-input" value="{$data.views|default='0'}">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">专题排序</label>
+					<div class="layui-input-block">
+						<input type="number" name="listorder" autocomplete="off" placeholder="排序" class="layui-input" value="{$data.listorder|default='0'}">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">是否显示</label>
+					<div class="layui-input-block">
+						<input type="radio" name="status" value="1" title="是" checked>
+						<input type="radio" name="status" value="0" title="否">
+					</div>
+				</div>
+
+			</div>
+
+			<div class="layui-tab-item">
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">SEO标题</label>
+					<div class="layui-input-block">
+						<input type="text" name="seotitle" autocomplete="off" placeholder="" class="layui-input" value="{$data.seotitle|default=''}">
+					</div>
+					<div class="layui-form-mid layui-word-aux">网页的title值</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">SEO关键词</label>
+					<div class="layui-input-block">
+						<input type="text" name="keywords" autocomplete="off" placeholder="" class="layui-input" value="{$data.keywords|default=''}">
+					</div>
+					<div class="layui-form-mid layui-word-aux">网页的keywords值</div>
+				</div>
+				<div class="layui-form-item web_seo">
+					<label class="layui-form-label">SEO描述</label>
+					<div class="layui-input-block">
+						<textarea name="description" placeholder="网站简介" class="layui-textarea">{$data.description|default=''}</textarea>
+					</div>
+					<div class="layui-form-mid layui-word-aux">网页的description值</div>
+				</div>
+			</div>
+		<div class="layui-form-item layer-footer">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit>立即提交</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			</div>
+		</div>
+	</div>
+</form>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+	layui.use(['form','yznForm'], function() {
+		var yznForm = layui.yznForm;
+		var form = layui.form;
+		yznForm.listen();
+	});
+</script>
+{/block}
