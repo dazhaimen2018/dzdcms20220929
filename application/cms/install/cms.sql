@@ -188,7 +188,7 @@ PRIMARY KEY (`id`)
 
 
 CREATE TABLE IF NOT EXISTS `__PREFIX__special` (
-`id` smallint(5) UNSIGNED NOT NULL COMMENT 'ID',
+`id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
 `sites` int(10) UNSIGNED DEFAULT '0' COMMENT '所属站点',
 `title` varchar(255) DEFAULT '' COMMENT '标题',
 `tags` varchar(255) DEFAULT '' COMMENT '标签',
