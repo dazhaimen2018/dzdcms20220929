@@ -23,20 +23,13 @@ layui.use('yznTable', function() {
         init: init,
         id: 'currentTable',
         elem: '#currentTable',
-        toolbar: ['refresh',
-            [{
-                text: '添加',
-                url: init.add_url,
-                method: 'open',
-                class: 'layui-btn layui-btn-normal layui-btn-sm',
-                icon: 'iconfont icon-add',
-                extend: 'data-width="900" data-height="600"',
-            }], 'delete'],
+        toolbar: ['refresh','add', 'delete'],
         url: '{:url("index")}',
         cols: [
             [
                 { type: 'checkbox', fixed: 'left' },
                 { field: 'id', width: 100, title: '用户ID' },
+                { field: 'site_id', width: 60, title: '站点' },
                 { field: 'username', width: 150, title: '用户名',templet: '<div>{{#  if(d.vip==1){ }} <span class="text-danger">[VIP]</span> {{#  } }}{{ d.username }}</div>', searchOp: 'like'},
                 { field: 'nickname', width: 150, title: '昵称', searchOp: 'like' },
                 { field: 'email',  title: '邮箱', searchOp: 'like' },

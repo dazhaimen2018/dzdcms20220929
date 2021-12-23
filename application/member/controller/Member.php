@@ -37,8 +37,12 @@ class Member extends Adminbase
     {
         if ($this->request->isAjax()) {
             list($page, $limit, $where) = $this->buildTableParames();
-            $_list                      = $this->modelClass->where($where)->where('status', 1)->page($page, $limit)->select();
-            $total                      = $this->modelClass->where($where)->where('status', 1)->count();
+            $siteId = onSite();
+            if(!$siteId){
+                $siteId = 1;
+            }
+            $_list                      = $this->modelClass->where('site_id', $siteId)->where($where)->where('status', 1)->page($page, $limit)->select();
+            $total                      = $this->modelClass->where('site_id', $siteId)->where($where)->where('status', 1)->count();
             $result                     = array("code" => 0, "count" => $total, "data" => $_list);
             return json($result);
         }
@@ -52,8 +56,12 @@ class Member extends Adminbase
     {
         if ($this->request->isAjax()) {
             list($page, $limit, $where) = $this->buildTableParames();
-            $_list                      = $this->modelClass->where($where)->where('status', '<>', 1)->page($page, $limit)->select();
-            $total                      = $this->modelClass->where($where)->where('status', '<>', 1)->count();
+            $siteId = onSite();
+            if(!$siteId){
+                $siteId = 1;
+            }
+            $_list                      = $this->modelClass->where('site_id', $siteId)->where($where)->where('status', '<>', 1)->page($page, $limit)->select();
+            $total                      = $this->modelClass->where('site_id', $siteId)->where($where)->where('status', '<>', 1)->count();
             $result                     = array("code" => 0, "count" => $total, "data" => $_list);
             return json($result);
 
@@ -72,6 +80,11 @@ class Member extends Adminbase
             if (true !== $result) {
                 return $this->error($result);
             }
+            $siteId = onSite();
+            if(!$siteId){
+                $siteId = 1;
+            }
+            $data['site_id']     = $siteId;
             $data['overduedate'] = strtotime($data['overduedate']);
             if ($this->UserService->userRegister($data['username'], $data['password'], $data['email'], $data['mobile'], $data)) {
                 $this->success("添加会员成功！", url("member/index"));
