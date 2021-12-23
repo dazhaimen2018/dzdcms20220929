@@ -61,12 +61,22 @@
                     <dl class="layui-nav-child site-icon">
                         <!-- 相同域名使用于多语言站，点击切换 所有子站域名相同时 换成 href="javascript：void(0)" -->
                         {volist name="allSite" id="vo"}
-                        {if $i==1 && $site_id==1}
-                        <dd> <a name="gb2big5" id="gb2big5"><img src= "/static/lang/image/{$vo.mark}.png"> 繁体中文</a></dd>
-                        {elseif $vo['domain']==$domain}
-                        <dd><a {if $site_id==$vo.id}class="active"{/if} href="javascript:void(0)" onclick="setLang('{$vo.mark}','{$vo.id}')" title="切换到{$vo.name|raw}"><img src= "/static/lang/image/{$vo.mark}.png"> {$vo.name|raw}</a></dd>
+                        {if $vo['domain']==$domain}
+                        <dd>
+                            {if  $vo['id']==$site_id && $vo['mark']=='zh-cn'}
+                            <a id="gb2big5"><img src= "/static/lang/image/{$vo.mark}.png"> 繁体中文</a>
+                            {else}
+                            <a {if $site_id==$vo.id}class="active"{/if} href="javascript:void(0)" onclick="setLang('{$vo.mark}','{$vo.id}')" title="切换到{$vo.name|raw}"><img src= "/static/lang/image/{$vo.mark}.png"> {$vo.name|raw}</a>
+                            {/if}
+                        </dd>
                         {else}
-                        <dd> <a {if $site_id==$vo.id}class="active"{/if} href="{$vo.url}" onclick="setLang('{$vo.mark}','{$vo.id}')" title="跳转到{$vo.name|raw}"><img src= "/static/lang/image/{$vo.mark}.png"> {$vo.name|raw}</a></dd>
+                        <dd>
+                            {if  $vo['id']==$site_id && $vo['mark']=='zh-cn'}
+                            <a id="gb2big5"><img src= "/static/lang/image/{$vo.mark}.png"> 繁体中文</a>
+                            {else}
+                            <a {if $site_id==$vo.id}class="active"{/if} href="{$vo.url}" onclick="setLang('{$vo.mark}','{$vo.id}')" title="跳转到{$vo.name|raw}"><img src= "/static/lang/image/{$vo.mark}.png"> {$vo.name|raw}</a>
+                            {/if}
+                           </dd>
                         {/if}
                         {/volist}
                     </dl>
