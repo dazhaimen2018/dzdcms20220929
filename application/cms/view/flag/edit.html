@@ -1,0 +1,67 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+<form class="layui-form" method="post" lay-filter="example">
+	<div class="layui-tab">
+		<ul class="layui-tab-title">
+			<li class="layui-this"><i class="layui-icon layui-icon-set"></i> 属性设置</li>
+		</ul>
+		<div class="layui-tab-content">
+			<div class="layui-tab-item layui-show">
+				<div class="layui-form-item">
+					<label class="layui-form-label">属性名称</label>
+					<div class="layui-input-block">
+						<input type="text" name="name" lay-verify="required" lay-reqtext="属性名称" autocomplete="off" placeholder="" class="layui-input" value="{$data.name|default=''}">
+					</div>
+				</div>
+
+				<div class="layui-form-item web_seo">
+					<label class="layui-form-label">属性介绍</label>
+					<div class="layui-input-block">
+						<textarea name="description" placeholder="属性介绍" class="layui-textarea">{$data.description|default=''}</textarea>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">位置图片</label>
+					<div class="layui-input-block layui-upload">
+						{php}echo \util\Form::images('image','',$data['image']){/php}
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">属性排序</label>
+					<div class="layui-input-block">
+						<input type="number" name="listorder" autocomplete="off" placeholder="排序" class="layui-input" value="{$data.listorder|default='0'}">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">是否显示</label>
+					<div class="layui-input-block">
+						<input type="radio" name="status" value="1" {if !$data['status']}checked{/if} {eq name="data.status" value="1" }checked{/eq} title="开">
+						<input type="radio" name="status" value="0" {eq name="data.status" value="0" }checked{/eq} title="关">
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<input name="id" type="hidden" value="{$data.id}">
+		<div class="layui-form-item layer-footer">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit>立即提交</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			</div>
+		</div>
+	</div>
+</form>
+
+{/block}
+{block name="script"}
+<script type="text/javascript">
+	layui.use(['form','yznForm'], function() {
+		var yznForm = layui.yznForm;
+		var form = layui.form;
+		yznForm.listen();
+
+	});
+</script>
+{/block}

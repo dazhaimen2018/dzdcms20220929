@@ -1,0 +1,59 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">属性管理</div>
+    <div class="layui-card-body">
+        <div class="layui-form">
+            <blockquote class="layui-elem-quote">添加、修改和删除属性全部完成后，请点击【更新属性缓存】！</blockquote>
+            <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script>
+    layui.use('yznTable', function() {
+        var table = layui.yznTable;
+
+    var init = {
+        table_elem: '#currentTable',
+        add_url: "{:url('add')}",
+        edit_url: "{:url('edit')}",
+        delete_url: "{:url('del')}",
+        modify_url: '{:url("multi")}',
+    };
+
+    table.render({
+        init: init,
+        id: 'currentTable',
+        elem: '#currentTable',
+        toolbar: ['refresh','add', [
+                {
+                text: "更新属性缓存",
+                url: "{:url('cache')}",
+                method: 'request',
+                class: 'layui-btn layui-btn-sm',
+                icon:'iconfont icon-shuaxin1',
+                extend: 'data-table="currentTable"',
+            }]
+        ],
+        url: '{:url("index")}',
+        search:true,
+        cols: [
+            [
+                { field: 'id', title: 'ID', width: 80, fixed: true, sort: true,align:"center"},
+                { field: 'listorder', width: 70, title: '排序', edit: 'text',search:false },
+                { field: 'name', title: '属性名称', searchOp: 'like'},
+                { field: 'modelid', title: '所属模型', width: 150,},
+                { field: 'catid', title: '所属栏目', width: 150,},
+                { field: 'image', width: 120, title: '属性图片', search: false, templet: yznTable.formatter.image, align: "center" },
+                { field: 'update_time', width: 145, title: '更新时间', search: 'range', align: "center" },
+                { field: 'status', width: 100, align: "center", title: '状态', unresize: true,templet: yznTable.formatter.switch },
+                { width:150, title: '操作',templet: yznTable.formatter.tool,operat: ['edit','delete'], align: "center"}
+            ]
+        ],
+        page: {}
+    });
+});
+</script>
+{/block}

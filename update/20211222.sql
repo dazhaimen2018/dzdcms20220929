@@ -26,3 +26,19 @@ CREATE TABLE IF NOT EXISTS `dzd_special` (
     `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态',
     PRIMARY KEY (`id`)
     ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='专题表';
+
+CREATE TABLE IF NOT EXISTS `dzd_flag` (
+    `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+    `sites` int(10) UNSIGNED DEFAULT '0' COMMENT '所属站点',
+    `modelid` smallint(5) UNSIGNED DEFAULT '0',
+    `catid` smallint(5) UNSIGNED DEFAULT '0',
+    `name` char(30) NOT NULL DEFAULT '',
+    `extention` char(100) DEFAULT NULL,
+    `image` varchar(150) NOT NULL DEFAULT '',
+    `description` varchar(255) DEFAULT NULL COMMENT '描述',
+    `create_time` int(10) DEFAULT NULL COMMENT '添加时间',
+    `update_time` int(10) DEFAULT NULL COMMENT '更新时间',
+    `listorder` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+    `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态',
+    PRIMARY KEY (`id`)
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='推荐位表';
