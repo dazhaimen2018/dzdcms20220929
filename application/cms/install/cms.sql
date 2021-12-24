@@ -369,6 +369,14 @@ INSERT INTO `__PREFIX__push` (`id`, `module`, `modelid`, `name`, `tablename`, `d
 (2, 'cms', 0, '栏目数据', 'category_data', '', NULL, 0, 0, 0, 1),
 (3, 'cms', 0, '碎片数据', 'lang_data', '', NULL, 0, 0, 0, 1);
 
+INSERT INTO `__PREFIX__flag` (`id`, `sites`, `modelid`, `catid`, `name`, `extention`, `image`, `description`, `create_time`, `update_time`, `listorder`, `status`) VALUES
+(1, 0, 0, 0, '置顶', NULL, '', '置顶', 1640322597, 1640322597, 1, 1),
+(2, 0, 0, 0, '头条', NULL, '', '头条', 1640322655, 1640322655, 2, 1),
+(3, 0, 0, 0, '特荐', NULL, '', '特荐', 1640322688, 1640322688, 3, 1),
+(4, 0, 0, 0, '推荐', NULL, '', '推荐', 1640322702, 1640322702, 4, 1),
+(5, 0, 0, 0, '热点', NULL, '', '热点', 1640322720, 1640322720, 5, 1),
+(6, 0, 0, 0, '幻灯', NULL, '', '幻灯', 1640322737, 1640322737, 6, 1);
+
 ALTER TABLE `__PREFIX__site`
 MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '站点ID', AUTO_INCREMENT=2;
 
@@ -380,6 +388,10 @@ MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户组id,自�
 
 ALTER TABLE `__PREFIX__push`
 MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+ALTER TABLE `__PREFIX__flag`
+MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+COMMIT;
 
 
 

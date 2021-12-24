@@ -37,7 +37,7 @@ class Flag extends Adminbase
             if($private){
                 $siteId = onSite();
             } else {
-                $siteId = 1;
+                $siteId = 0;
             }
             $_list                      = $this->modelClass->where('sites', $siteId)->where($where)->order(['listorder' => 'desc', 'id' => 'desc'])->page($page, $limit)->select();
             $total  = $this->modelClass->where('sites', $siteId)->where($where)->count();
@@ -60,7 +60,7 @@ class Flag extends Adminbase
             }
             $siteId = onSite();
             if(!$siteId){
-                $siteId = 1;
+                $siteId = 0;
             }
             $data['sites'] = $siteId;
             $data['create_time'] = time();
