@@ -76,6 +76,12 @@ return [
                                 "name"   => "批量移动",
                             ],
                             [
+                                "route" => "cms/cms/revoke",
+                                "type" => 1,
+                                "status" => 0,
+                                "name" => "内容移除",
+                            ],
+                            [
                                 "route"  => "cms/cms/setstate",
                                 "type"   => 1,
                                 "status" => 0,
