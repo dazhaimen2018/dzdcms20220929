@@ -2,7 +2,7 @@
 <div class="insideBanner">
     <img src="{$image}" alt="{$title}">
     <div class="thumb">
-        <h2 class="title"><span>{$title}</span></h2>
+        <h2 class="title"><span>{$name}</span></h2>
         <div class="desc">{$description}</div>
     </div>
     {/if}
@@ -16,7 +16,7 @@
                 <div class="layui-location">
                     <div class="layui-card-header layui-col-sm4 layui-col-md4 layui-left">
                         <span class="layui-breadcrumb layui-hide-xs">
-                            <a href="{$siteurl}">首页</a> <a href="{:url('cms/index/special')}">专题列表</a> <a>{$title}</a>
+                            <a href="{$siteurl}">首页</a> <a href="{:url('cms/index/special')}">专题列表</a> <a>{$name}</a>
                         </span>
                     </div>
                 </div>
