@@ -535,7 +535,7 @@ class Index extends Cmsbase
         }
         //访问数+1
         Db::name('special')->where($where)->setInc("views");
-        $seoTitle= $info['seo_title']?$info['seo_title']:$info['title'];
+        $seoTitle= $info['title']?$info['title']:$info['name'];
         $this->assign($info);
         $this->assign("SEO", seo('', $seoTitle, $info['description'], $info['keyword']));
         $this->assign("page", $page);

@@ -43,13 +43,13 @@
             [
                 { field: 'id', title: 'ID', width: 80, fixed: true, sort: true,align:"center"},
                 { field: 'listorder', width: 70, title: '排序', edit: 'text',search:false },
-                { field: 'title', title: '专题名称', searchOp: 'like'},
+                { field: 'name', title: '专题名称', searchOp: 'like'},
                 { field: 'diyname', title: '标识', width: 150,},
                 { field: 'url', width: 60, align: "center", title: 'URL', templet: yznTable.formatter.url, search: false },
                 { field: 'image', width: 120, title: '专题图片', search: false, templet: yznTable.formatter.image, align: "center" },
                 { field: 'banner', width: 120, title: 'Banner图片', search: false, templet: yznTable.formatter.image, align: "center" },
                 { field: 'views', width: 80, title: '点击量', align: "center",search: 'between',searchTip:'点击量', align: "center" },
-                { field: 'update_time', width: 145, title: '更新时间', search: 'range',hide: true, align: "center" },
+                { field: 'update_time', width: 145, title: '更新时间', search: 'range', align: "center" },
                 { field: 'status', width: 100, align: "center", title: '状态', unresize: true,templet: yznTable.formatter.switch },
                 { width:150, title: '操作',templet: yznTable.formatter.tool,operat: ['edit','delete'], align: "center"}
             ]

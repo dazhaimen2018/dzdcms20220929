@@ -31,23 +31,26 @@ class Special extends Adminbase
 	 * 专题列表
 	 */
 
+
     public function index()
     {
         if ($this->request->isAjax()) {
-            $siteUrl = onSiteUrl();
-            $private   = onPrivate();
+            list($page, $limit, $where) = $this->buildTableParames();
+            $siteUrl                    = onSiteUrl();
+            $private                    = onPrivate();
             if($private){
                 $siteId = onSite();
             } else {
                 $siteId = 1;
             }
-            $specials = [];
-            $result   = $this->modelClass->where('sites', $siteId)->select();
-            foreach ($result as $k => $v) {
-                $v['url']           = $siteUrl .'/special/'.$v['diyname'] .'.html';
-                $specials[$v['id']] = $v;
+            $_list                      = $this->modelClass->where('sites', $siteId)->where($where)->order(['listorder' => 'desc', 'id' => 'desc'])->page($page, $limit)->select();
+            foreach ($_list as $k => &$v) {
+                $v['url'] = url('cms/index/special', ['diyname' => $v['diyname']]);
             }
-            return json(["code" => 0, "data" => $specials]);
+            unset($v);
+            $total  = $this->modelClass->where('sites', $siteId)->where($where)->count();
+            $result = array("code" => 0, "count" => $total, "data" => $_list);
+            return json($result);
         }
         return $this->fetch();
     }
@@ -68,6 +71,8 @@ class Special extends Adminbase
                 $siteId = 1;
             }
             $data['sites'] = $siteId;
+            $data['create_time'] = time();
+            $data['update_time'] = time();
             if ($row = SpecialModel::create($data)) {
                 //更新缓存
                 Cache::set('special',null);
@@ -93,7 +98,7 @@ class Special extends Adminbase
 			} catch (\Exception $e) {
 				$this->error($e->getMessage());
 			}
-
+            $data['update_time'] = time();
 			if ($row = SpecialModel::update($data)) {
 				//更新缓存
                 Cache::set('special',null);

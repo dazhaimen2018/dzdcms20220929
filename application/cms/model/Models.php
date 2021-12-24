@@ -321,11 +321,11 @@ EOF;
             ],
             [
                 'name'    => 'flag',
-                'title'   => '属性',
-                'type'    => 'checkbox',
+                'title'   => '位置属性',
+                'type'    => 'selectpage',
                 'listorder'=> 4,
                 'ifrequire' => 0,
-                'setting' => "a:3:{s:6:\"define\";s:31:\"varchar(32) NOT NULL DEFAULT ''\";s:7:\"options\";s:76:\"1:置顶[1]\r\n2:头条[2]\r\n3:特荐[3]\r\n4:推荐[4]\r\n5:热点[5]\r\n6:幻灯[6]\";s:5:\"value\";s:0:\"\";}",
+                'setting' => "a:4:{s:6:\"define\";s:20:\"varchar(32) NOT NULL\";s:7:\"options\";s:104:\"url:/admin/ajax/flag\r\nfield:name\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:0:\"\";}",
             ],
             [
                 'name'      => 'thumb',
@@ -476,7 +476,7 @@ EOF;
                 'title'   => '所属专题',
                 'type'    => 'selectpage',
                 'listorder' => 22,
-                'setting' => "a:4:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:7:\"options\";s:108:\"url:/admin/ajax/special\r\nfield:title\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:0:\"\";}",
+                'setting' => "a:4:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:7:\"options\";s:107:\"url:/admin/ajax/special\r\nfield:name\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:0:\"\";}",
             ],
 
         ];

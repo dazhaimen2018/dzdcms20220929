@@ -15,7 +15,7 @@ class Special extends Validate
 {
 	//定义验证规则
 	protected $rule = [
-		'title|专题名称' => 'require|max:100',
+		'name|专题名称' => 'require|max:100',
         'diyname|专题标识' => 'require|max:100|unique:special|regex:/^[a-zA-Z][A-Za-z0-9\-\_]+$/',
         'template|专题模板' => 'require',
 	];

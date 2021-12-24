@@ -117,6 +117,18 @@ class Ajax extends Adminbase
     }
 
     /**
+     * 高级下拉菜单url 专题列表
+     */
+
+    public function flag(){
+        $wheres = '' ;
+        $this->modelClass = Db::name('flag');
+        if ($this->request->request('keyField')) {
+            return $this->selectpage($wheres);
+        }
+    }
+
+    /**
      *  获取标题拼音
      */
 
