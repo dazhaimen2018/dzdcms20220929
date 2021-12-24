@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `dzd_special` (
     `image` varchar(255) DEFAULT '' COMMENT '图片',
     `banner` varchar(255) DEFAULT '' COMMENT 'Banner图片',
     `diyname` varchar(100) DEFAULT '' COMMENT '自定义名称',
-    `seotitle` varchar(255) DEFAULT '' COMMENT 'SEO标题',
+    `seo_title` varchar(255) DEFAULT '' COMMENT 'SEO标题',
     `keywords` varchar(100) DEFAULT NULL COMMENT '关键字',
     `description` varchar(255) DEFAULT NULL COMMENT '描述',
     `content` text COMMENT '专题介绍',

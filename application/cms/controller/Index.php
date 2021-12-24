@@ -504,9 +504,9 @@ class Index extends Cmsbase
         Db::name('Tags')->where($where)->setInc("hits");
         $this->assign($info);
         //$this->assign("SEO", seo('', $tagdir, $info['seo_description'], $info['seo_keyword']));
-        $this->assign("SEO", seo('', $info['tag'], $info['seo_description'], $info['seo_keyword']));
+        $seoTitle= $info['seo_title']?$info['seo_title']:$info['tag'];
+        $this->assign("SEO", seo('', $seoTitle, $info['seo_description'], $info['seo_keyword']));
         $this->assign("page", $page);
-        $this->assign($info);
         return $this->fetch('/tags');
     }
 
@@ -535,10 +535,10 @@ class Index extends Cmsbase
         }
         //访问数+1
         Db::name('special')->where($where)->setInc("views");
+        $seoTitle= $info['seo_title']?$info['seo_title']:$info['title'];
         $this->assign($info);
-        $this->assign("SEO", seo('', $info['seotitle'], $info['description'], $info['keyword']));
+        $this->assign("SEO", seo('', $seoTitle, $info['description'], $info['keyword']));
         $this->assign("page", $page);
-        $this->assign($info);
         return $this->fetch('/special');
     }
 

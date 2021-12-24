@@ -241,7 +241,7 @@ class Lang extends Adminbase
 	}
 
     //更新碎片缓存
-    public function lang_cache() {
+    public function cache() {
         $filepath = Env::get('APP_PATH').'lang'.DIRECTORY_SEPARATOR;
         if (!is_dir($filepath)){
             mkdir($filepath,0777,true);

@@ -256,6 +256,35 @@ class CmsTagLib
     }
 
     /**
+     * 专题
+     */
+    public function special($data)
+    {
+        $where = [];
+        if (isset($attr['where']) && $attr['where']) {
+            array_push($where, $attr['where']);
+        }
+        $where_str = "";
+        if (0 < count($where)) {
+            $where_str = implode(" AND ", $where);
+        }
+        if (!isset($data['limit'])) {
+            $data['limit'] = 0 == (int) $data['num'] ? 10 : (int) $data['num'];
+        }
+        $where_str .= "sites=" . getSiteId();
+        $res = Db::name('special')->where($where_str)->limit($data['limit'])->cache(60)->select();
+//        //读取文章信息
+//        foreach ($res as $k => $v) {
+//            $p = model('cms/Cms')->getParentData(['id' => $v['contentid'], 'catid' => $v['catid']]);
+//            $r = model('cms/Cms')->getContent($v['modelid'], "`id` =" . $p['did'], false, '*', $data['limit'], $data['page']);
+//            if ($r) {
+//                $return[$k] = array_merge($v, $r);
+//            }
+//        }
+        return $res;
+    }
+
+    /**
      * 上一页
      */
     public function pre($data)
