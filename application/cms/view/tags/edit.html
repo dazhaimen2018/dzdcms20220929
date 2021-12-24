@@ -26,6 +26,18 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">图片</label>
+        <div class="layui-input-block layui-upload">
+            {php}echo \util\Form::images('image','',$data['image']){/php}
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">Banner</label>
+        <div class="layui-input-block layui-upload">
+            {php}echo \util\Form::images('banner','',$data['banner']){/php}
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">点击量 </label>
         <div class="layui-input-block">
             <input type="text" name="hits" autocomplete="off" placeholder="点击量" class="layui-input" value="{$data.hits}">

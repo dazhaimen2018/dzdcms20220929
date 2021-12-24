@@ -567,7 +567,7 @@ return [
                                     "name" => "内容管理",
                                 ],
                                 [
-                                    "route" => "cms/special/remove",
+                                    "route" => "cms/special/revoke",
                                     "type" => 1,
                                     "status" => 0,
                                     "name" => "内容移除",
@@ -631,7 +631,7 @@ return [
                                     "name" => "内容管理",
                                 ],
                                 [
-                                    "route" => "cms/flag/remove",
+                                    "route" => "cms/flag/revoke",
                                     "type" => 1,
                                     "status" => 0,
                                     "name" => "内容移除",

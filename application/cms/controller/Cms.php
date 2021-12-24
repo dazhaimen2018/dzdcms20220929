@@ -548,7 +548,7 @@ class Cms extends Adminbase
 
 
     //移除同步发布在本栏目的文章
-    public function out()
+    public function revoke()
     {
         $id     = $this->request->param('id/d', 0);
         $catid  = $this->request->param('catid/d', 0);

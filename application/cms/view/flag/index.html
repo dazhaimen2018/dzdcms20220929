@@ -21,6 +21,7 @@
         edit_url: "{:url('edit')}",
         delete_url: "{:url('del')}",
         modify_url: '{:url("multi")}',
+        lists_url:'{:url("lists")}',
     };
 
     table.render({
@@ -49,7 +50,16 @@
                 { field: 'image', width: 120, title: '属性图片', search: false, templet: yznTable.formatter.image, align: "center" },
                 { field: 'update_time', width: 145, title: '更新时间', search: 'range', align: "center" },
                 { field: 'status', width: 100, align: "center", title: '状态', unresize: true,templet: yznTable.formatter.switch },
-                { width:150, title: '操作',templet: yznTable.formatter.tool,operat: ['edit','delete'], align: "center"}
+                { width:200, title: '操作',templet: yznTable.formatter.tool,operat: [
+                        [{
+                            text: '内容管理',
+                            url: init.lists_url,
+                            method: 'href',
+                            auth: 'edit',
+                            class: 'layui-btn layui-btn-xs layui-btn-normal',
+                            extend: '',
+                        }],
+                        'edit','delete'], align: "center"}
             ]
         ],
         page: {}

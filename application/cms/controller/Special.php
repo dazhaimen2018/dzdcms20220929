@@ -143,4 +143,55 @@ class Special extends Adminbase
         Cache::set('special',$sites);
         $this->success("专题缓存更新成功！");
     }
+    /**
+     * 专题内容列表
+     */
+    public function lists()
+    {
+        if ($this->request->isAjax()) {
+            list($page, $limit, $where) = $this->buildTableParames();
+            $siteUrl                    = onSiteUrl();
+            $private                    = onPrivate();
+            if($private){
+                $siteId = onSite();
+            } else {
+                $siteId = 1;
+            }
+            $_list                      = $this->modelClass->where('sites', $siteId)->where($where)->order(['listorder' => 'desc', 'id' => 'desc'])->page($page, $limit)->select();
+            foreach ($_list as $k => &$v) {
+                $v['url'] = url('cms/index/special', ['diyname' => $v['diyname']]);
+            }
+            unset($v);
+            $total  = $this->modelClass->where('sites', $siteId)->where($where)->count();
+            $result = array("code" => 0, "count" => $total, "data" => $_list);
+            return json($result);
+        }
+        return $this->fetch();
+    }
+
+    /**
+     * 专题内容移除
+     */
+    public function revoke()
+    {
+        $id     = $this->request->param('id/d', 0);
+        $catid  = $this->request->param('catid/d', 0);
+        $outid  = $this->request->param('outid/d', 0);
+        if (empty($outid) || !$catid) {
+            $this->error('参数错误！');
+        }
+        $modelid   = getCategory($catid, 'modelid');
+        $modelInfo = cache('Model');
+        $modelInfo = $modelInfo[$modelid];
+        $catids    = Db::name($modelInfo['tablename'])->where('id', $id)->field('catids')->find();
+        $catids    = explode(',',$catids['catids']);
+        for ( $i=0; $i<count($catids); $i++ ){
+            if($outid == $catids[$i]) unset($catids[$i]);
+        }
+        $catids = arr2str($catids);
+        Db::name($modelInfo['tablename'])->where('id', $id)->update([
+            'catids'		=>	$catids,
+        ]);
+        $this->success('移除成功！');
+    }
 }
