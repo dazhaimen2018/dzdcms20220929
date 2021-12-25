@@ -1,11 +1,10 @@
 {include file="public/header" /}
 <div class="insideBanner">
-    <img src="{$image}" alt="{$title}">
+    <img src="{$banner}" alt="{$name}">
     <div class="thumb">
         <h2 class="title"><span>{$name}</span></h2>
         <div class="desc">{$description}</div>
     </div>
-    {/if}
 </div>
 <div class="layui-main">
     <div class="layui-container">
@@ -22,10 +21,10 @@
                 </div>
                 <div class="fly-panel">
                     <div class="title-article">
-                        <h1>{$siteName}{$title}</h1>
+                        <h1>{$siteName}{$name}</h1>
                         <div class="title-msg">
                             <span><i class="layui-icon layui-icon-username"></i> 多站点</span>
-                            <span><i class="layui-icon layui-icon-time"></i> {$input_time|date='Y-m-d H:i'} </span>
+                            <span><i class="layui-icon layui-icon-time"></i> {$create_time|date='Y-m-d H:i'} </span>
                             <span><i class="layui-icon layui-icon-read"></i> {$views} </span>
                             {if isModuleInstall('baidu_record')}
                             <span><i class="iconfont icon-baidu"></i> {:hook('baidu_record')}</span>
@@ -80,13 +79,13 @@
                             <div class="text-left">
                                 <!--介绍区域-->
                                 <div class="layui-col-xs12">
-                                    <i class="layui-icon layui-icon-app"></i>专题名称：<span>{$title}</span>
+                                    <i class="layui-icon layui-icon-app"></i> 专题名称：<span>{$name}</span>
                                 </div>
                                 <div class="layui-col-xs12">
-                                    <i class="layui-icon layui-icon-read"></i>{:lang('Views')}：<span>{$views}</span>
+                                    <i class="layui-icon layui-icon-read"></i> {:lang('Views')}：<span>{$views}</span>
                                 </div>
                                 <div class="layui-col-xs12">
-                                    <i class="layui-icon layui-icon-date"></i>发布日期：<span>{$input_time|date='Y-m-d H:i'}</span>
+                                    <i class="layui-icon layui-icon-date"></i> 发布日期：<span>{$create_time|date='Y-m-d H:i'}</span>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +97,7 @@
                         <div class="layui-card-header"><i class="layui-icon layui-icon-fire"></i> 热门专题</div>
                         <div class="layui-card-body">
                             <div class="layui-row layui-col-space25 merit">
-                                {yzn module="cms" action="special" siteId="$site_id" order="listorder ASC" num="10" return="data"}
+                                {yzn module="cms" action="special" siteId="0" order="listorder ASC" num="10" return="data"}
                                 {volist name="data" id="item"}
                                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md6 layui-col-lg6">
                                     <div class="project-list-item fadeInUp" data-wow-delay="{$i-0.5}s">
@@ -106,7 +105,7 @@
                                             <div class="project-list-item-cover">
                                                 <img src="{$item.image|default='/uploads/images/photo.png'}">
                                             </div>
-                                            <div class="project-list-item-body"><h2>{$siteName}{$item.title}</h2></div>
+                                            <div class="project-list-item-body"><h2>{$siteName}{$item.name}</h2></div>
                                         </a>
                                     </div>
                                 </div>

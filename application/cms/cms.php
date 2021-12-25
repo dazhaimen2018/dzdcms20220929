@@ -137,6 +137,7 @@ function onSiteUrl(){
 
 }
 
+// 当前私有化值
 function onPrivate() {
     $private = getSiteInfo('private');
     if ($private){
@@ -147,6 +148,16 @@ function onPrivate() {
     return $private;
 }
 
+// 当前私有化站点ID值
+function onSiteId() {
+    $private = onPrivate();
+    if($private){
+        $siteId = onSite();
+    } else {
+        $siteId = 0;
+    }
+    return $siteId;
+}
 //当前站ID
 function getSiteId()
 {

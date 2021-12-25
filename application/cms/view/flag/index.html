@@ -4,7 +4,7 @@
     <div class="layui-card-header">属性管理</div>
     <div class="layui-card-body">
         <div class="layui-form">
-            <blockquote class="layui-elem-quote">添加、修改和删除属性全部完成后，请点击【更新属性缓存】！</blockquote>
+            <blockquote class="layui-elem-quote">添加、修改和删除属性全部完成后，请点击【更新缓存】！</blockquote>
             <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
         </div>
     </div>
@@ -30,7 +30,7 @@
         elem: '#currentTable',
         toolbar: ['refresh','add', [
                 {
-                text: "更新属性缓存",
+                text: "更新缓存",
                 url: "{:url('cache')}",
                 method: 'request',
                 class: 'layui-btn layui-btn-sm',
@@ -50,9 +50,9 @@
                 { field: 'image', width: 120, title: '属性图片', search: false, templet: yznTable.formatter.image, align: "center" },
                 { field: 'update_time', width: 145, title: '更新时间', search: 'range', align: "center" },
                 { field: 'status', width: 100, align: "center", title: '状态', unresize: true,templet: yznTable.formatter.switch },
-                { width:200, title: '操作',templet: yznTable.formatter.tool,operat: [
+                { width:180, title: '操作',templet: yznTable.formatter.tool,operat: [
                         [{
-                            text: '内容管理',
+                            text: '内容',
                             url: init.lists_url,
                             method: 'href',
                             auth: 'edit',

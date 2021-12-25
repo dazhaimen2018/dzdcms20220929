@@ -271,7 +271,7 @@ class CmsTagLib
         if (!isset($data['limit'])) {
             $data['limit'] = 0 == (int) $data['num'] ? 10 : (int) $data['num'];
         }
-        $where_str .= "sites=" . getSiteId();
+        $where_str .= "sites=" . $data['siteId'];
         $res = Db::name('special')->where($where_str)->limit($data['limit'])->cache(60)->select();
 //        //读取文章信息
 //        foreach ($res as $k => $v) {

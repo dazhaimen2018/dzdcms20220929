@@ -4,15 +4,14 @@
     <div class="layui-card-header">内容管理</div>
     <div class="layui-card-body">
         <div class="layui-form">
-            <blockquote class="layui-elem-quote">以下内容不是真实内容，正在开发中</blockquote>
             <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
         </div>
     </div>
 </div>
 
 <script type="text/html" id="barTool">
-    <a class="layui-btn layui-btn-xs" data-open='{:url("edit")}?catid={{ d.catid }}&id={{ d.id }}' data-title="编辑内容" data-full="true">编辑</a>
-    <a href='{:url("revoke",["outid"=>$catid])}?catid={{ d.catid }}&id={{ d.id }}' class="layui-btn layui-btn-warm layui-btn-xs layui-tr-out">移除</a>
+    <a class="layui-btn layui-btn-xs" data-open='{:url("cms/edit")}?catid={{ d.catid }}&id={{ d.id }}' data-title="编辑内容" data-full="true">编辑</a>
+    <a href='{:url("revoke",["outid"=>$specialId])}?catid={{ d.catid }}&id={{ d.id }}' class="layui-btn layui-btn-warm layui-btn-xs layui-tr-out">移除</a>
 </script>
 
 
@@ -34,7 +33,7 @@
         elem: '#currentTable',
         toolbar: ['refresh',
             [{
-                html: '<a class="layui-btn layui-btn-sm" type="button" href="{:url("index")}"><i class="iconfont icon-undo"></i>&nbsp;返回属性列表</a>'
+                html: '<a class="layui-btn layui-btn-sm" type="button" href="{:url("index")}"><i class="iconfont icon-undo"></i>&nbsp;返回</a>'
             }]
         ],
         url: '{:url("lists")}',
@@ -44,11 +43,9 @@
                 { field: 'id', title: 'ID', width: 80, fixed: true, sort: true,align:"center"},
                 { field: 'listorder', width: 70, title: '排序', edit: 'text',search:false },
                 { field: 'name', title: '文章标题', searchOp: 'like'},
-
                 { field: 'diyname', title: '栏目名称', width: 100,},
                 { field: 'url', width: 60, align: "center", title: 'URL', templet: yznTable.formatter.url, search: false },
                 { field: 'image', width: 120, title: '图片', search: false, templet: yznTable.formatter.image, align: "center" },
-
                 { field: 'views', width: 80, title: '点击量', align: "center",search: 'between',searchTip:'点击量', align: "center" },
                 { field: 'update_time', width: 145, title: '更新时间', search: 'range', align: "center" },
                 { fixed: 'right', width: 150, title: '操作', toolbar: '#barTool', align: "center" }

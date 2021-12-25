@@ -37,18 +37,13 @@ class Special extends Adminbase
         if ($this->request->isAjax()) {
             list($page, $limit, $where) = $this->buildTableParames();
             $siteUrl                    = onSiteUrl();
-            $private                    = onPrivate();
-            if($private){
-                $siteId = onSite();
-            } else {
-                $siteId = 1;
-            }
-            $_list                      = $this->modelClass->where('sites', $siteId)->where($where)->order(['listorder' => 'desc', 'id' => 'desc'])->page($page, $limit)->select();
+            $onSiteId                   = onSiteId();
+            $_list                      = $this->modelClass->where('sites', $onSiteId)->where($where)->order(['listorder' => 'desc', 'id' => 'desc'])->page($page, $limit)->select();
             foreach ($_list as $k => &$v) {
                 $v['url'] = url('cms/index/special', ['diyname' => $v['diyname']]);
             }
             unset($v);
-            $total  = $this->modelClass->where('sites', $siteId)->where($where)->count();
+            $total  = $this->modelClass->where('sites', $onSiteId)->where($where)->count();
             $result = array("code" => 0, "count" => $total, "data" => $_list);
             return json($result);
         }
@@ -68,7 +63,7 @@ class Special extends Adminbase
             }
             $siteId = onSite();
             if(!$siteId){
-                $siteId = 1;
+                $siteId = 0;
             }
             $data['sites'] = $siteId;
             $data['create_time'] = time();
@@ -146,26 +141,42 @@ class Special extends Adminbase
     /**
      * 专题内容列表
      */
+
     public function lists()
     {
+        $id = $this->request->param('id/d', '');
+        if (empty($id)) {
+            $this->error('参数错误！');
+        }
+        $specia = Db::name("special")->where("id", $id)->find();
+        if (empty($specia)) {
+            $this->error('该专题不存在！');
+        }
+        $onSiteId   = onSiteId();
+        //输出可用模型
+        $modelsdata = cache("Model");
+        $models     = [];
+        foreach ($modelsdata as $v) {
+            if ($v['status'] == 1 && $v['module'] == 'cms' && $v['sites'] == $onSiteId) {
+                $models[] = $v;
+            }
+        }
         if ($this->request->isAjax()) {
+            $limit = $this->request->param('limit/d', 10);
+            $page = $this->request->param('page/d', 1);
             list($page, $limit, $where) = $this->buildTableParames();
-            $siteUrl                    = onSiteUrl();
-            $private                    = onPrivate();
-            if($private){
-                $siteId = onSite();
-            } else {
-                $siteId = 1;
-            }
-            $_list                      = $this->modelClass->where('sites', $siteId)->where($where)->order(['listorder' => 'desc', 'id' => 'desc'])->page($page, $limit)->select();
-            foreach ($_list as $k => &$v) {
-                $v['url'] = url('cms/index/special', ['diyname' => $v['diyname']]);
-            }
-            unset($v);
-            $total  = $this->modelClass->where('sites', $siteId)->where($where)->count();
-            $result = array("code" => 0, "count" => $total, "data" => $_list);
+            $conditions = [
+                ['status', 'in', [0, 1]],
+            ];
+            $whereSpecial = "FIND_IN_SET($id,specialids)";
+            $total  = Db::name('news')->where($where)->where($conditions)->where($whereSpecial)->count();
+            $list   = Db::name('news')->page($page, $limit)->where($where)->where($conditions)->where($whereSpecial)->order('listorder DESC, id DESC')->select();
+            $result = array("code" => 0, "count" => $total, "data" => $list);
             return json($result);
         }
+        $this->assign([
+            'specialId'   => $id,
+        ]);
         return $this->fetch();
     }
 

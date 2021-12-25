@@ -46,13 +46,8 @@ class Models extends Adminbase
     public function index()
     {
         if ($this->request->isAjax()) {
-            $private   = onPrivate();
-            if($private){
-                $siteId = onSite();
-            } else {
-                $siteId = 0;
-            }
-            $data = $this->modelClass->where('sites', $siteId)->where('module', 'cms')->select();
+            $onSiteId = onSiteId();
+            $data = $this->modelClass->where('sites', $onSiteId)->where('module', 'cms')->select();
             return json(["code" => 0, "data" => $data]);
         }
         return $this->fetch();
