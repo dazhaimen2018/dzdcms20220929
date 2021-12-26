@@ -104,7 +104,8 @@
 .layui-form-item .layui-form-checkbox[lay-skin=primary]{margin: 8px 0 8px 8px;}
 
 .layui-card-body .layui-table {margin: 0 -1px;}
-.layui-table td, .layui-table th {padding: 8px 15px;}
+.layui-table th {padding: 8px 15px;min-height: 22px;line-height: 22px;}
+.layui-table td {padding: 2px 15px;}
 .layui-table, .layui-table-view {margin: 0 0 0 -1px!important;}
 
 .layui-form-item .layui-form-field-label{padding: 0; line-height: 36px;}
