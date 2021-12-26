@@ -71,6 +71,7 @@ class Index extends Cmsbase
     // 列表页
     public function lists()
     {
+        //$groupinfo = $this->_check_group_read($this->auth->groupid);
         //栏目ID
         $cat = $this->request->param('catid/d', 0);
         if (empty($cat)) {
@@ -82,7 +83,16 @@ class Index extends Cmsbase
         if (empty($category)) {
             $this->error(patch('PageNot')); //栏目不存在
         }
-        $catid   = $category['id'];
+        $catid = $category['id'];
+        // 20211226 判断栏目的访问权限
+        $reads = Db::name('category_read')->where(array("catid" => $catid, "is_admin" => 0, "action" => "add"))->field('roleid as id')->select();
+        $roles = array_column($reads,'id');
+        if ($roles) {
+            if (in_array($this->auth->groupid,$roles)===false) {
+                $this->error("您没有该栏目访问权限！", 'member/index/login');
+            }
+        }
+
         $modelid = $category['modelid'];
         $models  = cache('Model');
         //栏目扩展配置信息
@@ -157,7 +167,15 @@ class Index extends Cmsbase
         if (empty($category)) {
             $this->error(patch('PageNot')); //栏目不存在
         }
-        $catid     = $category['id'];
+        $catid = $category['id'];
+        // 20211226 判断栏目中内容的访问权限
+        $reads = Db::name('category_read')->where(array("catid" => $catid, "is_admin" => 0, "action" => "add"))->field('roleid as id')->select();
+        $roles = array_column($reads,'id');
+        if ($roles) {
+            if (in_array($this->auth->groupid,$roles)===false) {
+                $this->error("您没有该栏目访问权限！", 'member/index/login');
+            }
+        }
         //模型ID
         $modelid   = $category['modelid'];
         $modelInfo = cache('Model')[$modelid];

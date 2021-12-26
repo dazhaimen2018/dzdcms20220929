@@ -191,15 +191,17 @@
             <div class="layui-tab-item">
                 <div class="layui-form-item">
                     <label class="layui-form-label">会员组权限</label>
-                    <table class="layui-table" style="max-width: 250px;">
+                    <table class="layui-table">
                         <colgroup>
                             <col width="150">
+                            <col width="100">
                             <col width="100">
                         </colgroup>
                         <thead>
                         <tr>
                             <th>会员组名称</th>
                             <th>允许投稿</th>
+                            <th>允许访问</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -207,11 +209,13 @@
                         <tr>
                             <td>{$vo.name}</td>
                             <td><input type="checkbox" name="priv_groupid[]" value="add,{$vo.id}" title="允许" lay-skin="primary" {php} echo model("cms/CategoryPriv")->check_category_priv($privs,'add',$vo['id'],0);{/php}></td>
+                            <td><input type="checkbox" name="read_groupid[]" value="add,{$vo.id}" title="允许" lay-skin="primary" {php} echo model("cms/CategoryRead")->check_category_read($reads,'add',$vo['id'],0);{/php}></td>
                         </tr>
                         {/volist}
                         </tbody>
                     </table>
                 </div>
+                {include file="help_category" /}
             </div>
 
 

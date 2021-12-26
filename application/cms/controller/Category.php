@@ -195,6 +195,11 @@ class Category extends Adminbase
                         //更新会员组权限
                         model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
                     }
+
+                    if ($catid && isset($data['read_groupid'])) {
+                        //更新会员组权限
+                        model("cms/CategoryRead")->update_read($catid, $data['read_groupid'], 0);
+                    }
                 }
                 // 20200805 马博添加
                 $this->addCategoryData($data['category_data'], $catid);
@@ -209,6 +214,7 @@ class Category extends Adminbase
                 $catid = $this->modelClass->addCategory($data, $fields);
                 if ($catid) {
                     isset($data['priv_groupid']) && model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
+                    isset($data['read_groupid']) && model("cms/CategoryRead")->update_read($catid, $data['read_groupid'], 0);
                     // 20200805 马博添加
                     //$this->addCategoryData($data['category_data'], $catid);
                     // 20200805 马博添加 end
@@ -367,6 +373,7 @@ class Category extends Adminbase
             if ($status) {
                 //更新会员组权限
                 isset($data['priv_groupid']) && model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
+                isset($data['read_groupid']) && model("cms/CategoryRead")->update_read($catid, $data['read_groupid'], 0);
                 // 20200805 马博
                 $this->updateCategoryData($data['category_data'], $catid);
                 // 20200805 马博 end
@@ -455,6 +462,7 @@ class Category extends Adminbase
                 'tp_chapter'  => $this->chapterTemplate,
                 'tp_page'     => $this->pageTemplate,
                 'privs'       => model("cms/CategoryPriv")->where('catid', $catid)->select(),
+                'reads'       => model("cms/CategoryRead")->where('catid', $catid)->select(),
             ]);
             // 20200805 马博 end
             //会员组
