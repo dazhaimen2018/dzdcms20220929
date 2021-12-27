@@ -184,20 +184,30 @@ class User
     {
         $field = Validate::is($account, 'email') ? 'email' : (Validate::regex($account, '/^1\d{10}$/') ? 'mobile' : 'username');
         $user  = Member_Model::get([$field => $account]);
+        $smsLogin = $this->config['sms_verify_login'] ? $this->config['sms_verify_login'] : 0;
         if (!$user) {
-            $this->setError(patch('AccountError')); //账户不正确
-            return false;
+            // 帐号不存时 注册会员
+            if($smsLogin){
+                $this->userRegister($account, $password = '', $email = '', $mobile = '', $extend = []);
+                return true;
+            } else {
+                $this->setError(patch('AccountError')); //账户不正确
+                return false;
+            }
         }
 
         if ($user->status !== 1) {
             $this->setError(patch('AccountLocked')); //账户已经被锁定
             return false;
         }
-        if ($user->password != encrypt_password($password, $user->encrypt)) {
-            $this->setError(patch('PasswordError'));//密码不正确
-            return false;
-        }
 
+        // 短信验证登录 不验证密码
+        if (!$smsLogin) {
+            if ($user->password != encrypt_password($password, $user->encrypt)) {
+                $this->setError(patch('PasswordError'));//密码不正确
+                return false;
+            }
+        }
         //直接登录会员
         $this->direct($user->id);
 

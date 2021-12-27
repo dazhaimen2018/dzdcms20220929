@@ -8,6 +8,7 @@ return array(
     'register_mobile_verify' => 0,
     'register_email_verify'  => 0,
     'openverification'       => 1,
+    'sms_verify_login'       => 0,
     'password_confirm'       => 0,
     'remove_nickname'        => 0,
     'defualtpoint'           => 0,

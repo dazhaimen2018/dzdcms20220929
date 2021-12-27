@@ -70,22 +70,40 @@ class Index extends MemberBase
             $this->success(patch('loggedIn'), $forward ? $forward : url("index")); //您已经是登陆状态
         }
         if ($this->request->isPost()) {
+            $smsLogin = $this->memberConfig['sms_verify_login']; // 是否短信验证登录
             //登录验证
-            $account  = $this->request->param('account');
+            if($smsLogin){
+                $account   = $this->request->param('mobile');
+            } else {
+                $account   = $this->request->param('account');
+            }
+            $smsCode  = $this->request->param('captcha_mobile');
             $password = $this->request->param('password');
             $verify   = $this->request->param('verify');
             $token    = $this->request->param('__token__');
 
-            $rule = [
-                'account|账户'  => 'require|length:3,30',
-                'password|密码' => 'require|length:3,30',
-                '__token__'   => 'require|token',
-            ];
+            $rule = [];
+            if ($smsLogin) {
+                $rule['__token__'] = "require|token";
+            } else {
+                $rule['account|账户'] = "require|length:3,30";
+                $rule['password|密码'] = "require|length:3,30";
+                $rule['__token__'] = "require|token";
+            }
             $data = [
                 'account'   => $account,
                 'password'  => $password,
                 '__token__' => $token,
             ];
+            //短信验证登录
+            if ($smsLogin) {
+                $result = Sms::check($account, $smsCode, 'login');
+                if (!$result) {
+                    $this->error('手机验证码错误！！！！！');
+                }
+                $extend['ischeck_mobile'] = 1;
+            }
+
             //验证码
             if (empty($verify) && $this->memberConfig['openverification']) {
                 $this->error(patch('VerificationError')); //验证码错误

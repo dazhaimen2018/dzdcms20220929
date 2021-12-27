@@ -26,7 +26,7 @@ use think\facade\Validate;
 
 class Auth extends MemberBase
 {
-    protected $noNeedLogin = ['login', 'register', 'logout', 'forget'];
+    protected $noNeedLogin = ['login','login', 'register', 'logout', 'forget'];
 
     //初始化
     protected function initialize()
