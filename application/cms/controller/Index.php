@@ -18,6 +18,7 @@ use app\cms\model\SearchLog;
 use app\cms\model\Cms as CmsModel;
 use app\cms\model\Chapter;
 use app\cms\model\Site;
+use think\facade\Cache;
 use think\Db;
 use think\Session;
 
@@ -85,6 +86,7 @@ class Index extends Cmsbase
         }
         $catid = $category['id'];
         // 20211226 判断栏目的访问权限
+
         $reads = Db::name('category_read')->where(array("catid" => $catid, "is_admin" => 0, "action" => "add"))->field('roleid as id')->select();
         $roles = array_column($reads,'id');
         if ($roles) {
@@ -168,14 +170,7 @@ class Index extends Cmsbase
             $this->error(patch('PageNot')); //栏目不存在
         }
         $catid = $category['id'];
-        // 20211226 判断栏目中内容的访问权限
-        $reads = Db::name('category_read')->where(array("catid" => $catid, "is_admin" => 0, "action" => "add"))->field('roleid as id')->select();
-        $roles = array_column($reads,'id');
-        if ($roles) {
-            if (in_array($this->auth->groupid,$roles)===false) {
-                $this->error("您没有该栏目访问权限！", 'member/index/login');
-            }
-        }
+
         //模型ID
         $modelid   = $category['modelid'];
         $modelInfo = cache('Model')[$modelid];
@@ -196,6 +191,24 @@ class Index extends Cmsbase
         //内容所有字段
         $ifcache = $this->cmsConfig['site_cache_time'] ? $this->cmsConfig['site_cache_time'] : false;
         $info    = $this->CmsModel->getContent($modelid, "id={$id}", true, '*', '', $ifcache, $this->site_id);
+        //文章的阅读权限
+        //20211226 判断栏目中内容的访问权限 如果栏目已经设置权限就不用再判断文章了
+        $reads = Db::name('category_read')->where(array("catid" => $catid, "is_admin" => 0, "action" => "add"))->field('roleid as id')->select();
+        $roles = array_column($reads,'id');
+        if ($roles) {
+            if (in_array($this->auth->groupid,$roles)===false) {
+                $this->error("您没有该信息访问权限！", 'member/index/login');
+            }
+        } else {
+            $groupids = $info['groupids'] ;
+            if($groupids){
+                $groupids = str2arr($info['groupids']) ;
+                if (in_array($this->auth->groupid,$groupids)===false) {
+                    $this->error("您没有该信息访问权限！", 'member/index/login');
+                }
+            }
+        }
+
         if (!$info || ($info['status'] !== 1 && !\app\admin\service\User::instance()->isLogin())) {
             throw new \think\Exception(patch('PageError'), 404);
         }
@@ -291,7 +304,6 @@ class Index extends Cmsbase
             $this->error(patch('PageNot')); //模型不存在
         }
         //更新点击量 子表
-       // Db::name($modelInfo['tablename'])->where('id', $id)->setInc('hits');
         Db::name($modelInfo['tablename'].'_sub_data')->where('did', $did)->where('id', $id)->setInc('views');
         //内容所有字段
         $ifcache = $this->cmsConfig['site_cache_time'] ? $this->cmsConfig['site_cache_time'] : false;
