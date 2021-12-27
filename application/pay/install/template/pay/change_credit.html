@@ -1,4 +1,5 @@
-{template file="member/header.html"/}
+{extend name="../member/public/layout"/}
+{block name="main"}
 <div class="layui-tab layui-tab-brief" lay-filter="user">
     <ul class="layui-tab-title">
         <li lay-id="" class="layui-this">积分兑换</li>
@@ -32,7 +33,8 @@
         </div>
     </div>
 </div>
-{template file="member/layui.html"/}
+{/block}
+{block name="js"}
 <script type="text/javascript">
 layui.use('yznForm', function() {
     var yznForm = layui.yznForm;
@@ -60,4 +62,4 @@ layui.use('yznForm', function() {
     });
 });
 </script>
-{template file="member/footer.html"/}
+{/block}

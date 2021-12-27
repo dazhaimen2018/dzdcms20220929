@@ -1,4 +1,5 @@
-{template file="member/header.html"/}
+{extend name="../member/public/layout"/}
+{block name="main"}
 <div class="layui-tab layui-tab-brief">
     <ul class="layui-tab-title">
         <li class="layui-this">发件箱</li>
@@ -12,7 +13,8 @@
 <script type="text/html" id="barTool">
     <a href='{:url("read_only")}?id={{ d.id }}' lay-data="{width:'400px',height:'350px',title:'查看发件箱'}" class="layui-btn layui-btn-xs layui-iframe">查看</a>
 </script>
-{template file="member/layui.html"/}
+{/block}
+{block name="js"}
 <script>
 layui.use('table', function() {
     var table = layui.table,
@@ -36,4 +38,4 @@ layui.use('table', function() {
     });
 });
 </script>
-{template file="member/footer.html"/}
+{/block}
