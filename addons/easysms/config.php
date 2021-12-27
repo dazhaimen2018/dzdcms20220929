@@ -49,6 +49,7 @@ return array(
         'title' => '短信模板',
         'type'  => 'array',
         'value' => array(
+            'login'     => '',
             'register'  => '',
             'resetpwd'  => '',
             'changepwd' => '',
