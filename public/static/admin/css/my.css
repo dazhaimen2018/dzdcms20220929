@@ -76,9 +76,11 @@
 .layui-form-item .layui-text{padding: 0 10px!important;line-height: 36px;}
 .layui-form-item .layui-text img{max-width: 100%}
 
+.fieldlist{border:none!important;}
+.fieldlist dd:last-child{border:none!important;}
 .fieldlist dd {border: 1px solid #e6e6e6;margin:0 0 10px 0!important;display: flex}
 .fieldlist dd:first-child {display: none!important;}
-.fieldlist dd:last-child {border:none!important;}
+.fieldlist dd:nth-last-child(2) {border:none!important;}
 .fieldlist dd>.btn-append {margin: 0!important;}
 .fieldlist dd input:first-child {width: 200px!important;border-right: 1px solid #e6e6e6}
 .fieldlist dd input:nth-child(2){flex: 1;border-right: 1px solid #e6e6e6}
