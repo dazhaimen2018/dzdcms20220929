@@ -372,8 +372,8 @@ class Category extends Adminbase
             $status = $this->modelClass->editCategory($data, ['parentid', 'catname', 'catdir', 'english', 'type', 'private', 'modelid', 'image', 'icon', 'description', 'url', 'setting', 'listorder', 'letter', 'sites', 'target', 'detail', 'status']);
             if ($status) {
                 //更新会员组权限
-                isset($data['priv_groupid']) && model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
-                isset($data['read_groupid']) && model("cms/CategoryRead")->update_read($catid, $data['read_groupid'], 0);
+                model("cms/CategoryPriv")->update_priv($catid, (isset($data['priv_groupid']) ? $data['priv_groupid'] : []), 0);
+                model("cms/CategoryRead")->update_read($catid, (isset($data['read_groupid']) ? $data['read_groupid'] : []), 0);
                 // 20200805 马博
                 $this->updateCategoryData($data['category_data'], $catid);
                 // 20200805 马博 end
