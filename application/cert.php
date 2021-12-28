@@ -1,8 +1,8 @@
 <?php
 
 function grant(){
-    $grant['domain'] = 'mscms.net';
-    $grant['level']  = 1;
+    $grant['domain'] = '';
+    $grant['level']  = 0;
     $grant['date']   = 0;
     $grant['sites']  = 0;
     $grant['sign']   = '';
