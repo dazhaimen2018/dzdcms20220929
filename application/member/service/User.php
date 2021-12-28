@@ -188,7 +188,7 @@ class User
         if (!$user) {
             // 帐号不存时 注册会员
             if($smsLogin){
-                $this->userRegister($account, $password = '', $email = '', $mobile = '', $extend = []);
+                $this->userRegister($account, $password = '', $email = '', $mobile = $account, $extend = []);
                 return true;
             } else {
                 $this->setError(patch('AccountError')); //账户不正确
