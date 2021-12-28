@@ -1,7 +1,13 @@
-<li class="layui-nav-item">
-    <a href="javascript:;"><i class="iconfont icon-draft-line"></i> {:patch('MyArticle')}</a>
-    <dl class="layui-nav-child">
-    	<dd><a href="{:url('member/content/publish')}"><i class="iconfont icon-circle-line"></i> {:patch('publish')}</a></dd>
-        <dd><a href="{:url('member/content/published')}"><i class="iconfont icon-circle-line"></i> {:patch('published')}</a></dd>
-    </dl>
+<li class="layui-menu-item-group {if $Request.controller=='Content' }layui-menu-item-down{else}layui-menu-item-up{/if} ">
+    <div class="layui-menu-body-title">
+        <i class="iconfont icon-draft-line"></i> {:patch('MyArticle')}</a> <i class="layui-icon layui-icon-up"></i>
+    </div>
+    <ul>
+        <li {if $Request.action=='publish' }class="layui-menu-item-checked"{/if}><a href="{:url('member/content/publish')}"><i class="iconfont icon-circle-line"></i> {:patch('publish')}</a></li>
+        <li {if $Request.action=='published' }class="layui-menu-item-checked"{/if}><a href="{:url('member/content/published')}"><i class="iconfont icon-circle-line"></i> {:patch('published')}</a></li>
+    </ul>
 </li>
+<li class="layui-menu-item-divider"></li>
+
+
+

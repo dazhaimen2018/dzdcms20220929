@@ -1,9 +1,12 @@
-<li class="layui-nav-item">
-    <a href="javascript:;"><i class="iconfont icon-systemprompt"></i>&nbsp;短信息</a>
-    <dl class="layui-nav-child">
-    	<dd><a href="{:url('message/index/send')}"><i class="iconfont icon-circle-line"></i>&nbsp;发消息</a></dd>
-        <dd><a href="{:url('message/index/outbox')}"><i class="iconfont icon-circle-line"></i>&nbsp;发件箱</a></dd>
-        <dd><a href="{:url('message/index/inbox')}"><i class="iconfont icon-circle-line"></i>&nbsp;收件箱</a></dd>
-        <dd><a href="{:url('message/index/group')}"><i class="iconfont icon-circle-line"></i>&nbsp;系统消息</a></dd>
-    </dl>
+<li class="layui-menu-item-group {if $Request.controller=='Index' && ($Request.action=='send' || $Request.action=='outbox' || $Request.action=='inbox' || $Request.action=='group')}layui-menu-item-down{else}layui-menu-item-up{/if} ">
+    <div class="layui-menu-body-title">
+        <i class="iconfont icon-systemprompt"></i>&nbsp;短信息 <i class="layui-icon layui-icon-up"></i>
+    </div>
+    <ul>
+        <li {if $Request.action=='send' }class="layui-menu-item-checked"{/if}><a href="{:url('message/index/send')}"><i class="iconfont icon-circle-line"></i>&nbsp;发消息</a></li>
+        <li {if $Request.action=='outbox' }class="layui-menu-item-checked"{/if}><a href="{:url('message/index/outbox')}"><i class="iconfont icon-circle-line"></i>&nbsp;发件箱</a></li>
+        <li {if $Request.action=='inbox' }class="layui-menu-item-checked"{/if}><a href="{:url('message/index/inbox')}"><i class="iconfont icon-circle-line"></i>&nbsp;收件箱</a></li>
+        <li {if $Request.action=='group' }class="layui-menu-item-checked"{/if}><a href="{:url('message/index/group')}"><i class="iconfont icon-circle-line"></i>&nbsp;系统消息</a></li>
+    </ul>
 </li>
+<li class="layui-menu-item-divider"></li>
