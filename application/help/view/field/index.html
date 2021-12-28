@@ -7,15 +7,7 @@
     </div>
 </div>
 <script type="text/html" id="switchTpl">
-    {{#  if(d.iffixed==1){ }}
-    {{#  if(d.status==1){ }}
-    启用
-    {{#  } else { }}
-    禁用
-    {{#  } }}
-    {{#  } else { }}
     <input type="checkbox" name="status" data-href="{:url('setstate')}?id={{d.id}}" value="{{d.id}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="switchStatus" {{ d.status==1 ? 'checked' : '' }}>
-    {{#  } }}
 </script>
 <script type="text/html" id="ifsearchTpl">
     <input type="checkbox" name="ifsearch" data-href="{:url('setSearch')}?id={{d.id}}" value="{{d.id}}" lay-skin="switch" lay-text="是|否" lay-filter="switchStatus" {{ d.ifsearch==1 ? 'checked' : '' }}>
@@ -41,6 +33,8 @@ layui.use('yznTable', function() {
     var init = {
         table_elem: '#currentTable',
         add_url: "{:url('add',['modelid'=>$modelid])}",
+        edit_url: "{:url('edit')}",
+        delete_url: "{:url('del')}",
         modify_url: '{:url("listorder")}',
     };
 
@@ -67,7 +61,13 @@ layui.use('yznTable', function() {
                 { field: 'ifrequire', width: 90, align: "center", title: '必填', templet: '#ifrequireTpl', unresize: true, selectList: { 0: '否', 1: '是' } },
                 { field: 'isadd', width: 100, align: "center", title: '投稿显示', templet: '#isaddTpl', unresize: true , selectList: { 0: '隐藏', 1: '显示' }},
                 { field: 'status', width: 100, align: "center", title: '状态', templet: '#switchTpl', unresize: true, selectList: { 0: '禁用', 1: '启用' }},
-                { fixed: 'right', width: 120, title: '操作', templet: '#barTool' }
+                { width:120, align: "center", title: '操作',templet: function (d){
+                        if(d.iffixed){
+                            return '<a class="layui-btn layui-btn-xs layui-btn-disabled">编辑</a><a class="layui-btn layui-btn-xs layui-btn-disabled">删除</a>';
+                        }else{
+                            return yznTable.formatter.tool.call(this,d,this);
+                        }
+                    },operat: ['edit','delete']}
             ]
         ],
         page: {}

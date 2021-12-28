@@ -21,6 +21,7 @@ use think\Db;
 
 class Cms extends Adminbase
 {
+    protected $searchFields = 'id,title';
     protected function initialize()
     {
         parent::initialize();
@@ -60,7 +61,7 @@ class Cms extends Adminbase
 
             $conditions = [
                 ['catid', '=', $catid],
-                ['status', '<>', -1],
+                ['status', 'in', [0, 1]],
             ];
             $total = Db::name($tableName)->where($where)->where($conditions)->count();
             $list  = Db::name($tableName)->page($page, $limit)->where($where)->where($conditions)->order(['listorder', 'id' => 'desc'])->select();

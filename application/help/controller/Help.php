@@ -31,7 +31,7 @@ class Help extends Adminbase
         'help/help/count_items',
         'help/help/public_cache',
     ];
-
+    protected $searchFields = 'id,catname';
     protected function initialize()
     {
         parent::initialize();

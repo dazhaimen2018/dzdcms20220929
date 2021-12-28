@@ -54,7 +54,10 @@ class Field extends Adminbase
             $result                     = array("code" => 0, "count" => $total, "data" => $data);
             return json($result);
         }
-        $this->assign("modelid", $modelid);
+        $this->assign([
+            "modelid" => $modelid,
+            "name"    => $model['name'],
+        ]);
         return $this->fetch();
     }
 
@@ -100,7 +103,7 @@ class Field extends Adminbase
     public function edit()
     {
         //字段ID
-        $fieldid = $this->request->param('fieldid/d', 0);
+        $fieldid = $this->request->param('id/d', 0);
         if (empty($fieldid)) {
             $this->error('字段ID不能为空！');
         }
@@ -132,7 +135,6 @@ class Field extends Adminbase
             $fieldType = Db::name('field_type')->order('listorder')->column('name,title,default_define,ifstring');
             $this->assign([
                 'data'      => $fieldData,
-                'fieldid'   => $fieldid,
                 'fieldType' => $fieldType,
             ]);
             return $this->fetch();
