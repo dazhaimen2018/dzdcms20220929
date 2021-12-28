@@ -1,5 +1,4 @@
-{extend name="../member/public/layout"/}
-{block name="main"}
+{template file="member/header.html"/}
 <div class="layui-tab layui-tab-brief" lay-filter="user">
     <ul class="layui-tab-title">
         <li lay-id="" class="layui-this">发消息</li>
@@ -42,12 +41,11 @@
         </div>
     </div>
 </div>
-{/block}
-{block name="js"}
+{template file="member/layui.html"/}
 <script type="text/javascript">
 layui.use('yznForm', function() {
     var yznForm = layui.yznForm;
     yznForm.listen();
 });
 </script>
-{/block}
+{template file="member/footer.html"/}

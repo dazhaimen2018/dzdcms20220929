@@ -39,7 +39,7 @@ class Member extends Adminbase
             list($page, $limit, $where) = $this->buildTableParames();
             $siteId = onSite();
             if(!$siteId){
-                $siteId = 1;
+                $siteId = 0;
             }
             $_list                      = $this->modelClass->where('site_id', $siteId)->where($where)->where('status', 1)->page($page, $limit)->select();
             $total                      = $this->modelClass->where('site_id', $siteId)->where($where)->where('status', 1)->count();

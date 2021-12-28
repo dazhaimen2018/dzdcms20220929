@@ -109,7 +109,9 @@ class Ajax extends Adminbase
      */
 
     public function special(){
-        $wheres = '' ;
+        $wheres   = '';
+        $onSiteId = onSiteId();
+        $wheres = 'sites =' . $onSiteId;
         $this->modelClass = Db::name('special');
         if ($this->request->request('keyField')) {
             return $this->selectpage($wheres);
@@ -121,7 +123,9 @@ class Ajax extends Adminbase
      */
 
     public function flag(){
-        $wheres = '' ;
+        $wheres   = '';
+        $onSiteId = onSiteId();
+        $wheres   = 'sites =' . $onSiteId;
         $this->modelClass = Db::name('flag');
         if ($this->request->request('keyField')) {
             return $this->selectpage($wheres);

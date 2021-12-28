@@ -1,5 +1,4 @@
-{extend name="../member/public/layout"/}
-{block name="main"}
+{template file="member/header.html"/}
 <div class="layui-tab layui-tab-brief">
     <ul class="layui-tab-title">
         <li class="layui-this">消费记录</li>
@@ -10,8 +9,7 @@
         </div>
     </div>
 </div>
-{/block}
-{block name="js"}
+{template file="member/layui.html"/}
 <script>
 layui.use('table', function() {
     var table = layui.table,
@@ -34,4 +32,4 @@ layui.use('table', function() {
     });
 });
 </script>
-{/block}
+{template file="member/footer.html"/}

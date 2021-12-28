@@ -21,7 +21,6 @@
             <form class="layui-form" action="{:url('register')}">
                 {:token()}
                 {:hook('register_input')}
-                <input type="hidden" name="site_id" value="{$siteId}" />
                 <div class="layui-form-item">
                     <div class="layui-input-inline input-item">
                         <input type="text" name="mobile" lay-verify="phone|required" autocomplete="off" placeholder="{:lang('phone')}" class="layui-input">

@@ -35,13 +35,8 @@ class Formguide extends Adminbase
     public function index()
     {
         if ($this->request->isAjax()) {
-            $private   = onPrivate();
-            if($private){
-                $siteId = onSite();
-            } else {
-                $siteId = 0;
-            }
-            $data = $this->Models->where('sites', $siteId)->where(['module' => 'formguide'])->select();
+            $onSiteId = onSiteId();
+            $data     = $this->Models->where('sites', $onSiteId)->where(['module' => 'formguide'])->select();
             return json(["code" => 0, "data" => $data]);
         } else {
             return $this->fetch();

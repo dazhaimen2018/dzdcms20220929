@@ -135,7 +135,6 @@ class Field extends Adminbase
             $fieldType = Db::name('field_type')->order('listorder')->column('name,title,default_define,ifstring');
             $this->assign([
                 'data'      => $fieldData,
-                //'fieldid'   => $fieldid,
                 'fieldType' => $fieldType,
             ]);
             return $this->fetch();

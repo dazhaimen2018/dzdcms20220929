@@ -22,19 +22,6 @@
             <form class="layui-form" action="{:url('login')}">
                 <input type="hidden" name="forward" value="{$forward}" />
                 {:token()}
-
-                {eq name="Member_config.sms_verify_login" value="1"}
-                <div class="layui-form-item">
-                    <div class="layui-input-inline input-item">
-                        <input type="text" name="mobile" lay-verify="required" autocomplete="off" placeholder="{:lang('phone')}" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <div class="layui-input-inline" style="width: 60%;">
-                        <input type="text" name="captcha_mobile" required="" lay-verify="required" autocomplete="off" value="" class="layui-input" placeholder="{:lang('PhoneVerificationCode')}"> </div>
-                    <button class="layui-btn btn-captcha layui-btn-primary layui-border-green" type="button" data-event="login" data-type="mobile" data-url="{:url('api/sms/send')}">{:lang('GetVerificationCode')}</button>
-                </div>
-                {else}
                 <div class="layui-form-item">
                     <div class="layui-input-inline input-item">
                         <input type="text" name="account" lay-verify="required" autocomplete="off" placeholder="{:lang('Account')}" class="layui-input">
@@ -45,7 +32,6 @@
                         <input type="password" name="password" lay-verify="required" autocomplete="off" placeholder="{:lang('Password')}" class="layui-input">
                     </div>
                 </div>
-                {/eq}
                 {eq name="Member_config.openverification" value="1"}
                 <div class="layui-form-item">
                     <div class="layui-input-inline input-item verify-box">

@@ -28,8 +28,9 @@
         <a class="layui-btn layui-btn-sm layui-btn-normal" href="{:url('member/content/publish')}"><i class="layui-icon">&#xe61f;</i> {:lang('publish')}</a>
     </div>
 </script>
-{/block}
-{block name="js"}
+
+
+{template file="member/layui.html"/}
 <script>
 layui.use(['table'], function() {
     var table = layui.table,

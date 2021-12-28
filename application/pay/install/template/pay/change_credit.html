@@ -1,4 +1,4 @@
-{extend name="../member/public/layout"/}
+{extend name="member/public/layout"/}
 {block name="main"}
 <div class="layui-tab layui-tab-brief" lay-filter="user">
     <ul class="layui-tab-title">
@@ -35,6 +35,7 @@
 </div>
 {/block}
 {block name="js"}
+{template file="member/layui.html"/}
 <script type="text/javascript">
 layui.use('yznForm', function() {
     var yznForm = layui.yznForm;
