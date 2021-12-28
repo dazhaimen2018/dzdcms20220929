@@ -16,7 +16,14 @@
                 </div>
             </div>
             <div class="layui-card-body detail-body layui-text">
+                <!--阅读收费的代码请看文档 https://doc.dzdcms.com/show/70.html-->
+                {eq name="allow_visitor" value="1"}
                 {$content|raw}
+                {else/}
+                <div class="allow_visitor">
+                    <a href="{:url('cms/index/readpoint',['allow_visitor' => $allow_visitor])}"><font color="red">阅读此信息需要您支付 <B><I>{$readpoint} {if $paytype}元{else}点{/if}</I></B>，点击这里支付</font></a>
+                </div>
+                {/eq}
                 <!--S 分页-->
                 {$pages|raw}
                 <!--E 分页-->
