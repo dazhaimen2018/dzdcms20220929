@@ -135,15 +135,16 @@ class User
      * @param array $extend 扩展参数
      * @return bool|mixed
      */
-    public function userRegister($username, $password, $email = '', $mobile = '', $extend = [])
+    public function userRegister($username, $password, $email = '', $mobile = '', $ischeckMobile = '' , $extend = [])
     {
         $passwordinfo = encrypt_password($password); //对密码进行处理
         $data         = array(
-            "mobile"   => $mobile,
-            "username" => $username,
-            "email"    => $email,
-            "encrypt"  => $passwordinfo['encrypt'],
-            "amount"   => 0,
+            "mobile"         => $mobile,
+            "username"       => $username,
+            "email"          => $email,
+            "encrypt"        => $passwordinfo['encrypt'],
+            "amount"         => 0,
+            "ischeck_mobile" => $ischeckMobile,
         );
         //新注册用户积分
         $data['point'] = $this->config['defualtpoint'] ? $this->config['defualtpoint'] : 0;
@@ -188,7 +189,7 @@ class User
         if (!$user) {
             // 帐号不存时 注册会员
             if($smsLogin){
-                $this->userRegister($account, $password = '', $email = '', $mobile = $account, $extend = []);
+                $this->userRegister($account, $password = '', $email = '', $mobile = $account, $ischeckMobile = 1, $extend = []);
                 return true;
             } else {
                 $this->setError(patch('AccountError')); //账户不正确
