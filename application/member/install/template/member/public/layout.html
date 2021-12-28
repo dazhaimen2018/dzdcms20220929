@@ -60,18 +60,29 @@
     </div>
 </div>
 <div class="layui-container fly-marginTop fly-user-main">
-    <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
-        <li class="layui-nav-item {if $Request.action=='index' && $Request.controller=='Index' }layui-this{/if}">
-            <a href="{:url('member/index/index')}"><i class="iconfont icon-user-line"></i>&nbsp;{:lang('MemberCenter')}</a>
-        </li>
-        <li class="layui-nav-item {eq name='Request.action' value='profile' }layui-this{/eq}">
-            <a href="{:url('member/index/profile')}"><i class="iconfont icon-setup"></i>&nbsp;{:lang('BasicSettings')}</a>
-        </li>
-        <li class="layui-nav-item {eq name='Request.action' value='upgrade' }layui-this{/eq}">
-            <a href="{:url('member/index/upgrade')}"><i class="iconfont icon-vip-line"></i>&nbsp;{:lang('SelfUpgrade')}</a>
-        </li>
-        {:hook('user_sidenav_after')}
-    </ul>
+    <div class="layui-nav layui-nav-tree layui-inline layui-panel" lay-filter="user">
+        <ul class="layui-menu" id="docDemoMenu1">
+            <li {if $Request.action=='index' && $Request.controller=='Index' }class="layui-menu-item-checked"{/if}>
+            <div class="layui-menu-body-title">
+                <a href="{:url('member/index/index')}"><i class="iconfont icon-user-line"></i>&nbsp;{:lang('MemberCenter')}</a>
+            </div>
+            </li>
+            <li class="layui-menu-item-divider"></li>
+            <li {eq name='Request.action' value='profile' }class="layui-menu-item-checked"{/eq}>
+            <div class="layui-menu-body-title">
+                <a href="{:url('member/index/profile')}"><i class="iconfont icon-setup"></i>&nbsp;{:lang('BasicSettings')}</a>
+            </div>
+            </li>
+            <li class="layui-menu-item-divider"></li>
+            <li {eq name='Request.action' value='upgrade' }class="layui-menu-item-checked"{/eq}>
+            <div class="layui-menu-body-title">
+                <a href="{:url('member/index/upgrade')}"><i class="iconfont icon-vip-line"></i>&nbsp;{:lang('SelfUpgrade')}</a>
+            </div>
+            </li>
+            <li class="layui-menu-item-divider"></li>
+            {:hook('user_sidenav_after')}
+        </ul>
+    </div>
     <div class="site-tree-mobile layui-hide">
         <i class="layui-icon">&#xe602;</i>
     </div>
