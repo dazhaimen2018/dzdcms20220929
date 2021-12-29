@@ -736,6 +736,63 @@ return [
                                 ],
                             ],
                     ],
+                    [
+                        "route" => "admin/ajax/index",
+                        "type" => 1,
+                        "status" => 0,
+                        "name" => "其他权限",
+                        "child" =>
+                            [
+                                [
+                                    "route" => "admin/ajax/filterWord",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "过滤内容的敏感词",
+                                ],
+                                [
+                                    "route" => "admin/ajax/icon",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "生成后缀图标",
+                                ],
+                                [
+                                    "route" => "admin/ajax/category",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "同步栏目选择",
+                                ],
+                                [
+                                    "route" => "admin/ajax/memberGroup",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "会员级别选择",
+                                ],
+                                [
+                                    "route" => "admin/ajax/member",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "会员选择",
+                                ],
+                                [
+                                    "route" => "admin/ajax/special",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "专题选择",
+                                ],
+                                [
+                                    "route" => "admin/ajax/flag",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "属性选择",
+                                ],
+                                [
+                                    "route" => "admin/ajax/getTitlePinyin",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "自定义拼音生成",
+                                ],
+                            ],
+                    ],
                 ],
             ],
         ],

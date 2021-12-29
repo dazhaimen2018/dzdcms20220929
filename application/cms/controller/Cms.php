@@ -809,7 +809,7 @@ class Cms extends Adminbase
             return false;
         };
         $tableName = ucwords($modelCache[$modelid]['tablename']);
-        $repeat    = Db::name($tableName)->where('title', $title);
+        $repeat    = Db::name($tableName)->where('theme', $title);
         empty($id) ?: $repeat->where('id', '<>', $id);
         if ($repeat->find()) {
             $this->error('标题有重复！');
