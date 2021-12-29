@@ -48,7 +48,7 @@
 
 .layui-card-header {height: 40px;line-height: 40px;}
 .layui-layout-right .layui-nav-child {padding: 0!important;}
-.layui-card-body{padding: 5px 5px 6px 5px!important;}
+.layui-card-body{padding: 10px!important;}
 .site-icon{height: 16px;margin-top: -3px;}
 /* 按钮 */
 /* form-search */
@@ -68,7 +68,7 @@
 .layui-form-item label,.layui-form-item .layui-form-label{min-width:110px;padding:0 8px;height:38px;line-height:38px;border:1px solid #e6e6e6;border-radius:2px 0 0 2px;text-align:center;background-color:#FBFBFB;overflow:hidden;box-sizing:border-box;text-overflow:ellipsis;white-space:normal;}
 .layui-form-item .layui-form-field-label,.layui-form-item .layui-input-inline{flex:1;margin-left:-1px;margin-right: 0!important;}
 .layui-form-item .layui-input-block{margin-left: -1px;flex: 1;display: block;max-width: 100%;position: revert;}
-.layui-form-item .layui-input-block .btn-repeat{position: absolute;top: 8px;right: 8px;}
+.layui-form-item .layui-input-block .btn-repeat{position: absolute;top: 4px;right: 8px;}
 .layui-form-item .layui-form-radio, .layui-form-item .layui-form-switch{margin:6px 0 0 10px}
 .layui-iconpicker .layui-anim{width: 280px}
 
@@ -106,8 +106,8 @@
 .layui-form-item .layui-form-checkbox[lay-skin=primary]{margin: 8px 0 8px 8px;}
 
 .layui-card-body .layui-table {margin: 0 -1px;}
-.layui-table th {padding: 8px 15px;min-height: 22px;line-height: 22px;}
-.layui-table td {padding: 2px 15px;}
+.auth-list th {padding: 8px 15px;min-height: 22px;line-height: 22px;}
+.auth-list td {padding: 2px 15px;}
 .layui-table, .layui-table-view {margin: 0 0 0 -1px!important;}
 
 .layui-form-item .layui-form-field-label{padding: 0; line-height: 36px;}
