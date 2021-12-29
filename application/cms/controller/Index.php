@@ -86,15 +86,16 @@ class Index extends Cmsbase
         }
         $catid = $category['id'];
         // 20211226 判断栏目的访问权限
-
+        $readListAuth  = isset(cache("Cms_Config")['read_list_auth']) ? cache("Cms_Config")['read_list_auth'] : 1;
         $reads = Db::name('category_read')->where(array("catid" => $catid, "is_admin" => 0, "action" => "add"))->field('roleid as id')->select();
         $roles = array_column($reads,'id');
-        if ($roles) {
-            if (in_array($this->auth->groupid,$roles)===false) {
-                $this->error("您没有该栏目访问权限！", 'member/index/login');
+        if($readListAuth){
+            if ($roles) {
+                if (in_array($this->auth->groupid,$roles)===false) {
+                    $this->error("您没有该栏目访问权限！", 'member/index/login');
+                }
             }
         }
-
         $modelid = $category['modelid'];
         $models  = cache('Model');
         //栏目扩展配置信息

@@ -128,6 +128,14 @@
                             <div class="layui-form-mid layui-word-aux">开启后，可在【栏目授权】单独给管理员分配可管理的内容栏目</div>
                         </div>
                         <div class="layui-form-item">
+                            <label class="layui-form-label">访问权限</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="setting[read_list_auth]" value="1" title="开启" {if 1==$setting['read_list_auth']}checked{/if}>
+                                <input type="radio" name="setting[read_list_auth]" value="0" title="关闭" {if 0==$setting['read_list_auth']}checked{/if}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">配合栏目权限设置中的访问权限，开启时，访问列表需要登录</div>
+                        </div>
+                        <div class="layui-form-item">
                             <label class="layui-form-label" title="投稿需要手机或邮箱认证">投稿认证</label>
                             <div class="layui-input-block">
                                 <input type="radio" name="setting[authentication]" value="1" title="开启" {if 1 == $setting['authentication']}checked{/if}>
