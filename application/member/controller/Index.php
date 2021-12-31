@@ -99,7 +99,7 @@ class Index extends MemberBase
             if ($smsLogin) {
                 $result = Sms::check($account, $smsCode, 'login');
                 if (!$result) {
-                    $this->error('手机验证码错误！！！！！');
+                    $this->error('手机验证码错误！');
                 }
                 $extend['ischeck_mobile'] = 1;
             }
