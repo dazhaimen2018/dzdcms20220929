@@ -186,7 +186,7 @@ function setLang($lang) {
 // 默认数据源站信息
 function sourceSite($field) {
     //输出所有站点
-    $sites = cache('Site');
+    $sites = cache('Site')?cache('Site'):Site::where('status',1)->column('*','id');
     $site  = [];
     foreach ($sites as $v) {
         if ($v['source'] == 1) {
