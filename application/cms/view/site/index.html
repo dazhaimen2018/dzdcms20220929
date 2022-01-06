@@ -54,7 +54,7 @@
 </script>
 
 <script type="text/html" id="radioTpl">
-    {{# if(d.source==1){ }}
+    {{# if(d.master==1){ }}
     <input type="radio" name="layTableRadio_1" value="{{ d.id }}" checked>
     {{#  } else if(d.alone==0 || d.private == 1 || d.parentid != 0) { }}
     <input type="radio" name="layTableRadio_1" value="{{ d.id }}" disabled>
@@ -74,7 +74,7 @@
         table_render_id: 'currentTable',
         add_url: "{:url('add')}",
         delete_url: "{:url('del')}",
-        radio_url: "{:url('source')}",
+        radio_url: "{:url('master')}",
         modify_url: '{:url("multi")}',
     };
 

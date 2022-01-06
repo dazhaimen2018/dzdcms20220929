@@ -193,7 +193,7 @@ class Site extends Adminbase
     /**
      * 设置为主站
      */
-    public function source()
+    public function master()
     {
         $ids = $this->request->param('id/a', null);
         if (empty($ids)) {
@@ -204,8 +204,8 @@ class Site extends Adminbase
         }
 
         foreach ($ids as $sid) {
-            Db::name('site')->where('source', 1)->update(['source' => 0]);
-            Db::name('site')->where('id', $sid)->update(['source' => 1]);
+            Db::name('site')->where('master', 1)->update(['master' => 0]);
+            Db::name('site')->where('id', $sid)->update(['master' => 1]);
         }
         $this->success("设置主站成功！");
 
