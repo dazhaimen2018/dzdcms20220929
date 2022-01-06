@@ -363,7 +363,7 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                 } else if (v === 'delete') {
                     toolbarHtml += '<button class="layui-btn layui-btn-sm layui-btn-danger" data-href="' + init.delete_url + '" data-batch-all="' + tableId + '"><i class="iconfont icon-trash"></i> 删除</button>\n';
                 } else if (v === 'radio') { // 马博 20220105
-                    toolbarHtml += '<button class="layui-btn layui-btn-sm layui-btn-danger" data-href="' + init.radio_url + '" data-batch-one="' + tableId + '"><i class="iconfont icon-database-2-line"></i>  设置为默认站</button>\n';
+                    toolbarHtml += '<button class="layui-btn layui-btn-sm layui-btn-danger" data-href="' + init.radio_url + '" data-batch-one="' + tableId + '"><i class="iconfont icon-database-2-line"></i>  设置为主站</button>\n';
                 } else if (typeof v === "object") {
                     $.each(v, function(ii, vv) {
                         vv.class = vv.class || '';
