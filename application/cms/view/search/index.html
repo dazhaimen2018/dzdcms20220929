@@ -19,13 +19,12 @@
 
         var init = {
             table_elem: '#currentTable',
+            table_render_id: 'currentTable',
             delete_url: "{:url('del')}",
         };
 
         table.render({
             init: init,
-            id: 'currentTable',
-            elem: '#currentTable',
             toolbar: ['refresh','delete'],
             url: '{:url("index")}',
             search:true,

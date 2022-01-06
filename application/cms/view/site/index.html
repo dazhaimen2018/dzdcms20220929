@@ -71,6 +71,7 @@
 
     var init = {
         table_elem: '#currentTable',
+        table_render_id: 'currentTable',
         add_url: "{:url('add')}",
         delete_url: "{:url('del')}",
         radio_url: "{:url('source')}",
@@ -79,8 +80,6 @@
 
     table.render({
         init: init,
-        id: 'currentTable',
-        elem: '#currentTable',
         toolbar: ['refresh', 'add','radio', [
                 {
                 text: "更新站点缓存",

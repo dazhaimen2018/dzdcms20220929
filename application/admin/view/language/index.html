@@ -44,12 +44,12 @@ layui.use('yznTable', function() {
 
     var init = {
         table_elem: '#currentTable',
+        table_render_id: 'currentTable',
         add_url: '{:url("add")}?row=1',
     };
 
     table.render({
         init: init,
-        id: 'currentTable',
         toolbar: ['refresh',
             [{
                 text: '添加',
