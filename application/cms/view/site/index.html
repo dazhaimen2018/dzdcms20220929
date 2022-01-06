@@ -22,6 +22,13 @@
     <div> <i class="layui-icon layui-icon-ok-circle"></i></div>
     {{#  } }}
 </script>
+<script type="text/html" id="privateTpl">
+    {{# if(d.private ==0){ }}
+    <div> <i class="iconfont icon-delete"></i></div>
+    {{#  } else { }}
+    <div> <i class="layui-icon layui-icon-ok-circle layui-red"></i></div>
+    {{#  } }}
+</script>
 <script type="text/html" id="closeTpl">
     {{# if(d.close){ }}
     <div> <i class="layui-icon layui-icon-ok-circle"></i></div>
@@ -93,6 +100,7 @@
                 {field: 'listorder', width: 70, title: '排序', edit: 'text',search:false },
                 {field: 'name', title: '站点名称', searchOp: 'like'},
                 { field: 'close', width: 90, align: "center", title: '站点开关', templet: '#closeTpl', unresize: true,search:false },
+                { field: 'private', width: 90, align: "center", title: '独立管理', templet: '#privateTpl', unresize: true,search:false },
                 { field: 'alone', width: 90, align: "center", title: '独立数据', templet: '#aloneTpl', unresize: true,search:false },
                 {field: 'mark', title: '标识', width: 90,align:"center" },
                 {field: 'template', title: '主题', width: 90,align:"center" },
