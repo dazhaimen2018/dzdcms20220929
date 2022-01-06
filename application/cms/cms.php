@@ -70,7 +70,7 @@ function getSiteInfo($field)
     }
     $siteId = onSite();
     //输出所有站点
-    $sites = cache('Site');
+    $sites = cache('Site')?cache('Site'):Site::where('status',1)->column('*','id');
     $site  = [];
     foreach ($sites as $v) {
         if ($v['id'] == $siteId) {
