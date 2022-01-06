@@ -167,10 +167,11 @@ function onSiteId() {
 
 //数据调用时虚拟站点ID为默认站点ID
 function dataSiteId(){
+    $masterId = masterSite('id'); // 主站ID
     if (getSite('alone') == 1){
         $siteId = getSiteId();
     }else{
-        $siteId = 1;
+        $siteId = $masterId;
     }
     return $siteId;
 }
