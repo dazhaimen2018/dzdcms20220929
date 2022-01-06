@@ -84,7 +84,7 @@ class Adminbase extends Base
         $domain      = $_SERVER['HTTP_HOST'];
         $adminDomain = adminDomain();
         $authDomain  = config('admin_domain');
-        $sourceName  = masterSite('name'); // 默认源站名称
+        $masterName  = masterSite('name'); // 默认源站名称
         if ($adminDomain) {
             if (strpos($domain, $adminDomain)!==false) {
                 if ($authDomain && $domain!=$authDomain) {
@@ -160,7 +160,7 @@ class Adminbase extends Base
         $this->assign('site', $site);
         $this->assign('push', $push);
         $this->assign('siteId', $siteId);
-        $this->assign('sourceName', $sourceName);
+        $this->assign('masterName', $masterName);
         $this->assign('auth', $this->auth);
         $this->assign('userInfo', Session::get('admin'));
     }
