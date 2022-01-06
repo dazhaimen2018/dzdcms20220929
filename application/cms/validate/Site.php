@@ -20,8 +20,8 @@ class Site extends Validate
 {
 	//定义验证规则
 	protected $rule = [
-		'name|站点名称' => 'require|max:30|unique:model',
-        'domain|域名' => 'require|regex:/^[A-Za-z0-9][a-zA-Z][A-Za-z0-9\-\.]+$/',
+        'name|站点名称' => 'require|max:30|unique:site',
+        'domain|域名' => 'require|regex:/^[A-Za-z0-9][a-zA-Z][A-Za-z0-9\-\.]+$/|unique:site',
         'template|主题风格' => 'require',
 	];
 }
