@@ -62,21 +62,15 @@
                         <!-- 相同域名使用于多语言站，点击切换 所有子站域名相同时 换成 href="javascript：void(0)" -->
                         {volist name="allSite" id="vo"}
                         {if $vo['domain']==$domain}
-                        <dd>
-                            {if  $vo['id']==$site_id && $vo['mark']=='zh-cn'}
-                            <a id="gb2big5"><img src= "/static/lang/image/{$vo.mark}.png"> 繁体中文</a>
-                            {else}
-                            <a {if $site_id==$vo.id}class="active"{/if} href="javascript:void(0)" onclick="setLang('{$vo.mark}','{$vo.id}')" title="切换到{$vo.name|raw}"><img src= "/static/lang/image/{$vo.mark}.png"> {$vo.name|raw}</a>
-                            {/if}
-                        </dd>
+                        <dd><a {if $siteId==$vo.id}class="active"{/if} href="javascript:void(0)" onclick="setLang('{$vo.mark}','{$vo.id}')" title="切换到{$vo.name|raw}"><img src= "/static/lang/image/{$vo.mark}.png"> {$vo.name|raw}</a></dd>
                         {else}
                         <dd>
-                            {if  $vo['id']==$site_id && $vo['mark']=='zh-cn'}
+                            {if  $vo['id']==$siteId && $vo['mark']=='zh-cn'}
                             <a id="gb2big5"><img src= "/static/lang/image/{$vo.mark}.png"> 繁体中文</a>
                             {else}
-                            <a {if $site_id==$vo.id}class="active"{/if} href="{$vo.url}" onclick="setLang('{$vo.mark}','{$vo.id}')" title="跳转到{$vo.name|raw}"><img src= "/static/lang/image/{$vo.mark}.png"> {$vo.name|raw}</a>
+                            <a {if $siteId==$vo.id}class="active"{/if} href="{$vo.url}" onclick="setLang('{$vo.mark}','{$vo.id}')" title="跳转到{$vo.name|raw}"><img src= "/static/lang/image/{$vo.mark}.png"> {$vo.name|raw}</a>
                             {/if}
-                           </dd>
+                        </dd>
                         {/if}
                         {/volist}
                     </dl>

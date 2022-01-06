@@ -537,12 +537,8 @@ class Chapter extends Modelbase
     {
         $url_mode  = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
         $tableName = $this->getModelTableName($modeId);
-        $result = [];
-        if (getSite('alone')==1){
-            $siteId = getSiteId();
-        }else{
-            $siteId = 1;
-        }
+        $result    = [];
+        $siteId    = dataSiteId(); //数据调用时虚拟站点ID为默认站点ID
         if (isset($tableName) && !empty($tableName)) {
             if (3 == getModel($modeId, 'type') && $moreifo) {
                 $extTable = $tableName . $this->sub_table;
@@ -613,27 +609,22 @@ class Chapter extends Modelbase
      * @param  string  $field   []
      * @param  string  $order   []
      */
-    public function getChapterContent($modeId, $did, $where, $moreifo = false, $field = '*', $order = '', $cache = false, $site_id = 0,$type="next")
+    public function getChapterContent($modeId, $did, $where, $moreifo = false, $field = '*', $order = '', $cache = false, $siteId = 0,$type="next")
     {
         $url_mode  = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
         $tableName = $this->getModelTableName($modeId);
-        if (getSite('alone')==1){
-            $site_id = getSiteId();
-        }else{
-            $site_id = 1;
-        }
-
+        $siteId    = dataSiteId(); //数据调用时虚拟站点ID为默认站点ID
         if (2 == getModel($modeId, 'type') && $moreifo) {
             $where    = $tableName . '.' . $where;
             $extTable = $tableName . $this->sub_table;
 
-            $where .= " and " . $extTable . ".site_id=" . $site_id;
+            $where .= " and " . $extTable . ".site_id=" . $siteId;
             $dataInfo = Db::view($tableName, '*')->where($where)->cache($cache)->view($extTable, '*', $tableName . '.id=' . $extTable . '.did', 'LEFT')->field('`' . $tableName . "`.id as id")->find();
         } else {
             $where    = $tableName . '.' . $where;
             $extTable = $tableName . $this->sub_table;
-            if ($site_id != 0) {
-                $where .= " and " . $extTable . ".site_id=" . $site_id ." and " . $extTable . ".id=" . $did;
+            if ($siteId != 0) {
+                $where .= " and " . $extTable . ".site_id=" . $siteId ." and " . $extTable . ".id=" . $did;
             }
 
             if($type=="pre"){

@@ -15,12 +15,12 @@
 <div class="layui-card">
     <div class="page-text">
         <div class="nav-span previous d-inline-block">
-            {yzn module="cms" action="pre" catid="$catid" siteId="$site_id" id="$id" cache="3600" return="data"}
+            {yzn module="cms" action="pre" catid="$catid" id="$id" siteId="$siteId" cache="3600" return="data"}
             <a href="{$data.url}" {$data.target}><i class="layui-icon layui-icon-prev"></i> {:lang('Pre')}：{$data.title}</a>
             {/yzn}
         </div>
         <div class="nav-span d-inline-block">
-            {yzn module="cms" action="next" catid="$catid" siteId="$site_id" id="$id" cache="3600" return="data"}
+            {yzn module="cms" action="next" catid="$catid" id="$id" siteId="$siteId" cache="3600" return="data"}
             <a href="{$data.url}" {$data.target}>{:lang('Next')}：{$data.title} <i class="layui-icon layui-icon-next"></i></a>
             {/yzn}
         </div>

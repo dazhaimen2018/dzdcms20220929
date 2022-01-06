@@ -65,14 +65,10 @@ class CmsTagLib
      */
     public function Category($data)
     {
-        $url_mode = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
+        $urlMode  = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
         $where    = isset($data['where']) ? $data['where'] : "status=1";
         $order    = isset($data['order']) ? $data['order'] : 'listorder DESC,id DESC';
-        if (getSite('alone')==1){
-            $siteId = getSiteId();
-        }else{
-            $siteId = 1;
-        }
+        $siteId   = dataSiteId(); //数据调用时虚拟站点ID为默认站点ID
         //每页显示总数
         //$num = isset($data['num']) ? (int) $data['num'] : 10;
         if (!isset($data['limit'])) {
@@ -103,7 +99,7 @@ class CmsTagLib
                     $vo['status']  = $categorys['status'];
                 }
 
-                $cat         = $url_mode == 1 ? $vo['id'] : $vo['catdir'];
+                $cat         = $urlMode == 1 ? $vo['id'] : $vo['catdir'];
                 $vo['url']   = buildCatUrl($cat, $vo['url']);
             }
         }
@@ -134,6 +130,7 @@ class CmsTagLib
                 $data['where'] .= " AND (" . implode(' OR ', $flag) . ")";
             }
         }
+        $siteId         = dataSiteId(); //数据调用时虚拟站点ID为默认站点ID
         $data['field']  = isset($data['field']) ? $data['field'] : '*';
         $data['simple'] = isset($data['simple']) ? (is_numeric($data['simple']) ? (int) $data['simple'] : (bool) $data['simple']) : false;
         $moreifo        = isset($data['moreinfo']) ? $data['moreinfo'] : 0;
@@ -147,11 +144,6 @@ class CmsTagLib
                 return false;
             }
             $modelid = intval($data['modelid']);
-        }
-        if (getSite('alone')==1){
-            $siteId = getSiteId();
-        }else{
-            $siteId = 1;
         }
         $pageconfig                                     = [];
         isset($data['pagepath']) && $pageconfig['path'] = $data['pagepath'];
@@ -185,6 +177,7 @@ class CmsTagLib
         $data['field']  = isset($data['field']) ? $data['field'] : '*';
         $data['simple'] = isset($data['simple']) ? (is_numeric($data['simple']) ? (int) $data['simple'] : (bool) $data['simple']) : false;
         $moreifo        = isset($data['moreinfo']) ? $data['moreinfo'] : 0;
+        $siteId         = dataSiteId(); //数据调用时虚拟站点ID为默认站点ID
         //如果设置了catid，则根据catid判断modelid,传入的modelid失效
         if ($catid) {
             //当前栏目信息
@@ -196,11 +189,7 @@ class CmsTagLib
             }
             $modelid = intval($data['modelid']);
         }
-        if (getSite('alone')==1){
-            $siteId = getSiteId();
-        }else{
-            $siteId = 1;
-        }
+
         $result = model('cms/Chapter')->getChapterList($modelid, $this->where($data), $moreifo, $did, $siteId, $data['field'], $data['order'], $data['limit'], $data['page'], $data['simple']);
         return $result;
     }
@@ -294,7 +283,7 @@ class CmsTagLib
         //是否新窗口打开
         $target    = !empty($data['target']) ? ' target=_blank ' : '';
         $tableName = model('cms/Cms')->getModelTableName(getCategory($data['catid'], 'modelid'));
-        $result    = model('cms/Cms')->getContent(getCategory($data['catid'], 'modelid'), "catid =" . $data['catid'] . " AND " . $tableName . ".status=1 AND " . $tableName . ".id <" . $data['id'], false, '*','', $cache = false, $site_id = 0,$type="pre");
+        $result    = model('cms/Cms')->getContent(getCategory($data['catid'], 'modelid'), "catid =" . $data['catid'] . " AND " . $tableName . ".status=1 AND " . $tableName . ".id <" . $data['id'], false, '*','', $cache = false, $siteId = 0,$type="pre");
         if (!$result) {
             $result['title'] = $msg;
             $result['url']   = 'javascript:alert("' . $msg . '");';
@@ -335,7 +324,7 @@ class CmsTagLib
         $target    = !empty($data['target']) ? ' target=_blank ' : '';
         $tableName = model('cms/Chapter')->getModelTableName(getCategory($data['catid'], 'modelid'));
         $tableName = $tableName . '_sub_data';
-        $result    = model('cms/Chapter')->getChapterContent(getCategory($data['catid'], 'modelid'), $data['did'], "catid =" . $data['catid'] . " AND " . $tableName . ".status=1 AND " . $tableName . ".id <" . $data['id'], false, '*','', $cache = false, $site_id = 0,$type="chapterPre");
+        $result    = model('cms/Chapter')->getChapterContent(getCategory($data['catid'], 'modelid'), $data['did'], "catid =" . $data['catid'] . " AND " . $tableName . ".status=1 AND " . $tableName . ".id <" . $data['id'], false, '*','', $cache = false, $siteId = 0,$type="chapterPre");
         if (!$result) {
             $result['chapter'] = $msg;
             $result['url']   = 'javascript:alert("' . $msg . '");';

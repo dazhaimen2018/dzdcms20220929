@@ -14,6 +14,7 @@
 
 namespace app\cms\controller;
 
+use app\cms\model\Page;
 use app\cms\model\SearchLog;
 use app\cms\model\Cms as CmsModel;
 use app\cms\model\Chapter;
@@ -29,18 +30,8 @@ class Index extends Cmsbase
     protected function initialize()
     {
         parent::initialize();
-        $this->CmsModel = new CmsModel;
+        $this->CmsModel     = new CmsModel;
         $this->ChapterModel = new Chapter;
-        $siteId = getSiteId();
-        $this->site_id = $siteId;
-
-        if (isset($_COOKIE['lang']) && !empty($_COOKIE['lang'])) {
-            $lang   = trim($_COOKIE['lang']);
-            if (Site::where("mark='{$lang}'")->cache(60)->find()) {
-                setLang($lang);
-            }
-        }
-
     }
 
     /**
@@ -72,7 +63,6 @@ class Index extends Cmsbase
     // 列表页
     public function lists()
     {
-        //$groupinfo = $this->_check_group_read($this->auth->groupid);
         //栏目ID
         $cat = $this->request->param('catid/d', 0);
         if (empty($cat)) {
@@ -87,8 +77,8 @@ class Index extends Cmsbase
         $catid = $category['id'];
         // 20211226 判断栏目的访问权限
         $readListAuth  = isset(cache("Cms_Config")['read_list_auth']) ? cache("Cms_Config")['read_list_auth'] : 1;
-        $reads = Db::name('category_read')->where(array("catid" => $catid, "is_admin" => 0, "action" => "add"))->field('roleid as id')->select();
-        $roles = array_column($reads,'id');
+        $reads         = Db::name('category_read')->where(array("catid" => $catid, "is_admin" => 0, "action" => "add"))->field('roleid as id')->select();
+        $roles         = array_column($reads,'id');
         if($readListAuth){
             if ($roles) {
                 if (in_array($this->auth->groupid,$roles)===false) {
@@ -116,7 +106,7 @@ class Index extends Cmsbase
         } else if ($category['type'] == 1) {
             $template = $setting['page_template'] ? $setting['page_template'] : 'page';
             $ifcache  = $this->cmsConfig['site_cache_time'] ? $this->cmsConfig['site_cache_time'] : false;
-            $info     = model('Page')->getPage($catid, $ifcache);
+            $info     = model('Page')->getPage($catid, $ifcache, $this->$siteId );
             if ($info) {
                 $info = $info->toArray();
             }
@@ -155,12 +145,13 @@ class Index extends Cmsbase
     // 内容页
     public function shows()
     {
-        //ID
         $id  = $this->request->param('id/d', 0);
         $cat = $this->request->param('catid/d', 0);
-        $diy = $this->request->param('diyurl/s', 0);
         if (empty($cat)) {
             $cat = $this->request->param('catdir/s', '');
+        }
+        if (empty($id)) {
+            $diy = $this->request->param('diyurl/s', 0);
         }
         $page = $this->request->param('page/d', 1);
         $page = max(1, $page);
@@ -179,10 +170,9 @@ class Index extends Cmsbase
             $this->error(patch('PageNot')); //模型不存在
         }
         //更新点击量 获得文章ID
-        $show_mode    = isset(cache("Cms_Config")['show_url_mode']) ? cache("Cms_Config")['show_url_mode'] : 1;
+        //$showMode     = isset(cache("Cms_Config")['show_url_mode']) ? cache("Cms_Config")['show_url_mode'] : 1;
         $showCatMode  = isset(cache("Cms_Config")['show_cat_mode']) ? cache("Cms_Config")['show_cat_mode'] : 1;
-
-        if ($show_mode) {
+        if (empty($id)) {
             $id = Db::name($modelInfo['tablename'])->where('diyurl', $diy)->value('id');
         }
         if ($showCatMode) {
@@ -190,8 +180,9 @@ class Index extends Cmsbase
         }
         Db::name($modelInfo['tablename'])->where('id', $id)->setInc('hits');
         //内容所有字段
+        $siteId  = getSiteId();
         $ifcache = $this->cmsConfig['site_cache_time'] ? $this->cmsConfig['site_cache_time'] : false;
-        $info    = $this->CmsModel->getContent($modelid, "id={$id}", true, '*', '', $ifcache, $this->site_id);
+        $info    = $this->CmsModel->getContent($modelid, "id={$id}", true, '*', '', $ifcache, $siteId );
         //文章的阅读权限
         //20211226 判断栏目中内容的访问权限 如果栏目已经设置权限就不用再判断文章了
         $reads = Db::name('category_read')->where(array("catid" => $catid, "is_admin" => 0, "action" => "add"))->field('roleid as id')->select();
@@ -307,8 +298,9 @@ class Index extends Cmsbase
         //更新点击量 子表
         Db::name($modelInfo['tablename'].'_sub_data')->where('did', $did)->where('id', $id)->setInc('views');
         //内容所有字段
+        $siteId  = getSiteId();
         $ifcache = $this->cmsConfig['site_cache_time'] ? $this->cmsConfig['site_cache_time'] : false;
-        $info = $this->ChapterModel->getChapterContent($modelid, $id,"id={$did}", true, '*', '', $ifcache, $this->site_id);
+        $info = $this->ChapterModel->getChapterContent($modelid, $id,"id={$did}", true, '*', '', $ifcache, $siteId);
         if (!$info || ($info['status'] !== 1 && !\app\admin\service\User::instance()->isLogin())) {
             throw new \think\Exception(patch('PageError'), 404);
         }
@@ -398,7 +390,7 @@ class Index extends Cmsbase
             } else {
                 SearchLog::create([
                     'keywords' => $keyword,
-                    'site_id'  => $siteId,
+                    'siteId'  => $siteId,
                     'nums'    => 1,
                     'ip'      => $this->request->ip()
                 ]);

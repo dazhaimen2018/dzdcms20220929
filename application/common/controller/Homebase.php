@@ -14,6 +14,7 @@ use app\common\controller\Base;
 use think\Db;
 use think\facade\Cache;
 use think\facade\Config;
+use think\facade\Cookie;
 
 class Homebase extends Base
 {
@@ -24,15 +25,22 @@ class Homebase extends Base
         $this->request->filter('trim,strip_tags,htmlspecialchars');
         parent::initialize();
         $config = \think\facade\config::get('app.');
-        $domain     = $_SERVER['HTTP_HOST'];
-        $sites  = cache('sites')?cache('sites'):Site::where('status',1)->column('*','id');
-        Cache::set('sites', $sites, 3600);
+        $domain = isset(cache("Cms_Config")['domain']) ? cache("Cms_Config")['domain'] : 1;
+        $sites  = cache('Site')?cache('Site'):Site::where('status',1)->column('*','id');
+        Cache::set('Site', $sites, 3600);
         //语言设定
         $mark = $sites[getSiteId()]['mark'];
-
         if ($mark && ($mark.'_'.getSiteId() != cookie('var'))){
+            cookie('var', null);
             cookie('var',$mark.'_'.getSiteId());
             header('Location:'.$_SERVER['REQUEST_URI']);exit;
+        }
+
+        if (isset($_COOKIE['lang']) && !empty($_COOKIE['lang'])) {
+            $lang   = trim($_COOKIE['lang']);
+            if (Site::where("mark='{$lang}'")->find()) {
+                setLang($lang);
+            }
         }
         //$siteName 虚拟站点显示自己的站点名称 独立站不显示
         if (getSite('alone')!=1){

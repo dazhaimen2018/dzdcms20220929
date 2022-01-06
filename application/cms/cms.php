@@ -7,6 +7,7 @@
  * cms函数文件
  */
 
+use app\cms\model\Site;
 use think\facade\Cache;
 use think\facade\Request;
 //获得Tag的URL
@@ -14,15 +15,6 @@ function getTagDir($tag)
 {
     $tagdir = db('tags')->where('tag',$tag)->value('tagdir');
     return  $tagdir;
-}
-
-//设置语言
-function setLang($lang)
-{
-    $domain = $_SERVER['HTTP_HOST'];
-    $key = $domain . '_lang';
-    Cache::clear();
-    Cache::set($key, $lang);
 }
 
 //通过ID获得当前站点名称
@@ -55,9 +47,9 @@ function patch($langName, $newCache = false)
         return false;
     }
     if (empty($cache)) {
-        $lang       = db('lang')->where(['name' => $langName])->cache(60)->find();
+        $lang       = db('lang')->where(['name' => $langName])->find();
         $langId     = $lang['id'];
-        $lang_data  = db('lang_data')->where(['lang_id' => $langId, 'site_id' => $siteId])->cache(60)->find();
+        $lang_data  = db('lang_data')->where(['lang_id' => $langId, 'site_id' => $siteId])->find();
         if($lang_data){
             $lang_value = $lang_data['value'];
         }else{
@@ -70,16 +62,23 @@ function patch($langName, $newCache = false)
     return $lang_value;
 }
 
-//获取站点信息
+//获取站点信息 后台用
 function getSiteInfo($field)
 {
     if (!$field) {
         return false;
     }
     $siteId = onSite();
-    $site   = db('site')->where(['id' => $siteId])->cache(60)->find();
+    //输出所有站点
+    $sites = cache('Site');
+    $site  = [];
+    foreach ($sites as $v) {
+        if ($v['id'] == $siteId) {
+            $site[] = $v;
+        }
+    }
     if ($site) {
-        return $site[$field];
+        return $site[0][$field];
     } else {
         return false;
     }
@@ -88,10 +87,11 @@ function getSiteInfo($field)
 //前端站点信息，后台用 和 getSiteInfo重复待优化
 function getSite($field)
 {
+    $key = 'siteInfo';
     if (!$field) {
         return false;
     }
-    $siteInfo  = Cache::get('siteInfo');
+    $siteInfo = Cache::get($key);
     if ($siteInfo) {
         return $siteInfo[$field];
     } else {
@@ -132,9 +132,15 @@ function showsUrl($id,$catid){
 //当前站URL
 function onSiteUrl(){
     $siteId  = onSite();
-    $siteUrl = db('site')->where('id',$siteId)->cache(60)->value('url');
-    return $siteUrl;
-
+    //输出所有站点
+    $sites = cache('Site');
+    $site  = [];
+    foreach ($sites as $v) {
+        if ($v['id'] == $siteId) {
+            $site[] = $v;
+        }
+    }
+    return $site[0]['url'];
 }
 
 // 当前私有化值
@@ -158,54 +164,109 @@ function onSiteId() {
     }
     return $siteId;
 }
-//当前站ID
-function getSiteId()
-{
-    $key = 'siteInfo';
-    $domain    = $_SERVER['HTTP_HOST'];
-    $setDomain = isset(cache("Cms_Config")['domain']) ? cache("Cms_Config")['domain'] : 1;
-    $header    =  preg_match('/^([a-z\-]+)/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches);
-    $mark      = $matches[1]; // 获得header中的语言标识
-    $siteInfo  = Cache::get($key);
-    if ( $setDomain && $domain == $setDomain) {
-        // 站点域名相同时，还得优化
-        if($mark == $siteInfo['mark']){
-            return $siteInfo['id'];
-        }else{
-            Cache::rm($key, null);
-            $site = db('site')->where("mark='{$mark}' and domain='{$domain}'")->find();
-            Cache::set($key, $site, 3600);
-            return $site['id'];
-        }
 
+//数据调用时虚拟站点ID为默认站点ID
+function dataSiteId(){
+    if (getSite('alone') == 1){
+        $siteId = getSiteId();
     }else{
-        if($siteInfo){
-            if($domain == $siteInfo['domain']){
-                return $siteInfo['id'];
-            } else {
-                Cache::rm($key, null);
-                $site      = db('site')->where("domain='{$domain}'")->find();
-                if($site){
-                    Cache::set($key, $site, 3600);
-                    return $site['id'];
-                } else {
-                    //域名未绑定站点，打开默认站点
-                    Cache::rm($key, null);
-                    $site      = db('site')->where("id=1")->find();
-                    Cache::set($key, $site, 3600);
-                    return 1;
-                }
+        $siteId = 1;
+    }
+    return $siteId;
+}
 
-            }
-        }else{
-            Cache::rm($key, null);
-            $site      = db('site')->where("domain='{$domain}'")->find();
-            Cache::set($key, $site, 3600);
-            return $site['id'];
+//设置语言
+function setLang($lang) {
+    $domain = $_SERVER['HTTP_HOST'];
+    $key = $domain . '_lang';
+    Cache::clear();
+    Cache::set($key, $lang);
+}
+
+// 默认数据源站信息
+function sourceSite($field) {
+    //输出所有站点
+    $sites = cache('Site');
+    $site  = [];
+    foreach ($sites as $v) {
+        if ($v['source'] == 1) {
+            $site[] = $v;
         }
+    }
+    return $site[0][$field];
+}
 
+//当前站ID
+function getSiteId() {
+    $key       = 'siteInfo';
+    $domain    = $_SERVER['HTTP_HOST'];
+    $cookMark  = $_COOKIE['lang'];
+    $setDomain = isset(cache("Cms_Config")['domain']) ? cache("Cms_Config")['domain'] : 1;
+//    $header    =  preg_match('/^([a-z\-]+)/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches);
+//    $mark      = $matches[1]; // 获得header中的语言标识
+    $siteInfo  = Cache::get($key);
 
+    //输出所有站点
+    $sites = cache('Site')?cache('Site'):Site::where('status',1)->column('*','id');
+    Cache::set('Site', $sites, 3600);
+    $site  = [];
+    if(empty($setDomain)){
+        if($siteInfo['domain'] == $domain ){
+            return $siteInfo['id'];
+        } else {
+            Cache::rm($key, null);
+            foreach ($sites as $v) {
+                if ($v['domain'] == $domain) {
+                    $site[] = $v;
+                }
+            }
+            $site = $site[0];
+            if($site){
+                Cache::set($key, $site, 3600);
+                return $site['id'];
+            } else {
+                //域名未绑定站点，打开默认站点
+                Cache::rm($key, null);
+                foreach ($sites as $v) {
+                    if ($v['id'] == 1) {
+                        $site[] = $v;
+                    }
+                }
+                $site = $site[0];
+                Cache::set($key, $site, 3600);
+                return 1;
+            }
+        }
+    }
+    //站点共用域名时
+    if($setDomain) {
+        if ($domain == $siteInfo['domain']) {
+            return $siteInfo['id'];
+        } else{
+            Cache::rm($key, null);
+            foreach ($sites as $v) {
+                if ($v['mark'] == $cookMark && $v['domain'] == $domain) {
+                    $site[] = $v;
+                }
+            }
+            $site = $site[0];
+            if($site){
+                Cache::set($key, $site, 3600);
+                return $site['id'];
+            }
+            else {
+                //域名未绑定站点，打开默认站点
+                Cache::rm($key, null);
+                foreach ($sites as $v) {
+                    if ($v['id'] == 1) {
+                        $site[] = $v;
+                    }
+                }
+                $site = $site[0];
+                Cache::set($key, $site, 3600);
+                return 1;
+            }
+        }
     }
 
 }
-

@@ -3,7 +3,7 @@
     <div class="links">
         {:lang('links')}：
         <ul>
-            {yzn module="links" action="lists" siteId="$site_id" cache="3600" order="listorder ASC" num="10"  return="data"}
+            {yzn module="links" action="lists" siteId="$siteId" cache="3600" order="listorder ASC" num="10"  return="data"}
             {volist name="data" id="vo"}
             <li><a href="{$vo.url}" target="_blank">{$vo.name} </a></li>
             {/volist}
@@ -15,6 +15,7 @@
 </div>
 {:hook('page_footer')}
 <script src="__SKIN__/dzd/cms/js/jquery.min.js"></script>
+<script src="http://www.5imoban.net/download/jquery/jquery.cookie.min.js"></script>
 <script src="__STATIC__/libs/layui/layui.js"></script>
 <script src="__STATIC__/libs/gb2big5/js.js"></script>
 <script src="__SKIN__/dzd/cms/js/dzd.js"></script>

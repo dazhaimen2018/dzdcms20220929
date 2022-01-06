@@ -84,7 +84,7 @@
         </div>
         <div class="layui-container">
             <div class="layui-row">
-                {yzn module="cms" action="lists" catid="4" siteId="$site_id" cache="3600" order="listorder DESC,inputtime DESC" num="8" return="data"}
+                {yzn module="cms" action="lists" catid="4" siteId="$siteId" cache="3600" order="listorder DESC,inputtime DESC" num="8" return="data"}
                 {volist name="data" id="item"}
                 <div class="layui-col-md4 layui-col-sm6">
                     <fieldset class="layui-elem-field layui-field-title" title="{$item.title}">

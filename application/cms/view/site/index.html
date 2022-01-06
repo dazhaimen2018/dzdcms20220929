@@ -9,7 +9,12 @@
         </div>
     </div>
 </div>
-
+<script type="text/html" id="icon">
+    {{# if(d.mark ==0){ }}无
+    {{#  } else { }}
+    <div><img class="site-icon" src="/static/lang/image/{{d.mark}}.png" alt=""></div>
+    {{#  } }}
+</script>
 <script type="text/html" id="aloneTpl">
     {{# if(d.alone ==0){ }}
     <div> <i class="iconfont icon-delete layui-red"></i></div>
@@ -32,7 +37,6 @@
     {{#  } }}
 </script>
 <script type="text/html" id="barTool">
-
     {{#  if({$push} && d.alone == 1){ }}
     <a data-open='{:url("push/site",["catid"=>$catid])}?id={{ d.id }}' class="layui-btn layui-btn-xs layui-btn-warm" title="推送并翻译">同步</a>
     {{#  } else { }}
@@ -49,6 +53,16 @@
     <a href='{:url("del")}?id={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
 </script>
 
+<script type="text/html" id="radioTpl">
+    {{# if(d.source==1){ }}
+    <input type="radio" name="layTableRadio_1" value="{{ d.id }}" checked>
+    {{#  } else if(d.alone==0) { }}
+    <input type="radio" name="layTableRadio_1" value="{{ d.id }}" disabled>
+    {{#  } else { }}
+    <input type="radio" name="layTableRadio_1" lay-type="layTableRadio" value="{{ d.id }}">
+    {{#  } }}
+</script>
+
 {/block}
 {block name="script"}
 <script>
@@ -59,6 +73,7 @@
         table_elem: '#currentTable',
         add_url: "{:url('add')}",
         delete_url: "{:url('del')}",
+        radio_url: "{:url('source')}",
         modify_url: '{:url("multi")}',
     };
 
@@ -66,7 +81,7 @@
         init: init,
         id: 'currentTable',
         elem: '#currentTable',
-        toolbar: ['refresh', 'add', [
+        toolbar: ['refresh', 'add','radio', [
                 {
                 text: "更新站点缓存",
                 url: "{:url('cache')}",
@@ -80,8 +95,9 @@
         search:true,
         cols: [
             [
+                {fixed: 'left', width: 70, title: '选择',templet: '#radioTpl' ,align:"center"},
                 {field: 'id', title: 'ID', width: 80, fixed: true, sort: true,align:"center"},
-                { field: 'listorder', width: 70, title: '排序', edit: 'text',search:false },
+                {field: 'listorder', width: 70, title: '排序', edit: 'text',search:false },
                 {field: 'name', title: '站点名称', searchOp: 'like'},
                 { field: 'close', width: 90, align: "center", title: '站点开关', templet: '#closeTpl', unresize: true,search:false },
                 { field: 'source', width: 90, align: "center", title: '默认站点', templet: '#sourceTpl', unresize: true,search:false },

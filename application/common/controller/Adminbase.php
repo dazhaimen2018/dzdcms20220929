@@ -11,6 +11,7 @@
 namespace app\common\controller;
 
 use app\admin\service\User;
+use app\cms\model\Site;
 use think\facade\Hook;
 use think\facade\Session;
 use think\Loader;
@@ -83,6 +84,7 @@ class Adminbase extends Base
         $domain      = $_SERVER['HTTP_HOST'];
         $adminDomain = adminDomain();
         $authDomain  = config('admin_domain');
+        $sourceName  = sourceSite('name'); // 默认源站名称
         if ($adminDomain) {
             if (strpos($domain, $adminDomain)!==false) {
                 if ($authDomain && $domain!=$authDomain) {
@@ -158,6 +160,7 @@ class Adminbase extends Base
         $this->assign('site', $site);
         $this->assign('push', $push);
         $this->assign('siteId', $siteId);
+        $this->assign('sourceName', $sourceName);
         $this->assign('auth', $this->auth);
         $this->assign('userInfo', Session::get('admin'));
     }

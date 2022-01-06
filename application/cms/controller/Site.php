@@ -70,10 +70,9 @@ class Site extends Adminbase
         $parentid = $this->request->param('parentid/d', 0);
         if ($this->request->isPost()) {
             $data = $this->request->post();
-            try {
-                $this->validate($data, 'Site');
-            } catch (\Exception $e) {
-                $this->error($e->getMessage());
+            $result = $this->validate($data, 'site');
+            if (true !== $result) {
+                return $this->error($result);
             }
             $data['status'] = 1;
             $data['url'] = $data['http'].'://'.$data['domain'];
@@ -143,11 +142,10 @@ class Site extends Adminbase
 	{
 		if ($this->request->isPost()) {
 			$data = $this->request->post();
-			try {
-				$this->validate($data, 'Site');
-			} catch (\Exception $e) {
-				$this->error($e->getMessage());
-			}
+            $result = $this->validate($data, 'site');
+            if (true !== $result) {
+                return $this->error($result);
+            }
             $data['url'] = $data['http'].'://'.$data['domain'];
 			if ($row = SiteModel::update($data)) {
 				//更新缓存
@@ -190,6 +188,27 @@ class Site extends Adminbase
 	public function del()
     {
         $this->error('站点只能修改或关闭，不能删除！');
+    }
+
+    /**
+     * 设置为默认站
+     */
+    public function source()
+    {
+        $ids = $this->request->param('id/a', null);
+        if (empty($ids)) {
+            $this->error('请选择站点！');
+        }
+        if (!is_array($ids)) {
+            $ids = array(0 => $ids);
+        }
+
+        foreach ($ids as $sid) {
+            Db::name('site')->where('source', 1)->update(['source' => 0]);
+            Db::name('site')->where('id', $sid)->update(['source' => 1]);
+        }
+        $this->success("设置默认站成功！");
+
     }
 
     //更新站点缓存

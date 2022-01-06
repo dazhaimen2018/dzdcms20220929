@@ -1,6 +1,6 @@
 <div class="layui-carousel banner" id="slide">
     <div carousel-item>
-        {yzn module="cms" action="lists" modelid="1" siteId="$site_id" cache="3600"  order="listorder ASC" num="3" return="data"}
+        {yzn module="cms" action="lists" modelid="1" siteId="$siteId" cache="3600"  order="listorder ASC" num="3" return="data"}
         {volist name="data" id="item" key=i"}
         {if $i%2==1}
         <div class="swiper-slide item1" style="background-image:url({$item.thumb});">

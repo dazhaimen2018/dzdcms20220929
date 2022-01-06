@@ -21,7 +21,7 @@ include_once APP_PATH . 'cms/cms.php';
  */
 function getCategory($cat, $fields = '', $newCache = false)
 {
-    $url_mode = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
+    $urlMode = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
     if (empty($cat)) {
         return false;
     }
@@ -54,7 +54,7 @@ function getCategory($cat, $fields = '', $newCache = false)
             }
             //马博 end
             //扩展配置
-            $field            = 1 == $url_mode ? 'id' : 'catdir';
+            $field            = 1 == $urlMode ? 'id' : 'catdir';
             $cache['setting'] = unserialize($cache['setting']);
             $cache['url']     = buildCatUrl($cache[$field], $cache['url']);
             Cache::set($key, $cache, 3600);
@@ -98,7 +98,7 @@ function catpos($catid, $symbol = ' &gt; ')
  */
 function filters($modelid, $catid)
 {
-    $url_mode = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
+    $urlMode = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
     $data     = get_filters_field($modelid);
     Request::filter('trim,strip_tags');
     $param = paramdecode(Request::param('condition'));
@@ -154,7 +154,7 @@ function filters($modelid, $catid)
                     $conditionParam[$name]['options'][$k]['param'] = paramencode($nowParam);
                 }
             }
-            if ($url_mode == 1) {
+            if ($urlMode == 1) {
                 $field = 'catid';
             } else {
                 $field = 'catdir';
@@ -197,7 +197,6 @@ function structure_filters_sql($modelid)
 
 function get_filters_field($modelid)
 {
-
     static $filters_data = [];
     if ($filters_data) {
         return $filters_data;
@@ -264,18 +263,15 @@ function seo($catid = '', $title = '', $description = '', $keyword = '')
         $keyword = strip_tags($keyword);
     }
 
-    $key  = 'siteSeo';
-    $site = cache($key);
-    if($site){
-        if ($site['id'] != $siteId){ //如果站点ID不登录SEO缓存中的站点ID。清楚缓存，重新缓存
-            Cache::rm($key, null);
-            $site = db('site')->where('id', $siteId)->field('id,title,name,keywords,description')->find();
-            Cache::set($key, $site, 3600);
+    //输出所有站点
+    $sites = cache('Site')?cache('Site'):Site::where('status',1)->column('*','id');
+    $site  = [];
+    foreach ($sites as $v) {
+        if ($v['id'] == $siteId) {
+            $site[] = $v;
         }
-    }else{
-        $site = db('site')->where('id', $siteId)->field('id,title,name,keywords,description')->find();
-        Cache::set($key, $site, 3600);
     }
+    $site =$site[0];
 
     if (!empty($catid)) {
         $cat = getCategory($catid);

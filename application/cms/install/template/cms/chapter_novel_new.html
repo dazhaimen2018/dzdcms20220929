@@ -21,12 +21,12 @@
     <div class="read-page">
         <div class="page-text">
             <div class="nav-span previous d-inline-block">
-                {yzn module="cms" action="chapterPre" catid="$catid"  siteId="$siteId" id="$id" did="$did" cache="3600" return="data"}
+                {yzn module="cms" action="chapterPre" catid="$catid"  id="$id" did="$did" siteId="$siteId" cache="3600" return="data"}
                 <a href="{$data.url}" {$data.target}><i class="layui-icon layui-icon-prev"></i> {:lang('Pre')}：{$data.chapter}</a>
                 {/yzn}
             </div>
             <div class="nav-span d-inline-block">
-                {yzn module="cms" action="chapterNext" catid="$catid" siteId="$siteId" did="$did" id="$id" cache="3600" return="data"}
+                {yzn module="cms" action="chapterNext" catid="$catid" did="$did" id="$id" siteId="$siteId" cache="3600" return="data"}
                 <a href="{$data.url}" {$data.target}>{:lang('Next')}：{$data.chapter} <i class="layui-icon layui-icon-next"></i></a>
                 {/yzn}
             </div>
@@ -41,7 +41,7 @@
             <div class="pop">
                 <a href="javascript:;" class="close-pop iconfont icon-close"></a>
                 <ul class="chapter-items">
-                    {yzn module="cms" action="chapters" catid="$catid" did="$did" siteId="$site_id" cache="3600" order="id ASC" num="100" return="data"}
+                    {yzn module="cms" action="chapters" catid="$catid" did="$did" siteId="$siteId" cache="3600" order="id ASC" num="100" return="data"}
                     {volist name="data" id="item"}
                     <li><a href="{$item.url}">{$item.chapter}</a></li>
                     {/volist}

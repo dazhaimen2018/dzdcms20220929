@@ -35,12 +35,12 @@ function tipsText(){
     return '需要授权,请联系技术';
 }
 
+//后台用当前站点
 function onSite(){
     if (valid()){
         $siteId = 0;
         $userInfo = Session::get('admin');
         if($userInfo){
-
             $adminId = $userInfo['sites'];
             if($adminId){
                 $siteId = $adminId;
@@ -50,7 +50,6 @@ function onSite(){
                 } else {
                     $siteId = 1;
                 }
-
             }
         }
     }else{

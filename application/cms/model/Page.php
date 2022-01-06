@@ -29,26 +29,19 @@ class Page extends Model
      * @param  type  $catid  栏目ID
      * @return boolean
      */
-    public function getPage($catid, $cache = false, $siteId = 0)
+    public function getPage($catid, $cache = false, $site_id = 1)
     {
-        if (getSite('alone')==1){
-            $siteId = getSiteId();
-        }else{
-            $siteId = 1;
-        }
+        $siteId = dataSiteId(); //数据调用时虚拟站点ID为默认站点ID
         if (empty($catid)) {
             return false;
         }
-//        if ($siteId == 0) {
-//            $list = self::get($catid, 10);
-//        } else {
-//            $list = self::where("catid=" . $catid . " and site_id=" . $siteId)->find();
-//        }
-//        return $list;
         if (is_numeric($cache)) {
             $cache = (int) $cache;
         }
-        return self::get($catid, $cache);
+        $list = self::where("catid=" . $catid . " and site_id=" . $siteId)->find();
+        return $list;
+
+        //return self::get($catid, $cache, $siteId);
     }
 
     public function selectAll($catid, $cache = false)

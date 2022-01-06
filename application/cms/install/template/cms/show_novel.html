@@ -63,7 +63,7 @@
                     <div class="layui-card-header">章节目录</div>
                     <div class="layui-card-body layui-text layadmin-version">
                         <ul class="chapter_list">
-                            {yzn module="cms" action="chapters" catid="$catid" did="$id" siteId="$site_id" cache="3600" order="id ASC" num="100" return="data"}
+                            {yzn module="cms" action="chapters" catid="$catid" did="$id" siteId="$siteId" cache="3600" order="id ASC" num="100" return="data"}
                             {volist name="data" id="item"}
                             <li><a href="{$item.url}">{$item.chapter}</a></li>
                             {/volist}
@@ -97,7 +97,7 @@
                 <div class="layui-card-header">人气榜Top</div>
                 <div class="layui-card-body layui-text layadmin-version">
                     <ul class="layui-timeline">
-                        {yzn module="cms" action="lists" catid="$catid"  siteId="$site_id" cache="3600" order="hits DESC" num="10" page="$page" return="data"}
+                        {yzn module="cms" action="lists" catid="$catid"  siteId="$siteId" cache="3600" order="hits DESC" num="10" page="$page" return="data"}
                         {volist name="data" id="item"}
                         <li class="layui-timeline-item">
                             <i class="layui-icon layui-timeline-axis"></i>
