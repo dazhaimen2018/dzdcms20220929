@@ -1,0 +1,1 @@
+ALTER TABLE `dzd_site` CHANGE `source` `master` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '默认站点';

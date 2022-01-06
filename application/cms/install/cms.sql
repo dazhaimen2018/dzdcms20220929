@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__site` (
 `alone` tinyint(4) NOT NULL DEFAULT '1' COMMENT '独立数据',
 `private` tinyint(4) NOT NULL DEFAULT '0' COMMENT '独立管理',
 `close` tinyint(4) NOT NULL DEFAULT '1' COMMENT '站点开关',
-`source` tinyint(4) NOT NULL DEFAULT '0' COMMENT '默认站点',
+`master` tinyint(4) NOT NULL DEFAULT '0' COMMENT '默认站点',
 `website` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '网站名称',
 `company` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '公司名称',
 `icp` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ICP备案号',
@@ -369,7 +369,7 @@ INSERT INTO `__PREFIX__lang_group` (`id`, `name`, `description`, `status`) VALUE
 (2, '会员', '会员中心所有文字标签', 1),
 (3, '系统', '后端的提示语在前端显示的', 1);
 
-INSERT INTO `__PREFIX__site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `alone`, `private`, `close`, `source`, `website`, `company`, `icp`, `icp_link`, `gwa`, `gwa_link`, `chat`, `statistics`, `copyright`, `status`, `inputtime`) VALUES
+INSERT INTO `__PREFIX__site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `alone`, `private`, `close`, `master`, `website`, `company`, `icp`, `icp_link`, `gwa`, `gwa_link`, `chat`, `statistics`, `copyright`, `status`, `inputtime`) VALUES
 (1, '中文站', 'zh-cn', 'http', 'demo.dzdcms.com', 'http://demo.mscms.net', '/uploads/images/logo.png', '/favicon.ico', 'novel', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 0, 1, 1, '', '', '', 'https://beian.miit.gov.cn/', '', 'http://www.beian.gov.cn/portal/index.do', '', '', '', 1, 0);
 
 INSERT INTO `__PREFIX__push` (`id`, `module`, `modelid`, `name`, `tablename`, `description`, `sites`, `create_time`, `update_time`, `listorders`, `status`) VALUES

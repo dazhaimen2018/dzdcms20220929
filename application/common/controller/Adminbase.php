@@ -84,7 +84,7 @@ class Adminbase extends Base
         $domain      = $_SERVER['HTTP_HOST'];
         $adminDomain = adminDomain();
         $authDomain  = config('admin_domain');
-        $sourceName  = sourceSite('name'); // 默认源站名称
+        $sourceName  = masterSite('name'); // 默认源站名称
         if ($adminDomain) {
             if (strpos($domain, $adminDomain)!==false) {
                 if ($authDomain && $domain!=$authDomain) {
