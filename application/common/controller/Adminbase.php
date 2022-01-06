@@ -84,7 +84,7 @@ class Adminbase extends Base
         $domain      = $_SERVER['HTTP_HOST'];
         $adminDomain = adminDomain();
         $authDomain  = config('admin_domain');
-        $sourceName  = $this->sourceSite('name'); // 默认源站名称
+        $sourceName  = sourceSite('name'); // 默认源站名称
         if ($adminDomain) {
             if (strpos($domain, $adminDomain)!==false) {
                 if ($authDomain && $domain!=$authDomain) {
@@ -163,21 +163,6 @@ class Adminbase extends Base
         $this->assign('sourceName', $sourceName);
         $this->assign('auth', $this->auth);
         $this->assign('userInfo', Session::get('admin'));
-    }
-
-    /**
-     * 默认数据源站信息
-     */
-    final function sourceSite($field) {
-        //输出所有站点
-        $sites = cache('Site')?cache('Site'):Db('site')->where('status',1)->column('*','id');
-        $site  = [];
-        foreach ($sites as $v) {
-            if ($v['source'] == 1) {
-                $site[] = $v;
-            }
-        }
-        return $site[0][$field];
     }
 
     /**
