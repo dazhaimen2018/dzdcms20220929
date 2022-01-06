@@ -56,7 +56,7 @@
 <script type="text/html" id="radioTpl">
     {{# if(d.source==1){ }}
     <input type="radio" name="layTableRadio_1" value="{{ d.id }}" checked>
-    {{#  } else if(d.alone==0) { }}
+    {{#  } else if(d.alone==0 || d.private == 1) { }}
     <input type="radio" name="layTableRadio_1" value="{{ d.id }}" disabled>
     {{#  } else { }}
     <input type="radio" name="layTableRadio_1" lay-type="layTableRadio" value="{{ d.id }}">
