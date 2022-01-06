@@ -191,6 +191,7 @@ function getSiteId() {
     $setDomain = isset(cache("Cms_Config")['domain']) ? cache("Cms_Config")['domain'] : 1;
 //    $header    =  preg_match('/^([a-z\-]+)/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches);
 //    $mark      = $matches[1]; // 获得header中的语言标识
+    $sourceId  = sourceSite('id'); // 主站ID
     $siteInfo  = Cache::get($key);
 
     //输出所有站点
@@ -215,13 +216,13 @@ function getSiteId() {
                 //域名未绑定站点，打开默认站点
                 Cache::rm($key, null);
                 foreach ($sites as $v) {
-                    if ($v['id'] == 1) {
+                    if ($v['id'] == $sourceId) {
                         $site[] = $v;
                     }
                 }
                 $site = $site[0];
                 Cache::set($key, $site, 3600);
-                return 1;
+                return $sourceId;
             }
         }
     }
@@ -245,13 +246,13 @@ function getSiteId() {
                 //域名未绑定站点，打开默认站点
                 Cache::rm($key, null);
                 foreach ($sites as $v) {
-                    if ($v['id'] == 1) {
+                    if ($v['id'] == $sourceId) {
                         $site[] = $v;
                     }
                 }
                 $site = $site[0];
                 Cache::set($key, $site, 3600);
-                return 1;
+                return $sourceId;
             }
         }
     }
