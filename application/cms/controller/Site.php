@@ -191,7 +191,7 @@ class Site extends Adminbase
     }
 
     /**
-     * 设置为默认站
+     * 设置为主站
      */
     public function source()
     {
@@ -207,7 +207,7 @@ class Site extends Adminbase
             Db::name('site')->where('source', 1)->update(['source' => 0]);
             Db::name('site')->where('id', $sid)->update(['source' => 1]);
         }
-        $this->success("设置默认站成功！");
+        $this->success("设置主站成功！");
 
     }
 
