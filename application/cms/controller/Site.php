@@ -94,13 +94,15 @@ class Site extends Adminbase
                     }
                     $okSite = SiteModel::create($data);
                     // 增加域名到站点域名列表
-                    $domain['sites']       = $okSite['id'];
-                    $domain['domain']      = $data['domain'];
-                    $domain['master']      = 1;
-                    $domain['listorder']   = 1;
-                    $domain['status']      = 1;
-                    $domain['create_time'] = time();
-                    $okDomain = SiteDomain::create($domain);
+                    if($okSite){
+                        $domain['sites']       = $okSite['id'];
+                        $domain['domain']      = $data['domain'];
+                        $domain['master']      = 1;
+                        $domain['listorder']   = 1;
+                        $domain['status']      = 1;
+                        $domain['create_time'] = time();
+                        $okDomain = SiteDomain::create($domain);
+                    }
                 }
                 Cache::set('Site',null);
                 Cache::set('Domain',null);
