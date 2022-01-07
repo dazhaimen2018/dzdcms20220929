@@ -82,13 +82,14 @@ class Site extends Adminbase
                     if (trim($rs) == '') {
                         continue;
                     }
-                    $cat          = explode('|', $rs, 2);
-                    $data['name'] = $cat[0];
-                    $prefix  = isset($cat[1]) ? $cat[1] : '';
-                    $prefix  = $this->get_name_pinyin($data['name'], $prefix);
-                    $data['domain'] = $prefix .'.'. $data['domains'];
-                    $data['url'] = $data['http'].'://'.$data['domain'];
-                    $result = $this->validate($data, 'site');
+                    $cat            = explode('|', $rs, 2);
+                    $data['name']   = $cat[0];
+                    $prefix         = isset($cat[1]) ? $cat[1] : '';
+                    $prefix         = $this->get_name_pinyin($data['name'], $prefix);
+                    $prefix         = str_replace(array(" ","　","\t","\n","\r"), "", $prefix);
+                    $data['domain'] = $prefix.'.'. $data['domains'];
+                    $data['url']    = $data['http'].'://'.$data['domain'];
+                    $result         = $this->validate($data, 'site');
                     if (true !== $result) {
                         return $this->error($result);
                     }
@@ -272,7 +273,7 @@ class Site extends Adminbase
     private function get_name_pinyin($name = '', $prefix = '', $id = 0)
     {
         $pinyin = new \Overtrue\Pinyin\Pinyin('Overtrue\Pinyin\MemoryFileDictLoader');
-        if (empty($catdir)) {
+        if (empty($prefix)) {
             $prefix = $pinyin->permalink($name, '');
         }
         if (strval(intval($prefix)) == strval($prefix)) {
