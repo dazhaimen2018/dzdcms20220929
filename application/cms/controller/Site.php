@@ -92,19 +92,18 @@ class Site extends Adminbase
                     if (true !== $result) {
                         return $this->error($result);
                     }
-                    if ($row = SiteModel::create($data)) {
-                        //更新缓存
-                        Cache::set('Site',null);
-                        // 增加域名到站点域名列表
-                        $domain['sites']       = $row['id'];
-                        $domain['domain']      = $data['domain'];
-                        $domain['master']      = 1;
-                        $domain['listorder']   = 1;
-                        $domain['status']      = 1;
-                        $domain['create_time'] = time();
-                        $domain = SiteDomain::create($domain);
-                    }
+                    $okSite = SiteModel::create($data);
+                    // 增加域名到站点域名列表
+                    $domain['sites']       = $okSite['id'];
+                    $domain['domain']      = $data['domain'];
+                    $domain['master']      = 1;
+                    $domain['listorder']   = 1;
+                    $domain['status']      = 1;
+                    $domain['create_time'] = time();
+                    $okDomain = SiteDomain::create($domain);
                 }
+                Cache::set('Site',null);
+                Cache::set('Domain',null);
                 $this->success("添加成功！", url("index"));
             }else{
                 unset($data['isbatch']);
