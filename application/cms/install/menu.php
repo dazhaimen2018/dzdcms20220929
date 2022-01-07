@@ -492,6 +492,42 @@ return [
                                     "status" => 0,
                                     "name" => "站点翻译",
                                 ],
+                                [
+                                    "route" => "cms/domain/index",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "站点域名",
+                                ],
+                                [
+                                    "route" => "cms/domain/add",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "添加域名",
+                                ],
+                                [
+                                    "route" => "cms/domain/del",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "域名删除",
+                                ],
+                                [
+                                    "route" => "cms/domain/listorder",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "域名排序",
+                                ],
+                                [
+                                    "route" => "cms/domain/setstate",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "域名状态",
+                                ],
+                                [
+                                    "route" => "cms/domain/cache",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "域名缓存",
+                                ],
                             ],
                     ],
                     [
