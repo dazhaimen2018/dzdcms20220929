@@ -1,0 +1,50 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+<link rel="stylesheet" href="__STATIC__/admin/css/cms.css">
+<form class="layui-form" method="post" lay-filter="layui-form" lay-filter="example">
+	<div class="layui-tab">
+
+		<div class="layui-tab-content">
+			<div class="layui-tab-item layui-show">
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">域名</label>
+					<div class="layui-input-block">
+						<input type="text" name="domain" lay-verify="required" lay-reqtext="专题标识" autocomplete="off" placeholder="" class="layui-input" value="">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">排序</label>
+					<div class="layui-input-block">
+						<input type="number" name="listorder" autocomplete="off" placeholder="排序" class="layui-input" value="{$data.listorder|default='0'}">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">启用</label>
+					<div class="layui-input-block">
+						<input type="radio" name="status" value="1" title="是" checked>
+						<input type="radio" name="status" value="0" title="否">
+					</div>
+				</div>
+
+			</div>
+			<input name="sites" type="hidden" value="{$siteId}" />
+		<div class="layui-form-item layer-footer">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit>立即提交</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			</div>
+		</div>
+	</div>
+</form>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+	layui.use(['form','yznForm'], function() {
+		var yznForm = layui.yznForm;
+		var form = layui.form;
+		yznForm.listen();
+	});
+</script>
+{/block}

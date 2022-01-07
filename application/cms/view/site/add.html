@@ -11,9 +11,24 @@
 		<div class="layui-tab-content">
 			<div class="layui-tab-item layui-show">
 				<div class="layui-form-item">
+					<label class="layui-form-label">添加方式</label>
+					<div class="layui-input-block">
+						<input type="radio" name="isbatch" value="1" title="批量添加" lay-filter="filter">
+						<input type="radio" name="isbatch" value="0" title="单条添加" checked lay-filter="filter">
+					</div>
+				</div>
+				<div class="layui-form-item" id="batch_add" style="display:none">
 					<label class="layui-form-label">站点名称</label>
 					<div class="layui-input-block">
-						<input type="text" name="name" lay-verify="required" lay-reqtext="站点名称不能为空" autocomplete="off" placeholder="" class="layui-input" value="">
+						<textarea name="batch_add" lay-verify="" placeholder="站点名称(一行一条，不能有空格！)" class="layui-textarea"></textarea>
+					</div>
+					<div class="layui-form-mid layui-word-aux">一行一条，不能有空格！</div>
+				</div>
+
+				<div class="layui-form-item" id="normal_add">
+					<label class="layui-form-label">站点名称</label>
+					<div class="layui-input-block">
+						<input type="text" name="name" id="name" lay-verify="required" lay-reqtext="站点名称不能为空" autocomplete="off" placeholder="" class="layui-input" value="">
 					</div>
 				</div>
 
@@ -45,10 +60,10 @@
 						</select>
 					</div>
 					<div class="layui-input-inline">
-						<input type="text" name="domain" lay-verify="required" lay-reqtext="站点域名不能为空" autocomplete="off" placeholder="en.dzdcms.com" class="layui-input" value="{$data.domain|default=''}">
+						<input type="text" name="domains" lay-verify="required" lay-reqtext="站点域名不能为空" autocomplete="off" placeholder="如：en.dzd.com;批量添加时用dzd.com" class="layui-input" value="{$data.domain|default=''}">
 					</div>
 					<div class="layui-form-mid layui-word-aux">
-						域名只支持二级域名或顶级域名；不带http://和/ 如 www.dzdcms.com 或 en.dzdcms.com
+						域名只支持二级域名或顶级域名；不带http://和/ 如 www.dzd.com 或 en.dzd.com
 					</div>
 				</div>
 
@@ -95,12 +110,12 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">独立数据</label>
 					<div class="layui-input-block">
-						<input type="radio" name="alone" value="1" title="是" lay-filter="filter" >
-						<input type="radio" name="alone" value="0" title="否" lay-filter="filter" checked>
+						<input type="radio" name="alone" value="1" title="是" lay-filter="alone" >
+						<input type="radio" name="alone" value="0" title="否" lay-filter="alone" checked>
 					</div>
 					<div class="layui-form-mid layui-word-aux">选否时：主要实用于城市分站、自动调用主站数据并在相应位置自动添加区域名称（站点名称）！</div>
 				</div>
-				<div class="layui-form-item" id="batch_add" style="display:none">
+				<div class="layui-form-item" id="private" style="display:none">
 					<label class="layui-form-label">独立管理</label>
 					<div class="layui-input-block">
 						<input type="radio" name="private" value="1" title="是" >
@@ -236,12 +251,29 @@
 		var yznForm = layui.yznForm;
 		var form = layui.form;
 		yznForm.listen();
+
 		form.on('radio(filter)', function(data){
 			if(1==data.value){
+				//批量
+				$('#normal_add').hide();
 				$('#batch_add').show();
+				$('#name').attr('disabled',true).attr('lay-verify','');
+
 			}
 			if(0==data.value){
+				$('#normal_add').show();
 				$('#batch_add').hide();
+				$('#name').attr('disabled',false).attr('lay-verify','required');
+			}
+		});
+
+
+		form.on('radio(alone)', function(data){
+			if(1==data.value){
+				$('#private').show();
+			}
+			if(0==data.value){
+				$('#private').hide();
 			}
 		});
 

@@ -1,0 +1,50 @@
+{extend name="admin@index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">域名管理|{$name}</div>
+    <div class="layui-card-body">
+        <div class="layui-form">
+            <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script>
+    layui.use('yznTable', function() {
+        var table = layui.yznTable;
+
+    var init = {
+        table_elem: '#currentTable',
+        table_render_id: 'currentTable',
+        add_url: "{:url('add',['siteId'=>$siteId])}",
+        delete_url: "{:url('del')}",
+        modify_url: '{:url("multi")}',
+        lists_url:'{:url("lists")}',
+    };
+
+    table.render({
+        init: init,
+        toolbar: ['refresh','add',
+            [{
+                html: '<a class="layui-btn layui-btn-sm" type="button" href="{:url("site/index")}"><i class="iconfont icon-undo"></i>&nbsp;返回</a>'
+            }]
+        ],
+        url: '{:url("index")}',
+        search:true,
+        cols: [
+            [
+                { field: 'id', title: 'ID', width: 80, fixed: true, sort: true,align:"center"},
+                { field: 'listorder', width: 70, title: '排序', edit: 'text',search:false },
+                { field: 'domain', title: '域名', searchOp: 'like'},
+                { field: 'url', width: 60, align: "center", title: 'URL', templet: yznTable.formatter.url, search: false },
+                { field: 'create_time', width: 145, title: '创建时间', search: 'range', align: "center" },
+                { field: 'status', width: 100, align: "center", title: '状态', unresize: true,templet: yznTable.formatter.switch },
+                { width:120, title: '操作', align: "center", templet: yznTable.formatter.tool,operat: ['delete']}
+            ]
+        ],
+        page: {}
+    });
+});
+</script>
+{/block}

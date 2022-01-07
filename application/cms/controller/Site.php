@@ -9,6 +9,7 @@ namespace app\cms\controller;
 
 use addons\translator\Translator;
 use app\admin\model\Language;
+use app\cms\model\SiteDomain;
 use app\common\controller\Adminbase;
 use app\cms\model\Site as SiteModel;
 use think\Db;
@@ -70,19 +71,67 @@ class Site extends Adminbase
         $parentid = $this->request->param('parentid/d', 0);
         if ($this->request->isPost()) {
             $data = $this->request->post();
-            $result = $this->validate($data, 'site');
-            if (true !== $result) {
-                return $this->error($result);
+            if ($data['isbatch']) {
+                unset($data['isbatch'], $data['name']);
+                //需要批量添加的站点
+                $batch_add = explode(PHP_EOL, $data['batch_add']);
+                if (empty($batch_add) || empty($data['batch_add'])) {
+                    $this->error('请填写需要添加的站点名称！');
+                }
+                foreach ($batch_add as $rs) {
+                    if (trim($rs) == '') {
+                        continue;
+                    }
+                    $cat          = explode('|', $rs, 2);
+                    $data['name'] = $cat[0];
+                    $prefix  = isset($cat[1]) ? $cat[1] : '';
+                    $prefix  = $this->get_name_pinyin($data['name'], $prefix);
+                    $data['domain'] = $prefix .'.'. $data['domains'];
+                    $data['url'] = $data['http'].'://'.$data['domain'];
+                    $result = $this->validate($data, 'site');
+                    if (true !== $result) {
+                        return $this->error($result);
+                    }
+                    if ($row = SiteModel::create($data)) {
+                        //更新缓存
+                        Cache::set('Site',null);
+                        // 增加域名到站点域名列表
+                        $domain['sites']       = $row['id'];
+                        $domain['domain']      = $data['domain'];
+                        $domain['master']      = 1;
+                        $domain['listorder']   = 1;
+                        $domain['status']      = 1;
+                        $domain['create_time'] = time();
+                        $domain = SiteDomain::create($domain);
+                    }
+                }
+                $this->success("添加成功！", url("index"));
+            }else{
+                unset($data['isbatch']);
+                $data['domain'] = $data['domains'];
+                $result = $this->validate($data, 'site');
+                if (true !== $result) {
+                    return $this->error($result);
+                }
+                $data['status'] = 1;
+                $data['url'] = $data['http'].'://'.$data['domain'];
+                if ($row = SiteModel::create($data)) {
+                    //更新缓存
+                    Cache::set('Site',null);
+                    // 增加域名到站点域名列表
+                    $domain['sites']       = $row['id'];
+                    $domain['domain']      = $data['domain'];
+                    $domain['master']      = 1;
+                    $domain['listorder']   = 1;
+                    $domain['status']      = 1;
+                    $domain['create_time'] = time();
+                    $domain = SiteDomain::create($domain);
+                    return $this->success('站点添加成功~', url('index'));
+                } else {
+                    $this->error('添加失败！');
+                }
             }
-            $data['status'] = 1;
-            $data['url'] = $data['http'].'://'.$data['domain'];
-            if ($row = SiteModel::create($data)) {
-                //更新缓存
-                Cache::set('Site',null);
-                return $this->success('站点添加成功~', url('index'));
-            } else {
-                $this->error("添加失败！");
-            }
+
         } else {
             if (valid()){
                 //站点列表 可以用缓存的方式
@@ -216,5 +265,29 @@ class Site extends Adminbase
         $sites = SiteModel::where('status',1)->column('*','id');
         Cache::set('Site',$sites);
         $this->success("站点缓存更新成功！");
+    }
+
+    //获取栏目的拼音
+    private function get_name_pinyin($name = '', $prefix = '', $id = 0)
+    {
+        $pinyin = new \Overtrue\Pinyin\Pinyin('Overtrue\Pinyin\MemoryFileDictLoader');
+        if (empty($catdir)) {
+            $prefix = $pinyin->permalink($name, '');
+        }
+        if (strval(intval($prefix)) == strval($prefix)) {
+            $prefix .= genRandomString(3);
+        }
+        $map = [
+            ['domain', '=', $prefix],
+        ];
+        if (intval($id) > 0) {
+            $map[] = ['id', '<>', $id];
+        }
+        $result = Db::name('site')->field('id')->where($map)->find();
+        if (!empty($result)) {
+            $nowDirname = $prefix . genRandomString(3);
+            return $this->get_name_pinyin($name, $nowDirname, $id);
+        }
+        return $prefix;
     }
 }
