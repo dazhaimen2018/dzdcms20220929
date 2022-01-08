@@ -1,10 +1,6 @@
 {extend name="admin@index_layout"/}
 {block name="main"}
-<style type="text/css">
-    .childrenBody {
-        background: #fff;
-    }
-</style>
+<link rel="stylesheet" href="__STATIC__/admin/css/cms.css">
 <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
 <script type="text/html" id="barTool">
     {{# if({$push}){ }}
@@ -24,8 +20,6 @@
 <script type="text/html" id="statusTpl">
     <input type="checkbox" name="status" data-href='{:url("setstate",["catid"=>$catid])}?id={{d.id}}' value="{{d.id}}" lay-skin="switch" lay-text="发布|未发布" lay-filter="switchStatus" {{ d.status==1 ? 'checked' : '' }}>
 </script>
-
-
 
 <style type="text/css">
     .layui-layer-page .layui-layer-content {
@@ -52,17 +46,10 @@
 
         yznTable.render({
             init: init,
-            toolbar: ['refresh',
+            toolbar: ['refresh','add', 'delete',
                 [{
-                    text: '添加',
-                    title: '添加章节',
-                    url: init.add_url,
-                    method: 'open',
-                    icon: 'iconfont icon-add',
-                    class: 'layui-btn layui-btn-normal layui-btn-sm',
-                    extend: 'data-full="true"',
-                }], 'delete',
-    ],
+                    html: '<a class="layui-btn layui-btn-sm" type="button" href="{:url("cms/classlist",["catid"=>$catid])}"><i class="iconfont icon-undo"></i>&nbsp;返回列表</a>'
+                }],],
         url: '{:url("index",["catid"=>$catid])}?did={$did}',
             cols: [
             [

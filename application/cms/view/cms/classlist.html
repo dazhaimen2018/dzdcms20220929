@@ -17,7 +17,7 @@
     <a href='{:url("del",["catid"=>$catid])}?id={{ d.id }}&sites={:onSite()}' class="layui-btn layui-btn-danger layui-btn-xs {if onSite()}layui-tr-load{else}layui-tr-del{/if}">删除</a>
     {{#  } }}
     {{# if(d.modelType==3){ }}
-    <a class="layui-btn layui-btn-normal layui-btn-xs" data-open='{:url("cms/chapter/index",["catid"=>$catid])}?did={{ d.id }}' data-title="章节列表" data-full="true">章节</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" href='{:url("cms/chapter/index",["catid"=>$catid])}?did={{ d.id }}'>章节</a>
     {{#  } else { }}
     <a class="layui-btn layui-btn-xs layui-btn-disabled" title="高级版并且是一对多模型才有章节">章节</a>
     {{#  } }}
