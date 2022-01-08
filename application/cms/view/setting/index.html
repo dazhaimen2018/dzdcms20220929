@@ -19,14 +19,6 @@
                             <div class="layui-form-mid layui-word-aux">只有多个相同域名站点时有效，不带http://和/ 如 www.dzdcms.com</div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label" title="手机模板如果是独立的，请选是">手机模板</label>
-                            <div class="layui-input-block">
-                                <input type="radio" name="setting[wap_template]" value="1" title="独立" {if 1==$setting['wap_template']}checked{/if}>
-                                <input type="radio" name="setting[wap_template]" value="0" title="响应式" {if 0==$setting['wap_template']}checked{/if}>
-                            </div>
-                            <div class="layui-form-mid layui-word-aux">如果有单独的手机模板，选“独立”，然后手机模板命名为wap放在和cms同级的目录中；wap下面的模板文件命名必须和cms下面的相同</div>
-                        </div>
-                        <div class="layui-form-item">
                             <label class="layui-form-label" title="栏目图标直接上传图片选2；用iconfont或layui字休图片选1">栏目图标</label>
                             <div class="layui-input-block">
                                 <input type="radio" name="setting[icon_mode]" value="1" title="图片" {if 1==$setting['icon_mode']}checked{/if}>
@@ -125,6 +117,14 @@
                                 <input type="radio" name="setting[web_site_guide]" value="0" title="关闭" {if 0==$setting['web_site_guide']}checked{/if}>
                             </div>
                             <div class="layui-form-mid layui-word-aux">开启后，默认页为default.html 关闭后前台首页为index.html</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" title="手机模板如果是独立的，请选是">手机模板</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="setting[wap_template]" value="1" title="开启" {if 1==$setting['wap_template']}checked{/if}>
+                                <input type="radio" name="setting[wap_template]" value="0" title="关闭" {if 0==$setting['wap_template']}checked{/if}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">如果有单独的手机模板，选“开启”，然后手机模板命名为wap放在和cms同级的目录中；wap下面的模板文件命名必须和cms下面的相同</div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">栏目授权</label>
