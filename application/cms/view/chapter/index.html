@@ -21,11 +21,6 @@
     <input type="checkbox" name="status" data-href='{:url("setstate",["catid"=>$catid])}?id={{d.id}}' value="{{d.id}}" lay-skin="switch" lay-text="发布|未发布" lay-filter="switchStatus" {{ d.status==1 ? 'checked' : '' }}>
 </script>
 
-<style type="text/css">
-    .layui-layer-page .layui-layer-content {
-        overflow: inherit;
-    }
-</style>
 {/block}
 {block name="script"}
 <script>
