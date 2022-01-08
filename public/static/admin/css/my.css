@@ -96,8 +96,10 @@
 .layui-form-pane .layui-input-inline{margin-right: 0;}
 .layui-form-item .layui-input, .layui-form-item .layui-textarea, .layui-form-radio>i:hover, .layui-form-radioed>i{color:#20a53a;}
 .layui-form-item .editor{border: none!important;}
-.layui-form-item .editor .layui-form-label{width: 30px!important;min-width: 30px!important; height: auto!important;line-height: revert;z-index: 9999;background-color:revert;border:revert;margin: 0 auto;padding: 5px}
-.edui-default .edui-toolbar{border-left: 1px solid #e6e6e6}
+.layui-form-item .editor .layui-form-label{width: 30px!important;min-width: 30px!important; height: auto!important;line-height: revert;z-index: 9999;background-color:revert;border-top: none;border-bottom: none;;border-left: none;margin: 0 auto;padding: 5px;margin: 5px}
+.edui-default .edui-toolbar{overflow: revert!important;}
+
+
 .layui-form-pane .layui-form-item[pane] .layui-input-inline{height: 36px;line-height: 36px;}
 .layui-form-pane .layui-form-radio, .layui-form-pane .layui-form-switch{margin: 0 10px;}
 .webuploader-pick{ padding: 0 10px!important; height: 38px; line-height: 38px;  border-radius: 0!important; background-color: #5fb878!important; -webkit-border-radius: 0px!important; -moz-border-radius: 0px!important; -ms-border-radius: 0px!important; -o-border-radius: 0px!important; }
