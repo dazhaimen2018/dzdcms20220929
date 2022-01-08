@@ -168,7 +168,7 @@
 
 {case value="files"}
 <div class="layui-form-item">
-	<label class="layui-form-label {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}layui-form-item-required{/if}">{$vo.title}</label>
+
 	<div class="layui-input-block layui-upload">
 		<div class="layui-col-xs4">
 			<input type="text" name="extra_data[{$k}][{$vo.name}]"  id="c-{$vo.name}" value="{$value|default=''}" class="layui-input">
@@ -180,12 +180,10 @@
 {/case}
 
 {case value="Ueditor"}
-<fieldset class="layui-elem-field layui-field-title">
-	<legend class="{if condition="isset($vo.ifrequire) AND $vo.ifrequire"}layui-form-item-required{/if}">{:getSiteName($k)}{$vo.title}</legend>
-</fieldset>
 <div class="layui-form-item">
 	<div class="layui-input-block border-none">
 		<div class="edit">
+			<label class="layui-form-label {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}layui-form-item-required{/if}">{$vo.title}</label>
 			<script type="text/plain" class="js-ueditor" id="{$vo.name}{$k}" name="extra_data[{$k}][{$vo.name}]"> {$value|default=''|raw}</script>
 		</div>
 		<div class="{$vo.name}_attr editor_tool">
