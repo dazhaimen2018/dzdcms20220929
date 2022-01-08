@@ -198,6 +198,21 @@ class Site extends Adminbase
                 return $this->error($result);
             }
             $data['url'] = $data['http'].'://'.$data['domain'];
+            $domain['domain']      = $data['domain'];
+            $domain['sites']       = $data['id'];
+            $domain['master']      = 1;
+            $domain['listorder']   = 1;
+            $domain['status']      = 1;
+            $domain['create_time'] = time();
+            //站点域名中有数据同步更新，没有数据新增
+            $result = SiteDomain::where('sites', $data['id'])
+                ->data(['domain' => $domain['domain'] ,'master' => 1])
+                ->update();
+            if(!$result){
+                SiteDomain::create($domain);
+            }
+            //更新缓存
+            Cache::set('Domain',null);
 			if ($row = SiteModel::update($data)) {
 				//更新缓存
                 Cache::set('Site',null);
@@ -206,7 +221,6 @@ class Site extends Adminbase
 				$this->error("修改失败！");
 			}
 		} else {
-
 			$siteId = $this->request->param('id/d', 0);
 			$data   = SiteModel::where(["id" => $siteId])->find();
 			if (empty($data)) {
