@@ -76,16 +76,6 @@ class Homebase extends Base
         $siteTheme    = getSite('template');
         $Theme        = empty($siteTheme) ? 'default' : $siteTheme;
         $wapTemplate  = isset(cache("Cms_Config")['wap_template']) && 1 == cache("Cms_Config")['wap_template'];
-//        if($wapTemplate) {
-//            if ($this->request->isMobile() && $this->request->module() == "cms") {
-//                $viewPath     = TEMPLATE_PATH . $Theme . DIRECTORY_SEPARATOR . 'wap' . DIRECTORY_SEPARATOR;
-//            } else {
-//                $viewPath     = TEMPLATE_PATH . $Theme . DIRECTORY_SEPARATOR . $this->request->module() . DIRECTORY_SEPARATOR;
-//            }
-//        } else {
-//            $viewPath     = TEMPLATE_PATH . $Theme . DIRECTORY_SEPARATOR . $this->request->module() . DIRECTORY_SEPARATOR;
-//        }
-
         if ($wapTemplate && ($this->request->isMobile() && $this->request->module() == "cms")) {
             $viewPath     = TEMPLATE_PATH . $Theme . DIRECTORY_SEPARATOR . 'wap' . DIRECTORY_SEPARATOR;
         } else {
