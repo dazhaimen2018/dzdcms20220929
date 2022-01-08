@@ -184,7 +184,7 @@ class Category extends Adminbase
                     $data['catname'] = $cat[0];
                     $data['catdir']  = isset($cat[1]) ? $cat[1] : '';
                     $data['catdir']  = $this->get_dirpinyin($data['catname'], $data['catdir']);
-
+                    $data['catdir']  = str_replace(array(" ","　","\t","\n","\r"), "", $data['catdir']);
                     $result = $this->validate($data, 'Category.' . $scene);
                     if (true !== $result) {
                         $this->error($result);
