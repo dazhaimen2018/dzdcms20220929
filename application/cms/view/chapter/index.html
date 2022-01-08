@@ -46,8 +46,16 @@
 
         yznTable.render({
             init: init,
-            toolbar: ['refresh','add', 'delete',
+            toolbar: ['refresh', 'delete',
                 [{
+                    text: '添加',
+                    title: '添加章节',
+                    url: init.add_url,
+                    method: 'open',
+                    icon: 'iconfont icon-add',
+                    class: 'layui-btn layui-btn-normal layui-btn-sm',
+                    extend: 'data-full="true"',
+                },{
                     html: '<a class="layui-btn layui-btn-sm" type="button" href="{:url("cms/classlist",["catid"=>$catid])}"><i class="iconfont icon-undo"></i>&nbsp;返回列表</a>'
                 }],],
         url: '{:url("index",["catid"=>$catid])}?did={$did}',
