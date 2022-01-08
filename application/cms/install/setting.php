@@ -5,6 +5,7 @@
  */
 return array(
     'domain'             => '',
+    'wap_template'       => 0,
     'web_site_status'    => 1,
     'web_site_recycle'   => 0,
     'web_site_guide'     => 0,
