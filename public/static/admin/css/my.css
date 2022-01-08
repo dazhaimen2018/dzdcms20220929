@@ -95,8 +95,8 @@
 .layui-form-pane .layui-form-label{width: 110px;}
 .layui-form-pane .layui-input-inline{margin-right: 0;}
 .layui-form-item .layui-input, .layui-form-item .layui-textarea, .layui-form-radio>i:hover, .layui-form-radioed>i{color:#20a53a;}
-
-.layui-form-pane .edit .layui-form-label{width: 30px!important;min-width: 30px!important;height: 100%;line-height: revert;z-index: 9999;background-color:revert;border:revert;margin: 0 auto;}
+.layui-form-item .editor{border: none!important;}
+.layui-form-item .editor .layui-form-label{width: 30px!important;min-width: 30px!important; height: auto!important;line-height: revert;z-index: 9999;background-color:revert;border:revert;margin: 0 auto;padding: 5px}
 .edui-default .edui-toolbar{border-left: 1px solid #e6e6e6}
 .layui-form-pane .layui-form-item[pane] .layui-input-inline{height: 36px;line-height: 36px;}
 .layui-form-pane .layui-form-radio, .layui-form-pane .layui-form-switch{margin: 0 10px;}

@@ -33,8 +33,9 @@
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">栏目介绍 </label>
-        <div class="layui-input-block border-none">
+
+        <div class="layui-input-block editor">
+            <label class="layui-form-label">栏目介绍 </label>
             <script type="text/plain" class="js-ueditor" id="detail{$k}" name="category_data[{$k}][detail]" lay-verify="required" lay-reqText="内容不能为空" >{$category_data[$k-1]['detail']|default=''|raw}</script>
         </div>
     </div>
