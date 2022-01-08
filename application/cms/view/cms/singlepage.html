@@ -51,11 +51,9 @@
                                 <input type="text" name="extra_data[{$k}][inputtime]" class="layui-input datetime" value="{$info[$k-1]['inputtime']|default=date('Y-m-d H:i:s',time())}">
                             </div>
                         </div>
-                        <fieldset class="layui-elem-field layui-field-title">
-                            <legend class="layui-form-item-required">{:getSiteName($k)}内容</legend>
-                        </fieldset>
                         <div class="layui-form-item">
-                            <div class="layui-input-block border-none">
+                            <div class="layui-input-block editor">
+                                <label class="layui-form-label">{:getSiteName($k)}内容 </label>
                                 <script type="text/plain" class="js-ueditor" id="content{$k}" name="extra_data[{$k}][content]" lay-verify="required" lay-reqText="内容不能为空" >{$info[$k-1]['content']|default=''|raw}</script>
                                 <a class="layui-btn layui-btn-sm" id="content{$k}grabimg" style="margin-top: 4px;">图片本地化</a>
                                 <a class="layui-btn layui-btn-sm" id="content{$k}filterword" style="margin-top: 4px;">检测违禁词</a>
