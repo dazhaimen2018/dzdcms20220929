@@ -8,6 +8,13 @@
         </div>
     </div>
 </div>
+<script type="text/html" id="masterTpl">
+    {{# if(d.master ==0){ }}
+    <div> <i class="iconfont icon-delete layui-red"></i></div>
+    {{#  } else { }}
+    <div> <i class="layui-icon layui-icon-ok-circle"></i></div>
+    {{#  } }}
+</script>
 {/block}
 {block name="script"}
 <script>
@@ -30,17 +37,24 @@
                 html: '<a class="layui-btn layui-btn-sm" type="button" href="{:url("site/index")}"><i class="iconfont icon-undo"></i>&nbsp;返回</a>'
             }]
         ],
-        url: '{:url("index")}',
+        url: '{:url("index",["id"=>$siteId])}',
         search:true,
         cols: [
             [
                 { field: 'id', title: 'ID', width: 80, fixed: true, sort: true,align:"center"},
                 { field: 'listorder', width: 70, title: '排序', edit: 'text',search:false },
                 { field: 'domain', title: '域名', searchOp: 'like'},
+                { field: 'alone', width: 90, align: "center", title: '默认域名', templet: '#masterTpl', unresize: true,search:false },
                 { field: 'url', width: 60, align: "center", title: 'URL', templet: yznTable.formatter.url, search: false },
                 { field: 'create_time', width: 145, title: '创建时间', search: 'range', align: "center" },
                 { field: 'status', width: 100, align: "center", title: '状态', unresize: true,templet: yznTable.formatter.switch },
-                { width:120, title: '操作', align: "center", templet: yznTable.formatter.tool,operat: ['delete']}
+                { width:120, title: '操作',align: "center", templet: function (d){
+                        if(d.master==1){
+                            return '<a class="layui-btn layui-btn-xs layui-btn-danger layui-btn-disabled">删除</a>';
+                        }else{
+                            return yznTable.formatter.tool.call(this,d,this);
+                        }
+                    },operat: ['delete']}
             ]
         ],
         page: {}

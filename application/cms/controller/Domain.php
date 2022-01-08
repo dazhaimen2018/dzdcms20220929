@@ -26,14 +26,14 @@ class Domain extends Adminbase
         $this->modelClass = new SiteDomain();
     }
     /**
-     * 属性列表
+     * 域名列表
      */
-
-
     public function index()
     {
-        return $this->error(tipsText());
         $siteId = $this->request->param('id/d', '');
+        if (empty($siteId)) {
+            $this->error('参数错误！');
+        }
         //输出所有站点
         $sites = cache('Site')?cache('Site'):Site::where('status',1)->column('*','id');
         $site  = [];
@@ -43,9 +43,6 @@ class Domain extends Adminbase
             }
         }
         $site = $site[0];
-        if (empty($siteId)) {
-            $this->error('参数错误！');
-        }
         if ($this->request->isAjax()) {
             list($page, $limit, $where) = $this->buildTableParames();
             $_list                      = $this->modelClass->where($where)->where('sites', $siteId)->order(['listorder' => 'desc', 'id' => 'desc'])->page($page, $limit)->select();
