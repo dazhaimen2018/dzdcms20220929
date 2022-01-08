@@ -686,7 +686,7 @@ EOF;
                 ],
                 [
                     'name' => 'chapter',
-                    'title' => '章节标题',
+                    'title' => '标题',
                     'type' => 'text',
                     'listorder' => 307,
                     'ifrequire' => 1,
@@ -696,7 +696,7 @@ EOF;
                 ],
                 [
                     'name'      => 'image',
-                    'title'     => '章节图片',
+                    'title'     => '图片',
                     'type'      => 'image',
                     'listorder'   => 308,
                     'ifrequire' => 0,
@@ -706,7 +706,7 @@ EOF;
                 ],
                 [
                     'name' => 'details',
-                    'title' => '章节内容',
+                    'title' => '内容',
                     'type' => 'Ueditor',
                     'listorder' => 309,
                     'ifrequire' => 1,

@@ -16,7 +16,7 @@ use think\facade\Cache;
 class Special extends Adminbase
 {
 
-    protected $searchFields = 'id,title';
+    protected $searchFields = 'id,name';
 	//初始化
 	protected function initialize()
 	{
@@ -38,6 +38,8 @@ class Special extends Adminbase
             list($page, $limit, $where) = $this->buildTableParames();
             $siteUrl                    = onSiteUrl();
             $onSiteId                   = onSiteId();
+            halt($onSiteId);
+            die;
             $_list                      = $this->modelClass->where('sites', $onSiteId)->where($where)->order(['listorder' => 'desc', 'id' => 'desc'])->page($page, $limit)->select();
             foreach ($_list as $k => &$v) {
                 $v['url'] = url('cms/index/special', ['diyname' => $v['diyname']]);
