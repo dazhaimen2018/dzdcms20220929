@@ -205,4 +205,19 @@ class Flag extends Adminbase
         FlagData::where('id',$id)->delete();
         $this->success('移除成功！');
     }
+
+    /**
+     * 属性内容排序
+     */
+    public function sort()
+    {
+        $id   = $this->request->param('id/d', 0);
+        $sort = $this->request->param('value/d', 0);
+        $rs   = FlagData::update(['listorder' => $sort], ['id' => $id], true);
+        if ($rs) {
+            $this->success("排序成功！");
+        } else {
+            $this->error("排序失败！");
+        }
+    }
 }

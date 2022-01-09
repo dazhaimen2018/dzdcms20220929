@@ -615,6 +615,12 @@ return [
                                     "name" => "内容移除",
                                 ],
                                 [
+                                    "route" => "cms/special/sort",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "内容排序",
+                                ],
+                                [
                                     "route" => "cms/special/add",
                                     "type" => 1,
                                     "status" => 0,
@@ -677,6 +683,12 @@ return [
                                     "type" => 1,
                                     "status" => 0,
                                     "name" => "内容移除",
+                                ],
+                                [
+                                    "route" => "cms/flag/sort",
+                                    "type" => 1,
+                                    "status" => 0,
+                                    "name" => "内容排序",
                                 ],
                                 [
                                     "route" => "cms/flag/add",
