@@ -196,20 +196,21 @@ class Special extends Adminbase
         $did     = $this->request->param('did/d', 0);
         $catid  = $this->request->param('catid/d', 0);
         $outid  = $this->request->param('outid/d', 0);
+        $siteId = onSiteId();
         if (empty($outid) || !$catid) {
             $this->error('参数错误！');
         }
         $modelid   = getCategory($catid, 'modelid');
         $modelInfo = cache('Model');
         $modelInfo = $modelInfo[$modelid];
-        $spec      = Db::name($modelInfo['tablename'])->where('id', $did)->field('specialids')->find();
-        $spec      = explode(',',$spec['specialids']);
+        $spec      = Db::name($modelInfo['tablename'] . '_data')->where(['did' => $did, 'site_id' => $siteId])->field('topics')->find();
+        $spec      = explode(',',$spec['topics']);
         for ( $i=0; $i<count($spec); $i++ ){
             if($outid == $spec[$i]) unset($spec[$i]);
         }
         $spec = arr2str($spec);
-        Db::name($modelInfo['tablename'])->where('id', $did)->update([
-            'specialids' =>	$spec,
+        Db::name($modelInfo['tablename'] . '_data')->where(['did' => $did, 'site_id' => $siteId])->update([
+            'topics' =>	$spec,
         ]);
         SpecialData::where('id',$id)->delete();
         $this->success('移除成功！');

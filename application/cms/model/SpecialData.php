@@ -18,7 +18,7 @@ class SpecialData extends Model
     /**
      * 添加Spec内容
      */
-    public function addSpec($specs, $id, $catid, $modelid, $sites, $title, $thumb)
+    public function addSpec($specs, $id, $catid, $modelid, $sites, $title, $description, $thumb)
     {
         if (!$specs || !$id || !$catid || !$modelid) {
             return false;
@@ -35,6 +35,7 @@ class SpecialData extends Model
                     "modelid"       => $modelid,
                     "sites"         => $sites,
                     "title"         => $title,
+                    "description"   => $description,
                     "thumb"         => $thumb,
                     "create_time"   => time(),
                 ]);
@@ -45,7 +46,7 @@ class SpecialData extends Model
     /**
      * 根据指定的条件更新spec数据
      */
-    public function updata($specs, $id, $catid, $modelid, $sites, $title, $thumb)
+    public function updata($specs, $id, $catid, $modelid, $sites, $title, $description, $thumb)
     {
         if (!$specs || !$id || !$catid || !$modelid) {
             return false;
@@ -57,7 +58,7 @@ class SpecialData extends Model
         ])->select();
         foreach ($tags as $key => $val) {
             if ($val) {
-                SpecialData::where('id', $val['id'])->update(['thumb' => $thumb,'title'=>$title]);
+                SpecialData::where('id', $val['id'])->update(['thumb' => $thumb,'title'=>$title,'description'=>$description]);
             } else{
                 continue;
             }
@@ -75,7 +76,7 @@ class SpecialData extends Model
         }
         //新增的Flags
         if (count($specs) > 0) {
-            $this->addSpec($specs, $id, $catid, $modelid, $sites, $title, $thumb);
+            $this->addSpec($specs, $id, $catid, $modelid, $sites, $title, $description, $thumb);
         }
     }
 

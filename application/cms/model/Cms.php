@@ -92,16 +92,10 @@ class Cms extends Modelbase
             $title = $data['theme'];
             $thumb = $data['thumb'];
             $flags = $data['flag'];
-            $specs = $data['specialids'];
             if ($flags) {
                 $this->flagDispose($flags, $id, $catid, $modelid, $sites, $title, $thumb);
             }else {
                 $this->flagDispose([], $id, $catid, $modelid, $sites, $title, $thumb);
-            }
-            if ($specs) {
-                $this->specDispose($specs, $id, $catid, $modelid, $sites, $title, $thumb);
-            }else {
-                $this->specDispose([], $id, $catid, $modelid, $sites, $title, $thumb);
             }
             // 以下下马博增加
             if ($extraData) {
@@ -119,7 +113,12 @@ class Cms extends Modelbase
                     if ($e['tags']) {
                         $this->tagDispose($e['tags'], $id, $catid, $modelid, $e['site_id']);
                     } else {
-                        $this->tagDispose([], $extraId, $catid, $modelid, $e['site_id']);
+                        $this->tagDispose([], $id, $catid, $modelid, $e['site_id']);
+                    }
+                    if ($e['topics']) {
+                        $this->specDispose($e['topics'], $id, $catid, $modelid, $e['site_id'], $e['title'], $e['description'], $thumb);
+                    }else {
+                        $this->specDispose([], $id, $catid, $modelid, $sites,  $e['site_id'], $e['description'], $thumb);
                     }
                 }
             }
@@ -255,16 +254,10 @@ class Cms extends Modelbase
         $title = $data['theme'];
         $thumb = $data['thumb'];
         $flags = $data['flag'];
-        $specs = $data['specialids'];
         if ($flags) {
             $this->flagDispose($flags, $id, $catid, $modelid, $sites, $title, $thumb);
         }else {
             $this->flagDispose([], $id, $catid, $modelid, $sites, $title, $thumb);
-        }
-        if ($specs) {
-            $this->specDispose($specs, $id, $catid, $modelid, $sites, $title, $thumb);
-        }else {
-            $this->specDispose([], $id, $catid, $modelid, $sites, $title, $thumb);
         }
         // 以下下马博增加
         if ($extraData) {
@@ -289,6 +282,11 @@ class Cms extends Modelbase
                     $this->tagDispose($e['tags'], $extraId, $catid, $modelid, $e['site_id']);
                 } else {
                     $this->tagDispose([], $extraId, $catid, $modelid, $e['site_id']);
+                }
+                if ($e['topics']) {
+                    $this->specDispose($e['topics'], $extraId, $catid, $modelid, $e['site_id'], $e['title'], $e['description'], $thumb);
+                }else {
+                    $this->specDispose([], $extraId, $catid, $modelid, $e['site_id'], $e['title'], $e['description'], $thumb);
                 }
             }
             // 以下下马博增加 end
@@ -833,14 +831,14 @@ class Cms extends Modelbase
 
         } else {
             //直接清除已有的tags
-            $flagMode->deleteAll($id, $catid, $modelid, $sites, $title, $thumb);
+            $flagMode->deleteAll($id, $catid, $modelid);
         }
     }
 
     /**
      * 专题处理, $siteId = 0
      */
-    private function specDispose($specs, $id, $catid, $modelid, $sites, $title, $thumb)
+    private function specDispose($specs, $id, $catid, $modelid, $sites, $title, $description, $thumb)
     {
         $specMode = model('cms/SpecialData');
         if (!empty($specs)) {
@@ -851,14 +849,14 @@ class Cms extends Modelbase
             }
             $specs = array_unique($specs);
             if ('add' == request()->action()) {
-                $specMode->addSpec($specs, $id, $catid, $modelid, $sites, $title, $thumb);
+                $specMode->addSpec($specs, $id, $catid, $modelid, $sites, $title, $description, $thumb);
             } else {
-                $specMode->updata($specs, $id, $catid, $modelid, $sites, $title, $thumb);
+                $specMode->updata($specs, $id, $catid, $modelid, $sites, $title, $description, $thumb);
             }
 
         } else {
             //直接清除已有的tags
-            $specMode->deleteAll($id, $catid, $modelid, $sites, $title, $thumb);
+            $specMode->deleteAll($id, $catid, $modelid);
         }
     }
     /**
