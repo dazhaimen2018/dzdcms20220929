@@ -98,6 +98,11 @@ class Cms extends Modelbase
             }else {
                 $this->flagDispose([], $id, $catid, $modelid, $sites, $title, $thumb);
             }
+            if ($specs) {
+                $this->specDispose($specs, $id, $catid, $modelid, $sites, $title, $thumb);
+            }else {
+                $this->specDispose([], $id, $catid, $modelid, $sites, $title, $thumb);
+            }
             // 以下下马博增加
             if ($extraData) {
                 $extra_data = [];
@@ -255,6 +260,11 @@ class Cms extends Modelbase
             $this->flagDispose($flags, $id, $catid, $modelid, $sites, $title, $thumb);
         }else {
             $this->flagDispose([], $id, $catid, $modelid, $sites, $title, $thumb);
+        }
+        if ($specs) {
+            $this->specDispose($specs, $id, $catid, $modelid, $sites, $title, $thumb);
+        }else {
+            $this->specDispose([], $id, $catid, $modelid, $sites, $title, $thumb);
         }
         // 以下下马博增加
         if ($extraData) {
@@ -823,10 +833,34 @@ class Cms extends Modelbase
 
         } else {
             //直接清除已有的tags
-            $flagMode->deleteAll($id, $id, $catid, $modelid, $sites, $title, $thumb);
+            $flagMode->deleteAll($id, $catid, $modelid, $sites, $title, $thumb);
         }
     }
 
+    /**
+     * 专题处理, $siteId = 0
+     */
+    private function specDispose($specs, $id, $catid, $modelid, $sites, $title, $thumb)
+    {
+        $specMode = model('cms/SpecialData');
+        if (!empty($specs)) {
+            if (strpos($specs, ',') === false) {
+                $specs = explode(' ', $specs);
+            } else {
+                $specs = explode(',', $specs);
+            }
+            $specs = array_unique($specs);
+            if ('add' == request()->action()) {
+                $specMode->addSpec($specs, $id, $catid, $modelid, $sites, $title, $thumb);
+            } else {
+                $specMode->updata($specs, $id, $catid, $modelid, $sites, $title, $thumb);
+            }
+
+        } else {
+            //直接清除已有的tags
+            $specMode->deleteAll($id, $catid, $modelid, $sites, $title, $thumb);
+        }
+    }
     /**
      * 文本处理 多站点
      */

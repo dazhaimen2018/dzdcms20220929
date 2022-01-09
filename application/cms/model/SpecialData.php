@@ -4,32 +4,32 @@
  * 版权所有 TopAdmin，并保留所有权利。
  * Author: TopAdmin <8355763@qq.com>
  * Date: 2021/11/16
- * flag数据模型
+ * 专题数据模型
  */
 namespace app\cms\model;
 
 use think\Model;
 
-class FlagData extends Model
+class SpecialData extends Model
 {
 
     protected $autoWriteTimestamp = true;
 
     /**
-     * 添加flag内容
+     * 添加Spec内容
      */
-    public function addFlag($flags, $id, $catid, $modelid, $sites, $title, $thumb)
+    public function addSpec($specs, $id, $catid, $modelid, $sites, $title, $thumb)
     {
-        if (!$flags || !$id || !$catid || !$modelid) {
+        if (!$specs || !$id || !$catid || !$modelid) {
             return false;
         }
-        if (is_array($flags)) {
-            foreach ($flags as $v) {
+        if (is_array($specs)) {
+            foreach ($specs as $v) {
                 if (empty($v) || $v == '') {
                     continue;
                 }
                 self::create([
-                    'flagid'        => $v,
+                    'specid'        => $v,
                     'did'           => $id,
                     "catid"         => $catid,
                     "modelid"       => $modelid,
@@ -43,70 +43,70 @@ class FlagData extends Model
     }
 
     /**
-     * 根据指定的条件更新flag数据
+     * 根据指定的条件更新spec数据
      */
-    public function updata($flags, $id, $catid, $modelid, $sites, $title, $thumb)
+    public function updata($specs, $id, $catid, $modelid, $sites, $title, $thumb)
     {
-        if (!$flags || !$id || !$catid || !$modelid) {
+        if (!$specs || !$id || !$catid || !$modelid) {
             return false;
         }
-        $tags = FlagData::where([
+        $tags = SpecialData::where([
             "modelid" => $modelid,
             "did"     => $id,
             "catid"   => $catid,
         ])->select();
         foreach ($tags as $key => $val) {
             if ($val) {
-                FlagData::where('id', $val['id'])->update(['thumb' => $thumb,'title'=>$title]);
+                SpecialData::where('id', $val['id'])->update(['thumb' => $thumb,'title'=>$title]);
             } else{
                 continue;
             }
             //如果在新的关键字数组找不到，说明已经去除
-            if (!in_array($val['flagid'], $flags)) {
+            if (!in_array($val['specid'], $specs)) {
                 //删除不存在的flag
-                $this->deleteFlagId($val['flagid'], $id, $catid, $modelid);
+                $this->deleteSpecId($val['specid'], $id, $catid, $modelid);
             } else {
-                foreach ($flags as $k => $v) {
-                    if ($val['flagid'] == $v) {
-                        unset($flags[$k]);
+                foreach ($specs as $k => $v) {
+                    if ($val['specid'] == $v) {
+                        unset($specs[$k]);
                     }
                 }
             }
         }
         //新增的Flags
-        if (count($flags) > 0) {
-            $this->addFlag($flags, $id, $catid, $modelid, $sites, $title, $thumb);
+        if (count($specs) > 0) {
+            $this->addSpec($specs, $id, $catid, $modelid, $sites, $title, $thumb);
         }
     }
 
     /**
-     * 删除flag
+     * 删除spec
      */
-    public function deleteFlagId($flags, $id, $catid, $modelid)
+    public function deleteSpecId($specs, $id, $catid, $modelid)
     {
-        if (!$id || !$catid || !$modelid || !$flags) {
+        if (!$id || !$catid || !$modelid || !$specs) {
             return false;
         }
-        if (is_array($flags)) {
-            foreach ($flags as $name) {
-                $row = $this->where("flagid", $name)->find();
+        if (is_array($specs)) {
+            foreach ($specs as $name) {
+                $row = $this->where("specid", $name)->find();
                 if ($row) {
                     //删除tags数据
-                    FlagData::where(["flagid" => $name, 'did' => $id, "catid" => $catid])->delete();
+                    SpecialData::where(["specid" => $name, 'did' => $id, "catid" => $catid])->delete();
                 }
             }
         } else {
-            $row = $this->where("flagid", $flags)->find();
+            $row = $this->where("specid", $specs)->find();
             if ($row) {
-                //删除flag数据
-                FlagData::where(["flagid" => $row['flagid'], 'did' => $id, "catid" => $catid])->delete();
+                //删除spec数据
+                SpecialData::where(["specid" => $row['specid'], 'did' => $id, "catid" => $catid])->delete();
             }
         }
         return true;
     }
 
     /**
-     * 根据信息id删除全部的flag内容
+     * 根据信息id删除全部的spec内容
      */
     public function deleteAll($id, $catid, $modelid)
     {
@@ -115,7 +115,7 @@ class FlagData extends Model
         }
         $where = ['modelid' => $modelid, 'did' => $id, "catid" => $catid];
         //取得对应tag数据
-        $tagslist = FlagData::where($where)->select();
+        $tagslist = SpecialData::where($where)->select();
         if (empty($tagslist)) {
             return true;
         }
@@ -126,8 +126,8 @@ class FlagData extends Model
                 $row->setDec('usetimes');
             }
         }
-        //删除flag数据
-        FlagData::where($where)->delete();
+        //删除spec数据
+        SpecialData::where($where)->delete();
         return true;
     }
 

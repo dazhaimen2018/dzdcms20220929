@@ -9,6 +9,7 @@ namespace app\cms\controller;
 
 
 use app\common\controller\Adminbase;
+use app\cms\model\SpecialData;
 use app\cms\model\Special as SpecialModel;
 use think\Db;
 use think\facade\Cache;
@@ -134,8 +135,8 @@ class Special extends Adminbase
 
     //更新站点缓存
     public function cache() {
-        $sites = SpecialModel::where('status',1)->column('*','id');
-        Cache::set('special',$sites);
+        $specs = SpecialModel::where('status',1)->column('*','id');
+        Cache::set('Special',$specs);
         $this->success("专题缓存更新成功！");
     }
     /**
@@ -148,38 +149,40 @@ class Special extends Adminbase
         if (empty($id)) {
             $this->error('参数错误！');
         }
-        $specia = Db::name("special")->where("id", $id)->find();
-        if (empty($specia)) {
+        $specData = cache("Special")?cache("Special"):SpecialModel::where('status',1)->column('*','id');
+        $spec  = [];
+        foreach ($specData as $v) {
+            if ($v['id'] == $id) {
+                $spec[] = $v;
+            }
+        }
+        if (empty($spec)) {
             $this->error('该专题不存在！');
         }
-        $onSiteId   = onSiteId();
-        //输出可用模型
-        $modelsdata = cache("Model");
-        $models     = [];
-        foreach ($modelsdata as $v) {
-            if ($v['status'] == 1 && $v['module'] == 'cms' && $v['sites'] == $onSiteId) {
-                $models[] = $v;
-            }
-        }
-
+        $siteUrl = onSiteUrl();
         if ($this->request->isAjax()) {
             list($page, $limit, $where) = $this->buildTableParames();
-            $conditions = [
-                ['status', 'in', [0, 1]],
-            ];
-            $whereSpecial = "FIND_IN_SET($id,specialids)";
-            $total  = Db::name('news')->where($where)->where($conditions)->where($whereSpecial)->count();
-            $list   = Db::name('news')->page($page, $limit)->where($where)->where($conditions)->where($whereSpecial)->order('listorder DESC, id DESC')->select();
-            $_list   = [];
-            foreach ($list as $k => $v) {
+            $_list                      =  SpecialData::where($where)->where("specid", $id)->order(['listorder' => 'desc', 'id' => 'desc'])->page($page, $limit)->select();
+            foreach ($_list as $k => $v) {
+                $modelsdata = cache("Model");
+                $models     = [];
+                foreach ($modelsdata as $vo) {
+                    if ($v['id'] == $v['modelid'] ) {
+                        $models[] = $vo;
+                    }
+                }
+                $v['url']     = $siteUrl.buildContentUrl($v['catid'], $v['did'], '');
                 $v['catname'] = getCategory($v['catid'],'catname');
-                $_list[]     = $v;
+                $v['model']   = $models[0]['name'];
             }
+            unset($v);
+            $total  = SpecialData::where($where)->where("specid", $id)->count();
             $result = array("code" => 0, "count" => $total, "data" => $_list);
             return json($result);
         }
         $this->assign([
-            'specialId'   => $id,
+            'specId' => $id,
+            'spec'   => $spec[0]['name'],
         ]);
         return $this->fetch();
     }
@@ -190,23 +193,25 @@ class Special extends Adminbase
     public function revoke()
     {
         $id     = $this->request->param('id/d', 0);
+        $did     = $this->request->param('did/d', 0);
         $catid  = $this->request->param('catid/d', 0);
         $outid  = $this->request->param('outid/d', 0);
         if (empty($outid) || !$catid) {
             $this->error('参数错误！');
         }
-        $modelid    = getCategory($catid, 'modelid');
-        $modelInfo  = cache('Model');
-        $modelInfo  = $modelInfo[$modelid];
-        $specialids = Db::name($modelInfo['tablename'])->where('id', $id)->field('specialids')->find();
-        $specialids = explode(',',$specialids['specialids']);
-        for ( $i=0; $i<count($specialids); $i++ ){
-            if($outid == $specialids[$i]) unset($specialids[$i]);
+        $modelid   = getCategory($catid, 'modelid');
+        $modelInfo = cache('Model');
+        $modelInfo = $modelInfo[$modelid];
+        $spec      = Db::name($modelInfo['tablename'])->where('id', $did)->field('specialids')->find();
+        $spec      = explode(',',$spec['specialids']);
+        for ( $i=0; $i<count($spec); $i++ ){
+            if($outid == $spec[$i]) unset($spec[$i]);
         }
-        $specialids = arr2str($specialids);
-        Db::name($modelInfo['tablename'])->where('id', $id)->update([
-            'specialids'		=>	$specialids,
+        $spec = arr2str($spec);
+        Db::name($modelInfo['tablename'])->where('id', $did)->update([
+            'specialids' =>	$spec,
         ]);
+        SpecialData::where('id',$id)->delete();
         $this->success('移除成功！');
     }
 }
