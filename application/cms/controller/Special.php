@@ -161,6 +161,7 @@ class Special extends Adminbase
                 $models[] = $v;
             }
         }
+
         if ($this->request->isAjax()) {
             list($page, $limit, $where) = $this->buildTableParames();
             $conditions = [
@@ -194,11 +195,11 @@ class Special extends Adminbase
         if (empty($outid) || !$catid) {
             $this->error('参数错误！');
         }
-        $modelid   = getCategory($catid, 'modelid');
-        $modelInfo = cache('Model');
-        $modelInfo = $modelInfo[$modelid];
-        $specialids    = Db::name($modelInfo['tablename'])->where('id', $id)->field('specialids')->find();
-        $specialids    = explode(',',$specialids['specialids']);
+        $modelid    = getCategory($catid, 'modelid');
+        $modelInfo  = cache('Model');
+        $modelInfo  = $modelInfo[$modelid];
+        $specialids = Db::name($modelInfo['tablename'])->where('id', $id)->field('specialids')->find();
+        $specialids = explode(',',$specialids['specialids']);
         for ( $i=0; $i<count($specialids); $i++ ){
             if($outid == $specialids[$i]) unset($specialids[$i]);
         }

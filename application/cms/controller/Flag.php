@@ -139,8 +139,8 @@ class Flag extends Adminbase
         if (empty($id)) {
             $this->error('参数错误！');
         }
-        $specia = Db::name("flag")->where("id", $id)->find();
-        if (empty($specia)) {
+        $flag = Db::name("flag")->where("id", $id)->find();
+        if (empty($flag)) {
             $this->error('该属性不存在！');
         }
         $onSiteId   = onSiteId();
@@ -152,21 +152,25 @@ class Flag extends Adminbase
                 $models[] = $v;
             }
         }
+
         if ($this->request->isAjax()) {
-            $limit = $this->request->param('limit/d', 10);
-            $page = $this->request->param('page/d', 1);
             list($page, $limit, $where) = $this->buildTableParames();
             $conditions = [
                 ['status', 'in', [0, 1]],
             ];
-            $whereSpecial = "FIND_IN_SET($id,specialids)";
-            $total  = Db::name('news')->where($where)->where($conditions)->where($whereSpecial)->count();
-            $list   = Db::name('news')->page($page, $limit)->where($where)->where($conditions)->where($whereSpecial)->order('listorder DESC, id DESC')->select();
-            $result = array("code" => 0, "count" => $total, "data" => $list);
+            $whereFlag = "FIND_IN_SET($id,flag)";
+            $total  = Db::name('news')->where($where)->where($conditions)->where($whereFlag)->count();
+            $list   = Db::name('news')->page($page, $limit)->where($where)->where($conditions)->where($whereFlag)->order('listorder DESC, id DESC')->select();
+            $_list   = [];
+            foreach ($list as $k => $v) {
+                $v['catname'] = getCategory($v['catid'],'catname');
+                $_list[]     = $v;
+            }
+            $result = array("code" => 0, "count" => $total, "data" => $_list);
             return json($result);
         }
         $this->assign([
-            'specialId'   => $id,
+            'flagId'   => $id,
         ]);
         return $this->fetch();
     }
@@ -185,14 +189,14 @@ class Flag extends Adminbase
         $modelid   = getCategory($catid, 'modelid');
         $modelInfo = cache('Model');
         $modelInfo = $modelInfo[$modelid];
-        $catids    = Db::name($modelInfo['tablename'])->where('id', $id)->field('catids')->find();
-        $catids    = explode(',',$catids['catids']);
-        for ( $i=0; $i<count($catids); $i++ ){
-            if($outid == $catids[$i]) unset($catids[$i]);
+        $flag      = Db::name($modelInfo['tablename'])->where('id', $id)->field('flag')->find();
+        $flag      = explode(',',$flag['flag']);
+        for ( $i=0; $i<count($flag); $i++ ){
+            if($outid == $flag[$i]) unset($flag[$i]);
         }
-        $catids = arr2str($catids);
+        $flag = arr2str($flag);
         Db::name($modelInfo['tablename'])->where('id', $id)->update([
-            'catids'		=>	$catids,
+            'flag'		=>	$flag,
         ]);
         $this->success('移除成功！');
     }
