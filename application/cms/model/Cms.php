@@ -87,6 +87,17 @@ class Cms extends Modelbase
         try {
             //主表
             $id = Db::name($tablename)->insertGetId($data);
+            //处理专题 和 属性数据
+            $sites = onSiteId();
+            $title = $data['theme'];
+            $thumb = $data['thumb'];
+            $flags = $data['flag'];
+            $specs = $data['specialids'];
+            if ($flags) {
+                $this->flagDispose($flags, $id, $catid, $modelid, $sites, $title, $thumb);
+            }else {
+                $this->flagDispose([], $id, $catid, $modelid, $sites, $title, $thumb);
+            }
             // 以下下马博增加
             if ($extraData) {
                 $extra_data = [];
@@ -234,6 +245,17 @@ class Cms extends Modelbase
         }
         //主表
         Db::name($tablename)->where('id', $id)->update($data);
+        //处理专题 和 属性数据
+        $sites = onSiteId();
+        $title = $data['theme'];
+        $thumb = $data['thumb'];
+        $flags = $data['flag'];
+        $specs = $data['specialids'];
+        if ($flags) {
+            $this->flagDispose($flags, $id, $catid, $modelid, $sites, $title, $thumb);
+        }else {
+            $this->flagDispose([], $id, $catid, $modelid, $sites, $title, $thumb);
+        }
         // 以下下马博增加
         if ($extraData) {
             $extra_data = [];
@@ -777,6 +799,31 @@ class Cms extends Modelbase
         } else {
             //直接清除已有的tags
             $tags_mode->deleteAll($id, $catid, $modelid, $siteId);
+        }
+    }
+
+    /**
+     * 属性处理, $siteId = 0
+     */
+    private function flagDispose($flags, $id, $catid, $modelid, $sites, $title, $thumb)
+    {
+        $flagMode = model('cms/FlagData');
+        if (!empty($flags)) {
+            if (strpos($flags, ',') === false) {
+                $flags = explode(' ', $flags);
+            } else {
+                $flags = explode(',', $flags);
+            }
+            $flags = array_unique($flags);
+            if ('add' == request()->action()) {
+                $flagMode->addFlag($flags, $id, $catid, $modelid, $sites, $title, $thumb);
+            } else {
+                $flagMode->updata($flags, $id, $catid, $modelid, $sites, $title, $thumb);
+            }
+
+        } else {
+            //直接清除已有的tags
+            $flagMode->deleteAll($id, $id, $catid, $modelid, $sites, $title, $thumb);
         }
     }
 

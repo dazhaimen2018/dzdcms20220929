@@ -296,7 +296,6 @@ class Cms extends Adminbase
                 try {
                     $insertId = $this->Cms_Model->addModelDataAll($data['modelField'], $data['modelFieldExt'], $data['extra_data']);
                     Db::commit();
-                    //处理专题 和 属性数据
                 } catch (\Exception $ex) {
                     Db::rollback();
                     $this->error($ex->getMessage());
