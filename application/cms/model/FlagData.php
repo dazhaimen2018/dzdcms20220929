@@ -1,17 +1,11 @@
 <?php
-// +----------------------------------------------------------------------
-// | Yzncms [ 御宅男工作室 ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2018 http://yzncms.com All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
-// | Author: 御宅男 <530765310@qq.com>
-// +----------------------------------------------------------------------
-
-// +----------------------------------------------------------------------
-// | Tag模型
-// +----------------------------------------------------------------------
+/**
+ * TopAdmin
+ * 版权所有 TopAdmin，并保留所有权利。
+ * Author: TopAdmin <8355763@qq.com>
+ * Date: 2021/11/16
+ * flag数据模型
+ */
 namespace app\cms\model;
 
 use think\Model;
@@ -22,51 +16,34 @@ class FlagData extends Model
     protected $autoWriteTimestamp = true;
 
     /**
-     * 添加tags
-     *
-     * @param  type  $tagname  tags名称 可以是数组
-     * @param  type  $id       信息id
-     * @param  type  $catid    栏目Id
-     * @param  type  $modelid  模型id
-     *
-     * @return false|void
-     * @throws \think\Exception
+     * 添加flag内容
      */
     public function addFlag($flags, $id, $catid, $modelid, $sites, $title, $thumb)
     {
         if (!$flags || !$id || !$catid || !$modelid) {
             return false;
         }
-        $time    = time();
-        $newdata = [];
         if (is_array($flags)) {
             foreach ($flags as $v) {
                 if (empty($v) || $v == '') {
                     continue;
                 }
                 self::create([
-                    'flagid'     => $v,
-                    'did'     => $id,
-                    "catid"   => $catid,
-                    "modelid" => $modelid,
-                    "sites"   => $sites,
-                    "title"   => $title,
-                    "thumb"   => $thumb,
+                    'flagid'        => $v,
+                    'did'           => $id,
+                    "catid"         => $catid,
+                    "modelid"       => $modelid,
+                    "sites"         => $sites,
+                    "title"         => $title,
+                    "thumb"         => $thumb,
+                    "create_time"   => time(),
                 ]);
             }
         }
     }
 
     /**
-     * 根据指定的条件更新tags数据
-     *
-     * @param  type  $tagname
-     * @param  type  $id
-     * @param  type  $catid
-     * @param  type  $modelid
-     *
-     * @return false|void
-     * @throws \think\Exception
+     * 根据指定的条件更新flag数据
      */
     public function updata($flags, $id, $catid, $modelid, $sites, $title, $thumb)
     {
@@ -79,12 +56,14 @@ class FlagData extends Model
             "catid"   => $catid,
         ])->select();
         foreach ($tags as $key => $val) {
-            if (!$val) {
+            if ($val) {
+                FlagData::where('id', $val['id'])->update(['thumb' => $thumb,'title'=>$title]);
+            } else{
                 continue;
             }
             //如果在新的关键字数组找不到，说明已经去除
             if (!in_array($val['flagid'], $flags)) {
-                //删除不存在的tag
+                //删除不存在的flag
                 $this->deleteFlagId($val['flagid'], $id, $catid, $modelid);
             } else {
                 foreach ($flags as $k => $v) {
@@ -94,22 +73,14 @@ class FlagData extends Model
                 }
             }
         }
-        //新增的tags
+        //新增的Flags
         if (count($flags) > 0) {
             $this->addFlag($flags, $id, $catid, $modelid, $sites, $title, $thumb);
         }
     }
 
     /**
-     * 删除tag
-     *
-     * @param  type  $tagname
-     * @param  type  $id
-     * @param  type  $catid
-     * @param  type  $modelid
-     *
-     * @return bool
-     * @throws \think\Exception
+     * 删除flag
      */
     public function deleteFlagId($flags, $id, $catid, $modelid)
     {
@@ -127,7 +98,7 @@ class FlagData extends Model
         } else {
             $row = $this->where("flagid", $flags)->find();
             if ($row) {
-                //删除tags数据
+                //删除flag数据
                 FlagData::where(["flagid" => $row['flagid'], 'did' => $id, "catid" => $catid])->delete();
             }
         }
@@ -135,14 +106,7 @@ class FlagData extends Model
     }
 
     /**
-     * 根据信息id删除全部的tags记录
-     *
-     * @param  type  $id
-     * @param  type  $catid
-     * @param  type  $modelid
-     *
-     * @return boolean
-     * @throws \think\Exception
+     * 根据信息id删除全部的flag内容
      */
     public function deleteAll($id, $catid, $modelid)
     {
@@ -162,7 +126,7 @@ class FlagData extends Model
                 $row->setDec('usetimes');
             }
         }
-        //删除tags数据
+        //删除flag数据
         FlagData::where($where)->delete();
         return true;
     }
