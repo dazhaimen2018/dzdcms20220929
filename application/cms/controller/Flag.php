@@ -8,6 +8,7 @@
 namespace app\cms\controller;
 
 
+use app\cms\model\FlagData;
 use app\common\controller\Adminbase;
 use app\cms\model\Flag as FlagModel;
 use think\Db;
@@ -123,10 +124,10 @@ class Flag extends Adminbase
         }
     }
 
-    //更新站点缓存
+    //更新属性缓存
     public function cache() {
-        $sites = FlagModel::where('status',1)->column('*','id');
-        Cache::set('flag',$sites);
+        $flags = FlagModel::where('status',1)->column('*','id');
+        Cache::set('Flag',$flags);
         $this->success("属性缓存更新成功！");
     }
 
@@ -139,38 +140,40 @@ class Flag extends Adminbase
         if (empty($id)) {
             $this->error('参数错误！');
         }
-        $flag = Db::name("flag")->where("id", $id)->find();
+        $flagData = cache("Flag")?cache("Flag"):FlagModel::where('status',1)->column('*','id');
+        $flag  = [];
+        foreach ($flagData as $v) {
+            if ($v['id'] == $id) {
+                $flag[] = $v;
+            }
+        }
         if (empty($flag)) {
             $this->error('该属性不存在！');
         }
-        $onSiteId   = onSiteId();
-        //输出可用模型
-        $modelsdata = cache("Model");
-        $models     = [];
-        foreach ($modelsdata as $v) {
-            if ($v['status'] == 1 && $v['module'] == 'cms' && $v['sites'] == $onSiteId) {
-                $models[] = $v;
-            }
-        }
-
+        $siteUrl = onSiteUrl();
         if ($this->request->isAjax()) {
             list($page, $limit, $where) = $this->buildTableParames();
-            $conditions = [
-                ['status', 'in', [0, 1]],
-            ];
-            $whereFlag = "FIND_IN_SET($id,flag)";
-            $total  = Db::name('news')->where($where)->where($conditions)->where($whereFlag)->count();
-            $list   = Db::name('news')->page($page, $limit)->where($where)->where($conditions)->where($whereFlag)->order('listorder DESC, id DESC')->select();
-            $_list   = [];
-            foreach ($list as $k => $v) {
+            $_list                      =  FlagData::where($where)->where("flagid", $id)->order(['listorder' => 'desc', 'id' => 'desc'])->page($page, $limit)->select();
+            foreach ($_list as $k => $v) {
+                $modelsdata = cache("Model");
+                $models     = [];
+                foreach ($modelsdata as $vo) {
+                    if ($v['id'] == $v['modelid'] ) {
+                        $models[] = $vo;
+                    }
+                }
+                $v['url']     = $siteUrl.buildContentUrl($v['catid'], $v['did'], '');
                 $v['catname'] = getCategory($v['catid'],'catname');
-                $_list[]     = $v;
+                $v['model']   = $models[0]['name'];
             }
+            unset($v);
+            $total  = FlagData::where($where)->where("flagid", $id)->count();
             $result = array("code" => 0, "count" => $total, "data" => $_list);
             return json($result);
         }
         $this->assign([
-            'flagId'   => $id,
+            'flagId' => $id,
+            'flag'   => $flag[0]['name'],
         ]);
         return $this->fetch();
     }
@@ -181,6 +184,7 @@ class Flag extends Adminbase
     public function revoke()
     {
         $id     = $this->request->param('id/d', 0);
+        $did     = $this->request->param('did/d', 0);
         $catid  = $this->request->param('catid/d', 0);
         $outid  = $this->request->param('outid/d', 0);
         if (empty($outid) || !$catid) {
@@ -189,15 +193,16 @@ class Flag extends Adminbase
         $modelid   = getCategory($catid, 'modelid');
         $modelInfo = cache('Model');
         $modelInfo = $modelInfo[$modelid];
-        $flag      = Db::name($modelInfo['tablename'])->where('id', $id)->field('flag')->find();
+        $flag      = Db::name($modelInfo['tablename'])->where('id', $did)->field('flag')->find();
         $flag      = explode(',',$flag['flag']);
         for ( $i=0; $i<count($flag); $i++ ){
             if($outid == $flag[$i]) unset($flag[$i]);
         }
         $flag = arr2str($flag);
-        Db::name($modelInfo['tablename'])->where('id', $id)->update([
+        Db::name($modelInfo['tablename'])->where('id', $did)->update([
             'flag'		=>	$flag,
         ]);
+        FlagData::where('id',$id)->delete();
         $this->success('移除成功！');
     }
 }
