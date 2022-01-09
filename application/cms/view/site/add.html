@@ -269,11 +269,16 @@
 
 
 		form.on('radio(alone)', function(data){
-			if(1==data.value){
-				$('#private').show();
-			}
 			if(0==data.value){
 				$('#private').hide();
+				$('input[name=private][value=0]').removeAttr('disabled').prop('checked','checked');
+				$('input[name=private][value=1]').removeAttr('checked').prop('disabled','disabled');
+				form.render('radio')
+			}
+			if(1==data.value){
+				$('#private').show();
+				$('input[name=private][value=1]').removeAttr('disabled');
+				form.render('radio')
 			}
 		});
 
