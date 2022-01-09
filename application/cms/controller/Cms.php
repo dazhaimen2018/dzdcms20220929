@@ -137,9 +137,9 @@ class Cms extends Adminbase
     //栏目信息列表
     public function classlist()
     {
-        $catid      = $this->request->param('catid/d', 0);
-        $url_mode   = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
-        $show_mode  = isset(cache("Cms_Config")['show_url_mode']) ? cache("Cms_Config")['show_url_mode'] : 1;
+        $catid        = $this->request->param('catid/d', 0);
+        $url_mode     = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
+        $show_mode    = isset(cache("Cms_Config")['show_url_mode']) ? cache("Cms_Config")['show_url_mode'] : 1;
         $showCatMode  = isset(cache("Cms_Config")['show_cat_mode']) ? cache("Cms_Config")['show_cat_mode'] : 1;
         //当前栏目信息
         $catInfo = getCategory($catid);
@@ -150,10 +150,6 @@ class Cms extends Adminbase
         $modelid   = $catInfo['modelid'];
         $modelType = db('model')->where('id',$modelid)->value('type');
         if ($this->request->isAjax()) {
-            // 20200805 马博
-            $limit = $this->request->param('limit/d', 10);
-            $page = $this->request->param('page/d', 1);
-            // 20200805 马博 end
             //检查模型是否被禁用
             if (!getModel($modelid, 'status')) {
                 $this->error('模型被禁用！');

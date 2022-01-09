@@ -48,12 +48,12 @@ function onSite(){
                 if(cache("Cms_Config")){
                     $siteId = cache("Cms_Config")['site'];
                 } else {
-                    $siteId = 1;
+                    $siteId = masterSite('id'); //主站
                 }
             }
         }
     }else{
-        $siteId  = 1;
+        $siteId  = masterSite('id'); //主站
     }
     return $siteId;
 }

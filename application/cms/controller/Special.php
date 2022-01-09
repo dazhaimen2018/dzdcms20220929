@@ -38,8 +38,6 @@ class Special extends Adminbase
             list($page, $limit, $where) = $this->buildTableParames();
             $siteUrl                    = onSiteUrl();
             $onSiteId                   = onSiteId();
-            halt($onSiteId);
-            die;
             $_list                      = $this->modelClass->where('sites', $onSiteId)->where($where)->order(['listorder' => 'desc', 'id' => 'desc'])->page($page, $limit)->select();
             foreach ($_list as $k => &$v) {
                 $v['url'] = url('cms/index/special', ['diyname' => $v['diyname']]);
@@ -164,8 +162,6 @@ class Special extends Adminbase
             }
         }
         if ($this->request->isAjax()) {
-            $limit = $this->request->param('limit/d', 10);
-            $page = $this->request->param('page/d', 1);
             list($page, $limit, $where) = $this->buildTableParames();
             $conditions = [
                 ['status', 'in', [0, 1]],
@@ -173,7 +169,12 @@ class Special extends Adminbase
             $whereSpecial = "FIND_IN_SET($id,specialids)";
             $total  = Db::name('news')->where($where)->where($conditions)->where($whereSpecial)->count();
             $list   = Db::name('news')->page($page, $limit)->where($where)->where($conditions)->where($whereSpecial)->order('listorder DESC, id DESC')->select();
-            $result = array("code" => 0, "count" => $total, "data" => $list);
+            $_list   = [];
+            foreach ($list as $k => $v) {
+                $v['catname'] = getCategory($v['catid'],'catname');
+                $_list[]     = $v;
+            }
+            $result = array("code" => 0, "count" => $total, "data" => $_list);
             return json($result);
         }
         $this->assign([
@@ -196,14 +197,14 @@ class Special extends Adminbase
         $modelid   = getCategory($catid, 'modelid');
         $modelInfo = cache('Model');
         $modelInfo = $modelInfo[$modelid];
-        $catids    = Db::name($modelInfo['tablename'])->where('id', $id)->field('catids')->find();
-        $catids    = explode(',',$catids['catids']);
-        for ( $i=0; $i<count($catids); $i++ ){
-            if($outid == $catids[$i]) unset($catids[$i]);
+        $specialids    = Db::name($modelInfo['tablename'])->where('id', $id)->field('specialids')->find();
+        $specialids    = explode(',',$specialids['specialids']);
+        for ( $i=0; $i<count($specialids); $i++ ){
+            if($outid == $specialids[$i]) unset($specialids[$i]);
         }
-        $catids = arr2str($catids);
+        $specialids = arr2str($specialids);
         Db::name($modelInfo['tablename'])->where('id', $id)->update([
-            'catids'		=>	$catids,
+            'specialids'		=>	$specialids,
         ]);
         $this->success('移除成功！');
     }
