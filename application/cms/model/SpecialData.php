@@ -120,13 +120,6 @@ class SpecialData extends Model
         if (empty($tagslist)) {
             return true;
         }
-        //全部-1
-        foreach ($tagslist as $k => $value) {
-            $row = $this->where("tag", $value['tag'])->find();
-            if ($row && $row->usetimes > 0) {
-                $row->setDec('usetimes');
-            }
-        }
         //删除spec数据
         SpecialData::where($where)->delete();
         return true;
