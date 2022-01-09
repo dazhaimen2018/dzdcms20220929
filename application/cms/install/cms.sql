@@ -233,6 +233,19 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__special` (
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='专题表';
 
+CREATE TABLE IF NOT EXISTS `__PREFIX__special_data` (
+`id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '栏目ID',
+`did` mediumint(8) UNSIGNED NOT NULL DEFAULT '0',
+`catid` smallint(5) UNSIGNED NOT NULL DEFAULT '0',
+`sites` int(10) UNSIGNED DEFAULT '0' COMMENT '所属站点',
+`specid` smallint(5) UNSIGNED NOT NULL DEFAULT '0',
+`modelid` smallint(6) UNSIGNED DEFAULT '0',
+`thumb` tinyint(1) NOT NULL DEFAULT '0',
+`data` mediumtext,
+`listorder` mediumint(8) DEFAULT '0',
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='专题内容表';
+
 CREATE TABLE IF NOT EXISTS `__PREFIX__flag` (
 `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
 `sites` int(10) UNSIGNED DEFAULT '0' COMMENT '所属站点',
@@ -248,6 +261,19 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__flag` (
 `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态',
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='推荐位表';
+
+CREATE TABLE IF NOT EXISTS `__PREFIX__flag_data` (
+`id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '栏目ID',
+`did` mediumint(8) UNSIGNED NOT NULL DEFAULT '0',
+`catid` smallint(5) UNSIGNED NOT NULL DEFAULT '0',
+`sites` int(10) UNSIGNED DEFAULT '0' COMMENT '所属站点',
+`flagid` smallint(5) UNSIGNED NOT NULL DEFAULT '0',
+`modelid` smallint(6) UNSIGNED DEFAULT '0',
+`thumb` tinyint(1) NOT NULL DEFAULT '0',
+`data` mediumtext,
+`listorder` mediumint(8) DEFAULT '0',
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='推荐位内容表';
 
 INSERT INTO `__PREFIX__lang` (`id`, `name`, `type`, `private`, `title`, `group`, `options`, `remark`, `create_time`, `update_time`, `value`, `listorder`, `status`) VALUES
 (1, 'siteName', 'text', 0, '网站名称', '1', '', '', 1615821490, 1633126840, '多站点CMS', 100, 1),
