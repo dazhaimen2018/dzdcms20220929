@@ -12,4 +12,5 @@ use think\Model;
 
 class Special extends Model
 {
+    protected $autoWriteTimestamp = true;
 }

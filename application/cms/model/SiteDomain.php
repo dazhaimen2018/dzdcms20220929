@@ -12,4 +12,5 @@ use think\Model;
 
 class SiteDomain extends Model
 {
+    protected $autoWriteTimestamp = true;
 }

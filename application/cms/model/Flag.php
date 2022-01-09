@@ -12,4 +12,5 @@ use think\Model;
 
 class Flag extends Model
 {
+    protected $autoWriteTimestamp = true;
 }
