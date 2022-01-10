@@ -22,30 +22,6 @@
     <a class="layui-btn layui-btn-xs layui-btn-disabled" title="高级版并且是一对多模型才有章节">章节</a>
     {{#  } }}
 </script>
-<script type="text/html" id="theme">
-    {{# if(d.flag.indexOf("1")!==-1){ }}
-    <span class="text-danger">[置顶]</span>
-    {{#  } }}
-    {{# if(d.flag.indexOf("2")!==-1){ }}
-    <span class="text-danger">[头条]</span>
-    {{#  } }}
-    {{# if(d.flag.indexOf("3")!==-1){ }}
-    <span class="text-danger">[特荐]</span>
-    {{#  } }}
-    {{# if(d.flag.indexOf("4")!==-1){ }}
-    <span class="text-danger">[推荐]</span>
-    {{#  } }}
-    {{# if(d.flag.indexOf("5")!==-1){ }}
-    <span class="text-danger">[热点]</span>
-    {{#  } }}
-    {{# if(d.flag.indexOf("6")!==-1){ }}
-    <span class="text-danger">[幻灯]</span>
-    {{#  } }}
-    {{# if(d.thumb){ }}
-    <span class="text-success">[有图]</span>
-    {{#  } }}
-    <a  data-open='{:url("edit",["catid"=>$catid])}?id={{ d.id }}' data-title="编辑内容" data-full="true">{{ d.theme }}</a>
-</script>
 <script type="text/html" id="username">
     {{# if(d.sysadd==1){ }}
     {{ d.username }}
@@ -71,11 +47,6 @@
         </div>
     </div>
 </div>
-<style type="text/css">
-    .layui-layer-page .layui-layer-content {
-        overflow: inherit;
-    }
-</style>
 {/block}
 {block name="script"}
 
@@ -121,11 +92,10 @@
                 { field: 'listorder', width: 70, title: '排序', edit: 'text', align: "center",search:false },
                 { field: 'id', width: 60, title: 'ID' , align: "center"},
                 { field: 'site', width: 120, title: '已发站点', align: "center"},
-                { field: 'theme',width: 200,  align: "left", title: '主题', templet: '#theme', searchOp: 'like' },
-                { field: 'title', align: "left", title: '标题', searchOp: 'like'},
+                { field: 'title',align: "left", title: '标题', searchOp: 'like' },
                 {$listStr|raw}
                 { field: 'flag', width: 100, title: '标识',hide: true, selectList: { 1: '置顶', 2: '头条', 3: '特荐', 4: '推荐', 5: '热点', 6: '幻灯' } },
-                { field: 'thumb', width: 100, title: '图片', search: false, templet: yznTable.formatter.image },
+                { field: 'thumb', width: 90, title: '图片', search: false, templet: yznTable.formatter.image, align: "center" },
                 { field: 'hits', width: 80, title: '点击量', align: "center",search: 'between',searchTip:'点击量' },
                 { field: 'updatetime', width: 145, title: '更新时间', search: 'range',hide: true },
                 { field: 'username', width: 80, title: '发布人', templet: '#username',hide: true },

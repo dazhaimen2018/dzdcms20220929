@@ -191,14 +191,19 @@ class Cms extends Adminbase
                 //马博 显示已添站点ID
                 $sites           = Db::name($tableName . '_data')->where('did', $v['id'])->field('site_id as id')->select();
                 $v['site']       = array_column($sites,'id');
+                $title           = Db::name($tableName . '_data')->where('did', $v['id'])->where('site_id', $siteId )->value('title');
+                if($v['flag']){
+                    $flag = '['. $v['flag'] .'] ';
+                }
                 if($siteId){
-                    $v['title']  = Db::name($tableName . '_data')->where('did', $v['id'])->where('site_id', $siteId )->value('title');
+                    $v['title']  =  $flag . $v['theme'] .' - '. $title;
                 } else {
-                    $v['title']  = '发布模式为“单站”模式时才显示标题！';
+                    $v['title']  = $flag . $v['theme'];
                 }
                 $v['modelType'] = $modelType;
                 // end
-                $_list[]         = $v;
+                unset($flag,$title);
+                $_list[]        = $v;
             }
             $result = array("code" => 0, "count" => $total, "data" => $_list);
             return json($result);
