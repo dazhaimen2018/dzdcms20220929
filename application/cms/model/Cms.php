@@ -279,14 +279,14 @@ class Cms extends Modelbase
                 }
 
                 if ($e['tags']) {
-                    $this->tagDispose($e['tags'], $extraId, $catid, $modelid, $e['site_id']);
+                    $this->tagDispose($e['tags'], $id, $catid, $modelid, $e['site_id']);
                 } else {
-                    $this->tagDispose([], $extraId, $catid, $modelid, $e['site_id']);
+                    $this->tagDispose([], $id, $catid, $modelid, $e['site_id']);
                 }
                 if ($e['topics']) {
-                    $this->specDispose($e['topics'], $extraId, $catid, $modelid, $e['site_id'], $e['title'], $e['description'], $thumb);
+                    $this->specDispose($e['topics'], $id, $catid, $modelid, $e['site_id'], $e['title'], $e['description'], $thumb);
                 }else {
-                    $this->specDispose([], $extraId, $catid, $modelid, $e['site_id'], $e['title'], $e['description'], $thumb);
+                    $this->specDispose([], $id, $catid, $modelid, $e['site_id'], $e['title'], $e['description'], $thumb);
                 }
             }
             // 以下下马博增加 end
