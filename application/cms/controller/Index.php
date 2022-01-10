@@ -382,7 +382,7 @@ class Index extends Cmsbase
         $keyword = str_replace('%', '', $keyword); //过滤'%'，用户全文搜索
         //搜索入库
         if ($keyword) {
-            $log = SearchLog::where('keywords' ,$keyword)->cache(60)->find();
+            $log = SearchLog::where('keywords' ,$keyword)->find();
             if ($log) {
                 $log->setInc("nums");
                 $updateTime = request()->time();
@@ -402,7 +402,7 @@ class Index extends Cmsbase
         $result = $this->validate([
             'keyword' => $keyword,
         ], [
-            'keyword|标题关键词' => 'chsDash|max:25',
+            'keyword|标题关键词' => 'max:50',
         ]);
         if (true !== $result) {
             $this->error($result);
@@ -434,13 +434,18 @@ class Index extends Cmsbase
         $shistory = array_slice(array_unique($shistory), 0, 10);
         //加入搜索历史
         cookie("shistory", $shistory);
-
-        //$modellist = Db::name('Model')->where('status', 1)->where('module','cms')->cache(60)->select();
-        $modellist = cache('Model');
+        //输出可用模型
+        $modelsdata = cache("Model");
+        $modellist  = [];
+        foreach ($modelsdata as $v) {
+            $onSiteId = onSiteId();
+            if ($v['status'] == 1 && $v['module'] == 'cms' && $v['sites'] == $onSiteId) {
+                $modellist[] = $v;
+            }
+        }
         if (!$modellist) {
             return $this->error('没有可搜索模型~');
         }
-
         if ($modelid) {
             if (!array_key_exists($modelid, $modellist)) {
                 $this->error(patch('PageNot')); //模型错误
@@ -458,7 +463,7 @@ class Index extends Cmsbase
             $list = $this->CmsModel->getList($modelid, $where, false, '*', $siteId, "listorder DESC,did DESC", 10, 1, false, ['query' => ['keyword' => $keyword, 'modelid' => $modelid]]);
         } else {
             foreach ($modellist as $key => $vo) {
-                $searchField = Db::name('model_field')->where('modelid', $key)->where('ifsystem', 1)->where('ifsearch', 1)->column('name');
+                $searchField = Db::name('model_field')->where('modelid', $key)->where('ifsystem', 0)->where('ifsearch', 1)->column('name');
                 if (empty($searchField)) {
                     continue;
                 }
