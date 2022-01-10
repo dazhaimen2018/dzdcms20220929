@@ -205,10 +205,13 @@ class Site extends Adminbase
             $domain['status']      = 1;
             $domain['create_time'] = time();
             //站点域名中有数据同步更新，没有数据新增
-            $result = SiteDomain::where('sites', $data['id'])
-                ->data(['domain' => $domain['domain'] ,'master' => 1])
-                ->update();
-            if(!$result){
+
+            $result = SiteDomain::where(['sites' => $data['id'],'domain' => $domain['domain']])->find();
+            if($result){
+                SiteDomain::where('sites', $data['id'])
+                    ->data(['domain' => $domain['domain'] ,'master' => 1])
+                    ->update();
+            } else {
                 SiteDomain::create($domain);
             }
             //更新缓存
