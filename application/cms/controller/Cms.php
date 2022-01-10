@@ -15,6 +15,7 @@ use addons\translator\Translator;
 use app\cms\model\Cms as Cms_Model;
 use app\cms\model\Page as Page_Model;
 use app\cms\model\Site;
+use app\cms\model\Flag;
 use app\common\controller\Adminbase;
 use think\Db;
 use think\facade\Cache;
@@ -183,7 +184,6 @@ class Cms extends Adminbase
                 $arrparentid     = explode(',', $category['arrparentid']);
                 $topParentid     = isset($arrparentid[1]) ? $arrparentid[1] : $catid;
                 $newCatid        = $showCatMode == 1 ? $topParentid : $catid;
-
                 $cat             = $url_mode == 1 ? $catid : (isset($Category[$newCatid]) ? $Category[$newCatid]['catdir'] : getCategory($newCatid, 'catdir'));
                 $diy             = $show_mode == 1 ? $v['diyurl'] : $v['id'];
                 $v['updatetime'] = date('Y-m-d H:i', $v['updatetime']);
@@ -191,19 +191,14 @@ class Cms extends Adminbase
                 //马博 显示已添站点ID
                 $sites           = Db::name($tableName . '_data')->where('did', $v['id'])->field('site_id as id')->select();
                 $v['site']       = array_column($sites,'id');
+                $flags           = Flag::where(['status' => 1])->whereIn('id',$v['flag'])->field('name')->select()->toArray(); // 当前站点
+                $v['flags']      = array_column($flags,'name');
                 $title           = Db::name($tableName . '_data')->where('did', $v['id'])->where('site_id', $siteId )->value('title');
-                if($v['flag']){
-                    $flag = '['. $v['flag'] .'] ';
-                }
-                if($siteId){
-                    $v['title']  =  $flag . $v['theme'] .' - '. $title;
-                } else {
-                    $v['title']  = $flag . $v['theme'];
-                }
-                $v['modelType'] = $modelType;
+                $v['title']      = $title ? $title : $v['theme'];
+                $v['modelType']  = $modelType;
                 // end
-                unset($flag,$title);
-                $_list[]        = $v;
+                unset($flags,$title,$sites);
+                $_list[]         = $v;
             }
             $result = array("code" => 0, "count" => $total, "data" => $_list);
             return json($result);
@@ -222,21 +217,25 @@ class Cms extends Adminbase
             if ($modelid && $modelid != $v['modelid']) {
                 $v['disabled'] = 'disabled';
             }
-            //$v['disabled'] = $v['child'] ? 'disabled' : '';
             $v['selected'] = $v['id'] == $catid ? 'selected' : '';
             $categorys[$k] = $v;
         }
         $str = "<option value=@id @selected @disabled>@spacer @catname</option>";
         $tree->init($categorys);
         $string = $tree->getTree(0, $str, $catid);
-        // 20200620 马博 20211209新增列表显示字段
-        $siteArray = Site::where("status=1")->select()->toArray();
         $fieldList = Db::name('ModelField')->where('modelid', $modelid)->where('iflist', 1)->select();
+        //属性动态显示
+        $flags     = Flag::where('status',1)->column('*','id');
+        foreach($flags as $k=>$v){
+            $flag .= $flags[$k]['id'].':"'.$flags[$k]['name'].'",';
+        }
+        $flag = rtrim($flag, ",");
         // 20200620 end 马博
         $this->assign([
             'listStr' => getTableList($fieldList),
             'string'  => $string,
             'catid'   => $catid,
+            'flag'    => $flag,
         ]);
         return $this->fetch();
     }
