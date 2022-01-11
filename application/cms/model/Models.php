@@ -594,6 +594,14 @@ EOF;
                     'isadd' => 1,
                 ],
                 [
+                    'name'    => 'topics',
+                    'title'   => '所属专题',
+                    'type'    => 'selectpage',
+                    'listorder' => 50,
+                    'ifsystem' => 0,
+                    'setting' => "a:4:{s:6:\"define\";s:21:\"varchar(255) NOT NULL\";s:7:\"options\";s:107:\"url:/admin/ajax/special\r\nfield:name\r\nkey:id\r\npagination:true\r\npage_size:10\r\nmultiple:true\r\nmax:10\r\norder:id\";s:10:\"filtertype\";s:1:\"0\";s:5:\"value\";s:0:\"\";}",
+                ],
+                [
                     'name' => 'tags',
                     'title' => 'Tags标签',
                     'type' => 'tags',
