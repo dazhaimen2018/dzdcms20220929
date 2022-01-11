@@ -67,3 +67,53 @@ jQuery(function () {
         e.preventDefault();
     });
 })
+
+// 下拉搜索框
+$(function() {
+    $(".search-box .butn").on('click', function() {
+        if ($(this).hasClass('hov')) {
+            $(this).removeClass('hov');
+            $(this).siblings('.share-sub').stop().animate({
+                width: 288
+            }, 500);
+
+        } else {
+            $(this).addClass('hov');
+            $(this).siblings('.share-sub').stop().animate({
+                width: 0
+            }, 500);
+
+        }
+    });
+
+    $('.case_list').on('mouseenter','li',function(){
+        $(this).addClass('hover');
+    }).on('mouseleave','li',function(){
+        $(this).removeClass('hover');
+    });
+
+    $(".select_showbox").click(function() {
+        $(".select_option").show();
+        $(this).addClass("active");
+    });
+
+    if ($('.select_option li').is('.selected')) {
+        $(".select_showbox").html($('.select_option li.selected').html());
+        $("#modelid").val($('.select_option li.selected').data('id'));
+    }
+
+    $(".select_option li").click(function() {
+        $("#modelid").val($(this).data('id'));
+        $(".select_showbox").html($(this).html());
+        $(".select_option").hide();
+        $(".select_showbox").removeClass("active");
+    });
+
+    $(".select_option li").hover(function() {
+        $(this).addClass("selected");
+    }, function() {
+        $(this).removeClass("selected");
+    });
+
+})
+

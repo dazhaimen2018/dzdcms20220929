@@ -1,0 +1,25 @@
+<div class="layui-col-sm3 layui-col-md2 layui-left">
+  <div class="left-nav-title">
+    <div class="title">搜索分类</div>
+  </div>
+  <div class="layui-panel">
+    <div class="layui-menu-title">按时间搜索</div>
+    <ul class="layui-menu">
+      <li {empty name="time"}class="layui-menu-item-checked"{/empty}> <a href="?keyword={$keyword}&modelid={$modelid}&time=">全部时间</a></li>
+      <li {eq name="time" value="day"}class="layui-menu-item-checked"{/eq}> <a href="?keyword={$keyword}&modelid={$modelid}&time=day">一天内</a></li>
+      <li {eq name="time" value="week"}class="layui-menu-item-checked"{/eq}> <a href="?keyword={$keyword}&modelid={$modelid}&time=week">一周内</a></li>
+      <li {eq name="time" value="month"}class="layui-menu-item-checked"{/eq}> <a href="?keyword={$keyword}&modelid={$modelid}&time=month">一月内</a></li>
+      <li {eq name="time" value="year"}class="layui-menu-item-checked"{/eq}> <a href="?keyword={$keyword}&modelid={$modelid}&time=year">一年内</a></li>
+    </ul>
+  </div>
+
+  <div class="layui-panel">
+    <div class="layui-menu-title">搜索历史</div>
+    <ul class="layui-menu">
+      <li class="layui-menu-item-divider"></li>
+      {volist name="shistory" id="vo"}
+      <li {if $vo==$keyword}class="layui-menu-item-checked"{/if}> <a href="?keyword={$vo}">{$vo}</a></li>
+      {/volist}
+    </ul>
+  </div>
+</div>

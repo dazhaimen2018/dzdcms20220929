@@ -450,7 +450,7 @@ class Index extends Cmsbase
             if (!array_key_exists($modelid, $modellist)) {
                 $this->error(patch('PageNot')); //模型错误
             }
-            $searchField = Db::name('model_field')->where('modelid', $modelid)->where('ifsystem', 1)->where('ifsearch', 1)->column('name');
+            $searchField = Db::name('model_field')->where('modelid', $modelid)->where('ifsystem', 0)->where('ifsearch', 1)->column('name');
             if (empty($searchField)) {
                 $this->error(patch('PageNot')); //没有设置搜索字段
             }
