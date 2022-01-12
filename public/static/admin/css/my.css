@@ -68,7 +68,7 @@
 .layui-form-item label,.layui-form-item .layui-form-label{min-width:110px;padding:0 8px;height:38px;line-height:38px;border:1px solid #e6e6e6;border-radius:2px 0 0 2px;text-align:center;background-color:#FBFBFB;overflow:hidden;box-sizing:border-box;text-overflow:ellipsis;white-space:normal;}
 .layui-form-item .layui-form-field-label,.layui-form-item .layui-input-inline{flex:1;margin-left:-1px;margin-right: 0!important;}
 .layui-form-item .layui-input-block{margin-left: -1px;flex: 1;display: block;max-width: 100%;position: revert;}
-.layui-form-item .layui-input-block .btn-repeat{position: absolute;top: 4px;right: 8px;}
+.layui-form-item .layui-input-block .btn-repeat, .btn-box{position: absolute;top: 4px;right: 8px;}
 .layui-form-item .layui-form-radio, .layui-form-item .layui-form-switch{margin:6px 0 0 10px}
 .layui-iconpicker .layui-anim{width: 280px}
 

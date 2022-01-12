@@ -79,6 +79,12 @@
                 })
             });
 
+            $('.btn-get-pinyin').on('click', function(e) {
+                $.get("{:url('admin/ajax/getTitlePinyin')}", {'data':input.val(),delimiter: "-"}, function(data) {
+                    $("#diyurl").val(data.data.get_pinyin.substr(0, 100));
+                },'json')
+            });
+
             yznForm.listen('', function (res) {
                 layer.confirm(res.msg, {
                     btn: ['继续添加', '返回列表'] //按钮

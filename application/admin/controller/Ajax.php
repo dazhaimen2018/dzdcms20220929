@@ -140,18 +140,22 @@ class Ajax extends Adminbase
     {
         $config = isset(cache("Cms_Config")['show_url_mode']) && 1 == cache("Cms_Config")['show_url_mode'];
         $title = $this->request->post("title");
-        //分隔符
         $delimiter = $this->request->post("delimiter", "");
+        if(empty($title)){
+            $title = $this->request->param('data/s', ''); //手动获取
+        }
+        if(empty($delimiter)){
+            $delimiter = $this->request->param('delimiter/s', ''); //手动获取
+        }
+        //分隔符
         $pinyin = new \Overtrue\Pinyin\Pinyin('Overtrue\Pinyin\MemoryFileDictLoader');
-        if ($title) {
-            if ($config) {
-                $result = $pinyin->permalink($title, $delimiter);
-                $this->success("", null, ['pinyin' => $result]);
-            } else {
-                $this->error();
-            }
-        } else {
-            $this->error('标题不为能空');
+
+        if ($config) { // 自动获取
+            $result = $pinyin->permalink($title, $delimiter);
+            $this->success("", null, ['pinyin' => $result]);
+        } else { // 手动获取
+            $result = $pinyin->permalink($title, $delimiter);
+            $this->success("", null, ['get_pinyin' => $result]);
         }
     }
 }

@@ -16,15 +16,18 @@
     </div>
 </div>
 {/if}
-{if (isset(cache("Cms_Config")['show_url_mode']) && 1 == cache("Cms_Config")['show_url_mode'])}
+
 <div class="layui-form-item">
     <label class="layui-form-label">自定义URL</label>
-    <div class="layui-input-inline" title="自定义URL">
+    <div class="layui-input-block" title="自定义URL">
         <input type="text" id="diyurl" class="layui-input" name="modelField[diyurl]" placeholder="自定义URL" value="{$fieldList['diyurl']['value']|default=''}">
+        {if (isset(cache("Cms_Config")['show_url_mode']) && 0 == cache("Cms_Config")['show_url_mode'])}
+        <button type="button" class="layui-btn layui-btn-sm btn-box btn-get-pinyin">获取标识</button>
+        {/if}
     </div>
-    <div class="layui-form-mid layui-word-aux">如果前端需要自定义URL请在配置中开启</div>
+    <div class="layui-form-mid layui-word-aux">如果所有文章需要自定义URL，请在CMS配置中将URL模式设置为“自定义”，部分需要可手动获取</div>
 </div>
-{/if}
+
 <div class="layui-form-item">
     <label class="layui-form-label">支付数量</label>
     <div class="layui-input-inline" title="支付数量">
