@@ -200,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__push` (
 `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '模型名称',
 `tablename` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '表名',
 `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '描述',
-`sites` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '已同站点',
+`sites` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '0' COMMENT '已同站点',
 `create_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '添加时间',
 `update_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
 `listorders` tinyint(4) NOT NULL DEFAULT '0' COMMENT '排序',

@@ -38,7 +38,7 @@ class Special extends Adminbase
         if ($this->request->isAjax()) {
             list($page, $limit, $where) = $this->buildTableParames();
             $siteUrl                    = onSiteUrl();
-            $onSiteId                   = onSiteId();
+            $onSiteId                   = dataSiteId();
             $_list                      = $this->modelClass->where('sites', $onSiteId)->where($where)->order(['listorder' => 'desc', 'id' => 'desc'])->page($page, $limit)->select();
             foreach ($_list as $k => &$v) {
                 $v['url'] = url('cms/index/special', ['diyname' => $v['diyname']]);
@@ -56,6 +56,7 @@ class Special extends Adminbase
 	 */
     public function add()
     {
+
         if ($this->request->isPost()) {
             $data   = $this->request->post();
             $result = $this->validate($data, 'special');
@@ -64,7 +65,7 @@ class Special extends Adminbase
             }
             $siteId = onSite();
             if(!$siteId){
-                $siteId = 0;
+                $this->error("请切换到某一个站点再增加！");
             }
             $data['sites'] = $siteId;
             $data['create_time'] = time();
@@ -193,7 +194,7 @@ class Special extends Adminbase
     public function revoke()
     {
         $id     = $this->request->param('id/d', 0);
-        $did     = $this->request->param('did/d', 0);
+        //$did     = $this->request->param('did/d', 0);
         $catid  = $this->request->param('catid/d', 0);
         $outid  = $this->request->param('outid/d', 0);
         $siteId = onSiteId();
@@ -203,13 +204,13 @@ class Special extends Adminbase
         $modelid   = getCategory($catid, 'modelid');
         $modelInfo = cache('Model');
         $modelInfo = $modelInfo[$modelid];
-        $spec      = Db::name($modelInfo['tablename'] . '_data')->where(['did' => $did, 'site_id' => $siteId])->field('topics')->find();
+        $spec      = Db::name($modelInfo['tablename'] . '_data')->where(['did' => $id, 'site_id' => $siteId])->field('topics')->find();
         $spec      = explode(',',$spec['topics']);
         for ( $i=0; $i<count($spec); $i++ ){
             if($outid == $spec[$i]) unset($spec[$i]);
         }
         $spec = arr2str($spec);
-        Db::name($modelInfo['tablename'] . '_data')->where(['did' => $did, 'site_id' => $siteId])->update([
+        Db::name($modelInfo['tablename'] . '_data')->where(['did' => $id, 'site_id' => $siteId])->update([
             'topics' =>	$spec,
         ]);
         SpecialData::where('id',$id)->delete();
