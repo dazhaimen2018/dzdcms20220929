@@ -18,6 +18,17 @@
 - 文档：https://doc.dzdcms.com/
 - 本地安装教程 https://doc.dzdcms.com/downs.html
 
+## [常规安装]
+- 第一步：下载源码压缩包解压到你的项目根目录
+- 第二步：绑定到项目中的public目录为运行目录，ps:如果您的服务器不支持绑定目录，请查看public目录下的index.php和install.php代码注释，有详细具体操作
+- 第三步：访问http://您的域名/install.php进行安装
+## [命令行安装]
+- 第一步：下载源码压缩包解压到你的项目根目录
+- 第二步：绑定到项目中的public目录为运行目录，ps:如果您的服务器不支持绑定目录，请查看public目录下的index.php代码注释，有详细具体操作
+- 第三步：进入目录 cd dzdcms
+- 第四步：一键创建数据库并导入数据 php think install -u 数据库用户名 -p 数据库密码
+
+
 # 每日更新说明
 - 每日更新可用git pull拉取最新程序
 - 当天拉取的文件中，如果update下面有新的sql文件，可在phpmyadmin中导入完成数据库的升级！
