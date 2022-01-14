@@ -26,12 +26,6 @@ define('APP_PATH', ROOT_PATH . 'application' . DIRECTORY_SEPARATOR);
 
 // 加载基础文件
 require ROOT_PATH . 'thinkphp' . DIRECTORY_SEPARATOR . 'base.php';
-//判断程序是否安装
-if (!is_file($_SERVER['DOCUMENT_ROOT'].'/install/install.lock'))
-{
-    header("location:/install/index.php");exit;
-}
-
 // 执行应用并响应
 Container::get('app')->run()->send();
 

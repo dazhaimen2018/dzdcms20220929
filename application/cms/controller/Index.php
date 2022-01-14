@@ -182,7 +182,7 @@ class Index extends Cmsbase
         //内容所有字段
         $siteId  = getSiteId();
         $ifcache = $this->cmsConfig['site_cache_time'] ? $this->cmsConfig['site_cache_time'] : false;
-        $info    = $this->CmsModel->getContent($modelid, "id={$id}", true, '*', '', $ifcache, $siteId );
+        $info    = $this->CmsModel->getContent($modelid, ['catid' => $catid, 'id' => $id], true, '*', '', $ifcache, $siteId );
         //文章的阅读权限
         //20211226 判断栏目中内容的访问权限 如果栏目已经设置权限就不用再判断文章了
         $reads = Db::name('category_read')->where(array("catid" => $catid, "is_admin" => 0, "action" => "add"))->field('roleid as id')->select();
