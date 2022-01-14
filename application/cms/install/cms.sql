@@ -412,9 +412,10 @@ INSERT INTO `__PREFIX__site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `lo
 (1, '中文站', 'zh-cn', 'http', 'demo.dzdcms.com', 'http://demo.mscms.net', '/uploads/images/logo.png', '/favicon.ico', 'novel', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 0, 1, 1, '', '', '', 'https://beian.miit.gov.cn/', '', 'http://www.beian.gov.cn/portal/index.do', '', '', '', 1, 0);
 
 INSERT INTO `__PREFIX__push` (`id`, `module`, `modelid`, `name`, `tablename`, `description`, `sites`, `create_time`, `update_time`, `listorders`, `status`) VALUES
-(1, 'cms', 0, '站点配置', 'site', '', NULL, 0, 0, 0, 1),
-(2, 'cms', 0, '栏目数据', 'category_data', '', NULL, 0, 0, 0, 1),
-(3, 'cms', 0, '碎片数据', 'lang_data', '', NULL, 0, 0, 0, 1);
+(1, 'cms', 0, '站点配置', 'site', '', 0, 0, 0, 0, 1),
+(2, 'cms', 0, '栏目数据', 'category_data', '', 0, 0, 0, 0, 1),
+(3, 'cms', 0, '单页数据', 'page', '', 0, 0, 0, 0, 1),
+(4, 'cms', 0, '碎片数据', 'lang_data', '', 0, 0, 0, 0, 1);
 
 INSERT INTO `__PREFIX__flag` (`id`, `sites`, `modelid`, `catid`, `name`, `extention`, `image`, `description`, `create_time`, `update_time`, `listorder`, `status`) VALUES
 (1, 0, 0, 0, '置顶', NULL, '', '置顶', 1640322597, 1640322597, 1, 1),
@@ -434,7 +435,7 @@ ALTER TABLE `__PREFIX__lang_group`
 MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户组id,自增主键', AUTO_INCREMENT=4;
 
 ALTER TABLE `__PREFIX__push`
-MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 ALTER TABLE `__PREFIX__flag`
 MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
