@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `yzn_admin`;
 CREATE TABLE `yzn_admin` (
- `id` smallint(5) UNSIGNED NOT NULL COMMENT '用户ID',
+ `id` smallint(3) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户ID',
  `username` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '管理账号',
  `password` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '管理密码',
  `roleid` tinyint(3) UNSIGNED DEFAULT '0',
@@ -344,7 +344,7 @@ CREATE TABLE `yzn_module` (
 -- ----------------------------
 DROP TABLE IF EXISTS `yzn_model`;
 CREATE TABLE `yzn_model` (
- `id` smallint UNSIGNED NOT NULL,
+ `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
  `sites` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '所属站点',
  `module` varchar(15) NOT NULL DEFAULT '' COMMENT '所属模块',
  `name` varchar(30) NOT NULL DEFAULT '' COMMENT '模型名称',
@@ -364,7 +364,7 @@ CREATE TABLE `yzn_model` (
 -- ----------------------------
 DROP TABLE IF EXISTS `yzn_model_field`;
 CREATE TABLE `yzn_model_field` (
-    `id` smallint UNSIGNED NOT NULL,
+    `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
     `modelid` smallint UNSIGNED NOT NULL DEFAULT '0' COMMENT '模型ID',
     `name` varchar(20) NOT NULL DEFAULT '' COMMENT '字段名',
     `title` varchar(30) NOT NULL DEFAULT '' COMMENT '别名',
@@ -438,7 +438,7 @@ CREATE TABLE `yzn_ems` (
 -- ----------------------------
 DROP TABLE IF EXISTS `yzn_site`;
 CREATE TABLE `yzn_site` (
-    `id` smallint(5) UNSIGNED NOT NULL COMMENT '站点ID',
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
     `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点名称',
     `mark` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点标识',
     `http` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'HTTP',
@@ -482,7 +482,7 @@ INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `
 -- ----------------------------
 DROP TABLE IF EXISTS `yzn_language`;
 CREATE TABLE `yzn_language` (
-    `id` smallint UNSIGNED NOT NULL COMMENT '站点ID',
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
     `name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '语言名称',
     `mark` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '语言标识',
     `logo` varchar(255) NOT NULL DEFAULT '' COMMENT '站点LOGO',
