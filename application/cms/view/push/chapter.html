@@ -16,7 +16,7 @@
                         <label class="layui-form-label">所有站点</label>
                         <div class="layui-input-block">
                             {volist name="sites" id="vo" empty="<div class='layui-tips'>请先建站点</div>"}
-                            <input type="checkbox" name="sites[]" value="{$vo.id}:{$vo.mark}" lay-skin="primary" title="{$vo.name}{if $check_site && in_array($vo.id,$check_site)}[已推]{/if}" {if $check_site && in_array($vo.id,$check_site)}checked{/if}>
+                            <input type="checkbox" name="sites[]" data-push="{if $check_site && in_array($vo.id,$check_site)}1{/if}" value="{$vo.id}" lay-skin="primary" title="{$vo.name}{if $check_site && in_array($vo.id,$check_site)}[已推]{/if}" {if $check_site && in_array($vo.id,$check_site)}checked{/if}>
                             {/volist}
                         </div>
                     </div>
@@ -49,8 +49,8 @@
                 <div class="layui-input-block">
                     <input type="hidden" name="id" value="{$id}">
                     <input type="hidden" name="catid" value="{$catid}">
+                    <div id="btn-loading" class="layui-hide layui-btn layui-btn-danger iconfont icon-close" lay-filter="close">正在翻译、千万不要关闭页面</div>
                     <button type="submit" class="layui-btn iconfont icon-send" lay-submit lay-filter="sub">推送并翻译</button>
-                    <button type="reset" class="layui-btn layui-btn-primary iconfont icon-trash"> 重置</button>
                 </div>
             </div>
 
@@ -65,60 +65,61 @@
         var form = layui.form;
         var element = layui.element;
         var yzn = layui.yzn;
-        form.on('submit(sub)', function(data){
-            var xhr = new XMLHttpRequest();
-            if(!window.XMLHttpRequest){
-                try {
-                    xhr = new ActiveXObject("Microsoft.XMLHTTP");
-                } catch(e) {}
+        form.on('submit(sub)', function(data) {
+            check_push();
+            if (push_list.length<=0){
+                return false;
             }
-            layer.open({
-                type: 1,
-                title: false,
-                closeBtn: 0,
-                shadeClose: true,
-                content: '<div style="width:400px;height:50px;padding:10px;line-height:25px;text-align:center;" id="trans"><div class="layui-progress" lay-filter="trans" lay-showPercent="yes"><div class="layui-progress-bar" lay-percent="0%"></div></div><p class="layui-progress-remark">准备就绪,开始执行</p></div>',
-            });
-            var oldSize=0;
-            xhr.onreadystatechange = function(){
-                if(xhr.readyState> 2 && xhr.readyState< 4){
-                    var tmpText = xhr.responseText.substring(oldSize);
-                    oldSize = xhr.responseText.length;
-                    if(tmpText.length > 0 ){
-                        try {
-                            tmpText = JSON.parse(tmpText);
-                            if (tmpText.status==-1){
-                                element.progress('trans', tmpText.jindu + '%');
-                                $("#trans").find(".layui-progress-remark").html(tmpText.info);
-                            }
-                        } catch(e) {}
-                    }
-                }
-                if(xhr.readyState == 4){
-                    try {
-                        var tmpText = xhr.responseText;
-                        tmpText = JSON.parse(tmpText);
-                        if (tmpText.status==0){
-                            layer.closeAll();
-                            yzn.msg.error(tmpText.info);
-                            return false;
-                        }
-                    } catch(e) {}
-                    // 请求执行完毕
-                    layer.closeAll();
-                    yzn.msg.success('执行完成', function() {
-                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                        //parent.location.reload();//刷新父页面，注意一定要在关闭当前iframe层之前执行刷新
-                        parent.layui.table.reload('currentTable');
-                        parent.layer.close(index); //再执行关闭
-                    });
-                }
-            }
-            xhr.open("POST","{:url('chapter')}",true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.send(JSON.stringify(data.field));
+            $(':submit').addClass('layui-btn-disabled').prop('disabled', true).html('<i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop"></i> 推送中...');
+            $('#btn-loading').removeClass('layui-hide').html('正在翻译、千万不要关闭页面');
+            start_change(data.field);
             return false;
-        })
+        });
+        function check_push(){
+            push_list = [];
+            var status = $("input[name='status']:checked").val();
+            $("input[name='sites[]']:checked").each(function () {
+                var push = $(this).attr('data-push');
+                if (push==1 && status==0){
+                    //无操作
+                }else{
+                    push_list.push({site_id:this.value,curr_dom:$(this)});
+                }
+            })
+        }
+        function start_change(field) {
+            if (push_list.length<=0){
+                $(':submit').attr('disabled', false).removeClass("layui-btn-disabled").html('重新推送');
+                $('#btn-loading').html('已完成');
+                return false;
+            }
+            var site_id = push_list[0].site_id;
+            var curr_dom = push_list[0].curr_dom;
+            curr_dom.next('div').after('<i id="push-loading" class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop"></i>');
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "{:url('chapter')}",
+                data: {id:field.id,catid:field.catid,site_id:site_id},
+                success: function(res) {
+                    push_list.shift();
+                    $('#push-loading').remove();
+                    start_change(field);
+                    if (res.code == 1) {
+                        curr_dom.next('div').find('span').text(res.data.info);
+                        curr_dom.attr('data-push',1);
+                        layer.msg(res.msg, { icon: 1 });
+                    } else {
+                        layer.msg(res.msg, { icon: 2 });
+                        $(':submit').attr('disabled', false).removeClass("layui-btn-disabled").html('重新推送');
+                        $('#btn-loading').html('推送错误');
+                    }
+                },
+                error: function(xhr, textstatus, thrown) {
+
+                }
+            });
+        }
     });
 </script>
 {/block}

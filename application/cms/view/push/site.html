@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="__STATIC__/admin/css/cms.css">
 
 <div class="layui-card">
-    <div class="layui-card-header">源语言站：{$masterName}</div>
+    <div class="layui-card-header">源语言站：{$masterName} 目标语言站：{$siteName}</div>
     <div class="layui-card-body">
         <div class="layui-form">
             <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
@@ -12,13 +12,26 @@
         <div class="layui-form-item layer-footer">
             <div class="layui-input-block">
                 <input type="hidden" name="id" value="{$lang_id}">
+                <button type="submit" class="layui-btn layui-btn-danger iconfont icon-close" lay-filter="close">正在翻译、千万不要关闭页面</button>
                 <button type="submit" class="layui-btn iconfont icon-send" lay-submit lay-filter="sub">推送并翻译</button>
             </div>
         </div>
     </div>
 </div>
+<script type="text/html" id="sites">
+    {{# if(d.sites.indexOf({$id})!==-1){ }}
+    <span class="text-success">已推送</span>
+    {{#  } else { }}
+    <span class="text-danger">未推送</span>
+    {{#  } }}
+</script>
+
 <script type="text/html" id="barTool">
-    <a data-open='{:url("push/push")}?id={{ d.id }}' class="layui-btn layui-btn-xs layui-btn-warm" title="推送并翻译">推送并翻译</a>
+    {{# if(d.sites.indexOf({$id})!==-1){ }}
+    <a data-open='{:url("push/push")}?id={{ d.id }}' class="layui-btn layui-btn-xs" title="重新推送">重新推送</a>
+    {{#  } else { }}
+    <a data-open='{:url("push/push")}?id={{ d.id }}' class="layui-btn layui-btn-xs layui-btn-warm" title="翻译推送">翻译推送</a>
+    {{#  } }}
 </script>
 {/block}
 {block name="script"}
@@ -51,7 +64,7 @@
                     { type: 'checkbox', fixed: 'left' },
                     { field: 'id', width: 70, title: 'ID',search:false , align: "center" ,search:false},
                     { field: 'name',align: "left", title: '类别' },
-                    { field: 'sites', width: 100, title: '是否推送', align: "center" },
+                    { field: 'sites', width: 100, title: '是否推送', templet:"#sites", align: "center" },
                     { field: 'updatetime', width: 145, title: '同步时间', search: 'range',hide: true },
                     {fixed: 'right', title:'操作',width:220, toolbar: '#barTool',align:"center"}
                 ]

@@ -487,7 +487,7 @@ return [
                                     "name" => "站点缓存",
                                 ],
                                 [
-                                    "route" => "cms/site/translator",
+                                    "route" => "cms/push/translator",
                                     "type" => 1,
                                     "status" => 0,
                                     "name" => "站点翻译",

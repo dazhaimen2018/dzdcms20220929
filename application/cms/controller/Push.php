@@ -13,8 +13,8 @@ use app\cms\model\CategoryData;
 use app\cms\model\Cms as Cms_Model;
 use app\cms\model\Lang as Lang_Model;
 use app\cms\model\LangData;
-
 use app\cms\model\Push as PushMode;
+
 use app\cms\model\Site;
 use app\common\controller\Adminbase;
 use think\Db;
@@ -27,6 +27,8 @@ class Push extends Adminbase
     {
         parent::initialize();
         $this->Cms_Model = new Cms_Model;
+        //默认数据源站点
+        $this->masterId  = masterSite('id'); // 默认数据源站ID
         // 20200805 马博所有站点
         $siteIds   = $this->auth->sites;
         $whereIn   = '';
@@ -48,7 +50,7 @@ class Push extends Adminbase
         if($catSites){
             $whereIn  = " id in($catSites)";
         }
-        $sites  = Site::where(['alone' => 1])->where($whereIn)->where($whereSite)->select()->toArray();
+        $sites  = Site::where(['alone' => 1])->where($whereIn)->where($whereSite)->where('id','<>',$this->masterId)->select()->toArray();
         $this->site = $sites;
         $this->view->assign('sites', $sites);
         // 20200805 马博 end
@@ -84,18 +86,17 @@ class Push extends Adminbase
 
     //全站同步 cms
     public function site()  {
-
-        if ($this->request->isAjax()) {
-            $data = PushMode::where('module', 'cms')->select();
-            return json(["code" => 0, "data" => $data]);
-        }
-        return $this->fetch();
+        return $this->error(tipsText());
     }
 
     //一键推送 cms
     public function push()  {
-        $this->error('正在开发中。。。！');
+        return $this->error(tipsText());
     }
 
+    //新增或编辑站点翻译相关数据
+    public function translator(){
+        return $this->error(tipsText());
+    }
 
 }
