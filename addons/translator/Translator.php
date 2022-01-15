@@ -76,6 +76,9 @@ class Translator extends Addons
      */
     public function text_translator($content,$toLanguage='',$debug=0)
     {
+        if (empty($content)){
+            return ['code'=>1,'msg'=>'翻译成功','content'=>''];
+        }
         $this->init();
         $translator = new \Jonas\Translator\Translator($this->config);
         try {
@@ -85,25 +88,24 @@ class Translator extends Addons
             if (isset($this->conversion[$toLanguage]) && ($toLanguage !== 'auto')){
                 $toLanguage = $this->conversion[$toLanguage]?$this->conversion[$toLanguage]:$toLanguage;
             }
-            if ($toLanguage=='zh-CHS'){
-                return $content;
-            }else{
-                $res = $translator->to($toLanguage)->$ctype($content);
-            }
+            $res = $translator->to($toLanguage)->$ctype($content);
         } catch (\Exception $e) {
-            //var_dump($e->getResults());
-            return false;
+            return ['code'=>0,'msg'=>'翻译失败','content'=>$e->getMessage()];
         }
         $return = '';
         if ($res['status'] == 'success'){
             $result = (array)$res['result'];
-            $return = $result["\0*\0trans_result"];
+//            $return = $result["\0*\0trans_result"];
+            return ['code'=>1,'msg'=>'翻译成功','content'=>$result["\0*\0trans_result"]];
         }else{
             if ($debug){
                 $return = $res['exception']->raw;
+            }else{
+                $result = (array)$res['exception'];
+                $return = $result["\0*\0message"]?$result["\0*\0message"]:'请检查翻译插件配置';
+                return ['code'=>0,'msg'=>'翻译失败','content'=>$return];
             }
         }
-        return $return;
     }
 
 }
