@@ -12,7 +12,7 @@
 // +----------------------------------------------------------------------
 // | 应用设置
 // +----------------------------------------------------------------------
-
+use think\facade\Env;
 error_reporting(E_ALL ^ E_NOTICE);
 return [
     // 应用名称
@@ -20,9 +20,9 @@ return [
     // 应用地址
     'app_host'               => '',
     // 应用调试模式
-    'app_debug'              => false,
+    'app_debug'              => Env::get('app.debug', true),
     // 应用Trace
-    'app_trace'              => false,
+    'app_trace'              => Env::get('app.trace', true),
     // 应用模式状态
     'app_status'             => '',
     // 是否支持多模块
@@ -42,11 +42,11 @@ return [
     // 默认时区
     'default_timezone'       => 'PRC',
     // 是否开启多语言
-    'lang_switch_on'         => true,
+    'lang_switch_on'         => false,
     // 默认全局过滤方法 用逗号分隔多个
     'default_filter'         => '',
     // 默认语言
-    'default_lang'           => 'zh-cn_1',
+    'default_lang'           => 'zh-cn',
     // 应用类库后缀
     'class_suffix'           => false,
     // 控制器类后缀
