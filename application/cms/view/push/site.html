@@ -18,6 +18,9 @@
         </div>
     </div>
 </div>
+<div id="change_div" style="display: none;padding: 20px;background: #f2f2f2;">
+    <div class="scroller" style="height:250px" id="change_html"></div>
+</div>
 <script type="text/html" id="sites">
     {{# if(d.sites.indexOf({$id})!==-1){ }}
     <span class="text-success">已推送</span>
@@ -28,9 +31,9 @@
 
 <script type="text/html" id="barTool">
     {{# if(d.sites.indexOf({$id})!==-1){ }}
-    <a data-open='{:url("push/push")}?id={{ d.id }}' class="layui-btn layui-btn-xs" title="重新推送">重新推送</a>
+    <a class="layui-btn layui-btn-xs" lay-event="push" title="重新推送">重新推送</a>
     {{#  } else { }}
-    <a data-open='{:url("push/push")}?id={{ d.id }}' class="layui-btn layui-btn-xs layui-btn-warm" title="翻译推送">翻译推送</a>
+    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="push" title="翻译推送">翻译推送</a>
     {{#  } }}
 </script>
 {/block}
@@ -62,7 +65,7 @@
             cols: [
                 [
                     { type: 'checkbox', fixed: 'left' },
-                    { field: 'id', width: 70, title: 'ID',search:false , align: "center" ,search:false},
+                    { field: 'id', width: 70, title: 'ID',search:false , align: "center"},
                     { field: 'name',align: "left", title: '类别' },
                     { field: 'sites', width: 100, title: '是否推送', templet:"#sites", align: "center" },
                     { field: 'updatetime', width: 145, title: '同步时间', search: 'range',hide: true },
@@ -70,6 +73,67 @@
                 ]
             ],
         });
+
+
+        //监听工具条
+        table.on('tool(currentTable)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'push'){
+                //类别推送
+                layer.confirm('操作将覆盖原有推送信息，是否继续操作？', function(index){
+                    this.addClass('layui-btn-disabled').prop('disabled', true).html('<i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop"></i> 转换中...');
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: "{:url('push')}",
+                        data: {change:'init',tablename:data.tablename},
+                        success: function(res) {
+                            if (res.code == 1) {
+                                $('#change_div').show();
+                                $('#change_html').html('<p>'+res.msg+'</p>');
+                                start_change(data.tablename,1);
+                            } else {
+                                this.attr('disabled', false).removeClass("layui-btn-disabled").html('重新推送');
+                                layer.msg(res.msg, { icon: 2 });
+                            }
+                        },
+                        error: function(xhr, textstatus, thrown) {
+
+                        }
+                    });
+                    return false;
+                    layer.close(index);
+                });
+            }
+        });
+        function start_change(tablename,page) {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "{:url('push')}",
+                data: {change:'start',tablename:data.tablename,page:page},
+                success: function(res) {
+                    if (res.code == 1) {
+                        if (res.data.code == 1) {
+                            start_change(tablename,res.data.page);
+                            $('#change_html').append('<p>'+res.msg+'</p>');
+                        } else if (res.data.code == 2) {
+                            // $('.layui-btn').attr('disabled', false).removeClass("layui-btn-disabled").html('开始转换');
+                            layer.msg(res.msg, { icon: 1 });
+                        } else {
+
+                        }
+                    } else {
+                        layer.msg(res.msg, { icon: 2 });
+                        // $('.layui-btn').attr('disabled', false).removeClass("layui-btn-disabled").html('重新转换');
+                    }
+                },
+                error: function(xhr, textstatus, thrown) {
+
+                }
+            });
+        }
+
     });
 </script>
 {/block}

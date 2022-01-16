@@ -13,4 +13,6 @@ use \think\Model;
 
 class LangData extends Model
 {
+    protected $pk = 'id';
+    protected $autoWriteTimestamp = true;
 }

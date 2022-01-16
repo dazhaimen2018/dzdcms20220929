@@ -8,6 +8,7 @@
  * cms函数文件
  */
 use app\cms\model\Site;
+use Soundasleep\Html2Text;
 use think\facade\Cache;
 use think\facade\Request;
 
@@ -360,15 +361,25 @@ function timeRule($time)
  */
 function stripHtmlTags($str)
 {
-    preg_match_all("/<([\w]+)[^>]*>(.*?)<\/([\w]+)[^>]*>/s", $str,$data);
+
+    //文字过滤参数配置
+    $options = array (
+        'ignore_errors' => true ,
+        'drop_links' => true,
+    );
+    $str2= Html2Text::convert ( $str , $options);
+    $data = explode(PHP_EOL,trim($str2));
     $new_data = [];
-    foreach($data[0] as $key => $value){
-        $nvalue = strip_tags($value);
-        if ($nvalue){
-            $new_data[] = trim($nvalue);
+    foreach($data as $key => $value){
+        $value = trim($value,'*|');
+        if (!empty($value)){
+            $new_data[] = $value;
         }
     }
-    return $new_data;
+    uasort($new_data, function ($a, $b) {
+        return strLen($a) < strLen($b);
+    });
+    return array_unique($new_data);
 }
 /**
  * 还原指定标签
@@ -378,10 +389,21 @@ function restoreHtmlTags($pattern,$replacement,$str)
 {
     if ($pattern && is_array($pattern)){
         foreach($pattern as &$value){
-            $value = trim($value,'/');
-            $value = '/'.$value.'/';
+            $value2 = str_replace('/','\/',$value);// /为正则特殊字符
+            $value2 = str_replace(')','\)',$value2);// )为正则特殊字符
+            $value2 = str_replace('(','\(',$value2);// )为正则特殊字符
+            $value2 = str_replace('|','\|',$value2);// )为正则特殊字符
+            $value2 = str_replace('+','\+',$value2);// )为正则特殊字符
+            $value2 = str_replace('+','\+',$value2);// )为正则特殊字符
+            $value2 = str_replace('\'','&#39;',$value2);// )为正则特殊字符
+            $value = '/'.$value2.'/';
         }
     }
-    $new_data = preg_replace($pattern,$replacement,$str);
+    try {
+//        dump($pattern);
+        $new_data = preg_replace($pattern,$replacement,$str);
+    }catch (Exception $e){
+        return ['code'=>0,'msg'=>$e->getMessage()];
+    }
     return $new_data;
 }
