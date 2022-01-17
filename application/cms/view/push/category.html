@@ -117,8 +117,6 @@
                         layer.msg(res.msg, { icon: 1 });
                     } else {
                         layer.msg(res.msg, { icon: 2 });
-                        $(':submit').attr('disabled', false).removeClass("layui-btn-disabled").html('重新推送');
-                        $('#btn-loading').html('推送错误');
                     }
                 },
                 error: function(xhr, textstatus, thrown) {

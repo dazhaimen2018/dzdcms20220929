@@ -9,15 +9,21 @@
             <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
             <blockquote class="layui-elem-quote">提示：该操作将覆盖目标语种相关信息，若目标语种相关信息已修改，请谨慎操作！</blockquote>
         </div>
+        <script type="text/html" id="toolbar">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-sm yzn-btn-primary" lay-event="refresh"><i class="iconfont icon-shuaxin1"></i> </button>
+                <button class="layui-btn layui-btn-sm" lay-event="pushAll"><i class="iconfont icon-interactive"></i>一键推送</button>
+            </div>
+        </script>
         <div class="layui-form-item layer-footer">
             <div class="layui-input-block">
-                <input type="hidden" name="id" value="{$lang_id}">
+                <input type="hidden" name="id" value="{$id}">
                 <button type="submit" class="layui-btn iconfont icon-send" lay-submit lay-filter="sub"> 推送并翻译</button>
             </div>
         </div>
     </div>
 </div>
-<div id="change_div" style="display: none;padding: 20px;background: #f2f2f2;">
+<div id="change_div" style="width:400px;height:250px;display: none;padding: 20px;background: #f2f2f2;">
     <div class="scroller" style="height:250px" id="change_html"></div>
 </div>
 <script type="text/html" id="sites">
@@ -38,27 +44,13 @@
 {/block}
 {block name="script"}
 <script>
-    layui.use('yznTable', function() {
-        var table = layui.yznTable;
-
-        var init = {
-            table_elem: '#currentTable',
-            table_render_id: 'currentTable',
-            delete_url: "{:url('del')}",
-            modify_url: '{:url("multi")}',
-        };
-
+    layui.use(['table'], function() {
+        var table = layui.table;
+        var site_id = $("input[name='id']").val();
         table.render({
-            init: init,
-            toolbar: ['refresh', [{
-                        text: "一键推送",
-                        url: "{:url('push')}",
-                        method: 'request',
-                        class: 'layui-btn layui-btn-sm',
-                        icon:'iconfont icon-interactive',
-                        extend: 'data-table="currentTable"',
-                    }]
-            ],
+            id: 'currentTable',
+            elem: '#currentTable',
+            toolbar: '#toolbar',
             url: '{:url("site")}',
             search:false,
             cols: [
@@ -76,23 +68,33 @@
 
         //监听工具条
         table.on('tool(currentTable)', function(obj){
-            var data = obj.data;
+            var data = obj.data,that = $(this);
             if(obj.event === 'push'){
                 //类别推送
                 layer.confirm('操作将覆盖原有推送信息，是否继续操作？', function(index){
-                    this.addClass('layui-btn-disabled').prop('disabled', true).html('<i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop"></i> 转换中...');
+                    that.addClass('layui-btn-disabled').prop('disabled', true).html('<i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop"></i> 转换中...');
                     $.ajax({
                         type: "POST",
                         dataType: "json",
                         url: "{:url('push')}",
-                        data: {change:'init',tablename:data.tablename},
+                        data: {change:'init',tablename:data.tablename,id:site_id},
                         success: function(res) {
+                            layer.close(index);
                             if (res.code == 1) {
-                                $('#change_div').show();
+                                layer.open({
+                                    type: 1,
+                                    shade: false,
+                                    title: false,
+                                    content: $('#change_div'),
+                                    cancel: function(){
+                                        $('#change_div').html('').hide();
+                                        table.reload('currentTable');
+                                    }
+                                });
                                 $('#change_html').html('<p>'+res.msg+'</p>');
-                                start_change(data.tablename,1);
+                                start_change(obj,that,1);
                             } else {
-                                this.attr('disabled', false).removeClass("layui-btn-disabled").html('重新推送');
+                                that.attr('disabled', false).removeClass("layui-btn-disabled").html('重新推送');
                                 layer.msg(res.msg, { icon: 2 });
                             }
                         },
@@ -105,26 +107,40 @@
                 });
             }
         });
-        function start_change(tablename,page) {
+        //监听工具条
+        table.on('toolbar(currentTable)', function(obj){
+            var data = obj.data;
+            if(obj.event==='pushAll'){
+                //一键推送
+
+            }else if(obj.event==='refresh'){
+                //刷新
+                table.reload('currentTable');
+            }
+        });
+        function start_change(obj,that,page) {
+            var data = obj.data;
             $.ajax({
                 type: "POST",
                 dataType: "json",
                 url: "{:url('push')}",
-                data: {change:'start',tablename:data.tablename,page:page},
+                data: {change:'start',tablename:data.tablename,id:site_id,page:page},
                 success: function(res) {
                     if (res.code == 1) {
                         if (res.data.code == 1) {
-                            start_change(tablename,res.data.page);
-                            $('#change_html').append('<p>'+res.msg+'</p>');
+                            start_change(obj,that,page+1);
+                            $('#change_html').append('<p>'+res.data.msg+'</p>');
                         } else if (res.data.code == 2) {
-                            // $('.layui-btn').attr('disabled', false).removeClass("layui-btn-disabled").html('开始转换');
+                            $('#change_html').append('<p>'+res.data.msg+'</p>');
+                            $('#change_html').append('<p>'+res.msg+'</p>');
+                            that.attr('disabled', false).removeClass("layui-btn-disabled").html('开始转换');
                             layer.msg(res.msg, { icon: 1 });
                         } else {
 
                         }
                     } else {
                         layer.msg(res.msg, { icon: 2 });
-                        // $('.layui-btn').attr('disabled', false).removeClass("layui-btn-disabled").html('重新转换');
+                        that.attr('disabled', false).removeClass("layui-btn-disabled").html('重新转换');
                     }
                 },
                 error: function(xhr, textstatus, thrown) {
