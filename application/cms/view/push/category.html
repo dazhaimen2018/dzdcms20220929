@@ -57,8 +57,7 @@
             <div class="layui-form-item layer-footer">
                 <div class="layui-input-block">
                     <input type="hidden" name="id" value="{$catid}">
-                    <div id="btn-loading" class="layui-hide layui-btn layui-btn-danger iconfont icon-close" lay-filter="close">正在翻译、千万不要关闭页面</div>
-                    <button type="submit" class="layui-btn iconfont icon-send" lay-submit lay-filter="sub">推送并翻译</button>
+                    <button type="submit" class="layui-btn iconfont icon-send" lay-submit lay-filter="sub"> 推送并翻译</button>
                 </div>
             </div>
         </form>
@@ -78,8 +77,7 @@
             if (push_list.length<=0){
                 return false;
             }
-            $(':submit').addClass('layui-btn-disabled').prop('disabled', true).html('<i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop"></i> 推送中...');
-            $('#btn-loading').removeClass('layui-hide').html('正在翻译、千万不要关闭页面');
+            $(':submit').removeClass(' iconfont icon-send').addClass('layui-btn-disabled').prop('disabled', true).html('<i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop"></i> 正在翻译推送中...！千万不要关闭页面！');
             start_change(data.field);
             return false;
         });
@@ -97,8 +95,7 @@
         }
         function start_change(field) {
             if (push_list.length<=0){
-                $(':submit').attr('disabled', false).removeClass("layui-btn-disabled").html('重新推送');
-                $('#btn-loading').html('已完成');
+                $(':submit').attr('disabled', false).removeClass("layui-btn-disabled").addClass('layui-btn-danger iconfont icon-send') .html(' 重新推送');
                 return false;
             }
             var site_id = push_list[0].site_id;
