@@ -229,6 +229,7 @@ EOF;
 				`site_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '站点ID',
 				`title` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
 				`tags` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Tags标签',
+				`topics` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '所属专题',
 				`keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO关键词',
 				`description` varchar(500) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
 				`content` mediumtext COLLATE utf8_unicode_ci COMMENT '内容',
