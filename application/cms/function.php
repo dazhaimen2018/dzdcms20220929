@@ -394,14 +394,15 @@ function restoreHtmlTags($pattern,$replacement,$str)
             $value2 = str_replace('(','\(',$value2);// )为正则特殊字符
             $value2 = str_replace('|','\|',$value2);// )为正则特殊字符
             $value2 = str_replace('+','\+',$value2);// )为正则特殊字符
-            $value2 = str_replace('+','\+',$value2);// )为正则特殊字符
+            $value2 = str_replace('*','\*',$value2);// )为正则特殊字符
+            $value2 = str_replace('?','\?',$value2);// )为正则特殊字符
             $value2 = str_replace('\'','&#39;',$value2);// )为正则特殊字符
             $value = '/'.$value2.'/';
         }
     }
     try {
 //        dump($pattern);
-        $new_data = preg_replace($pattern,$replacement,$str);
+        $new_data = preg_replace($pattern,$replacement,htmlspecialchars_decode($str));
     }catch (Exception $e){
         return ['code'=>0,'msg'=>$e->getMessage()];
     }

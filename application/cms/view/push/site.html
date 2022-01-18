@@ -15,12 +15,12 @@
                 <button class="layui-btn layui-btn-sm" lay-event="pushAll"><i class="iconfont icon-interactive"></i>一键推送</button>
             </div>
         </script>
-        <div class="layui-form-item layer-footer">
-            <div class="layui-input-block">
-                <input type="hidden" name="id" value="{$id}">
-                <button type="submit" class="layui-btn iconfont icon-send" lay-submit lay-filter="sub"> 推送并翻译</button>
-            </div>
-        </div>
+        <input type="hidden" name="id" value="{$id}">
+<!--        <div class="layui-form-item layer-footer">-->
+<!--            <div class="layui-input-block">-->
+<!--                <button type="submit" class="layui-btn iconfont icon-send" lay-submit lay-filter="sub"> 推送并翻译</button>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 </div>
 <div id="change_div" style="width:400px;height:250px;display: none;padding: 20px;background: #f2f2f2;">
@@ -87,7 +87,8 @@
                                     title: false,
                                     content: $('#change_div'),
                                     cancel: function(){
-                                        $('#change_div').html('').hide();
+                                        $('#change_html').html('');
+                                        $('#change_div').hide();
                                         table.reload('currentTable');
                                     }
                                 });
@@ -112,7 +113,10 @@
             var data = obj.data;
             if(obj.event==='pushAll'){
                 //一键推送
-
+                layer.confirm('操作将覆盖原有推送信息，是否继续操作？', function(index){
+                    layer.close(index);
+                    return false;
+                });
             }else if(obj.event==='refresh'){
                 //刷新
                 table.reload('currentTable');
