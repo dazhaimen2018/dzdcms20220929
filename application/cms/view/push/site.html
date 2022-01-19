@@ -1,7 +1,6 @@
 {extend name="admin@index_layout"/}
 {block name="main"}
 <link rel="stylesheet" href="__STATIC__/admin/css/cms.css">
-
 <div class="layui-card">
     <div class="layui-card-header">源语言站：{$masterName} 目标语言站：{$siteName}</div>
     <div class="layui-card-body">
@@ -12,15 +11,10 @@
         <script type="text/html" id="toolbar">
             <div class="layui-btn-container">
                 <button class="layui-btn layui-btn-sm yzn-btn-primary" lay-event="refresh"><i class="iconfont icon-shuaxin1"></i> </button>
-                <button class="layui-btn layui-btn-sm" lay-event="pushAll"><i class="iconfont icon-interactive"></i>一键推送</button>
+<!--                <button class="layui-btn layui-btn-sm" lay-event="pushAll"><i class="iconfont icon-interactive"></i>一键推送</button>-->
             </div>
         </script>
         <input type="hidden" name="id" value="{$id}">
-<!--        <div class="layui-form-item layer-footer">-->
-<!--            <div class="layui-input-block">-->
-<!--                <button type="submit" class="layui-btn iconfont icon-send" lay-submit lay-filter="sub"> 推送并翻译</button>-->
-<!--            </div>-->
-<!--        </div>-->
     </div>
 </div>
 <div id="change_div" style="width:400px;height:250px;display: none;padding: 20px;background: #f2f2f2;">
@@ -55,7 +49,6 @@
             search:false,
             cols: [
                 [
-                    { type: 'checkbox', fixed: 'left' },
                     { field: 'id', width: 70, title: 'ID',search:false , align: "center"},
                     { field: 'name',align: "left", title: '类别' },
                     { field: 'sites', width: 100, title: '是否推送', templet:"#sites", align: "center" },
@@ -84,9 +77,13 @@
                                 layer.open({
                                     type: 1,
                                     shade: false,
-                                    title: false,
+                                    title: '翻译推送状态',
                                     content: $('#change_div'),
-                                    cancel: function(){
+                                    btn: ['关闭'],
+                                    success:function(){
+                                        $('#change_div').parents('div.layui-layer-page').find('div.layui-layer-btn>a').addClass('layui-btn-disabled').html('<i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop"></i> <span style="color:#aaa;">正在推送中，请勿关闭窗口</span>');
+                                    },
+                                    end: function(){
                                         $('#change_html').html('');
                                         $('#change_div').hide();
                                         table.reload('currentTable');
@@ -138,6 +135,7 @@
                             $('#change_html').append('<p>'+res.data.msg+'</p>');
                             $('#change_html').append('<p>'+res.msg+'</p>');
                             that.attr('disabled', false).removeClass("layui-btn-disabled").html('开始转换');
+                            $('#change_div').parents('div.layui-layer-page').find('div.layui-layer-btn>a').removeClass('layui-btn-disabled').html('关闭');
                             layer.msg(res.msg, { icon: 1 });
                         } else {
 
@@ -145,6 +143,7 @@
                     } else {
                         layer.msg(res.msg, { icon: 2 });
                         that.attr('disabled', false).removeClass("layui-btn-disabled").html('重新转换');
+                        $('#change_div').parents('div.layui-layer-page').find('div.layui-layer-btn>a').removeClass('layui-btn-disabled').html('关闭');
                     }
                 },
                 error: function(xhr, textstatus, thrown) {
