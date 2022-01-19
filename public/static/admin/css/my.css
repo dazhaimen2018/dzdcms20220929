@@ -92,6 +92,7 @@
 .layui-word-aux i:hover{color:#20a53a;}
 
 .layui-icon-loading:before{color:#20a53a!important; }
+.layui-layer-yzn .layui-layer-btn a{height: 28px;line-height: 28px}
 
 .layui-form-pane .auto-width{width: auto;text-align: left!important;}
 .layui-form-pane .layui-form-label{width: 110px;}

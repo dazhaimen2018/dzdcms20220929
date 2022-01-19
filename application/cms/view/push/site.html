@@ -11,7 +11,6 @@
         <script type="text/html" id="toolbar">
             <div class="layui-btn-container">
                 <button class="layui-btn layui-btn-sm yzn-btn-primary" lay-event="refresh"><i class="iconfont icon-shuaxin1"></i> </button>
-<!--                <button class="layui-btn layui-btn-sm" lay-event="pushAll"><i class="iconfont icon-interactive"></i>一键推送</button>-->
             </div>
         </script>
         <input type="hidden" name="id" value="{$id}">
@@ -135,7 +134,7 @@
                             $('#change_html').append('<p>'+res.data.msg+'</p>');
                             $('#change_html').append('<p>'+res.msg+'</p>');
                             that.attr('disabled', false).removeClass("layui-btn-disabled").html('开始转换');
-                            $('#change_div').parents('div.layui-layer-page').find('div.layui-layer-btn>a').removeClass('layui-btn-disabled').html('关闭');
+                            $('#change_div').parents('div.layui-layer-page').find('div.layui-layer-btn>a').removeClass('layui-btn-disabled').html('<i class="layui-icon layui-icon-close"></i> 关闭');
                             layer.msg(res.msg, { icon: 1 });
                         } else {
 
@@ -143,7 +142,7 @@
                     } else {
                         layer.msg(res.msg, { icon: 2 });
                         that.attr('disabled', false).removeClass("layui-btn-disabled").html('重新转换');
-                        $('#change_div').parents('div.layui-layer-page').find('div.layui-layer-btn>a').removeClass('layui-btn-disabled').html('关闭');
+                        $('#change_div').parents('div.layui-layer-page').find('div.layui-layer-btn>a').removeClass('layui-btn-disabled').html('<i class="layui-icon layui-icon-close"></i> 关闭');
                     }
                 },
                 error: function(xhr, textstatus, thrown) {
