@@ -248,7 +248,7 @@ class Lang extends Adminbase
         }
         //加默认值
         foreach ($this->site as $key => $value){
-            $filename = $value['mark'].'_'.$value['id'].'.php';
+            $filename = $value['mark'].'.php';
             $config = Db::name('lang')->alias('l')
                 ->join('lang_data ld','ld.lang_id=l.id and ld.site_id='.$value['id'],'LEFT')
                 ->where('l.group','<>',3)

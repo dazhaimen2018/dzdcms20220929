@@ -29,7 +29,7 @@ class Cmsbase extends MemberBase
         parent::initialize();
         Config::set('url_common_param', true);
         $siteurl         = url('cms/index/index', '', true, false);
-        $siteId          = getSiteId(); // 前台用的
+        $siteId          = $this->siteId; // 前台用的
         $this->cmsConfig = cache("Cms_Config");
         $this->assign("cms_config", $this->cmsConfig);
         $this->assign("siteurl", $siteurl);

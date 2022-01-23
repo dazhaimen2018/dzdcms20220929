@@ -29,19 +29,29 @@ class Homebase extends Base
         $sites  = cache('Site')?cache('Site'):Site::where('status',1)->column('*','id');
         Cache::set('Site', $sites, 3600);
         //语言设定
-        $mark = $sites[getSiteId()]['mark'];
-        if ($mark && ($mark.'_'.getSiteId() != cookie('var'))){
-            cookie('var', null);
-            cookie('var',$mark.'_'.getSiteId());
-            header('Location:'.$_SERVER['REQUEST_URI']);exit;
+        $curr_domain    = $_SERVER['HTTP_HOST'];
+        $this->siteId = getSiteId();
+        $mark = $sites[$this->siteId]['mark'];
+        if ($domain && Cookie::set('var','')){
+            Cookie::set('var',$mark);
+            Cookie::set('site_id',$this->siteId);
+            setLang($mark);
+        }else{
+            Cookie::set('var',$mark);
+            Cookie::set('site_id',$this->siteId);
         }
+        if ($curr_domain !== $sites[$this->siteId]['domain']){
+            header('Location:'.$_SERVER['REQUEST_SCHEME'].'://'.$sites[$this->siteId]['domain']);exit;
+        }
+//        Cookie::set('var',$mark);
+//        Cookie::set('site_id',$this->siteId);
 
-        if (isset($_COOKIE['lang']) && !empty($_COOKIE['lang'])) {
-            $lang   = trim($_COOKIE['lang']);
-            if (Site::where("mark='{$lang}'")->find()) {
-                setLang($lang);
-            }
-        }
+//        if (isset($_COOKIE['lang']) && !empty($_COOKIE['lang'])) {
+//            $lang   = trim($_COOKIE['lang']);
+//            if (Site::where("mark='{$lang}'")->find()) {
+//                setLang($lang);
+//            }
+//        }
         //$siteName 虚拟站点显示自己的站点名称 独立站不显示
         if (getSite('alone')!=1){
             $siteId   = 1;
