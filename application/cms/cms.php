@@ -204,12 +204,6 @@ function getSiteId() {
         Cache::set($key,'');
         return $masterId;
     }
-    if (Cookie::get('site_id') && !empty($sites[Cookie::get('site_id')])){
-        if (!isset($siteInfo['id']) || $siteInfo['id'] != Cookie::get('site_id')){
-            Cache::set($key,$sites[Cookie::get('site_id')]);
-        }
-        return Cookie::get('site_id');
-    }
     foreach ($sites as $key => $site){
         if ($site['domain'] != $domain){
             unset($sites[$key]);
@@ -224,6 +218,14 @@ function getSiteId() {
         Cache::set($key,$site);
         return $site['id'];
     }else{
+        if (count($sites)>1){
+            if (Cookie::get('site_id') && !empty($sites[Cookie::get('site_id')])){
+                if (!isset($siteInfo['id']) || $siteInfo['id'] != Cookie::get('site_id')){
+                    Cache::set($key,$sites[Cookie::get('site_id')]);
+                }
+                return Cookie::get('site_id');
+            }
+        }
         $site = $sites[$masterId]?$sites[$masterId]:array_pop($sites);
         if (!isset($siteInfo['id']) || $siteInfo['id'] != $site['id']){
             Cache::set($key,$site);
