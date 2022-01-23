@@ -33,8 +33,8 @@ $(function() {
 
 //站点切换 必须要有 jquery.cookie.min.js
 function setLang(lang,sid){
-    $.cookie('lang', lang);
-    $.cookie('think_var', lang+'_'+sid);
+    $.cookie('think_site_id', sid);
+    $.cookie('think_var', lang);
     window.location.reload();
 }
 
@@ -116,4 +116,3 @@ $(function() {
     });
 
 })
-
