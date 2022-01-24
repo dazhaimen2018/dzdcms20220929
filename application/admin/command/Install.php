@@ -257,6 +257,9 @@ class Install extends Command
         if (!extension_loaded("PDO")) {
             throw new Exception("当前未开启PDO，无法进行安装");
         }
+        if (!extension_loaded("fileinfo")) {
+            throw new Exception("当前php环境未安装fileinfo扩展，无法进行安装");
+        }
         if (!File::is_really_writable($dbConfigFile)) {
             throw new Exception("当前权限不足，无法写入文件 config/database.php");
         }
