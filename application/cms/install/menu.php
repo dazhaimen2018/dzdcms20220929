@@ -534,7 +534,7 @@ return [
                         "route" => "cms/lang/index",
                         "type" => 1,
                         "status" => 1,
-                        "name" => "碎片管理",
+                        "name" => "多语言库",
                         "icon" => "icon-manage",
                         "child" =>
                             [

@@ -50,7 +50,8 @@
                 <div class="layui-input-block">
                     <input type="hidden" name="id" value="{$id}">
                     <input type="hidden" name="catid" value="{$catid}">
-                    <button type="submit" class="layui-btn iconfont icon-send" lay-submit lay-filter="sub"> 推送并翻译</button>
+                    <button type="submit" class="send-btn layui-btn iconfont icon-send" lay-submit lay-filter="sub"> 推送并翻译</button>
+                    <button type="submit" class="layui-btn layui-btn-danger iconfont icon-close" lay-submit lay-filter="close"> 关闭</button>
                 </div>
             </div>
 
@@ -70,10 +71,17 @@
             if (push_list.length<=0){
                 return false;
             }
-            $(':submit').removeClass(' iconfont icon-send').addClass('layui-btn-disabled').prop('disabled', true).html('<i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop"></i> 正在翻译推送中...！千万不要关闭页面！');
+            $('.send-btn').removeClass(' iconfont icon-send').addClass('layui-btn-disabled').prop('disabled', true).html('<i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop"></i> 正在翻译推送中...！千万不要关闭页面！');
             start_change(data.field);
             return false;
         });
+
+        form.on('submit(close)', function(data) {
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index)
+            window.parent.location.reload();
+        });
+
         function check_push(){
             push_list = [];
             var status = $("input[name='status']:checked").val();
@@ -88,7 +96,7 @@
         }
         function start_change(field) {
             if (push_list.length<=0){
-                $(':submit').attr('disabled', false).removeClass("layui-btn-disabled").addClass('layui-btn-danger iconfont icon-send') .html(' 重新推送');
+                $('.send-btn').attr('disabled', false).removeClass("layui-btn-disabled").addClass('layui-btn-normal iconfont icon-send') .html(' 重新推送');
                 return false;
             }
             var site_id = push_list[0].site_id;
