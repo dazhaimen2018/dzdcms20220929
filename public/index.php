@@ -24,15 +24,14 @@ define('IF_PUBLIC', true);
 define('ROOT_PATH', __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR);
 define('APP_PATH', ROOT_PATH . 'application' . DIRECTORY_SEPARATOR);
 
-// 加载基础文件
-require ROOT_PATH . 'thinkphp' . DIRECTORY_SEPARATOR . 'base.php';
 // 判断是否安装
 if (!is_file(APP_PATH . 'admin/command/Install/install.lock')) {
     header("location:./install.php");
     exit;
 }
 
-
+// 加载基础文件
+require ROOT_PATH . 'thinkphp' . DIRECTORY_SEPARATOR . 'base.php';
 // 执行应用并响应
 Container::get('app')->run()->send();
 
