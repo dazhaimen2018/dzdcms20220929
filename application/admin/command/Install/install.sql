@@ -39,8 +39,8 @@ CREATE TABLE `yzn_admin` (
 -- ----------------------------
 -- Records of yzn_admin
 -- ----------------------------
-INSERT INTO `dzd_admin` (`id`, `username`, `password`, `roleid`, `sites`, `encrypt`, `nickname`, `last_login_time`, `last_login_ip`, `email`, `token`, `status`) VALUES
-    (1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 0, 'xW5OhH', '多站点', 1642190943, '114.244.152.93', 'admin@admin.com', '', 1);
+INSERT INTO `yzn_admin` (`id`, `username`, `password`, `roleid`, `sites`, `encrypt`, `nickname`, `last_login_time`, `last_login_ip`, `email`, `token`, `status`) VALUES
+    (1, 'admin', '1293439eb1b0da9d038cc78557588ea6', 1, 0, 'xW5OhH', '多站点', 1642950791, '223.12.144.8', 'admin@admin.com', '0b53c869-89a1-4870-bf76-43745f10b356', 1);
 
 -- ----------------------------
 -- Table structure for `yzn_adminlog`
