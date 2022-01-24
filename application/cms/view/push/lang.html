@@ -47,7 +47,9 @@
                 <div class="layui-input-block">
                     <input type="hidden" name="id" value="{$lang_id}">
                     <button type="submit" class="send-btn layui-btn iconfont icon-send" lay-submit lay-filter="sub"> 推送并翻译</button>
-                    <button type="submit" class="layui-btn layui-btn-danger iconfont icon-close" lay-submit lay-filter="close"> 关闭</button>
+                    <span class="btn-close" style="display: none">
+                        <button type="submit" class="layui-btn layui-btn-danger iconfont icon-close" lay-submit lay-filter="close"> 关闭</button>
+                    </span>
                 </div>
             </div>
 
@@ -91,6 +93,7 @@
         function start_change(field) {
             if (push_list.length<=0){
                 $('.send-btn').attr('disabled', false).removeClass("layui-btn-disabled").addClass('layui-btn-normal iconfont icon-send') .html(' 重新推送');
+                $('.btn-close').show();
                 return false;
             }
             var site_id = push_list[0].site_id;
