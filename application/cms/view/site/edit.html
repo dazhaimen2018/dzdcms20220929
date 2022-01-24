@@ -251,7 +251,6 @@
 		});
 
 		$('.site-translator').click(function(){
-			// var mark =
 			$.ajax({
 				type: "POST",
 				url: "{:url('push/translator')}",
@@ -259,6 +258,7 @@
 				dataType: "json",
 				success: function(data){
 					if (data.code){
+						layer.msg(data.msg,{icon: 1});
 						//表单赋值
 						form.val('example', {
 							"title": data.data.title
