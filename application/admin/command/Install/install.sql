@@ -475,7 +475,7 @@ CREATE TABLE `yzn_site` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='站点表';
 
 INSERT INTO `yzn_site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `alone`, `private`, `close`, `master`, `website`, `company`, `icp`, `icp_link`, `gwa`, `gwa_link`, `chat`, `statistics`, `copyright`, `status`, `inputtime`) VALUES
-    (1, '中文站', 'zh-cn', 'http', 'demo.dzdcms.com', 'http://demo.mscms.net', '/uploads/images/logo.png', '/favicon.ico', 'novel', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 0, 1, 1, '', '', '', 'https://beian.miit.gov.cn/', '', 'http://www.beian.gov.cn/portal/index.do', '', '', '', 1, 0);
+    (1, '中文站', 'zh-cn', 'http', 'demo.dzdcms.com', 'http://demo.mscms.net', '/uploads/images/logo.png', '/favicon.ico', 'default', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 0, 1, 1, '', '', '', 'https://beian.miit.gov.cn/', '', 'http://www.beian.gov.cn/portal/index.do', '', '', '', 1, 0);
 
 -- ----------------------------
 -- Table structure for `yzn_ems`

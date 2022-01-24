@@ -90,7 +90,7 @@
         }
         function start_change(field) {
             if (push_list.length<=0){
-                $('.send-btn').attr('disabled', false).removeClass("layui-btn-disabled").addClass('layui-btn-danger iconfont icon-send') .html(' 重新推送');
+                $('.send-btn').attr('disabled', false).removeClass("layui-btn-disabled").addClass('layui-btn-normal iconfont icon-send') .html(' 重新推送');
                 return false;
             }
             var site_id = push_list[0].site_id;
