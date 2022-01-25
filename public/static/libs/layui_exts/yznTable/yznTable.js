@@ -83,6 +83,10 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
 
             //只删除当前站点数据(要刷新) 马博 20211017
             $(document).on('click', '.layui-tr-load', function() {
+                var tableId = $(this).attr('data-table-refresh');
+                if (tableId === undefined || tableId === '' || tableId == null) {
+                    tableId = init.table_render_id;
+                }
                 var that = $(this),
                     index = that.parents('tr').eq(0).data('index'),
                     tr = $('.layui-table-body').find('tr[data-index="' + index + '"]'),
@@ -96,7 +100,8 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                         if (res.code == 1) {
                             notice.success({ message: res.msg });
                             //增加刷新代码 待优化
-                            location.reload();
+                            table.reload(tableId);
+                           // location.reload();
                         } else {
                             notice.error({ message: res.msg });
                         }
