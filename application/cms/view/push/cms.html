@@ -14,8 +14,14 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">所有站点</label>
+                        <label class="layui-form-label">一键全选</label>
                         <div class="layui-input-block">
+                            <input lay-skin="primary" type="checkbox" id="checkall" name="checkall" lay-filter="allChoose" value=""/><span>全选</span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">所有站点</label>
+                        <div class="layui-input-block check-box">
                             {volist name="sites" id="vo" empty="<div class='layui-tips'>请先建站点</div>"}
                             <input type="checkbox" name="sites[]" data-push="{if $check_site && in_array($vo.id,$check_site)}1{/if}" value="{$vo.id}" lay-skin="primary" title="{$vo.name}{if $check_site && in_array($vo.id,$check_site)}[已推]{/if}" {if $check_site && in_array($vo.id,$check_site)}checked{/if}>
                             {/volist}
@@ -68,6 +74,14 @@
         var form = layui.form;
         var element = layui.element;
         var yzn = layui.yzn;
+        //点击全选, 勾选
+        form.on('checkbox(allChoose)', function (data) {
+            var child = $(".check-box input[type='checkbox']");
+            child.each(function (index, item) {
+                item.checked = data.elem.checked;
+            });
+            form.render('checkbox');
+        });
         form.on('submit(sub)', function(data) {
             check_push();
             if (push_list.length<=0){
