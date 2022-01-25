@@ -14,7 +14,8 @@
             <div class="layui-tab-item layui-show">
                 <div class="layui-form-item">
                     <label class="layui-form-label">所属站点</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-block check-box">
+                        <input lay-skin="primary" type="checkbox" id="checkall" name="checkall" lay-filter="allChoose" value=""/><span>全选</span>
                         {volist name="sites" id="vo" empty="<div class='layui-tips'>请先建站点</div>"}
                         <input type="checkbox" name="sites[]" value="{$vo.id}" lay-skin="primary" title="{$vo.name}">
                         {/volist}
@@ -243,6 +244,14 @@
             yznForm = layui.yznForm;
 
         yznForm.listen();
+        //点击全选, 勾选
+        form.on('checkbox(allChoose)', function (data) {
+            var child = $(".check-box input[type='checkbox']");
+            child.each(function (index, item) {
+                item.checked = data.elem.checked;
+            });
+            form.render('checkbox');
+        });
         form.on('radio(filter)', function(data){
             if(1==data.value){
                 //批量
