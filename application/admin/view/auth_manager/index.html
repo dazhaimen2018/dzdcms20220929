@@ -9,7 +9,7 @@
                 {{#  if(d.id == {$userInfo.roleid}){ }}
                 <a class="layui-btn layui-btn-xs layui-btn-danger layui-btn-disabled">删除</a>
                 {{#  } else { }}
-                <a class='layui-btn layui-btn-xs' data-open='{:url("access?group_name=")}?title={{d.title}}&group_id={{d.id}}' title="访问授权">访问授权</a>
+                <a class='layui-btn layui-btn-xs' data-open='{:url("access?group_name=")}?title={{d.title}}&group_id={{d.id}}' title="访问授权">授权</a>
                 {{#  } }}
             </script>
         </div>
@@ -39,10 +39,10 @@ layui.use('yznTable', function() {
                 { field: 'title',width: 200, title: '授权',templet: '#authTool' },
                 { field: 'title', width: 200, align: 'left', title: '权限组'},
                 { field: 'description', title: '描述' },
-                { field: 'status', width: 80,title: '状态',templet: yznTable.formatter.label,selectList:{0:'禁用',1:'正常'}},
-                { width:120, title: '操作',templet: function (d){
+                { field: 'status', width: 80,title: '状态', align: "center", templet: yznTable.formatter.label,selectList:{0:'禁用',1:'正常'}},
+                { width:100, title: '操作', align: "center", templet: function (d){
                     if(d.id=={$userInfo.roleid}){
-                        return '<a class="layui-btn layui-btn-xs layui-btn-danger layui-btn-disabled">删除</a>';
+                        return '<a class="layui-btn layui-btn-xs layui-btn-danger layui-btn-disabled"><i class=\'iconfont icon-brush_fill\'></i></a><a class="layui-btn layui-btn-xs layui-btn-danger layui-btn-disabled"><i class=\'iconfont icon-trash_fill\'></i></a>';
                     }else{
                         return yznTable.formatter.tool.call(this,d,this);
                     }

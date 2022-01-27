@@ -5,21 +5,6 @@
     <div class="layui-card-body">
         <div class="layui-form">
             <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
-            <script type="text/html" id="barTool">
-                {{#  if(d.id == {$userInfo.id}){ }}
-                <a class="layui-btn layui-btn-xs layui-btn-disabled" title="不可操作">编辑</a>
-                <a class="layui-btn layui-btn-xs layui-btn-disabled" title="不可操作">删除</a>
-                {{#  } else if(1 != {$userInfo.id}) { }}
-                <a class="layui-btn layui-btn-xs layui-btn-disabled" title="不可操作">编辑</a>
-                <a class="layui-btn layui-btn-xs layui-btn-disabled" title="不可操作">删除</a>
-                {{#  } else { }}
-                <a data-open='{:url("edit")}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs" title="编辑">编辑</a>
-                <a href='{:url("del")}?id={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
-                {{#  } }}
-            </script>
-            <script type="text/html" id="switchTpl">
-                <input type="checkbox" name="status" data-href="{:url('multi')}?id={{d.id}}&param=status" value="{{d.id}}" lay-skin="switch" lay-text="显示|隐藏" lay-filter="switchStatus" {{ d.status==1 ? 'checked' : '' }}>
-            </script>
             <script type="text/html" id="commonTpl">
                 {{# if(d.common==1){ }}
                是
@@ -45,21 +30,15 @@ layui.use('yznTable', function() {
     var init = {
         table_elem: '#currentTable',
         table_render_id: 'currentTable',
-        add_url: '{:url("add")}?row=1',
+        add_url: "{:url('add')}",
+        edit_url: "{:url('edit')}",
+        delete_url: "{:url('del')}",
+        modify_url: '{:url("multi")}',
     };
 
     table.render({
         init: init,
-        toolbar: ['refresh',
-            [{
-                text: '添加',
-                url: init.add_url,
-                method: 'open',
-                class: 'layui-btn layui-btn-normal layui-btn-sm',
-                icon: 'iconfont icon-add',
-                extend: 'data-width="900" data-height="600"',
-            }]
-        ],
+        toolbar: ['refresh','add'],
         url: '{:url("index")}',
         cols: [
             [
@@ -68,8 +47,14 @@ layui.use('yznTable', function() {
                 { field: 'mark', title: '语言标识'},
                 { field: 'logo', width: 150, title: '语言图标', align: "center", search: false, templet: '#icon'},
                 { field: 'common', align: 'center', width: 120, title: '常用语言', templet: '#commonTpl', unresize: true },
-                { field: 'status', align: 'center', width: 120, title: '状态', templet: '#switchTpl', unresize: true },
-                { fixed: 'right', width: 160, title: '操作', toolbar: '#barTool', align: "center" }
+                { field: 'status', width: 120, align: "center", title: '状态', unresize: true, selectList: { 0: '禁用', 1: '正常' },templet: yznTable.formatter.switch,tips:"正常|禁用" },
+                { width:100, title: '操作', align: "center", templet: function (d){
+                        if(d.id==1){
+                            return '<a class="layui-btn layui-btn-xs layui-btn-danger layui-btn-disabled"><i class=\'iconfont icon-brush_fill\'></i></a><a class="layui-btn layui-btn-xs layui-btn-danger layui-btn-disabled"><i class=\'iconfont icon-trash_fill\'></i></a>';
+                        }else{
+                            return yznTable.formatter.tool.call(this,d,this);
+                        }
+                    },operat: ['edit','delete']}
             ]
         ],
         page: {}

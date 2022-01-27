@@ -22,22 +22,21 @@ layui.use('yznTable', function() {
 
     table.render({
         init: init,
-        toolbar: ['refresh','add', 'delete'],
+        toolbar: ['refresh', 'add', 'delete'],
         url: '{:url("index")}',
         cols: [
             [
                 { type: 'checkbox', fixed: 'left' },
                 { field: 'id', width: 100, title: '用户ID' },
-                { field: 'site_id', width: 60, title: '站点' },
                 { field: 'username', width: 150, title: '用户名',templet: '<div>{{#  if(d.vip==1){ }} <span class="text-danger">[VIP]</span> {{#  } }}{{ d.username }}</div>', searchOp: 'like'},
                 { field: 'nickname', width: 150, title: '昵称', searchOp: 'like' },
                 { field: 'email',  title: '邮箱', searchOp: 'like' },
-                { field: 'reg_ip', title: '注册IP' },
-                { field: 'last_login_time', title: '最后登录', search: 'range' },
-                { field: 'amount', width: 120, title: '金钱总数' },
-                { field: 'point', width: 120, title: '积分总数' },
-                { field: 'login', width: 100, title: '登录次数' },
-                { width:120, title: '操作',templet: yznTable.formatter.tool,operat: ['edit','delete']}
+                { field: 'reg_ip', title: '注册IP', align: "center" },
+                { field: 'last_login_time', title: '最后登录', search: 'range', align: "center" },
+                { field: 'amount', width: 120, title: '金钱总数', align: "center" },
+                { field: 'point', width: 120, title: '积分总数', align: "center" },
+                { field: 'login', width: 100, title: '登录次数', align: "center" },
+                { width:90, title: '操作', align: "center" ,templet: yznTable.formatter.tool,operat: ['edit','delete']}
             ]
         ],
         page: {}

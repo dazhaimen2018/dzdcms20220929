@@ -4,22 +4,22 @@
 <table class="layui-hide" id="currentTable" lay-filter="currentTable"></table>
 <script type="text/html" id="barTool">
     {{# if({$push}){ }}
-    <a data-open='{:url("push/cms",["catid"=>$catid])}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs layui-btn-warm" title="推送并翻译">推送</a>
+    <a data-open='{:url("push/cms",["catid"=>$catid])}?id={{ d.id }}' data-width="900" data-height="600" class="layui-btn layui-btn-xs layui-btn-warm" title="推送并翻译"><i class="layui-icon layui-icon-release"></i></a>
     {{#  } else { }}
-    <a class="layui-btn layui-btn-xs layui-btn-disabled" title="高级版并且切换到所有站模式才可以推送">推送</a>
+    <a class="layui-btn layui-btn-xs layui-btn-disabled" title="高级版并且切换到所有站模式才可以推送"><i class="layui-icon layui-icon-release"></i></a>
     {{#  } }}
 
     {{# if(d.catid !== {$catid}){ }}
-    <a class="layui-btn layui-btn-xs" data-open='{:url("edit")}?catid={{ d.catid }}&id={{ d.id }}' data-title="编辑内容" data-full="true">编辑</a>
+    <a class="layui-btn layui-btn-xs" data-open='{:url("edit")}?catid={{ d.catid }}&id={{ d.id }}' data-title="编辑内容" data-full="true"><i class='iconfont icon-brush_fill'></i></a>
     <a href='{:url("revoke",["outid"=>$catid])}?catid={{ d.catid }}&id={{ d.id }}' class="layui-btn layui-btn-warm layui-btn-xs layui-tr-out">移除</a>
     {{#  } else { }}
-    <a class="layui-btn layui-btn-xs" data-open='{:url("edit",["catid"=>$catid])}?id={{ d.id }}' data-title="编辑内容" data-full="true">编辑</a>
-    <a href='{:url("del",["catid"=>$catid])}?id={{ d.id }}&sites={:onSite()}' class="layui-btn layui-btn-danger layui-btn-xs {if onSite()}layui-tr-load{else}layui-tr-del{/if}">删除</a>
+    <a class="layui-btn layui-btn-xs" data-open='{:url("edit",["catid"=>$catid])}?id={{ d.id }}' data-title="编辑内容" data-full="true"><i class='iconfont icon-brush_fill'></i></a>
+    <a href='{:url("del",["catid"=>$catid])}?id={{ d.id }}&sites={:onSite()}' class="layui-btn layui-btn-danger layui-btn-xs {if onSite()}layui-tr-load{else}layui-tr-del{/if}"><i class='iconfont icon-trash_fill'></i></a>
     {{#  } }}
     {{# if(d.modelType==3){ }}
-    <a class="layui-btn layui-btn-normal layui-btn-xs" href='{:url("cms/chapter/index",["catid"=>$catid])}?did={{ d.id }}'>章节</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" href='{:url("cms/chapter/index",["catid"=>$catid])}?did={{ d.id }}'><i class="iconfont icon-other"></i></a>
     {{#  } else { }}
-    <a class="layui-btn layui-btn-xs layui-btn-disabled" title="高级版并且是一对多模型才有章节">章节</a>
+    <a class="layui-btn layui-btn-xs layui-btn-disabled" title="高级版并且是一对多模型才有章节"><i class="iconfont icon-other"></i></a>
     {{#  } }}
 </script>
 
@@ -111,7 +111,7 @@
                 { field: 'username', width: 80, title: '发布人', templet: '#username',hide: true },
                 { field: 'url', width: 60, align: "center", title: 'URL', templet: yznTable.formatter.url, search: false },
                 { field: 'status', width: 100, align: "center", title: '状态', templet: '#statusTpl', unresize: true, selectList: { 0: '待审核', 1: '通过' } },
-                { fixed: 'right', width: 220, title: '操作', toolbar: '#barTool', align: "center" }
+                { fixed: 'right', width: 160, title: '操作', toolbar: '#barTool', align: "center" }
             ]
         ],
             page: {}

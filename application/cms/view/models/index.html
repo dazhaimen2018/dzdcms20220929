@@ -43,9 +43,9 @@ layui.use('yznTable', function() {
                 { field: 'tablename', width:120,title: '数据表' },
                 { field: 'description', align: "left", title: '描述' },
                 { field: 'type', width:120,title: '类型',templet: '#type', align:'center' },
-                { field: 'create_time', align: "center", width:180, title: '创建时间' },
-                { field: 'status', align: "center", width: 100, title: '状态', unresize: true,templet: yznTable.formatter.switch },
-                { width:200, align: "center", title: '操作',templet: yznTable.formatter.tool,operat: [
+                { field: 'create_time',width:180, title: '创建时间', align: "center" },
+                { field: 'status', width: 100, title: '状态', align: "center", unresize: true,templet: yznTable.formatter.switch },
+                { width:150, title: '操作', align: "center", templet: yznTable.formatter.tool,operat: [
                     [{
                         text: '字段管理',
                         url: init.field_url,
