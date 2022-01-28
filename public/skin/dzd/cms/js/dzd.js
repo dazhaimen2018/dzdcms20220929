@@ -37,7 +37,6 @@ function setLang(lang,sid){
     $.cookie('think_var', lang);
     window.location.reload();
 }
-
 //视频播放
 $('.videolist').each(function(){ //遍历视频列表
     $(this).hover(function(){ //鼠标移上来后显示播放按钮
@@ -116,3 +115,4 @@ $(function() {
     });
 
 })
+

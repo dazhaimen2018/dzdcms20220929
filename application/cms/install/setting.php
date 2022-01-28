@@ -26,4 +26,5 @@ return array(
     'icon_mode'          => 1,
     'site'               => 1,
     'authentication'     => 0,
+    'web_site_searchtype' => 'local',
 );

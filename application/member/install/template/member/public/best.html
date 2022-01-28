@@ -19,40 +19,32 @@
 <div class="site-content">
     <div class="site-wrapper">
         <div class="container">
-            <div class="login-body">
+            <div id="mydiv">
                 <div class="login-side">
-                    <div class="login-side-container">
-                        <div class="login-side-header">
-                            <div class="login-side-logo">
+                    <div class="login-side__container">
+                        <div class="login-side__header">
+                            <div class="login-side__logo">
                                 <a href="{:getSite('url')}"> <img alt="{:getSite('title')}" src="{:getSite('logo')}"></a>
                             </div>
-                            <h1 class="login-side-title"></h1>
-                            <h2 class="login-side-subtitle">
-                                {:getSite('website')}
+                            <h1 class="login-side__title"></h1>
+                            <h2 class="login-side__subtitle">
+                                {:getSite('title')}
                             </h2>
                         </div>
-                        <div class="login-side-content">
-                            <div class="login-side-content-container">
-                                <div class="login-side-comments-header"> <span class="login-side-comments-title"> </span>  </div>
-                                <div class="login-side-comments-content"> {:getSite('description')} </div>
+                        <div class="login-side__content">
+                            <div class="login-side-content__container">
+                                <div class="login-side-comments__header"> <span class="login-side-comments__title"> </span>  </div>
+                                <div class="login-side-comments__content"> {:getSite('description')} </div>
                             </div>
                         </div>
-                        <div class="login-side-footer">
+                        <div class="login-side__footer">
                             <a target="_blank" href="">
-                                {:getSite('title')}
+                                多站点dzdcms-可做集团站多语言站城市站的CMS
                             </a>
                         </div>
                     </div>
                 </div>
                 {block name="main"}主内容{/block}
-            </div>
-            <div class="login_footer container">
-                <span class="login_footer-item"><a target="_blank" href="https://{:getSite('domain')}/">© {:getSite('domain')}</a></span>
-                {yzn module="cms" action="category" catid="0" siteId="$siteId" cache="3600" order="listorder ASC" num="10" return="data"}
-                {volist name="data" id="vo"}
-                <span class="login_footer-item"><a href="{$vo.url}">{$vo.catname}</a></span>
-                {/volist}
-                {/yzn}
             </div>
         </div>
     </div>
