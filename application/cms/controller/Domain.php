@@ -34,8 +34,7 @@ class Domain extends Adminbase
         if (empty($siteId)) {
             $this->error('参数错误！');
         }
-        //输出所有站点
-        $sites = cache('Site')?cache('Site'):Site::where('status',1)->column('*','id');
+        $sites = allSite();
         $site  = [];
         foreach ($sites as $v) {
             if ($v['id'] == $siteId) {

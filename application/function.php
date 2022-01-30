@@ -84,10 +84,21 @@ function empower(){
     }
 }
 
+//所有站点
+function allSite() {
+    $sites = cache('Site');
+    if(is_array($sites) || empty($sites)){
+        Cache::set('Site',null);
+        $sites = Db('site')->where('status',1)->column('*','id');
+        Cache::set('Site', $sites, 3600);
+    }
+    return $sites;
+}
+
 //默认数据源站信息
 function masterSite($field) {
     //输出所有站点
-    $sites = cache('Site')?cache('Site'):Db('site')->where('status',1)->column('*','id');
+    $sites = allSite();
     $site  = [];
     foreach ($sites as $v) {
         if ($v['master'] == 1) {

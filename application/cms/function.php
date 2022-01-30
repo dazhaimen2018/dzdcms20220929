@@ -263,9 +263,7 @@ function seo($catid = '', $title = '', $description = '', $keyword = '')
     if (!empty($keyword)) {
         $keyword = strip_tags($keyword);
     }
-
-    //输出所有站点
-    $sites = cache('Site')?cache('Site'):Site::where('status',1)->column('*','id');
+    $sites = allSite();
     $site  = [];
     foreach ($sites as $v) {
         if ($v['id'] == $siteId) {

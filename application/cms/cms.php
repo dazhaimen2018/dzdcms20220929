@@ -69,9 +69,8 @@ function getSiteInfo($field)
         return false;
     }
     $siteId = onSite();
-    //输出所有站点
-    $sites = cache('Site')?cache('Site'):Site::where('status',1)->column('*','id');
-    $site  = [];
+    $sites  = allSite();
+    $site   = [];
     foreach ($sites as $v) {
         if ($v['id'] == $siteId) {
             $site[] = $v;
@@ -131,10 +130,9 @@ function showsUrl($id,$catid){
 
 //当前站URL
 function onSiteUrl(){
-    $siteId  = onSite();
-    //输出所有站点
-    $sites = cache('Site')?cache('Site'):Site::where('status',1)->column('*','id');
-    $site  = [];
+    $siteId = onSite();
+    $sites  = allSite();
+    $site   = [];
     foreach ($sites as $v) {
         if ($v['id'] == $siteId) {
             $site[] = $v;
@@ -188,15 +186,10 @@ function setLang($lang) {
 function getSiteId() {
     $key       = 'siteInfo';
     $domain    = $_SERVER['HTTP_HOST'];
-    $cookMark  = cookie('var');
     $setDomain = isset(cache("Cms_Config")['domain']) ? cache("Cms_Config")['domain'] : 1;
-//    $header    =  preg_match('/^([a-z\-]+)/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches);
-//    $mark      = $matches[1]; // 获得header中的语言标识
     $masterId  = masterSite('id'); // 主站ID
     $siteInfo  = Cache::get($key);
-
-    //输出所有站点
-    $sites = cache('Site')?cache('Site'):Site::where('status',1)->column('*','id');
+    $sites     = allSite();
     Cache::set('Site', $sites, 3600);
     if($siteInfo && $siteInfo['close'] == 0){
         Cookie::set('site_id','');
