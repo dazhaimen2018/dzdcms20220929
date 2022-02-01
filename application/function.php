@@ -87,7 +87,7 @@ function empower(){
 //所有站点
 function allSite() {
     $sites = cache('Site');
-    if(is_array($sites) || empty($sites)){
+    if(!is_array($sites) || empty($sites)){
         Cache::set('Site',null);
         $sites = Db('site')->where('status',1)->column('*','id');
         Cache::set('Site', $sites, 3600);
