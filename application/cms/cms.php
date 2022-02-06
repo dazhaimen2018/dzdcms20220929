@@ -86,16 +86,15 @@ function getSiteInfo($field)
 //前端站点信息，后台用 和 getSiteInfo重复待优化
 function getSite($field)
 {
-    $key = 'siteInfo';
-    if (!$field) {
-        return false;
+    $sites  = allSite();
+    $siteId = getSiteId();
+    $site   = [];
+    foreach ($sites as $v) {
+        if ($v['id'] == $siteId) {
+            $site[] = $v;
+        }
     }
-    $siteInfo = Cache::get($key);
-    if ($siteInfo) {
-        return $siteInfo[$field];
-    } else {
-        return false;
-    }
+    return $site[0][$field];
 }
 
 
