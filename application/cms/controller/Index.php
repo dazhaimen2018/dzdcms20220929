@@ -678,12 +678,13 @@ class Index extends Cmsbase
 
             $flag_arr = explode('_', $flag);
             $catid    = $flag_arr[0];
+            $id       = $flag_arr[1];
             try {
                 $Spend_Model->_spend($paytype, floatval($readpoint), $this->auth->id, $this->auth->username, '阅读付费', $flag);
             } catch (\Exception $ex) {
                 $this->error($ex->getMessage(), url('pay/index/pay'));
             }
-            $this->success(patch('PaymentSuccessful')); //恭喜你！支付成功!
+            $this->success(patch('PaymentSuccessful'), buildContentUrl($catid, $id)); //恭喜你！支付成功!
         } else {
             $this->error('请先在后台安装支付模块！');
         }
