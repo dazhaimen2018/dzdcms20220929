@@ -152,7 +152,7 @@ return [
     //文件保存格式
     'savekey'                => 'uploads/{dir}/{year}{mon}{day}/{filemd5}{.suffix}',
     //是否支持分片上传(文件按钮)
-    'chunking'               => false,
+    'chunking'               => true,
     //默认分片大小5M
     'chunksize'              => 5242880,
 ];
