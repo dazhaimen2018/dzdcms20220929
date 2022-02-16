@@ -1,40 +1,3 @@
-CREATE TABLE IF NOT EXISTS `__PREFIX__site` (
-`id` smallint(5) UNSIGNED NOT NULL COMMENT '站点ID',
-`name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点名称',
-`mark` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点标识',
-`http` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'HTTP',
-`domain` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点域名',
-`url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点网址',
-`logo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点LOGO',
-`favicon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点图标',
-`template` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '皮肤',
-`brand` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '品牌名称',
-`title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点标题',
-`keywords` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '站点关键词',
-`description` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '站点描述',
-`parentid` smallint(5) UNSIGNED NOT NULL DEFAULT '0' COMMENT '父ID',
-`arrparentid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '所有父ID',
-`arrchildid` mediumtext COLLATE utf8mb4_unicode_ci COMMENT '所有子站点ID',
-`child` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否存在子站点，1存在',
-`listorder` smallint(5) UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序',
-`alone` tinyint(4) NOT NULL DEFAULT '1' COMMENT '独立数据',
-`private` tinyint(4) NOT NULL DEFAULT '0' COMMENT '独立管理',
-`close` tinyint(4) NOT NULL DEFAULT '1' COMMENT '站点开关',
-`master` tinyint(4) NOT NULL DEFAULT '0' COMMENT '默认站点',
-`website` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '网站名称',
-`company` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '公司名称',
-`icp` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ICP备案号',
-`icp_link` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ICP备案链接',
-`gwa` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '公安备案号',
-`gwa_link` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '公安备案链接',
-`chat` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '客服代码',
-`statistics` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '统计代码',
-`copyright` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '版权信息',
-`status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
-`inputtime` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
-PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='站点表';
-
 CREATE TABLE IF NOT EXISTS `__PREFIX__site_domain` (
 `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '栏目ID',
 `sites` smallint(4) NOT NULL DEFAULT '0' COMMENT '站点ID',
@@ -408,9 +371,6 @@ INSERT INTO `__PREFIX__lang_group` (`id`, `name`, `description`, `status`) VALUE
 (2, '会员', '会员中心所有文字标签', 1),
 (3, '系统', '后端的提示语在前端显示的', 1);
 
-INSERT INTO `__PREFIX__site` (`id`, `name`, `mark`, `http`, `domain`, `url`, `logo`, `favicon`, `template`, `brand`, `title`, `keywords`, `description`, `parentid`, `arrparentid`, `arrchildid`, `child`, `listorder`, `alone`, `private`, `close`, `master`, `website`, `company`, `icp`, `icp_link`, `gwa`, `gwa_link`, `chat`, `statistics`, `copyright`, `status`, `inputtime`) VALUES
-(1, '中文站', 'zh-cn', 'http', 'demo.dzdcms.com', 'http://demo.mscms.net', '/uploads/images/logo.png', '/favicon.ico', 'novel', '多站点', '多站点CMS演示站', '多站点CMS,多站点官网,多站点官方网站,DzdCMS模板,多站点模板,模块插件,开源,PHP CMS,PHP', '多站点CMS官方网站是集简单、健壮、灵活、开源几大特点的开源多站点内容管理系统,是国内开源CMS的站群系统，目前程序安装量已经非常高，很多外贸网站，集团网站、城市分站都在使用多站点CMS或基于CMS核心开发', 0, '', NULL, 0, 1, 1, 0, 1, 1, '', '', '', 'https://beian.miit.gov.cn/', '', 'http://www.beian.gov.cn/portal/index.do', '', '', '', 1, 0);
-
 INSERT INTO `__PREFIX__push` (`id`, `module`, `modelid`, `name`, `tablename`, `description`, `sites`, `create_time`, `update_time`, `listorders`, `status`) VALUES
 (1, 'cms', 0, '站点配置', 'site', '', 0, 0, 0, 0, 1),
 (2, 'cms', 0, '栏目数据', 'category_data', '', 0, 0, 0, 0, 1),
@@ -424,9 +384,6 @@ INSERT INTO `__PREFIX__flag` (`id`, `sites`, `modelid`, `catid`, `name`, `extent
 (4, 0, 0, 0, '推荐', NULL, '', '推荐', 1640322702, 1640322702, 4, 1),
 (5, 0, 0, 0, '热点', NULL, '', '热点', 1640322720, 1640322720, 5, 1),
 (6, 0, 0, 0, '幻灯', NULL, '', '幻灯', 1640322737, 1640322737, 6, 1);
-
-ALTER TABLE `__PREFIX__site`
-MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '站点ID', AUTO_INCREMENT=2;
 
 ALTER TABLE `__PREFIX__lang`
 MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID', AUTO_INCREMENT=124;
