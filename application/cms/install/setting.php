@@ -4,6 +4,8 @@
  * 内容管理系统，默认配置
  */
 return array(
+    'total_score_mode'   => 0,
+    'domain_mode'        => 1,
     'domain'             => '',
     'wap_template'       => 0,
     'web_site_status'    => 1,

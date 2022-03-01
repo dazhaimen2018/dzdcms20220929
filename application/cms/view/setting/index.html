@@ -11,6 +11,15 @@
                 </ul>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-red">域名模式</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="setting[domain_mode]" value="1" title="域名" {if 1==$setting['domain_mode']}checked{/if}>
+                                <input type="radio" name="setting[domain_mode]" value="2" title="目录" {if 2==$setting['domain_mode']}checked{/if}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">域名模式，支持二级域名和顶级域名；目录模式如：域名/cn、域名/en</div>
+                        </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">站点域名</label>
                             <div class="layui-input-block">
@@ -101,6 +110,14 @@
                                 <input type="radio" name="setting[web_site_status]" value="0" title="关闭" {if 0==$setting['web_site_status']}checked{/if}>
                             </div>
                             <div class="layui-form-mid layui-word-aux">站点关闭后前台将不能访问</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-red">总分模式</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="setting[total_score_mode]" value="1" title="开启" {if 1==$setting['total_score_mode']}checked{/if}>
+                                <input type="radio" name="setting[total_score_mode]" value="0" title="关闭" {if 0==$setting['total_score_mode']}checked{/if}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">总站中不能发布数据，会显示所有分站的数据,分站的数据全是独立的</div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">回收站</label>
