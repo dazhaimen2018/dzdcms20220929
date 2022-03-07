@@ -13,6 +13,7 @@
             {eq name="Member_config.sms_verify_login" value="1"}
             <div class="layui-form-item">
                 <div class="layui-input-inline input-item">
+                    <label class="layui-icon layui-icon-cellphone"></label>
                     <input type="text" name="mobile" lay-verify="required" autocomplete="off" placeholder="{:lang('phone')}" class="layui-input">
                 </div>
             </div>
@@ -24,11 +25,13 @@
             {else}
             <div class="layui-form-item">
                 <div class="layui-input-inline input-item">
+                    <label class="layui-icon layui-icon-username"></label>
                     <input type="text" name="account" lay-verify="required" autocomplete="off" placeholder="{:lang('Account')}" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-inline input-item">
+                    <label class="layui-icon layui-icon-password"></label>
                     <input type="password" name="password" lay-verify="required" autocomplete="off" placeholder="{:lang('Password')}" class="layui-input">
                 </div>
             </div>
@@ -36,6 +39,7 @@
             {eq name="Member_config.openverification" value="1"}
             <div class="layui-form-item">
                 <div class="layui-input-inline input-item verify-box">
+                    <label class="layui-icon layui-icon-vercode"></label>
                     <input type="text" name="verify" lay-verify="required" placeholder="{:lang('captcha')}" autocomplete="off" class="layui-input">
                     <img id="verify" src="{:captcha_src()}" alt="验证码" class="captcha">
                 </div>
