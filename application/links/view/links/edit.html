@@ -67,7 +67,7 @@
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">网站Logo</label>
         <div class="layui-input-block  layui-upload">
-            {php}echo \util\Form::images('image','',$data['image']){/php}
+            {:Form::image("row[image]",$data['image'])}
         </div>
     </div>
     <input name="id" type="hidden" value="{$data.id}">

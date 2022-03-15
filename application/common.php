@@ -27,6 +27,12 @@ define('ROOT_URL', Request::rootUrl() . '/');
 define('TEMPLATE_PATH', ROOT_PATH . 'templates' . DS);
 //有时候url隐藏了 但是还是有问题，会加上index.php
 Url::root('/');//加上这句
+
+// Form别名
+if (!class_exists('Form')) {
+    class_alias('form\\Form', 'Form');
+}
+
 // 加载用户函数文件
 include_once APP_PATH . 'function.php';
 

@@ -65,13 +65,13 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">网站Logo</label>
 					<div class="layui-input-block layui-upload">
-						{php}echo \util\Form::images('logo','',$data['logo']){/php}
+						{:Form::image("image",$data['logo'])}
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">网站图标</label>
 					<div class="layui-input-block layui-upload">
-						{php}echo \util\Form::images('favicon','',$data['favicon']){/php}
+						{:Form::image("image",$data['favicon'])}
 					</div>
 				</div>
 				<div class="layui-form-item">
