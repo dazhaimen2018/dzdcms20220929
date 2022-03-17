@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '9fe8b5b16c7f250ae788ea6e824a73ddd79f7c92',
+        'reference' => 'f01abfc15d70669ca830bb13672199550a5bbed2',
         'name' => 'topthink/think',
         'dev' => true,
     ),
@@ -101,12 +101,12 @@
             'dev_requirement' => false,
         ),
         'overtrue/easy-sms' => array(
-            'pretty_version' => '1.3.2',
-            'version' => '1.3.2.0',
+            'pretty_version' => '2.1.1',
+            'version' => '2.1.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../overtrue/easy-sms',
             'aliases' => array(),
-            'reference' => 'daa0b4308ec0e3c112888c288d14d473be6aabee',
+            'reference' => '4bbbbef4fa192ed23a60bbafc3217bccb6af824f',
             'dev_requirement' => false,
         ),
         'overtrue/pinyin' => array(
@@ -328,7 +328,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '9fe8b5b16c7f250ae788ea6e824a73ddd79f7c92',
+            'reference' => 'f01abfc15d70669ca830bb13672199550a5bbed2',
             'dev_requirement' => false,
         ),
         'topthink/think-captcha' => array(
