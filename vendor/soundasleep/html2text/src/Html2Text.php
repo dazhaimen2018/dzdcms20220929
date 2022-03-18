@@ -48,7 +48,6 @@ class Html2Text {
 			// remove office namespace
 			$html = str_replace(array("<o:p>", "</o:p>"), "", $html);
 		}
-
 		$html = static::fixNewlines($html);
 		if (mb_detect_encoding($html, "UTF-8", true)) {
 			$html = mb_convert_encoding($html, "HTML-ENTITIES", "UTF-8");
@@ -194,8 +193,8 @@ class Html2Text {
 	 * by a browser.
 	 */
 	static function renderText($text) {
-		$text = str_replace(static::nbspCodes(), " ", $text);
-		$text = str_replace(static::zwnjCodes(), "", $text);
+		$text = str_replace(static::nbspCodes(), "\n", $text);
+		$text = str_replace(static::zwnjCodes(), "\n", $text);
 		return $text;
 	}
 
@@ -231,7 +230,8 @@ class Html2Text {
 	static function iterateOverNode($node, $prevName = null, $in_pre = false, $is_office_document = false, $options) {
 		if ($node instanceof \DOMText) {
 		  // Replace whitespace characters with a space (equivilant to \s)
-			if ($in_pre) {
+			// 2022-01-13修改，给$in_pre取反，原有是解析取值时有些标签文字未分开，导致翻译无法正则替换
+			if (!$in_pre) {
 				$text = "\n" . trim(static::renderText($node->wholeText), "\n\r\t ") . "\n";
 
 				// Remove trailing whitespace only
@@ -242,7 +242,7 @@ class Html2Text {
 
 			} else {
 				$text = static::renderText($node->wholeText);
-				$text = preg_replace("/[\\t\\n\\f\\r ]+/im", " ", $text);
+				$text = preg_replace("/[\\t\\n\\f\\r]+/im", "\n", $text);
 
 				if (!static::isWhitespace($text) && ($prevName == 'p' || $prevName == 'div')) {
 					return "\n" . $text;
@@ -261,77 +261,78 @@ class Html2Text {
 
 		// start whitespace
 		switch ($name) {
-			case "hr":
-				$prefix = '';
-				if ($prevName != null) {
-					$prefix = "\n";
-				}
-				return $prefix . "---------------------------------------------------------------\n";
-
-			case "style":
-			case "head":
-			case "title":
-			case "meta":
-			case "script":
-				// ignore these tags
-				return "";
-
-			case "h1":
-			case "h2":
-			case "h3":
-			case "h4":
-			case "h5":
-			case "h6":
-			case "ol":
-			case "ul":
-			case "pre":
-				// add two newlines
-				$output = "\n\n";
-				break;
-
-			case "td":
-			case "th":
-				// add tab char to separate table fields
-			   $output = "\t";
-			   break;
-
-			case "p":
-				// Microsoft exchange emails often include HTML which, when passed through
-				// html2text, results in lots of double line returns everywhere.
-				//
-				// To fix this, for any p element with a className of `MsoNormal` (the standard
-				// classname in any Microsoft export or outlook for a paragraph that behaves
-				// like a line return) we skip the first line returns and set the name to br.
-				if ($is_office_document && $node->getAttribute('class') == 'MsoNormal') {
-					$output = "";
-					$name = 'br';
-					break;
-				}
-
-				// add two lines
-				$output = "\n\n";
-				break;
-
-			case "tr":
-				// add one line
-				$output = "\n";
-				break;
-
-			case "div":
-				$output = "";
-				if ($prevName !== null) {
-					// add one line
-					$output .= "\n";
-				}
-				break;
-
-			case "li":
-				$output = "- ";
-				break;
+//			case "hr":
+//				$prefix = '';
+//				if ($prevName != null) {
+//					$prefix = "\n";
+//				}
+//				return $prefix . "---------------------------------------------------------------\n";
+//
+//			case "style":
+//			case "head":
+//			case "title":
+//			case "meta":
+//			case "script":
+//				// ignore these tags
+//				return "";
+//
+//			case "h1":
+//			case "h2":
+//			case "h3":
+//			case "h4":
+//			case "h5":
+//			case "h6":
+//			case "ol":
+//			case "ul":
+//			case "pre":
+//				// add two newlines
+//				$output = "\n\n";
+//				break;
+//
+//			case "td":
+//			case "th":
+//				// add tab char to separate table fields
+//			   $output = "\t";
+//			   break;
+//
+//			case "p":
+//				// Microsoft exchange emails often include HTML which, when passed through
+//				// html2text, results in lots of double line returns everywhere.
+//				//
+//				// To fix this, for any p element with a className of `MsoNormal` (the standard
+//				// classname in any Microsoft export or outlook for a paragraph that behaves
+//				// like a line return) we skip the first line returns and set the name to br.
+//				if ($is_office_document && $node->getAttribute('class') == 'MsoNormal') {
+//					$output = "";
+//					$name = 'br';
+//					break;
+//				}
+//
+//				// add two lines
+//				$output = "\n\n";
+//				break;
+//
+//			case "tr":
+//				// add one line
+//				$output = "\n";
+//				break;
+//
+//			case "div":
+//				$output = "";
+//				if ($prevName !== null) {
+//					// add one line
+//					$output .= "\n";
+//				}
+//				break;
+//
+//			case "li":
+//				$output = "- ";
+//				break;
 
 			default:
 				// print out contents of unknown tags
-				$output = "";
+//				$output = "";
+				$output = "\n";
 				break;
 		}
 
@@ -398,7 +399,8 @@ class Html2Text {
 			case "pre":
 			case "p":
 				// add two lines
-				$output .= "\n\n";
+//			$output .= "\n\n";
+			$output .= "\n";
 				break;
 
 			case "br":
@@ -407,17 +409,21 @@ class Html2Text {
 				break;
 
 			case "div":
+				$output .= "\n";
 				break;
 
 			case "a":
+				$output .= "\n";
 				// links are returned in [text](link) format
 				$href = $node->getAttribute("href");
 
 				$output = trim($output);
+				$output .= "\n";
 
 				// remove double [[ ]] s from linking images
 				if (substr($output, 0, 1) == "[" && substr($output, -1) == "]") {
 					$output = substr($output, 1, strlen($output) - 2);
+					$output .= "\n";
 
 					// for linking images, the title of the <a> overrides the title of the <img>
 					if ($node->getAttribute("title")) {
@@ -428,6 +434,7 @@ class Html2Text {
 				// if there is no link text, but a title attr
 				if (!$output && $node->getAttribute("title")) {
 					$output = $node->getAttribute("title");
+					$output .= "\n";
 				}
 
 				if ($href == null) {
@@ -435,25 +442,31 @@ class Html2Text {
 					if ($node->getAttribute("name") != null) {
 						if ($options['drop_links']) {
 							$output = "$output";
+							$output .= "\n";
 						} else {
 							$output = "[$output]";
+							$output .= "\n";
 						}
 					}
 				} else {
 					if ($href == $output || $href == "mailto:$output" || $href == "http://$output" || $href == "https://$output") {
 						// link to the same address: just use link
 						$output = "$output";
+						$output .= "\n";
 					} else {
 						// replace it
 						if ($output) {
 							if ($options['drop_links']) {
 								$output = "$output";
+								$output .= "\n";
 							} else {
 								$output = "[$output]($href)";
+								$output .= "\n";
 							}
 						} else {
 							// empty string
 							$output = "$href";
+							$output .= "\n";
 						}
 					}
 				}
@@ -468,15 +481,18 @@ class Html2Text {
 
 			case "img":
 				if ($node->getAttribute("title")) {
-					$output = "[" . $node->getAttribute("title") . "]";
+//					$output = "[" . $node->getAttribute("title") . "]";
 				} elseif ($node->getAttribute("alt")) {
-					$output = "[" . $node->getAttribute("alt") . "]";
+//					$output = "[" . $node->getAttribute("alt") . "]";
 				} else {
 					$output = "";
 				}
 				break;
 
 			case "li":
+				$output .= "\n";
+				break;
+			case "strong":
 				$output .= "\n";
 				break;
 
@@ -498,6 +514,7 @@ class Html2Text {
 				break;
 			default:
 				// do nothing
+				$output .= "\n";
 		}
 
 		return $output;
