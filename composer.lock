@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d119a8c25a3e0cd6e63188910193d16f",
+    "content-hash": "6af98c2eaa37e7f68c34f13c86dfc078",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2244,52 +2244,6 @@
             "time": "2017-12-31T16:37:49+00:00"
         },
         {
-            "name": "topthink/think-helper",
-            "version": "v3.1.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/top-think/think-helper.git",
-                "reference": "769acbe50a4274327162f9c68ec2e89a38eb2aff"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/top-think/think-helper/zipball/769acbe50a4274327162f9c68ec2e89a38eb2aff",
-                "reference": "769acbe50a4274327162f9c68ec2e89a38eb2aff",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.5"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/helper.php"
-                ],
-                "psr-4": {
-                    "think\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "yunwuxin",
-                    "email": "448901948@qq.com"
-                }
-            ],
-            "description": "The ThinkPHP6 Helper Package",
-            "support": {
-                "issues": "https://github.com/top-think/think-helper/issues",
-                "source": "https://github.com/top-think/think-helper/tree/v3.1.6"
-            },
-            "time": "2021-12-15T04:27:55+00:00"
-        },
-        {
             "name": "topthink/think-image",
             "version": "v1.0.7",
             "source": {
@@ -2494,6 +2448,49 @@
                 "source": "https://github.com/yansongda/supports"
             },
             "time": "2020-10-14T08:17:18+00:00"
+        },
+        {
+            "name": "yzncms/think-helper",
+            "version": "v3.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ken678/think-helper.git",
+                "reference": "2eeb03e84cfe52c5486d3157c9e54bab059e7686"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ken678/think-helper/zipball/2eeb03e84cfe52c5486d3157c9e54bab059e7686",
+                "reference": "2eeb03e84cfe52c5486d3157c9e54bab059e7686",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helper.php"
+                ],
+                "psr-4": {
+                    "think\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "yunwuxin",
+                    "email": "448901948@qq.com"
+                }
+            ],
+            "description": "The ThinkPHP5 Helper Package",
+            "support": {
+                "issues": "https://gitee.com/ken678/YZNCMS/issues",
+                "source": "https://github.com/ken678/think-helper/tree/v3.1.1"
+            },
+            "time": "2022-03-18T02:13:15+00:00"
         }
     ],
     "packages-dev": [],

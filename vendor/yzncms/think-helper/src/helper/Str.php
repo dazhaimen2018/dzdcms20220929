@@ -142,7 +142,7 @@ class Str
     /**
      * 获取字符串的长度
      *
-     * @param  string $value
+     * @param string $value
      * @return int
      */
     public static function length(string $value): int

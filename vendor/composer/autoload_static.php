@@ -22,7 +22,7 @@ class ComposerStaticInitc101c24647591725e2af1463c4b45c92
         '566c810bc1bc895825e62f74c66779c6' => __DIR__ . '/..' . '/jonasyeah/translator/src/Support/helpers.php',
         'dc1275c308c5b416beb314b6317daca2' => __DIR__ . '/..' . '/overtrue/pinyin/src/const.php',
         '1cfd2761b63b0a29ed23657ea394cb2d' => __DIR__ . '/..' . '/topthink/think-captcha/src/helper.php',
-        '9b552a3cc426e3287cc811caefa3cf53' => __DIR__ . '/..' . '/topthink/think-helper/src/helper.php',
+        'abb352ba2c09de2ce129b87bd35f168b' => __DIR__ . '/..' . '/yzncms/think-helper/src/helper.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -101,8 +101,8 @@ class ComposerStaticInitc101c24647591725e2af1463c4b45c92
         ),
         'think\\' => 
         array (
-            0 => __DIR__ . '/..' . '/topthink/think-helper/src',
-            1 => __DIR__ . '/..' . '/topthink/think-image/src',
+            0 => __DIR__ . '/..' . '/topthink/think-image/src',
+            1 => __DIR__ . '/..' . '/yzncms/think-helper/src',
         ),
         'app\\' => 
         array (
