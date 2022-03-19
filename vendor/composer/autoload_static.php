@@ -21,8 +21,8 @@ class ComposerStaticInitc101c24647591725e2af1463c4b45c92
         '626dcc41390ebdaa619faa02d99943b0' => __DIR__ . '/..' . '/khanamiryan/qrcode-detector-decoder/lib/common/customFunctions.php',
         '566c810bc1bc895825e62f74c66779c6' => __DIR__ . '/..' . '/jonasyeah/translator/src/Support/helpers.php',
         'dc1275c308c5b416beb314b6317daca2' => __DIR__ . '/..' . '/overtrue/pinyin/src/const.php',
-        '1cfd2761b63b0a29ed23657ea394cb2d' => __DIR__ . '/..' . '/topthink/think-captcha/src/helper.php',
         'abb352ba2c09de2ce129b87bd35f168b' => __DIR__ . '/..' . '/yzncms/think-helper/src/helper.php',
+        '4f7e2324013048e1764201e8475b6f9a' => __DIR__ . '/..' . '/yzncms/think-captcha/src/helper.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -97,7 +97,7 @@ class ComposerStaticInitc101c24647591725e2af1463c4b45c92
         ),
         'think\\captcha\\' => 
         array (
-            0 => __DIR__ . '/..' . '/topthink/think-captcha/src',
+            0 => __DIR__ . '/..' . '/yzncms/think-captcha/src',
         ),
         'think\\' => 
         array (
