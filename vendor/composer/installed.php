@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '599e7abe0350549b302c30c1fff2d4a3472f7600',
+        'reference' => '4122ca14a50208693a2945482597d70df65eac90',
         'name' => 'topthink/think',
         'dev' => true,
     ),
@@ -182,12 +182,12 @@
             'dev_requirement' => false,
         ),
         'soundasleep/html2text' => array(
-            'pretty_version' => '1.1.0',
-            'version' => '1.1.0.0',
+            'pretty_version' => '2.0.0',
+            'version' => '2.0.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../soundasleep/html2text',
             'aliases' => array(),
-            'reference' => '3243a7107878a61685d2eccf99918d6479e039fc',
+            'reference' => 'aa214620d7beecd5cef8b1c32102a9204edb82f5',
             'dev_requirement' => false,
         ),
         'symfony/deprecation-contracts' => array(
@@ -328,7 +328,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '599e7abe0350549b302c30c1fff2d4a3472f7600',
+            'reference' => '4122ca14a50208693a2945482597d70df65eac90',
             'dev_requirement' => false,
         ),
         'topthink/think-captcha' => array(

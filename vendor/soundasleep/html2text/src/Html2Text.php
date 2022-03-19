@@ -48,6 +48,7 @@ class Html2Text {
 			// remove office namespace
 			$html = str_replace(array("<o:p>", "</o:p>"), "", $html);
 		}
+
 		$html = static::fixNewlines($html);
 		if (mb_detect_encoding($html, "UTF-8", true)) {
 			$html = mb_convert_encoding($html, "HTML-ENTITIES", "UTF-8");
@@ -193,6 +194,8 @@ class Html2Text {
 	 * by a browser.
 	 */
 	static function renderText($text) {
+		//$text = str_replace(static::nbspCodes(), " ", $text);
+		//$text = str_replace(static::zwnjCodes(), "", $text);
 		$text = str_replace(static::nbspCodes(), "\n", $text);
 		$text = str_replace(static::zwnjCodes(), "\n", $text);
 		return $text;
@@ -227,7 +230,7 @@ class Html2Text {
 		return $nextName;
 	}
 
-	static function iterateOverNode($node, $prevName = null, $in_pre = false, $is_office_document = false, $options) {
+	static function iterateOverNode($node, $prevName, $in_pre, $is_office_document, $options) {
 		if ($node instanceof \DOMText) {
 		  // Replace whitespace characters with a space (equivilant to \s)
 			// 2022-01-13修改，给$in_pre取反，原有是解析取值时有些标签文字未分开，导致翻译无法正则替换
@@ -242,6 +245,7 @@ class Html2Text {
 
 			} else {
 				$text = static::renderText($node->wholeText);
+				//$text = preg_replace("/[\\t\\n\\f\\r ]+/im", " ", $text);
 				$text = preg_replace("/[\\t\\n\\f\\r]+/im", "\n", $text);
 
 				if (!static::isWhitespace($text) && ($prevName == 'p' || $prevName == 'div')) {
@@ -331,7 +335,7 @@ class Html2Text {
 
 			default:
 				// print out contents of unknown tags
-//				$output = "";
+				//$output = "";
 				$output = "\n";
 				break;
 		}
@@ -399,7 +403,7 @@ class Html2Text {
 			case "pre":
 			case "p":
 				// add two lines
-//			$output .= "\n\n";
+				//$output .= "\n\n";
 			$output .= "\n";
 				break;
 
