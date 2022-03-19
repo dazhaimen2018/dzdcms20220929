@@ -23,7 +23,7 @@ return [
     // 是否使用中文验证码
     'useZh'    => false,
     // 是否使用算术验证码
-    'math'     => false,
+    'math'     => true,
     // 是否使用背景图
     'useImgBg' => false,
     //验证码字符大小
