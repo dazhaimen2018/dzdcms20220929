@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d95a73e435d946285881169888c46527",
+    "content-hash": "23ebac0e683e5c87d0ddca856ce69c64",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -286,16 +286,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.8.3",
+            "version": "1.8.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "1afdd860a2566ed3c2b0b4a3de6e23434a79ec85"
+                "reference": "337e3ad8e5716c15f9657bd214d16cc5e69df268"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/1afdd860a2566ed3c2b0b4a3de6e23434a79ec85",
-                "reference": "1afdd860a2566ed3c2b0b4a3de6e23434a79ec85",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/337e3ad8e5716c15f9657bd214d16cc5e69df268",
+                "reference": "337e3ad8e5716c15f9657bd214d16cc5e69df268",
                 "shasum": ""
             },
             "require": {
@@ -376,7 +376,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/1.8.3"
+                "source": "https://github.com/guzzle/psr7/tree/1.8.5"
             },
             "funding": [
                 {
@@ -392,7 +392,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-10-05T13:56:00+00:00"
+            "time": "2022-03-20T21:51:18+00:00"
         },
         {
             "name": "jonasyeah/translator",
@@ -723,16 +723,16 @@
         },
         {
             "name": "overtrue/easy-sms",
-            "version": "2.1.1",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/easy-sms.git",
-                "reference": "4bbbbef4fa192ed23a60bbafc3217bccb6af824f"
+                "reference": "fda1b6fcde861451ccf54e1071b4e1877455d89a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/easy-sms/zipball/4bbbbef4fa192ed23a60bbafc3217bccb6af824f",
-                "reference": "4bbbbef4fa192ed23a60bbafc3217bccb6af824f",
+                "url": "https://api.github.com/repos/overtrue/easy-sms/zipball/fda1b6fcde861451ccf54e1071b4e1877455d89a",
+                "reference": "fda1b6fcde861451ccf54e1071b4e1877455d89a",
                 "shasum": ""
             },
             "require": {
@@ -777,7 +777,7 @@
             "description": "The easiest way to send short message.",
             "support": {
                 "issues": "https://github.com/overtrue/easy-sms/issues",
-                "source": "https://github.com/overtrue/easy-sms/tree/2.1.1"
+                "source": "https://github.com/overtrue/easy-sms/tree/2.2.0"
             },
             "funding": [
                 {
@@ -785,7 +785,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-03-03T01:00:29+00:00"
+            "time": "2022-03-20T15:13:45+00:00"
         },
         {
             "name": "overtrue/pinyin",
@@ -2146,61 +2146,6 @@
             "time": "2018-11-11T11:18:13+00:00"
         },
         {
-            "name": "topthink/framework",
-            "version": "v5.1.41",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/top-think/framework.git",
-                "reference": "7137741a323a4a60cfca334507cd1812fac91bb2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/top-think/framework/zipball/7137741a323a4a60cfca334507cd1812fac91bb2",
-                "reference": "7137741a323a4a60cfca334507cd1812fac91bb2",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6.0",
-                "topthink/think-installer": "2.*"
-            },
-            "require-dev": {
-                "johnkary/phpunit-speedtrap": "^1.0",
-                "mikey179/vfsstream": "~1.6",
-                "phpdocumentor/reflection-docblock": "^2.0",
-                "phploc/phploc": "2.*",
-                "phpunit/phpunit": "^5.0|^6.0",
-                "sebastian/phpcpd": "2.*",
-                "squizlabs/php_codesniffer": "2.*"
-            },
-            "type": "think-framework",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "liu21st",
-                    "email": "liu21st@gmail.com"
-                },
-                {
-                    "name": "yunwuxin",
-                    "email": "448901948@qq.com"
-                }
-            ],
-            "description": "the new thinkphp framework",
-            "homepage": "http://thinkphp.cn/",
-            "keywords": [
-                "framework",
-                "orm",
-                "thinkphp"
-            ],
-            "support": {
-                "issues": "https://github.com/top-think/framework/issues",
-                "source": "https://github.com/top-think/framework/tree/v5.1.41"
-            },
-            "time": "2021-01-11T02:51:29+00:00"
-        },
-        {
             "name": "topthink/think-image",
             "version": "v1.0.7",
             "source": {
@@ -2243,51 +2188,6 @@
                 "source": "https://github.com/top-think/think-image/tree/master"
             },
             "time": "2016-09-29T06:05:43+00:00"
-        },
-        {
-            "name": "topthink/think-installer",
-            "version": "v2.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/top-think/think-installer.git",
-                "reference": "38ba647706e35d6704b5d370c06f8a160b635f88"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/top-think/think-installer/zipball/38ba647706e35d6704b5d370c06f8a160b635f88",
-                "reference": "38ba647706e35d6704b5d370c06f8a160b635f88",
-                "shasum": ""
-            },
-            "require": {
-                "composer-plugin-api": "^1.0||^2.0"
-            },
-            "require-dev": {
-                "composer/composer": "^1.0||^2.0"
-            },
-            "type": "composer-plugin",
-            "extra": {
-                "class": "think\\composer\\Plugin"
-            },
-            "autoload": {
-                "psr-4": {
-                    "think\\composer\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "yunwuxin",
-                    "email": "448901948@qq.com"
-                }
-            ],
-            "support": {
-                "issues": "https://github.com/top-think/think-installer/issues",
-                "source": "https://github.com/top-think/think-installer/tree/v2.0.5"
-            },
-            "time": "2021-01-14T12:12:14+00:00"
         },
         {
             "name": "yansongda/pay",
@@ -2407,22 +2307,76 @@
             "time": "2020-10-14T08:17:18+00:00"
         },
         {
-            "name": "yzncms/think-captcha",
-            "version": "v2.0.6",
+            "name": "yzncms/framework",
+            "version": "v5.1.41",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ken678/think-captcha.git",
-                "reference": "af49be37dbeef5c33478fa18bbd5eb222a54ddb8"
+                "url": "https://github.com/ken678/framework.git",
+                "reference": "e759441f28825e44e5d2bb003a7f883d679f939f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ken678/think-captcha/zipball/af49be37dbeef5c33478fa18bbd5eb222a54ddb8",
-                "reference": "af49be37dbeef5c33478fa18bbd5eb222a54ddb8",
+                "url": "https://api.github.com/repos/ken678/framework/zipball/e759441f28825e44e5d2bb003a7f883d679f939f",
+                "reference": "e759441f28825e44e5d2bb003a7f883d679f939f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0.0",
-                "topthink/framework": "5.1.*"
+                "php": ">=5.6.0",
+                "yzncms/think-installer": "2.*"
+            },
+            "require-dev": {
+                "johnkary/phpunit-speedtrap": "^1.0",
+                "mikey179/vfsstream": "~1.6",
+                "phpdocumentor/reflection-docblock": "^2.0",
+                "phploc/phploc": "2.*",
+                "phpunit/phpunit": "^5.0|^6.0",
+                "sebastian/phpcpd": "2.*",
+                "squizlabs/php_codesniffer": "2.*"
+            },
+            "type": "yzncms-framework",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "liu21st",
+                    "email": "liu21st@gmail.com"
+                },
+                {
+                    "name": "yunwuxin",
+                    "email": "448901948@qq.com"
+                }
+            ],
+            "description": "the new thinkphp framework",
+            "homepage": "http://thinkphp.cn/",
+            "keywords": [
+                "framework",
+                "orm",
+                "thinkphp"
+            ],
+            "support": {
+                "issues": "https://github.com/ken678/framework/issues",
+                "source": "https://github.com/ken678/framework/tree/v5.1.41"
+            },
+            "time": "2022-03-21T03:46:43+00:00"
+        },
+        {
+            "name": "yzncms/think-captcha",
+            "version": "v2.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ken678/think-captcha.git",
+                "reference": "53f81461a2baf9d441a04012e43e1ce3a770210d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ken678/think-captcha/zipball/53f81461a2baf9d441a04012e43e1ce3a770210d",
+                "reference": "53f81461a2baf9d441a04012e43e1ce3a770210d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
             },
             "type": "library",
             "autoload": {
@@ -2446,9 +2400,9 @@
             "description": "captcha package for thinkphp5",
             "support": {
                 "issues": "https://gitee.com/ken678/YZNCMS/issues",
-                "source": "https://github.com/ken678/think-captcha/tree/v2.0.6"
+                "source": "https://github.com/ken678/think-captcha/tree/v2.0.7"
             },
-            "time": "2022-03-18T09:45:08+00:00"
+            "time": "2022-03-21T03:34:26+00:00"
         },
         {
             "name": "yzncms/think-helper",
@@ -2492,6 +2446,51 @@
                 "source": "https://github.com/ken678/think-helper/tree/v3.1.1"
             },
             "time": "2022-03-18T02:13:15+00:00"
+        },
+        {
+            "name": "yzncms/think-installer",
+            "version": "v2.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ken678/think-installer.git",
+                "reference": "a18af4bb69144329f5018cf4a471a8422b39b1ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ken678/think-installer/zipball/a18af4bb69144329f5018cf4a471a8422b39b1ba",
+                "reference": "a18af4bb69144329f5018cf4a471a8422b39b1ba",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0||^2.0"
+            },
+            "require-dev": {
+                "composer/composer": "^1.0||^2.0"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "think\\composer\\Plugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "think\\composer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "yunwuxin",
+                    "email": "448901948@qq.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/ken678/think-installer/issues",
+                "source": "https://github.com/ken678/think-installer/tree/v2.0.6"
+            },
+            "time": "2022-03-21T03:40:26+00:00"
         }
     ],
     "packages-dev": [],
