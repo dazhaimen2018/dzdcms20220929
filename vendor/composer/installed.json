@@ -2507,7 +2507,7 @@
                 "issues": "https://github.com/ken678/framework/issues",
                 "source": "https://github.com/ken678/framework/tree/v5.1.41"
             },
-            "install-path": "../yzncms/framework"
+            "install-path": "../../thinkphp"
         },
         {
             "name": "yzncms/think-captcha",
