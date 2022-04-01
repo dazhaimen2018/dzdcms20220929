@@ -20,9 +20,9 @@ return [
     // 应用地址
     'app_host'               => '',
     // 应用调试模式
-    'app_debug'              => Env::get('app.debug', false),
+    'app_debug'              => Env::get('app.debug', true),
     // 应用Trace
-    'app_trace'              => Env::get('app.trace', false),
+    'app_trace'              => Env::get('app.trace', true),
     // 应用模式状态
     'app_status'             => '',
     // 是否支持多模块
@@ -130,6 +130,12 @@ return [
 
     // 异常页面的模板文件
     'exception_tmpl'         => APP_PATH . 'common' . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR . 'think_exception.tpl',
+    // 配置仅在部署模式下面生效
+    'http_exception_template' => [
+        404 => APP_PATH . 'common' . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR . '404.tpl',
+        // 还可以定义其它的HTTP status
+        //401 =>  APP_PATH . '401.html',
+    ],
 
     // 错误显示信息,非调试模式有效
     'error_message'          => '页面错误！请稍后再试～',
@@ -152,7 +158,7 @@ return [
     //文件保存格式
     'savekey'                => 'uploads/{dir}/{year}{mon}{day}/{filemd5}{.suffix}',
     //是否支持分片上传(文件按钮)
-    'chunking'               => true,
+    'chunking'               => false,
     //默认分片大小5M
     'chunksize'              => 5242880,
 ];
