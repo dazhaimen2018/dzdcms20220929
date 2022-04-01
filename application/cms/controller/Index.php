@@ -73,7 +73,7 @@ class Index extends Cmsbase
         //获取栏目数据
         $category = getCategory($cat);
         if (empty($category)) {
-            $this->error(patch('PageNot')); //栏目不存在
+            throw new \think\exception\HttpException(404, patch('PageNot'));
         }
         $catid = $category['id'];
         // 20211226 判断栏目的访问权限
@@ -160,7 +160,7 @@ class Index extends Cmsbase
         //获取栏目数据
         $category = getCategory($cat);
         if (empty($category)) {
-            $this->error(patch('PageNot')); //栏目不存在
+            throw new \think\exception\HttpException(404, patch('PageNot'));
         }
         $catid = $category['id'];
 
@@ -168,7 +168,7 @@ class Index extends Cmsbase
         $modelid   = $category['modelid'];
         $modelInfo = cache('Model')[$modelid];
         if (empty($modelInfo)) {
-            $this->error(patch('PageNot')); //模型不存在
+            throw new \think\exception\HttpException(404, patch('PageNot'));
         }
         //更新点击量 获得文章ID
         //$showMode     = isset(cache("Cms_Config")['show_url_mode']) ? cache("Cms_Config")['show_url_mode'] : 1;
@@ -204,7 +204,7 @@ class Index extends Cmsbase
         }
 
         if (!$info || ($info['status'] !== 1 && !\app\admin\service\User::instance()->isLogin())) {
-            throw new \think\Exception(patch('PageError'), 404);
+            throw new \think\exception\HttpException(404, patch('PageError'));
         }
         //内容分页
         $paginator = strpos($info['content'], '[page]');
