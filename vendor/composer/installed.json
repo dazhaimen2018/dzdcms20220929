@@ -1247,23 +1247,23 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v2.5.0",
-            "version_normalized": "2.5.0.0",
+            "version": "v2.5.1",
+            "version_normalized": "2.5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "6f981ee24cf69ee7ce9736146d1c57c2780598a8"
+                "reference": "e8b495ea28c1d97b5e0c121748d6f9b53d075c66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/6f981ee24cf69ee7ce9736146d1c57c2780598a8",
-                "reference": "6f981ee24cf69ee7ce9736146d1c57c2780598a8",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/e8b495ea28c1d97b5e0c121748d6f9b53d075c66",
+                "reference": "e8b495ea28c1d97b5e0c121748d6f9b53d075c66",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1"
             },
-            "time": "2021-07-12T14:48:14+00:00",
+            "time": "2022-01-02T09:53:40+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1297,7 +1297,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v2.5.0"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v2.5.1"
             },
             "funding": [
                 {
@@ -1405,17 +1405,17 @@
         },
         {
             "name": "symfony/event-dispatcher-contracts",
-            "version": "v2.5.0",
-            "version_normalized": "2.5.0.0",
+            "version": "v2.5.1",
+            "version_normalized": "2.5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher-contracts.git",
-                "reference": "66bea3b09be61613cd3b4043a65a8ec48cfa6d2a"
+                "reference": "f98b54df6ad059855739db6fcbc2d36995283fe1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher-contracts/zipball/66bea3b09be61613cd3b4043a65a8ec48cfa6d2a",
-                "reference": "66bea3b09be61613cd3b4043a65a8ec48cfa6d2a",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher-contracts/zipball/f98b54df6ad059855739db6fcbc2d36995283fe1",
+                "reference": "f98b54df6ad059855739db6fcbc2d36995283fe1",
                 "shasum": ""
             },
             "require": {
@@ -1425,7 +1425,7 @@
             "suggest": {
                 "symfony/event-dispatcher-implementation": ""
             },
-            "time": "2021-07-12T14:48:14+00:00",
+            "time": "2022-01-02T09:53:40+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1467,7 +1467,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/event-dispatcher-contracts/tree/v2.5.0"
+                "source": "https://github.com/symfony/event-dispatcher-contracts/tree/v2.5.1"
             },
             "funding": [
                 {
@@ -2453,21 +2453,22 @@
         },
         {
             "name": "yzncms/framework",
-            "version": "v5.1.44",
-            "version_normalized": "5.1.44.0",
+            "version": "v5.1.45",
+            "version_normalized": "5.1.45.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ken678/framework.git",
-                "reference": "ac891bca30ae07a510353ea1b3d10c4984607cf3"
+                "reference": "57016630bb0d22365a664cd6525a4541ae5dc64d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ken678/framework/zipball/ac891bca30ae07a510353ea1b3d10c4984607cf3",
-                "reference": "ac891bca30ae07a510353ea1b3d10c4984607cf3",
+                "url": "https://api.github.com/repos/ken678/framework/zipball/57016630bb0d22365a664cd6525a4541ae5dc64d",
+                "reference": "57016630bb0d22365a664cd6525a4541ae5dc64d",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6.0",
+                "php": ">=7.0.0",
+                "psr/http-message": "^1.0",
                 "yzncms/think-installer": "2.*"
             },
             "require-dev": {
@@ -2479,7 +2480,7 @@
                 "sebastian/phpcpd": "2.*",
                 "squizlabs/php_codesniffer": "2.*"
             },
-            "time": "2022-03-29T03:01:48+00:00",
+            "time": "2022-04-07T11:15:23+00:00",
             "type": "yzncms-framework",
             "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
@@ -2506,7 +2507,7 @@
             ],
             "support": {
                 "issues": "https://github.com/ken678/framework/issues",
-                "source": "https://github.com/ken678/framework/tree/v5.1.44"
+                "source": "https://github.com/ken678/framework/tree/v5.1.45"
             },
             "install-path": "../../thinkphp"
         },
