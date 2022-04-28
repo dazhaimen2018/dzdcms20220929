@@ -118,9 +118,10 @@ class Category extends Model
             if ($tbname && Db::name($tbname)->where(['catid' => $catid])->find()) {
                 throw new \Exception("栏目含有信息，不得删除！");
             }
+        } elseif ($catInfo['type'] == 1) {
+            Db::name('page')->where(['catid' => $catid])->delete();
         }
         self::where('id', $catid)->delete();
-        CategoryData::where('catid', $catid)->delete();
         return true;
     }
 
