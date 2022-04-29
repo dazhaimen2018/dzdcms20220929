@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "23ebac0e683e5c87d0ddca856ce69c64",
+    "content-hash": "50dbdd047c7b5cf774a73a419517910c",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2362,6 +2362,51 @@
                 "source": "https://github.com/ken678/framework/tree/v5.1.45"
             },
             "time": "2022-04-07T11:15:23+00:00"
+        },
+        {
+            "name": "yzncms/think-addons",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ken678/think-addons.git",
+                "reference": "cfd1e375982061464485a28786b3af67da09e7d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ken678/think-addons/zipball/cfd1e375982061464485a28786b3af67da09e7d8",
+                "reference": "cfd1e375982061464485a28786b3af67da09e7d8",
+                "shasum": ""
+            },
+            "require": {
+                "nelexa/zip": "^3.3",
+                "php": ">=7.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/common.php"
+                ],
+                "psr-4": {
+                    "think\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "yzncms",
+                    "email": "530765310@qq.com"
+                }
+            ],
+            "description": "addons package for yzncms",
+            "homepage": "https://github.com/ken678/think-addons",
+            "support": {
+                "issues": "https://gitee.com/ken678/YZNCMS/issues",
+                "source": "https://github.com/ken678/think-addons/tree/v1.0.0"
+            },
+            "time": "2022-04-25T05:58:46+00:00"
         },
         {
             "name": "yzncms/think-captcha",
