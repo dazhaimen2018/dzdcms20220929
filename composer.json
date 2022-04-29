@@ -27,6 +27,7 @@
         "yzncms/think-helper": "^3.1",
         "yzncms/think-captcha": "^2.0",
         "yzncms/framework": "^5.1",
+        "yzncms/think-addons": "^1.0",
         "jonasyeah/translator": "^1.0",
         "soundasleep/html2text": "^2.0"
     },
