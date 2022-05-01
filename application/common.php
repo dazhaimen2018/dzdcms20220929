@@ -780,6 +780,40 @@ function check_cors_request()
     }
 }
 
+/**
+ * 获得模板列表
+ * @return array
+ */
+function get_template_list()
+{
+    $results = scandir(TEMPLATE_PATH);
+    $list    = [];
+    foreach ($results as $name) {
+        if ($name === '.' or $name === '..' or $name ==='.gitkeep') {
+            continue;
+        }
+        if (is_file(TEMPLATE_PATH . $name)) {
+            continue;
+        }
+        $templateDir = TEMPLATE_PATH . $name . DS;
+        if (!is_dir($templateDir)) {
+            continue;
+        }
+
+        $info_file = $templateDir . 'info.ini';
+        if (!is_file($info_file)) {
+            continue;
+        }
+        $info = parse_ini_file($info_file, true, INI_SCANNER_TYPED) ?: [];
+        if (!isset($info['name'])) {
+            continue;
+        }
+        $list[$name] = $info;
+    }
+    return $list;
+}
+
+
 function homePage(){
     if(isModuleInstall('cms')){
         $url = onSiteUrl();
