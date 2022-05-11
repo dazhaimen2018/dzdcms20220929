@@ -272,7 +272,7 @@ EOF;
                 'listorder' => 7,
                 'ifrequire' => 0,
                 'iffixed'   => 0,
-                'setting'   => "a:3:{s:6:\"define\";s:36:\"int(5) UNSIGNED NOT NULL DEFAULT '0'\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}",
+                'setting'   => "a:3:{s:6:\"define\";s:13:\"text NOT NULL\";s:7:\"options\";s:0:\"\";s:5:\"value\";s:0:\"\";}",
                 'isadd'     => 1,
             ],
             [
