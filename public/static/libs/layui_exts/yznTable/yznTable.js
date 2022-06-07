@@ -45,129 +45,6 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                 });
                 return false;
             });
-
-            // 内容新增编辑在父窗口打开 马博 20211017
-            $('body').on('click', '[parent-open]', function() {
-                var clienWidth = $(this).attr('data-width') || 800,
-                    clientHeight = $(this).attr('data-height') || 600,
-                    dataFull = $(this).attr('data-full'),
-                    checkbox = $(this).attr('data-checkbox'),
-                    url = $(this).attr('parent-open'),
-                    title = $(this).attr("title") || $(this).data("title"),
-                    tableId = $(this).attr('data-table');
-
-                if (checkbox === 'true') {
-                    tableId = tableId || init.table_render_id;
-                    var checkStatus = table.checkStatus(tableId),
-                        data = checkStatus.data;
-                    if (data.length <= 0) {
-                        yzn.msg.error('请勾选需要操作的数据');
-                        return false;
-                    }
-                    var ids = [];
-                    $.each(data, function(i, v) {
-                        ids.push(v.id);
-                    });
-                    if (url.indexOf("?") === -1) {
-                        url += '?id=' + ids.join(',');
-                    } else {
-                        url += '&id=' + ids.join(',');
-                    }
-                }
-                if (dataFull === 'true') {
-                    clienWidth = '99%';
-                    clientHeight = '99%';
-                }
-                parent.yzn.open(title, url, clienWidth, clientHeight);
-            });
-
-            //只删除当前站点数据(要刷新) 马博 20211017
-            $(document).on('click', '.layui-tr-load', function() {
-                var tableId = $(this).attr('data-table-refresh');
-                if (tableId === undefined || tableId === '' || tableId == null) {
-                    tableId = init.table_render_id;
-                }
-                var that = $(this),
-                    index = that.parents('tr').eq(0).data('index'),
-                    tr = $('.layui-table-body').find('tr[data-index="' + index + '"]'),
-                    href = !that.attr('data-href') ? that.attr('href') : that.attr('data-href');
-                layer.confirm('单站模式只删除当前站点数据，删除之后无法恢复，您确定要删除吗？', { icon: 3, title: '提示信息' }, function(index) {
-                    if (!href) {
-                        notice.info({ message: '请设置data-href参数' });
-                        return false;
-                    }
-                    $.get(href, function(res) {
-                        if (res.code == 1) {
-                            notice.success({ message: res.msg });
-                            //增加刷新代码 待优化
-                            table.reload(tableId);
-                           // location.reload();
-                        } else {
-                            notice.error({ message: res.msg });
-                        }
-                    });
-
-                    layer.close(index);
-
-                });
-                return false;
-            });
-
-            //同步发布文章被移除(不刷新)
-            $(document).on('click', '.layui-tr-out', function() {
-                var that = $(this),
-                    index = that.parents('tr').eq(0).data('index'),
-                    tr = $('.layui-table-body').find('tr[data-index="' + index + '"]'),
-                    href = !that.attr('data-href') ? that.attr('href') : that.attr('data-href');
-                layer.confirm('移除之后可编辑原文章恢复，您确定要移除吗？', { icon: 3, title: '提示信息' }, function(index) {
-                    if (!href) {
-                        notice.info({ message: '请设置data-href参数' });
-                        return false;
-                    }
-                    $.get(href, function(res) {
-                        if (res.code == 1) {
-                            notice.success({ message: res.msg });
-                            //that.parents('tr').remove();
-                            tr.remove();
-                        } else {
-                            notice.error({ message: res.msg });
-                        }
-                    });
-                    layer.close(index);
-                });
-                return false;
-            });
-            $('body').on('click', '[data-batch-one]', function() {
-                var that = $(this),
-                    tableId = that.attr('data-batch-one'),
-                    url = that.attr('data-href');
-                tableId = tableId || init.table_render_id;
-                url = url !== undefined ? url : window.location.href;
-                var checkStatus = table.checkStatus(tableId),
-                    data = checkStatus.data;
-                if (data.length <= 0) {
-                    yzn.msg.error('请选择要操作的数据');
-                    return false;
-                }
-                var ids = [];
-                $.each(data, function(i, v) {
-                    ids.push(v.id);
-                });
-                yzn.msg.confirm('您确定要执行此操作吗？', function() {
-                    yzn.request.post({
-                        url: url,
-                        data: {
-                            id: ids
-                        },
-                    }, function(res) {
-                        yzn.msg.success(res.msg, function() {
-                            table.reload(tableId);
-                        });
-                    });
-                });
-                return false;
-            });
-            //马博 20211017 end
             // 列表页批量操作按钮组
             $('body').on('click', '[data-batch-all]', function() {
                 var that = $(this),
@@ -377,8 +254,6 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                     toolbarHtml += '<button class="layui-btn layui-btn-normal layui-btn-sm" data-open="' + init.add_url + '" data-title="添加"><i class="iconfont icon-add"></i> 添加</button>\n';
                 } else if (v === 'delete') {
                     toolbarHtml += '<button class="layui-btn layui-btn-sm layui-btn-danger" data-href="' + init.delete_url + '" data-batch-all="' + tableId + '"><i class="iconfont icon-trash"></i> 删除</button>\n';
-                } else if (v === 'radio') { // 马博 20220105
-                    toolbarHtml += '<button class="layui-btn layui-btn-sm layui-btn-danger" data-href="' + init.radio_url + '" data-batch-one="' + tableId + '"><i class="iconfont icon-database-2-line"></i>  设置为主站</button>\n';
                 } else if (typeof v === "object") {
                     $.each(v, function(ii, vv) {
                         vv.class = vv.class || '';
@@ -803,11 +678,12 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
             return html;
         },
         formatter: {
-            tool: function(data, option) {
-                option.operat = option.operat || ['edit', 'delete'];
-                var elem = option.init.table_elem || init.table_elem;
+            tool: function(data) {
+                var that = this;
+                that.operat = that.operat || ['edit', 'delete'];
+                var elem = that.init.table_elem || init.table_elem;
                 var html = '';
-                $.each(option.operat, function(i, item) {
+                $.each(that.operat, function(i, item) {
                     if (typeof item === 'string') {
                         switch (item) {
                             case 'edit':
@@ -818,7 +694,7 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                                     icon: '',
                                     text: "<i class='iconfont icon-brush_fill'></i>",
                                     title: '编辑信息',
-                                    url: option.init.edit_url,
+                                    url: that.init.edit_url,
                                     extend: ""
                                 };
                                 operat.url = yznTable.toolSpliceUrl(operat.url, operat.field, data);
@@ -834,7 +710,7 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                                     icon: '',
                                     text: "<i class='iconfont icon-trash_fill'></i>",
                                     title: '',
-                                    url: option.init.delete_url,
+                                    url: that.init.delete_url,
                                     extend: ""
                                 };
                                 operat.url = yznTable.toolSpliceUrl(operat.url, operat.field, data);
@@ -842,24 +718,6 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                                 html += yznTable.buildOperatHtml(operat);
                                 //}
                                 break;
-                                // 马博 20220105
-                            case 'radio':
-                                var operat = {
-                                    class: 'layui-btn layui-btn-danger layui-btn-xs layui-tr-radio',
-                                    method: 'href',
-                                    field: 'id',
-                                    icon: '',
-                                    text: '删除',
-                                    title: '',
-                                    url: option.init.radio_url,
-                                    extend: ""
-                                };
-                                operat.url = yznTable.toolSpliceUrl(operat.url, operat.field, data);
-                                //if (admin.checkAuth(operat.auth, elem)) {
-                                html += yznTable.buildOperatHtml(operat);
-                                //}
-                                break;
-                                // 马博 20220105
                         }
 
                     } else if (typeof item === 'object') {
@@ -882,9 +740,9 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                 });
                 return html;
             },
-            flag: function (data, option) {
+            flag: function (data) {
                 var that = this;
-                var field = option.field;
+                var field = that.field;
                 try {
                     var value = eval("data." + field);
                     value = value == null || value.length === 0 ? '' : value.toString();
@@ -894,8 +752,8 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                 //赤色 墨绿 蓝色 藏青 雅黑 橙色
                 var colorArr = {0:'red',1:'green',2:'blue',3:'cyan',4:'black',5:'orange'};
                 //如果字段列有定义custom
-                if (typeof option.custom !== 'undefined') {
-                    colorArr = $.extend(colorArr, option.custom);
+                if (typeof that.custom !== 'undefined') {
+                    colorArr = $.extend(colorArr, that.custom);
                 }
 
                 //渲染Flag
@@ -913,30 +771,32 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                 })
                 return html.join(' ');
             },
-            label: function (data, option) {
-                return yznTable.formatter.flag.call(this, data, option);
+            label: function (data) {
+                return yznTable.formatter.flag.call(this, data);
             },
-            switch: function (data, option) {
-                var field = option.field;
-                option.filter = option.filter || option.field || null;
-                option.checked = option.checked || 1;
-                option.tips = option.tips || '开|关';
+            switch: function (data) {
+                var that = this;
+                var field = that.field;
+                that.filter = that.filter || that.field || null;
+                that.checked = that.checked || 1;
+                that.tips = that.tips || '开|关';
                 try {
                     var value = eval("data." + field);
                 } catch (e) {
                     var value = undefined;
                 }
-                var checked = value === option.checked ? 'checked' : '';
-                return laytpl('<input type="checkbox" name="' + option.field + '" value="' + data.id + '" lay-skin="switch" lay-text="' + option.tips + '" lay-filter="' + option.filter + '" ' + checked + ' >').render(data);
+                var checked = value === that.checked ? 'checked' : '';
+                return laytpl('<input type="checkbox" name="' + that.field + '" value="' + data.id + '" lay-skin="switch" lay-text="' + that.tips + '" lay-filter="' + that.filter + '" ' + checked + ' >').render(data);
             },
-            image: function(data, option) {
-                option.imageWidth = option.imageWidth || 80;
-                option.imageHeight = option.imageHeight || 30;
-                option.imageSplit = option.imageSplit || '|';
-                option.imageJoin = option.imageJoin || '<br>';
-                option.title = option.title || option.field;
-                var field = option.field,
-                    title = data[option.title];
+            image: function(data) {
+                var that = this;
+                that.imageWidth = that.imageWidth || 80;
+                that.imageHeight = that.imageHeight || 30;
+                that.imageSplit = that.imageSplit || '|';
+                that.imageJoin = that.imageJoin || '<br>';
+                that.title = that.title || that.field;
+                var field = that.field,
+                    title = data[that.title];
                 try {
                     var value = eval("data." + field);
                 } catch (e) {
@@ -945,16 +805,17 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                 if (!value) {
                     return '';
                 } else {
-                    var values = value.split(option.imageSplit),
+                    var values = value.split(that.imageSplit),
                         valuesHtml = [];
                     values.forEach((value, index) => {
-                        valuesHtml.push('<img style="max-width: ' + option.imageWidth + 'px; max-height: ' + option.imageHeight + 'px;" src="' + value + '" data-image="' + title + '">');
+                        valuesHtml.push('<img style="max-width: ' + that.imageWidth + 'px; max-height: ' + that.imageHeight + 'px;" src="' + value + '" data-image="' + title + '">');
                     });
-                    return valuesHtml.join(option.imageJoin);
+                    return valuesHtml.join(that.imageJoin);
                 }
             },
-            url: function(data, option) {
-                var field = option.field;
+            url: function(data) {
+                var that = this;
+                var field = that.field;
                 try {
                     var value = eval("data." + field);
                 } catch (e) {
@@ -962,8 +823,9 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                 }
                 return '<a class="layui-btn layui-btn-primary layui-btn-xs" href="' + value + '" target="_blank"><i class="iconfont icon-lianjie"></i></a></a>';
             },
-            price: function(data, option) {
-                var field = option.field;
+            price: function(data) {
+                var that = this;
+                var field = that.field;
                 try {
                     var value = eval("data." + field);
                 } catch (e) {
@@ -971,8 +833,9 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                 }
                 return '<span>￥' + value + '</span>';
             },
-            icon: function(data, option) {
-                var field = option.field;
+            icon: function(data) {
+                var that = this;
+                var field = that.field;
                 try {
                     var value = eval("data." + field);
                 } catch (e) {
@@ -980,8 +843,9 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                 }
                 return '<i class="' + value + '"></i>';
             },
-            text: function(data, option) {
-                var field = option.field;
+            text: function(data) {
+                var that = this;
+                var field = that.field;
                 try {
                     var value = eval("data." + field);
                 } catch (e) {
@@ -989,8 +853,9 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                 }
                 return '<span class="line-limit-length">' + value + '</span>';
             },
-            value: function(data, option) {
-                var field = option.field;
+            value: function(data) {
+                var that = this;
+                var field = that.field;
                 try {
                     var value = eval("data." + field);
                 } catch (e) {
