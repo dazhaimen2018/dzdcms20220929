@@ -46,7 +46,6 @@ class Site extends Adminbase
             $sites      = [];
             $result     = Db::name('site')->order(array('listorder', 'id' => 'ASC'))->select();
             foreach ($result as $k => $v) {
-                $v['name'] = '<a data-width="900" data-height="600" data-open="' . url('edit', ['id' => $v['id']]) . '"">' . $v['name'] . '</a>';
                 $v['add_url'] = url("Site/add", array("parentid" => $v['id']));
                 if (!valid()){
                     $v['sites']  = 1;
