@@ -462,7 +462,7 @@ class Cms extends Modelbase
     //查询解析模型数据用以构造from表单
     public function getFieldListAll($modelId, $id = null)
     {
-        $list = self::where('modelid', $modelId)->where('status', 1)->where('ifsystem',1)->order('listorder asc,id asc')->column("name,title,remark,type,isadd,iscore,ifsystem,ifrequire,setting");
+        $list = self::where('modelid', $modelId)->where('status', 1)->where('ifsystem',1)->order('listorder DESC,id DESC')->column("name,title,remark,type,isadd,iscore,ifsystem,ifrequire,setting");
         if (!empty($list)) {
             //编辑信息时查询出已有信息
             if ($id) {
@@ -530,7 +530,7 @@ class Cms extends Modelbase
     public function getFieldList($modelId, $id = null)
     {
         $site_id   = getSiteId();
-        $list = self::where('modelid', $modelId)->where('status', 1)->order('listorder asc,id asc')->column("name,title,remark,type,isadd,iscore,ifsystem,ifrequire,setting");
+        $list = self::where('modelid', $modelId)->where('status', 1)->order('listorder DESC,id DESC')->column("name,title,remark,type,isadd,iscore,ifsystem,ifrequire,setting");
         if (!empty($list)) {
             //编辑信息时查询出已有信息
             if ($id) {

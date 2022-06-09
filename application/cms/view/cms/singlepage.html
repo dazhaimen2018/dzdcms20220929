@@ -17,9 +17,9 @@
                         <input type="hidden" name="extra_data[{$k}][id]" value="{$info[$k-1]['id']|default=''}"/>
                         <input type="hidden" name="extra_data[{$k}][catid]" value="{$catid}"/>
                         <div class="layui-form-item">
-                            <label class="layui-form-label layui-form-item-required"> {:getSiteName($k)}标题</label>
+                            <label class="layui-form-label"> {:getSiteName($k)}标题</label>
                             <div class="layui-input-block">
-                                <input autocomplete="off" class="layui-input" name="extra_data[{$k}][title]" placeholder="{:lang('Category Title',[],$s['mark'])}" type="text" value="{$info[$k-1]['title']|default=''}" lay-verify="required"  lay-reqText="{:getSiteName($k)}标题不能为空">
+                                <input autocomplete="off" class="layui-input" name="extra_data[{$k}][title]" lay-verify="required" placeholder="{:lang('Category Title',[],$s['mark'])}" type="text" value="{$info[$k-1]['title']|default=''}" lay-verify="required"  lay-reqText="{:getSiteName($k)}标题不能为空">
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -41,7 +41,7 @@
                         <div class="layui-form-item layui-form-text">
                             <label class="layui-form-label">缩略图</label>
                             <div class="layui-input-block layui-upload">
-                                {:Form::image("extra_data[$k][thumb]",$info[$k-1]['thumb'])}
+                                {:Form::image("extra_data[$k][thumb]",isset($info[$k-1]['thumb'])?$info[$k-1]['thumb']:'')}
                             </div>
                         </div>
                         <div class="layui-form-item">

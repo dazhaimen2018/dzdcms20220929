@@ -28,11 +28,9 @@ class Cmsbase extends MemberBase
     {
         parent::initialize();
         Config::set('url_common_param', true);
-        $siteurl         = url('cms/index/index', '', true, false);
         $siteId          = $this->siteId; // 前台用的
         $this->cmsConfig = cache("Cms_Config");
         $this->assign("cms_config", $this->cmsConfig);
-        $this->assign("siteurl", $siteurl);
         $this->view->assign('site_id', $siteId);
         if (!$this->cmsConfig['web_site_status']) {
             $this->error("站点已经关闭，请稍后访问~");
