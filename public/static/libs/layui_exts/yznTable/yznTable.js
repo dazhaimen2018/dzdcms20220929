@@ -45,6 +45,128 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                 });
                 return false;
             });
+            // 内容新增编辑在父窗口打开 马博 20211017
+            $('body').on('click', '[parent-open]', function() {
+                var clienWidth = $(this).attr('data-width') || 800,
+                    clientHeight = $(this).attr('data-height') || 600,
+                    dataFull = $(this).attr('data-full'),
+                    checkbox = $(this).attr('data-checkbox'),
+                    url = $(this).attr('parent-open'),
+                    title = $(this).attr("title") || $(this).data("title"),
+                    tableId = $(this).attr('data-table');
+
+                if (checkbox === 'true') {
+                    tableId = tableId || init.table_render_id;
+                    var checkStatus = table.checkStatus(tableId),
+                        data = checkStatus.data;
+                    if (data.length <= 0) {
+                        yzn.msg.error('请勾选需要操作的数据');
+                        return false;
+                    }
+                    var ids = [];
+                    $.each(data, function(i, v) {
+                        ids.push(v.id);
+                    });
+                    if (url.indexOf("?") === -1) {
+                        url += '?id=' + ids.join(',');
+                    } else {
+                        url += '&id=' + ids.join(',');
+                    }
+                }
+                if (dataFull === 'true') {
+                    clienWidth = '99%';
+                    clientHeight = '99%';
+                }
+                parent.yzn.open(title, url, clienWidth, clientHeight);
+            });
+
+            //只删除当前站点数据(要刷新) 马博 20211017
+            $(document).on('click', '.layui-tr-load', function() {
+                var tableId = $(this).attr('data-table-refresh');
+                if (tableId === undefined || tableId === '' || tableId == null) {
+                    tableId = init.table_render_id;
+                }
+                var that = $(this),
+                    index = that.parents('tr').eq(0).data('index'),
+                    tr = $('.layui-table-body').find('tr[data-index="' + index + '"]'),
+                    href = !that.attr('data-href') ? that.attr('href') : that.attr('data-href');
+                layer.confirm('单站模式只删除当前站点数据，删除之后无法恢复，您确定要删除吗？', { icon: 3, title: '提示信息' }, function(index) {
+                    if (!href) {
+                        notice.info({ message: '请设置data-href参数' });
+                        return false;
+                    }
+                    $.get(href, function(res) {
+                        if (res.code == 1) {
+                            notice.success({ message: res.msg });
+                            //增加刷新代码 待优化
+                            table.reload(tableId);
+                            // location.reload();
+                        } else {
+                            notice.error({ message: res.msg });
+                        }
+                    });
+
+                    layer.close(index);
+
+                });
+                return false;
+            });
+
+            //同步发布文章被移除(不刷新)
+            $(document).on('click', '.layui-tr-out', function() {
+                var that = $(this),
+                    index = that.parents('tr').eq(0).data('index'),
+                    tr = $('.layui-table-body').find('tr[data-index="' + index + '"]'),
+                    href = !that.attr('data-href') ? that.attr('href') : that.attr('data-href');
+                layer.confirm('移除之后可编辑原文章恢复，您确定要移除吗？', { icon: 3, title: '提示信息' }, function(index) {
+                    if (!href) {
+                        notice.info({ message: '请设置data-href参数' });
+                        return false;
+                    }
+                    $.get(href, function(res) {
+                        if (res.code == 1) {
+                            notice.success({ message: res.msg });
+                            //that.parents('tr').remove();
+                            tr.remove();
+                        } else {
+                            notice.error({ message: res.msg });
+                        }
+                    });
+                    layer.close(index);
+                });
+                return false;
+            });
+            $('body').on('click', '[data-batch-one]', function() {
+                var that = $(this),
+                    tableId = that.attr('data-batch-one'),
+                    url = that.attr('data-href');
+                tableId = tableId || init.table_render_id;
+                url = url !== undefined ? url : window.location.href;
+                var checkStatus = table.checkStatus(tableId),
+                    data = checkStatus.data;
+                if (data.length <= 0) {
+                    yzn.msg.error('请选择要操作的数据');
+                    return false;
+                }
+                var ids = [];
+                $.each(data, function(i, v) {
+                    ids.push(v.id);
+                });
+                yzn.msg.confirm('您确定要执行此操作吗？', function() {
+                    yzn.request.post({
+                        url: url,
+                        data: {
+                            id: ids
+                        },
+                    }, function(res) {
+                        yzn.msg.success(res.msg, function() {
+                            table.reload(tableId);
+                        });
+                    });
+                });
+                return false;
+            });
+            //马博 20211017 end
             // 列表页批量操作按钮组
             $('body').on('click', '[data-batch-all]', function() {
                 var that = $(this),
@@ -254,6 +376,8 @@ layui.define(['form', 'table', 'yzn', 'laydate', 'laytpl', 'element','notice'], 
                     toolbarHtml += '<button class="layui-btn layui-btn-normal layui-btn-sm" data-open="' + init.add_url + '" data-title="添加"><i class="iconfont icon-add"></i> 添加</button>\n';
                 } else if (v === 'delete') {
                     toolbarHtml += '<button class="layui-btn layui-btn-sm layui-btn-danger" data-href="' + init.delete_url + '" data-batch-all="' + tableId + '"><i class="iconfont icon-trash"></i> 删除</button>\n';
+                } else if (v === 'radio') { // 马博 20220105
+                    toolbarHtml += '<button class="layui-btn layui-btn-sm layui-btn-danger" data-href="' + init.radio_url + '" data-batch-one="' + tableId + '"><i class="iconfont icon-database-2-line"></i>  设置为主站</button>\n';
                 } else if (typeof v === "object") {
                     $.each(v, function(ii, vv) {
                         vv.class = vv.class || '';
