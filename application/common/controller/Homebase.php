@@ -27,6 +27,13 @@ class Homebase extends Base
         $config = \think\facade\config::get('app.');
         $domain = isset(cache("Cms_Config")['domain']) ? cache("Cms_Config")['domain'] : 1;
         $sites  = allSite();
+        //前端显示的所有在线的站点
+        $allSite   = [];
+        foreach ($sites as $v) {
+            if ($v['close'] == 1) {
+                $allSite[] = $v;
+            }
+        }
         //语言设定
         $curr_domain    = $_SERVER['HTTP_HOST'];
         $this->siteId = getSiteId();
@@ -65,7 +72,7 @@ class Homebase extends Base
         $this->assign([
             'site'     => $site,
             'domain'   => $domain,
-            'allSite'  => $sites,
+            'allSite'  => $allSite,
             'siteName' => $siteName,
             'siteId'   => $siteId,
         ]);
