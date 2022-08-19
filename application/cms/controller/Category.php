@@ -87,6 +87,7 @@ class Category extends Adminbase
 
     public function index()
     {
+        $url_mode  = isset(cache("Cms_Config")['site_url_mode']) ? cache("Cms_Config")['site_url_mode'] : 1;
         if ($this->request->isAjax()) {
             list($page, $limit, $where) = $this->buildTableParames();
             $models     = cache('Model');
@@ -130,8 +131,9 @@ class Category extends Adminbase
                 } elseif ($v['type'] == 2) {
                     $v['add_url'] = url("Category/add", ["parentid" => $v['id']]);
                 }
+                $cat = $url_mode == 1 ? $v['id'] : $v['catdir'];
                 if (!$v['url']){
-                    $v['url']    = $siteUrl.buildCatUrl($v['id'], $v['url']);
+                    $v['url']    = $siteUrl.buildCatUrl($cat, $v['url']);
                 }
                 $categorys[$v['id']] = $v;
             }
