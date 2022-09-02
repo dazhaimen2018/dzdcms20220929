@@ -249,9 +249,10 @@ class Index extends Cmsbase
 
         //SEO
         $keywords    = $info['keywords'] ? $info['keywords'] : $setting_data['keyword'];
-        $title       = $info['title'] ? $info['title'] : $setting_data['title'];
+        $title       = $info['title'] ? $info['title'] : $info['seo_title'];
+        $seoTitle    = $info['seo_title'] ? $info['seo_title'] : $info['title'];
         $description = $info['description'] ? $info['description'] : $setting_data['description'];
-        $seo         = seo($catid, $title, $description, $keywords);
+        $seo         = seo($catid, $seoTitle, $description, $keywords);
         //获取顶级栏目ID
         $arrparentid = explode(',', $category['arrparentid']);
         $top_parentid = isset($arrparentid[1]) ? $arrparentid[1] : $catid;
