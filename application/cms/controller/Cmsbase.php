@@ -15,7 +15,6 @@
 namespace app\cms\controller;
 
 use app\member\controller\MemberBase;
-use think\facade\Config;
 use think\facade\Cache;
 
 class Cmsbase extends MemberBase
@@ -27,7 +26,7 @@ class Cmsbase extends MemberBase
     protected function initialize()
     {
         parent::initialize();
-        Config::set('url_common_param', true);
+        //Config::set('url_common_param', true);
         $siteId          = $this->siteId; // 前台用的
         $this->cmsConfig = cache("Cms_Config");
         $this->assign("cms_config", $this->cmsConfig);

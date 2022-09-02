@@ -106,16 +106,12 @@ class Models extends Modelbase
                 if ($info['type'] == 3) {
                     Db::execute("RENAME TABLE  `{$dbPrefix}{$info['tablename']}_sub_data` TO  `{$dbPrefix}{$data['tablename']}_sub_data` ;");
                 }
-                //更新缓存
-                cache("Model", null);
                 return true;
             } else {
                 throw new \Exception('模型更新失败！');
             }
         } else {
             if (false !== self::allowField(true)->save($data, array("modelid" => $modelid))) {
-                //更新缓存
-                cache("Model", null);
                 return true;
             } else {
                 throw new \Exception('模型更新失败！');

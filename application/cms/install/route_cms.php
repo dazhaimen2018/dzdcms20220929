@@ -25,7 +25,8 @@ Route::group('/', function () {
     }
     Route::rule('default', 'cms/index/default');
     Route::rule('index', 'cms/index/index');
-    Route::rule('lists/:catid/[:condition]'.$slash, 'cms/index/lists')->pattern(['catid' => '\d+', 'condition' => '[0-9_&=a-zA-Z]+']);
+    //Route::rule('lists/:catid/[:condition]'.$slash, 'cms/index/lists')->pattern(['catid' => '\d+', 'condition' => '[0-9_&=a-zA-Z]+']);
+    Route::rule('lists/:catid'.$slash, 'cms/index/lists')->pattern(['catid' => '\d+']);
     Route::rule('shows/:catid/:id', 'cms/index/shows')->pattern(['catid' => '\d+', 'id' => '\d+']);
     Route::rule('chapter/:catid/:did/:id', 'cms/index/chapter')->pattern(['catid' => '\d+', 'did' => '\d+', 'id' => '\d+']);
     Route::rule('search', 'cms/index/search');
