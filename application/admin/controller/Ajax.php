@@ -152,6 +152,7 @@ class Ajax extends Adminbase
 
         if ($config) { // 自动获取
             $result = $pinyin->permalink($title, $delimiter);
+            $result = strtolower($result);//强制小写
             $this->success("", null, ['pinyin' => $result]);
         } else { // 手动获取
             $result = $pinyin->permalink($title, $delimiter);
