@@ -139,7 +139,8 @@ class Ajax extends Adminbase
     public function getTitlePinyin()
     {
         $config = isset(cache("Cms_Config")['show_url_mode']) && 1 == cache("Cms_Config")['show_url_mode'];
-        $title = $this->request->post("title");
+        $title  = $this->request->post("title");
+        $title  = substr($title,0,50);
         $delimiter = $this->request->post("delimiter", "");
         if(empty($title)){
             $title = $this->request->param('data/s', ''); //手动获取
@@ -153,6 +154,7 @@ class Ajax extends Adminbase
         if ($config) { // 自动获取
             $result = $pinyin->permalink($title, $delimiter);
             $result = strtolower($result);//强制小写
+            $result = substr($result,0,60);
             $this->success("", null, ['pinyin' => $result]);
         } else { // 手动获取
             $result = $pinyin->permalink($title, $delimiter);

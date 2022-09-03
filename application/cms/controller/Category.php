@@ -684,7 +684,7 @@ class Category extends Adminbase
         return parent::multi();
     }
 
-    //获取栏目的拼音 新增时如果已经存在id为最大id+1
+    //获取栏目的拼音
     private function get_dirpinyin($catname = '', $catdir = '', $id = 0)
     {
         $pinyin = new \Overtrue\Pinyin\Pinyin('Overtrue\Pinyin\MemoryFileDictLoader');
@@ -693,7 +693,8 @@ class Category extends Adminbase
             $catdir = strtolower($catdir);//强制小写
         }
         if (strval(intval($catdir)) == strval($catdir)) {
-           $catdir .= genRandomString(3);
+           //$catdir .= genRandomString(3);
+           $catdir = $catdir .'-'. $id; // 增加栏目-ID
         }
         $map = [
             ['catdir', '=', $catdir],
