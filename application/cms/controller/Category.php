@@ -217,9 +217,16 @@ class Category extends Adminbase
                 if ($catid) {
                     isset($data['priv_groupid']) && model("cms/CategoryPriv")->update_priv($catid, $data['priv_groupid'], 0);
                     isset($data['read_groupid']) && model("cms/CategoryRead")->update_read($catid, $data['read_groupid'], 0);
-                    // 20200805 马博添加
-                    //$this->addCategoryData($data['category_data'], $catid);
-                    // 20200805 马博添加 end
+
+                    // 20220903 如果catdir重名后加-catid
+                    $last = substr($data['catdir'],-1);
+                    if($last == '0'){
+                        $catdir = rtrim ( $data['catdir'] ,  "0" );
+                        $catdir = $catdir . $catid; // 增加栏目-ID
+                        //更新catdir
+                        Db::name('Category')->where('id', $catid)->update(['catdir' => $catdir]);
+                    }
+
                     $this->success("添加成功！", url("Category/index"));
                 } else {
                     $error = $this->modelClass->getError();
@@ -677,15 +684,16 @@ class Category extends Adminbase
         return parent::multi();
     }
 
-    //获取栏目的拼音
+    //获取栏目的拼音 新增时如果已经存在id为最大id+1
     private function get_dirpinyin($catname = '', $catdir = '', $id = 0)
     {
         $pinyin = new \Overtrue\Pinyin\Pinyin('Overtrue\Pinyin\MemoryFileDictLoader');
         if (empty($catdir)) {
-            $catdir = $pinyin->permalink($catname, '');
+            $catdir = $pinyin->permalink($catname, '-');
+            $catdir = strtolower($catdir);//强制小写
         }
         if (strval(intval($catdir)) == strval($catdir)) {
-            $catdir .= genRandomString(3);
+           $catdir .= genRandomString(3);
         }
         $map = [
             ['catdir', '=', $catdir],
@@ -695,7 +703,8 @@ class Category extends Adminbase
         }
         $result = Db::name('Category')->field('id')->where($map)->find();
         if (!empty($result)) {
-            $nowDirname = $catdir . genRandomString(3);
+            //$nowDirname = $catdir . genRandomString(3);
+            $nowDirname = $catdir .'-'. $id; // 增加栏目-ID
             return $this->get_dirpinyin($catname, $nowDirname, $id);
         }
         return $catdir;
