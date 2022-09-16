@@ -71,6 +71,9 @@ class Formguide extends Adminbase
             foreach ($this->tpl as $v) {
                 $show_template[$v] = $v;
             }
+            if(!$show_template){
+                $this->error("自定义主题下无模板请在网站设置中设置主题风格为default");
+            }
             $this->assign('show_template', $show_template);
             return $this->fetch();
         }
