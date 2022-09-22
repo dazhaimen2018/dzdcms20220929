@@ -38,6 +38,7 @@ class Help extends Adminbase
         $this->modelClass = new HelpModel;
         //取得当前内容模型模板存放目录
         $this->filepath = TEMPLATE_PATH . (empty(config('theme')) ? "default" : config('theme')) . DIRECTORY_SEPARATOR . "cms" . DIRECTORY_SEPARATOR;
+        $themePath = TEMPLATE_PATH . (config('theme') ?: "default") . DS . "cms" . DS;
         //取得栏目频道模板列表
         $this->tp_help = str_replace($this->filepath . DIRECTORY_SEPARATOR, '', glob($this->filepath . DIRECTORY_SEPARATOR . 'help*'));
         //取得栏目列表模板列表

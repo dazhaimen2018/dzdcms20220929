@@ -73,8 +73,12 @@ class Adminbase extends Base
     protected function initialize()
     {
         parent::initialize();
-        $this->auth = User::instance();
-        $path       = strtolower($this->request->module() . '/' . $this->request->controller() . '/' . $this->request->action());
+        $this->auth     = User::instance();
+        $modulename     = $this->request->module();
+        $controllername = parse_name($this->request->controller());
+        $actionname     = strtolower($this->request->action());
+
+        $path = $modulename . '/' . $controllername . '/' . $actionname;
         // 定义是否Dialog请求
         !defined('IS_DIALOG') && define('IS_DIALOG', $this->request->param("dialog") ? true : false);
 
@@ -155,6 +159,9 @@ class Adminbase extends Base
             'upload_file_ext'        => $config['upload_file_ext'],
             'chunking'               => $config['chunking'],
             'chunksize'              => $config['chunksize'],
+            'modulename'             => $modulename,
+            'controllername'         => $controllername,
+            'actionname'             => $actionname,
         ];
         $this->assign('site', $site);
         $this->assign('push', $push);
@@ -242,7 +249,11 @@ class Adminbase extends Base
             $item = stripos($item, ".") === false ? $aliasName . trim($item) : $item;
         }
         unset($item);
-        $sort = implode(',', $sortArr);
+        $sort     = implode(',', $sortArr);
+        $adminIds = $this->getDataLimitAdminIds();
+        if (is_array($adminIds)) {
+            $where[] = [$aliasName . $this->dataLimitField, 'in', $adminIds];
+        }
         if ($search) {
             $searcharr = is_array($searchfields) ? $searchfields : explode(',', $searchfields);
             foreach ($searcharr as $k => &$v) {
@@ -378,6 +389,26 @@ class Adminbase extends Base
     }
 
     /**
+     * 获取数据限制的管理员ID
+     * 禁用数据限制时返回的是null
+     * @return mixed
+     */
+    protected function getDataLimitAdminIds()
+    {
+        if (!$this->dataLimit) {
+            return null;
+        }
+        if ($this->auth->isAdministrator()) {
+            return null;
+        }
+        $adminIds = [];
+        if (in_array($this->dataLimit, ['auth', 'personal'])) {
+            $adminIds = $this->dataLimit == 'auth' ? $this->auth->getChildrenAdminIds(true) : [$this->auth->id];
+        }
+        return $adminIds;
+    }
+
+    /**
      *
      * 当前方法只是一个比较通用的搜索匹配,请按需重载此方法来编写自己的搜索逻辑,$where按自己的需求写即可
      * 这里示例了所有的参数，所以比较复杂，实现上自己实现只需简单的几行即可
@@ -455,6 +486,11 @@ class Adminbase extends Base
             };
         }
 
+        $adminIds = $this->getDataLimitAdminIds();
+        if (is_array($adminIds)) {
+            $this->modelClass = $this->modelClass->where($this->dataLimitField, 'in', $adminIds);
+        }
+
         $list  = [];
         $total = $this->modelClass->where($where)->where($wheres)->count();
         if ($total > 0) {
@@ -475,6 +511,10 @@ class Adminbase extends Base
             }
 
             $this->modelClass->removeOption('where');
+
+            if (is_array($adminIds)) {
+                $this->modelClass->where($this->dataLimitField, 'in', $adminIds);
+            }
 
             $datalist = $this->modelClass->where($where)->where($wheres)
                 ->page($page, $pagesize)
