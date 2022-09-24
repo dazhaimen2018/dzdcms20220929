@@ -163,6 +163,8 @@ class Adminbase extends Base
             'controllername'         => $controllername,
             'actionname'             => $actionname,
         ];
+        //监听插件传入的变量
+        $site = array_merge($site, Hook::listen("config_init")[0] ?? []);
         $this->assign('site', $site);
         $this->assign('push', $push);
         $this->assign('siteId', $siteId);
