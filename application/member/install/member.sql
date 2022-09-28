@@ -78,13 +78,13 @@ CREATE TABLE IF NOT EXISTS `__PREFIX__member_token` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT='会员Token表';
 
 INSERT INTO `__PREFIX__member_group` (`id`, `name`, `lang`, `issystem`, `starnum`, `point`, `allowmessage`, `allowvisit`, `allowpost`, `allowpostverify`, `allowsearch`, `allowupgrade`, `allowsendmessage`, `allowpostnum`, `allowattachment`, `price_y`, `price_m`, `price_d`, `icon`, `usernamecolor`, `description`, `listorder`, `status`, `expand`) VALUES
-(1, '禁止访问', 'Prohibited', 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, '0.00', '0.00', '0.00', '', '', '0', 0, 1, ''),
-(2, '新手上路', 'Novice', 1, 1, 50, 100, 1, 1, 0, 0, 0, 1, 0, 0, '50.00', '10.00', '1.00', '', '', '', 2, 1, ''),
-(6, '初级会员', 'Junior', 1, 2, 100, 150, 0, 1, 0, 0, 1, 1, 0, 0, '300.00', '30.00', '1.00', '', '', '', 6, 1, ''),
-(4, '中级会员', 'Intermediate', 1, 3, 150, 500, 1, 1, 0, 1, 1, 1, 0, 0, '360.00', '60.00', '1.00', '', '', '', 4, 1, ''),
+(1, '禁止访问', 'Prohibited', 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, '0.00', '0.00', '0.00', '', '', '0', 10, 1, ''),
+(2, '新手上路', 'Novice', 1, 1, 50, 100, 1, 1, 0, 0, 1, 1, 0, 0, '50.00', '10.00', '1.00', '', '', '', 8, 1, ''),
+(6, '初级会员', 'Junior', 1, 2, 100, 150, 0, 1, 0, 0, 1, 1, 0, 0, '300.00', '30.00', '1.00', '', '', '', 7, 1, ''),
+(4, '中级会员', 'Intermediate', 1, 3, 150, 500, 1, 1, 0, 1, 1, 1, 0, 0, '360.00', '60.00', '1.00', '', '', '', 6, 1, ''),
 (5, '高级会员', 'Senior', 1, 5, 300, 999, 1, 1, 0, 1, 1, 1, 0, 0, '500.00', '90.00', '1.00', '', '', '', 5, 1, ''),
-(7, '认证会员', 'Certified', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0.00', '0.00', '0.00', '', '#000000', '', 7, 1, ''),
-(8, '游客', 'Visitor', 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, '0.00', '0.00', '0.00', '', '', '', 0, 1, '');
+(7, '认证会员', 'Certified', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0.00', '0.00', '0.00', '', '#000000', '', 4, 1, ''),
+(8, '游客', 'Visitor', 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, '0.00', '0.00', '0.00', '', '', '', 9, 1, '');
 
 ALTER TABLE `__PREFIX__member_group`
     MODIFY `id` tinyint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '会员组id', AUTO_INCREMENT=9;
